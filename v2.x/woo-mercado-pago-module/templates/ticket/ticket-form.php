@@ -28,59 +28,57 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <fieldset id="mercadopago-form" style="background:white;">
-	<div class="mp-box-inputs mp-line" id="mercadopago-form-coupon-ticket"
-		style="padding-right: 5px; padding-left: 5px;" >
-		<label for="couponCodeLabel">
-			<?php echo $form_labels['form']['coupon_of_discounts']; ?>
-		</label>
-		<div class="mp-box-inputs mp-col-65">
+
+	<!-- coupom -->
+	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" style="margin-bottom: 16px;" >
+		<div class="form-col-8">
+			<label for="couponCodeLabel"><?php echo $form_labels['form']['coupon_of_discounts']; ?></label>
 			<input type="text" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]"
-			autocomplete="off" maxlength="24" />
- 		</div>
-		<div class="mp-box-inputs mp-col-10">
-			<div id="mp-separete-date"></div>
-		</div>
-		<div class="mp-box-inputs mp-col-25">
-			<input type="button" class="button" id="applyCouponTicket"
-			value="<?php echo $form_labels['form']['apply']; ?>">
-		</div>
-		<div class="mp-box-inputs mp-col-100 mp-box-message">
+				autocomplete="off" maxlength="24" style="margin-bottom: 8px;"/>
 			<span class="mp-discount" id="mpCouponApplyedTicket" ></span>
 			<span class="mp-error" id="mpCouponErrorTicket" ></span>
 		</div>
+		<div class="form-col-4">
+			<label >&nbsp;</label>
+			<input type="button" class="button" id="applyCouponTicket" value="<?php echo $form_labels['form']['apply']; ?>">
+		</div>
 	</div>
 
+	<!-- payment method -->
 	<div id="mercadopago-form-ticket" class="mp-box-inputs mp-line">
 		<div id="form-ticket">
 			<div class="form-row">
 				<div class="form-col-4">
-					<label  for="firstname"><?php echo $form_labels["form"]["name"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['firstname']; ?>" data-checkout="firstname" placeholder="<?php echo $form_labels['form']['name']; ?>" id="firstname" class="form-control-mine" name="mercadopago_ticket[firstname]">
+					<label for="firstname"><?php echo $form_labels["form"]["name"]; ?><em class="obrigatorio"> *</em></label>
+					<input type="text" value="<?php echo $form_labels['febraban']['firstname']; ?>" data-checkout="firstname"
+						id="firstname" class="form-control-mine" name="mercadopago_ticket[firstname]">
 				</div>
 				<div class="form-col-4">
-					<label  for="lastname"><?php echo $form_labels["form"]["surname"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['lastname']; ?>" data-checkout="lastname" placeholder="<?php echo $form_labels['form']['surname']; ?>" id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
+					<label for="lastname"><?php echo $form_labels["form"]["surname"]; ?><em class="obrigatorio"> *</em></label>
+					<input type="text" value="<?php echo $form_labels['febraban']['lastname']; ?>" data-checkout="lastname"
+						id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
 				</div>
 				<div class="form-col-4">
 					<label for="docNumber"><?php echo $form_labels["form"]["docNumber"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" placeholder="<?php echo $form_labels['form']['docNumber']; ?>" class="form-control-mine" maxlength="11" id="docNumber"
+					<input type="text" value="<?php echo $form_labels['febraban']['docNumber']; ?>" data-checkout="docNumber"
 						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46"
-						data-checkout="docNumber" value="<?php echo $form_labels['febraban']['docNumber']; ?>" name="mercadopago_ticket[docNumber]">
+						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="11">
 				</div>
 			</div>
 			<span class="erro_febraban" data-main="#firstname" id="error_firstname"><?php echo $form_labels["error"]["FEB001"]; ?></span>
 			<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo $form_labels["error"]["FEB002"]; ?></span>
 			<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo $form_labels["error"]["FEB003"]; ?></span>
 			<div class="form-row">
-				<div class="form-col-9">
+				<div class="form-col-8">
 					<label for="address"><?php echo $form_labels["form"]["address"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['address']; ?>" data-checkout="address" placeholder="<?php echo $form_labels['form']['address']; ?>" id="address" class="form-control-mine" name="mercadopago_ticket[address]">
+					<input type="text" value="<?php echo $form_labels['febraban']['address']; ?>" data-checkout="address"
+						id="address" class="form-control-mine" name="mercadopago_ticket[address]">
 				</div>
-				<div class="form-col-3">
+				<div class="form-col-4">
 					<label for="number"><?php echo $form_labels["form"]["number"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['number']; ?>" data-checkout="number" placeholder="<?php echo $form_labels['form']['number']; ?>" id="number"
-						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46"
-						class="form-control-mine" name="mercadopago_ticket[number]">
+					<input type="text" value="<?php echo $form_labels['febraban']['number']; ?>" data-checkout="number"
+						id="number" class="form-control-mine" name="mercadopago_ticket[number]"
+						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46">
 				</div>
 			</div>
 			<span class="erro_febraban" data-main="#address" id="error_address"><?php echo $form_labels["error"]["FEB004"]; ?></span>
@@ -88,12 +86,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-row">
 				<div class="form-col-4">
 					<label for="city"><?php echo $form_labels["form"]["city"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['city']; ?>" data-checkout="city" placeholder="<?php echo $form_labels['form']['city']; ?>" id="city" class="form-control-mine" name="mercadopago_ticket[city]">
+					<input type="text" value="<?php echo $form_labels['febraban']['city']; ?>" data-checkout="city"
+						id="city" class="form-control-mine" name="mercadopago_ticket[city]">
 				</div>
 				<div class="form-col-4">
 					<label for="state"><?php echo $form_labels["form"]["state"]; ?><em class="obrigatorio"> *</em></label>
-					<select name="mercadopago_ticket[state]" id="state" data-checkout="state" class="form-control-mine">
-						<option value="" <?php if ($form_labels["febraban"]["state"] == "") {echo 'selected="selected"';} ?>><?php echo $form_labels["form"]["select"]; ?></option>
+					<select name="mercadopago_ticket[state]" id="state" data-checkout="state" class="form-control-mine" style="width: 100%;">
+						<option value="" <?php if ($form_labels["febraban"]["state"] == "") {echo 'selected="selected"';} ?>><?php echo $form_labels["form"]["label_choose"]; ?></option>
 						<option value="AC" <?php if ($form_labels["febraban"]['state'] == "AC") {echo 'selected="selected"';} ?>>Acre</option>
 						<option value="AL" <?php if ($form_labels["febraban"]["state"] == "AL") {echo 'selected="selected"';} ?>>Alagoas</option>
 						<option value="AP" <?php if ($form_labels["febraban"]["state"] == "AP") {echo 'selected="selected"';} ?>>Amapá</option>
@@ -126,9 +125,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="form-col-4">
 					<label for="zipcode"><?php echo $form_labels["form"]["zipcode"]; ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $form_labels['febraban']['zipcode']; ?>" data-checkout="zipcode"
-						placeholder="<?php echo $form_labels['form']['zipcode']; ?>" id="zipcode"
-						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46"
-						class="form-control-mine" name="mercadopago_ticket[zipcode]">
+						id="zipcode" class="form-control-mine" name="mercadopago_ticket[zipcode]"
+						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46">
 				</div>
 			</div>
 			<span class="erro_febraban" data-main="#city" id="error_city"><?php echo $form_labels["error"]["FEB006"]; ?></span>

@@ -1,4 +1,4 @@
-# WooCommerce - Mercado Pago Module (2.1.x - 3.0.0)
+# WooCommerce - Mercado Pago Module (2.6.x - 3.0.0)
 
 * [Features](#features)
 * [Available versions](#available_versions)
@@ -49,7 +49,7 @@ This feature allows to setup and integrate with Mercado Envios shipment method a
 
 *Available for Argentina, Brazil and Mexico only with Standard Checkout*
 
-**Recurring Payments - Beta Version**
+**Recurring Payments**
 
 Plugin integrates with Mercado Pago recurring payments functionality
 
@@ -89,16 +89,16 @@ During the sandbox mode tests, you can operate over HTTP, but for homologation y
   <thead>
   <tbody>
     <tr>
-      <td>v2.2.11</td>
+      <td>v2.2.12</td>
       <td>Stable (Current version)</td>
-      <td>WooCommerce 2.1.x - 3.0.0</td>
+      <td>WooCommerce 2.6.x - 3.0.0</td>
     </tr>
   </tbody>
   <tbody>
     <tr>
       <td>v3.0.0</td>
       <td>Experimental (Beta version)</td>
-      <td>WooCommerce 2.1.x - 3.0.0</td>
+      <td>WooCommerce 2.6.x - 3.0.0</td>
     </tr>
   </tbody>
 </table>
@@ -120,7 +120,7 @@ You have two ways to install this module: from your WordPress Store, or by downl
 
 **Manual Download**
 
-1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woo-mercado-pago-module.2.2.11.zip">WordPress Plugin Directory</a>);
+1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woo-mercado-pago-module.2.2.12.zip">WordPress Plugin Directory</a>);
 
 2. Unzip the folder and find "woo-mercado-pago-module" directory;
 
@@ -338,7 +338,7 @@ If you already had installed a previous version of Woo Mercado Pago Module, plea
 
 **Upgrade with Manual Download**
 
-1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woo-mercado-pago-module.2.2.11.zip">WordPress Plugin Directory</a>);
+1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woo-mercado-pago-module.2.2.12.zip">WordPress Plugin Directory</a>);
 
 2. Unzip the folder and find "woo-mercado-pago-module" directory;
 

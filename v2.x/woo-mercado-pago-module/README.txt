@@ -4,21 +4,21 @@ Donate link: https://www.mercadopago.com.br/developers/
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: WooCommerce 2.6.x
 Tested up to: WooCommerce 3.0.0
-Stable tag: 2.2.11
+Stable tag: 2.2.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This is the oficial module of Mercado Pago for WooCommerce plugin.
+Offer to your clients the best experience in e-Commerce by using Mercado Pago as your payment method.
 
 == Description ==
 
-This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store.
+This module enables WooCommerce to use Mercado Pago as a payment method for purchases in your e-commerce store. By offering a nice set of tools like LatAm support, several card acquires, tickets, discounts, subscriptions, and many others e-Commerce features, this plugin wants to bring the best experience in payment checkouts.
 
 = Why chose Mercado Pago =
 Mercado Pago owns the highest security standards with PCI certification level 1 and a specialized internal team working on fraud analysis. With Mercado Pago, you will be able to accept payments from the most common brands of credit card, offer purchase installments options and receive your payment with antecipation. You can also enable your customers to pay in the web or in their mobile devices.
 
 = Mercado Pago Main Features =
-* Online and real-time processment through IPN mechanism;
+* Online and real-time processment through IPN/Webhook mechanism;
 * High approval rate with a robust fraud analysis;
 * Potential new customers with a base of more than 120 millions of users in Latin America;
 * PCI Level 1 Certification;
@@ -27,6 +27,7 @@ Mercado Pago owns the highest security standards with PCI certification level 1 
 * Anticipation of receivables in D+2 or D+14 (According to Mercado Pago terms and conditions);
 * Payment in one click with Mercado Pago basic and custom checkouts;
 * Payment via tickets;
+* Subscriptions;
 * Seller's Protection Program.
 
 == Installation ==
@@ -39,7 +40,7 @@ You have two ways to install this module: from your WordPress Store, or by downl
 3. You should find the module read to be installed. Click install.
 
 = Manual Download =
-1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woo-mercado-pago-module.2.2.11.zip">WordPress Plugin Directory</a>);
+1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woo-mercado-pago-module.2.2.12.zip">WordPress Plugin Directory</a>);
 2. Unzip the folder and find "woo-mercado-pago-module" directory;
 3. Copy "woo-mercado-pago-module" directory to **[WordPressRootDirectory]/wp-content/plugins/** directory.
 
@@ -66,23 +67,26 @@ To confirm that your module is really installed, you can click in **Plugins** it
 		* Uruguay: https://www.mercadopago.com/mlu/account/credentials?type=custom
 		* Venezuela: https://www.mercadopago.com/mlv/account/credentials?type=custom
 2. For the solutions **Mercado Pago - Basic Checkout**, **Mercado Pago - Custom Checkout**, and **Mercado Pago - Ticket**, you can:
-	* Enable/Disable you plugin (for all solutions);
-	* Set up your credentials (Client_id/Client_secret for Basic, Public Key/Access Token for Custom and Ticket);
-	* Check your IPN URL, where you will get notified about payment updates (for all solutions);
-	* Set the title of the payment option that will be shown to your customers (for all solutions);
-	* Set the description of the payment option that will be shown to your customers (for all solutions);
-	* Set the description that will be shown in your customer's invoice (for Custom and Ticket);
-	* Enable coupon of campaigns for discounts (for Custom and Ticket);
-	* Set binary mode that when charging a credit card, only [approved] or [reject] status will be taken (only for Custom);
-	* Set the category of your store (for all solutions);
-	* Set a prefix to identify your store, when you have multiple stores for only one Mercado Pago account (for all solutions);
-	* Define how your customers will interact with Mercado Pago to pay their orders (only for Basic);
-	* Configure the after-pay return behavior (only for Basic);
-	* Configure the maximum installments allowed for your customers (only for Basic);
-	* Configure the payment methods that you want to not work with Mercado Pago (only for Basic);
-	* Enable currency conversion (for all solutions);
-	* Enable/disable sandbox mode, where you can test your payments in Mercado Pago sandbox environment (for Basic and Custom);
-	* Enables/disable system logs (for all solutions).
+	* Enable/Disable your plugin, so you can allow specific solutions for your business;
+	* Set up your credentials (Client_id/Client_secret for Basic Checkout and Subscriptions, Public Key/Access Token for Custom Checkout and Ticket);
+	* Check your IPN URL, where you will get notified about payment updates;
+	* Set the title of the payment option that will be shown to your customers;
+	* Set the description of the payment option that will be shown to your customers;
+	* Set the description that will be shown in your customer's invoice (for Custom Checkout and Ticket);
+	* Set binary mode that when charging a credit card, only [approved] or [reject] status will be taken (for Custom Checkout);
+	* Set the category of your store;
+	* Set stock reduction behavior (for Ticket);
+	* Set a prefix to identify your store, when you have multiple stores for only one Mercado Pago account;
+	* Define how your customers will interact with Mercado Pago to pay their orders (Basic Checkout and Subscriptions);
+	* Define discounts by payment method;
+	* Configure the after-pay return behavior (Basic Checkout);
+	* Configure the maximum installments allowed for your customers (for Basic Checkout);
+	* Configure the payment acquirers that you want to not work with Mercado Pago (for Basic Checkout);
+	* Configure call-back URLs for after-pay behavior (for Basic Checkout and Subscriptions);
+	* Enable coupon of campaigns for discounts (for Custom Checkout and Ticket);
+	* Enable currency conversion;
+	* Enable/disable sandbox mode, where you can test your payments in Mercado Pago sandbox environment (for Basic Checkout and Custom Checkout);
+	* Enables/disable system logs.
 
 = In this video, we show how you can install and configure from your WordPress store =
 
@@ -102,13 +106,15 @@ Please, check our FAQ at: https://www.mercadopago.com.br/ajuda/
 
 2. `One Click Payment`
 
-3. `Tickets`
+3. `Tickets & Discounts`
 
-4. `Discount Coupon`
-
-5. `Configuration of Basic Checkout`
+4. `Plugin Options`
 
 == Changelog ==
+
+= v2.2.12 (??/??/2017) =
+* Improvements
+	- Improved layout for custom checkout and tickets.
 
 = v2.2.11 (24/07/2017) =
 * Improvements
