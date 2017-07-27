@@ -732,11 +732,10 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 					'document_number' => __( 'Document number', 'woocommerce-mercadopago-module' ),
 					'issuer' => __( 'Issuer', 'woocommerce-mercadopago-module' ),
 					'installments' => __( 'Installments', 'woocommerce-mercadopago-module' )
-			),
-			'error' => array(
+				),
+				'error' => array(
 					// Card number.
-					'205' =>
-						__( 'Parameter cardNumber can not be null/empty', 'woocommerce-mercadopago-module' ),
+					'205' => __( 'Parameter cardNumber can not be null/empty', 'woocommerce-mercadopago-module' ),
 					'E301' => __( 'Invalid Card Number', 'woocommerce-mercadopago-module' ),
 					// Expiration date.
 					'208' => __( 'Invalid Expiration Date', 'woocommerce-mercadopago-module' ),
@@ -744,27 +743,22 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 					'325' => __( 'Invalid Expiration Date', 'woocommerce-mercadopago-module' ),
 					'326' => __( 'Invalid Expiration Date', 'woocommerce-mercadopago-module' ),
 					// Card holder name.
-					'221' =>
-						__( 'Parameter cardholderName can not be null/empty', 'woocommerce-mercadopago-module' ),
+					'221' => __( 'Parameter cardholderName can not be null/empty', 'woocommerce-mercadopago-module' ),
 					'316' => __( 'Invalid Card Holder Name', 'woocommerce-mercadopago-module' ),
 					// Security code.
-					'224' =>
-						__( 'Parameter securityCode can not be null/empty', 'woocommerce-mercadopago-module' ),
+					'224' => __( 'Parameter securityCode can not be null/empty', 'woocommerce-mercadopago-module' ),
 					'E302' => __( 'Invalid Security Code', 'woocommerce-mercadopago-module' ),
 					// Doc type.
-					'212' =>
-						__( 'Parameter docType can not be null/empty', 'woocommerce-mercadopago-module' ),
+					'212' => __( 'Parameter docType can not be null/empty', 'woocommerce-mercadopago-module' ),
 					'322' => __( 'Invalid Document Type', 'woocommerce-mercadopago-module' ),
 					// Doc number.
-					'214' =>
-						__( 'Parameter docNumber can not be null/empty', 'woocommerce-mercadopago-module' ),
+					'214' => __( 'Parameter docNumber can not be null/empty', 'woocommerce-mercadopago-module' ),
 					'324' => __( 'Invalid Document Number', 'woocommerce-mercadopago-module' ),
 					// Doc sub type.
 					'213' => __( 'The parameter cardholder.document.subtype can not be null or empty', 'woocommerce-mercadopago-module' ),
 					'323' => __( 'Invalid Document Sub Type', 'woocommerce-mercadopago-module' ),
 					// Issuer.
-					'220' =>
-						__( 'Parameter cardIssuerId can not be null/empty', 'woocommerce-mercadopago-module' )
+					'220' => __( 'Parameter cardIssuerId can not be null/empty', 'woocommerce-mercadopago-module' )
 				)
 			)
 		);

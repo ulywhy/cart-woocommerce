@@ -267,6 +267,7 @@ select#fixed {
 .mp-error{
   text-transform: uppercase;
   font-size: 10px;
+  margin-bottom: 12px;
   color: red;
   font-weight: bold;
   display: none;
@@ -280,7 +281,7 @@ select#fixed {
   font-size: 10px;
   margin-left: -10px;
   margin-right: -10px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: red;
   font-weight: bold;
   display: none;

@@ -29,13 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<label for="couponCodeLabel"><?php echo $form_labels['form']['coupon_of_discounts']; ?></label>
 				<input class="form-control-mine" type="text" id="couponCode" name="mercadopago_custom[coupon_code]"
 					autocomplete="off" maxlength="24" style="margin-bottom: 8px;"/>
-				<span class="mp-discount" id="mpCouponApplyed" ></span>
-				<span class="mp-error" id="mpCouponError" ></span>
 			</div>
 			<div class="form-col-4">
 				<label >&nbsp;</label>
 				<input class="form-control-mine" type="button" class="button" id="applyCoupon" value="<?php echo $form_labels['form']['apply']; ?>">
 			</div>
+			<span class="mp-discount" id="mpCouponApplyed" ></span>
+			<span class="mp-error" id="mpCouponError" ></span>
 		<div class="form-row" >
 	</div>
 
@@ -77,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						style="width: 100%; padding: 8px; background: url(<?php echo ($images_path . 'cvv.png'); ?>) 98% 50% no-repeat;"/>
 					<span class="mp-error" id="mp-error-224" data-main="#customer-and-card-securityCode"><?php echo $form_labels['error']['224']; ?></span>
 					<span class="mp-error" id="mp-error-E302" data-main="#customer-and-card-securityCode"><?php echo $form_labels['error']['E302']; ?></span>
-					<span class="mp-error" id="mp-error-E203" data-main="#customer-and-card-securityCode"><?php echo $form_labels['error']['E203']; ?></span>
+					<span class="mp-error" id="mp-error-E203" data-main="#customer-and-card-securityCode"><?php echo $form_labels['error']['E302']; ?></span>
 				</div>
 			</div>
 		</div>
@@ -141,7 +141,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="mp-error" id="mp-error-224" data-main="#securityCode"><?php echo $form_labels['error']['224']; ?></span>
 					<span class="mp-error" id="mp-error-E302" data-main="#securityCode"><?php echo $form_labels['error']['E302']; ?></span>
 				</div>
-				<div class="form-col-6">
+				<div class="form-col-6 mp-issuer">
 					<label for="issuer"><?php echo $form_labels['form']['issuer']; ?><em class="obrigatorio"> *</em></label>
 					<select id="issuer" data-checkout="issuer" class="form-control-mine"
 						name="mercadopago_custom[issuer]" style="width: 100%;"></select>
@@ -150,14 +150,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<!-- Document Type -->
 			<div class="form-row" >
-				<div class="form-col-6">
+				<div class="form-col-6 mp-docType">
 					<label for="docType"><?php echo $form_labels['form']['document_type']; ?><em class="obrigatorio"> *</em></label>
 					<select id="docType" data-checkout="docType" name="mercadopago_custom[docType]"
 						class="form-control-mine" style="width: 100%;"></select>
 					<span class="mp-error" id="mp-error-212" data-main="#docType"><?php echo $form_labels['error']['212']; ?></span>
 					<span class="mp-error" id="mp-error-322" data-main="#docType"><?php echo $form_labels['error']['322']; ?></span>
 				</div>
-				<div class="form-col-6">
+				<div class="form-col-6 mp-docNumber">
 					<label for="docNumber"><?php echo $form_labels['form']['document_number']; ?><em class="obrigatorio"> *</em></label>
 					<input type="text" id="docNumber" data-checkout="docNumber" class="form-control-mine"
 						name="mercadopago_custom[docNumber]" autocomplete="off" style="width: 100%;"/>
