@@ -63,7 +63,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="form-col-4">
 					<label for="docNumber"><?php echo $form_labels["form"]["docNumber"]; ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $form_labels['febraban']['docNumber']; ?>" data-checkout="docNumber"
-						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46"
 						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="11">
 					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo $form_labels["error"]["FEB003"]; ?></span>
 				</div>
@@ -78,8 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="form-col-4">
 					<label for="number"><?php echo $form_labels["form"]["number"]; ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $form_labels['febraban']['number']; ?>" data-checkout="number"
-						id="number" class="form-control-mine" name="mercadopago_ticket[number]"
-						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46">
+						id="number" class="form-control-mine" name="mercadopago_ticket[number]">
 					<span class="erro_febraban" data-main="#number" id="error_number"><?php echo $form_labels["error"]["FEB005"]; ?></span>
 				</div>
 			</div>

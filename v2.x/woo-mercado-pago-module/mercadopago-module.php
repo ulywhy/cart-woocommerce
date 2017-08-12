@@ -32,6 +32,7 @@ if ( ! class_exists( 'WC_WooMercadoPago_Module' ) ) :
 	class WC_WooMercadoPago_Module {
 
 		const VERSION = '2.2.12';
+		const MIN_PHP = 5.6;
 
 		// Singleton design pattern
 		protected static $instance = null;
