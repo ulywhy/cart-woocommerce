@@ -99,7 +99,8 @@ Please, check our FAQ at: https://www.mercadopago.com.br/ajuda/
 = v2.2.12 (14/08/2017) =
 * Improvements
 	- Improved layout alignment for custom checkout and tickets;
-	- Added a checklist for platform statuses of cURL, SSL and PHP verification.
+	- Added a checklist for platform statuses of cURL, SSL and PHP verification;
+	- Added the ticket view after the checkout.
 * Bug fixes
 	- Fixed a bug that was locking inputs in ticket fields for Brazil.
 
