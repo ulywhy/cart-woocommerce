@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<label >&nbsp;</label>
 				<input class="form-control-mine" type="button" class="button" id="applyCoupon" value="<?php echo $form_labels['form']['apply']; ?>">
 			</div>
-			<span class="mp-discount" id="mpCouponApplyed" ></span>
-			<span class="mp-error" id="mpCouponError" ></span>
+			<span class="mp-discount" id="mpCouponApplyed" style="width:98%; margin:6px;"></span>
+			<span class="mp-error" id="mpCouponError" style="width:98%; margin:6px;"></span>
 		<div class="form-row" >
 	</div>
 
