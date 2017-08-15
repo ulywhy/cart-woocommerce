@@ -1309,7 +1309,7 @@ class WC_WooMercadoPagoTicket_Gateway extends WC_Payment_Gateway {
 			if ( 'yes' == $this->debug ) {
 				$this->log->add(
 					$this->id,
-					'[add_discount_ticket] - custom checkout trying to apply discount...'
+					'[add_discount_ticket] - ticket checkout trying to apply discount...'
 				);
 			}
 			
