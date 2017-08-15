@@ -1060,3 +1060,21 @@ msgstr ""
 
 msgid "You must inform your ZIP"
 msgstr ""
+
+msgid "Your PHP version is OK."
+msgstr ""
+
+msgid "Your PHP version do not support this module. You have %s, minimal required is %s."
+msgstr ""
+
+msgid "cURL is installed."
+msgstr ""
+
+msgid "cURL is not installed."
+msgstr ""
+
+msgid "SSL is missing in your site."
+msgstr ""
+
+msgid "Your site has SSL enabled."
+msgstr ""

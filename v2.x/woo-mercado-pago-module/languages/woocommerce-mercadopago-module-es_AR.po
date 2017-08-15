@@ -1070,3 +1070,21 @@ msgstr "Obligatorio informar su ESTADO"
 
 msgid "You must inform your ZIP"
 msgstr "Obligatorio informar su CÓDIGO POSTAL"
+
+msgid "Your PHP version is OK."
+msgstr "Su versión de PHP está bien."
+
+msgid "Your PHP version do not support this module. You have %s, minimal required is %s."
+msgstr "Su versión de PHP no soporta este módulo. Tienes %s, la mínima requerida es %s."
+
+msgid "cURL is installed."
+msgstr "cURL está instalado."
+
+msgid "cURL is not installed."
+msgstr "cURL no está instalado."
+
+msgid "SSL is missing in your site."
+msgstr "Falta el SSL en su sitio."
+
+msgid "Your site has SSL enabled."
+msgstr "Su sitio tiene SSL habilitado."
