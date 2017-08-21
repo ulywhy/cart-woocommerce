@@ -711,7 +711,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				$min_php_message = phpversion() >= WC_Woo_Mercado_Pago_Module::MIN_PHP ?
 					'<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
 					__( 'Your PHP version is OK.', 'woo-mercado-pago-module' ) :
-					'<img width="14" height="14" src="' . plugins_url( 'assets/images/error.png', __FILE__ ) . '"> ' .
+					'<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', __FILE__ ) . '"> ' .
 					sprintf(
 						__( 'Your PHP version do not support this module. You have %s, minimal required is %s.', 'woo-mercado-pago-module' ),
 						phpversion(), WC_Woo_Mercado_Pago_Module::MIN_PHP

@@ -317,7 +317,8 @@
 					</label>
 					<p class="description" id="tagline-description">
 						<?php echo sprintf(
-							__( 'Register event logs of Mercado Pago, such as API requests, for', 'woo-mercado-pago-module' ) . ' %s, %s, %s, or %s.',
+							__( 'Register event logs of Mercado Pago, such as API requests, for', 'woo-mercado-pago-module' ) .
+							':<br>%s, %s, %s, %s, %s, ' . __( 'or', 'woo-mercado-pago-module' ) . ' %s.',
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
 								'woo-mercado-pago-basic',
 								__( 'Basic Checkout', 'woo-mercado-pago-module' )
@@ -333,9 +334,17 @@
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
 								'woo-mercado-pago-subscription',
 								__( 'Subscriptions', 'woo-mercado-pago-module' )
+							),
+							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+								'mercadoenvios-normal',
+								'Mercado Envios - Normal'
+							),
+							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+								'mercadoenvios-express',
+								'Mercado Envios - Express'
 							) . '.<br>' .
 							__( 'You can access your logs in ', 'woo-mercado-pago-module' ) . '<strong>' .
-							__( 'WooCommerce &gt; System Status &gt; Logs', 'woo-mercado-pago-module' ) . '</strong>. ' .
+							__( 'WooCommerce &gt; System Status &gt; Logs', 'woo-mercado-pago-module' ) . '</strong>.<br>' .
 							__( 'Files are located in: ', 'woo-mercado-pago-module' ) . '<code>wordpress/wp-content/uploads/wc-logs/</code>' )
 						?>
 					</p>
