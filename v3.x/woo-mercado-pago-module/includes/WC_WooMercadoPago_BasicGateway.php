@@ -374,6 +374,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		);
 	}
 
+	// Write log.
 	private function write_log( $function, $message ) {
 		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
 		if ( ! empty ( $_mp_debug_mode ) ) {
@@ -1308,13 +1309,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			default:
 				break;
 		}
-		//$this->check_mercado_envios( $data );
+		$this->check_mercado_envios( $data );
 	}
+
 	/**
 	 * Summary: Check IPN data and updates Mercado Envios tag and informaitons.
 	 * Description: Check IPN data and updates Mercado Envios tag and informaitons.
 	 */
-	/*public function check_mercado_envios( $merchant_order ) {
+	public function check_mercado_envios( $merchant_order ) {
 		$order_key = $merchant_order['external_reference'];
 		if ( ! empty( $order_key ) ) {
 			$invoice_prefix = get_option( '_mp_store_identificator', 'WC-' );
@@ -1361,8 +1363,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 							'cost' => wc_format_decimal( $shipment_cost )
 						) );
 					}
-					// WTF?
-					// https://docs.woocommerce.com/wc-apidocs/source-class-WC_Abstract_Order.html#541
+					// WTF? https://docs.woocommerce.com/wc-apidocs/source-class-WC_Abstract_Order.html#541
 					// FORCE UPDATE SHIPPING
 					$order->set_total( wc_format_decimal( $shipment_cost ) , 'shipping' );
 					// Update total order.
@@ -1458,6 +1459,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				}
 			}
 		}
-	}*/
+	}
 
 }
