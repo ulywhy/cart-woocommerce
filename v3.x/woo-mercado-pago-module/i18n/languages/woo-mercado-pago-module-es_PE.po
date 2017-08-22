@@ -699,3 +699,9 @@ msgstr "Meses"
 
 msgid "Indicates the period of time."
 msgstr "Indica el período de tiempo."
+
+msgid "Make this product a subscription."
+msgstr "Hacer deste producto una suscripción."
+
+msgid "Frequency type"
+msgstr "Tipo de frecuencia"

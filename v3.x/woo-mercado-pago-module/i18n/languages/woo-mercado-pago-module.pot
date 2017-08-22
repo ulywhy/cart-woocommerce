@@ -699,3 +699,9 @@ msgstr ""
 
 msgid "Indicates the period of time."
 msgstr ""
+
+msgid "Make this product a subscription."
+msgstr ""
+
+msgid "Frequency type"
+msgstr ""
