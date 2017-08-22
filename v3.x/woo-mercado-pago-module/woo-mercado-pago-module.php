@@ -41,6 +41,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - get_site_data( $is_v1 = false )
 	 * - workaround_ampersand_bug( $link )
 	 * - get_module_version()
+	 * - is_subscription( $items )
 	 * - is_supported_currency( $site_id )
 	 * - build_currency_conversion_err_msg( $currency )
 	 * - build_currency_not_converted_msg( $currency, $country_name )
@@ -50,7 +51,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - get_wc_status_for_mp_status( $mp_status )
 	 * - get_map( $selector_id )
 
-	 * @since 1.0.0
+	 * @since 3.0.0
 	 */
 	class WC_Woo_Mercado_Pago_Module {
 
@@ -149,7 +150,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_TicketGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_SubscriptionGateway.php';
-				//include_once dirname( __FILE__ ) . '/mercadopago/class-wc-product-mp_recurrent.php';
+				include_once dirname( __FILE__ ) . '/includes/class-wc-product-mp_recurrent.php';
 				add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
 
 				// Shipping.
@@ -433,7 +434,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			} else {
 				$site_id = get_option( '_site_id_v1', '' );
 			}
-			if ( isset( $site_id ) ) {
+			if ( isset( $site_id ) && ! empty( $site_id ) ) {
 				return WC_Woo_Mercado_Pago_Module::$country_configs[$site_id];
 			} else {
 				return null;
@@ -452,6 +453,22 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		 */
 		public static function get_module_version() {
 			return WC_Woo_Mercado_Pago_Module::VERSION;
+		}
+
+		// Check if an order is recurrent.
+		public static function is_subscription( $items ) {
+			$is_subscription = false;
+			if ( sizeof( $items ) == 1 ) {
+				foreach ( $items as $cart_item_key => $cart_item ) {
+					$is_recurrent = ( method_exists( $cart_item, 'get_meta' ) ) ?
+						$cart_item->get_meta( '_used_gateway' ) :
+						get_post_meta( $cart_item['product_id'], '_mp_recurring_is_recurrent', true );
+					if ( $is_recurrent == 'yes' ) {
+						$is_subscription = true;
+					}
+				}
+			}
+			return $is_subscription;
 		}
 
 		// Return boolean indicating if currency is supported.

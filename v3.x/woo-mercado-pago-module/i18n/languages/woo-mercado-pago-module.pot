@@ -529,9 +529,6 @@ msgstr ""
 msgid "When charging a credit card, only [approved] or [reject] status will be taken."
 msgstr ""
 
-msgid "Mercado Pago - Subscription"
-msgstr ""
-
 msgid "This service allows you to subscribe customers to subscription plans."
 msgstr ""
 
@@ -653,4 +650,52 @@ msgid "You can track it with the following Tracking ID:"
 msgstr ""
 
 msgid "Best regards."
+msgstr ""
+
+msgid "Mercado Pago Subscription"
+msgstr ""
+
+msgid "Payment ID:"
+msgstr ""
+
+msgid "Amount:"
+msgstr ""
+
+msgid "This operation could not be completed."
+msgstr ""
+
+msgid "Operation successfully completed."
+msgstr ""
+
+msgid "Refund Payment"
+msgstr ""
+
+msgid "Cancel Payment"
+msgstr ""
+
+msgid "Mercado Pago - Subscription"
+msgstr ""
+
+msgid "A recurrent product is a signature that should be bought isolated in your cart. Please, create separated orders."
+msgstr ""
+
+msgid "Recurrent Product"
+msgstr ""
+
+msgid "Frequency"
+msgstr ""
+
+msgid "Amount of time (in days or months) for the execution of the next payment."
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "Deadline to generate new charges. Defaults to never if blank."
+msgstr ""
+
+msgid "Months"
+msgstr ""
+
+msgid "Indicates the period of time."
 msgstr ""

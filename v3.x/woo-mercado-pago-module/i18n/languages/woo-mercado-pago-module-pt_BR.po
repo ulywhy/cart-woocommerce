@@ -529,9 +529,6 @@ msgstr "Habilita o modo binário para o status do checkout"
 msgid "When charging a credit card, only [approved] or [reject] status will be taken."
 msgstr "Ao realizar a cobrança no cartão, apenas os status [aprovado] ou [rejeitado] serão considerados."
 
-msgid "Mercado Pago - Subscription"
-msgstr "Mercado Pago - Assinaturas"
-
 msgid "This service allows you to subscribe customers to subscription plans."
 msgstr "Este serviço permite a você inscrever clientes em planos de assinaturas."
 
@@ -654,3 +651,51 @@ msgstr "Você pode rastrea-lo com o seguinte ID de rastreamento:"
 
 msgid "Best regards."
 msgstr "Atenciosamente."
+
+msgid "Mercado Pago Subscription"
+msgstr "Assinaturas Mercado Pago"
+
+msgid "Payment ID:"
+msgstr "ID de pagamento:"
+
+msgid "Amount:"
+msgstr "Quantidade:"
+
+msgid "This operation could not be completed."
+msgstr "Esta operação não pode ser completada."
+
+msgid "Operation successfully completed."
+msgstr "A operação foi realizada com sucesso."
+
+msgid "Refund Payment"
+msgstr "Extornar Pgto"
+
+msgid "Cancel Payment"
+msgstr "Cancelar Pgto"
+
+msgid "Mercado Pago - Subscription"
+msgstr "Mercado Pago - Assinaturas"
+
+msgid "A recurrent product is a signature that should be bought isolated in your cart. Please, create separated orders."
+msgstr "Um produto recorrente é uma assinatura que deve ser comprada isoladamente em seu carrinho. Por favor, crie pedidos separadamente."
+
+msgid "Recurrent Product"
+msgstr "Produto Recorrente"
+
+msgid "Frequency"
+msgstr "Frequência"
+
+msgid "Amount of time (in days or months) for the execution of the next payment."
+msgstr "Quantia de tempo (em dias ou meses) para a cobrança do próximo pagamento."
+
+msgid "End date"
+msgstr "Data final"
+
+msgid "Deadline to generate new charges. Defaults to never if blank."
+msgstr "Data limite para gerar nova cobrança. Por padrão nunca, se deixado em branco."
+
+msgid "Months"
+msgstr "Meses"
+
+msgid "Indicates the period of time."
+msgstr "Indica o período de tempo."

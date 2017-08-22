@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-Basepath: ../Documents/woocommerce (MAMP)/wp-content/plugins/woo-mercado-pago-module\n"
 "X-Generator: Poedit 1.8.7\n"
 "Last-Translator: \n"
-"Language: es_MX\n"
+"Language: es_AR\n"
 "X-Poedit-SearchPath-0: .\n"
 
 msgid "Mercado Pago Settings"
@@ -529,9 +529,6 @@ msgstr "Activar el modo binario para el estado del checkout"
 msgid "When charging a credit card, only [approved] or [reject] status will be taken."
 msgstr "Al cargar una tarjeta de crédito, sólo los estados [aprobado] o [rechazar] seran tomados."
 
-msgid "Mercado Pago - Subscription"
-msgstr "Mercado Pago - Suscripcións"
-
 msgid "This service allows you to subscribe customers to subscription plans."
 msgstr "Este servicio le permite suscribir los clientes a planes de suscripción."
 
@@ -609,3 +606,96 @@ msgstr "Mostrar el tiempo estimado de entrega"
 
 msgid "Display the estimated delivery time in working days."
 msgstr "Mostrar el tiempo estimado de entrega en días laborables."
+
+msgid "Tag ready to print"
+msgstr "Etiquetar lista para imprimir"
+
+msgid "Tag printed"
+msgstr "Etiqueta impresa"
+
+msgid "Unsuccessful"
+msgstr "Fracasado"
+
+msgid "Delayed shipping"
+msgstr "Envío retrasado"
+
+msgid "Missing recipient for delivery"
+msgstr "Destinatario ausente para envío"
+
+msgid "In return to sender"
+msgstr "Volviendo al remitente"
+
+msgid "Buyer initiates complaint and requested a refund."
+msgstr "El comprador ha iniciado una discusión y pide un extorno."
+
+msgid "Order"
+msgstr "Pedido"
+
+msgid "Mercado Envios Tracking ID"
+msgstr "Código de rastreamiento de Mercado Envíos"
+
+msgid "Hello,"
+msgstr "Hola,"
+
+msgid "Your order"
+msgstr "Su pedido"
+
+msgid "made in"
+msgstr "hecho en"
+
+msgid "used Mercado Envios as its shipment method."
+msgstr "utilizó el Mercado Envíos como su medio de envío."
+
+msgid "You can track it with the following Tracking ID:"
+msgstr "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
+
+msgid "Best regards."
+msgstr "Saludos."
+
+msgid "Mercado Pago Subscription"
+msgstr "Suscripción Mercado Pago"
+
+msgid "Payment ID:"
+msgstr "ID de Pago:"
+
+msgid "Amount:"
+msgstr "Cantidad:"
+
+msgid "This operation could not be completed."
+msgstr "Esta operación no se puede completar."
+
+msgid "Operation successfully completed."
+msgstr "La operación se realizó con éxito."
+
+msgid "Refund Payment"
+msgstr "Reembolso de Pago"
+
+msgid "Cancel Payment"
+msgstr "Cancelar Pago"
+
+msgid "Mercado Pago - Subscription"
+msgstr "Mercado Pago - Suscripcións"
+
+msgid "A recurrent product is a signature that should be bought isolated in your cart. Please, create separated orders."
+msgstr "Un producto recurrente es una suscripción que debe adquirirse por separado en su carrito. Por favor, hace los pedidos por separado."
+
+msgid "Recurrent Product"
+msgstr "Producto Recurrente"
+
+msgid "Frequency"
+msgstr "Frecuencia"
+
+msgid "Amount of time (in days or months) for the execution of the next payment."
+msgstr "Cantidad de tiempo (en días o meses) para la ejecución del próximo pago."
+
+msgid "End date"
+msgstr "Fecha final"
+
+msgid "Deadline to generate new charges. Defaults to never if blank."
+msgstr "Fecha límite para generar nuevos cargos. De forma predeterminada como nunca, si está en blanco."
+
+msgid "Months"
+msgstr "Meses"
+
+msgid "Indicates the period of time."
+msgstr "Indica el período de tiempo."
