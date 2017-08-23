@@ -83,7 +83,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		);
 		// Used by IPN to process valid incomings.
 		add_action(
-			'valid_mercadopago_ipn_request',
+			'valid_mercadopago_basic_ipn_request',
 			array( $this, 'successful_request' )
 		);
 		// Process the cancel order meta box order action.
@@ -195,15 +195,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			'title' => array(
 				'title' => __( 'Title', 'woo-mercado-pago-module' ),
 				'type' => 'text',
-				'description' =>
-					__( 'Title shown to the client in the checkout.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Title shown to the client in the checkout.', 'woo-mercado-pago-module' ),
 				'default' => __( 'Mercado Pago', 'woo-mercado-pago-module' )
 			),
 			'description' => array(
 				'title' => __( 'Description', 'woo-mercado-pago-module' ),
 				'type' => 'textarea',
-				'description' =>
-					__( 'Description shown to the client in the checkout.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Description shown to the client in the checkout.', 'woo-mercado-pago-module' ),
 				'default' => __( 'Pay with Mercado Pago', 'woo-mercado-pago-module' )
 			),
 			'method' => array(
@@ -219,13 +217,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			),
 			'iframe_width' => array(
 				'title' => __( 'iFrame Width', 'woo-mercado-pago-module' ),
-				'type' => 'text',
+				'type' => 'number',
 				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame width.', 'woo-mercado-pago-module' ),
 				'default' => '640'
 			),
 			'iframe_height' => array(
 				'title' => __( 'iFrame Height', 'woo-mercado-pago-module' ),
-				'type' => 'text',
+				'type' => 'number',
 				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame height.', 'woo-mercado-pago-module' ),
 				'default' => '800'
 			),
@@ -318,25 +316,23 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$post_data = $this->get_post_data();
 		foreach ( $this->get_form_fields() as $key => $field ) {
 			if ( 'title' !== $this->get_field_type( $field ) ) {
+				$value = $this->get_field_value( $key, $field, $post_data );
 				if ( $key == 'two_cards_mode' ) {
 					// We dont save two card mode as it should come from api.
-					$value = $this->get_field_value( $key, $field, $post_data );
 					$this->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
 				} elseif ( $key == 'iframe_width' ) {
-					$value = $this->get_field_value( $key, $field, $post_data );
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
-						$this->settings[$key] = '480';
+						$this->settings[$key] = 480;
 					} else {
 						$this->settings[$key] = $value;
 					}
 				} elseif ( $key == 'iframe_height' ) {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
-						$this->settings[$key] = '800';
+						$this->settings[$key] = 800;
 					} else {
 						$this->settings[$key] = $value;
 					}
 				} elseif ( $key == 'gateway_discount') {
-					$value = $this->get_field_value( $key, $field, $post_data );
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
 						$this->settings[$key] = 0;
 					} else {
@@ -1026,9 +1022,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		if ( $title != $this->title || $this->gateway_discount == 0 ) {
 			return $title;
 		}
-		//if ( WC()->session->chosen_payment_method == 'woocommerce-mercadopago-subscription-module' ) {
-		//	return $title;
-		//}
+		if ( WC()->session->chosen_payment_method == 'woo-mercado-pago-subscription' ) {
+			return $title;
+		}
 		$total = (float) WC()->cart->subtotal;
 		$price_percent = $this->gateway_discount / 100;
 		if ( $price_percent > 0 ) {
@@ -1070,14 +1066,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			// Now, we should handle the topic type that has come...
 			if ( $data['topic'] == 'merchant_order' ) {
 				// Get the merchant_order reported by the IPN.
-				$merchant_order_info = $this->mp->get( '/merchant_orders/' . $data['id'], $access_token, false );
-				if ( ! is_wp_error( $merchant_order_info ) && ( $merchant_order_info['status'] == 200 || $merchant_order_info['status'] == 201 ) ) {
-					$payments = $merchant_order_info['response']['payments'];
+				$ipn_info = $this->mp->get( '/merchant_orders/' . $data['id'], $access_token, false );
+				if ( ! is_wp_error( $ipn_info ) && ( $ipn_info['status'] == 200 || $ipn_info['status'] == 201 ) ) {
+					$payments = $ipn_info['response']['payments'];
 					// If the payment's transaction amount is equal (or bigger) than the merchant order's amount we can release the items.
 					if ( sizeof( $payments ) >= 1 ) {
 						// We have payments...
-						$merchant_order_info['response']['ipn_type'] = 'merchant_order';
-						do_action( 'valid_mercadopago_ipn_request', $merchant_order_info['response'] );
+						$ipn_info['response']['ipn_type'] = 'merchant_order';
+						do_action( 'valid_mercadopago_basic_ipn_request', $ipn_info['response'] );
 					} else {
 						// We have no payments?
 						$this->write_log( __FUNCTION__, 'order received but has no payment.' );
@@ -1098,7 +1094,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					if ( sizeof( $payments ) >= 1 ) {
 						// We have payments...
 						$payment_info['response']['ipn_type'] = 'payment';
-						do_action( 'valid_mercadopago_ipn_request', $payment_info['response'] );
+						do_action( 'valid_mercadopago_basic_ipn_request', $payment_info['response'] );
 					} else {
 						// We have no payments?
 						$this->write_log( __FUNCTION__, 'order received but has no payment.' );
@@ -1113,10 +1109,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				}
 			} else {
 				// We have received an unhandled topic...
-				$this->write_log(
-					__FUNCTION__,
-					'request failure, received an unhandled topic.'
-				);
+				$this->write_log( __FUNCTION__, 'request failure, received an unhandled topic.' );
 			}
 		} elseif ( isset( $data['data_id'] ) && isset( $data['type'] ) ) {
 			// We have received a bad, however valid) IPN call for this gateway (data is set for API V1).
@@ -1132,6 +1125,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			wp_die( __( 'Mercado Pago Request Failure', 'woo-mercado-pago-module' ) );
 		}
 	}
+
 	/**
 	 * Summary: Properly handles each case of notification, based in payment status.
 	 * Description: Properly handles each case of notification, based in payment status.

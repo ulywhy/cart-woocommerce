@@ -27,7 +27,7 @@ class WC_MercadoEnvios_Shipping_Express extends WC_MercadoEnvios_Shipping {
 	 * Constructor.
 	 */
 	public function __construct( $instance_id = 0 ) {
-		$this->id = 'mercadoenvios-express';
+		$this->id = 'woo-mercado-pago-me-express';
 		$this->method_title = 'Mercado Envios - Express';
 		parent::__construct( $instance_id );
 	}

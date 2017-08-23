@@ -547,6 +547,14 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			return str_replace( '_', '-', $status );
 		}
 
+		// Delete the log files.
+		// TODO: use this to optionally clear log files.
+		/*public static function deleteDir( $path ) {
+			foreach ( glob( 'woo-mercado-pago-*.*' ) as $filename ) {
+				unlink( $filename );
+			}
+		}*/
+
 		public static function get_map( $selector_id ) {
 			$arr = explode( '_', $selector_id );
 			$defaults = array(

@@ -27,7 +27,7 @@ class WC_MercadoEnvios_Shipping_Normal extends WC_MercadoEnvios_Shipping {
 	 * Constructor.
 	 */
 	public function __construct( $instance_id = 0 ) {
-		$this->id = 'mercadoenvios-normal';
+		$this->id = 'woo-mercado-pago-me-normal';
 		$this->method_title = 'Mercado Envios - Normal';
 		parent::__construct( $instance_id );
 	}

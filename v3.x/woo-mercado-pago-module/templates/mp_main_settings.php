@@ -333,7 +333,7 @@
 							),
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
 								'woo-mercado-pago-subscription',
-								__( 'Subscriptions', 'woo-mercado-pago-module' )
+								__( 'Subscription', 'woo-mercado-pago-module' )
 							),
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
 								'mercadoenvios-normal',
