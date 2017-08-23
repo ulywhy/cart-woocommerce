@@ -708,3 +708,18 @@ msgstr "Tipo de frequência"
 
 msgid "Subscribe with Mercado Pago"
 msgstr "Assine com Mercado Pago"
+
+msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
+msgstr "Woo Mercado Pago Module depende da última versão do %s para executar!"
+
+msgid "Tracking code:"
+msgstr "Código de rastreamento:"
+
+msgid "Tag:"
+msgstr "Etiqueta:"
+
+msgid "Shipping is pending"
+msgstr "Envio pendente"
+
+msgid "Print"
+msgstr "Imprimir"

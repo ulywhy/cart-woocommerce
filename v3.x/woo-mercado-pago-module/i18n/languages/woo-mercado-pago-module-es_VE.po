@@ -608,7 +608,7 @@ msgid "Display the estimated delivery time in working days."
 msgstr "Mostrar el tiempo estimado de entrega en días laborables."
 
 msgid "Tag ready to print"
-msgstr "Etiquetar lista para imprimir"
+msgstr "Etiqueta lista para imprimir"
 
 msgid "Tag printed"
 msgstr "Etiqueta impresa"
@@ -709,3 +709,17 @@ msgstr "Tipo de frecuencia"
 msgid "Subscribe with Mercado Pago"
 msgstr "Suscribirse con Mercado Pago"
 
+msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
+msgstr "Woo Mercado Pago Module depende de la última versión de %s para ejecutarse!"
+
+msgid "Tracking code:"
+msgstr "Código de rastreamiento:"
+
+msgid "Tag:"
+msgstr "Etiqueta:"
+
+msgid "Shipping is pending"
+msgstr "Envío pendiente"
+
+msgid "Print"
+msgstr "Imprimir"

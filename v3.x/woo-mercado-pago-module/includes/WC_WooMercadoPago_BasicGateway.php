@@ -1417,11 +1417,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 						$substatus_description = $shipments_data['response']['status'];
 					}
 					$order->add_order_note( 'Mercado Envios: ' . $substatus_description );
-					$this->log->add(
-						$this->id,
-						'[check_mercado_envios] - Mercado Envios - shipments_data : ' .
-						json_encode( $shipments_data, JSON_PRETTY_PRINT )
-					);
+					$this->write_log( __FUNCTION__, 'Mercado Envios - shipments_data : ' . json_encode( $shipments_data, JSON_PRETTY_PRINT ) );
 					// Add tracking number in meta data to use in order page.
 					update_post_meta( $order_id, '_mercadoenvios_tracking_number', $shipments_data['response']['tracking_number'] );
 					// Add shipiment_id in meta data to use in order page.

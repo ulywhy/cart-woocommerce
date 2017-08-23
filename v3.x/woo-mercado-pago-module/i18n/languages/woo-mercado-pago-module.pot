@@ -708,3 +708,18 @@ msgstr ""
 
 msgid "Subscribe with Mercado Pago"
 msgstr ""
+
+msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
+msgstr ""
+
+msgid "Tracking code:"
+msgstr ""
+
+msgid "Tag:"
+msgstr ""
+
+msgid "Shipping is pending"
+msgstr ""
+
+msgid "Print"
+msgstr ""

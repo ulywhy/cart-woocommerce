@@ -163,8 +163,21 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				// This adds custom links in the plugin page.
 				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'woomercadopago_settings_link' ) );
 
+			} else {
+				add_action( 'admin_notices', array( $this, 'notify_woocommerce_miss' ) );
 			}
 
+			if ( is_admin() ) {
+				$this->admin_includes();
+			}
+
+		}
+
+		/**
+		 * Admin includes.
+		 */
+		private function admin_includes() {
+			include_once dirname( __FILE__ ) . '/includes/admin/class-wc-mercadoenvios-admin-orders.php';
 		}
 
 		/**
@@ -187,6 +200,19 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			$methods['mercadoenvios-normal'] = 'WC_MercadoEnvios_Shipping_Normal';
 			$methods['mercadoenvios-express'] = 'WC_MercadoEnvios_Shipping_Express';
 			return $methods;
+		}
+
+		/**
+		 * Summary: Places a warning error to notify user that WooCommerce is missing.
+		 * Description: Places a warning error to notify user that WooCommerce is missing.
+		 */
+		public function notify_woocommerce_miss() {
+			echo '<div class="error"><p>' .
+				sprintf(
+					__( 'Woo Mercado Pago Module depends on the last version of %s to execute!', 'woo-mercado-pago-module' ),
+					'<a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
+				) .
+				'</p></div>';
 		}
 
 		// Multi-language setup.
