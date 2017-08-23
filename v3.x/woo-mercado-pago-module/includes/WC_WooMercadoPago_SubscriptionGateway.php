@@ -71,6 +71,21 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		$this->init_form_fields();
 		$this->init_settings();
 
+		// Used by IPN to receive IPN incomings.
+		add_action(
+			'woocommerce_api_wc_woomercadopago_subscriptiongateway',
+			array( $this, 'check_ipn_response' )
+		);
+		// Used by IPN to process valid incomings.
+		add_action(
+			'valid_mercadopago_ipn_request',
+			array( $this, 'successful_request' )
+		);
+		// Process the cancel order meta box order action.
+		add_action(
+			'woocommerce_order_action_cancel_order',
+			array( $this, 'process_cancel_order_meta_box_actions' )
+		);
 		// Used by WordPress to render the custom checkout page.
 		add_action(
 			'woocommerce_receipt_' . $this->id,
@@ -78,10 +93,39 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				echo $this->render_order_form( $order );
 			}
 		);
+		// Used to fix CSS in some older WordPress/WooCommerce versions.
+		add_action(
+			'wp_head',
+			function() {
+				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+					$page_id = wc_get_page_id( 'checkout' );
+				} else {
+					$page_id = woocommerce_get_page_id( 'checkout' );
+				}
+				if ( is_page( $page_id ) ) {
+					echo '<style type="text/css">#MP-Checkout-dialog { z-index: 9999 !important; }</style>' . PHP_EOL;
+				}
+			}
+		);
 		// Used in settings page to hook "save settings" action.
 		add_action(
 			'woocommerce_update_options_payment_gateways_' . $this->id,
 			array( $this, 'custom_process_admin_options' )
+		);
+		// Scripts for order configuration.
+		add_action(
+			'woocommerce_after_checkout_form',
+			array( $this, 'add_checkout_script' )
+		);
+		// Display discount in payment method title.
+		add_filter(
+			'woocommerce_gateway_title',
+			array( $this, 'get_payment_method_title_subscription' ), 10, 2
+		);
+		// Checkout updates.
+		add_action(
+			'woocommerce_thankyou',
+			array( $this, 'update_checkout_status' )
 		);
 
 	}
@@ -176,7 +220,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				'type' => 'textarea',
 				'description' =>
 					__( 'Description shown to the client in the checkout.', 'woo-mercado-pago-module' ),
-				'default' => __( 'Pay with Mercado Pago', 'woo-mercado-pago-module' )
+				'default' => __( 'Subscribe with Mercado Pago', 'woo-mercado-pago-module' )
 			),
 			'method' => array(
 				'title' => __( 'Integration Method', 'woo-mercado-pago-module' ),
@@ -683,31 +727,6 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		}
 	}
 
-	// Display the discount in payment method title.
-	public function get_payment_method_title_subscription( $title, $id ) {
-
-		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			return $title;
-		}
-
-		if ( $title != $this->title || $this->gateway_discount == 0 ) {
-			return $title;
-		}
-
-		$total = (float) WC()->cart->subtotal;
-		if ( is_numeric( $this->gateway_discount ) ) {
-			if ( $this->gateway_discount >= 0 && $this->gateway_discount < 100 ) {
-				$price_percent = $this->gateway_discount / 100;
-				if ( $price_percent > 0 ) {
-					$title .= ' (' . __( 'Discount Of ', 'woo-mercado-pago-module' ) .
-						strip_tags( wc_price( $total * $price_percent ) ) . ' )';
-				}
-			}
-		}
-
-		return $title;
-	}
-
 	/*
 	 * ========================================================================
 	 * AUXILIARY AND FEEDBACK METHODS (SERVER SIDE)
@@ -739,6 +758,43 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			! empty( $_mp_client_secret ) &&
 			! empty( $_site_id_v0 );
 		return $available;
+	}
+
+	// Get the URL to admin page.
+	protected function admin_url() {
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			return admin_url(
+				'admin.php?page=wc-settings&tab=checkout&section=wc_woomercadopago_subscriptiongateway'
+			);
+		}
+		return admin_url(
+			'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_WooMercadoPago_SubscriptionGateway'
+		);
+	}
+
+	// Display the discount in payment method title.
+	public function get_payment_method_title_subscription( $title, $id ) {
+
+		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return $title;
+		}
+
+		if ( $title != $this->title || $this->gateway_discount == 0 ) {
+			return $title;
+		}
+
+		$total = (float) WC()->cart->subtotal;
+		if ( is_numeric( $this->gateway_discount ) ) {
+			if ( $this->gateway_discount >= 0 && $this->gateway_discount < 100 ) {
+				$price_percent = $this->gateway_discount / 100;
+				if ( $price_percent > 0 ) {
+					$title .= ' (' . __( 'Discount Of ', 'woo-mercado-pago-module' ) .
+						strip_tags( wc_price( $total * $price_percent ) ) . ' )';
+				}
+			}
+		}
+
+		return $title;
 	}
 
 	/*

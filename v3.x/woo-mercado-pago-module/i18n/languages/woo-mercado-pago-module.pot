@@ -705,3 +705,6 @@ msgstr ""
 
 msgid "Frequency type"
 msgstr ""
+
+msgid "Subscribe with Mercado Pago"
+msgstr ""

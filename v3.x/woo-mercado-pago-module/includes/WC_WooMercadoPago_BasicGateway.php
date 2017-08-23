@@ -101,7 +101,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		// Used to fix CSS in some older WordPress/WooCommerce versions.
 		add_action(
 			'wp_head',
-			function () {
+			function() {
 				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
 					$page_id = wc_get_page_id( 'checkout' );
 				} else {

@@ -705,3 +705,6 @@ msgstr "Fazer deste produto uma assinatura."
 
 msgid "Frequency type"
 msgstr "Tipo de frequência"
+
+msgid "Subscribe with Mercado Pago"
+msgstr "Assine com Mercado Pago"
