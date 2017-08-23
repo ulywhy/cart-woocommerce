@@ -144,7 +144,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		} else {
 			$list_shipping_methods = $this->get_shipping_methods_zone_by_shipping_id( $this->instance_id );
 			foreach ( $list_shipping_methods as $key => $shipping_object ) {
-				if ( $key == 'mercadoenvios-normal' || $key == 'mercadoenvios-express' ) {
+				if ( $key == 'woo-mercado-pago-me-normal' || $key == 'woo-mercado-pago-me-express' ) {
 					// WTF?
 					$shipping_object = new $shipping_object( $shipping_object->instance_id );
 					if ( $shipping_object->get_option( 'free_shipping' ) == 'yes' ) {
@@ -287,13 +287,13 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 				foreach ( $shipping_methods_list as $key => $shipping_object ) {
 					$shipping_methods[$shipping_object->id] = $shipping_object->is_enabled();
 				}
-				if ( isset($shipping_methods['mercadoenvios-normal'] ) && isset( $shipping_methods['mercadoenvios-express'] ) ) {
-					if ( $shipping_methods['mercadoenvios-normal'] === true && $shipping_methods['mercadoenvios-express'] === true ) {
+				if ( isset( $shipping_methods['woo-mercado-pago-me-normal'] ) && isset( $shipping_methods['woo-mercado-pago-me-express'] ) ) {
+					if ( $shipping_methods['woo-mercado-pago-me-normal'] === true && $shipping_methods['woo-mercado-pago-me-express'] === true ) {
 						// Add settings.
 						$this->update_settings_api( 'true' );
 						// Not display message.
 						return false;
-					} elseif ( $shipping_methods['mercadoenvios-normal'] === false && $shipping_methods['mercadoenvios-express'] === false ) {
+					} elseif ( $shipping_methods['woo-mercado-pago-me-normal'] === false && $shipping_methods['woo-mercado-pago-me-express'] === false ) {
 						// Remove settings.
 						$this->update_settings_api( 'false' );
 						// Not display message.
@@ -341,7 +341,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 
 		// Request.
 		$response = $mp->analytics_save_settings( $infra_data );
-		$this->write_log( __FUNCTION__, '[update_settings_api] - analytics response: ' . json_encode( $response, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE ) );
+		$this->write_log( __FUNCTION__, 'analytics response: ' . json_encode( $response, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE ) );
 	}
 	
 }
