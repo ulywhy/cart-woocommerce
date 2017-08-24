@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Build and handle a window for refunding and canceling
 add_action( 'add_meta_boxes', 'add_meta_boxes' );
 function add_meta_boxes() {
-	/*global $woocommerce;
+	global $woocommerce;
 	$is_recurrent = 'no';
 	$w_cart = $woocommerce->cart;
 	if ( ! isset( $w_cart ) ) {
 		return;
 	}
 	$items = $w_cart->get_cart();
-	if ( sizeof( $items ) > 1 ) {
+	if ( sizeof( $items ) == 1 ) {
 		foreach ( $items as $cart_item_key => $cart_item ) {
 			$is_recurrent = get_post_meta( $cart_item['product_id'], '_mp_recurring_is_recurrent', true );
 			if ( $is_recurrent == 'yes' ) {
@@ -30,7 +30,7 @@ function add_meta_boxes() {
 			}
 		}
 	}
-	if ( $is_recurrent == 'yes' ) {*/
+	if ( $is_recurrent == 'yes' ) {
 		add_meta_box(
 			'woocommerce-mp-order-action-refund',
 			__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
@@ -39,7 +39,7 @@ function add_meta_boxes() {
 			'side',
 			'default'
 		);
-	//}
+	}
 }
 
 function mp_subscription_order_refund_cancel_box() {
@@ -63,7 +63,7 @@ function mp_subscription_order_refund_cancel_box() {
 	// Build javascript for the window.
 	$domain = get_site_url() . '/index.php' . '/woo-mercado-pago-module/';
 	$domain .= '?wc-api=WC_WooMercadoPago_SubscriptionGateway';
-	echo WC_WooMercadoPago_JSGen::generate_refund_cancel_subscription(
+	echo WC_Woo_Mercado_Pago_Module::generate_refund_cancel_subscription(
 		$domain,
 		__( 'Operation successfully completed.', 'woo-mercado-pago-module' ),
 		__( 'This operation could not be completed.', 'woo-mercado-pago-module' ),

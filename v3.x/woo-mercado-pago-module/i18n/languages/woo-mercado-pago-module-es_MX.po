@@ -723,3 +723,6 @@ msgstr "Envío pendiente"
 
 msgid "Print"
 msgstr "Imprimir"
+
+msgid "Cancel Order"
+msgstr "Cancelar la Compra"

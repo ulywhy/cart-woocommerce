@@ -14,7 +14,7 @@ require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
 /**
  * Summary: Extending from WooCommerce Payment Gateway class.
  * Description: This class implements Mercado Pago custom checkout.
- * @since 2.0.0
+ * @since 3.0.0
  */
 class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 

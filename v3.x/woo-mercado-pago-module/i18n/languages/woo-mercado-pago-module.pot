@@ -723,3 +723,6 @@ msgstr ""
 
 msgid "Print"
 msgstr ""
+
+msgid "Cancel Order"
+msgstr ""
