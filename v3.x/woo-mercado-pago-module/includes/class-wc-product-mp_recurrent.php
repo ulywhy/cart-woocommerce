@@ -15,20 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Build and handle a window for refunding and canceling
 add_action( 'add_meta_boxes', 'add_meta_boxes' );
 function add_meta_boxes() {
-	global $woocommerce;
-	$w_cart = $woocommerce->cart;
-	// Check for recurrent product checkout.
-	if ( isset( $w_cart ) ) {
-		if ( WC_Woo_Mercado_Pago_Module::is_subscription( $w_cart->get_cart() ) ) {
-			add_meta_box(
-				'woocommerce-mp-order-action-refund',
-				__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
-				'mp_subscription_order_refund_cancel_box',
-				'shop_order',
-				'side',
-				'default'
-			);
-		}
+	// Get order.
+	global $post;
+	$order = wc_get_order( $post->ID );
+	$order_id = trim( str_replace( '#', '', $order->get_order_number() ) );
+	// Get payment information for the order.
+	$payments = get_post_meta( $order_id, '_Mercado_Pago_Sub_Payment_IDs', true );
+	if ( isset( $payments ) && ! empty( $payments ) ) {
+		add_meta_box(
+			'woocommerce-mp-order-action-refund',
+			__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
+			'mp_subscription_order_refund_cancel_box',
+			'shop_order',
+			'side',
+			'default'
+		);
 	}
 }
 
