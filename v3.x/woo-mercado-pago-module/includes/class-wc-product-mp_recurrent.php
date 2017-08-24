@@ -13,9 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Build and handle a window for refunding and canceling
-add_action( 'add_meta_boxes', 'add_meta_boxes_subscription' );
-function add_meta_boxes_subscription() {
-	global $woocommerce;
+add_action( 'add_meta_boxes', 'add_meta_boxes' );
+function add_meta_boxes() {
+	/*global $woocommerce;
 	$is_recurrent = 'no';
 	$w_cart = $woocommerce->cart;
 	if ( ! isset( $w_cart ) ) {
@@ -30,7 +30,7 @@ function add_meta_boxes_subscription() {
 			}
 		}
 	}
-	if ( $is_recurrent == 'yes' ) {
+	if ( $is_recurrent == 'yes' ) {*/
 		add_meta_box(
 			'woocommerce-mp-order-action-refund',
 			__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
@@ -39,7 +39,7 @@ function add_meta_boxes_subscription() {
 			'side',
 			'default'
 		);
-	}
+	//}
 }
 
 function mp_subscription_order_refund_cancel_box() {
