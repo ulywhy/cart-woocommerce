@@ -226,8 +226,8 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		}
 		$warning_active_shipping_methods = '';
 		if ( $this->show_message_shipping_methods() ) {
-			$warning_active_shipping_methods = '<img width="12" height="12" src="' .
-				plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '">' . ' ' .
+			$warning_active_shipping_methods = '<img width="14" height="14" src="' .
+				plugins_url( 'assets/images/warning.png', dirname( dirname( __FILE__ ) ) ) . '">' . ' ' .
 				__( 'Enable the two shipping methods the Mercado Envios (Express and Normal) for the proper functioning of the module.', 'woo-mercado-pago-module' );
 		}
 		$this->instance_form_fields = array(

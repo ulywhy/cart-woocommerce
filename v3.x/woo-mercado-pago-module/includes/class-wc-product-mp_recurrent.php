@@ -15,54 +15,69 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Build and handle a window for refunding and canceling
 add_action( 'add_meta_boxes', 'add_meta_boxes' );
 function add_meta_boxes() {
-	add_meta_box(
-		'woocommerce-mp-order-action-refund',
-		__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
-		function() {
-			// Get order.
-			global $post;
-			$order = wc_get_order( $post->ID );
-			$order_id = trim( str_replace( '#', '', $order->get_order_number() ) );
-			// Get payment information for the order.
-			$payments = get_post_meta( $order_id, '_Mercado_Pago_Sub_Payment_IDs', true );
-			$options = '';
-			if ( ! empty( $payments ) ) {
-				$payment_structs = array();
-				$payment_ids = explode( ', ', $payments );
-				foreach ( $payment_ids as $p_id ) {
-					$options .= '<option value="' . $p_id . '">' . $p_id . '</option>';
+	global $woocommerce;
+	$is_recurrent = 'no';
+	$w_cart = $woocommerce->cart;
+	if ( ! isset( $w_cart ) ) {
+		return;
+	}
+	$items = $w_cart->get_cart();
+	if ( sizeof( $items ) > 1 ) {
+		foreach ( $items as $cart_item_key => $cart_item ) {
+			$is_recurrent = get_post_meta( $cart_item['product_id'], '_mp_recurring_is_recurrent', true );
+			if ( $is_recurrent == 'yes' ) {
+				break;
+			}
+		}
+	}
+	if ( $is_recurrent == 'yes' ) {
+		add_meta_box(
+			'woocommerce-mp-order-action-refund',
+			__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
+			function() {
+				// Get order.
+				global $post;
+				$order = wc_get_order( $post->ID );
+				$order_id = trim( str_replace( '#', '', $order->get_order_number() ) );
+				// Get payment information for the order.
+				$payments = get_post_meta( $order_id, '_Mercado_Pago_Sub_Payment_IDs', true );
+				$options = '';
+				if ( ! empty( $payments ) ) {
+					$payment_structs = array();
+					$payment_ids = explode( ', ', $payments );
+					foreach ( $payment_ids as $p_id ) {
+						$options .= '<option value="' . $p_id . '">' . $p_id . '</option>';
+					}
 				}
-			}
-			if ( $options == '' ) {
-				return;
-			}
-			// Build javascript for the window.
-			$domain = get_site_url() . '/index.php' . '/woo-mercado-pago-module/';
-			$domain .= '?wc-api=WC_WooMercadoPago_SubscriptionGateway';
-			echo WC_WooMercadoPago_JSGen::generate_refund_cancel_subscription(
-				$domain,
-				__( 'Operation successfully completed.', 'woo-mercado-pago-module' ),
-				__( 'This operation could not be completed.', 'woo-mercado-pago-module' ),
-				$options,
-				__( 'Payment ID:', 'woo-mercado-pago-module' ),
-				__( 'Amount:', 'woo-mercado-pago-module' ),
-				__( 'Refund Payment', 'woo-mercado-pago-module' ),
-				__( 'Cancel Payment', 'woo-mercado-pago-module' )
-			);
-		},
-		'mp_subscription_order_refund_cancel_box',
-		'shop_order', 'side', 'default'
-	);
+				if ( $options == '' ) {
+					return;
+				}
+				// Build javascript for the window.
+				$domain = get_site_url() . '/index.php' . '/woo-mercado-pago-module/';
+				$domain .= '?wc-api=WC_WooMercadoPago_SubscriptionGateway';
+				echo WC_WooMercadoPago_JSGen::generate_refund_cancel_subscription(
+					$domain,
+					__( 'Operation successfully completed.', 'woo-mercado-pago-module' ),
+					__( 'This operation could not be completed.', 'woo-mercado-pago-module' ),
+					$options,
+					__( 'Payment ID:', 'woo-mercado-pago-module' ),
+					__( 'Amount:', 'woo-mercado-pago-module' ),
+					__( 'Refund Payment', 'woo-mercado-pago-module' ),
+					__( 'Cancel Payment', 'woo-mercado-pago-module' )
+				);
+			},
+			'mp_subscription_order_refund_cancel_box',
+			'shop_order', 'side', 'default'
+		);
+	}
 }
 
 // Makes the recurrent product individually sold
 add_filter( 'woocommerce_is_sold_individually', 'default_no_quantities', 10, 2 );
 function default_no_quantities( $individually, $product ) {
-	if ( method_exists( $product, 'get_id' ) ) {
-		$product_id = $product->get_id();
-	} else {
-		$product_id = $product->id;
-	}
+	$product_id = ( method_exists( $product, 'get_id' ) ) ?
+		$product->get_id() :
+		$product->id;
 	$is_recurrent = get_post_meta( $product_id, '_mp_recurring_is_recurrent', true );
 	if ( $is_recurrent == 'yes' ) {
 		$individually = true;
@@ -95,11 +110,9 @@ function check_recurrent_product_singularity() {
 // Validate product date availability.
 add_filter( 'woocommerce_is_purchasable', 'filter_woocommerce_is_purchasable', 10, 2 );
 function filter_woocommerce_is_purchasable( $purchasable, $product ) {
-	if ( method_exists( $product, 'get_id' ) ) {
-		$product_id = $product->get_id();
-	} else {
-		$product_id = $product->id;
-	}
+	$product_id = ( method_exists( $product, 'get_id' ) ) ?
+		$product->get_id() :
+		$product->id;
 	// skip this check if product is not a subscription
 	$is_recurrent = get_post_meta( $product_id, '_mp_recurring_is_recurrent', true );
 	if ( $is_recurrent !== 'yes' ) {
@@ -122,13 +135,8 @@ function filter_woocommerce_is_purchasable( $purchasable, $product ) {
 // Add the settings under 'general' sub-menu.
 add_action( 'woocommerce_product_options_general_product_data', 'mp_add_recurrent_settings' );
 function mp_add_recurrent_settings() {
-
-	//global $woocommerce, $post, $thepostid;
 	wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
-	//$thepostid = $post->ID;
-
 	echo '<div class="options_group show_if_simple">';
-
 		woocommerce_wp_checkbox(
 			array(
 				'id' => '_mp_recurring_is_recurrent',
@@ -136,7 +144,6 @@ function mp_add_recurrent_settings() {
 				'description' => __( 'Make this product a subscription.', 'woo-mercado-pago-module' )
 			)
 		);
-
 		woocommerce_wp_text_input(
 			array(
 				'id' => '_mp_recurring_frequency',
@@ -147,7 +154,6 @@ function mp_add_recurrent_settings() {
 				'type' => 'number'
 			)
 		);
-
 		woocommerce_wp_select(
 			array(
 				'id' => '_mp_recurring_frequency_type',
@@ -160,7 +166,6 @@ function mp_add_recurrent_settings() {
 				)
 			)
 		);
-
 		woocommerce_wp_text_input(
 			array(
 				'id' => '_mp_recurring_end_date',
@@ -172,40 +177,34 @@ function mp_add_recurrent_settings() {
 				'custom_attributes' => array( 'pattern' => "[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" )
 			)
 		);
-
 	echo '</div>';
 }
 
 // Persists the options saved in product metadata.
 add_action( 'woocommerce_process_product_meta', 'mp_save_recurrent_settings' );
 function mp_save_recurrent_settings( $post_id ) {
-
 	$_mp_recurring_is_recurrent = $_POST['_mp_recurring_is_recurrent'];
 	if ( ! empty( $_mp_recurring_is_recurrent ) ) {
 		update_post_meta( $post_id, '_mp_recurring_is_recurrent', esc_attr( $_mp_recurring_is_recurrent ) );
 	} else {
 		update_post_meta( $post_id, '_mp_recurring_is_recurrent', esc_attr( null ) );
 	}
-
 	$_mp_recurring_frequency = $_POST['_mp_recurring_frequency'];
 	if ( ! empty( $_mp_recurring_frequency ) ) {
 		update_post_meta( $post_id, '_mp_recurring_frequency', esc_attr( $_mp_recurring_frequency ) );
 	} else {
 		update_post_meta( $post_id, '_mp_recurring_frequency', esc_attr( 1 ) );
 	}
-
 	$_mp_recurring_frequency_type = $_POST['_mp_recurring_frequency_type'];
 	if ( ! empty( $_mp_recurring_frequency_type ) ) {
 		update_post_meta( $post_id, '_mp_recurring_frequency_type', esc_attr( $_mp_recurring_frequency_type ) );
 	} else {
 		update_post_meta( $post_id, '_mp_recurring_frequency_type', esc_attr( 'days' ) );
 	}
-
 	$_mp_recurring_end_date = $_POST['_mp_recurring_end_date'];
 	if ( ! empty( $_mp_recurring_end_date ) ) {
 		update_post_meta( $post_id, '_mp_recurring_end_date', esc_attr( $_mp_recurring_end_date ) );
 	} else {
 		update_post_meta( $post_id, '_mp_recurring_end_date', esc_attr( null ) );
 	}
-
 }

@@ -336,11 +336,11 @@
 								__( 'Subscription', 'woo-mercado-pago-module' )
 							),
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
-								'mercadoenvios-normal',
+								'woo-mercado-pago-me-normal',
 								'Mercado Envios - Normal'
 							),
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
-								'mercadoenvios-express',
+								'woo-mercado-pago-me-express',
 								'Mercado Envios - Express'
 							) . '.<br>' .
 							__( 'You can access your logs in ', 'woo-mercado-pago-module' ) . '<strong>' .

@@ -50,7 +50,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - build_log_path_string( $gateway_id, $gateway_name )
 	 * - get_wc_status_for_mp_status( $mp_status )
 	 * - get_map( $selector_id )
-
 	 * @since 3.0.0
 	 */
 	class WC_Woo_Mercado_Pago_Module {
@@ -197,8 +196,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 
 		// Woocommerce_shipping_methods.
 		public function add_shipping( $methods ) {
-			$methods['mercadoenvios-normal'] = 'WC_MercadoEnvios_Shipping_Normal';
-			$methods['mercadoenvios-express'] = 'WC_MercadoEnvios_Shipping_Express';
+			$methods['woo-mercado-pago-me-normal'] = 'WC_MercadoEnvios_Shipping_Normal';
+			$methods['woo-mercado-pago-me-express'] = 'WC_MercadoEnvios_Shipping_Express';
 			return $methods;
 		}
 
@@ -958,6 +957,17 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			}
 		);
 	});
+
+	// ==========================================================================================
+
+	// add our own item to the order actions meta box
+	add_action( 'woocommerce_order_actions', 'add_mp_order_meta_box_actions' );
+	// define the item in the meta box by adding an item to the $actions array
+	function add_mp_order_meta_box_actions( $actions ) {
+		// TODO: translate "Cancel Order"
+		$actions['cancel_order'] = __( 'Cancel Order', 'woo-mercado-pago-module' );
+		return $actions;
+	}
 
 	// Payment gateways should be created as additional plugins that hook into WooCommerce.
 	// Inside the plugin, you need to create a class after plugins are loaded.
