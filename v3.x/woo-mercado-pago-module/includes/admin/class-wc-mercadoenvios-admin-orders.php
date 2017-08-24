@@ -23,28 +23,28 @@ class WC_MercadoEnvios_Admin_Orders {
 	 * Initialize the order actions.
 	 */
 	public function __construct() {
-		global $post;
-		$order = wc_get_order( $post->ID );
-		$shipment_id = ( method_exists( $order, 'get_meta' ) ) ?
-			$order->get_meta( '_mercadoenvios_shipment_id' ) :
-			get_post_meta( $post->ID, '_mercadoenvios_shipment_id', true );
-		if ( isset( $shipment_id ) && ! empty( $shipment_id ) ) {
-			add_action( 'add_meta_boxes', array( $this, 'register_metabox' ) );
-		}
+		add_action( 'add_meta_boxes', array( $this, 'register_metabox' ) );
 	}
 
 	/**
 	 * Register tracking code metabox.
 	 */
 	public function register_metabox() {
-		add_meta_box(
-			'wc_mercadoenvios',
-			'Mercado Envios',
-			array( $this, 'metabox_content' ),
-			'shop_order',
-			'side',
-			'high'
-		);
+		global $post;
+		$order = wc_get_order( $post->ID );
+		$shipment_id = ( method_exists( $order, 'get_meta' ) ) ?
+			$order->get_meta( '_mercadoenvios_shipment_id' ) :
+			get_post_meta( $post->ID, '_mercadoenvios_shipment_id', true );
+		if ( isset( $shipment_id ) && ! empty( $shipment_id ) ) {
+			add_meta_box(
+				'wc_mercadoenvios',
+				'Mercado Envios',
+				array( $this, 'metabox_content' ),
+				'shop_order',
+				'side',
+				'high'
+			);
+		}
 	}
 
 	/**
