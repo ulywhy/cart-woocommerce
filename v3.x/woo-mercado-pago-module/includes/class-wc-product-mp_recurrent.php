@@ -16,29 +16,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'add_meta_boxes', 'add_meta_boxes' );
 function add_meta_boxes() {
 	global $woocommerce;
-	$is_recurrent = 'no';
 	$w_cart = $woocommerce->cart;
-	if ( ! isset( $w_cart ) ) {
-		return;
-	}
-	$items = $w_cart->get_cart();
-	if ( sizeof( $items ) == 1 ) {
-		foreach ( $items as $cart_item_key => $cart_item ) {
-			$is_recurrent = get_post_meta( $cart_item['product_id'], '_mp_recurring_is_recurrent', true );
-			if ( $is_recurrent == 'yes' ) {
-				break;
-			}
+	// Check for recurrent product checkout.
+	if ( isset( $w_cart ) ) {
+		if ( WC_Woo_Mercado_Pago_Module::is_subscription( $w_cart->get_cart() ) ) {
+			add_meta_box(
+				'woocommerce-mp-order-action-refund',
+				__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
+				'mp_subscription_order_refund_cancel_box',
+				'shop_order',
+				'side',
+				'default'
+			);
 		}
-	}
-	if ( $is_recurrent == 'yes' ) {
-		add_meta_box(
-			'woocommerce-mp-order-action-refund',
-			__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
-			'mp_subscription_order_refund_cancel_box',
-			'shop_order',
-			'side',
-			'default'
-		);
 	}
 }
 
