@@ -60,7 +60,8 @@ class WC_MercadoEnvios_Admin_Orders {
 
 		if ( isset( $status ) && $status != '' && $status != 'pending' ) {
 			echo '<label for="mercadoenvios_tracking_code">' . esc_html__( 'Tracking code:', 'woo-mercado-pago-module' ) . '</label><br />';
-			echo '<input type="text" id="mercadoenvios_tracking_code" name="mercadoenvios_tracking_code" value="' . esc_attr( $tracking_number ) . '" style="width: 100%;" />';
+			echo '<input type="text" id="mercadoenvios_tracking_code" name="mercadoenvios_tracking_code" value="' .
+				esc_attr( $tracking_number ) . '" style="width:100%; style="width: 100%;" />';
 			// Check exist shipment_id
 			if ( isset( $shipment_id ) && $shipment_id != '' ) {
 				$client_id = get_option( '_mp_client_id', '' );
@@ -70,8 +71,10 @@ class WC_MercadoEnvios_Admin_Orders {
 					$client_id,
 					$client_secret
 				);
-				echo '<label for="mercadoenvios_tracking_number">' . esc_html__( 'Tag:', 'woo-mercado-pago-module' ) . '</label><br />';
-				echo '<a href="https://api.mercadolibre.com/shipment_labels?shipment_ids=' . esc_attr( $shipment_id ) . '&savePdf=Y&access_token=' . $this->mp->get_access_token() . '" class="button-primary" target="_blank">' . esc_html__( 'Print', 'woo-mercado-pago-module' ) . '</a>';
+				echo '<br /><label for="mercadoenvios_tracking_number">' . esc_html__( 'Tag:', 'woo-mercado-pago-module' ) . '</label><br />';
+				echo '<a href="https://api.mercadolibre.com/shipment_labels?shipment_ids=' . esc_attr( $shipment_id ) .
+					'&savePdf=Y&access_token=' . $this->mp->get_access_token() .
+					'" style="width:100%;" class="button" target="_blank">' . esc_html__( 'Print', 'woo-mercado-pago-module' ) . '</a>';
 			}
 		} else {
 			echo '<label for="mercadoenvios_tracking_number">' . esc_html__( 'Shipping is pending', 'woo-mercado-pago-module' ) . '</label><br />';
