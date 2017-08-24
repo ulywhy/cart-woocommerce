@@ -103,7 +103,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		// Check if Basic Checkout is enabled.
 		$checkout_standard = new WC_WooMercadoPago_BasicGateway();
 		if ( $checkout_standard->get_option( 'enabled' ) != 'yes' ) {
-			$this->write_log( __FUNCTION__, '[calculate_shipping] mercado pago standard needs to be active... ' );
+			$this->write_log( __FUNCTION__, 'mercado pago standard needs to be active... ' );
 			return;
 		}
 
@@ -156,11 +156,11 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		}
 
 		$response = $mp->get( '/shipping_options', $params );
-		$this->write_log( __FUNCTION__, '[calculate_shipping] Params sent: ' . json_encode( $params, JSON_PRETTY_PRINT ) );
-		$this->write_log( __FUNCTION__, '[calculate_shipping] Shipments Response API: ' . json_encode( $response, JSON_PRETTY_PRINT ) );
+		$this->write_log( __FUNCTION__, 'params sent: ' . json_encode( $params, JSON_PRETTY_PRINT ) );
+		$this->write_log( __FUNCTION__, 'shipments response API: ' . json_encode( $response, JSON_PRETTY_PRINT ) );
 
 		if ( $response['status'] != 200 ) {
-			$this->write_log( __FUNCTION__, '[calculate_shipping] got response different of 200... returning false.' );
+			$this->write_log( __FUNCTION__, 'got response different of 200... returning false.' );
 			return false;
 		}
 
@@ -198,7 +198,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 					)
 				);
 				
-				$this->write_log( __FUNCTION__, '[calculate_shipping] Optiond added: ' . json_encode( $option, JSON_PRETTY_PRINT ) );
+				$this->write_log( __FUNCTION__, 'optiond added: ' . json_encode( $option, JSON_PRETTY_PRINT ) );
 
 				$this->add_rate( $option );
 			}
