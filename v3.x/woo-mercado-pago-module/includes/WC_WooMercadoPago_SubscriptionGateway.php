@@ -21,12 +21,13 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 	public function __construct() {
 		
 		// WooCommerce fields.
-		$this->mp = null;
 		$this->id = 'woo-mercado-pago-subscription';
+		//$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
 			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) )
 		);
+		
 		$this->method_title = __( 'Mercado Pago - Subscription', 'woo-mercado-pago-module' );
 		$this->method_description = '<img width="200" height="52" src="' .
 			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) .
