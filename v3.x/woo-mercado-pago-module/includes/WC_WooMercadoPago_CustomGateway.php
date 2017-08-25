@@ -429,30 +429,34 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	public function add_checkout_scripts_custom() {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
-				$amount = $this->get_order_total();
+				$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 				$discount_action_url = get_site_url() . '/index.php/woo-mercado-pago-module/?wc-api=WC_WooMercadoPago_CustomGateway';
 				wp_enqueue_style(
 					'woocommerce-mercadopago-style',
-					plugins_url(
-						'assets/css/custom_checkout_mercadopago.css',
-						plugin_dir_path( __FILE__ )
-					)
+					plugins_url( 'assets/css/custom_checkout_mercadopago.css', plugin_dir_path( __FILE__ ) )
+				);
+				wp_enqueue_script(
+					'mercado-pago-module-js',
+					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
 				);
 				wp_enqueue_script(
 					'woo-mercado-pago-module-custom-js',
 					plugins_url( 'assets/js/credit-card.js', plugin_dir_path( __FILE__ ) ),
-					array( 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js' ),
+					array( 'mercado-pago-module-js' ),
 					WC_Woo_Mercado_Pago_Module::VERSION,
 					true
 				);
 				wp_localize_script(
-					'mercadopago-custom',
+					'woo-mercado-pago-module-custom-js',
 					'wc_mercadopago_custom_params',
 					array(
-						'amount'              => $amount, // TODO: convert currency v1
 						'site_id'             => get_option( '_site_id_v1' ),
 						'public_key'          => get_option( '_mp_public_key' ),
+						'payer_email'         => $logged_user_email,
+						'coupon_mode'         => isset( $logged_user_email ) ? $this->coupon_mode : 'no',
 						'discount_action_url' => $discount_action_url,
+						'images_path'         => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
+						// ===
 						'coupon_empty'        => __( 'Please, inform your coupon code', 'woo-mercado-pago-module' ),
 						'apply'               => __( 'Apply', 'woo-mercado-pago-module' ),
 						'remove'              => __( 'Remove', 'woo-mercado-pago-module' ),
@@ -477,10 +481,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		$amount = $this->get_order_total();
 		$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$customer = isset( $logged_user_email ) ? $this->mp->get_or_create_customer( $logged_user_email ) : null;
+		$discount_action_url = get_site_url() . '/index.php/woo-mercado-pago-module/?wc-api=WC_WooMercadoPago_CustomGateway';
 
 		$parameters = array(
-			'amount'                 => $amount,
-			'site_id'                => get_option( '_site_id_v1' ),
+			'amount'                 => $amount, // TODO: convert currency v1
+			//'site_id'                => get_option( '_site_id_v1' ),
+			//'public_key'             => get_option( '_mp_public_key' ),
 			'images_path'            => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
 			'banner_path'            => $this->site_data['checkout_banner_custom'],
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
@@ -489,7 +495,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			'coupon_mode'            => isset( $logged_user_email ) ? $this->coupon_mode : 'no',
 			'currency_ratio'         => 2, // TODO: on-the-fly retrieve currency ratio
 			'woocommerce_currency'   => get_woocommerce_currency(),
-			'account_currency'       => $this->site_data['currency']
+			'account_currency'       => $this->site_data['currency'],
+			'discount_action_url'    => $discount_action_url
 		);
 
 		wc_get_template(

@@ -116,7 +116,7 @@ body{
 }
 
 #mercadopago-utilities{
-  display: none;
+  /*display: none;*/
 }
 
 .mp-btn, .ch-btn {
