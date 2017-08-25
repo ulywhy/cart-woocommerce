@@ -90,7 +90,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		// Scripts for custom checkout.
 		add_action(
 			'wp_enqueue_scripts',
-			array( $this, 'custom_checkout_scripts' )
+			array( $this, 'add_checkout_scripts_custom' )
 		);
 		// Apply the discounts.
 		/*add_action(
@@ -426,17 +426,17 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		}
 	}
 
-	public function custom_checkout_scripts() {
+	public function add_checkout_scripts_custom() {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
 				/*$session_id = $this->api->get_session_id(); */
 				wp_enqueue_style(
-					'woocommerce-mercadopago-style', plugins_url(
+					'woocommerce-mercadopago-style',
+					plugins_url(
 						'assets/css/custom_checkout_mercadopago.css',
-						plugin_dir_path( __FILE__ ) ) );
-				/*wp_enqueue_script(
-					'woocommerce-mercadopago-v1',
-					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js' );*/
+						plugin_dir_path( __FILE__ )
+					)
+				);
 				wp_enqueue_script(
 					'woo-mercado-pago-module-custom-js',
 					plugins_url( 'assets/js/credit-card.js', plugin_dir_path( __FILE__ ) ),
@@ -444,20 +444,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::VERSION,
 					true
 				);
-
-				/*wp_localize_script(
-					'pagseguro-checkout',
-					'wc_pagseguro_params',
-					array(
-						'session_id'         => $session_id,
-						'interest_free'      => __( 'interest free', 'woocommerce-pagseguro' ),
-						'invalid_card'       => __( 'Invalid credit card number.', 'woocommerce-pagseguro' ),
-						'invalid_expiry'     => __( 'Invalid expiry date, please use the MM / YYYY date format.', 'woocommerce-pagseguro' ),
-						'expired_date'       => __( 'Please check the expiry date and use a valid format as MM / YYYY.', 'woocommerce-pagseguro' ),
-						'general_error'      => __( 'Unable to process the data from your credit card on the PagSeguro, please try again or contact us for assistance.', 'woocommerce-pagseguro' ),
-						'empty_installments' => __( 'Select a number of installments.', 'woocommerce-pagseguro' ),
-					)
-				);*/
 			}
 		}
 	}
@@ -465,7 +451,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	public function payment_fields() {
 		
 		wp_enqueue_script( 'wc-credit-card-form' );
-		
+
 		/*$amount = $this->get_order_total();*/
 		$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$customer = isset( $logged_user_email ) ? $this->mp->get_or_create_customer( $logged_user_email ) : null;
