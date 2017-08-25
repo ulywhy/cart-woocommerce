@@ -441,7 +441,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				wp_enqueue_script(
 					'woo-mercado-pago-module-custom-js',
 					plugins_url( 'assets/js/credit-card.js', plugin_dir_path( __FILE__ ) ),
-					array(),
+					array( 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js' ),
 					WC_Woo_Mercado_Pago_Module::VERSION,
 					true
 				);
@@ -474,10 +474,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		
 		wp_enqueue_script( 'wc-credit-card-form' );
 
+		$amount = $this->get_order_total();
 		$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$customer = isset( $logged_user_email ) ? $this->mp->get_or_create_customer( $logged_user_email ) : null;
 
 		$parameters = array(
+			'amount'                 => $amount,
 			'images_path'            => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
 			'banner_path'            => $this->site_data['checkout_banner_custom'],
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),

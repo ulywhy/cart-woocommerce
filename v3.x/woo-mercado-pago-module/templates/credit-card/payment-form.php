@@ -205,6 +205,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div class="mp-box-inputs mp-col-100" id="mercadopago-utilities" >
+		<input type="hidden" id="site_id" name="mercadopago_custom[site_id]"/>
 		<input type="hidden" id="amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]"/>
 		<input type="hidden" id="campaign_id" name="mercadopago_custom[campaign_id]"/>
 		<input type="hidden" id="campaign" name="mercadopago_custom[campaign]"/>
