@@ -40,6 +40,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - get_categories()
 	 * - get_site_data( $is_v1 = false )
 	 * - workaround_ampersand_bug( $link )
+	 * - get_templates_path()
 	 * - get_module_version()
 	 * - is_subscription( $items )
 	 * - is_supported_currency( $site_id )
@@ -159,6 +160,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-shipping-express.php';
 				include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-package.php';
 				add_filter( 'woocommerce_shipping_methods', array( $this, 'add_shipping' ) );
+				add_filter( 'woocommerce_available_payment_gateways', array( $this, 'filter_payment_method_by_shipping' ) );
 				
 				// This adds custom links in the plugin page.
 				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'woomercadopago_settings_link' ) );
@@ -199,6 +201,29 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		public function add_shipping( $methods ) {
 			$methods['woo-mercado-pago-me-normal'] = 'WC_MercadoEnvios_Shipping_Normal';
 			$methods['woo-mercado-pago-me-express'] = 'WC_MercadoEnvios_Shipping_Express';
+			return $methods;
+		}
+
+		// When selecting Mercado Envios as shipping method, customer can only do the payment with Mercado Pago Basic Checkout
+		public function filter_payment_method_by_shipping( $methods ) {
+			$session = WC()->session;
+			if ( ! isset( $session ) ) {
+				return $methods;
+			}
+			$chosen_methods = $session->get( 'chosen_shipping_methods' );
+			$chosen_shipping = $chosen_methods[0];
+			// Check shipping methods is a Mercado Envios.
+			if ( strpos( $chosen_shipping, 'woo-mercado-pago-me-normal' ) !== false || strpos( $chosen_shipping, 'woo-mercado-pago-me-express' ) !== false ) {
+				$new_array = array();
+				foreach ( $methods as $payment_method => $payment_method_object ) {
+					if ( $payment_method == 'woo-mercado-pago-basic' ) {
+						$new_array['woo-mercado-pago-basic'] = $payment_method_object;
+					}
+				}
+				// Return new array shipping methods (only with Mercado Pago Basic Checkout).
+				return $new_array;
+			}
+			// Return all shipping methods.
 			return $methods;
 		}
 
@@ -269,7 +294,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					$access_token = $mp_v0->get_access_token();
 					$get_request = $mp_v0->get( '/users/me?access_token=' . $access_token );
 					if ( isset( $get_request['response']['site_id'] ) && ! empty( $access_token ) ) {
-						update_option( '_access_token_v0', $access_token, true );
 						update_option( '_test_user_v0', in_array( 'test_user', $get_request['response']['tags'], true ) );
 						update_option( '_site_id_v0', $get_request['response']['site_id'], true );
 						update_option( '_collector_id_v0', $get_request['response']['id'], true );
@@ -296,7 +320,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					// TODO: should we handle an exception here?
 				}
 			}
-			update_option( '_access_token_v0', '', true );
 			update_option( '_test_user_v0', '', true );
 			update_option( '_site_id_v0', '', true );
 			update_option( '_collector_id_v0', '', true );
@@ -330,7 +353,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					$access_token = $mp_v1->get_access_token();
 					$get_request = $mp_v1->get( '/users/me?access_token=' . $access_token );
 					if ( isset( $get_request['response']['site_id'] ) && ! empty( $public_key ) ) {
-						update_option( '_access_token_v1', $access_token, true );
 						update_option( '_test_user_v1', in_array( 'test_user', $get_request['response']['tags'] ), true );
 						update_option( '_site_id_v1', $get_request['response']['site_id'], true );
 						update_option( '_collector_id_v1', $get_request['response']['id'], true );
@@ -364,8 +386,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					// TODO: should we handle an exception here?
 				}
 			}
-			update_option( '_access_token_v1', '', true );
-			update_option( '_test_user_v1', 'abc', true );
+			update_option( '_test_user_v1', '', true );
 			update_option( '_site_id_v1', '', true );
 			update_option( '_collector_id_v1', '', true );
 			update_option( '_all_payment_methods_v1', array(), true );
@@ -470,6 +491,15 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// Fix to URL Problem : #038; replaces & and breaks the navigation.
 		public static function workaround_ampersand_bug( $link ) {
 			return str_replace( '\/', '/', str_replace( '&#038;', '&', $link) );
+		}
+
+		/**
+		 * Summary: Find template's folder.
+		 * Description: Find template's folder.
+		 * @return a string that identifies the path.
+		 */
+		public static function get_templates_path() {
+			return plugin_dir_path( __FILE__ ) . 'templates/';
 		}
 
 		/**

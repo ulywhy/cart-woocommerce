@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Check why subscription haven't registered a recurrent payment.
+
 /**
  * Part of Woo Mercado Pago Module
  * Author - Mercado Pago
@@ -19,13 +21,21 @@ require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
 class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 
 	public function __construct() {
+
+		// Mercao Pago instance.
+		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( false );
+		$this->mp = new MP(
+			WC_Woo_Mercado_Pago_Module::get_module_version(),
+			get_option( '_mp_client_id' ),
+			get_option( '_mp_client_secret' )
+		);
 		
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-subscription';
 		//$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) )
+			$this->site_data['checkout_banner']
 		);
 		
 		$this->method_title = __( 'Mercado Pago - Subscription', 'woo-mercado-pago-module' );
@@ -35,13 +45,6 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			__( 'This service allows you to subscribe customers to subscription plans.', 'woo-mercado-pago-module' ) .
 		'</strong>';
 
-		// Mercao Pago instance.
-		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( false );
-		$this->mp = new MP(
-			WC_Woo_Mercado_Pago_Module::get_module_version(),
-			get_option( '_mp_client_id' ),
-			get_option( '_mp_client_secret' )
-		);
 		// TODO: Verify sandbox availability.
 		$this->mp->sandbox_mode( false );
 

@@ -19,13 +19,21 @@ require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
 class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 	public function __construct() {
+
+		// Mercao Pago instance.
+		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( false );
+		$this->mp = new MP(
+			WC_Woo_Mercado_Pago_Module::get_module_version(),
+			get_option( '_mp_client_id' ),
+			get_option( '_mp_client_secret' )
+		);
 		
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-basic';
 		$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			plugins_url( 'assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
+			$this->site_data['checkout_banner']
 		);
 
 		$this->method_title = __( 'Mercado Pago - Basic Checkout', 'woo-mercado-pago-module' );
@@ -35,13 +43,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			__( 'Receive payments in a matter of minutes. We make it easy for you: just tell us what you want to collect and we’ll take care of the rest.', 'woo-mercado-pago-module' ) .
 		'</strong>';
 
-		// Mercao Pago instance.
-		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( false );
-		$this->mp = new MP(
-			WC_Woo_Mercado_Pago_Module::get_module_version(),
-			get_option( '_mp_client_id' ),
-			get_option( '_mp_client_secret' )
-		);
 		// TODO: Verify sandbox availability.
 		$this->mp->sandbox_mode( false );
 
@@ -524,7 +525,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	public function add_checkout_script() {
 
 		$client_id = get_option( '_mp_client_id' );
-		$is_test_user = get_option( '_test_user_v0' );
+		$is_test_user = get_option( '_test_user_v0', false );
 		
 		if ( ! empty( $client_id ) && ! $is_test_user ) {
 
