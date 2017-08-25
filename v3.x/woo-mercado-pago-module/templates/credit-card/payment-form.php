@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="form-col-4">
 			<label >&nbsp;</label>
-			<input type="button" class="button" id="applyCouponCustom" value="<?php esc_html_e( 'Apply', 'woo-mercado-pago-module' ); ?>">
+			<input type="button" class="button form-control-mine" id="applyCouponCustom" value="<?php esc_html_e( 'Apply', 'woo-mercado-pago-module' ); ?>">
 		</div>
 	</div>
 
@@ -80,7 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</label>
 					<input type="text" id="customer-and-card-securityCode" data-checkout="securityCode"
 						autocomplete="off" class="form-control-mine" maxlength="4"
-						style="width: 100%; padding: 8px; background: url(<?php echo ($images_path . 'cvv.png'); ?>) 98% 50% no-repeat;"/>
+						background: url(<?php echo ($images_path . 'cvv.png'); ?>) 98% 50% no-repeat;"/>
 					<span class="mp-error" id="mp-error-224" data-main="#customer-and-card-securityCode">
 						<?php esc_html_e( 'Parameter securityCode can not be null/empty', 'woo-mercado-pago-module' ); ?>
 					</span>
