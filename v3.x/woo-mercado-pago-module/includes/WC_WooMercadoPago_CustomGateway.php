@@ -480,6 +480,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 
 		$parameters = array(
 			'amount'                 => $amount,
+			'site_id'             => get_option( '_site_id_v1' ),
 			'images_path'            => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
 			'banner_path'            => $this->site_data['checkout_banner_custom'],
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
