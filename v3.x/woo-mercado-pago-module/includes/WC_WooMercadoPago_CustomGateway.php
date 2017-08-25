@@ -430,7 +430,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
 				$amount = $this->get_order_total();
-				$session_id = $this->api->get_session_id();
 				$discount_action_url = $this->domain . '/woo-mercado-pago-module/?wc-api=WC_WooMercadoPago_CustomGateway';
 				wp_enqueue_style(
 					'woocommerce-mercadopago-style',
@@ -450,7 +449,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					'mercadopago-custom',
 					'wc_mercadopago_custom_params',
 					array(
-						'session_id'          => $session_id,
 						'amount'              => $amount, // TODO: convert currency v1
 						'site_id'             => get_option( '_site_id_v1' ),
 						'public_key'          => get_option( '_mp_public_key' ),
