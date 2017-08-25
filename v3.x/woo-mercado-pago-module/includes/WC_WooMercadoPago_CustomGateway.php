@@ -430,7 +430,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
 				$amount = $this->get_order_total();
-				$discount_action_url = $this->domain . '/woo-mercado-pago-module/?wc-api=WC_WooMercadoPago_CustomGateway';
+				$discount_action_url = get_site_url() . '/index.php/woo-mercado-pago-module/?wc-api=WC_WooMercadoPago_CustomGateway';
 				wp_enqueue_style(
 					'woocommerce-mercadopago-style',
 					plugins_url(
