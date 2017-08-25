@@ -1,122 +1,4 @@
-.mp-header {
-    height: 72px;
-    margin: 0px;
-    padding: 1.5em;
-    background: white !important;
-}
-
-.mp-header-logo {
-    width: 156px;
-    height: 40px;
-    float: left;
-}
-
-.mp-header-banner {
-    width: 312px;
-    height: 40px;
-    float: right;
-}
-
-.mp-field-set {
-    background: white !important;
-    margin: 0px;
-}
-
-.mp-payment-form {
-    width: 100%;
-    margin: 5px 0;
-    float: left;
-}
-
-.form-control-mine {
-    width: 100%;
-    padding: 5px;
-    font-size: 16px;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 12px;
-}
-
-.form-col-1 {
-    width: 8.33333333%;
-}
-.form-col-2 {
-    width: 16.66666667%;
-}
-.form-col-3 {
-    width: 25%;
-}
-.form-col-4 {
-    width: 33.33333333%;
-}
-.form-col-5 {
-    width: 41.66666667%;
-}
-.form-col-6 {
-    width: 50%;
-}
-.form-col-7 {
-    width: 58.33333333%;
-}
-.form-col-8 {
-    width: 66.66666667%;
-}
-.form-col-9 {
-    width: 75%;
-}
-.form-col-10 {
-    width: 83.33333333%;
-}
-.form-col-11 {
-    width: 91.66666667%;
-}
-.form-col-12 {
-    width: 100%;
-}
-
-[class^=form-col-] {
-    position: relative;
-    min-height: 1px;
-    padding-right: 5px;
-    padding-left: 5px;
-    float: left;
-    /*-webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;*/
-    box-sizing: border-box;
-}
-
-.mp-discount {
-    text-transform: uppercase;
-    font-size: 12px;
-    /*color: #009EE3;*/
-    color: #333333;
-    display: none;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    clear: both;
-    float: left;
-}
-
-.mp-error{
-    text-transform: uppercase;
-    font-size: 10px;
-    margin-bottom: 12px;
-    color: red;
-    font-weight: bold;
-    display: none;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    clear: both;
-    float: left;
-}
-
-/* ===== */
-
-
-/*
-
-body {
+body{
   background-color: #F5F5F5;
   padding: 0;
   margin: 0;
@@ -272,9 +154,9 @@ body {
 
 .mp-discount{
   text-transform: uppercase;
-  font-size: 12px;*/
+  font-size: 12px;
   /*color: #009EE3;*/
-  /*color: #333333;
+  color: #333333;
   display: none;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   clear: both;
@@ -299,9 +181,57 @@ body {
 
 #mercadopago-form-coupon .mp-box-message{
   margin: -5px 0 5px;
-}*/
+}
 
-/*.form-control-mine {
+[class^=form-col-]{
+  position: relative;
+  min-height: 1px;
+  padding-right: 5px;
+  padding-left: 5px;
+  float: left;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+}
+
+.form-col-1{
+  width: 8.33333333%;
+}
+.form-col-2{
+  width: 16.66666667%;
+}
+.form-col-3{
+  width: 25%;
+}
+.form-col-4{
+  width: 33.33333333%;
+}
+.form-col-5{
+  width: 41.66666667%;
+}
+.form-col-6{
+  width: 50%;
+}
+.form-col-7{
+  width: 58.33333333%;
+}
+.form-col-8{
+  width: 66.66666667%;
+}
+.form-col-9{
+  width: 75%;
+}
+.form-col-10{
+  width: 83.33333333%;
+}
+.form-col-11{
+  width: 91.66666667%;
+}
+.form-col-12{
+  width: 100%;
+}
+
+.form-control-mine {
   width: 100%;
   padding: 5px;
   font-size: 16px;
@@ -324,7 +254,7 @@ select#fixed {
   margin-top: 8px;
   margin-bottom: 16px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}*/
+}
 
 /*
  *
@@ -334,7 +264,7 @@ select#fixed {
  *
  */
 
-/*.mp-error{
+.mp-error{
   text-transform: uppercase;
   font-size: 10px;
   margin-bottom: 12px;
@@ -375,4 +305,3 @@ select#fixed {
   margin-top: 16px;
   display: none;
 }
-*/
