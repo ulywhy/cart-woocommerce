@@ -180,8 +180,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div id="mp-box-installments-selector" class="form-col-8">
 					<label for="installments">
 						<?php echo esc_html_e( 'Installments', 'woo-mercado-pago-module' ); ?>
-						<?php if ($is_currency_conversion > 0) :
-							echo "(" . esc_html_e( 'Payment converted from', 'woo-mercado-pago-module' ) . " " .
+						<?php if ( $currency_ratio != 1 ) :
+							echo " (" . esc_html_e( 'Payment converted from', 'woo-mercado-pago-module' ) . " " .
 							$woocommerce_currency . " " . esc_html_e( 'to', 'woo-mercado-pago-module' ) . " " .
 							$account_currency . ")";
 						endif; ?> <em>*</em>
