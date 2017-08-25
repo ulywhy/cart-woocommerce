@@ -485,7 +485,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
 			'customerId'             => isset( $customer ) ? ( isset( $customer['id'] ) ? $customer['id'] : null ) : null,
 			'payer_email'            => $logged_user_email,
-			'coupon_mode'            => isset( $logged_user_email ) ? $this->coupon_mode : 'no'
+			'coupon_mode'            => isset( $logged_user_email ) ? $this->coupon_mode : 'no',
 			'is_currency_conversion' => 1, // TODO: on-the-fly retrieve currency ratio
 			'woocommerce_currency'   => get_woocommerce_currency(),
 			'account_currency'       => $this->site_data['currency']
