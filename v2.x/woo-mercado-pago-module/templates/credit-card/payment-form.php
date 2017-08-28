@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <fieldset style="background:white;">
 
 	<div class="mp-box-inputs mp-line" id="mercadopago-form-coupon"
-	style="padding:0px 36px 16px 36px;">
+	style="padding:0px 12px 16px 12px;">
 		<label for="couponCodeLabel">
 			<?php echo $form_labels['form']['coupon_of_discounts']; ?>
 		</label>
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<!-- payment method -->
-	<div id="mercadopago-form-customer-and-card" style="padding:0px 36px 0px 36px;">
+	<div id="mercadopago-form-customer-and-card" style="padding:0px 12px 0px 12px;">
 		<div class="mp-box-inputs mp-line">
 			<label for="paymentMethodIdSelector">
 				<?php echo $form_labels['form']['payment_method']; ?> <em>*</em>
@@ -94,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div> <!--  end mercadopago-form-osc -->
 
-	<div id="mercadopago-form" style="padding:0px 36px 0px 36px;">
+	<div id="mercadopago-form" style="padding:0px 12px 0px 12px;">
 		<!-- Card Number -->
 		<div class="mp-box-inputs mp-col-100">
 			<label for="cardNumber">
@@ -219,28 +219,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div> <!-- end #mercadopago-form -->
 
-	<div id="mp-box-installments" style="padding:0px 36px 0px 36px;">
-		<div class="mp-box-inputs mp-col-50" id="mp-box-installments-selector">
-			<label for="installments">
-				<?php echo $form_labels['form']['installments']; ?>
-				<?php if ($is_currency_conversion > 0) :
-					echo "(" . $form_labels['form']['payment_converted'] . " " .
-					$woocommerce_currency . " " . $form_labels['form']['to'] . " " .
-					$account_currency . ")";
-				endif; ?> <em>*</em>
-			</label>
-			<select id="installments" data-checkout="installments"
-			name="mercadopago_custom[installments]"></select>
-		</div>
-		<div class="mp-box-inputs mp-col-50 mp-col-70" id="mp-box-input-tax-cft">
-			<label >&nbsp;</label>
-			<div id="mp-tax-cft-text"></div>
-		</div>
-		<div class="mp-box-inputs mp-col-100" id="mp-box-input-tax-tea">
-			<div id="mp-tax-tea-text"></div>
+	<div id="mp-box-installments" class="mp-box-inputs mp-line">
+		<div class="form-row" >
+			<div id="mp-box-installments-selector" class="form-col-8" style="padding:0px 12 0px 12;">
+				<label for="installments">
+					<?php echo $form_labels['form']['installments']; ?>
+					<?php if ($is_currency_conversion > 0) :
+						echo "(" . $form_labels['form']['payment_converted'] . " " .
+						$woocommerce_currency . " " . $form_labels['form']['to'] . " " .
+						$account_currency . ")";
+					endif; ?> <em>*</em>
+				</label>
+				<select id="installments" data-checkout="installments" class="form-control-mine"
+					name="mercadopago_custom[installments]" style="width: 100%;"></select>
+			</div>
+			<div id="mp-box-input-tax-cft" class="form-col-4" style="padding:0px 12 0px 12;">
+				<div id="mp-box-input-tax-tea"><div id="mp-tax-tea-text"></div></div>
+				<div id="mp-tax-cft-text"></div>
+			</div>
 		</div>
 	</div>
-	<div class="mp-box-inputs mp-line" style="padding:0px 36px 0px 36px;">
+
+	<div class="mp-box-inputs mp-line" style="padding:0px 12px 0px 12px;">
 		<!-- NOT DELETE LOADING-->
 		<div class="mp-box-inputs mp-col-25">
 			<div id="mp-box-loading"></div>
@@ -248,7 +248,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div class="mp-box-inputs mp-col-100" id="mercadopago-utilities"
-	style="padding:0px 36px 0px 36px;">
+	style="padding:0px 12px 0px 12px;">
 		<input type="hidden" id="site_id" name="mercadopago_custom[site_id]"/>
 		<input type="hidden" id="amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]"/>
 		<input type="hidden" id="campaign_id" name="mercadopago_custom[campaign_id]"/>
@@ -1334,7 +1334,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		} else {
 			document.querySelector( MPv1.selectors.mpSecurityCodeCustomerAndCard ).style.display = "none";
 			document.querySelector( MPv1.selectors.form ).removeAttribute( "style" );
-			document.querySelector( MPv1.selectors.form ).style.padding = "0px 36px 0px 36px";
+			document.querySelector( MPv1.selectors.form ).style.padding = "0px 12px 0px 12px";
 		}
 		Mercadopago.clearSession();
 		if ( MPv1.create_token_on.event ) {

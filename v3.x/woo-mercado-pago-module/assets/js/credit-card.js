@@ -1038,24 +1038,6 @@
 
 } ).call();
 
-// === Instantiation
-
-MPv1.text.apply = wc_mercadopago_custom_params.apply;
-MPv1.text.remove = wc_mercadopago_custom_params.remove;
-MPv1.text.coupon_empty = wc_mercadopago_custom_params.coupon_empty;
-MPv1.text.choose = wc_mercadopago_custom_params.label_choose;
-MPv1.text.other_bank = wc_mercadopago_custom_params.label_other_bank;
-MPv1.text.discount_info1 = wc_mercadopago_custom_params.discount_info1;
-MPv1.text.discount_info2 = wc_mercadopago_custom_params.discount_info2;
-MPv1.text.discount_info3 = wc_mercadopago_custom_params.discount_info3;
-MPv1.text.discount_info4 = wc_mercadopago_custom_params.discount_info4;
-MPv1.text.discount_info5 = wc_mercadopago_custom_params.discount_info5;
-MPv1.text.discount_info6 = wc_mercadopago_custom_params.discount_info6;
-
-MPv1.paths.loading = wc_mercadopago_custom_params.images_path + 'loading.gif';
-MPv1.paths.check = wc_mercadopago_custom_params.images_path + 'check.png';
-MPv1.paths.error = wc_mercadopago_custom_params.images_path + 'error.png';
-
 // Overriding this function to give form padding attribute.
 MPv1.setForm = function() {
 	if ( MPv1.customer_and_card.status ) {
@@ -1092,6 +1074,24 @@ MPv1.showErrors = function( response ) {
 	}
 	return;
 }
+
+// === Instantiation
+
+MPv1.text.apply = wc_mercadopago_custom_params.apply;
+MPv1.text.remove = wc_mercadopago_custom_params.remove;
+MPv1.text.coupon_empty = wc_mercadopago_custom_params.coupon_empty;
+MPv1.text.choose = wc_mercadopago_custom_params.label_choose;
+MPv1.text.other_bank = wc_mercadopago_custom_params.label_other_bank;
+MPv1.text.discount_info1 = wc_mercadopago_custom_params.discount_info1;
+MPv1.text.discount_info2 = wc_mercadopago_custom_params.discount_info2;
+MPv1.text.discount_info3 = wc_mercadopago_custom_params.discount_info3;
+MPv1.text.discount_info4 = wc_mercadopago_custom_params.discount_info4;
+MPv1.text.discount_info5 = wc_mercadopago_custom_params.discount_info5;
+MPv1.text.discount_info6 = wc_mercadopago_custom_params.discount_info6;
+
+MPv1.paths.loading = wc_mercadopago_custom_params.images_path + 'loading.gif';
+MPv1.paths.check = wc_mercadopago_custom_params.images_path + 'check.png';
+MPv1.paths.error = wc_mercadopago_custom_params.images_path + 'error.png';
 
 MPv1.Initialize(
 	wc_mercadopago_custom_params.site_id,

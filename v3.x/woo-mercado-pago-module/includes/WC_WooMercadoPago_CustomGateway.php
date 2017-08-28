@@ -429,8 +429,10 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	public function add_checkout_scripts_custom() {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
+				/* TODO: separate javascript from html template
 				$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 				$discount_action_url = get_site_url() . '/index.php/woo-mercado-pago-module/?wc-api=WC_WooMercadoPago_CustomGateway';
+				*/
 				wp_enqueue_style(
 					'woocommerce-mercadopago-style',
 					plugins_url( 'assets/css/custom_checkout_mercadopago.css', plugin_dir_path( __FILE__ ) )
@@ -439,7 +441,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					'mercado-pago-module-js',
 					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
 				);
-				/* TODO: separate scripts from html
+				/* TODO: separate javascript from html template
 				wp_enqueue_script(
 					'woo-mercado-pago-module-custom-js',
 					plugins_url( 'assets/js/credit-card.js', plugin_dir_path( __FILE__ ) ),
@@ -453,14 +455,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					array(
 						'site_id'             => get_option( '_site_id_v1' ),
 						'public_key'          => get_option( '_mp_public_key' ),
-						'payer_email'         => $logged_user_email,
 						'coupon_mode'         => isset( $logged_user_email ) ? $this->coupon_mode : 'no',
 						'discount_action_url' => $discount_action_url,
-						'images_path'         => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
+						'payer_email'         => $logged_user_email,
 						// ===
-						'coupon_empty'        => __( 'Please, inform your coupon code', 'woo-mercado-pago-module' ),
 						'apply'               => __( 'Apply', 'woo-mercado-pago-module' ),
 						'remove'              => __( 'Remove', 'woo-mercado-pago-module' ),
+						'coupon_empty'        => __( 'Please, inform your coupon code', 'woo-mercado-pago-module' ),
 						'label_choose'        => __( 'Choose', 'woo-mercado-pago-module' ),
 						'label_other_bank'    => __( 'Other Bank', 'woo-mercado-pago-module' ),
 						'discount_info1'      => __( 'You will save', 'woo-mercado-pago-module' ),
@@ -468,9 +469,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 						'discount_info3'      => __( 'Total of your purchase:', 'woo-mercado-pago-module' ),
 						'discount_info4'      => __( 'Total of your purchase with discount:', 'woo-mercado-pago-module' ),
 						'discount_info5'      => __( '*Uppon payment approval', 'woo-mercado-pago-module' ),
-						'discount_info6'      => __( 'Terms and Conditions of Use', 'woo-mercado-pago-module' )
+						'discount_info6'      => __( 'Terms and Conditions of Use', 'woo-mercado-pago-module' ),
+						// ===
+						'images_path'         => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) )
 					)
-				);*/
+				);
+				*/
 			}
 		}
 	}
@@ -486,30 +490,47 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 
 		$parameters = array(
 			'amount'                 => $amount, // TODO: convert currency v1
+			// ===
 			'site_id'                => get_option( '_site_id_v1' ),
 			'public_key'             => get_option( '_mp_public_key' ),
+			'coupon_mode'            => isset( $logged_user_email ) ? $this->coupon_mode : 'no',
+			'discount_action_url'    => $discount_action_url,
+			'payer_email'            => $logged_user_email,
+			// ===
 			'images_path'            => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
 			'banner_path'            => $this->site_data['checkout_banner_custom'],
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
 			'customerId'             => isset( $customer ) ? ( isset( $customer['id'] ) ? $customer['id'] : null ) : null,
-			'payer_email'            => $logged_user_email,
-			'coupon_mode'            => isset( $logged_user_email ) ? $this->coupon_mode : 'no',
 			'currency_ratio'         => 2, // TODO: on-the-fly retrieve currency ratio
 			'woocommerce_currency'   => get_woocommerce_currency(),
 			'account_currency'       => $this->site_data['currency'],
-			'discount_action_url'    => $discount_action_url,
-			// ===
-			'coupon_empty'           => __( 'Please, inform your coupon code', 'woo-mercado-pago-module' ),
-			'apply'                  => __( 'Apply', 'woo-mercado-pago-module' ),
-			'remove'                 => __( 'Remove', 'woo-mercado-pago-module' ),
-			'label_choose'           => __( 'Choose', 'woo-mercado-pago-module' ),
-			'label_other_bank'       => __( 'Other Bank', 'woo-mercado-pago-module' ),
-			'discount_info1'         => __( 'You will save', 'woo-mercado-pago-module' ),
-			'discount_info2'         => __( 'with discount from', 'woo-mercado-pago-module' ),
-			'discount_info3'         => __( 'Total of your purchase:', 'woo-mercado-pago-module' ),
-			'discount_info4'         => __( 'Total of your purchase with discount:', 'woo-mercado-pago-module' ),
-			'discount_info5'         => __( '*Uppon payment approval', 'woo-mercado-pago-module' ),
-			'discount_info6'         => __( 'Terms and Conditions of Use', 'woo-mercado-pago-module' )
+			'error' => array(
+				// Card number.
+				'205' => __( 'Parameter cardNumber can not be null/empty', 'woo-mercado-pago-module' ),
+				'E301' => __( 'Invalid Card Number', 'woo-mercado-pago-module' ),
+				// Expiration date.
+				'208' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
+				'209' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
+				'325' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
+				'326' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
+				// Card holder name.
+				'221' => __( 'Parameter cardholderName can not be null/empty', 'woo-mercado-pago-module' ),
+				'316' => __( 'Invalid Card Holder Name', 'woo-mercado-pago-module' ),
+				// Security code.
+				'224' => __( 'Parameter securityCode can not be null/empty', 'woo-mercado-pago-module' ),
+				'E302' => __( 'Invalid Security Code', 'woo-mercado-pago-module' ),
+				// Doc type.
+				'212' => __( 'Parameter docType can not be null/empty', 'woo-mercado-pago-module' ),
+				'322' => __( 'Invalid Document Type', 'woo-mercado-pago-module' ),
+				// Doc number.
+				'214' => __( 'Parameter docNumber can not be null/empty', 'woo-mercado-pago-module' ),
+				'324' => __( 'Invalid Document Number', 'woo-mercado-pago-module' ),
+				// Doc sub type.
+				'213' => __( 'The parameter cardholder.document.subtype can not be null or empty', 'woo-mercado-pago-module' ),
+				'323' => __( 'Invalid Document Sub Type', 'woo-mercado-pago-module' ),
+				// Issuer.
+				'220' => __( 'Parameter cardIssuerId can not be null/empty', 'woo-mercado-pago-module' )
+			)
 		);
 
 		wc_get_template(
