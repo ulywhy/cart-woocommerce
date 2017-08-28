@@ -80,7 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="mp-box-inputs mp-line" id="mp-securityCode-customer-and-card">
 			<div class="mp-box-inputs mp-col-45">
 				<label for="customer-and-card-securityCode">
-					<?php echo esc_html__( 'security_code', 'woo-mercado-pago-module' ); ?> <em>*</em>
+					<?php echo esc_html__( 'Security code', 'woo-mercado-pago-module' ); ?> <em>*</em>
 				</label>
 				<input type="text" id="customer-and-card-securityCode" data-checkout="securityCode"
 				autocomplete="off" maxlength="4" style="padding: 8px;
