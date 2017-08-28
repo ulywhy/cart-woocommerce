@@ -14,13 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div width="100%" style="margin:1px; padding:36px 36px 16px 36px; background:white;">
-	<img class="logo" src="<?php echo ($images_path . 'mplogo.png'); ?>" width="156" height="40"/>
-	<?php if ( ! empty( $banner_path ) ) : ?>
-		<img class="mp-creditcard-banner" src="<?php echo $banner_path;?>" width="312" height="40"/>
-	<?php endif; ?>
+<div width="100%" class="mp-line" style="height:72px; margin-bottom:2px; padding:20px 36px 8px 36px; background:white;">
+	<div class="mp-box-inputs mp-col-50">
+		<img class="logo" src="<?php echo ($images_path . 'mplogo.png'); ?>" width="156" height="40"/>
+	</div>
+	<div class="mp-box-inputs mp-col-50">
+		<?php if ( ! empty( $banner_path ) ) : ?>
+			<img class="mp-creditcard-banner" src="<?php echo $banner_path;?>" width="312" height="40"/>
+		<?php endif; ?>
+	</div>
 </div>
-<fieldset style="background:white;">
+<fieldset style="margin:0px; background:white;">
 
 	<div class="mp-box-inputs mp-line" id="mercadopago-form-coupon"
 	style="padding:0px 12px 16px 12px;">
