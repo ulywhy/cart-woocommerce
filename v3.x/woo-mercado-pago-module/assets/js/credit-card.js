@@ -932,8 +932,6 @@
 
 	MPv1.Initialize = function( site_id, public_key, coupon_mode, discount_action_url, payer_email ) {
 
-		alert( site_id + ',' + public_key + ',' + coupon_mode + ',' + discount_action_url + ',' + payer_email );
-
 		// Sets
 		MPv1.site_id = site_id;
 		MPv1.public_key = public_key;
@@ -947,7 +945,8 @@
 		if ( MPv1.coupon_of_discounts.default ) {
 			MPv1.addListenerEvent(
 				document.querySelector( MPv1.selectors.applyCoupon ),
-				"click", MPv1.checkCouponEligibility
+				"click",
+				MPv1.checkCouponEligibility
 			);
 		} else {
 			document.querySelector( MPv1.selectors.formCoupon ).style.display = "none";
@@ -1041,25 +1040,17 @@
 
 // === Instantiation
 
-var mercadopago_site_id = wc_mercadopago_custom_params.site_id;
-var mercadopago_public_key = wc_mercadopago_custom_params.public_key;
-var mercadopago_payer_email = wc_mercadopago_custom_params.payer_email;
-var mercadopago_coupon_mode = wc_mercadopago_custom_params.coupon_mode;
-var mercadopago_discount_action_url = wc_mercadopago_custom_params.discount_action_url;
-
-/*
-MPv1.text.apply = "<?php echo $form_labels['form']['apply']; ?>";
-MPv1.text.remove = "<?php echo $form_labels['form']['remove']; ?>";
-MPv1.text.coupon_empty = "<?php echo $form_labels['form']['coupon_empty']; ?>";
-MPv1.text.choose = "<?php echo $form_labels['form']['label_choose']; ?>";
-MPv1.text.other_bank = "<?php echo $form_labels['form']['label_other_bank']; ?>";
-MPv1.text.discount_info1 = "<?php echo $form_labels['form']['discount_info1']; ?>";
-MPv1.text.discount_info2 = "<?php echo $form_labels['form']['discount_info2']; ?>";
-MPv1.text.discount_info3 = "<?php echo $form_labels['form']['discount_info3']; ?>";
-MPv1.text.discount_info4 = "<?php echo $form_labels['form']['discount_info4']; ?>";
-MPv1.text.discount_info5 = "<?php echo $form_labels['form']['discount_info5']; ?>";
-MPv1.text.discount_info6 = "<?php echo $form_labels['form']['discount_info6']; ?>";
-*/
+MPv1.text.apply = wc_mercadopago_custom_params.apply;
+MPv1.text.remove = wc_mercadopago_custom_params.remove;
+MPv1.text.coupon_empty = wc_mercadopago_custom_params.coupon_empty;
+MPv1.text.choose = wc_mercadopago_custom_params.label_choose;
+MPv1.text.other_bank = wc_mercadopago_custom_params.label_other_bank;
+MPv1.text.discount_info1 = wc_mercadopago_custom_params.discount_info1;
+MPv1.text.discount_info2 = wc_mercadopago_custom_params.discount_info2;
+MPv1.text.discount_info3 = wc_mercadopago_custom_params.discount_info3;
+MPv1.text.discount_info4 = wc_mercadopago_custom_params.discount_info4;
+MPv1.text.discount_info5 = wc_mercadopago_custom_params.discount_info5;
+MPv1.text.discount_info6 = wc_mercadopago_custom_params.discount_info6;
 
 MPv1.paths.loading = wc_mercadopago_custom_params.images_path + 'loading.gif';
 MPv1.paths.check = wc_mercadopago_custom_params.images_path + 'check.png';
@@ -1079,13 +1070,11 @@ MPv1.setForm = function() {
 		MPv1.createTokenByEvent();
 		MPv1.validateInputsCreateToken();
 	}
-	document.querySelector( MPv1.selectors.CustomerAndCard ).value =
-		MPv1.customer_and_card.status;
+	document.querySelector( MPv1.selectors.CustomerAndCard ).value = MPv1.customer_and_card.status;
 }
 
 MPv1.getAmount = function() {
-	return document.querySelector( MPv1.selectors.amount )
-	.value - document.querySelector( MPv1.selectors.discount ).value;
+	return document.querySelector( MPv1.selectors.amount ).value - document.querySelector( MPv1.selectors.discount ).value;
 }
 
 MPv1.getAmountWithoutDiscount = function() {
@@ -1105,9 +1094,9 @@ MPv1.showErrors = function( response ) {
 }
 
 MPv1.Initialize(
-	mercadopago_site_id,
-	mercadopago_public_key,
-	mercadopago_coupon_mode == "yes",
-	mercadopago_discount_action_url,
-	mercadopago_payer_email
+	wc_mercadopago_custom_params.site_id,
+	wc_mercadopago_custom_params.public_key,
+	wc_mercadopago_custom_params.coupon_mode == "yes",
+	wc_mercadopago_custom_params.discount_action_url,
+	wc_mercadopago_custom_params.payer_email
 );

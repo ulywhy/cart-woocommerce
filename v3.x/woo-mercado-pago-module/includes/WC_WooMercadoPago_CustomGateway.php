@@ -439,6 +439,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					'mercado-pago-module-js',
 					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
 				);
+				/* TODO: separate scripts from html
 				wp_enqueue_script(
 					'woo-mercado-pago-module-custom-js',
 					plugins_url( 'assets/js/credit-card.js', plugin_dir_path( __FILE__ ) ),
@@ -469,7 +470,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 						'discount_info5'      => __( '*Uppon payment approval', 'woo-mercado-pago-module' ),
 						'discount_info6'      => __( 'Terms and Conditions of Use', 'woo-mercado-pago-module' )
 					)
-				);
+				);*/
 			}
 		}
 	}
@@ -485,8 +486,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 
 		$parameters = array(
 			'amount'                 => $amount, // TODO: convert currency v1
-			//'site_id'                => get_option( '_site_id_v1' ),
-			//'public_key'             => get_option( '_mp_public_key' ),
+			'site_id'                => get_option( '_site_id_v1' ),
+			'public_key'             => get_option( '_mp_public_key' ),
 			'images_path'            => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
 			'banner_path'            => $this->site_data['checkout_banner_custom'],
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
@@ -496,7 +497,19 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			'currency_ratio'         => 2, // TODO: on-the-fly retrieve currency ratio
 			'woocommerce_currency'   => get_woocommerce_currency(),
 			'account_currency'       => $this->site_data['currency'],
-			'discount_action_url'    => $discount_action_url
+			'discount_action_url'    => $discount_action_url,
+			// ===
+			'coupon_empty'           => __( 'Please, inform your coupon code', 'woo-mercado-pago-module' ),
+			'apply'                  => __( 'Apply', 'woo-mercado-pago-module' ),
+			'remove'                 => __( 'Remove', 'woo-mercado-pago-module' ),
+			'label_choose'           => __( 'Choose', 'woo-mercado-pago-module' ),
+			'label_other_bank'       => __( 'Other Bank', 'woo-mercado-pago-module' ),
+			'discount_info1'         => __( 'You will save', 'woo-mercado-pago-module' ),
+			'discount_info2'         => __( 'with discount from', 'woo-mercado-pago-module' ),
+			'discount_info3'         => __( 'Total of your purchase:', 'woo-mercado-pago-module' ),
+			'discount_info4'         => __( 'Total of your purchase with discount:', 'woo-mercado-pago-module' ),
+			'discount_info5'         => __( '*Uppon payment approval', 'woo-mercado-pago-module' ),
+			'discount_info6'         => __( 'Terms and Conditions of Use', 'woo-mercado-pago-module' )
 		);
 
 		wc_get_template(
