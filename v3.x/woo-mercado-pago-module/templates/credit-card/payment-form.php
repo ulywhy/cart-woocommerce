@@ -14,18 +14,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div width="100%" style="margin:1px; padding:36px 36px 16px 36px; background:white;">
-	<img class="logo" src="<?php echo ($images_path . 'mplogo.png'); ?>" width="156" height="40"/>
-	<?php if ( ! empty( $banner_path ) ) : ?>
-		<img class="mp-creditcard-banner" src="<?php echo $banner_path;?>" width="312" height="40"/>
-	<?php endif; ?>
+<div width="100%" class="mp-line" style="height:72px; margin-bottom:2px; padding:20px 36px 8px 36px; background:white;">
+	<div class="mp-box-inputs mp-col-50">
+		<img class="logo" src="<?php echo ($images_path . 'mplogo.png'); ?>" width="156" height="40"/>
+	</div>
+	<div class="mp-box-inputs mp-col-50">
+		<?php if ( ! empty( $banner_path ) ) : ?>
+			<img class="mp-creditcard-banner" src="<?php echo $banner_path;?>" width="312" height="40"/>
+		<?php endif; ?>
+	</div>
 </div>
-<fieldset style="background:white;">
+<fieldset style="margin:0px; background:white;">
 
 	<div class="mp-box-inputs mp-line" id="mercadopago-form-coupon"
 	style="padding:0px 12px 16px 12px;">
 		<label for="couponCodeLabel">
-			<?php echo $form_labels['form']['coupon_of_discounts']; ?>
+			<?php echo esc_html__( 'Discount Coupon', 'woo-mercado-pago-module' ); ?>
 		</label>
 		<div class="mp-box-inputs mp-col-65">
 	    	<input type="text" id="couponCode" name="mercadopago_custom[coupon_code]"
@@ -36,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="mp-box-inputs mp-col-25">
 			<input type="button" class="button" id="applyCoupon"
-			value="<?php echo $form_labels['form']['apply']; ?>">
+			value="<?php echo esc_html__( 'Apply', 'woo-mercado-pago-module' ); ?>">
 		</div>
 		<div class="mp-box-inputs mp-col-100 mp-box-message">
 			<span class="mp-discount" id="mpCouponApplyed" ></span>
@@ -48,11 +52,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div id="mercadopago-form-customer-and-card" style="padding:0px 12px 0px 12px;">
 		<div class="mp-box-inputs mp-line">
 			<label for="paymentMethodIdSelector">
-				<?php echo $form_labels['form']['payment_method']; ?> <em>*</em>
+				<?php echo esc_html__( 'Payment Method', 'woo-mercado-pago-module' ); ?> <em>*</em>
 			</label>
 			<select id="paymentMethodSelector" name="mercadopago_custom[paymentMethodSelector]"
 			data-checkout="cardId">
-				<optgroup label=<?php echo $form_labels['form']['your_card']; ?>
+				<optgroup label=<?php echo esc_html__( 'Your Card', 'woo-mercado-pago-module' ); ?>
 				id="payment-methods-for-customer-and-cards">
 				<?php foreach ($customer_cards as $card) : ?>
 					<option value=<?php echo $card['id']; ?>
@@ -61,26 +65,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 					security_code_length=<?php echo $card['security_code']['length']; ?>
 					type_checkout='customer_and_card'
 					payment_method_id=<?php echo $card['payment_method']['id']; ?>>
-						<?php echo ucfirst($card['payment_method']['name']); ?>
-						<?php echo $form_labels['form']['ended_in']; ?>
+						<?php echo ucfirst( $card['payment_method']['name'] ); ?>
+						<?php echo esc_html__( 'ended in', 'woo-mercado-pago-module' ); ?>
 						<?php echo $card['last_four_digits']; ?>
 					</option>
 				<?php endforeach; ?>
 				</optgroup>
-				<optgroup label="<?php echo $form_labels['form']['other_cards']; ?>"
+				<optgroup label="<?php echo esc_html__( 'Other Cards', 'woo-mercado-pago-module' ); ?>"
 				id="payment-methods-list-other-cards">
-					<option value="-1"><?php echo $form_labels['form']['other_card']; ?></option>
+					<option value="-1"><?php echo esc_html__( 'Other Card', 'woo-mercado-pago-module' ); ?></option>
 				</optgroup>
 			</select>
 		</div>
 		<div class="mp-box-inputs mp-line" id="mp-securityCode-customer-and-card">
 			<div class="mp-box-inputs mp-col-45">
 				<label for="customer-and-card-securityCode">
-					<?php echo $form_labels['form']['security_code']; ?> <em>*</em>
+					<?php echo esc_html__( 'Security code', 'woo-mercado-pago-module' ); ?> <em>*</em>
 				</label>
 				<input type="text" id="customer-and-card-securityCode" data-checkout="securityCode"
 				autocomplete="off" maxlength="4" style="padding: 8px;
-				background: url(<?php echo ($images_path . 'cvv.png'); ?>) 98% 50% no-repeat;"/>
+				background: url( <?php echo ( $images_path . 'cvv.png' ); ?> ) 98% 50% no-repeat;"/>
 				<span class="mp-error" id="mp-error-224" data-main="#customer-and-card-securityCode">
 					<?php echo $form_labels['error']['224']; ?>
 				</span>
@@ -98,7 +102,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Card Number -->
 		<div class="mp-box-inputs mp-col-100">
 			<label for="cardNumber">
-				<?php echo $form_labels['form']['credit_card_number']; ?> <em>*</em>
+				<?php echo esc_html__( 'Credit card number', 'woo-mercado-pago-module' ); ?> <em>*</em>
 			</label>
 			<input type="text" id="cardNumber" data-checkout="cardNumber" autocomplete="off"
 			maxlength="19"/>
@@ -113,11 +117,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="mp-box-inputs mp-line">
 			<div class="mp-box-inputs mp-col-45">
 				<label for="cardExpirationMonth">
-					<?php echo $form_labels['form']['expiration_month']; ?> <em>*</em>
+					<?php echo esc_html__( 'Expiration month', 'woo-mercado-pago-module' ); ?> <em>*</em>
 				</label>
 				<select id="cardExpirationMonth" data-checkout="cardExpirationMonth"
 				name="mercadopago_custom[cardExpirationMonth]">
-					<option value="-1"> <?php echo $form_labels['form']['month']; ?> </option>
+					<option value="-1"> <?php echo esc_html__( 'Month', 'woo-mercado-pago-module' ); ?> </option>
 					<?php for ($x=1; $x<=12; $x++) : ?>
 						<option value="<?php echo $x; ?>"> <?php echo $x; ?></option>
 					<?php endfor; ?>
@@ -128,12 +132,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="mp-box-inputs mp-col-45">
 				<label for="cardExpirationYear">
-					<?php echo $form_labels['form']['expiration_year']; ?> <em>*</em>
+					<?php echo esc_html__( 'Expiration year', 'woo-mercado-pago-module' ); ?> <em>*</em>
 				</label>
 				<select id="cardExpirationYear" data-checkout="cardExpirationYear"
 					name="mercadopago_custom[cardExpirationYear]">
-					<option value="-1"> <?php echo $form_labels['form']['year']; ?> </option>
-					<?php for ($x=date("Y"); $x<= date("Y") + 10; $x++) : ?>
+					<option value="-1"> <?php echo esc_html__( 'Year', 'woo-mercado-pago-module' ); ?> </option>
+					<?php for ( $x=date("Y"); $x<= date("Y") + 10; $x++ ) : ?>
 						<option value="<?php echo $x; ?>"> <?php echo $x; ?> </option>
 					<?php endfor; ?>
 				</select>
@@ -150,7 +154,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Card Holder Name -->
 		<div class="mp-box-inputs mp-col-100">
 			<label for="cardholderName">
-				<?php echo $form_labels['form']['card_holder_name']; ?> <em>*</em>
+				<?php echo esc_html__( 'Card holder name', 'woo-mercado-pago-module' ); ?> <em>*</em>
 			</label>
 			<input type="text" id="cardholderName" name="mercadopago_custom[cardholderName]"
 			data-checkout="cardholderName" autocomplete="off" />
@@ -165,7 +169,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="mp-box-inputs mp-line">
 			<div class="mp-box-inputs mp-col-45">
 				<label for="securityCode">
-					<?php echo $form_labels['form']['security_code']; ?> <em>*</em>
+					<?php echo esc_html__( 'Security code', 'woo-mercado-pago-module' ); ?> <em>*</em>
 				</label>
 				<input type="text" id="securityCode" data-checkout="securityCode"
 				autocomplete="off" maxlength="4" style="padding: 8px;
@@ -182,7 +186,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="mp-box-inputs mp-col-100 mp-doc">
 			<div class="mp-box-inputs mp-col-35 mp-docType">
 				<label for="docType">
-					<?php echo $form_labels['form']['document_type']; ?> <em>*</em>
+					<?php echo esc_html__( 'Document Type', 'woo-mercado-pago-module' ); ?> <em>*</em>
 				</label>
 				<select id="docType" data-checkout="docType"
 				name="mercadopago_custom[docType]"></select>
@@ -195,7 +199,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="mp-box-inputs mp-col-65 mp-docNumber">
 				<label for="docNumber">
-					<?php echo $form_labels['form']['document_number']; ?> <em>*</em>
+					<?php echo esc_html__( 'Document number', 'woo-mercado-pago-module' ); ?> <em>*</em>
 				</label>
 				<input type="text" id="docNumber" data-checkout="docNumber"
 				name="mercadopago_custom[docNumber]" autocomplete="off" />
@@ -210,7 +214,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   		<!-- Issuer -->
 		<div class="mp-box-inputs mp-col-100 mp-issuer">
 			<label for="issuer">
-				<?php echo $form_labels['form']['issuer']; ?> <em>*</em>
+				<?php echo esc_html__( 'Issuer', 'woo-mercado-pago-module' ); ?> <em>*</em>
 			</label>
 			<select id="issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
 			<span class="mp-error" id="mp-error-220" data-main="#issuer">
@@ -221,19 +225,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div id="mp-box-installments" class="mp-box-inputs mp-line">
 		<div class="form-row" >
-			<div id="mp-box-installments-selector" class="form-col-8" style="padding:0px 12 0px 12;">
+			<div id="mp-box-installments-selector" class="form-col-8" style="padding: 0px 12px 0px 12px;">
 				<label for="installments">
-					<?php echo $form_labels['form']['installments']; ?>
-					<?php if ($is_currency_conversion > 0) :
-						echo "(" . $form_labels['form']['payment_converted'] . " " .
-						$woocommerce_currency . " " . $form_labels['form']['to'] . " " .
+					<?php echo esc_html__( 'Installments', 'woo-mercado-pago-module' ); ?>
+					<?php if ( $currency_ratio != 1 ) :
+						echo "(" . esc_html__( 'Payment converted from', 'woo-mercado-pago-module' ) . " " .
+						$woocommerce_currency . " " . esc_html__( 'to', 'woo-mercado-pago-module' ) . " " .
 						$account_currency . ")";
 					endif; ?> <em>*</em>
 				</label>
 				<select id="installments" data-checkout="installments" class="form-control-mine"
 					name="mercadopago_custom[installments]" style="width: 100%;"></select>
 			</div>
-			<div id="mp-box-input-tax-cft" class="form-col-4" style="padding:0px 12 0px 12;">
+			<div id="mp-box-input-tax-cft" class="form-col-4" style="padding: 0px 12px 0px 12px;">
 				<div id="mp-box-input-tax-tea"><div id="mp-tax-tea-text"></div></div>
 				<div id="mp-tax-cft-text"></div>
 			</div>
@@ -264,7 +268,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 </fieldset>
 
 <script type="text/javascript">
-
 	( function() {
 
 		var MPv1 = {
@@ -305,7 +308,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				"securityCode"
 			],
 			selectors: {
-            	// coupom
+	        	// coupom
 				couponCode: "#couponCode",
 				applyCoupon: "#applyCoupon",
 				mpCouponApplyed: "#mpCouponApplyed",
@@ -480,8 +483,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								response.response.id +
 								"/terms_and_conditions?format_type=html' target='_blank'>" +
 								MPv1.text.discount_info6 + "</a>";
-                        	document.querySelector( MPv1.selectors.mpCouponError ).style.display =
-                        		"none";
+	                    	document.querySelector( MPv1.selectors.mpCouponError ).style.display =
+	                    		"none";
 							MPv1.coupon_of_discounts.status = true;
 							document.querySelector( MPv1.selectors.couponCode ).style.background =
 								null;
@@ -525,11 +528,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		}
 
-      	MPv1.clearOptions = function() {
+	  	MPv1.clearOptions = function() {
 
 			var bin = MPv1.getBin();
 
-         	if ( bin.length == 0 ) {
+	     	if ( bin.length == 0 ) {
 
 				MPv1.hideIssuer();
 
@@ -578,7 +581,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					document.querySelector( MPv1.selectors.paymentMethodId ).value = response[0].id;
 					if ( MPv1.customer_and_card.status ) {
 						document.querySelector( MPv1.selectors.paymentMethodSelector )
-						.style.background = "url(" + response[0].secure_thumbnail + ") 95% 50% no-repeat #fff";
+						.style.background = "url(" + response[0].secure_thumbnail + ") 90% 50% no-repeat #fff";
 					} else {
 						document.querySelector( MPv1.selectors.cardNumber ).style.background = "url(" +
 						response[0].secure_thumbnail + ") 98% 50% no-repeat #fff";
@@ -617,8 +620,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		MPv1.changePaymetMethodSelector = function() {
 			var payment_method_id =
-         		document.querySelector( MPv1.selectors.paymentMethodSelector ).value;
- 			MPv1.getIssuersPaymentMethod( payment_method_id );
+	     		document.querySelector( MPv1.selectors.paymentMethodSelector ).value;
+				MPv1.getIssuersPaymentMethod( payment_method_id );
 		}
 
 		// === Issuers
@@ -629,16 +632,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			// flow: MLM mercadopagocard
 			if ( payment_method_id == "mercadopagocard" ) {
-            	Mercadopago.getInstallments(
-            		{ "payment_method_id": payment_method_id, "amount": amount },
-            		MPv1.setInstallmentInfo
-            	);
+	        	Mercadopago.getInstallments(
+	        		{ "payment_method_id": payment_method_id, "amount": amount },
+	        		MPv1.setInstallmentInfo
+	        	);
 			}
 
 			Mercadopago.getIssuers( payment_method_id, MPv1.showCardIssuers );
 			MPv1.addListenerEvent(
-            	document.querySelector( MPv1.selectors.issuer ),
-            	"change",
+	        	document.querySelector( MPv1.selectors.issuer ),
+	        	"change",
 				MPv1.setInstallmentsByIssuerId
 			);
 
@@ -678,7 +681,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			var amount = MPv1.getAmount();
 
 			if ( issuerId === "-1" ) {
-            	return;
+	        	return;
 			}
 
 			var params_installments = {
@@ -688,7 +691,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 
 			if ( MPv1.site_id == "MLM" ) {
-            	params_installments = {
+	        	params_installments = {
 					"payment_method_id": document.querySelector(
 						MPv1.selectors.paymentMethodSelector
 					).value,
@@ -705,6 +708,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			var opt = document.createElement( "option" );
 			opt.value = "-1";
 			opt.innerHTML = MPv1.text.other_bank;
+			opt.style = "font-size: 12px;";
 
 			$issuer.innerHTML = "";
 			$issuer.appendChild( opt );
@@ -783,11 +787,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				cardSelector[cardSelector.options.selectedIndex].getAttribute( "type_checkout" );
 			var amount = MPv1.getAmount();
 
-         	if ( MPv1.customer_and_card.default ) {
+	     	if ( MPv1.customer_and_card.default ) {
 
 	            if ( cardSelector &&
-            	cardSelector[cardSelector.options.selectedIndex].value != "-1" &&
-            	type_checkout == "customer_and_card" ) {
+	        	cardSelector[cardSelector.options.selectedIndex].value != "-1" &&
+	        	type_checkout == "customer_and_card" ) {
 
 					document.querySelector( MPv1.selectors.paymentMethodId )
 					.value = cardSelector[cardSelector.options.selectedIndex]
@@ -980,7 +984,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				if ( MPv1.add_truncated_card ) {
 					var card = MPv1.truncateCard( response );
-               		document.querySelector( MPv1.selectors.cardTruncated ).value = card;
+	           		document.querySelector( MPv1.selectors.cardTruncated ).value = card;
 				}
 
 				if ( ! MPv1.create_token_on.event ) {
@@ -1211,7 +1215,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			if ( MPv1.coupon_of_discounts.default ) {
 				MPv1.addListenerEvent(
 					document.querySelector( MPv1.selectors.applyCoupon ),
-					"click", MPv1.checkCouponEligibility
+					"click",
+					MPv1.checkCouponEligibility
 				);
 			} else {
 				document.querySelector( MPv1.selectors.formCoupon ).style.display = "none";
@@ -1248,7 +1253,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				document.querySelector( MPv1.selectors.mpDoc ).style.display = "none";
 
 				document.querySelector( MPv1.selectors.formCustomerAndCard ).removeAttribute( 'style' );
-				document.querySelector( MPv1.selectors.formCustomerAndCard ).style.padding = "36px 36px 16px 36px";
+				document.querySelector( MPv1.selectors.formCustomerAndCard ).style.padding = "36px 12px 16px 12px";
 				document.querySelector( MPv1.selectors.mpSecurityCodeCustomerAndCard ).style.display = "none";
 
 				// Removing not used fields for this country.
@@ -1303,29 +1308,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	} ).call();
 
-	// === Instantiation
-
-	var mercadopago_site_id = "<?php echo $site_id; ?>";
-	var mercadopago_public_key = "<?php echo $public_key; ?>";
-	var mercadopago_payer_email = "<?php echo $payer_email; ?>";
-	var mercadopago_coupon_mode = "<?php echo $coupon_mode; ?>";
-	var mercadopago_discount_action_url = "<?php echo $discount_action_url; ?>";
-
-	MPv1.text.choose = "<?php echo $form_labels['form']['label_choose']; ?>";
-	MPv1.text.other_bank = "<?php echo $form_labels['form']['label_other_bank']; ?>";
-	MPv1.text.discount_info1 = "<?php echo $form_labels['form']['discount_info1']; ?>";
-	MPv1.text.discount_info2 = "<?php echo $form_labels['form']['discount_info2']; ?>";
-	MPv1.text.discount_info3 = "<?php echo $form_labels['form']['discount_info3']; ?>";
-	MPv1.text.discount_info4 = "<?php echo $form_labels['form']['discount_info4']; ?>";
-	MPv1.text.discount_info5 = "<?php echo $form_labels['form']['discount_info5']; ?>";
-	MPv1.text.discount_info6 = "<?php echo $form_labels['form']['discount_info6']; ?>";
-	MPv1.text.apply = "<?php echo $form_labels['form']['apply']; ?>";
-	MPv1.text.remove = "<?php echo $form_labels['form']['remove']; ?>";
-	MPv1.text.coupon_empty = "<?php echo $form_labels['form']['coupon_empty']; ?>";
-	MPv1.paths.loading = "<?php echo ( $images_path . 'loading.gif' ); ?>";
-	MPv1.paths.check = "<?php echo ( $images_path . 'check.png' ); ?>";
-	MPv1.paths.error = "<?php echo ( $images_path . 'error.png' ); ?>";
-
 	// Overriding this function to give form padding attribute.
 	MPv1.setForm = function() {
 		if ( MPv1.customer_and_card.status ) {
@@ -1341,13 +1323,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			MPv1.createTokenByEvent();
 			MPv1.validateInputsCreateToken();
 		}
-		document.querySelector( MPv1.selectors.CustomerAndCard ).value =
-			MPv1.customer_and_card.status;
+		document.querySelector( MPv1.selectors.CustomerAndCard ).value = MPv1.customer_and_card.status;
 	}
 
 	MPv1.getAmount = function() {
-		return document.querySelector( MPv1.selectors.amount )
-		.value - document.querySelector( MPv1.selectors.discount ).value;
+		return document.querySelector( MPv1.selectors.amount ).value - document.querySelector( MPv1.selectors.discount ).value;
 	}
 
 	MPv1.getAmountWithoutDiscount = function() {
@@ -1365,12 +1345,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 		return;
 	}
-	MPv1.Initialize(
-		mercadopago_site_id,
-		mercadopago_public_key,
-		mercadopago_coupon_mode == "yes",
-		mercadopago_discount_action_url,
-		mercadopago_payer_email
-	);
 
+	// === Instantiation
+
+	MPv1.text.apply = "<?php echo __( 'Apply', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.remove = "<?php echo __( 'Remove', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.coupon_empty = "<?php echo __( 'Please, inform your coupon code', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.choose = "<?php echo __( 'Choose', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.other_bank = "<?php echo __( 'Other Bank', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.discount_info1 = "<?php echo __( 'You will save', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.discount_info2 = "<?php echo __( 'with discount from', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.discount_info3 = "<?php echo __( 'Total of your purchase:', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.discount_info4 = "<?php echo __( 'Total of your purchase with discount:', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.discount_info5 = "<?php echo __( '*Uppon payment approval', 'woo-mercado-pago-module' ); ?>";
+	MPv1.text.discount_info6 = "<?php echo __( 'Terms and Conditions of Use', 'woo-mercado-pago-module' ); ?>";
+
+	MPv1.paths.loading = "<?php echo ( $images_path . 'loading.gif' ); ?>";
+	MPv1.paths.check = "<?php echo ( $images_path . 'check.png' ); ?>";
+	MPv1.paths.error = "<?php echo ( $images_path . 'error.png' ); ?>";
+
+	MPv1.Initialize(
+		"<?php echo $site_id; ?>",
+		"<?php echo $public_key; ?>",
+		"<?php echo $coupon_mode; ?>" == "yes",
+		"<?php echo $discount_action_url; ?>",
+		"<?php echo $payer_email; ?>"
+	);
 </script>

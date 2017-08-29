@@ -19,13 +19,21 @@ require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
 class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 	public function __construct() {
+
+		// Mercao Pago instance.
+		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( false );
+		$this->mp = new MP(
+			WC_Woo_Mercado_Pago_Module::get_module_version(),
+			get_option( '_mp_client_id' ),
+			get_option( '_mp_client_secret' )
+		);
 		
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-basic';
 		$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			plugins_url( 'assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
+			$this->site_data['checkout_banner']
 		);
 
 		$this->method_title = __( 'Mercado Pago - Basic Checkout', 'woo-mercado-pago-module' );
@@ -35,13 +43,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			__( 'Receive payments in a matter of minutes. We make it easy for you: just tell us what you want to collect and we’ll take care of the rest.', 'woo-mercado-pago-module' ) .
 		'</strong>';
 
-		// Mercao Pago instance.
-		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( false );
-		$this->mp = new MP(
-			WC_Woo_Mercado_Pago_Module::get_module_version(),
-			get_option( '_mp_client_id' ),
-			get_option( '_mp_client_secret' )
-		);
 		// TODO: Verify sandbox availability.
 		$this->mp->sandbox_mode( false );
 
@@ -83,7 +84,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		);
 		// Used by IPN to process valid incomings.
 		add_action(
-			'valid_mercadopago_ipn_request',
+			'valid_mercadopago_basic_ipn_request',
 			array( $this, 'successful_request' )
 		);
 		// Process the cancel order meta box order action.
@@ -101,7 +102,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		// Used to fix CSS in some older WordPress/WooCommerce versions.
 		add_action(
 			'wp_head',
-			function () {
+			function() {
 				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
 					$page_id = wc_get_page_id( 'checkout' );
 				} else {
@@ -195,15 +196,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			'title' => array(
 				'title' => __( 'Title', 'woo-mercado-pago-module' ),
 				'type' => 'text',
-				'description' =>
-					__( 'Title shown to the client in the checkout.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Title shown to the client in the checkout.', 'woo-mercado-pago-module' ),
 				'default' => __( 'Mercado Pago', 'woo-mercado-pago-module' )
 			),
 			'description' => array(
 				'title' => __( 'Description', 'woo-mercado-pago-module' ),
 				'type' => 'textarea',
-				'description' =>
-					__( 'Description shown to the client in the checkout.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Description shown to the client in the checkout.', 'woo-mercado-pago-module' ),
 				'default' => __( 'Pay with Mercado Pago', 'woo-mercado-pago-module' )
 			),
 			'method' => array(
@@ -219,13 +218,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			),
 			'iframe_width' => array(
 				'title' => __( 'iFrame Width', 'woo-mercado-pago-module' ),
-				'type' => 'text',
+				'type' => 'number',
 				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame width.', 'woo-mercado-pago-module' ),
 				'default' => '640'
 			),
 			'iframe_height' => array(
 				'title' => __( 'iFrame Height', 'woo-mercado-pago-module' ),
-				'type' => 'text',
+				'type' => 'number',
 				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame height.', 'woo-mercado-pago-module' ),
 				'default' => '800'
 			),
@@ -318,25 +317,23 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$post_data = $this->get_post_data();
 		foreach ( $this->get_form_fields() as $key => $field ) {
 			if ( 'title' !== $this->get_field_type( $field ) ) {
+				$value = $this->get_field_value( $key, $field, $post_data );
 				if ( $key == 'two_cards_mode' ) {
 					// We dont save two card mode as it should come from api.
-					$value = $this->get_field_value( $key, $field, $post_data );
 					$this->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
 				} elseif ( $key == 'iframe_width' ) {
-					$value = $this->get_field_value( $key, $field, $post_data );
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
-						$this->settings[$key] = '480';
+						$this->settings[$key] = 480;
 					} else {
 						$this->settings[$key] = $value;
 					}
 				} elseif ( $key == 'iframe_height' ) {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
-						$this->settings[$key] = '800';
+						$this->settings[$key] = 800;
 					} else {
 						$this->settings[$key] = $value;
 					}
 				} elseif ( $key == 'gateway_discount') {
-					$value = $this->get_field_value( $key, $field, $post_data );
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
 						$this->settings[$key] = 0;
 					} else {
@@ -352,7 +349,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			}
 		}
 		$_site_id_v0 = get_option( '_site_id_v0', '' );
-		if ( ! empty( $_site_id_v0 ) ) {
+		$is_test_user = get_option( '_test_user_v0', false );
+		if ( ! empty( $_site_id_v0 ) && ! $is_test_user ) {
 			// Create MP instance.
 			$mp = new MP(
 				WC_Woo_Mercado_Pago_Module::get_module_version(),
@@ -374,22 +372,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		);
 	}
 
-	private function write_log( $function, $message ) {
-		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
-		if ( ! empty ( $_mp_debug_mode ) ) {
-			$this->log->add(
-				$this->id,
-				'[' . $function . ']: ' . $message
-			);
-		}
-	}
-
-	/*
-	 * ========================================================================
-	 * CHECKOUT BUSINESS RULES (CLIENT SIDE)
-	 * ========================================================================
+	/**
+	 * Handles the manual order refunding in server-side.
 	 */
-
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 
 		$payments = get_post_meta( $order_id, '_Mercado_Pago_Payment_IDs', true );
@@ -487,7 +472,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			get_post_meta( $order->id, '_Mercado_Pago_Payment_IDs',	true );
 		
 		// A watchdog to prevent operations from other gateways.
-		if ( $used_gateway != 'WC_WooMercadoPago_Gateway' ) {
+		if ( $used_gateway != 'WC_WooMercadoPago_BasicGateway' ) {
 			return;
 		}
 
@@ -510,6 +495,23 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		}
 	}
 
+	// Write log.
+	private function write_log( $function, $message ) {
+		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
+		if ( ! empty ( $_mp_debug_mode ) ) {
+			$this->log->add(
+				$this->id,
+				'[' . $function . ']: ' . $message
+			);
+		}
+	}
+
+	/*
+	 * ========================================================================
+	 * CHECKOUT BUSINESS RULES (CLIENT SIDE)
+	 * ========================================================================
+	 */
+
 	public function payment_fields() {
 		// basic checkout
 		if ( $description = $this->get_description() ) {
@@ -521,8 +523,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	}
 
 	public function add_checkout_script() {
+
 		$client_id = get_option( '_mp_client_id' );
-		if ( ! empty( $client_id ) ) {
+		$is_test_user = get_option( '_test_user_v0', false );
+		
+		if ( ! empty( $client_id ) && ! $is_test_user ) {
+
 			$w = WC_Woo_Mercado_Pago_Module::woocommerce_instance();
 			$available_payments = array();
 			$gateways = WC()->payment_gateways->get_available_payment_gateways();
@@ -549,14 +555,16 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				MA.post();
 			</script>
 			<?php
+
 		}
+
 	}
 
 	public function update_checkout_status( $order_id ) {
 		$client_id = get_option( '_mp_client_id' );
-		$_test_user_v0 = get_option( '_test_user_v0', false );
-		if ( ! empty( $client_id ) && ! $_test_user_v0 ) {
-			if ( get_post_meta( $order_id, '_used_gateway', true ) != 'woo-mercado-pago-basic' ) {
+		$is_test_user = get_option( '_test_user_v0', false );
+		if ( ! empty( $client_id ) && ! $is_test_user ) {
+			if ( get_post_meta( $order_id, '_used_gateway', true ) != 'WC_WooMercadoPago_BasicGateway' ) {
 				return;
 			}
 			$this->write_log( __FUNCTION__, 'updating order of ID ' . $order_id );
@@ -582,10 +590,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 		$order = wc_get_order( $order_id );
 		if ( method_exists( $order, 'update_meta_data' ) ) {
-			$order->update_meta_data( '_used_gateway', 'woo-mercado-pago-basic' );
+			$order->update_meta_data( '_used_gateway', 'WC_WooMercadoPago_BasicGateway' );
 			$order->save();
 		} else {
- 			update_post_meta( $order_id, '_used_gateway', 'woo-mercado-pago-basic' );
+ 			update_post_meta( $order_id, '_used_gateway', 'WC_WooMercadoPago_BasicGateway' );
  		}
 
 		if ( 'redirect' == $this->method ) {
@@ -927,7 +935,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		try {
 			$checkout_info = $this->mp->create_preference( json_encode( $preferences ) );
 			if ( $checkout_info['status'] < 200 || $checkout_info['status'] >= 300 ) {
-				// Mercado Pago trowed an error.
+				// Mercado Pago throwed an error.
 				$this->write_log(
 					__FUNCTION__,
 					'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']
@@ -976,14 +984,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		if ( ! did_action( 'wp_loaded' ) ) {
 			return false;
 		}
-		/*global $woocommerce;
+		global $woocommerce;
 		$w_cart = $woocommerce->cart;
 		// Check for recurrent product checkout.
 		if ( isset( $w_cart ) ) {
 			if ( WC_Woo_Mercado_Pago_Module::is_subscription( $w_cart->get_cart() ) ) {
 				return false;
 			}
-		}*/
+		}
 		// Check if this gateway is enabled and well configured.
 		$_mp_client_id = get_option( '_mp_client_id' );
 		$_mp_client_secret = get_option( '_mp_client_secret' );
@@ -1015,9 +1023,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		if ( $title != $this->title || $this->gateway_discount == 0 ) {
 			return $title;
 		}
-		//if ( WC()->session->chosen_payment_method == 'woocommerce-mercadopago-subscription-module' ) {
-		//	return $title;
-		//}
+		if ( WC()->session->chosen_payment_method == 'woo-mercado-pago-subscription' ) {
+			return $title;
+		}
 		$total = (float) WC()->cart->subtotal;
 		$price_percent = $this->gateway_discount / 100;
 		if ( $price_percent > 0 ) {
@@ -1059,14 +1067,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			// Now, we should handle the topic type that has come...
 			if ( $data['topic'] == 'merchant_order' ) {
 				// Get the merchant_order reported by the IPN.
-				$merchant_order_info = $this->mp->get( '/merchant_orders/' . $data['id'], $access_token, false );
-				if ( ! is_wp_error( $merchant_order_info ) && ( $merchant_order_info['status'] == 200 || $merchant_order_info['status'] == 201 ) ) {
-					$payments = $merchant_order_info['response']['payments'];
+				$ipn_info = $this->mp->get( '/merchant_orders/' . $data['id'], $access_token, false );
+				if ( ! is_wp_error( $ipn_info ) && ( $ipn_info['status'] == 200 || $ipn_info['status'] == 201 ) ) {
+					$payments = $ipn_info['response']['payments'];
 					// If the payment's transaction amount is equal (or bigger) than the merchant order's amount we can release the items.
 					if ( sizeof( $payments ) >= 1 ) {
 						// We have payments...
-						$merchant_order_info['response']['ipn_type'] = 'merchant_order';
-						do_action( 'valid_mercadopago_ipn_request', $merchant_order_info['response'] );
+						$ipn_info['response']['ipn_type'] = 'merchant_order';
+						do_action( 'valid_mercadopago_basic_ipn_request', $ipn_info['response'] );
 					} else {
 						// We have no payments?
 						$this->write_log( __FUNCTION__, 'order received but has no payment.' );
@@ -1087,7 +1095,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					if ( sizeof( $payments ) >= 1 ) {
 						// We have payments...
 						$payment_info['response']['ipn_type'] = 'payment';
-						do_action( 'valid_mercadopago_ipn_request', $payment_info['response'] );
+						do_action( 'valid_mercadopago_basic_ipn_request', $payment_info['response'] );
 					} else {
 						// We have no payments?
 						$this->write_log( __FUNCTION__, 'order received but has no payment.' );
@@ -1102,10 +1110,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				}
 			} else {
 				// We have received an unhandled topic...
-				$this->write_log(
-					__FUNCTION__,
-					'request failure, received an unhandled topic.'
-				);
+				$this->write_log( __FUNCTION__, 'request failure, received an unhandled topic.' );
 			}
 		} elseif ( isset( $data['data_id'] ) && isset( $data['type'] ) ) {
 			// We have received a bad, however valid) IPN call for this gateway (data is set for API V1).
@@ -1121,6 +1126,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			wp_die( __( 'Mercado Pago Request Failure', 'woo-mercado-pago-module' ) );
 		}
 	}
+
 	/**
 	 * Summary: Properly handles each case of notification, based in payment status.
 	 * Description: Properly handles each case of notification, based in payment status.
@@ -1183,7 +1189,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		// WooCommerce 3.0 or later.
 		if ( method_exists( $order, 'update_meta_data' ) ) {
 			// Updates the type of gateway.
-			$order->update_meta_data( '_used_gateway', 'woo-mercado-pago-basic' );
+			$order->update_meta_data( '_used_gateway', 'WC_WooMercadoPago_BasicGateway' );
 			if ( ! empty( $data['payer']['email'] ) ) {
 				$order->update_meta_data( __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
 			}
@@ -1208,7 +1214,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			$order->save();
 		} else {
 			// Updates the type of gateway.
- 			update_post_meta( $order->id, '_used_gateway', 'woo-mercado-pago-basic' );
+ 			update_post_meta( $order->id, '_used_gateway', 'WC_WooMercadoPago_BasicGateway' );
 			if ( ! empty( $data['payer']['email'] ) ) {
 				update_post_meta( $order_id, __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
 			}
@@ -1308,13 +1314,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			default:
 				break;
 		}
-		//$this->check_mercado_envios( $data );
+		$this->check_mercado_envios( $data );
 	}
+
 	/**
 	 * Summary: Check IPN data and updates Mercado Envios tag and informaitons.
 	 * Description: Check IPN data and updates Mercado Envios tag and informaitons.
 	 */
-	/*public function check_mercado_envios( $merchant_order ) {
+	public function check_mercado_envios( $merchant_order ) {
 		$order_key = $merchant_order['external_reference'];
 		if ( ! empty( $order_key ) ) {
 			$invoice_prefix = get_option( '_mp_store_identificator', 'WC-' );
@@ -1344,14 +1351,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					// WooCommerce 3.0 or later.
 					if ( method_exists( $order, 'get_id' ) ) {
 						$shipping_item = $order->get_item( $order_item_shipping_id );
-						$item->set_order_id( $order->get_id() );
+						$shipping_item->set_order_id( $order->get_id() );
 						// Update shipping cost and method title.
-						$item->set_props( array(
+						$shipping_item->set_props( array(
 							'method_title' => 'Mercado Envios - ' . $shipment_name . $free_shipping_text,
 							'method_id' => $method_id,
 							'total' => wc_format_decimal( $shipment_cost ),
 						) );
-						$item->save();
+						$shipping_item->save();
 						$this->calculate_shipping();
 					} else {
 						// Update shipping cost and method title.
@@ -1361,9 +1368,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 							'cost' => wc_format_decimal( $shipment_cost )
 						) );
 					}
-					// WTF?
-					// https://docs.woocommerce.com/wc-apidocs/source-class-WC_Abstract_Order.html#541
-					// FORCE UPDATE SHIPPING
+					// WTF? FORCE UPDATE SHIPPING: https://docs.woocommerce.com/wc-apidocs/source-class-WC_Abstract_Order.html#541
 					$order->set_total( wc_format_decimal( $shipment_cost ) , 'shipping' );
 					// Update total order.
 					$order->set_total(
@@ -1413,11 +1418,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 						$substatus_description = $shipments_data['response']['status'];
 					}
 					$order->add_order_note( 'Mercado Envios: ' . $substatus_description );
-					$this->log->add(
-						$this->id,
-						'[check_mercado_envios] - Mercado Envios - shipments_data : ' .
-						json_encode( $shipments_data, JSON_PRETTY_PRINT )
-					);
+					$this->write_log( __FUNCTION__, 'Mercado Envios - shipments_data : ' . json_encode( $shipments_data, JSON_PRETTY_PRINT ) );
 					// Add tracking number in meta data to use in order page.
 					update_post_meta( $order_id, '_mercadoenvios_tracking_number', $shipments_data['response']['tracking_number'] );
 					// Add shipiment_id in meta data to use in order page.
@@ -1458,6 +1459,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				}
 			}
 		}
-	}*/
+	}
 
 }
