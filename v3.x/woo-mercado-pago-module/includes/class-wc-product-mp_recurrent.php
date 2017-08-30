@@ -18,6 +18,9 @@ function add_meta_boxes() {
 	// Get order.
 	global $post;
 	$order = wc_get_order( $post->ID );
+	if ( ! isset( $order ) || $order == false ) {
+		return;
+	}
 	$order_id = trim( str_replace( '#', '', $order->get_order_number() ) );
 	// Get payment information for the order.
 	$payments = get_post_meta( $order_id, '_Mercado_Pago_Sub_Payment_IDs', true );
@@ -37,6 +40,9 @@ function mp_subscription_order_refund_cancel_box() {
 	// Get order.
 	global $post;
 	$order = wc_get_order( $post->ID );
+	if ( ! isset( $order ) || $order == false ) {
+		return;
+	}
 	$order_id = trim( str_replace( '#', '', $order->get_order_number() ) );
 	// Get payment information for the order.
 	$payments = get_post_meta( $order_id, '_Mercado_Pago_Sub_Payment_IDs', true );
