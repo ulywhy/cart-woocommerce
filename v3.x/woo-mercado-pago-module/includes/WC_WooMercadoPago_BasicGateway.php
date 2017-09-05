@@ -44,6 +44,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		'</strong>';
 
 		// TODO: Verify sandbox availability.
+		//$_mp_sandbox_mode = get_option( '_mp_sandbox_mode', false );
 		$this->mp->sandbox_mode( false );
 
 		// How checkout is shown.
@@ -691,9 +692,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	 */
 	public function build_payment_preference( $order ) {
 
-		$selected_shipping = $order->get_shipping_method();
-		$order_content = array();
 		$items = array();
+		$currency_ratio = 1;
+		$order_content = array();
+		$selected_shipping = $order->get_shipping_method();
 
 		// Here we build the array that contains ordered items, from customer cart.
 		if ( sizeof( $order->get_items() ) > 0 ) {
@@ -741,8 +743,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 			// If we're not using Mercado Envios, shipping cost is added as an item in the order, preventing
 			// Mercado Pago Javascript to show shipment setup twice.
-			if ( strpos( $selected_shipping, 'Mercado Envios' ) !== 0 && $order->get_total_shipping() + $order->get_shipping_tax() > 0 ) {
-				$ship_amount = $order->get_total_shipping() + $order->get_shipping_tax();
+			$ship_amount = $order->get_total_shipping() + $order->get_shipping_tax();
+			if ( strpos( $selected_shipping, 'Mercado Envios' ) !== 0 && $ship_amount > 0 ) {
 				array_push( $order_content, __( 'Shipping service used by store', 'woo-mercado-pago-module' ) );
 				array_push( $items, array(
 					'title' => __( 'Shipping service used by store', 'woo-mercado-pago-module' ),
@@ -755,7 +757,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					'currency_id' => $this->site_data['currency']
 				) );
 			}
-
 			$items[0]['title'] = implode( ', ', $order_content );
 		}
 
@@ -956,7 +957,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 				);
 				// TODO: Verify sandbox availability.
-				//if ( 'yes' == $this->sandbox ) {
+				//if ( $this->sandbox ) {
 				//	return $checkout_info['response']['sandbox_init_point'];
 				//} else {
 				return $checkout_info['response']['init_point'];

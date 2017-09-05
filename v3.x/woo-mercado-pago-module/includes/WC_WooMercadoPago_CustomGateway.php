@@ -43,7 +43,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		'</strong>';
 
 		// TODO: Verify sandbox availability.
-		$this->mp->sandbox_mode( false );
+		$_mp_sandbox_mode = get_option( '_mp_sandbox_mode', false );
+		$this->mp->sandbox_mode( $_mp_sandbox_mode );
 
 		// How checkout is shown.
 		$this->title              = $this->get_option( 'title' );
@@ -502,9 +503,17 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$customer = isset( $logged_user_email ) ? $this->mp->get_or_create_customer( $logged_user_email ) : null;
 		$discount_action_url = get_site_url() . '/index.php/woo-mercado-pago-module/?wc-api=WC_WooMercadoPago_CustomGateway';
+		$method_discount = $amount * ( $this->gateway_discount / 100 );
+
+		$currency_ratio = 1;
+		$_mp_currency_conversion_v1 = get_option( '_mp_currency_conversion_v1', '' );
+		if ( ! empty( $_mp_currency_conversion_v1 ) ) {
+			$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate( $this->site_data['currency'] );
+			$currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
+		}
 
 		$parameters = array(
-			'amount'                 => $amount, // TODO: convert currency v1
+			'amount'                 => floor( ( $amount - $method_discount ) * $currency_ratio ),
 			// ===
 			'site_id'                => get_option( '_site_id_v1' ),
 			'public_key'             => get_option( '_mp_public_key' ),
@@ -516,36 +525,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			'banner_path'            => $this->site_data['checkout_banner_custom'],
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
 			'customerId'             => isset( $customer ) ? ( isset( $customer['id'] ) ? $customer['id'] : null ) : null,
-			'currency_ratio'         => 2, // TODO: on-the-fly retrieve currency ratio
+			'currency_ratio'         => $currency_ratio,
 			'woocommerce_currency'   => get_woocommerce_currency(),
-			'account_currency'       => $this->site_data['currency'],
-			'error' => array(
-				// Card number.
-				'205' => __( 'Parameter cardNumber can not be null/empty', 'woo-mercado-pago-module' ),
-				'E301' => __( 'Invalid Card Number', 'woo-mercado-pago-module' ),
-				// Expiration date.
-				'208' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
-				'209' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
-				'325' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
-				'326' => __( 'Invalid Expiration Date', 'woo-mercado-pago-module' ),
-				// Card holder name.
-				'221' => __( 'Parameter cardholderName can not be null/empty', 'woo-mercado-pago-module' ),
-				'316' => __( 'Invalid Card Holder Name', 'woo-mercado-pago-module' ),
-				// Security code.
-				'224' => __( 'Parameter securityCode can not be null/empty', 'woo-mercado-pago-module' ),
-				'E302' => __( 'Invalid Security Code', 'woo-mercado-pago-module' ),
-				// Doc type.
-				'212' => __( 'Parameter docType can not be null/empty', 'woo-mercado-pago-module' ),
-				'322' => __( 'Invalid Document Type', 'woo-mercado-pago-module' ),
-				// Doc number.
-				'214' => __( 'Parameter docNumber can not be null/empty', 'woo-mercado-pago-module' ),
-				'324' => __( 'Invalid Document Number', 'woo-mercado-pago-module' ),
-				// Doc sub type.
-				'213' => __( 'The parameter cardholder.document.subtype can not be null or empty', 'woo-mercado-pago-module' ),
-				'323' => __( 'Invalid Document Sub Type', 'woo-mercado-pago-module' ),
-				// Issuer.
-				'220' => __( 'Parameter cardIssuerId can not be null/empty', 'woo-mercado-pago-module' )
-			)
+			'account_currency'       => $this->site_data['currency']
 		);
 
 		wc_get_template(
@@ -564,32 +546,21 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	 */
 	public function process_payment( $order_id ) {
 
-		/*if ( ! isset( $_POST['mercadopago_custom'] ) ) {
+		if ( ! isset( $_POST['mercadopago_custom'] ) ) {
 			return;
 		}
-
-		$order = wc_get_order( $order_id );
 		$custom_checkout = $_POST['mercadopago_custom'];
 
-		// WooCommerce 3.0 or later.
+		$order = wc_get_order( $order_id );
 		if ( method_exists( $order, 'update_meta_data' ) ) {
-			$order->update_meta_data( '_used_gateway', 'WC_WooMercadoPagoCustom_Gateway' );
+			$order->update_meta_data( '_used_gateway', 'WC_WooMercadoPago_CustomGateway' );
 			$order->save();
 		} else {
-			update_post_meta( $order_id, '_used_gateway', 'WC_WooMercadoPagoCustom_Gateway' );
-		}
+ 			update_post_meta( $order_id, '_used_gateway', 'WC_WooMercadoPago_CustomGateway' );
+ 		}
 
-		// We have got parameters from checkout page, now its time to charge the card.
-		if ( 'yes' == $this->debug ) {
-			$this->log->add(
-				$this->id,
-				'[process_payment] - Received [$_POST] from customer front-end page: ' .
-				json_encode( $_POST, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
-			);
-		}
-
-		// Mexico country case.
-		if ( $custom_checkout['paymentMethodId'] == '' || empty( $custom_checkout['paymentMethodId'] ) ) {
+ 		// Mexico country case.
+		if ( ! isset( $custom_checkout['paymentMethodId'] ) ) || empty( $custom_checkout['paymentMethodId'] ) ) {
 			$custom_checkout['paymentMethodId'] = $custom_checkout['paymentMethodSelector'];
 		}
 
@@ -598,46 +569,37 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			isset( $custom_checkout['paymentMethodId'] ) && ! empty( $custom_checkout['paymentMethodId'] ) &&
 			isset( $custom_checkout['installments'] ) && ! empty( $custom_checkout['installments'] ) &&
 			$custom_checkout['installments'] != -1 ) {
-
 			$response = self::create_url( $order, $custom_checkout );
-
 			if ( array_key_exists( 'status', $response ) ) {
 				switch ( $response['status'] ) {
 					case 'approved':
 						WC()->cart->empty_cart();
 						wc_add_notice(
-							'<p>' .
-								__( $this->get_order_status( 'accredited' ), 'woocommerce-mercadopago-module' ) .
-							'</p>',
+							'<p>' . __( $this->get_order_status( 'accredited' ), 'woo-mercado-pago-module' ) . '</p>',
 							'notice'
 						);
 						$order->add_order_note(
-							'Mercado Pago: ' .
-							__( 'Payment approved.', 'woocommerce-mercadopago-module' )
+							'Mercado Pago: ' . __( 'Payment approved.', 'woo-mercado-pago-module' )
 						);
 						return array(
 							'result' => 'success',
 							'redirect' => $order->get_checkout_order_received_url()
 						);
 						break;
-				case 'pending':
-					// Order approved/pending, we just redirect to the thankyou page.
-					return array(
+					case 'pending':
+						// Order approved/pending, we just redirect to the thankyou page.
+						return array(
 							'result' => 'success',
 							'redirect' => $order->get_checkout_order_received_url()
 						);
 						break;
-				case 'in_process':
-					// For pending, we don't know if the purchase will be made, so we must inform this status.
-					WC()->cart->empty_cart();
+					case 'in_process':
+						// For pending, we don't know if the purchase will be made, so we must inform this status.
+						WC()->cart->empty_cart();
 						wc_add_notice(
-							'<p>' .
-								__( $this->get_order_status( $response['status_detail'] ), 'woocommerce-mercadopago-module' ) .
-							'</p>' .
-							'<p><a class="button" href="' .
-								esc_url( $order->get_checkout_order_received_url() ) .
-							'">' .
-								__( 'Check your order resume', 'woocommerce-mercadopago-module' ) .
+							'<p>' . __( $this->get_order_status( $response['status_detail'] ), 'woo-mercado-pago-module' ) . '</p>' .
+							'<p><a class="button" href="' . esc_url( $order->get_checkout_order_received_url() ) . '">' .
+								__( 'Check your order resume', 'woo-mercado-pago-module' ) .
 							'</a></p>',
 							'notice'
 						);
@@ -646,17 +608,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 							'redirect' => $order->get_checkout_payment_url( true )
 						);
 						break;
-				case 'rejected':
-						// If rejected is received, the order will not proceed until another payment try,
-						// so we must inform this status.
+					case 'rejected':
+						// If rejected is received, the order will not proceed until another payment try, so we must inform this status.
 						wc_add_notice(
-							'<p>' .
-								__( 'Your payment was refused. You can try again.', 'woocommerce-mercadopago-module' ) .
-							'<br>' .
-								__( $this->get_order_status( $response['status_detail'] ), 'woocommerce-mercadopago-module' ) .
+							'<p>' . __( 'Your payment was refused. You can try again.', 'woo-mercado-pago-module' ) . '<br>' .
+								__( $this->get_order_status( $response['status_detail'] ), 'woo-mercado-pago-module' ) .
 							'</p>' .
 							'<p><a class="button" href="' . esc_url( $order->get_checkout_payment_url() ) . '">' .
-								__( 'Click to try again', 'woocommerce-mercadopago-module' ) .
+								__( 'Click to try again', 'woo-mercado-pago-module' ) .
 							'</a></p>',
 							'error'
 						);
@@ -677,7 +636,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			// Process when fields are imcomplete.
 			wc_add_notice(
 				'<p>' .
-					__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) .
+					__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woo-mercado-pago-module' ) .
 				'</p>',
 				'error'
 			);
@@ -685,7 +644,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'result' => 'fail',
 				'redirect' => '',
 			);
-		}*/
+		}
 
 	}
 
@@ -695,120 +654,95 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	 * from the cart.
 	 * @return the preference object.
 	 */
-	/*private function build_payment_preference( $order, $custom_checkout ) {
+	private function build_payment_preference( $order, $custom_checkout ) {
 
 		// A string to register items (workaround to deal with API problem that shows only first item).
-		$list_of_items = array();
+		$items = array();
 		$order_total = 0;
+		$list_of_items = array();
 		$discount_amount_of_items = 0;
 
 		// Here we build the array that contains ordered items, from customer cart.
-		$items = array();
 		if ( sizeof( $order->get_items() ) > 0 ) {
 			foreach ( $order->get_items() as $item ) {
 				if ( $item['qty'] ) {
 					$product = new WC_product( $item['product_id'] );
-
-					// WooCommerce 3.0 or later.
-					if ( method_exists( $product, 'get_description' ) ) {
-						$product_title = WC_WooMercadoPago_Module::utf8_ansi(
-							$product->get_name()
-						);
-						$product_content = WC_WooMercadoPago_Module::utf8_ansi(
-							$product->get_description()
-						);
-					} else {
-						$product_title = WC_WooMercadoPago_Module::utf8_ansi(
-							$product->post->post_title
-						);
-						$product_content = WC_WooMercadoPago_Module::utf8_ansi(
-							$product->post->post_content
-						);
-					}
-					
-					// Calculate discount for payment method.
-					$unit_price = floor( ( (float) $item['line_total'] + (float) $item['line_tax'] ) *
-						( (float) $this->currency_ratio > 0 ? (float) $this->currency_ratio : 1 ) * 100 ) / 100;
-					if ( is_numeric( $this->gateway_discount ) ) {
-						if ( $this->gateway_discount >= 0 && $this->gateway_discount < 100 ) {
-							$price_percent = $this->gateway_discount / 100;
-							$discount = $unit_price * $price_percent;
-							if ( $discount > 0 ) {
-								$discount_amount_of_items += $discount;
-							}
-						}
-					}
-
-					// Remove decimals if MCO/MLC
-					if ( $this->site_id == 'MCO' || $this->site_id == 'MLC' ) {
-						$unit_price = floor( $unit_price );
-						$discount_amount_of_items = floor( $discount_amount_of_items );
-					}
-
-					$order_total += $unit_price;
+					$product_title = method_exists( $product, 'get_description' ) ?
+						$product->get_name() :
+						$product->post->post_title;
+					$product_content = method_exists( $product, 'get_description' ) ?
+						$product->get_description() :
+						$product->post->post_content;
+					$line_amount = $item['line_total'] + $item['line_tax'];
+					$order_total += $line_amount;
 
 					array_push( $list_of_items, $product_title . ' x ' . $item['qty'] );
 					array_push( $items, array(
 						'id' => $item['product_id'],
-						'title' => ( html_entity_decode( $product_title ) . ' x ' . $item['qty'] ),
+						'title' => html_entity_decode( $product_title ) . ' x ' . $item['qty'],
 						'description' => sanitize_file_name( html_entity_decode( 
-							// This handles description width limit of Mercado Pago.
-							( strlen( $product_content ) > 230 ?
-								substr( $product_content, 0, 230 ) . '...' :
-								$product_content )
+							strlen( $product_content ) > 230 ?
+							substr( $product_content, 0, 230 ) . '...' :
+							$product_content
 						) ),
-						'picture_url' => wp_get_attachment_url( $product->get_image_id() ),
-						'category_id' => $this->store_categories_id[$this->category_id],
+						'picture_url' => sizeof( $order->get_items() > 1 ) ?
+							plugins_url( 'assets/images/cart.png', plugin_dir_path( __FILE__ ) ) :
+							wp_get_attachment_url( $product->get_image_id()
+						),
+						'category_id' => get_option( '_mp_category_name', 'others' ),
 						'quantity' => 1,
-						'unit_price' => $unit_price
+						'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+							floor( $line_amount * $custom_checkout['currency_ratio'] ) :
+							floor( $line_amount * $custom_checkout['currency_ratio'] * 100 ) / 100
 					) );
 				}
 			}
 		}
 
 		// Creates the shipment cost structure.
-		$ship_cost = ( (float) $order->get_total_shipping() + (float) $order->get_shipping_tax() ) *
-			( (float) $this->currency_ratio > 0 ? (float) $this->currency_ratio : 1 );
-
-		// Remove decimals if MCO/MLC
-		if ( $this->site_id == 'MCO' || $this->site_id == 'MLC' ) {
-			$ship_cost = floor( $ship_cost );
-		}
-
+		$ship_cost = $order->get_total_shipping() + $order->get_shipping_tax();
 		if ( $ship_cost > 0 ) {
 			$order_total += $ship_cost;
 			$item = array(
-				'id' => 2147483647,
 				'title' => sanitize_file_name( $order->get_shipping_to_display() ),
-				'description' => __( 'Shipping service used by store', 'woocommerce-mercadopago-module' ),
-				'category_id' => $this->store_categories_id[$this->category_id],
+				'description' => __( 'Shipping service used by store', 'woo-mercado-pago-module' ),
+				'category_id' => get_option( '_mp_category_name', 'others' ),
 				'quantity' => 1,
-				'unit_price' => floor( $ship_cost * 100 ) / 100
+				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+					floor( $ship_cost * $custom_checkout['currency_ratio'] ) :
+					floor( $ship_cost * $custom_checkout['currency_ratio'] * 100 ) / 100
 			);
 			$items[] = $item;
 		}
 
 		// Discounts features.
-		if ( isset( $custom_checkout['discount'] ) && $custom_checkout['discount'] != '' &&
-			$custom_checkout['discount'] > 0 && isset( $custom_checkout['coupon_code'] ) &&
-			$custom_checkout['coupon_code'] != '' &&
-			WC()->session->chosen_payment_method == 'woocommerce-mercadopago-custom-module' ) {
-
-			// Remove decimals if MCO/MLC
-			if ( $this->site_id == 'MCO' || $this->site_id == 'MLC' ) {
-				$custom_checkout['discount'] = floor( $custom_checkout['discount'] );
-			}
-
+		if ( isset( $custom_checkout['discount'] ) && ! empty( $custom_checkout['discount'] ) &&
+			isset( $custom_checkout['coupon_code'] ) && ! empty( $custom_checkout['coupon_code'] ) &&
+			$custom_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom' ) {
 			$item = array(
-				'id' => 2147483646,
-				'title' => __( 'Discount', 'woocommerce-mercadopago-module' ),
-				'description' => __( 'Discount provided by store', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Discount', 'woo-mercado-pago-module' ),
+				'description' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
 				'quantity' => 1,
 				'category_id' => $this->store_categories_id[$this->category_id],
-				'unit_price' => -( (float) $custom_checkout['discount'] )
+				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+					-floor( $custom_checkout['discount'] * $custom_checkout['currency_ratio'] ) :
+					-floor( $custom_checkout['discount'] * $custom_checkout['currency_ratio'] * 100 ) / 100
 			);
 			$items[] = $item;
 		}
+
+		// Build additional information from the customer data.
+		$payer_additional_info = array(
+			'first_name' => ( method_exists( $order, 'get_id' ) ?
+				html_entity_decode( $order->get_billing_first_name() ) :
+				html_entity_decode( $order->billing_first_name ) ),
+			'last_name' => ( method_exists( $order, 'get_id' ) ?
+				html_entity_decode( $order->get_billing_last_name() ) :
+				html_entity_decode( $order->billing_last_name ) ),
+
+			// TODO: place and refactor payer additional info...
+			
+		);
 
 		// Build additional information from the customer data.
 		if ( method_exists( $order, 'get_id' ) ) {
@@ -974,71 +908,54 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			$preferences, $order
 		);
 		return $preferences;
-	}*/
+	}
 
-	// --------------------------------------------------
-
-	/*protected function create_url( $order, $custom_checkout ) {
-
+	protected function create_url( $order, $custom_checkout ) {
 		// Creates the order parameters by checking the cart configuration.
 		$preferences = $this->build_payment_preference( $order, $custom_checkout );
-
 		// Checks for sandbox mode.
-		if ( 'yes' == $this->sandbox ) {
-			$this->mp->sandbox_mode( true );
-			if ( 'yes' == $this->debug) {
-				$this->log->add(
-					$this->id,
-					'[create_url] - sandbox mode is enabled'
-				);
-			}
-		} else {
-			$this->mp->sandbox_mode( false );
-		}
-
+		$this->mp->sandbox_mode( $this->sandbox );
 		// Create order preferences with Mercado Pago API request.
 		try {
 			$checkout_info = $this->mp->post( '/v1/payments', json_encode( $preferences) );
 			if ( $checkout_info['status'] < 200 || $checkout_info['status'] >= 300 ) {
-				// Mercado Pago trowed an error.
-				if ( 'yes' == $this->debug ) {
-					$this->log->add(
-						$this->id,
-						'[create_url] - mercado pago gave error, payment creation failed with error: ' .
-						$checkout_info['response']['message'] );
-				}
+				// Mercado Pago throwed an error.
+				$this->write_log(
+					__FUNCTION__,
+					'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']
+				);
 				return false;
 			} elseif ( is_wp_error( $checkout_info ) ) {
 				// WordPress throwed an error.
-				if ( 'yes' == $this->debug ) {
-					$this->log->add(
-						$this->id,
-						'[create_url] - wordpress gave error, payment creation failed with error: ' .
-						$checkout_info['response']['message'] );
-				}
+				$this->write_log(
+					__FUNCTION__,
+					'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']
+				);
 				return false;
 			} else {
 				// Obtain the URL.
-				if ( 'yes' == $this->debug ) {
-					$this->log->add(
-						$this->id,
-						'[create_url] - payment link generated with success from mercado pago, with structure as follow: ' .
-						json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE ) );
-				}
-				return $checkout_info['response'];
-			}
-		} catch ( MercadoPagoException $e ) {
-			// Something went wrong with the payment creation.
-			if ( 'yes' == $this->debug ) {
-				$this->log->add(
-					$this->id,
-					'[create_url] - payment creation failed with exception: ' .
-					json_encode( array( 'status' => $e->getCode(), 'message' => $e->getMessage() ) )
+				$this->write_log(
+					__FUNCTION__,
+					'payment link generated with success from mercado pago, with structure as follow: ' .
+					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE ) 
 				);
+				// TODO: Verify sandbox availability.
+				//if ( 'yes' == $this->sandbox ) {
+				//	return $checkout_info['response']['sandbox_init_point'];
+				//} else {
+				return $checkout_info['response'];
+				//}
 			}
+		} catch ( MercadoPagoException $ex ) {
+			// Something went wrong with the payment creation.
+			$this->write_log(
+				__FUNCTION__,
+				'payment creation failed with exception: ' .
+				json_encode( $ex, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+			);
 			return false;
 		}
-	}*/
+	}
 
 	/**
 	 * Summary: Check if we have existing customer card, if not we create and save it.

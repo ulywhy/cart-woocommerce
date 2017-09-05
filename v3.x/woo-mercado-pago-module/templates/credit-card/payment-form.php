@@ -86,13 +86,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				autocomplete="off" maxlength="4" style="padding: 8px;
 				background: url( <?php echo ( $images_path . 'cvv.png' ); ?> ) 98% 50% no-repeat;"/>
 				<span class="mp-error" id="mp-error-224" data-main="#customer-and-card-securityCode">
-					<?php echo $form_labels['error']['224']; ?>
+					<?php echo esc_html__( 'Parameter securityCode can not be null/empty', 'woo-mercado-pago-module' ); ?>
 				</span>
 				<span class="mp-error" id="mp-error-E302" data-main="#customer-and-card-securityCode">
-					<?php echo $form_labels['error']['E302']; ?>
+					<?php echo esc_html__( 'Invalid Security Code', 'woo-mercado-pago-module' ); ?>
 				</span>
 				<span class="mp-error" id="mp-error-E203" data-main="#customer-and-card-securityCode">
-					<?php echo $form_labels['error']['E203']; ?>
+					<?php echo esc_html__( 'Invalid Security Code', 'woo-mercado-pago-module' ); ?>
 				</span>
 			</div>
 		</div>
@@ -107,10 +107,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="text" id="cardNumber" data-checkout="cardNumber" autocomplete="off"
 			maxlength="19"/>
 			<span class="mp-error" id="mp-error-205" data-main="#cardNumber">
-				<?php echo $form_labels['error']['205']; ?>
+				<?php echo esc_html__( 'Parameter cardNumber can not be null/empty', 'woo-mercado-pago-module' ); ?>
 			</span>
 			<span class="mp-error" id="mp-error-E301" data-main="#cardNumber">
-				<?php echo $form_labels['error']['E301']; ?>
+				<?php echo esc_html__( 'Invalid Card Number', 'woo-mercado-pago-module' ); ?>
 			</span>
 		</div>
 		<!-- Expiry Date -->
@@ -143,11 +143,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</select>
 			</div>
 			<span class="mp-error" id="mp-error-208" data-main="#cardExpirationMonth">
-				<?php echo $form_labels['error']['208']; ?>
+				<?php echo esc_html__( 'Invalid Expiration Date', 'woo-mercado-pago-module' ); ?>
 			</span>
 			<span class="mp-error" id="mp-error-209" data-main="#cardExpirationYear"> </span>
 			<span class="mp-error" id="mp-error-325" data-main="#cardExpirationMonth">
-				<?php echo $form_labels['error']['325']; ?>
+				<?php echo esc_html__( 'Invalid Expiration Date', 'woo-mercado-pago-module' ); ?>
 			</span>
 			<span class="mp-error" id="mp-error-326" data-main="#cardExpirationYear"> </span>
 		</div>
@@ -159,10 +159,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="text" id="cardholderName" name="mercadopago_custom[cardholderName]"
 			data-checkout="cardholderName" autocomplete="off" />
 			<span class="mp-error" id="mp-error-221" data-main="#cardholderName">
-				<?php echo $form_labels['error']['221']; ?>
+				<?php echo esc_html__( 'Parameter cardholderName can not be null/empty', 'woo-mercado-pago-module' ); ?>
 			</span>
 			<span class="mp-error" id="mp-error-316" data-main="#cardholderName">
-				<?php echo $form_labels['error']['316']; ?>
+				<?php echo esc_html__( 'Invalid Card Holder Name', 'woo-mercado-pago-module' ); ?>
 			</span>
 		</div>
       	<!-- CVV -->
@@ -175,10 +175,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				autocomplete="off" maxlength="4" style="padding: 8px;
 				background: url(<?php echo ($images_path . 'cvv.png'); ?>) 98% 50% no-repeat;" />
 				<span class="mp-error" id="mp-error-224" data-main="#securityCode">
-					<?php echo $form_labels['error']['224']; ?>
+					<?php echo esc_html__( 'Parameter securityCode can not be null/empty', 'woo-mercado-pago-module' ); ?>
 				</span>
 				<span class="mp-error" id="mp-error-E302" data-main="#securityCode">
-					<?php echo $form_labels['error']['E302']; ?>
+					<?php echo esc_html__( 'Invalid Security Code', 'woo-mercado-pago-module' ); ?>
 				</span>
 			</div>
 		</div>
@@ -191,10 +191,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<select id="docType" data-checkout="docType"
 				name="mercadopago_custom[docType]"></select>
 				<span class="mp-error" id="mp-error-212" data-main="#docType">
-					<?php echo $form_labels['error']['212']; ?>
+					<?php echo esc_html__( 'Parameter docType can not be null/empty', 'woo-mercado-pago-module' ); ?>
 				</span>
 				<span class="mp-error" id="mp-error-322" data-main="#docType">
-					<?php echo $form_labels['error']['322']; ?>
+					<?php echo esc_html__( 'Invalid Document Type', 'woo-mercado-pago-module' ); ?>
 				</span>
 			</div>
 			<div class="mp-box-inputs mp-col-65 mp-docNumber">
@@ -204,10 +204,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="text" id="docNumber" data-checkout="docNumber"
 				name="mercadopago_custom[docNumber]" autocomplete="off" />
 				<span class="mp-error" id="mp-error-214" data-main="#docNumber">
-					<?php echo $form_labels['error']['214']; ?>
+					<?php echo esc_html__( 'Parameter docNumber can not be null/empty', 'woo-mercado-pago-module' ); ?>
 				</span>
 				<span class="mp-error" id="mp-error-324" data-main="#docNumber">
-					<?php echo $form_labels['error']['324']; ?>
+					<?php echo esc_html__( 'Invalid Document Number', 'woo-mercado-pago-module' ); ?>
 				</span>
 			</div>
 		</div>
@@ -218,7 +218,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 			<select id="issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
 			<span class="mp-error" id="mp-error-220" data-main="#issuer">
-				<?php echo $form_labels['error']['220']; ?>
+				<?php echo esc_html__( 'Parameter cardIssuerId can not be null/empty', 'woo-mercado-pago-module' ); ?>
 			</span>
 		</div>
 	</div> <!-- end #mercadopago-form -->
@@ -253,16 +253,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="mp-box-inputs mp-col-100" id="mercadopago-utilities"
 	style="padding:0px 12px 0px 12px;">
-		<input type="hidden" id="site_id" name="mercadopago_custom[site_id]"/>
-		<input type="hidden" id="amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]"/>
-		<input type="hidden" id="campaign_id" name="mercadopago_custom[campaign_id]"/>
-		<input type="hidden" id="campaign" name="mercadopago_custom[campaign]"/>
-		<input type="hidden" id="discount" name="mercadopago_custom[discount]"/>
-		<input type="hidden" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]"/>
-		<input type="hidden" id="token" name="mercadopago_custom[token]"/>
-		<input type="hidden" id="cardTruncated" name="mercadopago_custom[cardTruncated]"/>
-		<input type="hidden" id="CustomerAndCard" name="mercadopago_custom[CustomerAndCard]"/>
-		<input type="hidden" id="CustomerId" value='<?php echo $customerId; ?>' name="mercadopago_custom[CustomerId]"/>
+		<input type="text" id="site_id" name="mercadopago_custom[site_id]"/>
+		<input type="text" id="amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]"/>
+		<input type="text" id="currency_ratio" value='<?php echo $currency_ratio; ?>' name="mercadopago_custom[currency_ratio]"/>
+		<input type="text" id="campaign_id" name="mercadopago_custom[campaign_id]"/>
+		<input type="text" id="campaign" name="mercadopago_custom[campaign]"/>
+		<input type="text" id="discount" name="mercadopago_custom[discount]"/>
+		<input type="text" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]"/>
+		<input type="text" id="token" name="mercadopago_custom[token]"/>
+		<input type="text" id="cardTruncated" name="mercadopago_custom[cardTruncated]"/>
+		<input type="text" id="CustomerAndCard" name="mercadopago_custom[CustomerAndCard]"/>
+		<input type="text" id="CustomerId" value='<?php echo $customerId; ?>' name="mercadopago_custom[CustomerId]"/>
 	</div>
 
 </fieldset>
@@ -308,6 +309,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				"securityCode"
 			],
 			selectors: {
+				// currency
+				currency_ratio: "#currency_ratio",
 	        	// coupom
 				couponCode: "#couponCode",
 				applyCoupon: "#applyCoupon",
