@@ -44,8 +44,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		'</strong>';
 
 		// TODO: Verify sandbox availability.
-		//$_mp_sandbox_mode = get_option( '_mp_sandbox_mode', false );
-		$this->mp->sandbox_mode( false );
+		$this->sandbox = false;
+		//$this->sandbox = get_option( '_mp_sandbox_mode', false );
+		$this->mp->sandbox_mode( $this->sandbox );
 
 		// How checkout is shown.
 		$this->title              = $this->get_option( 'title' );
@@ -1054,7 +1055,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			json_encode( $_GET, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 		);
 		// Setup sandbox mode.
-		$this->mp->sandbox_mode( 'yes' == $this->sandbox );
+		$this->mp->sandbox_mode( $this->sandbox );
 		// Over here, $_GET should come with this JSON structure:
 		// {
 		// 	"topic": <string>,
@@ -1194,8 +1195,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			if ( ! empty( $data['payer']['email'] ) ) {
 				$order->update_meta_data( __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
 			}
-			if ( ! empty( $data['payment_type'] ) ) {
-				$order->update_meta_data( __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type'] );
+			if ( ! empty( $data['payment_type_id'] ) ) {
+				$order->update_meta_data( __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type_id'] );
 			}
 			if ( ! empty( $data['payments'] ) ) {
 				$payment_ids = array();
@@ -1219,8 +1220,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			if ( ! empty( $data['payer']['email'] ) ) {
 				update_post_meta( $order_id, __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
 			}
-			if ( ! empty( $data['payment_type'] ) ) {
-				update_post_meta( $order_id, __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type'] );
+			if ( ! empty( $data['payment_type_id'] ) ) {
+				update_post_meta( $order_id, __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type_id'] );
 			}
 			if ( ! empty( $data['payments'] ) ) {
 				$payment_ids = array();
@@ -1249,8 +1250,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		switch ( $status ) {
 			case 'approved':
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'Payment approved.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'Payment approved.', 'woo-mercado-pago-module' )
 				);
 				$order->payment_complete();
 				$order->update_status(
@@ -1262,36 +1262,31 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'pending' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'Customer haven\'t paid yet.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'Customer haven\'t paid yet.', 'woo-mercado-pago-module' )
 				);
 				break;
 			case 'in_process':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'on-hold' ),
-					'Mercado Pago: ' .
-					__( 'Payment under review.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'Payment under review.', 'woo-mercado-pago-module' )
 				);
 				break;
 			case 'rejected':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'failed' ),
-					'Mercado Pago: ' .
-					__( 'The payment was refused. The customer can try again.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment was refused. The customer can try again.', 'woo-mercado-pago-module' )
 				);
 				break;
 			case 'refunded':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'refunded' ),
-					'Mercado Pago: ' .
-					__( 'The payment was refunded to the customer.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment was refunded to the customer.', 'woo-mercado-pago-module' )
 				);
 				break;
 			case 'cancelled':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'cancelled' ),
-					'Mercado Pago: ' .
-					__( 'The payment was cancelled.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woo-mercado-pago-module' )
 				);
 				break;
 			case 'in_mediation':
@@ -1299,8 +1294,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'inmediation' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
 				);
 				break;
 			case 'charged-back':
@@ -1308,8 +1302,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'chargedback' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
 				);
 				break;
 			default:

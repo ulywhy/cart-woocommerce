@@ -312,7 +312,11 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 	 * Return shipping method id Mercado Envios.
 	 */
 	public function get_shipping_method_id( $site_id ) {
-		return $this->shipments_id[$site_id];
+		if ( in_array( $site_id, $this->shipments_id ) ) {
+			return $this->shipments_id[$site_id];
+		} else {
+			return 0;
+		}
 	}
 
 	/**
