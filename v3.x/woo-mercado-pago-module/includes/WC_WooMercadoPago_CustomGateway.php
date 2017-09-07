@@ -672,7 +672,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					// Calculates line amount and discounts.
 					$line_amount = $item['line_total'] + $item['line_tax'];
 					$discount_by_gateway = (float) $line_amount * ( $this->gateway_discount / 100 );
-					$order_total += $line_amount;
+					$order_total += ($line_amount - $discount_by_gateway);
 					// Add the item.
 					array_push( $list_of_items, $product_title . ' x ' . $item['qty'] );
 					array_push( $items, array(
