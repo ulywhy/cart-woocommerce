@@ -183,8 +183,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'type' => 'checkbox',
 				'label' => __( 'Enable binary mode for checkout status', 'woo-mercado-pago-module' ),
 				'default' => 'no',
-				'description' =>
-					__( 'When charging a credit card, only [approved] or [reject] status will be taken.', 'woo-mercado-pago-module' )
+				'description' => __( 'When charging a credit card, only [approved] or [reject] status will be taken.', 'woo-mercado-pago-module' )
 			),
 			'gateway_discount' => array(
 				'title' => __( 'Discount by Gateway', 'woo-mercado-pago-module' ),
@@ -511,7 +510,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		}
 
 		$parameters = array(
-			'amount'                 => $amount * $currency_ratio,
+			'amount'                 => $amount,
 			// ===
 			'site_id'                => get_option( '_site_id_v1' ),
 			'public_key'             => get_option( '_mp_public_key' ),
@@ -573,7 +572,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					case 'approved':
 						WC()->cart->empty_cart();
 						wc_add_notice(
-							'<p>' . __( $this->get_order_status( 'accredited' ), 'woo-mercado-pago-module' ) . '</p>',
+							'<p>' . $this->get_order_status( 'accredited' ) . '</p>',
 							'notice'
 						);
 						$order->add_order_note(
@@ -595,7 +594,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 						// For pending, we don't know if the purchase will be made, so we must inform this status.
 						WC()->cart->empty_cart();
 						wc_add_notice(
-							'<p>' . __( $this->get_order_status( $response['status_detail'] ), 'woo-mercado-pago-module' ) . '</p>' .
+							'<p>' . $this->get_order_status( $response['status_detail'] ) . '</p>' .
 							'<p><a class="button" href="' . esc_url( $order->get_checkout_order_received_url() ) . '">' .
 								__( 'Check your order resume', 'woo-mercado-pago-module' ) .
 							'</a></p>',
@@ -610,7 +609,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 						// If rejected is received, the order will not proceed until another payment try, so we must inform this status.
 						wc_add_notice(
 							'<p>' . __( 'Your payment was refused. You can try again.', 'woo-mercado-pago-module' ) . '<br>' .
-								__( $this->get_order_status( $response['status_detail'] ), 'woo-mercado-pago-module' ) .
+								$this->get_order_status( $response['status_detail'] ) .
 							'</p>' .
 							'<p><a class="button" href="' . esc_url( $order->get_checkout_payment_url() ) . '">' .
 								__( 'Click to try again', 'woo-mercado-pago-module' ) .
@@ -658,7 +657,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		$items = array();
 		$order_total = 0;
 		$list_of_items = array();
-		$discount_amount_of_items = 0;
 
 		// Here we build the array that contains ordered items, from customer cart.
 		if ( sizeof( $order->get_items() ) > 0 ) {
@@ -672,8 +670,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 						$product->get_description() :
 						$product->post->post_content;
 					// Calculates line amount and discounts.
-					$line_amount = ($item['line_total'] + $item['line_tax']) * $custom_checkout['currency_ratio'];
-					$discount_amount_of_items += $line_amount * ( $this->gateway_discount / 100 ) * $custom_checkout['currency_ratio'];
+					$line_amount = $item['line_total'] + $item['line_tax'];
+					$discount_by_gateway = (float) $line_amount * ( $this->gateway_discount / 100 );
 					$order_total += $line_amount;
 					// Add the item.
 					array_push( $list_of_items, $product_title . ' x ' . $item['qty'] );
@@ -692,15 +690,15 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 						'category_id' => get_option( '_mp_category_name', 'others' ),
 						'quantity' => 1,
 						'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-							floor( $line_amount ) :
-							floor( $line_amount * 100 ) / 100
+							floor( ( $line_amount - $discount_by_gateway ) * $custom_checkout['currency_ratio'] ) :
+							floor( ( $line_amount - $discount_by_gateway ) * $custom_checkout['currency_ratio'] * 100 ) / 100
 					) );
 				}
 			}
 		}
 
 		// Creates the shipment cost structure.
-		$ship_cost = ($order->get_total_shipping() + $order->get_shipping_tax()) * $custom_checkout['currency_ratio'];
+		$ship_cost = ($order->get_total_shipping() + $order->get_shipping_tax());
 		if ( $ship_cost > 0 ) {
 			$order_total += $ship_cost;
 			$item = array(
@@ -711,8 +709,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'category_id' => get_option( '_mp_category_name', 'others' ),
 				'quantity' => 1,
 				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-					floor( $ship_cost ) :
-					floor( $ship_cost * 100 ) / 100
+					floor( $ship_cost * $custom_checkout['currency_ratio'] ) :
+					floor( $ship_cost * $custom_checkout['currency_ratio'] * 100 ) / 100
 			);
 			$items[] = $item;
 		}
@@ -722,7 +720,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			isset( $custom_checkout['coupon_code'] ) && ! empty( $custom_checkout['coupon_code'] ) &&
 			$custom_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom' ) {
 			$item = array(
-				'title' => __( 'Discount', 'woo-mercado-pago-module' ),
+				'title' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
 				'description' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
 				'quantity' => 1,
 				'category_id' => $this->store_categories_id[$this->category_id],
@@ -795,8 +793,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		// The payment preference.
 		$preferences = array(
 			'transaction_amount' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-				floor( $order_total - $discount_amount_of_items ) :
-				floor( ( $order_total - $discount_amount_of_items ) * 100 ) / 100,
+				floor( $order_total * $custom_checkout['currency_ratio'] ) :
+				floor( $order_total * $custom_checkout['currency_ratio'] * 100 ) / 100,
 			'token' => $custom_checkout['token'],
 			'description' => implode( ', ', $list_of_items ),
 			'installments' => (int) $custom_checkout['installments'],
@@ -983,7 +981,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			$value = $custom_checkout['discount'] / $custom_checkout['currency_ratio'];
 			global $woocommerce;
 			if ( apply_filters(
-				'wc_mercadopagocustom_module_apply_discount',
+				'wc_mercadopago_custommodule_apply_discount',
 				0 < $value, $woocommerce->cart )
 			) {
 				$woocommerce->cart->add_fee( sprintf(
@@ -1012,7 +1010,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			if ( $this->gateway_discount >= 0 && $this->gateway_discount < 100 ) {
 				$price_percent = $this->gateway_discount / 100;
 				if ( $price_percent > 0 ) {
-					$title .= ' (' . __( 'Discount Of ', 'woo-mercado-pago-module' ) .
+					$title .= ' (' . __( 'Discount of', 'woo-mercado-pago-module' ) . ' ' .
 						strip_tags( wc_price( $total * $price_percent ) ) . ' )';
 				}
 			}
@@ -1058,41 +1056,41 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	public function get_order_status( $status_detail ) {
 		switch ( $status_detail ) {
 			case 'accredited':
-				return __( 'Done, your payment was accredited!', 'woocommerce-mercadopago-module' );
+				return __( 'Done, your payment was accredited!', 'woo-mercado-pago-module' );
 			case 'pending_contingency':
-				return __( 'We are processing the payment. In less than an hour we will e-mail you the results.', 'woocommerce-mercadopago-module' );
+				return __( 'We are processing the payment. In less than an hour we will e-mail you the results.', 'woo-mercado-pago-module' );
 			case 'pending_review_manual':
-				return __( 'We are processing the payment. In less than 2 business days we will tell you by e-mail whether it has accredited or we need more information.', 'woocommerce-mercadopago-module' );
+				return __( 'We are processing the payment. In less than 2 business days we will tell you by e-mail whether it has accredited or we need more information.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_bad_filled_card_number':
-				return __( 'Check the card number.', 'woocommerce-mercadopago-module' );
+				return __( 'Check the card number.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_bad_filled_date':
-				return __( 'Check the expiration date.', 'woocommerce-mercadopago-module' );
+				return __( 'Check the expiration date.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_bad_filled_other':
-				return __( 'Check the information.', 'woocommerce-mercadopago-module' );
+				return __( 'Check the information.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_bad_filled_security_code':
-				return __( 'Check the security code.', 'woocommerce-mercadopago-module' );
+				return __( 'Check the security code.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_blacklist':
-				return __( 'We could not process your payment.', 'woocommerce-mercadopago-module' );
+				return __( 'We could not process your payment.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_call_for_authorize':
-				return __( 'You must authorize the payment of your orders.', 'woocommerce-mercadopago-module' );
+				return __( 'You must authorize the payment of your orders.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_card_disabled':
-				return __( 'Call your card issuer to activate your card. The phone is on the back of your card.', 'woocommerce-mercadopago-module' );
+				return __( 'Call your card issuer to activate your card. The phone is on the back of your card.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_card_error':
-				return __( 'We could not process your payment.', 'woocommerce-mercadopago-module' );
+				return __( 'We could not process your payment.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_duplicated_payment':
-				return __( 'You already made a payment for that amount. If you need to repay, use another card or other payment method.', 'woocommerce-mercadopago-module' );
+				return __( 'You already made a payment for that amount. If you need to repay, use another card or other payment method.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_high_risk':
-				return __( 'Your payment was rejected. Choose another payment method. We recommend cash.', 'woocommerce-mercadopago-module' );
+				return __( 'Your payment was rejected. Choose another payment method. We recommend cash.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_insufficient_amount':
-				return __( 'Your payment do not have sufficient funds.', 'woocommerce-mercadopago-module' );
+				return __( 'Your payment do not have sufficient funds.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_invalid_installments':
-				return __( 'Your payment does not process payments with selected installments.', 'woocommerce-mercadopago-module' );
+				return __( 'Your payment does not process payments with selected installments.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_max_attempts':
-				return __( 'You have reached the limit of allowed attempts. Choose another card or another payment method.', 'woocommerce-mercadopago-module' );
+				return __( 'You have reached the limit of allowed attempts. Choose another card or another payment method.', 'woo-mercado-pago-module' );
 			case 'cc_rejected_other_reason':
-				return __( 'This payment method did not process the payment.', 'woocommerce-mercadopago-module' );
+				return __( 'This payment method did not process the payment.', 'woo-mercado-pago-module' );
 			default:
-				return __( 'This payment method did not process the payment.', 'woocommerce-mercadopago-module' );
+				return __( 'This payment method did not process the payment.', 'woo-mercado-pago-module' );
 		}
 	}
 
