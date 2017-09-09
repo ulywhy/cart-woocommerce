@@ -42,6 +42,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - workaround_ampersand_bug( $link )
 	 * - get_templates_path()
 	 * - get_module_version()
+	 * - get_client_id( $at )
 	 * - is_subscription( $items )
 	 * - is_supported_currency( $site_id )
 	 * - build_currency_conversion_err_msg( $currency )
@@ -365,12 +366,15 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 									$payment['payment_type_id'] != 'credit_card' &&
 									$payment['payment_type_id'] != 'debit_card' &&
 									$payment['payment_type_id'] != 'prepaid_card' ) {
-									array_push( $payment_methods_ticket, $payment );
+									$obj = new stdClass();
+									$obj->id = $payment['id'];
+									$obj->name = $payment['name'];
+									$obj->secure_thumbnail = $payment['secure_thumbnail'];
+									array_push( $payment_methods_ticket, $obj );
 								}
 							}
 						}
-						// TODO: resolve how to save payment methods for tickets
-						/*update_option( '_all_payment_methods_v0', implode( ',', $arr ), true );*/
+						update_option( '_all_payment_methods_ticket', json_encode( $payment_methods_ticket ), true );
 						// Check for auto converstion of currency.
 						$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate(
 							WC_Woo_Mercado_Pago_Module::$country_configs[$get_request['response']['site_id']]['currency']
@@ -389,7 +393,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			update_option( '_test_user_v1', '', true );
 			update_option( '_site_id_v1', '', true );
 			update_option( '_collector_id_v1', '', true );
-			update_option( '_all_payment_methods_v1', array(), true );
+			update_option( '_all_payment_methods_ticket', '[]', true );
 			update_option( '_can_do_currency_conversion_v1', false, true );
 			return false;
 		}
@@ -511,6 +515,19 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			return WC_Woo_Mercado_Pago_Module::VERSION;
 		}
 
+		/**
+		 * Summary: Get client id from access token.
+		 * Description: Get client id from access token.
+		 * @return the client id.
+		 */
+		public static function get_client_id( $at ) {
+			$t = explode ( '-', $at );
+			if ( count( $t ) > 0 ) {
+				return $t[1];
+			}
+			return '';
+		}
+
 		// Check if an order is recurrent.
 		public static function is_subscription( $items ) {
 			$is_subscription = false;
@@ -602,14 +619,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			$status = get_option( '_mp_order_status_' . $mp_status . '_map', $defaults[$mp_status] );
 			return str_replace( '_', '-', $status );
 		}
-
-		// Delete the log files.
-		// TODO: use this to optionally clear log files.
-		/*public static function deleteDir( $path ) {
-			foreach ( glob( 'woo-mercado-pago-*.*' ) as $filename ) {
-				unlink( $filename );
-			}
-		}*/
 
 		public static function get_map( $selector_id ) {
 			$arr = explode( '_', $selector_id );

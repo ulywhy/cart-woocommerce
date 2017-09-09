@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 	</div>
 </div>
+
 <fieldset style="margin:0px; background:white;">
 
 	<div class="mp-box-inputs mp-line" id="mercadopago-form-coupon"
@@ -253,17 +254,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="mp-box-inputs mp-col-100" id="mercadopago-utilities"
 	style="padding:0px 12px 0px 12px;">
-		<input type="text" id="site_id" name="mercadopago_custom[site_id]"/>
-		<input type="text" id="amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]"/>
-		<input type="text" id="currency_ratio" value='<?php echo $currency_ratio; ?>' name="mercadopago_custom[currency_ratio]"/>
-		<input type="text" id="campaign_id" name="mercadopago_custom[campaign_id]"/>
-		<input type="text" id="campaign" name="mercadopago_custom[campaign]"/>
-		<input type="text" id="discount" name="mercadopago_custom[discount]"/>
-		<input type="text" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]"/>
-		<input type="text" id="token" name="mercadopago_custom[token]"/>
-		<input type="text" id="cardTruncated" name="mercadopago_custom[cardTruncated]"/>
-		<input type="text" id="CustomerAndCard" name="mercadopago_custom[CustomerAndCard]"/>
-		<input type="text" id="CustomerId" value='<?php echo $customerId; ?>' name="mercadopago_custom[CustomerId]"/>
+		<input type="hidden" id="site_id" name="mercadopago_custom[site_id]"/>
+		<input type="hidden" id="amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]"/>
+		<input type="hidden" id="currency_ratio" value='<?php echo $currency_ratio; ?>' name="mercadopago_custom[currency_ratio]"/>
+		<input type="hidden" id="campaign_id" name="mercadopago_custom[campaign_id]"/>
+		<input type="hidden" id="campaign" name="mercadopago_custom[campaign]"/>
+		<input type="hidden" id="discount" name="mercadopago_custom[discount]"/>
+		<input type="hidden" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]"/>
+		<input type="hidden" id="token" name="mercadopago_custom[token]"/>
+		<input type="hidden" id="cardTruncated" name="mercadopago_custom[cardTruncated]"/>
+		<input type="hidden" id="CustomerAndCard" name="mercadopago_custom[CustomerAndCard]"/>
+		<input type="hidden" id="CustomerId" value='<?php echo $customerId; ?>' name="mercadopago_custom[CustomerId]"/>
 	</div>
 
 </fieldset>

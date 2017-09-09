@@ -384,12 +384,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	 */
 
 	public function add_mp_settings_script_custom() {
-
 		$public_key = get_option( '_mp_public_key' );
 		$is_test_user = get_option( '_test_user_v1', false );
-
 		if ( ! empty( $public_key ) && ! $is_test_user ) {
-
 			$w = WC_Woo_Mercado_Pago_Module::woocommerce_instance();
 			$available_payments = array();
 			$gateways = WC()->payment_gateways->get_available_payment_gateways();
@@ -416,9 +413,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				MA.post();
 			</script>
 			<?php
-
 		}
-
 	}
 
 	public function update_mp_settings_script_custom( $order_id ) {
@@ -452,14 +447,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					plugins_url( 'assets/css/custom_checkout_mercadopago.css', plugin_dir_path( __FILE__ ) )
 				);
 				wp_enqueue_script(
-					'mercado-pago-module-js',
+					'mercado-pago-module-custom-js',
 					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
 				);
 				/* TODO: separate javascript from html template
 				wp_enqueue_script(
 					'woo-mercado-pago-module-custom-js',
 					plugins_url( 'assets/js/credit-card.js', plugin_dir_path( __FILE__ ) ),
-					array( 'mercado-pago-module-js' ),
+					array( 'mercado-pago-module-custom-js' ),
 					WC_Woo_Mercado_Pago_Module::VERSION,
 					true
 				);
@@ -658,6 +653,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		$order_total = 0;
 		$list_of_items = array();
 
+		// Find currency rate.
+		$currency_ratio = 1;
+		$_mp_currency_conversion_v1 = get_option( '_mp_currency_conversion_v1', '' );
+		if ( ! empty( $_mp_currency_conversion_v1 ) ) {
+			$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate( $this->site_data['currency'] );
+			$currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
+		}
+
 		// Here we build the array that contains ordered items, from customer cart.
 		if ( sizeof( $order->get_items() ) > 0 ) {
 			foreach ( $order->get_items() as $item ) {
@@ -690,8 +693,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 						'category_id' => get_option( '_mp_category_name', 'others' ),
 						'quantity' => 1,
 						'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-							floor( ( $line_amount - $discount_by_gateway ) * $custom_checkout['currency_ratio'] ) :
-							floor( ( $line_amount - $discount_by_gateway ) * $custom_checkout['currency_ratio'] * 100 ) / 100
+							floor( ( $line_amount - $discount_by_gateway ) * $currency_ratio ) :
+							floor( ( $line_amount - $discount_by_gateway ) * $currency_ratio * 100 ) / 100
 					) );
 				}
 			}
@@ -709,8 +712,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'category_id' => get_option( '_mp_category_name', 'others' ),
 				'quantity' => 1,
 				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-					floor( $ship_cost * $custom_checkout['currency_ratio'] ) :
-					floor( $ship_cost * $custom_checkout['currency_ratio'] * 100 ) / 100
+					floor( $ship_cost * $currency_ratio ) :
+					floor( $ship_cost * $currency_ratio * 100 ) / 100
 			);
 			$items[] = $item;
 		}
@@ -725,8 +728,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'quantity' => 1,
 				'category_id' => $this->store_categories_id[$this->category_id],
 				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-					-floor( $custom_checkout['discount'] * $custom_checkout['currency_ratio'] ) :
-					-floor( $custom_checkout['discount'] * $custom_checkout['currency_ratio'] * 100 ) / 100
+					-floor( $custom_checkout['discount'] * $currency_ratio ) :
+					-floor( $custom_checkout['discount'] * $currency_ratio * 100 ) / 100
 			);
 			$items[] = $item;
 		}
@@ -793,8 +796,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		// The payment preference.
 		$preferences = array(
 			'transaction_amount' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-				floor( $order_total * $custom_checkout['currency_ratio'] ) :
-				floor( $order_total * $custom_checkout['currency_ratio'] * 100 ) / 100,
+				floor( $order_total * $currency_ratio ) :
+				floor( $order_total * $currency_ratio * 100 ) / 100,
 			'token' => $custom_checkout['token'],
 			'description' => implode( ', ', $list_of_items ),
 			'installments' => (int) $custom_checkout['installments'],
@@ -841,8 +844,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			$custom_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom' ) {
 			$preferences['campaign_id'] = (int) $custom_checkout['campaign_id'];
 			$preferences['coupon_amount'] = ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-				floor( $custom_checkout['discount'] * $custom_checkout['currency_ratio'] ) :
-				floor( $custom_checkout['discount'] * $custom_checkout['currency_ratio'] * 100 ) / 100;
+				floor( $custom_checkout['discount'] * $currency_ratio ) :
+				floor( $custom_checkout['discount'] * $currency_ratio * 100 ) / 100;
 			$preferences['coupon_code'] = strtoupper( $custom_checkout['coupon_code'] );
 		}
 
@@ -964,8 +967,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	 */
 	public function add_discount_custom() {
 
-		if ( ! isset( $_POST['mercadopago_custom'] ) )
+		if ( ! isset( $_POST['mercadopago_custom'] ) ) {
 			return;
+		}
 
 		if ( is_admin() && ! defined( 'DOING_AJAX' ) || is_cart() ) {
 			return;
@@ -978,7 +982,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 
 			$this->write_log( __FUNCTION__, 'custom checkout trying to apply discount...' );
 
-			$value = $custom_checkout['discount'] / $custom_checkout['currency_ratio'];
+			$value = ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+				floor( $custom_checkout['discount'] / $custom_checkout['currency_ratio'] ) :
+				floor( $custom_checkout['discount'] / $custom_checkout['currency_ratio'] * 100 ) / 100;
 			global $woocommerce;
 			if ( apply_filters(
 				'wc_mercadopago_custommodule_apply_discount',
