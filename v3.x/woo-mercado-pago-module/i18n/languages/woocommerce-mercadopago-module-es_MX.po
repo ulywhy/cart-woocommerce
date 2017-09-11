@@ -19,8 +19,11 @@ msgstr ""
 "X-Poedit-Basepath: ../Documents/woocommerce (MAMP)/wp-content/plugins/woo-mercado-pago-module\n"
 "X-Generator: Poedit 1.8.7\n"
 "Last-Translator: \n"
-"Language: es_AR\n"
+"Language: es_MX\n"
 "X-Poedit-SearchPath-0: .\n"
+
+msgid "This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store."
+msgstr "Este es el módulo <strong>oficial</strong> de Mercado Pago para el plugin WooCommerce. Este módulo habilita el uso de Mercado Pago en WooCommerce como medio de pago para compras realizadas en su tienda virtual."
 
 msgid "Mercado Pago Settings"
 msgstr "Configuración de Mercado Pago"
@@ -392,43 +395,43 @@ msgid "Payment Options: How payment options behaves"
 msgstr "Opciones de pago: Cómo se comportan las opciones de pago"
 
 msgid "Max installments"
-msgstr "Número máximo de cuotas"
+msgstr "Número máximo de mensualidades"
 
 msgid "Select the max number of installments for your customers."
-msgstr "Seleccione el número máximo de cuotas disponibles para sus clientes."
+msgstr "Seleccione el número máximo de mensualidades disponibles para sus clientes."
 
 msgid "1x installment"
-msgstr "1x cuota"
+msgstr "1x mensualidade"
 
 msgid "2x installmens"
-msgstr "2x cuotas"
+msgstr "2x mensualidades"
 
 msgid "3x installmens"
-msgstr "3x cuotas"
+msgstr "3x mensualidades"
 
 msgid "4x installmens"
-msgstr "4x cuotas"
+msgstr "4x mensualidades"
 
 msgid "5x installmens"
-msgstr "5x cuotas"
+msgstr "5x mensualidades"
 
 msgid "6x installmens"
-msgstr "6x cuotas"
+msgstr "6x mensualidades"
 
 msgid "10x installmens"
-msgstr "10x cuotas"
+msgstr "10x mensualidades"
 
 msgid "12x installmens"
-msgstr "12x cuotas"
+msgstr "12x mensualidades"
 
 msgid "15x installmens"
-msgstr "15x cuotas"
+msgstr "15x mensualidades"
 
 msgid "18x installmens"
-msgstr "18x cuotas"
+msgstr "18x mensualidades"
 
 msgid "24x installmens"
-msgstr "24x cuotas"
+msgstr "24x mensualidades"
 
 msgid "Exclude Payment Methods"
 msgstr "Excluir medios de pago"
@@ -749,7 +752,7 @@ msgid "Payment converted from"
 msgstr "Pago convertido de"
 
 msgid "Installments"
-msgstr "Cuotas"
+msgstr "Mensualidades"
 
 msgid "Parameter cardIssuerId can not be null/empty"
 msgstr "Parámetro [Emisor] no puede ser nulo/vacío"

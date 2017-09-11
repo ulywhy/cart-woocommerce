@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- coupom -->
 	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" style="padding:0px 12px 16px 12px;" >
 		<div class="form-col-8">
-			<label for="couponCodeLabel"><?php echo esc_html__( 'Discount Coupon', 'woo-mercado-pago-module' ); ?></label>
+			<label for="couponCodeLabel"><?php echo esc_html__( 'Discount Coupon', 'woocommerce-mercadopago-module' ); ?></label>
 			<input type="text" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]"
 				autocomplete="off" maxlength="24" style="margin-bottom: 8px;"/>
 			<span class="mp-discount" id="mpCouponApplyedTicket" ></span>
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="form-col-4">
 			<label >&nbsp;</label>
-			<input type="button" class="button" id="applyCouponTicket" value="<?php echo esc_html__( 'Apply', 'woo-mercado-pago-module' ); ?>">
+			<input type="button" class="button" id="applyCouponTicket" value="<?php echo esc_html__( 'Apply', 'woocommerce-mercadopago-module' ); ?>">
 		</div>
 	</div>
 
@@ -53,49 +53,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="form-ticket">
 			<div class="form-row">
 				<div class="form-col-4">
-					<label for="firstname"><?php echo esc_html__( 'NAME', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="firstname"><?php echo esc_html__( 'NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['firstname']; ?>" data-checkout="firstname"
 						id="firstname" class="form-control-mine" name="mercadopago_ticket[firstname]">
-					<span class="erro_febraban" data-main="#firstname" id="error_firstname"><?php echo esc_html__( 'You must inform you NAME', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#firstname" id="error_firstname"><?php echo esc_html__( 'You must inform you NAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
-					<label for="lastname"><?php echo esc_html__( 'SURNAME', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="lastname"><?php echo esc_html__( 'SURNAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['lastname']; ?>" data-checkout="lastname"
 						id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
-					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo esc_html__( 'You must inform your SURNAME', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo esc_html__( 'You must inform your SURNAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
-					<label for="docNumber"><?php echo esc_html__( 'DOCUMENT', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="docNumber"><?php echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['docNumber']; ?>" data-checkout="docNumber"
 						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="11">
-					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-col-8">
-					<label for="address"><?php echo esc_html__( 'ADDRESS', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="address"><?php echo esc_html__( 'ADDRESS', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['address']; ?>" data-checkout="address"
 						id="address" class="form-control-mine" name="mercadopago_ticket[address]">
-					<span class="erro_febraban" data-main="#address" id="error_address"><?php echo esc_html__( 'You must inform your ADDRESS', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#address" id="error_address"><?php echo esc_html__( 'You must inform your ADDRESS', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
-					<label for="number"><?php echo esc_html__( 'NUMBER', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="number"><?php echo esc_html__( 'NUMBER', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['number']; ?>" data-checkout="number"
 						id="number" class="form-control-mine" name="mercadopago_ticket[number]">
-					<span class="erro_febraban" data-main="#number" id="error_number"><?php echo esc_html__( 'You must inform your ADDRESS NUMBER', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#number" id="error_number"><?php echo esc_html__( 'You must inform your ADDRESS NUMBER', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-col-4">
-					<label for="city"><?php echo esc_html__( 'CITY', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="city"><?php echo esc_html__( 'CITY', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['city']; ?>" data-checkout="city"
 						id="city" class="form-control-mine" name="mercadopago_ticket[city]">
-					<span class="erro_febraban" data-main="#city" id="error_city"><?php echo esc_html__( 'You must inform your CITY', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#city" id="error_city"><?php echo esc_html__( 'You must inform your CITY', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
-					<label for="state"><?php echo esc_html__( 'STATE', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="state"><?php echo esc_html__( 'STATE', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<select name="mercadopago_ticket[state]" id="state" data-checkout="state" class="form-control-mine" style="width: 100%;">
-						<option value="" <?php if ($febraban['state'] == '') {echo 'selected="selected"';} ?>><?php echo esc_html__( 'Choose', 'woo-mercado-pago-module' ); ?></option>
+						<option value="" <?php if ($febraban['state'] == '') {echo 'selected="selected"';} ?>><?php echo esc_html__( 'Choose', 'woocommerce-mercadopago-module' ); ?></option>
 						<option value="AC" <?php if ($febraban['state'] == 'AC') {echo 'selected="selected"';} ?>>Acre</option>
 						<option value="AL" <?php if ($febraban['state'] == 'AL') {echo 'selected="selected"';} ?>>Alagoas</option>
 						<option value="AP" <?php if ($febraban['state'] == 'AP') {echo 'selected="selected"';} ?>>Amapá</option>
@@ -124,19 +124,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<option value="SE" <?php if ($febraban['state'] == 'SE') {echo 'selected="selected"';} ?>>Sergipe</option>
 						<option value="TO" <?php if ($febraban['state'] == 'TO') {echo 'selected="selected"';} ?>>Tocantins</option>
 					</select>
-					<span class="erro_febraban" data-main="#state" id="error_state"><?php echo esc_html__( 'You must inform your STATE', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#state" id="error_state"><?php echo esc_html__( 'You must inform your STATE', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
-					<label for="zipcode"><?php echo esc_html__( 'ZIP', 'woo-mercado-pago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="zipcode"><?php echo esc_html__( 'ZIP', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['zipcode']; ?>" data-checkout="zipcode"
 						id="zipcode" class="form-control-mine" name="mercadopago_ticket[zipcode]"
 						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46">
-					<span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?php echo esc_html__( 'You must inform your ZIP', 'woo-mercado-pago-module' ); ?></span>
+					<span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?php echo esc_html__( 'You must inform your ZIP', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 			</div>
 			<div class="form-col-12">
 				<label>
-					<span class="mensagem-febraban"><em class="obrigatorio">* </em><?php echo esc_html__( 'Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil.', 'woo-mercado-pago-module' ); ?></span>
+					<span class="mensagem-febraban"><em class="obrigatorio">* </em><?php echo esc_html__( 'Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil.', 'woocommerce-mercadopago-module' ); ?></span>
 				</label>
 			</div>
 		</div>
@@ -145,14 +145,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p>
 				<?php
 					if ( count( $payment_methods ) > 1 ) :
-						echo esc_html__( 'Please, select the ticket issuer of your preference.', 'woo-mercado-pago-module' );
+						echo esc_html__( 'Please, select the ticket issuer of your preference.', 'woocommerce-mercadopago-module' );
 					endif;
-					echo esc_html__( 'Click [Place order] button. The ticket will be generated and you will be redirected to print it.', 'woo-mercado-pago-module' );
+					echo esc_html__( 'Click [Place order] button. The ticket will be generated and you will be redirected to print it.', 'woocommerce-mercadopago-module' );
 				?>&nbsp;<?php
-					echo esc_html__( 'Important: The order will be confirmed only after the payment approval.', 'woo-mercado-pago-module' );
+					echo esc_html__( 'Important: The order will be confirmed only after the payment approval.', 'woocommerce-mercadopago-module' );
 					if ( $currency_ratio != 1 ) :
-	  					echo ' (' . esc_html__( 'Payment converted from', 'woo-mercado-pago-module' ) . ' ' .
-						$woocommerce_currency . ' ' . $form_labels['form']['to'] . ' ' .
+	  					echo ' (' . esc_html__( 'Payment converted from', 'woocommerce-mercadopago-module' ) . ' ' .
+						$woocommerce_currency . ' ' . esc_html__( 'to', 'woocommerce-mercadopago-module' ) . ' ' .
 						$account_currency . ')';
 					endif;
 				?>
@@ -629,15 +629,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	// === Instantiation
 
-	MPv1Ticket.text.apply = "<?php echo __( 'Apply', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.remove = "<?php echo __( 'Remove', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.coupon_empty = "<?php echo __( 'Please, inform your coupon code', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.discount_info1 = "<?php echo __( 'You will save', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.discount_info2 = "<?php echo __( 'with discount from', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.discount_info3 = "<?php echo __( 'Total of your purchase:', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.discount_info4 = "<?php echo __( 'Total of your purchase with discount:', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.discount_info5 = "<?php echo __( '*Uppon payment approval', 'woo-mercado-pago-module' ); ?>";
-	MPv1Ticket.text.discount_info6 = "<?php echo __( 'Terms and Conditions of Use', 'woo-mercado-pago-module' ); ?>";
+	MPv1Ticket.text.apply = "<?php echo __( 'Apply', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.remove = "<?php echo __( 'Remove', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.coupon_empty = "<?php echo __( 'Please, inform your coupon code', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.discount_info1 = "<?php echo __( 'You will save', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.discount_info2 = "<?php echo __( 'with discount from', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.discount_info3 = "<?php echo __( 'Total of your purchase:', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.discount_info4 = "<?php echo __( 'Total of your purchase with discount:', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.discount_info5 = "<?php echo __( '*Uppon payment approval', 'woocommerce-mercadopago-module' ); ?>";
+	MPv1Ticket.text.discount_info6 = "<?php echo __( 'Terms and Conditions of Use', 'woocommerce-mercadopago-module' ); ?>";
 	
 	MPv1Ticket.paths.loading = "<?php echo ( $images_path . 'loading.gif' ); ?>";
 	MPv1Ticket.paths.check = "<?php echo ( $images_path . 'check.png' ); ?>";
