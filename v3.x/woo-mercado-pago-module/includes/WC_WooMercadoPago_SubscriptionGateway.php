@@ -777,7 +777,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			if ( $this->gateway_discount >= 0 && $this->gateway_discount < 100 ) {
 				$price_percent = $this->gateway_discount / 100;
 				if ( $price_percent > 0 ) {
-					$title .= ' (' . __( 'Discount Of ', 'woo-mercado-pago-module' ) .
+					$title .= ' (' . __( 'Discount of', 'woo-mercado-pago-module' ) . ' ' .
 						strip_tags( wc_price( $total * $price_percent ) ) . ' )';
 				}
 			}

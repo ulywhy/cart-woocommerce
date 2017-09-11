@@ -726,7 +726,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'title' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
 				'description' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
 				'quantity' => 1,
-				'category_id' => $this->store_categories_id[$this->category_id],
+				'category_id' => get_option( '_mp_category_name', 'others' ),
 				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
 					-floor( $custom_checkout['discount'] * $currency_ratio ) :
 					-floor( $custom_checkout['discount'] * $currency_ratio * 100 ) / 100
@@ -742,6 +742,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			'last_name' => ( method_exists( $order, 'get_id' ) ?
 				html_entity_decode( $order->get_billing_last_name() ) :
 				html_entity_decode( $order->billing_last_name ) ),
+			//'registration_date' =>
 			'phone' => array(
 				//'area_code' =>
 				'number' => ( method_exists( $order, 'get_id' ) ?
@@ -852,7 +853,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		// Set sponsor ID.
 		$_test_user_v1 = get_option( '_test_user_v1', false );
 		if ( ! $_test_user_v1 ) {
-			$preferences['sponsor_id'] = $this->country_configs['sponsor_id'];
+			$preferences['sponsor_id'] = $this->site_data['sponsor_id'];
 		}
 
 		// Debug/log this preference.
@@ -1238,14 +1239,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			if ( ! empty( $data['payment_type_id'] ) ) {
 				$order->update_meta_data( __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type_id'] );
 			}
-			$order->update_meta_data( 'Mercado Pago - Payment ' . $data['id'],
+			$order->update_meta_data(
 				'Mercado Pago - Payment ' . $data['id'],
 				'[Date ' . date( 'Y-m-d H:i:s', strtotime( $data['date_created'] ) ) .
 				']/[Amount ' . $data['transaction_amount'] .
 				']/[Paid ' . $total_paid .
 				']/[Refund ' . $total_refund . ']'
 			);
-
 			$order->update_meta_data( '_Mercado_Pago_Payment_IDs', $data['id'] );
 			$order->save();
 		} else {
@@ -1267,7 +1267,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			);
 			update_post_meta( $order_id, '_Mercado_Pago_Payment_IDs', $data['id'] );
 		}
-		// Switch the status and update in WooCommerce
+		// Switch the status and update in WooCommerce.
 		$this->write_log(
 			__FUNCTION__,
 			'Changing order status to: ' .

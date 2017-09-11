@@ -42,7 +42,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			__( 'We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.', 'woo-mercado-pago-module' ) .
 		'</strong>';
 
-		$this->sandbox = get_option( '_mp_sandbox_mode', false );
+		//$this->sandbox = get_option( '_mp_sandbox_mode', false );
+		$this->sandbox = false;
 		$this->mp->sandbox_mode( $this->sandbox );
 
 		// How checkout is shown.
@@ -645,11 +646,299 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 	* from the cart.
 	* @return the preference object.
 	*/
-	/*private function build_payment_preference( $order, $ticket_checkout ) {
-	}*/
+	private function build_payment_preference( $order, $ticket_checkout ) {
 
-	/*protected function create_url( $order, $ticket_checkout ) {
-	}*/
+		// A string to register items (workaround to deal with API problem that shows only first item).
+		$items = array();
+		$order_total = 0;
+		$list_of_items = array();
+
+		// Find currency rate.
+		$currency_ratio = 1;
+		$_mp_currency_conversion_v1 = get_option( '_mp_currency_conversion_v1', '' );
+		if ( ! empty( $_mp_currency_conversion_v1 ) ) {
+			$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate( $this->site_data['currency'] );
+			$currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
+		}
+
+		// Here we build the array that contains ordered items, from customer cart.
+		if ( sizeof( $order->get_items() ) > 0 ) {
+			foreach ( $order->get_items() as $item ) {
+				if ( $item['qty'] ) {
+					$product = new WC_product( $item['product_id'] );
+					$product_title = method_exists( $product, 'get_description' ) ?
+						$product->get_name() :
+						$product->post->post_title;
+					$product_content = method_exists( $product, 'get_description' ) ?
+						$product->get_description() :
+						$product->post->post_content;
+					// Calculates line amount and discounts.
+					$line_amount = $item['line_total'] + $item['line_tax'];
+					$discount_by_gateway = (float) $line_amount * ( $this->gateway_discount / 100 );
+					$order_total += ($line_amount - $discount_by_gateway);
+					// Add the item.
+					array_push( $list_of_items, $product_title . ' x ' . $item['qty'] );
+					array_push( $items, array(
+						'id' => $item['product_id'],
+						'title' => html_entity_decode( $product_title ) . ' x ' . $item['qty'],
+						'description' => sanitize_file_name( html_entity_decode( 
+							strlen( $product_content ) > 230 ?
+							substr( $product_content, 0, 230 ) . '...' :
+							$product_content
+						) ),
+						'picture_url' => sizeof( $order->get_items() > 1 ) ?
+							plugins_url( 'assets/images/cart.png', plugin_dir_path( __FILE__ ) ) :
+							wp_get_attachment_url( $product->get_image_id()
+						),
+						'category_id' => get_option( '_mp_category_name', 'others' ),
+						'quantity' => 1,
+						'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+							floor( ( $line_amount - $discount_by_gateway ) * $currency_ratio ) :
+							floor( ( $line_amount - $discount_by_gateway ) * $currency_ratio * 100 ) / 100
+					) );
+				}
+			}
+		}
+
+		// Creates the shipment cost structure.
+		$ship_cost = ($order->get_total_shipping() + $order->get_shipping_tax());
+		if ( $ship_cost > 0 ) {
+			$order_total += $ship_cost;
+			$item = array(
+				'title' => method_exists( $order, 'get_id' ) ?
+					$order->get_shipping_method() :
+					$order->shipping_method,
+				'description' => __( 'Shipping service used by store', 'woo-mercado-pago-module' ),
+				'category_id' => get_option( '_mp_category_name', 'others' ),
+				'quantity' => 1,
+				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+					floor( $ship_cost * $currency_ratio ) :
+					floor( $ship_cost * $currency_ratio * 100 ) / 100
+			);
+			$items[] = $item;
+		}
+
+		// Discounts features.
+		if ( isset( $ticket_checkout['discount'] ) && ! empty( $ticket_checkout['discount'] ) &&
+			isset( $ticket_checkout['coupon_code'] ) && ! empty( $ticket_checkout['coupon_code'] ) &&
+			$ticket_checkout['discount'] > 0 WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket' ) {
+		 	$item = array(
+				'title' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
+				'description' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
+				'category_id' => get_option( '_mp_category_name', 'others' ),
+				'quantity' => 1,
+				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+					-floor( $ticket_checkout['discount'] * $currency_ratio ) :
+					-floor( $ticket_checkout['discount'] * $currency_ratio * 100 ) / 100
+			);
+	 		$items[] = $item;
+		}
+
+		// Build additional information from the customer data.
+		$payer_additional_info = array(
+			'first_name' => ( method_exists( $order, 'get_id' ) ?
+				html_entity_decode( $order->get_billing_first_name() ) :
+				html_entity_decode( $order->billing_first_name ) ),
+			'last_name' => ( method_exists( $order, 'get_id' ) ?
+				html_entity_decode( $order->get_billing_last_name() ) :
+				html_entity_decode( $order->billing_last_name ) ),
+			//'registration_date' =>
+			'phone' => array(
+				//'area_code' =>
+				'number' => ( method_exists( $order, 'get_id' ) ?
+					$order->get_billing_phone() :
+					$order->billing_phone )
+			),
+			'address' => array(
+				'zip_code' => ( method_exists( $order, 'get_id' ) ?
+					$order->get_billing_postcode() :
+					$order->billing_postcode
+				),
+				//'street_number' =>
+				'street_name' => html_entity_decode( method_exists( $order, 'get_id' ) ?
+					$order->get_billing_address_1() . ' / ' .
+					$order->get_billing_city() . ' ' .
+					$order->get_billing_state() . ' ' .
+					$order->get_billing_country() :
+					$order->billing_address_1 . ' / ' .
+					$order->billing_city . ' ' .
+					$order->billing_state . ' ' .
+					$order->billing_country
+				)
+			)
+		);
+
+		// Create the shipment address information set.
+		$shipments = array(
+			'receiver_address' => array(
+				'zip_code' => method_exists( $order, 'get_id' ) ?
+					$order->get_shipping_postcode() :
+					$order->shipping_postcode,
+				//'street_number' =>
+				'street_name' => html_entity_decode( method_exists( $order, 'get_id' ) ?
+					$order->get_shipping_address_1() . ' ' .
+					$order->get_shipping_address_2() . ' ' .
+					$order->get_shipping_city() . ' ' .
+					$order->get_shipping_state() . ' ' .
+					$order->get_shipping_country() :
+					$order->shipping_address_1 . ' ' .
+					$order->shipping_address_2 . ' ' .
+					$order->shipping_city . ' ' .
+					$order->shipping_state . ' ' .
+					$order->shipping_country
+				),
+				//'floor' =>
+				'apartment' => method_exists( $order, 'get_id' ) ?
+					$order->get_shipping_address_2() :
+					$order->shipping_address_2
+			)
+		);
+
+		// The payment preference.
+		$preferences = array(
+			'transaction_amount' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+				floor( $order_total * $currency_ratio ) :
+				floor( $order_total * $currency_ratio * 100 ) / 100,
+			'description' => implode( ', ', $list_of_items ),
+			'payment_method_id' => $ticket_checkout['paymentMethodId'],
+			'payer' => array(
+				'email' => method_exists( $order, 'get_id' ) ?
+					$order->get_billing_email() :
+					$order->billing_email
+			),
+			'external_reference' => get_option( '_mp_store_identificator', 'WC-' ) .
+				( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id ),
+			'statement_descriptor' => get_option( '_mp_statement_descriptor', 'Mercado Pago' ),
+			'binary_mode' => ( $this->binary_mode == 'yes' ),
+			'additional_info' => array(
+				'items' => $items,
+				'payer' => $payer_additional_info,
+				'shipments' => $shipments
+			)
+		);
+
+		// FEBRABAN rules.
+		if ( $this->site_data['currency'] == 'BRL' ) {
+			$preferences['payer']['first_name'] = $ticket_checkout['firstname'];
+			$preferences['payer']['last_name'] = $ticket_checkout['lastname'];	
+			$preferences['payer']['identification']['type'] = 'CPF';
+			$preferences['payer']['identification']['number'] = $ticket_checkout['docNumber'];
+			$preferences['payer']['address']['street_name'] = $ticket_checkout['address'];
+			$preferences['payer']['address']['street_number'] = $ticket_checkout['number'];
+			$preferences['payer']['address']['neighborhood'] = $ticket_checkout['city'];
+			$preferences['payer']['address']['city'] = $ticket_checkout['city'];
+			$preferences['payer']['address']['federal_unit'] = $ticket_checkout['state'];
+		}
+
+		// Do not set IPN url if it is a localhost.
+		if ( ! strrpos( get_site_url(), 'localhost' ) ) {
+			$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
+				esc_url( WC()->api_request_url( 'WC_WooMercadoPago_TicketGateway' ) )
+			);
+		}
+
+		// Discounts features.
+		if ( isset( $ticket_checkout['discount'] ) && ! empty( $ticket_checkout['discount'] ) &&
+			isset( $ticket_checkout['coupon_code'] ) && ! empty( $ticket_checkout['coupon_code'] ) &&
+			$ticket_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket' ) {
+			$preferences['campaign_id'] = (int) $ticket_checkout['campaign_id'];
+			$preferences['coupon_amount'] = ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
+				floor( $ticket_checkout['discount'] * $currency_ratio ) :
+				floor( $ticket_checkout['discount'] * $currency_ratio * 100 ) / 100;
+			$preferences['coupon_code'] = strtoupper( $ticket_checkout['coupon_code'] );
+		}
+
+		// Set sponsor ID.
+		$_test_user_v1 = get_option( '_test_user_v1', false );
+		if ( ! $_test_user_v1 ) {
+			$preferences['sponsor_id'] = $this->site_data['sponsor_id'];
+		}
+
+		// Debug/log this preference.
+		$this->write_log(
+			__FUNCTION__,
+			'returning just created [$preferences] structure: ' .
+			json_encode( $preferences, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+		);
+
+		return $preferences;
+	}
+
+	protected function create_url( $order, $ticket_checkout ) {
+		// Creates the order parameters by checking the cart configuration.
+		$preferences = $this->build_payment_preference( $order, $ticket_checkout );
+		// Checks for sandbox mode.
+		$this->mp->sandbox_mode( $this->sandbox );
+		// Create order preferences with Mercado Pago API request.
+		try {
+			$checkout_info = $this->mp->create_payment( json_encode( $preferences ) );
+			if ( $checkout_info['status'] < 200 || $checkout_info['status'] >= 300 ) {
+				// Mercado Pago throwed an error.
+				$this->write_log(
+					__FUNCTION__,
+					'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']
+				);
+				return false;
+			} elseif ( is_wp_error( $checkout_info ) ) {
+				// WordPress throwed an error.
+				$this->write_log(
+					__FUNCTION__,
+					'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']
+				);
+				return false;
+			} else {
+				// Obtain the URL.
+				$response = $checkout_info['response'];
+				if ( array_key_exists( 'status', $response ) ) {
+					if ( $response['status'] == 'pending' ) {
+						if ( $response['status_detail'] == 'pending_waiting_payment' ) {
+							WC()->cart->empty_cart();
+							if ( $this->stock_reduce_mode == 'yes' ) {
+								$order->reduce_order_stock();
+							}
+							// WooCommerce 3.0 or later.
+							if ( method_exists( $order, 'update_meta_data' ) ) {
+								$order->update_meta_data( '_transaction_details_ticket', $response['transaction_details']['external_resource_url'] );
+								$order->save();
+							} else {
+								update_post_meta(
+									$order->id,
+									'_transaction_details_ticket',
+									$response['transaction_details']['external_resource_url']
+								);
+							}
+							// Shows some info in checkout page.
+							$order->add_order_note(
+								'Mercado Pago: ' .
+								__( 'Customer haven\'t paid yet.', 'woo-mercado-pago-module' )
+							);
+							$order->add_order_note(
+								'Mercado Pago: ' .
+								__( 'To reprint the ticket click ', 'woo-mercado-pago-module' ) .
+								'<a target="_blank" href="' .
+								$response['transaction_details']['external_resource_url'] . '">' .
+								__( 'here', 'woo-mercado-pago-module' ) .
+								'</a>', 1, false
+							);
+							return array(
+								'result' => 'success',
+								'redirect' => $order->get_checkout_order_received_url()
+							);
+						}
+					}
+				}
+				return false;
+			}
+		} catch ( MercadoPagoException $ex ) {
+			// Something went wrong with the payment creation.
+			$this->write_log(
+				__FUNCTION__,
+				'payment creation failed with exception: ' .
+				json_encode( $ex, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+			);
+		}
+		return false;
+	}
 
 	/**
 	* Summary: Receive post data and applies a discount based in the received values.
@@ -765,6 +1054,87 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 	 * Description: This call checks any incoming notifications from Mercado Pago server.
 	 */
 	public function check_ipn_response() {
+		@ob_clean();
+		$this->write_log(
+			__FUNCTION__,
+			'received _get content: ' .
+			json_encode( $_GET, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+		);
+		// Setup sandbox mode.
+		$this->mp->sandbox_mode( $this->sandbox );
+		// Over here, $_GET should come with this JSON structure:
+		// {
+		// 	"topic": <string>,
+		// 	"id": <string>
+		// }
+		// If not, the IPN is corrupted in some way.
+		$data = $_GET;
+		if ( isset( $data['coupon_id'] ) && ! empty( $data['coupon_id'] ) ) {
+			// Process coupon evaluations.
+			if ( isset( $data['payer'] ) && ! empty( $data['payer'] ) ) {
+				$response = $this->mp->check_discount_campaigns( $data['amount'], $data['payer'], $data['coupon_id'] );
+				header( 'HTTP/1.1 200 OK' );
+				header( 'Content-Type: application/json' );
+				echo json_encode( $response );
+			} else {
+				$obj = new stdClass();
+				$obj->status = 404;
+				$obj->response = array(
+					'message' => __( 'Please, inform your email in billing address to use this feature', 'woo-mercado-pago-module' ),
+					'error' => 'payer_not_found',
+					'status' => 404,
+					'cause' => array()
+				);
+				header( 'HTTP/1.1 200 OK' );
+				header( 'Content-Type: application/json' );
+				echo json_encode( $obj );
+			}
+			exit( 0 );
+		} else if ( ! isset( $data['data_id'] ) || ! isset( $data['type'] ) ) {
+			// Received IPN call from v0.
+			$this->write_log(
+				__FUNCTION__,
+				'data_id or type not set: ' .
+				json_encode( $data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+			);
+			if ( ! isset( $data['id'] ) || ! isset( $data['topic'] ) ) {
+				$this->write_log(
+					__FUNCTION__,
+					'Mercado Pago Request failure: ' .
+					json_encode( $data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+				);
+				wp_die( __( 'Mercado Pago Request Failure', 'woo-mercado-pago-module' ) );
+			} else {
+				// At least, check if its a v0 ipn.
+				header( 'HTTP/1.1 200 OK' );
+			}
+		} else {
+			// Needed informations are present, so start process then.
+			try {
+				if ( $data['type'] == 'payment' ) {
+					$access_token = array( 'access_token' => $this->mp->get_access_token() );
+					$payment_info = $this->mp->get( '/v1/payments/' . $data['data_id'], $access_token, false );
+					if ( ! is_wp_error( $payment_info ) && ( $payment_info['status'] == 200 || $payment_info['status'] == 201 ) ) {
+						if ( $payment_info['response'] ) {
+							header( 'HTTP/1.1 200 OK' );
+							do_action( 'valid_mercadopago_custom_ipn_request', $payment_info['response'] );
+						}
+					} else {
+						$this->write_log(
+							__FUNCTION__,
+							'error when processing received data: ' .
+							json_encode( $payment_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+						);
+					}
+				}
+			} catch ( MercadoPagoException $ex ) {
+				$this->write_log(
+					__FUNCTION__,
+					'MercadoPagoException: ' .
+					json_encode( $ex, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+				);
+			}
+		}
 	}
 
 	/**
@@ -772,6 +1142,159 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 	 * Description: Properly handles each case of notification, based in payment status.
 	 */
 	public function successful_request( $data ) {
+		$this->write_log( __FUNCTION__, 'starting to process ipn update...' );
+		// Get the order and check its presence.
+		$order_key = $data['external_reference'];
+		if ( empty( $order_key ) ) {
+			return;
+		}
+		$invoice_prefix = get_option( '_mp_store_identificator', 'WC-' );
+		$id = (int) str_replace( $invoice_prefix, '', $order_key );
+		$order = wc_get_order( $id );
+		// Check if order exists.
+		if ( ! $order ) {
+			return;
+		}
+		// WooCommerce 3.0 or later.
+		$order_id = ( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id );
+		// Check if we have the correct order.
+		if ( $order_id !== $id ) {
+			return;
+		}
+		$this->write_log(
+			__FUNCTION__,
+			'updating metadata and status with data: ' .
+			json_encode( $data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+		);
+		// Here, we process the status... this is the business rules!
+		// Reference: https://www.mercadopago.com.br/developers/en/api-docs/basic-checkout/ipn/payment-status/
+		$status = isset( $data['status'] ) ? $data['status'] : 'pending';
+		$total_paid = isset( $data['transaction_details']['total_paid_amount'] ) ? $data['transaction_details']['total_paid_amount'] : 0.00;
+		$total_refund = isset( $data['transaction_amount_refunded'] ) ? $data['transaction_amount_refunded'] : 0.00;
+		// WooCommerce 3.0 or later.
+		if ( method_exists( $order, 'update_meta_data' ) ) {
+			// Updates the type of gateway.
+			$order->update_meta_data( '_used_gateway', 'WC_WooMercadoPago_TicketGateway' );
+			if ( ! empty( $data['payer']['email'] ) ) {
+				$order->update_meta_data( __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
+			}
+			if ( ! empty( $data['payment_type_id'] ) ) {
+				$order->update_meta_data( __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type_id'] );
+			}
+			$order->update_meta_data(
+				'Mercado Pago - Payment ' . $data['id'],
+				'[Date ' . date( 'Y-m-d H:i:s', strtotime( $data['date_created'] ) ) .
+				']/[Amount ' . $data['transaction_amount'] .
+				']/[Paid ' . $total_paid .
+				']/[Refund ' . $total_refund . ']'
+			);
+			$order->update_meta_data( '_Mercado_Pago_Payment_IDs', $data['id'] );
+			$order->save();
+		} else {
+			// Updates the type of gateway.
+			update_post_meta( $order_id, '_used_gateway', 'WC_WooMercadoPago_TicketGateway' );
+			if ( ! empty( $data['payer']['email'] ) ) {
+				update_post_meta( $order_id, __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
+			}
+			if ( ! empty( $data['payment_type_id'] ) ) {
+				update_post_meta( $order_id, __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type_id'] );
+			}
+			update_post_meta(
+				$order_id,
+				'Mercado Pago - Payment ' . $data['id'],
+				'[Date ' . date( 'Y-m-d H:i:s', strtotime( $data['date_created'] ) ) .
+				']/[Amount ' . $data['transaction_amount'] .
+				']/[Paid ' . $total_paid .
+				']/[Refund ' . $total_refund . ']'
+			);
+			update_post_meta( $order_id, '_Mercado_Pago_Payment_IDs', $data['id'] );
+		}
+		// Switch the status and update in WooCommerce.
+		$this->write_log(
+			__FUNCTION__,
+			'Changing order status to: ' .
+			WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( str_replace( '_', '', $status ) )
+		);
+		switch ( $status ) {
+			case 'approved':
+				$order->add_order_note(
+					'Mercado Pago: ' . __( 'Payment approved.', 'woo-mercado-pago-module' )
+				);
+				if ( $this->stock_reduce_mode == 'no' ) {
+					$order->payment_complete();
+					$order->update_status(
+						WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'approved' )
+					);
+				} else {
+					$order->update_status(
+						WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'processing' )
+					);
+				}
+				break;
+			case 'pending':
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'pending' )
+				);
+				// decrease stock if not yet decreased and order not exists.
+				$notes = $order->get_customer_order_notes();
+				$has_note = false;
+				if ( sizeof( $notes ) > 1 ) {
+					$has_note = true;
+					break;
+				}
+				if ( ! $has_note ) {
+					$order->add_order_note(
+						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woo-mercado-pago-module' )
+					);
+					$order->add_order_note(
+						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woo-mercado-pago-module' ),
+						1, false
+					);
+				}
+				break;
+			case 'in_process':
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'on-hold' ),
+					'Mercado Pago: ' . __( 'Payment under review.', 'woo-mercado-pago-module' )
+				);
+				break;
+			case 'rejected':
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'failed' ),
+					'Mercado Pago: ' . __( 'The payment was refused. The customer can try again.', 'woo-mercado-pago-module' )
+				);
+				break;
+			case 'refunded':
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'refunded' ),
+					'Mercado Pago: ' . __( 'The payment was refunded to the customer.', 'woo-mercado-pago-module' )
+				);
+				break;
+			case 'cancelled':
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'cancelled' ),
+					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woo-mercado-pago-module' )
+				);
+				break;
+			case 'in_mediation':
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'inmediation' )
+				);
+				$order->add_order_note(
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
+				);
+				break;
+			case 'charged-back':
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'chargedback' )
+				);
+				$order->add_order_note(
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
+				);
+				break;
+			default:
+				break;
+		}
 	}
 
 }

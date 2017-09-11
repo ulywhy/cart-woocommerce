@@ -1031,7 +1031,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$total = (float) WC()->cart->subtotal;
 		$price_percent = $this->gateway_discount / 100;
 		if ( $price_percent > 0 ) {
-			$title .= ' (' . __( 'Discount of ', 'woo-mercado-pago-module' ) .
+			$title .= ' (' . __( 'Discount of', 'woo-mercado-pago-module' ) . ' ' .
 				strip_tags( wc_price( $total * $price_percent ) ) . ' )';
 		}
 		return $title;
