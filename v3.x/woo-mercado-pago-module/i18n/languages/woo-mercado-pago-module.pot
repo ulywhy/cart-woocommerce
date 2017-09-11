@@ -912,3 +912,81 @@ msgstr ""
 
 msgid "Please, inform your email in billing address to use this feature"
 msgstr ""
+
+msgid "Waiting for the ticket payment."
+msgstr ""
+
+msgid "here"
+msgstr ""
+
+msgid "To reprint the ticket click "
+msgstr ""
+
+msgid "A problem was occurred when processing your payment. Please, try again."
+msgstr ""
+
+msgid "Print the Ticket"
+msgstr ""
+
+msgid "Thank you for your order. Please, pay the ticket to get your order approved."
+msgstr ""
+
+msgid "Important: The order will be confirmed only after the payment approval."
+msgstr ""
+
+msgid "Click [Place order] button. The ticket will be generated and you will be redirected to print it."
+msgstr ""
+
+msgid "Please, select the ticket issuer of your preference."
+msgstr ""
+
+msgid "Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil."
+msgstr ""
+
+msgid "NAME"
+msgstr ""
+
+msgid "SURNAME"
+msgstr ""
+
+msgid "DOCUMENT"
+msgstr ""
+
+msgid "ADDRESS"
+msgstr ""
+
+msgid "NUMBER"
+msgstr ""
+
+msgid "CITY"
+msgstr ""
+
+msgid "STATE"
+msgstr ""
+
+msgid "ZIP"
+msgstr ""
+
+msgid "You must inform you NAME"
+msgstr ""
+
+msgid "You must inform your SURNAME"
+msgstr ""
+
+msgid "You must inform your DOCUMENT"
+msgstr ""
+
+msgid "You must inform your ADDRESS"
+msgstr ""
+
+msgid "You must inform your ADDRESS NUMBER"
+msgstr ""
+
+msgid "You must inform your CITY"
+msgstr ""
+
+msgid "You must inform your STATE"
+msgstr ""
+
+msgid "You must inform your ZIP"
+msgstr ""

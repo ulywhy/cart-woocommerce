@@ -912,3 +912,81 @@ msgstr "Esta medio de pago no puede procesar su pago."
 
 msgid "Please, inform your email in billing address to use this feature"
 msgstr "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
+
+msgid "Waiting for the ticket payment."
+msgstr "Esperando el pago del ticket."
+
+msgid "here"
+msgstr "aquí"
+
+msgid "To reprint the ticket click "
+msgstr "Para imprimir nuevamente el ticket hace clic "
+
+msgid "A problem was occurred when processing your payment. Please, try again."
+msgstr "Un problema se produjo al procesar su pago. Por favor, inténtelo de nuevo."
+
+msgid "Print the Ticket"
+msgstr "Imprimir el ticket"
+
+msgid "Thank you for your order. Please, pay the ticket to get your order approved."
+msgstr "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
+
+msgid "Important: The order will be confirmed only after the payment approval."
+msgstr "Importante: La solicitud sólo será confirmada después de la aprobación del pago."
+
+msgid "Click [Place order] button. The ticket will be generated and you will be redirected to print it."
+msgstr "Haga clic en el botón [Realizar el pedido]. El ticket será generado y usted será redirigido a imprimirlo."
+
+msgid "Please, select the ticket issuer of your preference."
+msgstr "Por favor, seleccione el emisor de su elección."
+
+msgid "Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil."
+msgstr "Informaciones necesarias debido a las normas bancarias brasileñas números 3.461/09, 3.598/12 y 3.656/13 del Banco Central de Brasil."
+
+msgid "NAME"
+msgstr "NOMBRE"
+
+msgid "SURNAME"
+msgstr "APELLIDO"
+
+msgid "DOCUMENT"
+msgstr "DOCUMENTO"
+
+msgid "ADDRESS"
+msgstr "DIRECCIÓN"
+
+msgid "NUMBER"
+msgstr "NÚMERO"
+
+msgid "CITY"
+msgstr "CIUDAD"
+
+msgid "STATE"
+msgstr "ESTADO"
+
+msgid "ZIP"
+msgstr "CÓDIGO POSTAL"
+
+msgid "You must inform you NAME"
+msgstr "Obligatorio informar su NOMBRE"
+
+msgid "You must inform your SURNAME"
+msgstr "Obligatorio informar su APELLIDO"
+
+msgid "You must inform your DOCUMENT"
+msgstr "Obligatorio informar su DOCUMENTO"
+
+msgid "You must inform your ADDRESS"
+msgstr "Obligatorio informar su DIRECCIÓN"
+
+msgid "You must inform your ADDRESS NUMBER"
+msgstr "Obligatorio informar su NÚMERO"
+
+msgid "You must inform your CITY"
+msgstr "Obligatorio informar su CIUDAD"
+
+msgid "You must inform your STATE"
+msgstr "Obligatorio informar su ESTADO"
+
+msgid "You must inform your ZIP"
+msgstr "Obligatorio informar su CÓDIGO POSTAL"

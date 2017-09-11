@@ -912,3 +912,81 @@ msgstr "Este método de pagamento não pôde processar o seu pagamento."
 
 msgid "Please, inform your email in billing address to use this feature"
 msgstr "Por favor, informe seu email no endereço de cobrança para fazer uso desta funcionalidade"
+
+msgid "Waiting for the ticket payment."
+msgstr "Aguardando o pagamento do boleto."
+
+msgid "here"
+msgstr "aqui"
+
+msgid "To reprint the ticket click "
+msgstr "Para reimprimir o boleto clique "
+
+msgid "A problem was occurred when processing your payment. Please, try again."
+msgstr "Um problema ocorreu ao processar seu pagamento. Por favor, tente novamente."
+
+msgid "Print the Ticket"
+msgstr "Imprimir o boleto"
+
+msgid "Thank you for your order. Please, pay the ticket to get your order approved."
+msgstr "Obrigado pelo seu pedido. Por favor, pague o boleto para ter seu pedido aprovado."
+
+msgid "Important: The order will be confirmed only after the payment approval."
+msgstr "Importante: O pedido só será confirmado após a aprovação do pagamento."
+
+msgid "Click [Place order] button. The ticket will be generated and you will be redirected to print it."
+msgstr "Clique no botão [Finalizar compra]. O boleto será gerado e você será redirecionado para imprimí-lo."
+
+msgid "Please, select the ticket issuer of your preference."
+msgstr "Por favor, selecione o emissor de sua preferência."
+
+msgid "Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil."
+msgstr "Informações solicitadas em conformidade com as normas das circulares Nro. 3.461/09, 3.598/12 e 3.656/13 do Banco Central do Brasil."
+
+msgid "NAME"
+msgstr "NOME"
+
+msgid "SURNAME"
+msgstr "SOBRENOME"
+
+msgid "DOCUMENT"
+msgstr "CPF"
+
+msgid "ADDRESS"
+msgstr "ENDEREÇO"
+
+msgid "NUMBER"
+msgstr "NÚMERO"
+
+msgid "CITY"
+msgstr "CIDADE"
+
+msgid "STATE"
+msgstr "ESTADO"
+
+msgid "ZIP"
+msgstr "CEP"
+
+msgid "You must inform you NAME"
+msgstr "Obrigatório o preenchimento do Nome"
+
+msgid "You must inform your SURNAME"
+msgstr "Obrigatório o preenchimento do Sobrenome"
+
+msgid "You must inform your DOCUMENT"
+msgstr "Obrigatório o preenchimento do CPF"
+
+msgid "You must inform your ADDRESS"
+msgstr "Obrigatório o preenchimento do Endereço"
+
+msgid "You must inform your ADDRESS NUMBER"
+msgstr "Obrigatório o preenchimento do número residencial"
+
+msgid "You must inform your CITY"
+msgstr "Obrigatório informar a cidade"
+
+msgid "You must inform your STATE"
+msgstr "Obrigatório informar o estado"
+
+msgid "You must inform your ZIP"
+msgstr "Obrigatório informar o CEP"

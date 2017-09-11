@@ -136,7 +136,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="form-col-12">
 				<label>
-					<span class="mensagem-febraban"><em class="obrigatorio">* </em><?php echo esc_html__( 'Informações solicitadas em conformidade com as normas das circulares Nro. 3.461/09, 3.598/12 e 3.656/13 do Banco Central do Brasil.', 'woo-mercado-pago-module' ); ?></span>
+					<span class="mensagem-febraban"><em class="obrigatorio">* </em><?php echo esc_html__( 'Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil.', 'woo-mercado-pago-module' ); ?></span>
 				</label>
 			</div>
 		</div>
@@ -147,7 +147,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( count( $payment_methods ) > 1 ) :
 						echo esc_html__( 'Please, select the ticket issuer of your preference.', 'woo-mercado-pago-module' );
 					endif;
-					echo esc_html__( 'Click "Place order" button. The ticket will be generated and you will be redirected to print it.', 'woo-mercado-pago-module' );
+					echo esc_html__( 'Click [Place order] button. The ticket will be generated and you will be redirected to print it.', 'woo-mercado-pago-module' );
 				?>&nbsp;<?php
 					echo esc_html__( 'Important: The order will be confirmed only after the payment approval.', 'woo-mercado-pago-module' );
 					if ( $currency_ratio != 1 ) :
