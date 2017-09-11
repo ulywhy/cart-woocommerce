@@ -1287,6 +1287,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				document.querySelector( MPv1.selectors.taxCFT ).style.display = "block";
 				document.querySelector( MPv1.selectors.taxTEA ).style.display = "block";
 				MPv1.addListenerEvent( document.querySelector( MPv1.selectors.installments ), "change", MPv1.showTaxes );
+			} else if ( MPv1.site_id == "MLC" ) {
+				document.querySelector( MPv1.selectors.mpIssuer ).style.display = "none";
 			}
 
 			if ( MPv1.debug ) {
