@@ -32,7 +32,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) )
+			plugins_url( 'assets/images/bar_code.png', plugin_dir_path( __FILE__ ) )
 		);
 
 		$this->method_title = __( 'Mercado Pago - Ticket', 'woocommerce-mercadopago-module' );

@@ -1,7 +1,5 @@
 <?php
 
-// TODO: Check why subscription haven't registered a recurrent payment.
-
 /**
  * Part of Woo Mercado Pago Module
  * Author - Mercado Pago
@@ -33,10 +31,10 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-subscription';
 		//$this->supports = array( 'products', 'refunds' );
-		$this->icon = apply_filters(
+		/*$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			$this->site_data['checkout_banner']
-		);
+			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) )
+		);*/
 		
 		$this->method_title = __( 'Mercado Pago - Subscription', 'woocommerce-mercadopago-module' );
 		$this->method_description = '<img width="200" height="52" src="' .

@@ -79,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</select>
 		</div>
 		<div class="mp-box-inputs mp-line" id="mp-securityCode-customer-and-card">
-			<div class="mp-box-inputs mp-col-45">
+			<div class="mp-box-inputs mp-col-65">
 				<label for="customer-and-card-securityCode">
 					<?php echo esc_html__( 'Security code', 'woocommerce-mercadopago-module' ); ?> <em>*</em>
 				</label>
@@ -185,7 +185,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<!-- Document Type -->
 		<div class="mp-box-inputs mp-col-100 mp-doc">
-			<div class="mp-box-inputs mp-col-35 mp-docType">
+			<div class="mp-box-inputs mp-col-45 mp-docType">
 				<label for="docType">
 					<?php echo esc_html__( 'Document Type', 'woocommerce-mercadopago-module' ); ?> <em>*</em>
 				</label>
@@ -198,7 +198,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php echo esc_html__( 'Invalid Document Type', 'woocommerce-mercadopago-module' ); ?>
 				</span>
 			</div>
-			<div class="mp-box-inputs mp-col-65 mp-docNumber">
+			<div class="mp-box-inputs mp-col-10">
+				<div id="mp-separete-date"> </div>
+			</div>
+			<div class="mp-box-inputs mp-col-45 mp-docNumber">
 				<label for="docNumber">
 					<?php echo esc_html__( 'Document number', 'woocommerce-mercadopago-module' ); ?> <em>*</em>
 				</label>
