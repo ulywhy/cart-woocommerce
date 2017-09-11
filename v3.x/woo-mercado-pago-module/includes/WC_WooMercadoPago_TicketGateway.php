@@ -721,7 +721,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		// Discounts features.
 		if ( isset( $ticket_checkout['discount'] ) && ! empty( $ticket_checkout['discount'] ) &&
 			isset( $ticket_checkout['coupon_code'] ) && ! empty( $ticket_checkout['coupon_code'] ) &&
-			$ticket_checkout['discount'] > 0 WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket' ) {
+			$ticket_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket' ) {
 		 	$item = array(
 				'title' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
 				'description' => __( 'Discount provided by store', 'woo-mercado-pago-module' ),
