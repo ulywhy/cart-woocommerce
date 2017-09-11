@@ -33,7 +33,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			$this->site_data['checkout_banner']
+			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) )
 		);
 
 		$this->method_title = __( 'Mercado Pago - Basic Checkout', 'woocommerce-mercadopago-module' );
