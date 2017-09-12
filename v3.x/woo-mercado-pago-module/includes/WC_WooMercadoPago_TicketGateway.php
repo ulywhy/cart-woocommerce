@@ -444,10 +444,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 	public function add_checkout_scripts_ticket() {
 		if ( is_checkout() && $this->is_available() ) {
 			if ( ! get_query_var( 'order-received' ) ) {
-				/* TODO: separate javascript from html template
-				$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
-				$discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago-module/?wc-api=WC_WooMercadoPago_TicketGateway';
-				*/
 				wp_enqueue_style(
 					'woocommerce-mercadopago-style',
 					plugins_url( 'assets/css/custom_checkout_mercadopago.css', plugin_dir_path( __FILE__ ) )
@@ -456,38 +452,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					'woocommerce-mercadopago-ticket-js',
 					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
 				);
-				/* TODO: separate javascript from html template
-				wp_enqueue_script(
-					'woo-mercado-pago-module-ticket-js',
-					plugins_url( 'assets/js/ticket.js', plugin_dir_path( __FILE__ ) ),
-					array( 'woocommerce-mercadopago-ticket-js' ),
-					WC_Woo_Mercado_Pago_Module::VERSION,
-					true
-				);
-				wp_localize_script(
-					'woo-mercado-pago-module-ticket-js',
-					'wc_mercadopago_ticket_params',
-					array(
-						'site_id'             => get_option( '_site_id_v1' ),
-						'public_key'          => get_option( '_mp_public_key' ),
-						'coupon_mode'         => isset( $logged_user_email ) ? $this->coupon_mode : 'no',
-						'discount_action_url' => $discount_action_url,
-						'payer_email'         => $logged_user_email,
-						// ===
-						'apply'               => __( 'Apply', 'woocommerce-mercadopago-module' ),
-						'remove'              => __( 'Remove', 'woocommerce-mercadopago-module' ),
-						'coupon_empty'        => __( 'Please, inform your coupon code', 'woocommerce-mercadopago-module' ),
-						'discount_info1'      => __( 'You will save', 'woocommerce-mercadopago-module' ),
-						'discount_info2'      => __( 'with discount from', 'woocommerce-mercadopago-module' ),
-						'discount_info3'      => __( 'Total of your purchase:', 'woocommerce-mercadopago-module' ),
-						'discount_info4'      => __( 'Total of your purchase with discount:', 'woocommerce-mercadopago-module' ),
-						'discount_info5'      => __( '*Uppon payment approval', 'woocommerce-mercadopago-module' ),
-						'discount_info6'      => __( 'Terms and Conditions of Use', 'woocommerce-mercadopago-module' ),
-						// ===
-						'images_path'         => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) )
-					)
-				);
-				*/
 			}
 		}
 	}
@@ -565,7 +529,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				array(
 					'firstname' => '', 'lastname' => '', 'docNumber' => '', 'address' => '',
 					'number' => '', 'city' => '', 'state' => '', 'zipcode' => ''
-				)
+				),
+			'path_to_javascript'     => plugins_url( 'assets/js/ticket.js', plugin_dir_path( __FILE__ ) )
 		);
 
 		wc_get_template(

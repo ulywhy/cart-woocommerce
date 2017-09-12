@@ -23,6 +23,8 @@
 			"zipcode"
 		],
 		selectors: {
+			// currency
+			currency_ratio: "#currency_ratio",
 			// coupom
 			couponCode: "#couponCodeTicket",
 			applyCoupon: "#applyCouponTicket",
@@ -44,8 +46,8 @@
 			state: "#febrabanState",
 			zipcode: "#febrabanZipcode",
 			// form
-			formCoupon: '#mercadopago-form-coupon-ticket',
-			formTicket: '#form-ticket',
+			formCoupon: "#mercadopago-form-coupon-ticket",
+			formTicket: "#form-ticket",
 			box_loading: "#mp-box-loading",
 			submit: "#btnSubmit",
 			form: "#mercadopago-form-ticket"
@@ -407,26 +409,12 @@
 
 } ).call();
 
-// === Instantiation
+MPv1Ticket.getAmount = function() {
+	return document.querySelector( MPv1Ticket.selectors.amount )
+	.value - document.querySelector( MPv1Ticket.selectors.discount ).value;
+}
 
-MPv1Ticket.text.apply = wc_mercadopago_ticket_params.apply;
-MPv1Ticket.text.remove = wc_mercadopago_ticket_params.remove;
-MPv1Ticket.text.coupon_empty = wc_mercadopago_ticket_params.coupon_empty;
-MPv1Ticket.text.discount_info1 = wc_mercadopago_ticket_params.discount_info1;
-MPv1Ticket.text.discount_info2 = wc_mercadopago_ticket_params.discount_info2;
-MPv1Ticket.text.discount_info3 = wc_mercadopago_ticket_params.discount_info3;
-MPv1Ticket.text.discount_info4 = wc_mercadopago_ticket_params.discount_info4;
-MPv1Ticket.text.discount_info5 = wc_mercadopago_ticket_params.discount_info5;
-MPv1Ticket.text.discount_info6 = wc_mercadopago_ticket_params.discount_info6;
-
-MPv1Ticket.paths.loading = wc_mercadopago_ticket_params.images_path + 'loading.gif';
-MPv1Ticket.paths.check = wc_mercadopago_ticket_params.images_path + 'check.png';
-MPv1Ticket.paths.error = wc_mercadopago_ticket_params.images_path + 'error.png';
-
-MPv1Ticket.Initialize(
-	wc_mercadopago_ticket_params.site_id,
-	wc_mercadopago_ticket_params.public_key,
-	wc_mercadopago_ticket_params.coupon_mode == "yes",
-	wc_mercadopago_ticket_params.discount_action_url,
-	wc_mercadopago_ticket_params.payer_email
-);
+MPv1Ticket.getAmountWithoutDiscount = function() {
+	return document.querySelector( MPv1Ticket.selectors.amount ).value;
+}
+	
