@@ -185,22 +185,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<!-- Document Type -->
 		<div class="mp-box-inputs mp-col-100 mp-doc">
-			<div class="mp-box-inputs mp-col-45 mp-docType">
-				<label for="docType">
-					<?php echo esc_html__( 'Document Type', 'woocommerce-mercadopago-module' ); ?> <em>*</em>
-				</label>
-				<select id="docType" data-checkout="docType"
-				name="mercadopago_custom[docType]"></select>
-				<span class="mp-error" id="mp-error-212" data-main="#docType">
-					<?php echo esc_html__( 'Parameter docType can not be null/empty', 'woocommerce-mercadopago-module' ); ?>
-				</span>
-				<span class="mp-error" id="mp-error-322" data-main="#docType">
-					<?php echo esc_html__( 'Invalid Document Type', 'woocommerce-mercadopago-module' ); ?>
-				</span>
-			</div>
-			<div class="mp-box-inputs mp-col-10">
-				<div id="mp-separete-date"> </div>
-			</div>
 			<div class="mp-box-inputs mp-col-45 mp-docNumber">
 				<label for="docNumber">
 					<?php echo esc_html__( 'Document number', 'woocommerce-mercadopago-module' ); ?> <em>*</em>
@@ -212,6 +196,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</span>
 				<span class="mp-error" id="mp-error-324" data-main="#docNumber">
 					<?php echo esc_html__( 'Invalid Document Number', 'woocommerce-mercadopago-module' ); ?>
+				</span>
+			</div>
+			<div class="mp-box-inputs mp-col-10">
+				<div id="mp-separete-date"> </div>
+			</div>
+			<div class="mp-box-inputs mp-col-45 mp-docType">
+				<label for="docType">
+					<?php echo esc_html__( 'Document Type', 'woocommerce-mercadopago-module' ); ?> <em>*</em>
+				</label>
+				<select id="docType" data-checkout="docType"
+				name="mercadopago_custom[docType]"></select>
+				<span class="mp-error" id="mp-error-212" data-main="#docType">
+					<?php echo esc_html__( 'Parameter docType can not be null/empty', 'woocommerce-mercadopago-module' ); ?>
+				</span>
+				<span class="mp-error" id="mp-error-322" data-main="#docType">
+					<?php echo esc_html__( 'Invalid Document Type', 'woocommerce-mercadopago-module' ); ?>
 				</span>
 			</div>
 		</div>
