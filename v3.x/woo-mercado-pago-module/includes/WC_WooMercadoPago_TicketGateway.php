@@ -1082,7 +1082,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					if ( ! is_wp_error( $payment_info ) && ( $payment_info['status'] == 200 || $payment_info['status'] == 201 ) ) {
 						if ( $payment_info['response'] ) {
 							header( 'HTTP/1.1 200 OK' );
-							do_action( 'valid_mercadopago_custom_ipn_request', $payment_info['response'] );
+							do_action( 'valid_mercadopago_ticket_ipn_request', $payment_info['response'] );
 						}
 					} else {
 						$this->write_log(
