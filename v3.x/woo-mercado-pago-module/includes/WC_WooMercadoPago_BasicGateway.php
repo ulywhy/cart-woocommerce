@@ -321,6 +321,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				if ( $key == 'two_cards_mode' ) {
 					// We dont save two card mode as it should come from api.
 					$this->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
+					$this->settings[$key] = $value;
 				} elseif ( $key == 'iframe_width' ) {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
 						$this->settings[$key] = 480;
