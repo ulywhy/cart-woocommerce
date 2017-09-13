@@ -229,7 +229,7 @@
 							response.response.id;
 						document.querySelector( MPv1.selectors.campaign ).value =
 							response.response.name;
-					} else if ( response.status == 400 || response.status == 404 ) {
+					} else {
 						document.querySelector( MPv1.selectors.mpCouponApplyed ).style.display = "none";
 						document.querySelector( MPv1.selectors.mpCouponError ).style.display = "block";
 						document.querySelector( MPv1.selectors.mpCouponError ).innerHTML = response.response.message;
@@ -906,18 +906,22 @@
 			}
 			req.onreadystatechange = function() {
 				if ( this.readyState === 4 ) {
-					if ( this.status >= 200 && this.status < 400 ) {
-						// Success!
-						data = JSON.parse( this.responseText );
-						if ( typeof options.success === "function" ) {
-							options.success( this.status, data );
+					try {
+						if ( this.status >= 200 && this.status < 400 ) {
+							// Success!
+							data = JSON.parse( this.responseText );
+							if ( typeof options.success === "function" ) {
+								options.success( this.status, data );
+							}
+						} else if ( this.status >= 400 ) {
+							data = JSON.parse( this.responseText );
+							if ( typeof options.error === "function" ) {
+								options.error( this.status, data );
+							}
+						} else if ( typeof options.error === "function" ) {
+							options.error( 503, {} );
 						}
-					} else if ( this.status >= 400 ) {
-						data = JSON.parse( this.responseText );
-						if ( typeof options.error === "function" ) {
-							options.error( this.status, data );
-						}
-					} else if ( typeof options.error === "function" ) {
+					} catch (e) {
 						options.error( 503, {} );
 					}
 				}
@@ -1024,7 +1028,7 @@
 			document.querySelector( MPv1.selectors.taxCFT ).style.display = "block";
 			document.querySelector( MPv1.selectors.taxTEA ).style.display = "block";
 			MPv1.addListenerEvent( document.querySelector( MPv1.selectors.installments ), "change", MPv1.showTaxes );
-		} else if (MPv1.site_id == "MLC") {
+		} else if ( MPv1.site_id == "MLC" ) {
 			document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
 		}
 

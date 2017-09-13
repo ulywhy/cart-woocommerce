@@ -189,7 +189,7 @@
 							response.response.id;
 						document.querySelector( MPv1Ticket.selectors.campaign ).value =
 							response.response.name;
-					} else if ( response.status == 400 || response.status == 404 ) {
+					} else {
 						document.querySelector( MPv1Ticket.selectors.mpCouponApplyed ).style.display = "none";
 						document.querySelector( MPv1Ticket.selectors.mpCouponError ).style.display = "block";
 						document.querySelector( MPv1Ticket.selectors.mpCouponError ).innerHTML = response.response.message;
@@ -266,18 +266,22 @@
 			}
 			req.onreadystatechange = function() {
 				if ( this.readyState === 4 ) {
-					if ( this.status >= 200 && this.status < 400 ) {
-						// Success!
-						data = JSON.parse( this.responseText );
-						if ( typeof options.success === "function" ) {
-							options.success( this.status, data );
+					try {
+						if ( this.status >= 200 && this.status < 400 ) {
+							// Success!
+							data = JSON.parse( this.responseText );
+							if ( typeof options.success === "function" ) {
+								options.success( this.status, data );
+							}
+						} else if ( this.status >= 400 ) {
+							data = JSON.parse( this.responseText );
+							if ( typeof options.error === "function" ) {
+								options.error( this.status, data );
+							}
+						} else if ( typeof options.error === "function" ) {
+							options.error( 503, {} );
 						}
-					} else if ( this.status >= 400 ) {
-						data = JSON.parse( this.responseText );
-						if ( typeof options.error === "function" ) {
-							options.error( this.status, data );
-						}
-					} else if ( typeof options.error === "function" ) {
+					} catch (e) {
 						options.error( 503, {} );
 					}
 				}
@@ -391,7 +395,7 @@
 		}
 
 		// flow: MLB
-		if (MPv1Ticket.site_id != "MLB") {
+		if ( MPv1Ticket.site_id != "MLB" ) {
 			document.querySelector(MPv1Ticket.selectors.formTicket).style.display = "none";
 		} else {
 			MPv1Ticket.addListenerEvent(
