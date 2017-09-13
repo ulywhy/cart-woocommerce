@@ -321,7 +321,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				if ( $key == 'two_cards_mode' ) {
 					// We dont save two card mode as it should come from api.
 					$this->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
-					$this->settings[$key] = $value;
 				} elseif ( $key == 'iframe_width' ) {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
 						$this->settings[$key] = 480;
@@ -351,7 +350,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		}
 		$_site_id_v0 = get_option( '_site_id_v0', '' );
 		$is_test_user = get_option( '_test_user_v0', false );
-		if ( ! empty( $_site_id_v0 ) && ! $is_test_user ) {
+		if ( ! empty( $_site_id_v0 ) ) {
 			// Create MP instance.
 			$mp = new MP(
 				WC_Woo_Mercado_Pago_Module::get_module_version(),
@@ -359,10 +358,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				get_option( '_mp_client_secret' )
 			);
 			// Analytics.
-			$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
-			$infra_data['checkout_basic'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
-			$infra_data['two_cards'] = ( $this->two_cards_mode == 'active' ? 'true' : 'false' );
-			$response = $mp->analytics_save_settings( $infra_data );
+			if ( ! $is_test_user ) {
+				$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
+				$infra_data['checkout_basic'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
+				$infra_data['two_cards'] = ( $this->two_cards_mode == 'active' ? 'true' : 'false' );
+				$response = $mp->analytics_save_settings( $infra_data );
+			}
 			// Two cards mode.
 			$response = $mp->set_two_cards_mode( $this->two_cards_mode );
 		}
