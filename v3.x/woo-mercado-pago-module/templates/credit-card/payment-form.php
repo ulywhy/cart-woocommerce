@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="button" class="button" id="applyCoupon"
 			value="<?php echo esc_html__( 'Apply', 'woocommerce-mercadopago-module' ); ?>">
 		</div>
-		<div class="mp-box-inputs mp-col-100 mp-box-message">
+		<div class="mp-box-inputs mp-col-65 mp-box-message" style="margin-top:2px;">
 			<span class="mp-discount" id="mpCouponApplyed" ></span>
 			<span class="mp-error" id="mpCouponError" ></span>
 		</div>
