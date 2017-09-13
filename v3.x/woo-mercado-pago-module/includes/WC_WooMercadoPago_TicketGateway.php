@@ -149,6 +149,19 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			return;
 		}
 
+		// If module is disabled, we do not need to load and process the settings page.
+		if ( empty( $this->settings['enabled'] ) || 'no' == $this->settings['enabled'] ) {
+			$this->form_fields = array(
+				'enabled' => array(
+					'title' => __( 'Enable/Disable', 'woocommerce-mercadopago-module' ),
+					'type' => 'checkbox',
+					'label' => __( 'Enable Ticket Payment Method', 'woocommerce-mercadopago-module' ),
+					'default' => 'no'
+				)
+			);
+			return;
+		}
+
 		// This array draws each UI (text, selector, checkbox, label, etc).
 		$this->form_fields = array(
 			'enabled' => array(

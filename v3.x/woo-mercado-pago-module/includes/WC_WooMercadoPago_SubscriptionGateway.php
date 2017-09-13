@@ -168,6 +168,19 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			return;
 		}
 
+		// If module is disabled, we do not need to load and process the settings page.
+		if ( empty( $this->settings['enabled'] ) || 'no' == $this->settings['enabled'] ) {
+			$this->form_fields = array(
+				'enabled' => array(
+					'title' => __( 'Enable/Disable', 'woocommerce-mercadopago-module' ),
+					'type' => 'checkbox',
+					'label' => __( 'Enable Subscription', 'woocommerce-mercadopago-module' ),
+					'default' => 'no'
+				)
+			);
+			return;
+		}
+
 		// Validate back URL.
 		if ( ! empty( $this->success_url ) && filter_var( $this->success_url, FILTER_VALIDATE_URL ) === FALSE ) {
 			$success_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .

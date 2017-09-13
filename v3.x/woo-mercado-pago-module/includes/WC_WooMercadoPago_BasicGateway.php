@@ -161,6 +161,19 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			return;
 		}
 
+		// If module is disabled, we do not need to load and process the settings page.
+		if ( empty( $this->settings['enabled'] ) || 'no' == $this->settings['enabled'] ) {
+			$this->form_fields = array(
+				'enabled' => array(
+					'title' => __( 'Enable/Disable', 'woocommerce-mercadopago-module' ),
+					'type' => 'checkbox',
+					'label' => __( 'Enable Basic Checkout', 'woocommerce-mercadopago-module' ),
+					'default' => 'no'
+				)
+			);
+			return;
+		}
+
 		$this->two_cards_mode = $this->mp->check_two_cards();
 
 		// Validate back URL.
@@ -320,6 +333,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				$value = $this->get_field_value( $key, $field, $post_data );
 				if ( $key == 'two_cards_mode' ) {
 					// We dont save two card mode as it should come from api.
+					unset( $this->settings[$key] );
 					$this->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
 				} elseif ( $key == 'iframe_width' ) {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
