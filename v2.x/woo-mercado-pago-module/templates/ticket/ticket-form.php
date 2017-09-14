@@ -50,19 +50,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-row">
 				<div class="form-col-4">
 					<label for="firstname"><?php echo $form_labels["form"]["name"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['firstname']; ?>" data-checkout="firstname"
+					<input type="text" value="<?php echo $form_labels['febraban']['firstname']; ?>"
 						id="firstname" class="form-control-mine" name="mercadopago_ticket[firstname]">
 					<span class="erro_febraban" data-main="#firstname" id="error_firstname"><?php echo $form_labels["error"]["FEB001"]; ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="lastname"><?php echo $form_labels["form"]["surname"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['lastname']; ?>" data-checkout="lastname"
+					<input type="text" value="<?php echo $form_labels['febraban']['lastname']; ?>"
 						id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
 					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo $form_labels["error"]["FEB002"]; ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="docNumber"><?php echo $form_labels["form"]["docNumber"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['docNumber']; ?>" data-checkout="docNumber"
+					<input type="text" value="<?php echo $form_labels['febraban']['docNumber']; ?>"
 						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="11">
 					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo $form_labels["error"]["FEB003"]; ?></span>
 				</div>
@@ -70,13 +70,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-row">
 				<div class="form-col-8">
 					<label for="address"><?php echo $form_labels["form"]["address"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['address']; ?>" data-checkout="address"
+					<input type="text" value="<?php echo $form_labels['febraban']['address']; ?>"
 						id="address" class="form-control-mine" name="mercadopago_ticket[address]">
 					<span class="erro_febraban" data-main="#address" id="error_address"><?php echo $form_labels["error"]["FEB004"]; ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="number"><?php echo $form_labels["form"]["number"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['number']; ?>" data-checkout="number"
+					<input type="text" value="<?php echo $form_labels['febraban']['number']; ?>"
 						id="number" class="form-control-mine" name="mercadopago_ticket[number]">
 					<span class="erro_febraban" data-main="#number" id="error_number"><?php echo $form_labels["error"]["FEB005"]; ?></span>
 				</div>
@@ -84,13 +84,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-row">
 				<div class="form-col-4">
 					<label for="city"><?php echo $form_labels["form"]["city"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['city']; ?>" data-checkout="city"
+					<input type="text" value="<?php echo $form_labels['febraban']['city']; ?>"
 						id="city" class="form-control-mine" name="mercadopago_ticket[city]">
 					<span class="erro_febraban" data-main="#city" id="error_city"><?php echo $form_labels["error"]["FEB006"]; ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="state"><?php echo $form_labels["form"]["state"]; ?><em class="obrigatorio"> *</em></label>
-					<select name="mercadopago_ticket[state]" id="state" data-checkout="state" class="form-control-mine" style="width: 100%;">
+					<select name="mercadopago_ticket[state]" id="state" class="form-control-mine" style="width: 100%;">
 						<option value="" <?php if ($form_labels["febraban"]["state"] == "") {echo 'selected="selected"';} ?>><?php echo $form_labels["form"]["label_choose"]; ?></option>
 						<option value="AC" <?php if ($form_labels["febraban"]['state'] == "AC") {echo 'selected="selected"';} ?>>Acre</option>
 						<option value="AL" <?php if ($form_labels["febraban"]["state"] == "AL") {echo 'selected="selected"';} ?>>Alagoas</option>
@@ -124,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div class="form-col-4">
 					<label for="zipcode"><?php echo $form_labels["form"]["zipcode"]; ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $form_labels['febraban']['zipcode']; ?>" data-checkout="zipcode"
+					<input type="text" value="<?php echo $form_labels['febraban']['zipcode']; ?>"
 						id="zipcode" class="form-control-mine" name="mercadopago_ticket[zipcode]"
 						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46">
 					<span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?php echo $form_labels["error"]["FEB008"]; ?></span>

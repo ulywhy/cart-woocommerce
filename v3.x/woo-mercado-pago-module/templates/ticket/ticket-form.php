@@ -54,19 +54,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-row">
 				<div class="form-col-4">
 					<label for="firstname"><?php echo esc_html__( 'NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $febraban['firstname']; ?>" data-checkout="firstname"
+					<input type="text" value="<?php echo $febraban['firstname']; ?>"
 						id="firstname" class="form-control-mine" name="mercadopago_ticket[firstname]">
 					<span class="erro_febraban" data-main="#firstname" id="error_firstname"><?php echo esc_html__( 'You must inform you NAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="lastname"><?php echo esc_html__( 'SURNAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $febraban['lastname']; ?>" data-checkout="lastname"
+					<input type="text" value="<?php echo $febraban['lastname']; ?>"
 						id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
 					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo esc_html__( 'You must inform your SURNAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="docNumber"><?php echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $febraban['docNumber']; ?>" data-checkout="docNumber"
+					<input type="text" value="<?php echo $febraban['docNumber']; ?>"
 						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="11">
 					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
@@ -74,13 +74,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-row">
 				<div class="form-col-8">
 					<label for="address"><?php echo esc_html__( 'ADDRESS', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $febraban['address']; ?>" data-checkout="address"
+					<input type="text" value="<?php echo $febraban['address']; ?>"
 						id="address" class="form-control-mine" name="mercadopago_ticket[address]">
 					<span class="erro_febraban" data-main="#address" id="error_address"><?php echo esc_html__( 'You must inform your ADDRESS', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="number"><?php echo esc_html__( 'NUMBER', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $febraban['number']; ?>" data-checkout="number"
+					<input type="text" value="<?php echo $febraban['number']; ?>"
 						id="number" class="form-control-mine" name="mercadopago_ticket[number]">
 					<span class="erro_febraban" data-main="#number" id="error_number"><?php echo esc_html__( 'You must inform your ADDRESS NUMBER', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
@@ -88,13 +88,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-row">
 				<div class="form-col-4">
 					<label for="city"><?php echo esc_html__( 'CITY', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $febraban['city']; ?>" data-checkout="city"
+					<input type="text" value="<?php echo $febraban['city']; ?>"
 						id="city" class="form-control-mine" name="mercadopago_ticket[city]">
 					<span class="erro_febraban" data-main="#city" id="error_city"><?php echo esc_html__( 'You must inform your CITY', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4">
 					<label for="state"><?php echo esc_html__( 'STATE', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<select name="mercadopago_ticket[state]" id="state" data-checkout="state" class="form-control-mine" style="width: 100%;">
+					<select name="mercadopago_ticket[state]" id="state" class="form-control-mine" style="width: 100%;">
 						<option value="" <?php if ($febraban['state'] == '') {echo 'selected="selected"';} ?>><?php echo esc_html__( 'Choose', 'woocommerce-mercadopago-module' ); ?></option>
 						<option value="AC" <?php if ($febraban['state'] == 'AC') {echo 'selected="selected"';} ?>>Acre</option>
 						<option value="AL" <?php if ($febraban['state'] == 'AL') {echo 'selected="selected"';} ?>>Alagoas</option>
@@ -128,7 +128,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div class="form-col-4">
 					<label for="zipcode"><?php echo esc_html__( 'ZIP', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<input type="text" value="<?php echo $febraban['zipcode']; ?>" data-checkout="zipcode"
+					<input type="text" value="<?php echo $febraban['zipcode']; ?>"
 						id="zipcode" class="form-control-mine" name="mercadopago_ticket[zipcode]"
 						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46">
 					<span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?php echo esc_html__( 'You must inform your ZIP', 'woocommerce-mercadopago-module' ); ?></span>
