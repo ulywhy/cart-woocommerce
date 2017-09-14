@@ -1817,6 +1817,7 @@ class WC_WooMercadoPago_Gateway extends WC_Payment_Gateway {
 				);
 				break;
 			case 'cancelled':
+				$this->process_cancel_order_meta_box_actions( $order );
 				$order->update_status(
 					'cancelled',
 					'Mercado Pago: ' .

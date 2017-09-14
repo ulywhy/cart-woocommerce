@@ -1,5 +1,9 @@
 CHANGELOG:
 
+= v2.2.15 (??/??/2017) =
+* Bug fixes
+	- Synchronizing Mercado Pago account when WooCommerce back-office cancels an order.
+
 = v2.2.14 (14/09/2017) =
 * Bug fixes
 	- Fixed a bug in Ticket form related with inconsistent use of variables of Custom Checkout form;

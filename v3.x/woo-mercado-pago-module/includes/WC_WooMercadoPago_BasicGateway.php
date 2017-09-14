@@ -1298,6 +1298,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				);
 				break;
 			case 'cancelled':
+				$this->process_cancel_order_meta_box_actions( $order );
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'cancelled' ),
 					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woocommerce-mercadopago-module' )
