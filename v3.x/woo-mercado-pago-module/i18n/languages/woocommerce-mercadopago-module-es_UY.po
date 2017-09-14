@@ -19,8 +19,11 @@ msgstr ""
 "X-Poedit-Basepath: ../Documents/woocommerce (MAMP)/wp-content/plugins/woo-mercado-pago-module\n"
 "X-Generator: Poedit 1.8.7\n"
 "Last-Translator: \n"
-"Language: es_MX\n"
+"Language: es_UY\n"
 "X-Poedit-SearchPath-0: .\n"
+
+msgid "This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store."
+msgstr "Este es el módulo <strong>oficial</strong> de Mercado Pago para el plugin WooCommerce. Este módulo habilita el uso de Mercado Pago en WooCommerce como medio de pago para compras realizadas en su tienda virtual."
 
 msgid "Mercado Pago Settings"
 msgstr "Configuración de Mercado Pago"
@@ -463,9 +466,6 @@ msgstr "Gracias por su compra. Prosiga con su pago completando la información a
 msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence."
 msgstr "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
 
-msgid "Click to try again"
-msgstr "Haga clic para intentarlo de nuevo"
-
 msgid "Shipping service used by store"
 msgstr "Servicio de envío utilizado por la tienda"
 
@@ -726,3 +726,270 @@ msgstr "Imprimir"
 
 msgid "Cancel Order"
 msgstr "Cancelar la Compra"
+
+msgid "Total of your purchase:"
+msgstr "Total de su compra:"
+
+msgid "Total of your purchase with discount:"
+msgstr "Total de su compra con descuento:"
+
+msgid "*Uppon payment approval"
+msgstr "*Con la aprobación de pago"
+
+msgid "Terms and Conditions of Use"
+msgstr "Términos y Condiciones de Uso"
+
+msgid "with discount from"
+msgstr "con descuento de"
+
+msgid "You will save"
+msgstr "Usted ahorrará"
+
+msgid "Please, inform your coupon code"
+msgstr "Por favor, introduzca el código de su cupón"
+
+msgid "Payment converted from"
+msgstr "Pago convertido de"
+
+msgid "Installments"
+msgstr "Cuotas"
+
+msgid "Parameter cardIssuerId can not be null/empty"
+msgstr "Parámetro [Emisor] no puede ser nulo/vacío"
+
+msgid "Issuer"
+msgstr "Emisor"
+
+msgid "Invalid Document Number"
+msgstr "Número del Documento inválido"
+
+msgid "Parameter docNumber can not be null/empty"
+msgstr "Parámetro [Número del Documento] no puede ser nulo/vacío"
+
+msgid "Document number"
+msgstr "Número de Documento"
+
+msgid "Invalid Document Type"
+msgstr "Tipo de Documento inválido"
+
+msgid "Parameter docType can not be null/empty"
+msgstr "Parámetro [Tipo de Documento] no puede ser nulo/vacío"
+
+msgid "Document Type"
+msgstr "Tipo de Documento"
+
+msgid "Invalid Card Holder Name"
+msgstr "Nombre del titular de la tarjeta inválido"
+
+msgid "Parameter cardholderName can not be null/empty"
+msgstr "Parámetro [Nombre del titular] no puede ser nulo/vacío"
+
+msgid "Card holder name"
+msgstr "Nombre del titular de la tarjeta"
+
+msgid "Invalid Expiration Date"
+msgstr "Fecha de expiración inválida"
+
+msgid "Year"
+msgstr "Año"
+
+msgid "Expiration year"
+msgstr "Año de expiración"
+
+msgid "Month"
+msgstr "Mes"
+
+msgid "Expiration month"
+msgstr "Mes de expiración"
+
+msgid "Invalid Card Number"
+msgstr "Número de tarjeta inválido"
+
+msgid "Parameter cardNumber can not be null/empty"
+msgstr "Parámetro [Número de tarjeta] no puede ser nulo/vacío"
+
+msgid "Credit card number"
+msgstr "Número de tarjeta de crédito"
+
+msgid "Parameter securityCode can not be null/empty"
+msgstr "Parámetro [Código de seguridad] no puede ser nulo/vacío"
+
+msgid "Invalid Security Code"
+msgstr "Código de seguridad inválido"
+
+msgid "Security code"
+msgstr "Código de seguridad"
+
+msgid "Other Card"
+msgstr "Otra Tarjeta"
+
+msgid "Other Cards"
+msgstr "Otras Tarjetas"
+
+msgid "ended in"
+msgstr "terminado en"
+
+msgid "Your Card"
+msgstr "Sus Tarjetas"
+
+msgid "Payment Method"
+msgstr "Medios de Pago"
+
+msgid "Apply"
+msgstr "Aplicar"
+
+msgid "Remove"
+msgstr "Eliminar"
+
+msgid "Discount Coupon"
+msgstr "Cupón de Descuento"
+
+msgid "Mercado Pago - Credit Card"
+msgstr "Mercado Pago - Tarjeta de Crédito"
+
+msgid "Check your order resume"
+msgstr "Ver su hoja de pedido"
+
+msgid "Your payment was refused. You can try again."
+msgstr "Su pago fue rechazado. Puede intentarlo de nuevo."
+
+msgid "Click to try again"
+msgstr "Haga clic para intentarlo de nuevo"
+
+msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
+msgstr "Un problema se produjo al procesar su pago. ¿Esta seguro que ha rellenado correctamente toda la información en el formulario de checkout?"
+
+msgid "Discount provided by store"
+msgstr "Descuento dado por la tienda"
+
+msgid "Discount for %s coupon"
+msgstr "Descuento para el cupón %s"
+
+msgid "Done, your payment was accredited!"
+msgstr "Listo, su pago ha sido aceptado!"
+
+msgid "We are processing the payment. In less than an hour we will e-mail you the results."
+msgstr "Estamos procesando su pago. En menos de una hora le enviaremos el resultado por correo electrónico."
+
+msgid "We are processing the payment. In less than 2 business days we will tell you by e-mail whether it has accredited or we need more information."
+msgstr "Estamos procesando su pago. En menos de 2 días le enviaremos por correo electrónico si se ha aprobado el pago o si se necesita información adicional."
+
+msgid "Check the card number."
+msgstr "Compruebe el número de tarjeta."
+
+msgid "Check the expiration date."
+msgstr "Compruebe la fecha de expiración."
+
+msgid "Check the information."
+msgstr "Compruebe la información informada."
+
+msgid "Check the security code."
+msgstr "Compruebe el código de seguridad informado."
+
+msgid "We could not process your payment."
+msgstr "No se puede procesar su pago."
+
+msgid "You must authorize the payment of your orders."
+msgstr "Usted debe autorizar los pagos de sus órdenes."
+
+msgid "Call your card issuer to activate your card. The phone is on the back of your card."
+msgstr "Póngase en contacto con el emisor de su tarjeta para activarla. El teléfono se encuentra en la parte posterior de su tarjeta."
+
+msgid "You already made a payment for that amount. If you need to repay, use another card or other payment method."
+msgstr "Usted ya realizó un pago de este importe. Si tiene que pagar de nuevo, utilizar otra tarjeta u otro medio de pago."
+
+msgid "Your payment was rejected. Choose another payment method. We recommend cash."
+msgstr "Su pago fue rechazado. Por favor seleccione otro medio de pago. Se recomienda en efectivo."
+
+msgid "Your payment do not have sufficient funds."
+msgstr "Su pago no tiene fondos suficientes."
+
+msgid "Your payment does not process payments with selected installments."
+msgstr "El pago no puede procesar la cuota seleccionada."
+
+msgid "You have reached the limit of allowed attempts. Choose another card or another payment method."
+msgstr "Has alcanzado el límite de intentos permitidos. Elija otra tarjeta u otro medio de pago."
+
+msgid "This payment method did not process the payment."
+msgstr "Esta medio de pago no puede procesar su pago."
+
+msgid "Please, inform your email in billing address to use this feature"
+msgstr "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
+
+msgid "Waiting for the ticket payment."
+msgstr "Esperando el pago del ticket."
+
+msgid "here"
+msgstr "aquí"
+
+msgid "To reprint the ticket click "
+msgstr "Para imprimir nuevamente el ticket hace clic "
+
+msgid "A problem was occurred when processing your payment. Please, try again."
+msgstr "Un problema se produjo al procesar su pago. Por favor, inténtelo de nuevo."
+
+msgid "Print the Ticket"
+msgstr "Imprimir el ticket"
+
+msgid "Thank you for your order. Please, pay the ticket to get your order approved."
+msgstr "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
+
+msgid "Important: The order will be confirmed only after the payment approval."
+msgstr "Importante: La solicitud sólo será confirmada después de la aprobación del pago."
+
+msgid "Click [Place order] button. The ticket will be generated and you will be redirected to print it."
+msgstr "Haga clic en el botón [Realizar el pedido]. El ticket será generado y usted será redirigido a imprimirlo."
+
+msgid "Please, select the ticket issuer of your preference."
+msgstr "Por favor, seleccione el emisor de su elección."
+
+msgid "Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil."
+msgstr "Informaciones necesarias debido a las normas bancarias brasileñas números 3.461/09, 3.598/12 y 3.656/13 del Banco Central de Brasil."
+
+msgid "NAME"
+msgstr "NOMBRE"
+
+msgid "SURNAME"
+msgstr "APELLIDO"
+
+msgid "DOCUMENT"
+msgstr "DOCUMENTO"
+
+msgid "ADDRESS"
+msgstr "DIRECCIÓN"
+
+msgid "NUMBER"
+msgstr "NÚMERO"
+
+msgid "CITY"
+msgstr "CIUDAD"
+
+msgid "STATE"
+msgstr "ESTADO"
+
+msgid "ZIP"
+msgstr "CÓDIGO POSTAL"
+
+msgid "You must inform you NAME"
+msgstr "Obligatorio informar su NOMBRE"
+
+msgid "You must inform your SURNAME"
+msgstr "Obligatorio informar su APELLIDO"
+
+msgid "You must inform your DOCUMENT"
+msgstr "Obligatorio informar su DOCUMENTO"
+
+msgid "You must inform your ADDRESS"
+msgstr "Obligatorio informar su DIRECCIÓN"
+
+msgid "You must inform your ADDRESS NUMBER"
+msgstr "Obligatorio informar su NÚMERO"
+
+msgid "You must inform your CITY"
+msgstr "Obligatorio informar su CIUDAD"
+
+msgid "You must inform your STATE"
+msgstr "Obligatorio informar su ESTADO"
+
+msgid "You must inform your ZIP"
+msgstr "Obligatorio informar su CÓDIGO POSTAL"

@@ -22,6 +22,9 @@ msgstr ""
 "Language: es_MX\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store."
+msgstr ""
+
 msgid "Mercado Pago Settings"
 msgstr ""
 
@@ -463,9 +466,6 @@ msgstr ""
 msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence.""
 msgstr ""
 
-msgid "Click to try again"
-msgstr ""
-
 msgid "Shipping service used by store"
 msgstr ""
 
@@ -725,4 +725,271 @@ msgid "Print"
 msgstr ""
 
 msgid "Cancel Order"
+msgstr ""
+
+msgid "Total of your purchase:"
+msgstr ""
+
+msgid "Total of your purchase with discount:"
+msgstr ""
+
+msgid "*Uppon payment approval"
+msgstr ""
+
+msgid "Terms and Conditions of Use"
+msgstr ""
+
+msgid "with discount from"
+msgstr ""
+
+msgid "You will save"
+msgstr ""
+
+msgid "Please, inform your coupon code"
+msgstr ""
+
+msgid "Payment converted from"
+msgstr ""
+
+msgid "Installments"
+msgstr ""
+
+msgid "Parameter cardIssuerId can not be null/empty"
+msgstr ""
+
+msgid "Issuer"
+msgstr ""
+
+msgid "Invalid Document Number"
+msgstr ""
+
+msgid "Parameter docNumber can not be null/empty"
+msgstr ""
+
+msgid "Document number"
+msgstr ""
+
+msgid "Invalid Document Type"
+msgstr ""
+
+msgid "Parameter docType can not be null/empty"
+msgstr ""
+
+msgid "Document Type"
+msgstr ""
+
+msgid "Invalid Card Holder Name"
+msgstr ""
+
+msgid "Parameter cardholderName can not be null/empty"
+msgstr ""
+
+msgid "Card holder name"
+msgstr ""
+
+msgid "Invalid Expiration Date"
+msgstr ""
+
+msgid "Year"
+msgstr ""
+
+msgid "Expiration year"
+msgstr ""
+
+msgid "Month"
+msgstr ""
+
+msgid "Expiration month"
+msgstr ""
+
+msgid "Invalid Card Number"
+msgstr ""
+
+msgid "Parameter cardNumber can not be null/empty"
+msgstr ""
+
+msgid "Credit card number"
+msgstr ""
+
+msgid "Parameter securityCode can not be null/empty"
+msgstr ""
+
+msgid "Invalid Security Code"
+msgstr ""
+
+msgid "Security code"
+msgstr ""
+
+msgid "Other Card"
+msgstr ""
+
+msgid "Other Cards"
+msgstr ""
+
+msgid "ended in"
+msgstr ""
+
+msgid "Your Card"
+msgstr ""
+
+msgid "Payment Method"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Discount Coupon"
+msgstr ""
+
+msgid "Mercado Pago - Credit Card"
+msgstr ""
+
+msgid "Check your order resume"
+msgstr ""
+
+msgid "Your payment was refused. You can try again."
+msgstr ""
+
+msgid "Click to try again"
+msgstr ""
+
+msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
+msgstr ""
+
+msgid "Discount provided by store"
+msgstr ""
+
+msgid "Discount for %s coupon"
+msgstr ""
+
+msgid "Done, your payment was accredited!"
+msgstr ""
+
+msgid "We are processing the payment. In less than an hour we will e-mail you the results."
+msgstr ""
+
+msgid "We are processing the payment. In less than 2 business days we will tell you by e-mail whether it has accredited or we need more information."
+msgstr ""
+
+msgid "Check the card number."
+msgstr ""
+
+msgid "Check the expiration date."
+msgstr ""
+
+msgid "Check the information."
+msgstr ""
+
+msgid "Check the security code."
+msgstr ""
+
+msgid "We could not process your payment."
+msgstr ""
+
+msgid "You must authorize the payment of your orders."
+msgstr ""
+
+msgid "Call your card issuer to activate your card. The phone is on the back of your card."
+msgstr ""
+
+msgid "You already made a payment for that amount. If you need to repay, use another card or other payment method."
+msgstr ""
+
+msgid "Your payment was rejected. Choose another payment method. We recommend cash."
+msgstr ""
+
+msgid "Your payment do not have sufficient funds."
+msgstr ""
+
+msgid "Your payment does not process payments with selected installments."
+msgstr ""
+
+msgid "You have reached the limit of allowed attempts. Choose another card or another payment method."
+msgstr ""
+
+msgid "This payment method did not process the payment."
+msgstr ""
+
+msgid "Please, inform your email in billing address to use this feature"
+msgstr ""
+
+msgid "Waiting for the ticket payment."
+msgstr ""
+
+msgid "here"
+msgstr ""
+
+msgid "To reprint the ticket click "
+msgstr ""
+
+msgid "A problem was occurred when processing your payment. Please, try again."
+msgstr ""
+
+msgid "Print the Ticket"
+msgstr ""
+
+msgid "Thank you for your order. Please, pay the ticket to get your order approved."
+msgstr ""
+
+msgid "Important: The order will be confirmed only after the payment approval."
+msgstr ""
+
+msgid "Click [Place order] button. The ticket will be generated and you will be redirected to print it."
+msgstr ""
+
+msgid "Please, select the ticket issuer of your preference."
+msgstr ""
+
+msgid "Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil."
+msgstr ""
+
+msgid "NAME"
+msgstr ""
+
+msgid "SURNAME"
+msgstr ""
+
+msgid "DOCUMENT"
+msgstr ""
+
+msgid "ADDRESS"
+msgstr ""
+
+msgid "NUMBER"
+msgstr ""
+
+msgid "CITY"
+msgstr ""
+
+msgid "STATE"
+msgstr ""
+
+msgid "ZIP"
+msgstr ""
+
+msgid "You must inform you NAME"
+msgstr ""
+
+msgid "You must inform your SURNAME"
+msgstr ""
+
+msgid "You must inform your DOCUMENT"
+msgstr ""
+
+msgid "You must inform your ADDRESS"
+msgstr ""
+
+msgid "You must inform your ADDRESS NUMBER"
+msgstr ""
+
+msgid "You must inform your CITY"
+msgstr ""
+
+msgid "You must inform your STATE"
+msgstr ""
+
+msgid "You must inform your ZIP"
 msgstr ""

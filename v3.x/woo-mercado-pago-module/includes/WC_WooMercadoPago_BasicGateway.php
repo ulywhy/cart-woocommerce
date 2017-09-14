@@ -33,18 +33,20 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			$this->site_data['checkout_banner']
+			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) )
 		);
 
-		$this->method_title = __( 'Mercado Pago - Basic Checkout', 'woo-mercado-pago-module' );
+		$this->method_title = __( 'Mercado Pago - Basic Checkout', 'woocommerce-mercadopago-module' );
 		$this->method_description = '<img width="200" height="52" src="' .
 			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) .
 		'"><br><br><strong>' .
-			__( 'Receive payments in a matter of minutes. We make it easy for you: just tell us what you want to collect and we’ll take care of the rest.', 'woo-mercado-pago-module' ) .
+			__( 'Receive payments in a matter of minutes. We make it easy for you: just tell us what you want to collect and we’ll take care of the rest.', 'woocommerce-mercadopago-module' ) .
 		'</strong>';
 
 		// TODO: Verify sandbox availability.
-		$this->mp->sandbox_mode( false );
+		$this->sandbox = false;
+		//$this->sandbox = get_option( '_mp_sandbox_mode', false );
+		$this->mp->sandbox_mode( $this->sandbox );
 
 		// How checkout is shown.
 		$this->title              = $this->get_option( 'title' );
@@ -148,13 +150,26 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			$this->form_fields = array(
 				'no_credentials_title' => array(
 					'title' => sprintf(
-						__( 'It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woo-mercado-pago-module' ),
+						__( 'It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago-module' ),
 						'<a href="' . esc_url( admin_url( 'admin.php?page=mercado-pago-settings' ) ) . '">' .
-						__( 'Mercado Pago Settings', 'woo-mercado-pago-module' ) .
+						__( 'Mercado Pago Settings', 'woocommerce-mercadopago-module' ) .
 						'</a>'
 					),
 					'type' => 'title'
 				),
+			);
+			return;
+		}
+
+		// If module is disabled, we do not need to load and process the settings page.
+		if ( empty( $this->settings['enabled'] ) || 'no' == $this->settings['enabled'] ) {
+			$this->form_fields = array(
+				'enabled' => array(
+					'title' => __( 'Enable/Disable', 'woocommerce-mercadopago-module' ),
+					'type' => 'checkbox',
+					'label' => __( 'Enable Basic Checkout', 'woocommerce-mercadopago-module' ),
+					'default' => 'no'
+				)
 			);
 			return;
 		}
@@ -164,143 +179,141 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		// Validate back URL.
 		if ( ! empty( $this->success_url ) && filter_var( $this->success_url, FILTER_VALIDATE_URL ) === FALSE ) {
 			$success_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
-			__( 'This appears to be an invalid URL.', 'woo-mercado-pago-module' ) . ' ';
+			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago-module' ) . ' ';
 		} else {
-			$success_back_url_message = __( 'Where customers should be redirected after a successful purchase. Let blank to redirect to the default store order resume page.', 'woo-mercado-pago-module' );
+			$success_back_url_message = __( 'Where customers should be redirected after a successful purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago-module' );
 		}
 		if ( ! empty( $this->failure_url ) && filter_var( $this->failure_url, FILTER_VALIDATE_URL ) === FALSE ) {
 			$fail_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
-			__( 'This appears to be an invalid URL.', 'woo-mercado-pago-module' ) . ' ';
+			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago-module' ) . ' ';
 		} else {
-			$fail_back_url_message = __( 'Where customers should be redirected after a failed purchase. Let blank to redirect to the default store order resume page.', 'woo-mercado-pago-module' );
+			$fail_back_url_message = __( 'Where customers should be redirected after a failed purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago-module' );
 		}
 		if ( ! empty( $this->pending_url ) && filter_var( $this->pending_url, FILTER_VALIDATE_URL ) === FALSE ) {
 			$pending_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
-			__( 'This appears to be an invalid URL.', 'woo-mercado-pago-module' ) . ' ';
+			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago-module' ) . ' ';
 		} else {
-			$pending_back_url_message = __( 'Where customers should be redirected after a pending purchase. Let blank to redirect to the default store order resume page.', 'woo-mercado-pago-module' );
+			$pending_back_url_message = __( 'Where customers should be redirected after a pending purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago-module' );
 		}
 
 		// This array draws each UI (text, selector, checkbox, label, etc).
 		$this->form_fields = array(
 			'enabled' => array(
-				'title' => __( 'Enable/Disable', 'woo-mercado-pago-module' ),
+				'title' => __( 'Enable/Disable', 'woocommerce-mercadopago-module' ),
 				'type' => 'checkbox',
-				'label' => __( 'Enable Basic Checkout', 'woo-mercado-pago-module' ),
+				'label' => __( 'Enable Basic Checkout', 'woocommerce-mercadopago-module' ),
 				'default' => 'no'
 			),
 			'checkout_options_title' => array(
-				'title' => __( 'Checkout Interface: How checkout is shown', 'woo-mercado-pago-module' ),
+				'title' => __( 'Checkout Interface: How checkout is shown', 'woocommerce-mercadopago-module' ),
 				'type' => 'title'
 			),
 			'title' => array(
-				'title' => __( 'Title', 'woo-mercado-pago-module' ),
+				'title' => __( 'Title', 'woocommerce-mercadopago-module' ),
 				'type' => 'text',
-				'description' => __( 'Title shown to the client in the checkout.', 'woo-mercado-pago-module' ),
-				'default' => __( 'Mercado Pago', 'woo-mercado-pago-module' )
+				'description' => __( 'Title shown to the client in the checkout.', 'woocommerce-mercadopago-module' ),
+				'default' => __( 'Mercado Pago', 'woocommerce-mercadopago-module' )
 			),
 			'description' => array(
-				'title' => __( 'Description', 'woo-mercado-pago-module' ),
+				'title' => __( 'Description', 'woocommerce-mercadopago-module' ),
 				'type' => 'textarea',
-				'description' => __( 'Description shown to the client in the checkout.', 'woo-mercado-pago-module' ),
-				'default' => __( 'Pay with Mercado Pago', 'woo-mercado-pago-module' )
+				'description' => __( 'Description shown to the client in the checkout.', 'woocommerce-mercadopago-module' ),
+				'default' => __( 'Pay with Mercado Pago', 'woocommerce-mercadopago-module' )
 			),
 			'method' => array(
-				'title' => __( 'Integration Method', 'woo-mercado-pago-module' ),
+				'title' => __( 'Integration Method', 'woocommerce-mercadopago-module' ),
 				'type' => 'select',
-				'description' => __( 'Select how your clients should interact with Mercado Pago. Modal Window (inside your store), Redirect (Client is redirected to Mercado Pago), or iFrame (an internal window is embedded to the page layout).', 'woo-mercado-pago-module' ),
+				'description' => __( 'Select how your clients should interact with Mercado Pago. Modal Window (inside your store), Redirect (Client is redirected to Mercado Pago), or iFrame (an internal window is embedded to the page layout).', 'woocommerce-mercadopago-module' ),
 				'default' => 'iframe',
 				'options' => array(
-					'iframe' => __( 'iFrame', 'woo-mercado-pago-module' ),
-					'modal' => __( 'Modal Window', 'woo-mercado-pago-module' ),
-					'redirect' => __( 'Redirect', 'woo-mercado-pago-module' )
+					'iframe' => __( 'iFrame', 'woocommerce-mercadopago-module' ),
+					'modal' => __( 'Modal Window', 'woocommerce-mercadopago-module' ),
+					'redirect' => __( 'Redirect', 'woocommerce-mercadopago-module' )
 				)
 			),
 			'iframe_width' => array(
-				'title' => __( 'iFrame Width', 'woo-mercado-pago-module' ),
+				'title' => __( 'iFrame Width', 'woocommerce-mercadopago-module' ),
 				'type' => 'number',
-				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame width.', 'woo-mercado-pago-module' ),
+				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame width.', 'woocommerce-mercadopago-module' ),
 				'default' => '640'
 			),
 			'iframe_height' => array(
-				'title' => __( 'iFrame Height', 'woo-mercado-pago-module' ),
+				'title' => __( 'iFrame Height', 'woocommerce-mercadopago-module' ),
 				'type' => 'number',
-				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame height.', 'woo-mercado-pago-module' ),
+				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame height.', 'woocommerce-mercadopago-module' ),
 				'default' => '800'
 			),
 			'checkout_navigation_title' => array(
-				'title' => __( 'Checkout Navigation: How checkout redirections will behave', 'woo-mercado-pago-module' ),
+				'title' => __( 'Checkout Navigation: How checkout redirections will behave', 'woocommerce-mercadopago-module' ),
 				'type' => 'title'
 			),
 			'auto_return' => array(
-				'title' => __( 'Auto Return', 'woo-mercado-pago-module' ),
+				'title' => __( 'Auto Return', 'woocommerce-mercadopago-module' ),
 				'type' => 'checkbox',
-				'label' => __( 'Automatic Return After Payment', 'woo-mercado-pago-module' ),
+				'label' => __( 'Automatic Return After Payment', 'woocommerce-mercadopago-module' ),
 				'default' => 'yes',
-				'description' =>
-					__( 'After the payment, client is automatically redirected.', 'woo-mercado-pago-module' ),
+				'description' => __( 'After the payment, client is automatically redirected.', 'woocommerce-mercadopago-module' ),
 			),
 			'success_url' => array(
-				'title' => __( 'Sucess URL', 'woo-mercado-pago-module' ),
+				'title' => __( 'Sucess URL', 'woocommerce-mercadopago-module' ),
 				'type' => 'text',
 				'description' => $success_back_url_message,
 				'default' => ''
 			),
 			'failure_url' => array(
-				'title' => __( 'Failure URL', 'woo-mercado-pago-module' ),
+				'title' => __( 'Failure URL', 'woocommerce-mercadopago-module' ),
 				'type' => 'text',
 				'description' => $fail_back_url_message,
 				'default' => ''
 			),
 			'pending_url' => array(
-				'title' => __( 'Pending URL', 'woo-mercado-pago-module' ),
+				'title' => __( 'Pending URL', 'woocommerce-mercadopago-module' ),
 				'type' => 'text',
 				'description' => $pending_back_url_message,
 				'default' => ''
 			),
 			'payment_title' => array(
-				'title' => __( 'Payment Options: How payment options behaves', 'woo-mercado-pago-module' ),
+				'title' => __( 'Payment Options: How payment options behaves', 'woocommerce-mercadopago-module' ),
 				'type' => 'title'
 			),
 			'installments' => array(
-				'title' => __( 'Max installments', 'woo-mercado-pago-module' ),
+				'title' => __( 'Max installments', 'woocommerce-mercadopago-module' ),
 				'type' => 'select',
-				'description' => __( 'Select the max number of installments for your customers.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Select the max number of installments for your customers.', 'woocommerce-mercadopago-module' ),
 				'default' => '24',
 				'options' => array(
-					'1' => __( '1x installment', 'woo-mercado-pago-module' ),
-					'2' => __( '2x installmens', 'woo-mercado-pago-module' ),
-					'3' => __( '3x installmens', 'woo-mercado-pago-module' ),
-					'4' => __( '4x installmens', 'woo-mercado-pago-module' ),
-					'5' => __( '5x installmens', 'woo-mercado-pago-module' ),
-					'6' => __( '6x installmens', 'woo-mercado-pago-module' ),
-					'10' => __( '10x installmens', 'woo-mercado-pago-module' ),
-					'12' => __( '12x installmens', 'woo-mercado-pago-module' ),
-					'15' => __( '15x installmens', 'woo-mercado-pago-module' ),
-					'18' => __( '18x installmens', 'woo-mercado-pago-module' ),
-					'24' => __( '24x installmens', 'woo-mercado-pago-module' )
+					'1' => __( '1x installment', 'woocommerce-mercadopago-module' ),
+					'2' => __( '2x installmens', 'woocommerce-mercadopago-module' ),
+					'3' => __( '3x installmens', 'woocommerce-mercadopago-module' ),
+					'4' => __( '4x installmens', 'woocommerce-mercadopago-module' ),
+					'5' => __( '5x installmens', 'woocommerce-mercadopago-module' ),
+					'6' => __( '6x installmens', 'woocommerce-mercadopago-module' ),
+					'10' => __( '10x installmens', 'woocommerce-mercadopago-module' ),
+					'12' => __( '12x installmens', 'woocommerce-mercadopago-module' ),
+					'15' => __( '15x installmens', 'woocommerce-mercadopago-module' ),
+					'18' => __( '18x installmens', 'woocommerce-mercadopago-module' ),
+					'24' => __( '24x installmens', 'woocommerce-mercadopago-module' )
 				)
 			),
 			'ex_payments' => array(
-				'title' => __( 'Exclude Payment Methods', 'woo-mercado-pago-module' ),
-				'description' => __( 'Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago.', 'woo-mercado-pago-module' ),
+				'title' => __( 'Exclude Payment Methods', 'woocommerce-mercadopago-module' ),
+				'description' => __( 'Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago.', 'woocommerce-mercadopago-module' ),
 				'type' => 'multiselect',
 				'options' => explode( ',', get_option( '_all_payment_methods_v0', '' ) ),
 				'default' => ''
 			),
 			'gateway_discount' => array(
-				'title' => __( 'Discount by Gateway', 'woo-mercado-pago-module' ),
+				'title' => __( 'Discount by Gateway', 'woocommerce-mercadopago-module' ),
 				'type' => 'number',
-				'description' => __( 'Give a percentual (0 to 100) discount for your customers if they use this payment gateway.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Give a percentual (0 to 100) discount for your customers if they use this payment gateway.', 'woocommerce-mercadopago-module' ),
 				'default' => '0'
 			),
 			'two_cards_mode' => array(
-				'title' => __( 'Two Cards Mode', 'woo-mercado-pago-module' ),
+				'title' => __( 'Two Cards Mode', 'woocommerce-mercadopago-module' ),
 				'type' => 'checkbox',
-				'label' => __( 'Payments with Two Cards', 'woo-mercado-pago-module' ),
+				'label' => __( 'Payments with Two Cards', 'woocommerce-mercadopago-module' ),
 				'default' => ( $this->two_cards_mode == 'active' ? 'yes' : 'no' ),
-				'description' =>
-					__( 'Your customer will be able to use two different cards to pay the order.', 'woo-mercado-pago-module' )
+				'description' => __( 'Your customer will be able to use two different cards to pay the order.', 'woocommerce-mercadopago-module' )
 			)
 		);
 
@@ -320,6 +333,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				$value = $this->get_field_value( $key, $field, $post_data );
 				if ( $key == 'two_cards_mode' ) {
 					// We dont save two card mode as it should come from api.
+					unset( $this->settings[$key] );
 					$this->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
 				} elseif ( $key == 'iframe_width' ) {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
@@ -350,7 +364,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		}
 		$_site_id_v0 = get_option( '_site_id_v0', '' );
 		$is_test_user = get_option( '_test_user_v0', false );
-		if ( ! empty( $_site_id_v0 ) && ! $is_test_user ) {
+		if ( ! empty( $_site_id_v0 ) ) {
 			// Create MP instance.
 			$mp = new MP(
 				WC_Woo_Mercado_Pago_Module::get_module_version(),
@@ -358,10 +372,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				get_option( '_mp_client_secret' )
 			);
 			// Analytics.
-			$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
-			$infra_data['checkout_basic'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
-			$infra_data['two_cards'] = ( $this->two_cards_mode == 'active' ? 'true' : 'false' );
-			$response = $mp->analytics_save_settings( $infra_data );
+			if ( ! $is_test_user ) {
+				$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
+				$infra_data['checkout_basic'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
+				$infra_data['two_cards'] = ( $this->two_cards_mode == 'active' ? 'true' : 'false' );
+				$response = $mp->analytics_save_settings( $infra_data );
+			}
 			// Two cards mode.
 			$response = $mp->set_two_cards_mode( $this->two_cards_mode );
 		}
@@ -637,13 +653,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					</script>';
 			$html = '<img width="468" height="60" src="' . $this->site_data['checkout_banner'] . '">';
 			$html = '<p></p><p>' . wordwrap(
-						__( 'Thank you for your order. Please, proceed with your payment clicking in the bellow button.', 'woo-mercado-pago-module' ),
+						__( 'Thank you for your order. Please, proceed with your payment clicking in the bellow button.', 'woocommerce-mercadopago-module' ),
 						60, '<br>'
 					) . '</p>
 					<a id="submit-payment" href="' . esc_url( $url ) . '" name="MP-Checkout" class="button alt" mp-mode="modal">' .
-						__( 'Pay with Mercado Pago', 'woo-mercado-pago-module' ) .
+						__( 'Pay with Mercado Pago', 'woocommerce-mercadopago-module' ) .
 					'</a> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' .
-						__( 'Cancel order &amp; Clear cart', 'woo-mercado-pago-module' ) .
+						__( 'Cancel order &amp; Clear cart', 'woocommerce-mercadopago-module' ) .
 					'</a>';
 			return $html;
 			// ===== The checkout is made by displaying a modal to the customer =====
@@ -655,7 +671,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			// ===== The checkout is made by rendering Mercado Pago form within a iframe =====
 			$html = '<img width="468" height="60" src="' . $this->site_data['checkout_banner'] . '">';
 			$html = '<p></p><p>' . wordwrap(
-						__( 'Thank you for your order. Proceed with your payment completing the following information.', 'woo-mercado-pago-module' ),
+						__( 'Thank you for your order. Proceed with your payment completing the following information.', 'woocommerce-mercadopago-module' ),
 						60, '<br>'
 					) . '</p>
 					<iframe src="' . esc_url( $url ) . '" name="MP-Checkout" ' .
@@ -670,10 +686,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 			// ===== Reaching at this point means that the URL could not be build by some reason =====
 			$html = '<p>' .
-						__( 'An error occurred when proccessing your payment. Please try again or contact us for assistence.', 'woo-mercado-pago-module' ) .
+						__( 'An error occurred when proccessing your payment. Please try again or contact us for assistence.', 'woocommerce-mercadopago-module' ) .
 					'</p>' .
 					'<a class="button" href="' . esc_url( $order->get_checkout_payment_url() ) . '">' .
-						__( 'Click to try again', 'woo-mercado-pago-module' ) .
+						__( 'Click to try again', 'woocommerce-mercadopago-module' ) .
 					'</a>
 			';
 			return $html;
@@ -691,9 +707,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	 */
 	public function build_payment_preference( $order ) {
 
-		$selected_shipping = $order->get_shipping_method();
-		$order_content = array();
 		$items = array();
+		$currency_ratio = 1;
+		$order_content = array();
+		$selected_shipping = $order->get_shipping_method();
 
 		// Here we build the array that contains ordered items, from customer cart.
 		if ( sizeof( $order->get_items() ) > 0 ) {
@@ -741,12 +758,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 			// If we're not using Mercado Envios, shipping cost is added as an item in the order, preventing
 			// Mercado Pago Javascript to show shipment setup twice.
-			if ( strpos( $selected_shipping, 'Mercado Envios' ) !== 0 && $order->get_total_shipping() + $order->get_shipping_tax() > 0 ) {
-				$ship_amount = $order->get_total_shipping() + $order->get_shipping_tax();
-				array_push( $order_content, __( 'Shipping service used by store', 'woo-mercado-pago-module' ) );
+			$ship_amount = $order->get_total_shipping() + $order->get_shipping_tax();
+			if ( strpos( $selected_shipping, 'Mercado Envios' ) !== 0 && $ship_amount > 0 ) {
+				array_push( $order_content, __( 'Shipping service used by store', 'woocommerce-mercadopago-module' ) );
 				array_push( $items, array(
-					'title' => __( 'Shipping service used by store', 'woo-mercado-pago-module' ),
-					'description' => __( 'Shipping service used by store', 'woo-mercado-pago-module' ),
+					'title' => __( 'Shipping service used by store', 'woocommerce-mercadopago-module' ),
+					'description' => __( 'Shipping service used by store', 'woocommerce-mercadopago-module' ),
 					'category_id' => get_option( '_mp_category_name', 'others' ),
 					'quantity' => 1,
 					'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
@@ -755,7 +772,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					'currency_id' => $this->site_data['currency']
 				) );
 			}
-
 			$items[0]['title'] = implode( ', ', $order_content );
 		}
 
@@ -956,7 +972,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 				);
 				// TODO: Verify sandbox availability.
-				//if ( 'yes' == $this->sandbox ) {
+				//if ( $this->sandbox ) {
 				//	return $checkout_info['response']['sandbox_init_point'];
 				//} else {
 				return $checkout_info['response']['init_point'];
@@ -1029,7 +1045,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$total = (float) WC()->cart->subtotal;
 		$price_percent = $this->gateway_discount / 100;
 		if ( $price_percent > 0 ) {
-			$title .= ' (' . __( 'Discount of ', 'woo-mercado-pago-module' ) .
+			$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago-module' ) . ' ' .
 				strip_tags( wc_price( $total * $price_percent ) ) . ' )';
 		}
 		return $title;
@@ -1053,7 +1069,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			json_encode( $_GET, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 		);
 		// Setup sandbox mode.
-		$this->mp->sandbox_mode( 'yes' == $this->sandbox );
+		$this->mp->sandbox_mode( $this->sandbox );
 		// Over here, $_GET should come with this JSON structure:
 		// {
 		// 	"topic": <string>,
@@ -1123,7 +1139,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				__FUNCTION__,
 				'request failure, received ipn call with no data.'
 			);
-			wp_die( __( 'Mercado Pago Request Failure', 'woo-mercado-pago-module' ) );
+			wp_die( __( 'Mercado Pago Request Failure', 'woocommerce-mercadopago-module' ) );
 		}
 	}
 
@@ -1191,10 +1207,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			// Updates the type of gateway.
 			$order->update_meta_data( '_used_gateway', 'WC_WooMercadoPago_BasicGateway' );
 			if ( ! empty( $data['payer']['email'] ) ) {
-				$order->update_meta_data( __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
+				$order->update_meta_data( __( 'Payer email', 'woocommerce-mercadopago-module' ), $data['payer']['email'] );
 			}
-			if ( ! empty( $data['payment_type'] ) ) {
-				$order->update_meta_data( __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type'] );
+			if ( ! empty( $data['payment_type_id'] ) ) {
+				$order->update_meta_data( __( 'Payment type', 'woocommerce-mercadopago-module' ), $data['payment_type_id'] );
 			}
 			if ( ! empty( $data['payments'] ) ) {
 				$payment_ids = array();
@@ -1216,10 +1232,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			// Updates the type of gateway.
  			update_post_meta( $order->id, '_used_gateway', 'WC_WooMercadoPago_BasicGateway' );
 			if ( ! empty( $data['payer']['email'] ) ) {
-				update_post_meta( $order_id, __( 'Payer email', 'woo-mercado-pago-module' ), $data['payer']['email'] );
+				update_post_meta( $order_id, __( 'Payer email', 'woocommerce-mercadopago-module' ), $data['payer']['email'] );
 			}
-			if ( ! empty( $data['payment_type'] ) ) {
-				update_post_meta( $order_id, __( 'Payment type', 'woo-mercado-pago-module' ), $data['payment_type'] );
+			if ( ! empty( $data['payment_type_id'] ) ) {
+				update_post_meta( $order_id, __( 'Payment type', 'woocommerce-mercadopago-module' ), $data['payment_type_id'] );
 			}
 			if ( ! empty( $data['payments'] ) ) {
 				$payment_ids = array();
@@ -1248,8 +1264,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		switch ( $status ) {
 			case 'approved':
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'Payment approved.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'Payment approved.', 'woocommerce-mercadopago-module' )
 				);
 				$order->payment_complete();
 				$order->update_status(
@@ -1261,36 +1276,31 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'pending' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'Customer haven\'t paid yet.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'Customer haven\'t paid yet.', 'woocommerce-mercadopago-module' )
 				);
 				break;
 			case 'in_process':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'on-hold' ),
-					'Mercado Pago: ' .
-					__( 'Payment under review.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'Payment under review.', 'woocommerce-mercadopago-module' )
 				);
 				break;
 			case 'rejected':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'failed' ),
-					'Mercado Pago: ' .
-					__( 'The payment was refused. The customer can try again.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment was refused. The customer can try again.', 'woocommerce-mercadopago-module' )
 				);
 				break;
 			case 'refunded':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'refunded' ),
-					'Mercado Pago: ' .
-					__( 'The payment was refunded to the customer.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment was refunded to the customer.', 'woocommerce-mercadopago-module' )
 				);
 				break;
 			case 'cancelled':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'cancelled' ),
-					'Mercado Pago: ' .
-					__( 'The payment was cancelled.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woocommerce-mercadopago-module' )
 				);
 				break;
 			case 'in_mediation':
@@ -1298,8 +1308,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'inmediation' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago-module' )
 				);
 				break;
 			case 'charged-back':
@@ -1307,8 +1316,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'chargedback' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' .
-					__( 'The payment is under mediation or it was charged-back.', 'woo-mercado-pago-module' )
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago-module' )
 				);
 				break;
 			default:
@@ -1390,25 +1398,25 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					$shipments_data = MeliRestClient::get( $request, '' );
 					switch ( $shipments_data['response']['substatus'] ) {
 						case 'ready_to_print':
-							$substatus_description = __( 'Tag ready to print', 'woo-mercado-pago-module' );
+							$substatus_description = __( 'Tag ready to print', 'woocommerce-mercadopago-module' );
 							break;
 						case 'printed':
-							$substatus_description = __( 'Tag printed', 'woo-mercado-pago-module' );
+							$substatus_description = __( 'Tag printed', 'woocommerce-mercadopago-module' );
 							break;
 						case 'stale':
-							$substatus_description = __( 'Unsuccessful', 'woo-mercado-pago-module' );
+							$substatus_description = __( 'Unsuccessful', 'woocommerce-mercadopago-module' );
 							break;
 						case 'delayed':
-							$substatus_description = __( 'Delayed shipping', 'woo-mercado-pago-module' );
+							$substatus_description = __( 'Delayed shipping', 'woocommerce-mercadopago-module' );
 							break;
 						case 'receiver_absent':
-							$substatus_description = __( 'Missing recipient for delivery', 'woo-mercado-pago-module' );
+							$substatus_description = __( 'Missing recipient for delivery', 'woocommerce-mercadopago-module' );
 							break;
 						case 'returning_to_sender':
-							$substatus_description = __( 'In return to sender', 'woo-mercado-pago-module' );
+							$substatus_description = __( 'In return to sender', 'woocommerce-mercadopago-module' );
 							break;
 						case 'claimed_me':
-							$substatus_description = __( 'Buyer initiates complaint and requested a refund.', 'woo-mercado-pago-module' );
+							$substatus_description = __( 'Buyer initiates complaint and requested a refund.', 'woocommerce-mercadopago-module' );
 							break;
 						default:
 							$substatus_description = $shipments_data['response']['substatus'];
@@ -1447,13 +1455,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 						}
 						wp_mail(
 							$order->billing_email,
-							__( 'Order', 'woo-mercado-pago-module' ) . ' ' . $order_id . ' - ' . __( 'Mercado Envios Tracking ID', 'woo-mercado-pago-module' ),
-							__( 'Hello,', 'woo-mercado-pago-module' ) . "\r\n\r\n" .
-							__( 'Your order', 'woo-mercado-pago-module' ) . ' ' . ' [ ' . implode( ', ', $list_of_items ) . ' ] ' .
-							__( 'made in', 'woo-mercado-pago-module' ) . ' ' . get_site_url() . ' ' .
-							__( 'used Mercado Envios as its shipment method.', 'woo-mercado-pago-module' ) . "\r\n" .
-							__( 'You can track it with the following Tracking ID:', 'woo-mercado-pago-module' ) . ' ' . $tracking_id . ".\r\n\r\n" .
-							__( 'Best regards.', 'woo-mercado-pago-module' )
+							__( 'Order', 'woocommerce-mercadopago-module' ) . ' ' . $order_id . ' - ' . __( 'Mercado Envios Tracking ID', 'woocommerce-mercadopago-module' ),
+							__( 'Hello,', 'woocommerce-mercadopago-module' ) . "\r\n\r\n" .
+							__( 'Your order', 'woocommerce-mercadopago-module' ) . ' ' . ' [ ' . implode( ', ', $list_of_items ) . ' ] ' .
+							__( 'made in', 'woocommerce-mercadopago-module' ) . ' ' . get_site_url() . ' ' .
+							__( 'used Mercado Envios as its shipment method.', 'woocommerce-mercadopago-module' ) . "\r\n" .
+							__( 'You can track it with the following Tracking ID:', 'woocommerce-mercadopago-module' ) . ' ' . $tracking_id . ".\r\n\r\n" .
+							__( 'Best regards.', 'woocommerce-mercadopago-module' )
 						);
 					}
 				}

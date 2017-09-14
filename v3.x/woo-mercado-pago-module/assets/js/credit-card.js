@@ -38,6 +38,8 @@
 			"securityCode"
 		],
 		selectors: {
+			// currency
+			currency_ratio: "#currency_ratio",
         	// coupom
 			couponCode: "#couponCode",
 			applyCoupon: "#applyCoupon",
@@ -72,20 +74,20 @@
 			token: "#token",
 			cardTruncated: "#cardTruncated",
 			site_id: "#site_id",
-			CustomerAndCard: '#CustomerAndCard',
+			CustomerAndCard: "#CustomerAndCard",
 			box_loading: "#mp-box-loading",
 			submit: "#submit",
 			// tax resolution AG 51/2017
-			boxInstallments: '#mp-box-installments',
-			boxInstallmentsSelector: '#mp-box-installments-selector',
-			taxCFT: '#mp-box-input-tax-cft',
-			taxTEA: '#mp-box-input-tax-tea',
-			taxTextCFT: '#mp-tax-cft-text',
-			taxTextTEA: '#mp-tax-tea-text',
+			boxInstallments: "#mp-box-installments",
+			boxInstallmentsSelector: "#mp-box-installments-selector",
+			taxCFT: "#mp-box-input-tax-cft",
+			taxTEA: "#mp-box-input-tax-tea",
+			taxTextCFT: "#mp-tax-cft-text",
+			taxTextTEA: "#mp-tax-tea-text",
 			// form
-			form: '#mercadopago-form',
-			formCoupon: '#mercadopago-form-coupon',
-			formCustomerAndCard: '#mercadopago-form-customer-and-card',
+			form: "#mercadopago-form",
+			formCoupon: "#mercadopago-form-coupon",
+			formCustomerAndCard: "#mercadopago-form-customer-and-card",
 			utilities_fields: "#mercadopago-utilities"
 		},
 		text: {
@@ -227,7 +229,7 @@
 							response.response.id;
 						document.querySelector( MPv1.selectors.campaign ).value =
 							response.response.name;
-					} else if ( response.status == 400 || response.status == 404 ) {
+					} else {
 						document.querySelector( MPv1.selectors.mpCouponApplyed ).style.display = "none";
 						document.querySelector( MPv1.selectors.mpCouponError ).style.display = "block";
 						document.querySelector( MPv1.selectors.mpCouponError ).innerHTML = response.response.message;
@@ -904,18 +906,22 @@
 			}
 			req.onreadystatechange = function() {
 				if ( this.readyState === 4 ) {
-					if ( this.status >= 200 && this.status < 400 ) {
-						// Success!
-						data = JSON.parse( this.responseText );
-						if ( typeof options.success === "function" ) {
-							options.success( this.status, data );
+					try {
+						if ( this.status >= 200 && this.status < 400 ) {
+							// Success!
+							data = JSON.parse( this.responseText );
+							if ( typeof options.success === "function" ) {
+								options.success( this.status, data );
+							}
+						} else if ( this.status >= 400 ) {
+							data = JSON.parse( this.responseText );
+							if ( typeof options.error === "function" ) {
+								options.error( this.status, data );
+							}
+						} else if ( typeof options.error === "function" ) {
+							options.error( 503, {} );
 						}
-					} else if ( this.status >= 400 ) {
-						data = JSON.parse( this.responseText );
-						if ( typeof options.error === "function" ) {
-							options.error( this.status, data );
-						}
-					} else if ( typeof options.error === "function" ) {
+					} catch (e) {
 						options.error( 503, {} );
 					}
 				}
@@ -982,8 +988,8 @@
 			// Hide documento for mex.
 			document.querySelector( MPv1.selectors.mpDoc ).style.display = "none";
 
-			document.querySelector( MPv1.selectors.formCustomerAndCard ).removeAttribute( 'style' );
-			document.querySelector( MPv1.selectors.formCustomerAndCard ).style.padding = "36px 36px 16px 36px";
+			document.querySelector( MPv1.selectors.formCustomerAndCard ).removeAttribute( "style" );
+			document.querySelector( MPv1.selectors.formCustomerAndCard ).style.padding = "36px 12px 16px 12px";
 			document.querySelector( MPv1.selectors.mpSecurityCodeCustomerAndCard ).style.display = "none";
 
 			// Removing not used fields for this country.
@@ -1022,6 +1028,8 @@
 			document.querySelector( MPv1.selectors.taxCFT ).style.display = "block";
 			document.querySelector( MPv1.selectors.taxTEA ).style.display = "block";
 			MPv1.addListenerEvent( document.querySelector( MPv1.selectors.installments ), "change", MPv1.showTaxes );
+		} else if ( MPv1.site_id == "MLC" ) {
+			document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
 		}
 
 		if ( MPv1.debug ) {
@@ -1046,6 +1054,7 @@ MPv1.setForm = function() {
 	} else {
 		document.querySelector( MPv1.selectors.mpSecurityCodeCustomerAndCard ).style.display = "none";
 		document.querySelector( MPv1.selectors.form ).removeAttribute( "style" );
+		document.querySelector( MPv1.selectors.form ).style.padding = "0px 12px 0px 12px";
 	}
 	Mercadopago.clearSession();
 	if ( MPv1.create_token_on.event ) {
@@ -1074,29 +1083,3 @@ MPv1.showErrors = function( response ) {
 	}
 	return;
 }
-
-// === Instantiation
-
-MPv1.text.apply = wc_mercadopago_custom_params.apply;
-MPv1.text.remove = wc_mercadopago_custom_params.remove;
-MPv1.text.coupon_empty = wc_mercadopago_custom_params.coupon_empty;
-MPv1.text.choose = wc_mercadopago_custom_params.label_choose;
-MPv1.text.other_bank = wc_mercadopago_custom_params.label_other_bank;
-MPv1.text.discount_info1 = wc_mercadopago_custom_params.discount_info1;
-MPv1.text.discount_info2 = wc_mercadopago_custom_params.discount_info2;
-MPv1.text.discount_info3 = wc_mercadopago_custom_params.discount_info3;
-MPv1.text.discount_info4 = wc_mercadopago_custom_params.discount_info4;
-MPv1.text.discount_info5 = wc_mercadopago_custom_params.discount_info5;
-MPv1.text.discount_info6 = wc_mercadopago_custom_params.discount_info6;
-
-MPv1.paths.loading = wc_mercadopago_custom_params.images_path + 'loading.gif';
-MPv1.paths.check = wc_mercadopago_custom_params.images_path + 'check.png';
-MPv1.paths.error = wc_mercadopago_custom_params.images_path + 'error.png';
-
-MPv1.Initialize(
-	wc_mercadopago_custom_params.site_id,
-	wc_mercadopago_custom_params.public_key,
-	wc_mercadopago_custom_params.coupon_mode == "yes",
-	wc_mercadopago_custom_params.discount_action_url,
-	wc_mercadopago_custom_params.payer_email
-);

@@ -18,13 +18,16 @@ function add_meta_boxes() {
 	// Get order.
 	global $post;
 	$order = wc_get_order( $post->ID );
+	if ( ! isset( $order ) || $order == false ) {
+		return;
+	}
 	$order_id = trim( str_replace( '#', '', $order->get_order_number() ) );
 	// Get payment information for the order.
 	$payments = get_post_meta( $order_id, '_Mercado_Pago_Sub_Payment_IDs', true );
 	if ( isset( $payments ) && ! empty( $payments ) ) {
 		add_meta_box(
 			'woocommerce-mp-order-action-refund',
-			__( 'Mercado Pago Subscription', 'woo-mercado-pago-module' ),
+			__( 'Mercado Pago Subscription', 'woocommerce-mercadopago-module' ),
 			'mp_subscription_order_refund_cancel_box',
 			'shop_order',
 			'side',
@@ -37,6 +40,9 @@ function mp_subscription_order_refund_cancel_box() {
 	// Get order.
 	global $post;
 	$order = wc_get_order( $post->ID );
+	if ( ! isset( $order ) || $order == false ) {
+		return;
+	}
 	$order_id = trim( str_replace( '#', '', $order->get_order_number() ) );
 	// Get payment information for the order.
 	$payments = get_post_meta( $order_id, '_Mercado_Pago_Sub_Payment_IDs', true );
@@ -52,17 +58,17 @@ function mp_subscription_order_refund_cancel_box() {
 		return;
 	}
 	// Build javascript for the window.
-	$domain = get_site_url() . '/index.php' . '/woo-mercado-pago-module/';
+	$domain = get_site_url() . '/index.php' . '/woocommerce-mercadopago-module/';
 	$domain .= '?wc-api=WC_WooMercadoPago_SubscriptionGateway';
 	echo WC_Woo_Mercado_Pago_Module::generate_refund_cancel_subscription(
 		$domain,
-		__( 'Operation successfully completed.', 'woo-mercado-pago-module' ),
-		__( 'This operation could not be completed.', 'woo-mercado-pago-module' ),
+		__( 'Operation successfully completed.', 'woocommerce-mercadopago-module' ),
+		__( 'This operation could not be completed.', 'woocommerce-mercadopago-module' ),
 		$options,
-		__( 'Payment ID:', 'woo-mercado-pago-module' ),
-		__( 'Amount:', 'woo-mercado-pago-module' ),
-		__( 'Refund Payment', 'woo-mercado-pago-module' ),
-		__( 'Cancel Payment', 'woo-mercado-pago-module' )
+		__( 'Payment ID:', 'woocommerce-mercadopago-module' ),
+		__( 'Amount:', 'woocommerce-mercadopago-module' ),
+		__( 'Refund Payment', 'woocommerce-mercadopago-module' ),
+		__( 'Cancel Payment', 'woocommerce-mercadopago-module' )
 	);
 }
 
@@ -93,7 +99,7 @@ function check_recurrent_product_singularity() {
 			$is_recurrent = get_post_meta( $cart_item['product_id'], '_mp_recurring_is_recurrent', true );
 			if ( $is_recurrent == 'yes' ) {
 				wc_add_notice(
-					__( 'A recurrent product is a signature that should be bought isolated in your cart. Please, create separated orders.', 'woo-mercado-pago-module' ),
+					__( 'A recurrent product is a signature that should be bought isolated in your cart. Please, create separated orders.', 'woocommerce-mercadopago-module' ),
 					'error'
 				);
 			}
@@ -134,39 +140,39 @@ function mp_add_recurrent_settings() {
 		woocommerce_wp_checkbox(
 			array(
 				'id' => '_mp_recurring_is_recurrent',
-				'label' => __( 'Recurrent Product', 'woo-mercado-pago-module' ),
-				'description' => __( 'Make this product a subscription.', 'woo-mercado-pago-module' )
+				'label' => __( 'Recurrent Product', 'woocommerce-mercadopago-module' ),
+				'description' => __( 'Make this product a subscription.', 'woocommerce-mercadopago-module' )
 			)
 		);
 		woocommerce_wp_text_input(
 			array(
 				'id' => '_mp_recurring_frequency',
-				'label' => __( 'Frequency', 'woo-mercado-pago-module' ),
+				'label' => __( 'Frequency', 'woocommerce-mercadopago-module' ),
 				'placeholder' => '1',
 				'desc_tip' => 'true',
-				'description' => __( 'Amount of time (in days or months) for the execution of the next payment.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Amount of time (in days or months) for the execution of the next payment.', 'woocommerce-mercadopago-module' ),
 				'type' => 'number'
 			)
 		);
 		woocommerce_wp_select(
 			array(
 				'id' => '_mp_recurring_frequency_type',
-				'label' => __( 'Frequency type', 'woo-mercado-pago-module' ),
+				'label' => __( 'Frequency type', 'woocommerce-mercadopago-module' ),
 				'desc_tip' => 'true',
-				'description' => __( 'Indicates the period of time.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Indicates the period of time.', 'woocommerce-mercadopago-module' ),
 				'options' => array(
-					'days' => __( 'Days', 'woo-mercado-pago-module' ),
-					'months' => __( 'Months', 'woo-mercado-pago-module' )
+					'days' => __( 'Days', 'woocommerce-mercadopago-module' ),
+					'months' => __( 'Months', 'woocommerce-mercadopago-module' )
 				)
 			)
 		);
 		woocommerce_wp_text_input(
 			array(
 				'id' => '_mp_recurring_end_date',
-				'label' => __( 'End date', 'woo-mercado-pago-module' ),
-				'placeholder' => _x( 'YYYY-MM-DD', 'placeholder', 'woo-mercado-pago-module' ),
+				'label' => __( 'End date', 'woocommerce-mercadopago-module' ),
+				'placeholder' => _x( 'YYYY-MM-DD', 'placeholder', 'woocommerce-mercadopago-module' ),
 				'desc_tip' => 'true',
-				'description' => __( 'Deadline to generate new charges. Defaults to never if blank.', 'woo-mercado-pago-module' ),
+				'description' => __( 'Deadline to generate new charges. Defaults to never if blank.', 'woocommerce-mercadopago-module' ),
 				'class' => 'date-picker',
 				'custom_attributes' => array( 'pattern' => "[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" )
 			)

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Text Domain: woo-mercado-pago-module
+ * Text Domain: woocommerce-mercadopago-module
  * Domain Path: /i18n/languages/
  */
 
@@ -34,7 +34,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		
 		$this->instance_id = absint( $instance_id );
-		$this->method_description = __( 'Mercado Envios is a shipping method available only for payments with Mercado Pago.', 'woo-mercado-pago-module' );
+		$this->method_description = __( 'Mercado Envios is a shipping method available only for payments with Mercado Pago.', 'woocommerce-mercadopago-module' );
 		$this->supports = array(
 			'shipping-zones',
 			'instance-settings',
@@ -89,7 +89,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 	// Multi-language plugin.
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain(
-			'woo-mercado-pago-module',
+			'woocommerce-mercadopago-module',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/i18n/languages/'
 		);
@@ -168,15 +168,15 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 			if ( $shipping_method_id == $shipping['shipping_method_id'] ) {
 				$label_free_shipping = '';
 				if ( $this->get_option( 'free_shipping' ) == 'yes' || $shipping['cost'] == 0 ) {
-					$label_free_shipping = __( 'Free Shipping', 'woo-mercado-pago-module' );
+					$label_free_shipping = __( 'Free Shipping', 'woocommerce-mercadopago-module' );
 				}
 				$label_delivery_time = '';
 				if ( $this->get_option( 'show_delivery_time' ) == 'yes' ) {
 					$days = $shipping['estimated_delivery_time']['shipping'] / 24;
 					if ( $days <= 1 ) {
-						$label_delivery_time = $days . ' ' . __( 'Day', 'woo-mercado-pago-module' );
+						$label_delivery_time = $days . ' ' . __( 'Day', 'woocommerce-mercadopago-module' );
 					} else {
-						$label_delivery_time = $days . ' ' . __( 'Days', 'woo-mercado-pago-module' );
+						$label_delivery_time = $days . ' ' . __( 'Days', 'woocommerce-mercadopago-module' );
 					}
 				}
 				$separator = '';
@@ -228,32 +228,32 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		if ( $this->show_message_shipping_methods() ) {
 			$warning_active_shipping_methods = '<img width="14" height="14" src="' .
 				plugins_url( 'assets/images/warning.png', dirname( dirname( __FILE__ ) ) ) . '">' . ' ' .
-				__( 'Enable the two shipping methods the Mercado Envios (Express and Normal) for the proper functioning of the module.', 'woo-mercado-pago-module' );
+				__( 'Enable the two shipping methods the Mercado Envios (Express and Normal) for the proper functioning of the module.', 'woocommerce-mercadopago-module' );
 		}
 		$this->instance_form_fields = array(
 			'mercado_envios_title' => array(
-				'title' => __( 'Mercado Envios', 'woo-mercado-pago-module' ),
+				'title' => __( 'Mercado Envios', 'woocommerce-mercadopago-module' ),
 				'type' => 'title',
 				'description' => sprintf( '%s', $warning_active_shipping_methods )
 			),
 			'title' => array(
-				'title' => __( 'Mercado Envios', 'woo-mercado-pago-module' ),
+				'title' => __( 'Mercado Envios', 'woocommerce-mercadopago-module' ),
 				'type' => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woo-mercado-pago-module' ),
-				'default' => __( 'Mercado Envios', 'woo-mercado-pago-module' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-mercadopago-module' ),
+				'default' => __( 'Mercado Envios', 'woocommerce-mercadopago-module' ),
 				'desc_tip' => true,
 			),
 			'free_shipping' => array(
-				'title' => __( 'Free Shipping', 'woo-mercado-pago-module' ),
+				'title' => __( 'Free Shipping', 'woocommerce-mercadopago-module' ),
 				'type' => 'checkbox',
-				'label' => __( 'Enable free shipping for this shipping method', 'woo-mercado-pago-module' ),
+				'label' => __( 'Enable free shipping for this shipping method', 'woocommerce-mercadopago-module' ),
 				'default' => 'no',
 			),
 			'show_delivery_time' => array(
-				'title' => __( 'Delivery Time', 'woo-mercado-pago-module' ),
+				'title' => __( 'Delivery Time', 'woocommerce-mercadopago-module' ),
 				'type' => 'checkbox',
-				'label' => __( 'Show estimated delivery time', 'woo-mercado-pago-module' ),
-				'description' => __( 'Display the estimated delivery time in working days.', 'woo-mercado-pago-module' ),
+				'label' => __( 'Show estimated delivery time', 'woocommerce-mercadopago-module' ),
+				'description' => __( 'Display the estimated delivery time in working days.', 'woocommerce-mercadopago-module' ),
 				'desc_tip' => true,
 				'default' => 'no',
 			)
@@ -312,7 +312,11 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 	 * Return shipping method id Mercado Envios.
 	 */
 	public function get_shipping_method_id( $site_id ) {
-		return $this->shipments_id[$site_id];
+		if ( array_key_exists( $site_id, $this->shipments_id ) ) {
+			return $this->shipments_id[$site_id];
+		} else {
+			return 0;
+		}
 	}
 
 	/**
