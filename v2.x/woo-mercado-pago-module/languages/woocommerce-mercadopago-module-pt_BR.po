@@ -1095,7 +1095,7 @@ msgid "SURNAME"
 msgstr "SOBRENOME"
 
 msgid "DOCUMENT"
-msgstr "CPF"
+msgstr "CPF/CNPJ"
 
 msgid "ADDRESS"
 msgstr "ENDEREÇO"

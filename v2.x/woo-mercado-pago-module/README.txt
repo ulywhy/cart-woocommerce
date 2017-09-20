@@ -99,6 +99,8 @@ Please, check our FAQ at: https://www.mercadopago.com.br/ajuda/
 = v2.2.15 (??/??/2017) =
 * Bug fixes
 	- Synchronizing Mercado Pago account when WooCommerce back-office cancels an order.
+* Improvements
+	- Added CNPJ document for brazilian tickets.
 
 = v2.2.14 (14/09/2017) =
 * Bug fixes

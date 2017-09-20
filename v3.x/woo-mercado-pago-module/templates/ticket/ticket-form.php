@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="form-col-4">
 					<label for="docNumber"><?php echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['docNumber']; ?>"
-						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="11">
+						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="14">
 					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 			</div>
