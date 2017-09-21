@@ -27,6 +27,8 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			get_option( '_mp_client_id' ),
 			get_option( '_mp_client_secret' )
 		);
+		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+		$this->mp->set_email( $email );
 		
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-subscription';
@@ -353,6 +355,8 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				get_option( '_mp_client_id' ),
 				get_option( '_mp_client_secret' )
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$mp->set_email( $email );
 			// Analytics.
 			$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
 			$infra_data['checkout_subscription'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );

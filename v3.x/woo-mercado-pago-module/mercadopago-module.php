@@ -292,6 +292,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			if ( $is_valid_credentials ) {
 				try {
 					$mp_v0 = new MP( WC_Woo_Mercado_Pago_Module::VERSION, $client_id, $client_secret );
+					$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+					$mp_v0->set_email( $email );
 					$access_token = $mp_v0->get_access_token();
 					$get_request = $mp_v0->get( '/users/me?access_token=' . $access_token );
 					if ( isset( $get_request['response']['site_id'] ) && ! empty( $access_token ) ) {
@@ -351,6 +353,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			if ( $is_valid_credentials ) {
 				try {
 					$mp_v1 = new MP( WC_Woo_Mercado_Pago_Module::VERSION, $access_token );
+					$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+					$mp_v1->set_email( $email );
 					$access_token = $mp_v1->get_access_token();
 					$get_request = $mp_v1->get( '/users/me?access_token=' . $access_token );
 					if ( isset( $get_request['response']['site_id'] ) && ! empty( $public_key ) ) {
@@ -414,6 +418,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		 * @return a float that is the rate of conversion.
 		 */
 		public static function get_conversion_rate( $used_currency ) {
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			MPRestClient::set_email( $email );
 			$currency_obj = MPRestClient::get(
 				array( 'uri' => '/currency_conversions/search?' .
 					'from=' . get_woocommerce_currency() .
@@ -456,6 +462,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			$store_categories_id = array();
 			$store_categories_description = array();
 			// Get Mercado Pago store categories.
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			MPRestClient::set_email( $email );
 			$categories = MPRestClient::get(
 				array( 'uri' => '/item_categories' ),
 				WC_Woo_Mercado_Pago_Module::get_module_version()

@@ -43,14 +43,11 @@ class MP {
 			$this->client_secret = func_get_arg( 2 );
 		}
 
-		if ( $i == 4 ) {
-			$this->version = func_get_arg( 0 );
-			$this->client_id = func_get_arg( 1 );
-			$this->client_secret = func_get_arg( 2 );
-			MPRestClient::set_email( func_get_arg( 3 ) );
-			MeliRestClient::set_email( func_get_arg( 3 ) );
-		}
+	}
 
+	public function set_email( $email ) {
+		MPRestClient::set_email( $email );
+		MeliRestClient::set_email( $email );
 	}
 
 	public function sandbox_mode( $enable = NULL ) {

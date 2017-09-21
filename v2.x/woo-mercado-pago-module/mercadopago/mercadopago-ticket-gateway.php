@@ -403,6 +403,8 @@ class WC_WooMercadoPagoTicket_Gateway extends WC_Payment_Gateway {
 				WC_WooMercadoPago_Module::get_module_version(),
 				$this->settings['access_token']
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 		} else {
 			$this->mp = null;
 		}
@@ -1383,6 +1385,8 @@ class WC_WooMercadoPagoTicket_Gateway extends WC_Payment_Gateway {
 				WC_WooMercadoPago_Module::get_module_version(),
 				$this->access_token
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 			$get_request = $this->mp->get( '/users/me?access_token=' . $this->access_token );
 
 			if ( isset( $get_request['response']['site_id'] ) ) {

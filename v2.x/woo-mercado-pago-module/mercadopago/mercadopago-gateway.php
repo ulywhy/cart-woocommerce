@@ -524,6 +524,8 @@ class WC_WooMercadoPago_Gateway extends WC_Payment_Gateway {
 				$this->settings['client_id'],
 				$this->settings['client_secret']
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 		} else {
 			$this->mp = null;
 		}
@@ -1359,6 +1361,8 @@ class WC_WooMercadoPago_Gateway extends WC_Payment_Gateway {
 				$this->client_id,
 				$this->client_secret
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 			$access_token = $this->mp->get_access_token();
 			$get_request = $this->mp->get( '/users/me?access_token=' . $access_token );
 
@@ -1929,6 +1933,8 @@ class WC_WooMercadoPago_Gateway extends WC_Payment_Gateway {
 						)
 					);
 
+					$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+					MeliRestClient::set_email( $email );
 					$shipments_data = MeliRestClient::get( $request, '' );
 
 					switch ( $shipments_data['response']['substatus'] ) {

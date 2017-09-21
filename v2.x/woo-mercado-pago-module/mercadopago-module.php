@@ -207,6 +207,8 @@ if ( ! class_exists( 'WC_WooMercadoPago_Module' ) ) :
 			$store_categories_description = array();
 
 			// Get Mercado Pago store categories.
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			MPRestClient::set_email( $email );
 			$categories = MPRestClient::get(
 				array( 'uri' => '/item_categories' ),
 				WC_WooMercadoPago_Module::get_module_version()
@@ -233,6 +235,8 @@ if ( ! class_exists( 'WC_WooMercadoPago_Module' ) ) :
 		 * @return a float that is the rate of conversion.
 		 */
 		public static function get_conversion_rate( $used_currency ) {
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			MPRestClient::set_email( $email );
 			$currency_obj = MPRestClient::get(
 				array( 'uri' => '/currency_conversions/search?' .
 					'from=' . get_woocommerce_currency() .

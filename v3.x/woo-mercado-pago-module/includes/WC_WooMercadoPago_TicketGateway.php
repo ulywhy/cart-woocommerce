@@ -26,6 +26,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
 			get_option( '_mp_access_token' )
 		);
+		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+		$this->mp->set_email( $email );
 
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-ticket';
@@ -249,6 +251,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				WC_Woo_Mercado_Pago_Module::get_module_version(),
 				get_option( '_mp_access_token' )
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$mp->set_email( $email );
 			// Analytics.
 			$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
 			$infra_data['checkout_custom_ticket'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
