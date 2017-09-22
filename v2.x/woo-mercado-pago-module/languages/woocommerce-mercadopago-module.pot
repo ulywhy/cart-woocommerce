@@ -1078,3 +1078,15 @@ msgstr ""
 
 msgid "Your site has SSL enabled."
 msgstr ""
+
+msgid "Fisical Person"
+msgstr ""
+
+msgid "Legal Person"
+msgstr ""
+
+msgid "SOCIAL NAME"
+msgstr ""
+
+msgid "CNPJ"
+msgstr ""

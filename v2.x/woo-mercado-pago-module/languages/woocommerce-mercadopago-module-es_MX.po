@@ -1088,3 +1088,15 @@ msgstr "Falta el SSL en su sitio."
 
 msgid "Your site has SSL enabled."
 msgstr "Su sitio tiene SSL habilitado."
+
+msgid "Fisical Person"
+msgstr "Persona Física"
+
+msgid "Legal Person"
+msgstr "Persona Jurídica"
+
+msgid "SOCIAL NAME"
+msgstr "RAZÓN SOCIAL"
+
+msgid "CNPJ"
+msgstr "CNPJ"

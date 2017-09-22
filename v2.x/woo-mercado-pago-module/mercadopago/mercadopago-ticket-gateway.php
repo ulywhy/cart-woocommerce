@@ -763,9 +763,13 @@ class WC_WooMercadoPagoTicket_Gateway extends WC_Payment_Gateway {
 						__( 'Important: The order will be confirmed only after the payment approval.', 'woocommerce-mercadopago-module' ),
 					'febraban_rules' => __( 'Informações solicitadas em conformidade com as normas das circulares Nro. 3.461/09, 3.598/12 e 3.656/13 do Banco Central do Brasil.', 'woocommerce-mercadopago-module' ),
 					'select' => __( 'SELECT...', 'woocommerce-mercadopago-module' ),
+					'fisicalPerson' => __( 'Fisical Person', 'woocommerce-mercadopago-module' ),
+					'legalPerson' => __( 'Legal Person', 'woocommerce-mercadopago-module' ),
 					'name' => __( 'NAME', 'woocommerce-mercadopago-module' ),
+					'socialName' => __( 'SOCIAL NAME', 'woocommerce-mercadopago-module' ),
 					'surname' => __( 'SURNAME', 'woocommerce-mercadopago-module' ),
 					'docNumber' => __( 'DOCUMENT', 'woocommerce-mercadopago-module' ),
+					'docNumberLegal' => __( 'CNPJ', 'woocommerce-mercadopago-module' ),
 					'address' => __( 'ADDRESS', 'woocommerce-mercadopago-module' ),
 					'number' => __( 'NUMBER', 'woocommerce-mercadopago-module' ),
 					'city' => __( 'CITY', 'woocommerce-mercadopago-module' ),
@@ -869,6 +873,7 @@ class WC_WooMercadoPagoTicket_Gateway extends WC_Payment_Gateway {
 				if ( isset( $mercadopago_ticket['firstname'] ) && ! empty( $mercadopago_ticket['firstname'] ) &&
 					isset( $mercadopago_ticket['lastname'] ) && ! empty( $mercadopago_ticket['lastname'] ) &&
 					isset( $mercadopago_ticket['docNumber'] ) && ! empty( $mercadopago_ticket['docNumber'] ) &&
+					(strlen( $mercadopago_ticket['docNumber'] ) == 14 || strlen( $mercadopago_ticket['docNumber'] ) == 18) &&
 					isset( $mercadopago_ticket['address'] ) && ! empty( $mercadopago_ticket['address'] ) &&
 					isset( $mercadopago_ticket['number'] ) && ! empty( $mercadopago_ticket['number'] ) &&
 					isset( $mercadopago_ticket['city'] ) && ! empty( $mercadopago_ticket['city'] ) &&
@@ -1139,8 +1144,8 @@ class WC_WooMercadoPagoTicket_Gateway extends WC_Payment_Gateway {
 		// FEBRABAN rules.
 		if ( $this->site_id == 'MLB' ) {
 			$preferences['payer']['first_name'] = $ticket_checkout['firstname'];
-			$preferences['payer']['last_name'] = $ticket_checkout['lastname'];	
-			$preferences['payer']['identification']['type'] = 'CPF';
+			$preferences['payer']['last_name'] = strlen( $ticket_checkout['docNumber'] ) == 14 ? $ticket_checkout['lastname'] : $ticket_checkout['firstname'];
+			$preferences['payer']['identification']['type'] = strlen( $ticket_checkout['docNumber'] ) == 14 ? 'CPF' : 'CNPJ';
 			$preferences['payer']['identification']['number'] = $ticket_checkout['docNumber'];
 			$preferences['payer']['address']['street_name'] = $ticket_checkout['address'];
 			$preferences['payer']['address']['street_number'] = $ticket_checkout['number'];

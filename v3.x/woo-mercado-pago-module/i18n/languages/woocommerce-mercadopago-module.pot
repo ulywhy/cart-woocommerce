@@ -993,3 +993,15 @@ msgstr ""
 
 msgid "You must inform your ZIP"
 msgstr ""
+
+msgid "Fisical Person"
+msgstr ""
+
+msgid "Legal Person"
+msgstr ""
+
+msgid "SOCIAL NAME"
+msgstr ""
+
+msgid "CNPJ"
+msgstr ""
