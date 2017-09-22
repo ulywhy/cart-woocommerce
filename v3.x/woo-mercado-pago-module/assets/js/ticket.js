@@ -36,10 +36,20 @@
 			// payment method and checkout
 			paymentMethodId: "#paymentMethodId",
 			amount: "#amountTicket",
+			// other rules
+			boxFirstName: "#box-firstname",
+			boxLastName: "#box-lastname",
+			boxDocNumber: "#box-docnumber",
+			titleFirstName: ".title-name",
+			titleFirstNameRazaoSocial: ".title-razao-social",
+			titleDocNumber: ".title-cpf",
+			titleDocNumberCNPJ: ".title-cnpj",
+			radioTypeFisica: '#MPv1Ticket-docType-fisica',
+			radioTypeJuridica: '#MPv1Ticket-docType-juridica',
 			// febraban
 			firstname: "#febrabanFirstname",
 			lastname: "#febrabanLastname",
-			docNumber: "#febrabanDocNumber",
+			docNumber: "#docNumber",
 			address: "#febrabanAddress",
 			number: "#febrabanNumber",
 			city: "#febrabanCity",
@@ -373,6 +383,160 @@
 		return;
 	}
 
+	MPv1Ticket.actionsMLB = function() {
+		MPv1Ticket.initializeDocumentPessoaFisica();
+		MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.docNumber), 'keyup', MPv1Ticket.execFormatDocument);
+		MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.radioTypeFisica), "change", MPv1Ticket.initializeDocumentPessoaFisica);
+		MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.radioTypeJuridica), "change", MPv1Ticket.initializeDocumentPessoaJuridica);
+		return;
+	}
+
+	MPv1Ticket.initializeDocumentPessoaFisica = function() {
+		// show elements
+		document.querySelector(MPv1Ticket.selectors.boxLastName).style.display = "block";
+		document.querySelector(MPv1Ticket.selectors.titleFirstName).style.display = "block";
+		document.querySelector(MPv1Ticket.selectors.titleDocNumber).style.display = "block";
+		// adjustment css
+		document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.remove("form-col-8");
+		document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.add("form-col-4");
+		// hide elements
+		document.querySelector(MPv1Ticket.selectors.titleFirstNameRazaoSocial).style.display = "none";
+		document.querySelector(MPv1Ticket.selectors.titleDocNumberCNPJ).style.display = "none";
+		// force max length CPF
+		document.querySelector(MPv1Ticket.selectors.docNumber).maxLength = 14;
+	}
+
+	MPv1Ticket.initializeDocumentPessoaJuridica = function() {
+		// show elements
+		document.querySelector(MPv1Ticket.selectors.titleFirstNameRazaoSocial).style.display = "block";
+		document.querySelector(MPv1Ticket.selectors.titleDocNumberCNPJ).style.display = "block";
+		// adjustment css
+		document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.remove("form-col-4");
+		document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.add("form-col-8");
+		// Hide Elements
+		document.querySelector(MPv1Ticket.selectors.boxLastName).style.display = "none";
+		document.querySelector(MPv1Ticket.selectors.titleFirstName).style.display = "none";
+		document.querySelector(MPv1Ticket.selectors.titleDocNumber).style.display = "none";
+		// force max length CNPJ
+		document.querySelector(MPv1Ticket.selectors.docNumber).maxLength = 18;
+	}
+
+	MPv1Ticket.validaCPF = function(strCPF) {
+		var Soma;
+		var Resto;
+		strCPF = strCPF.replace(/[.-\s]/g, "")
+		Soma = 0;
+		if (strCPF == "00000000000") {
+			return false;
+		}
+		for (i=1; i<=9; i++) {
+			Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+		}
+		Resto = (Soma * 10) % 11;
+		if ((Resto == 10) || (Resto == 11)) {
+			Resto = 0;
+		}
+		if (Resto != parseInt(strCPF.substring(9, 10)) ) {
+			return false;
+		}
+		Soma = 0;
+		for (i = 1; i <= 10; i++){
+			Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+		}
+		Resto = (Soma * 10) % 11;
+		if ((Resto == 10) || (Resto == 11)) {
+			Resto = 0;
+		}
+		if 	(Resto != parseInt(strCPF.substring(10, 11) ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	MPv1Ticket.validaCNPJ = function(strCNPJ) {
+		strCNPJ = strCNPJ.replace(".","");
+		strCNPJ = strCNPJ.replace(".","");
+		strCNPJ = strCNPJ.replace(".","");
+		strCNPJ = strCNPJ.replace("-","");
+		strCNPJ = strCNPJ.replace("/","");
+		var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
+		digitos_iguais = 1;
+		if (strCNPJ.length < 14 && strCNPJ.length < 15) {
+			return false;
+		}
+		for (i = 0; i < strCNPJ.length - 1; i++) {
+			if (strCNPJ.charAt(i) != strCNPJ.charAt(i + 1)) {
+				digitos_iguais = 0;
+				break;
+			}
+		}
+		if (!digitos_iguais) {
+			tamanho = strCNPJ.length - 2
+			numeros = strCNPJ.substring(0,tamanho);
+			digitos = strCNPJ.substring(tamanho);
+			soma = 0;
+			pos = tamanho - 7;
+			for (i = tamanho; i >= 1; i--) {
+				soma += numeros.charAt(tamanho - i) * pos--;
+				if (pos < 2) {
+					pos = 9;
+				}
+			}
+			resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+			if (resultado != digitos.charAt(0)) {
+				return false;
+			}
+			tamanho = tamanho + 1;
+			numeros = strCNPJ.substring(0,tamanho);
+			soma = 0;
+			pos = tamanho - 7;
+			for (i = tamanho; i >= 1; i--) {
+				soma += numeros.charAt(tamanho - i) * pos--;
+				if (pos < 2) {
+					pos = 9;
+				}
+			}
+			resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+			if (resultado != digitos.charAt(1)) {
+				return false;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	MPv1Ticket.execFormatDocument = function() {
+		v_obj= this;
+		setTimeout(function() {
+			v_obj.value = MPv1Ticket.formatDocument(v_obj.value)
+		}, 1)
+	}
+
+	MPv1Ticket.formatDocument = function(v) {
+		//Remove tudo o que não é dígito
+		v=v.replace(/\D/g,"")
+		if (document.querySelector(MPv1Ticket.selectors.radioTypeFisica).checked) { //CPF
+			//Coloca um ponto entre o terceiro e o quarto dígitos
+			v=v.replace(/(\d{3})(\d)/,"$1.$2")
+			//Coloca um ponto entre o terceiro e o quarto dígitos
+			//de novo (para o segundo bloco de números)
+			v=v.replace(/(\d{3})(\d)/,"$1.$2")
+			//Coloca um hífen entre o terceiro e o quarto dígitos
+			v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+			} else { //CNPJ
+			//Coloca ponto entre o segundo e o terceiro dígitos
+			v=v.replace(/^(\d{2})(\d)/, "$1.$2")
+			//Coloca ponto entre o quinto e o sexto dígitos
+			v=v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+			//Coloca uma barra entre o oitavo e o nono dígitos
+			v=v.replace(/\.(\d{3})(\d)/, ".$1/$2")
+			//Coloca um hífen depois do bloco de quatro dígitos
+			v=v.replace(/(\d{4})(\d)/, "$1-$2")
+		}
+		return v
+	}
+
 	// ===
 
 	MPv1Ticket.Initialize = function( site_id, coupon_mode, discount_action_url, payer_email ) {
@@ -395,7 +559,10 @@
 		}
 
 		// flow: MLB
-		if ( MPv1Ticket.site_id != "MLB" ) {
+		if (MPv1Ticket.site_id == "MLB") {
+			MPv1Ticket.actionsMLB();
+		}
+		/*if (MPv1Ticket.site_id != "MLB") {
 			document.querySelector(MPv1Ticket.selectors.formTicket).style.display = "none";
 		} else {
 			MPv1Ticket.addListenerEvent(
@@ -403,7 +570,7 @@
 				"submit",
 				MPv1Ticket.validateInputsTicket
 			);
-		}
+		}*/
 
 		return;
 

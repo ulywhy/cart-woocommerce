@@ -51,21 +51,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- payment method -->
 	<div id="mercadopago-form-ticket" class="mp-box-inputs mp-line" style="padding:0px 12px 0px 12px;">
 		<div id="form-ticket">
-			<div class="form-row">
+			<div class="form-row" style="margin-bottom:16px;">
+				<div class="form-col-1"> </div>
 				<div class="form-col-4">
-					<label for="firstname"><?php echo esc_html__( 'NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<input type="radio" name="mercadopago_ticket[docType]" class="MPv1Ticket-docType"
+						id="MPv1Ticket-docType-fisica" value="CPF" style="width:24px; height:24px;" checked="checked">
+						<?php echo esc_html__( 'Fisical Person', 'woocommerce-mercadopago-module' ); ?>
+					</input>
+				</div>
+				<div class="form-col-2"> </div>
+				<div class="form-col-4">
+					<input type="radio" name="mercadopago_ticket[docType]" class="MPv1Ticket-docType"
+						id="MPv1Ticket-docType-juridica" value="CNPJ" style="width:24px; height:24px;">
+						<?php echo esc_html__( 'Legal Person', 'woocommerce-mercadopago-module' ); ?>
+					</input>
+				</div>
+				<div class="form-col-1"> </div>
+			</div>
+			<div class="form-row">
+				<div class="form-col-4" id="box-firstname">
+					<label for="firstname" class="title-name"><?php echo esc_html__( 'NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="firstname" class="title-razao-social"><?php echo esc_html__( 'SOCIAL NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['firstname']; ?>"
 						id="firstname" class="form-control-mine" name="mercadopago_ticket[firstname]">
 					<span class="erro_febraban" data-main="#firstname" id="error_firstname"><?php echo esc_html__( 'You must inform you NAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
-				<div class="form-col-4">
+				<div class="form-col-4" id="box-lastname">
 					<label for="lastname"><?php echo esc_html__( 'SURNAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['lastname']; ?>"
 						id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
 					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo esc_html__( 'You must inform your SURNAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
-				<div class="form-col-4">
-					<label for="docNumber"><?php echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+				<div class="form-col-4" id="box-lastname">
+					<label for="docNumber" class="title-cpf"><?php echo echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="docNumber" class="title-cnpj"><?php echo echo esc_html__( 'CNPJ', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['docNumber']; ?>"
 						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="14">
 					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>

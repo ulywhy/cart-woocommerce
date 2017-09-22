@@ -586,6 +586,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				if ( isset( $ticket_checkout['firstname'] ) && ! empty( $ticket_checkout['firstname'] ) &&
 					isset( $ticket_checkout['lastname'] ) && ! empty( $ticket_checkout['lastname'] ) &&
 					isset( $ticket_checkout['docNumber'] ) && ! empty( $ticket_checkout['docNumber'] ) &&
+					(strlen( $ticket_checkout['docNumber'] ) == 14 || strlen( $ticket_checkout['docNumber'] ) == 18) &&
 					isset( $ticket_checkout['address'] ) && ! empty( $ticket_checkout['address'] ) &&
 					isset( $ticket_checkout['number'] ) && ! empty( $ticket_checkout['number'] ) &&
 					isset( $ticket_checkout['city'] ) && ! empty( $ticket_checkout['city'] ) &&
@@ -802,8 +803,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		// FEBRABAN rules.
 		if ( $this->site_data['currency'] == 'BRL' ) {
 			$preferences['payer']['first_name'] = $ticket_checkout['firstname'];
-			$preferences['payer']['last_name'] = $ticket_checkout['lastname'];	
-			$preferences['payer']['identification']['type'] = 'CPF';
+			$preferences['payer']['last_name'] = strlen( $ticket_checkout['docNumber'] ) == 14 ? $ticket_checkout['lastname'] : $ticket_checkout['firstname'];
+			$preferences['payer']['identification']['type'] = strlen( $ticket_checkout['docNumber'] ) == 14 ? 'CPF' : 'CNPJ';
 			$preferences['payer']['identification']['number'] = $ticket_checkout['docNumber'];
 			$preferences['payer']['address']['street_name'] = $ticket_checkout['address'];
 			$preferences['payer']['address']['street_number'] = $ticket_checkout['number'];
