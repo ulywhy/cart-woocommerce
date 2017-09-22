@@ -82,12 +82,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
 					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo esc_html__( 'You must inform your SURNAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
-				<div class="form-col-4" id="box-lastname">
-					<label for="docNumber" class="title-cpf"><?php echo echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<label for="docNumber" class="title-cnpj"><?php echo echo esc_html__( 'CNPJ', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+				<div class="form-col-4" id="box-docnumber">
+					<label for="cpfcnpj" class="title-cpf"><?php echo echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="cpfcnpj" class="title-cnpj"><?php echo echo esc_html__( 'CNPJ', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['docNumber']; ?>"
-						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="14">
-					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
+						id="cpfcnpj" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="14">
+					<span class="erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 			</div>
 			<div class="form-row">
@@ -223,7 +223,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="mp-box-inputs mp-col-100" id="mercadopago-utilities">
 				<input type="hidden" id="site_id" value="<?php echo $site_id; ?>" name="mercadopago_ticket[site_id]"/>
 				<input type="hidden" id="amountTicket" value="<?php echo $amount; ?>" name="mercadopago_ticket[amount]"/>
-				<input type="hidden" id="currency_ratioTicket" value='<?php echo $currency_ratio; ?>' name="mercadopago_ticket[currency_ratio]"/>
+				<input type="hidden" id="currency_ratioTicket" value="<?php echo $currency_ratio; ?>" name="mercadopago_ticket[currency_ratio]"/>
 				<input type="hidden" id="campaign_idTicket" name="mercadopago_ticket[campaign_id]"/>
 				<input type="hidden" id="campaignTicket" name="mercadopago_ticket[campaign]"/>
 				<input type="hidden" id="discountTicket" name="mercadopago_ticket[discount]"/>

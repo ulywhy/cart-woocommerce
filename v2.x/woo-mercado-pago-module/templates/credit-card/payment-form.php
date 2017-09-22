@@ -221,7 +221,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div id="mp-box-installments" class="mp-box-inputs mp-line">
 		<div class="form-row" >
-			<div id="mp-box-installments-selector" class="form-col-8" style="padding:0px 12 0px 12;">
+			<div id="mp-box-installments-selector" class="form-col-8" style="padding:0px 12px 0px 12px;">
 				<label for="installments">
 					<?php echo $form_labels['form']['installments']; ?>
 					<?php if ($is_currency_conversion > 0) :
@@ -233,7 +233,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<select id="installments" data-checkout="installments" class="form-control-mine"
 					name="mercadopago_custom[installments]" style="width: 100%;"></select>
 			</div>
-			<div id="mp-box-input-tax-cft" class="form-col-4" style="padding:0px 12 0px 12;">
+			<div id="mp-box-input-tax-cft" class="form-col-4" style="padding:0px 12px 0px 12px;">
 				<div id="mp-box-input-tax-tea"><div id="mp-tax-tea-text"></div></div>
 				<div id="mp-tax-cft-text"></div>
 			</div>
@@ -249,7 +249,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="mp-box-inputs mp-col-100" id="mercadopago-utilities"
 	style="padding:0px 12px 0px 12px;">
-		<input type="hidden" id="site_id" name="mercadopago_custom[site_id]"/>
+		<input type="hidden" id="site_id" value='<?php echo $site_id; ?>' name="mercadopago_custom[site_id]"/>
 		<input type="hidden" id="amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]"/>
 		<input type="hidden" id="campaign_id" name="mercadopago_custom[campaign_id]"/>
 		<input type="hidden" id="campaign" name="mercadopago_custom[campaign]"/>

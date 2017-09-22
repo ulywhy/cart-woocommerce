@@ -49,7 +49,7 @@
 			// febraban
 			firstname: "#febrabanFirstname",
 			lastname: "#febrabanLastname",
-			docNumber: "#docNumber",
+			cpfcnpj: "#cpfcnpj",
 			address: "#febrabanAddress",
 			number: "#febrabanNumber",
 			city: "#febrabanCity",
@@ -385,7 +385,7 @@
 
 	MPv1Ticket.actionsMLB = function() {
 		MPv1Ticket.initializeDocumentPessoaFisica();
-		MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.docNumber), 'keyup', MPv1Ticket.execFormatDocument);
+		MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.cpfcnpj), 'keyup', MPv1Ticket.execFormatDocument);
 		MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.radioTypeFisica), "change", MPv1Ticket.initializeDocumentPessoaFisica);
 		MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.radioTypeJuridica), "change", MPv1Ticket.initializeDocumentPessoaJuridica);
 		return;
@@ -403,7 +403,7 @@
 		document.querySelector(MPv1Ticket.selectors.titleFirstNameRazaoSocial).style.display = "none";
 		document.querySelector(MPv1Ticket.selectors.titleDocNumberCNPJ).style.display = "none";
 		// force max length CPF
-		document.querySelector(MPv1Ticket.selectors.docNumber).maxLength = 14;
+		document.querySelector(MPv1Ticket.selectors.cpfcnpj).maxLength = 14;
 	}
 
 	MPv1Ticket.initializeDocumentPessoaJuridica = function() {
@@ -418,7 +418,7 @@
 		document.querySelector(MPv1Ticket.selectors.titleFirstName).style.display = "none";
 		document.querySelector(MPv1Ticket.selectors.titleDocNumber).style.display = "none";
 		// force max length CNPJ
-		document.querySelector(MPv1Ticket.selectors.docNumber).maxLength = 18;
+		document.querySelector(MPv1Ticket.selectors.cpfcnpj).maxLength = 18;
 	}
 
 	MPv1Ticket.validaCPF = function(strCPF) {

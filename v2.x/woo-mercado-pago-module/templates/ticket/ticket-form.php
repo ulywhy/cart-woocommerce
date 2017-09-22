@@ -79,11 +79,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo $form_labels["error"]["FEB002"]; ?></span>
 				</div>
 				<div class="form-col-4" id="box-docnumber">
-					<label for="docNumber" class="title-cpf"><?php echo $form_labels['form']['docNumber']; ?><em class="obrigatorio"> *</em></label>
-					<label for="docNumber" class="title-cnpj"><?php echo $form_labels['form']['docNumberLegal']; ?><em class="obrigatorio"> *</em></label>
+					<label for="cpfcnpj" class="title-cpf"><?php echo $form_labels['form']['docNumber']; ?><em class="obrigatorio"> *</em></label>
+					<label for="cpfcnpj" class="title-cnpj"><?php echo $form_labels['form']['docNumberLegal']; ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $form_labels['febraban']['docNumber']; ?>"
-						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]">
-					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo $form_labels["error"]["FEB003"]; ?></span>
+						id="cpfcnpj" class="form-control-mine" name="mercadopago_ticket[docNumber]">
+					<span class="erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?php echo $form_labels["error"]["FEB003"]; ?></span>
 				</div>
 			</div>
 			<div class="form-row">
@@ -279,7 +279,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				// febraban
 				firstname: "#febrabanFirstname",
 				lastname: "#febrabanLastname",
-				docNumber: "#docNumber",
+				cpfcnpj: "#cpfcnpj",
 				address: "#febrabanAddress",
 				number: "#febrabanNumber",
 				city: "#febrabanCity",
@@ -611,7 +611,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		MPv1Ticket.actionsMLB = function() {
 			MPv1Ticket.initializeDocumentPessoaFisica();
-			MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.docNumber), 'keyup', MPv1Ticket.execFormatDocument);
+			MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.cpfcnpj), 'keyup', MPv1Ticket.execFormatDocument);
 			MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.radioTypeFisica), "change", MPv1Ticket.initializeDocumentPessoaFisica);
 			MPv1Ticket.addListenerEvent(document.querySelector(MPv1Ticket.selectors.radioTypeJuridica), "change", MPv1Ticket.initializeDocumentPessoaJuridica);
 			return;
@@ -629,7 +629,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			document.querySelector(MPv1Ticket.selectors.titleFirstNameRazaoSocial).style.display = "none";
 			document.querySelector(MPv1Ticket.selectors.titleDocNumberCNPJ).style.display = "none";
 			// force max length CPF
-			document.querySelector(MPv1Ticket.selectors.docNumber).maxLength = 14;
+			document.querySelector(MPv1Ticket.selectors.cpfcnpj).maxLength = 14;
 		}
 
 		MPv1Ticket.initializeDocumentPessoaJuridica = function() {
@@ -644,7 +644,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			document.querySelector(MPv1Ticket.selectors.titleFirstName).style.display = "none";
 			document.querySelector(MPv1Ticket.selectors.titleDocNumber).style.display = "none";
 			// force max length CNPJ
-			document.querySelector(MPv1Ticket.selectors.docNumber).maxLength = 18;
+			document.querySelector(MPv1Ticket.selectors.cpfcnpj).maxLength = 18;
 		}
 
 		MPv1Ticket.validaCPF = function(strCPF) {

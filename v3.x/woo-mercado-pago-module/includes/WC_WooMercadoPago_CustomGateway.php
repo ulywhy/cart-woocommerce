@@ -604,6 +604,18 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					default:
 						break;
 				}
+			} else {
+				// Process when fields are imcomplete.
+				wc_add_notice(
+					'<p>' .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) . ' MERCADO PAGO: ' . $response .
+					'</p>',
+					'error'
+				);
+				return array(
+					'result' => 'fail',
+					'redirect' => '',
+				);
 			}
 		} else {
 			// Process when fields are imcomplete.
@@ -861,14 +873,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					__FUNCTION__,
 					'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']
 				);
-				return false;
+				return $checkout_info['response']['message'];
 			} elseif ( is_wp_error( $checkout_info ) ) {
 				// WordPress throwed an error.
 				$this->write_log(
 					__FUNCTION__,
 					'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']
 				);
-				return false;
+				return $checkout_info['response']['message'];
 			} else {
 				// Obtain the URL.
 				$this->write_log(
@@ -890,7 +902,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'payment creation failed with exception: ' .
 				json_encode( $ex, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 			);
-			return false;
+			return $ex->getMessage();
 		}
 	}
 
