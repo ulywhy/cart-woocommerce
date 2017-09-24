@@ -579,34 +579,83 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
  			update_post_meta( $order_id, '_used_gateway', 'WC_WooMercadoPago_TicketGateway' );
  		}
 
+ 		// Check for brazilian FEBRABAN rules.
+ 		if ( get_option( '_site_id_v1' ) == 'MLB' ) {
+			if ( ! isset( $ticket_checkout['firstname'] ) || empty( $ticket_checkout['firstname'] ) ||
+				! isset( $ticket_checkout['lastname'] ) || empty( $ticket_checkout['lastname'] ) ||
+				! isset( $ticket_checkout['docNumber'] ) || empty( $ticket_checkout['docNumber'] ) ||
+				(strlen( $ticket_checkout['docNumber'] ) != 14 && strlen( $ticket_checkout['docNumber'] ) != 18) ||
+				! isset( $ticket_checkout['address'] ) || empty( $ticket_checkout['address'] ) ||
+				! isset( $ticket_checkout['number'] ) || empty( $ticket_checkout['number'] ) ||
+				! isset( $ticket_checkout['city'] ) || empty( $ticket_checkout['city'] ) ||
+				! isset( $ticket_checkout['state'] ) || empty( $ticket_checkout['state'] ) ||
+				! isset( $ticket_checkout['zipcode'] ) || empty( $ticket_checkout['zipcode'] ) ) {
+				wc_add_notice(
+					'<p>' .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) .
+					'</p>',
+					'error'
+				);
+				return array(
+					'result' => 'fail',
+					'redirect' => '',
+				);
+			}
+		}
+
  		if ( isset( $ticket_checkout['amount'] ) && ! empty( $ticket_checkout['amount'] ) &&
 			isset( $ticket_checkout['paymentMethodId'] ) && ! empty( $ticket_checkout['paymentMethodId'] ) ) {
-			// Check for brazilian FEBRABAN rules.
-			if ( get_option( '_site_id_v1' ) == 'MLB' ) {
-				if ( isset( $ticket_checkout['firstname'] ) && ! empty( $ticket_checkout['firstname'] ) &&
-					isset( $ticket_checkout['lastname'] ) && ! empty( $ticket_checkout['lastname'] ) &&
-					isset( $ticket_checkout['docNumber'] ) && ! empty( $ticket_checkout['docNumber'] ) &&
-					(strlen( $ticket_checkout['docNumber'] ) == 14 || strlen( $ticket_checkout['docNumber'] ) == 18) &&
-					isset( $ticket_checkout['address'] ) && ! empty( $ticket_checkout['address'] ) &&
-					isset( $ticket_checkout['number'] ) && ! empty( $ticket_checkout['number'] ) &&
-					isset( $ticket_checkout['city'] ) && ! empty( $ticket_checkout['city'] ) &&
-					isset( $ticket_checkout['state'] ) && ! empty( $ticket_checkout['state'] ) &&
-					isset( $ticket_checkout['zipcode'] ) && ! empty( $ticket_checkout['zipcode'] ) ) {
-					return $this->create_url( $order, $ticket_checkout );
-				} else {
-					wc_add_notice(
-						'<p>' .
-							__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) .
-						'</p>',
-						'error'
-					);
-					return array(
-						'result' => 'fail',
-						'redirect' => '',
-					);
+ 			$response = $this->create_url( $order, $ticket_checkout );
+			if ( array_key_exists( 'status', $response ) ) {
+				if ( $response['status'] == 'pending' ) {
+					if ( $response['status_detail'] == 'pending_waiting_payment' ) {
+						WC()->cart->empty_cart();
+						if ( $this->stock_reduce_mode == 'yes' ) {
+							$order->reduce_order_stock();
+						}
+						// WooCommerce 3.0 or later.
+						if ( method_exists( $order, 'update_meta_data' ) ) {
+							$order->update_meta_data( '_transaction_details_ticket', $response['transaction_details']['external_resource_url'] );
+							$order->save();
+						} else {
+							update_post_meta(
+								$order->id,
+								'_transaction_details_ticket',
+								$response['transaction_details']['external_resource_url']
+							);
+						}
+						// Shows some info in checkout page.
+						$order->add_order_note(
+							'Mercado Pago: ' .
+							__( 'Customer haven\'t paid yet.', 'woocommerce-mercadopago-module' )
+						);
+						$order->add_order_note(
+							'Mercado Pago: ' .
+							__( 'To reprint the ticket click ', 'woocommerce-mercadopago-module' ) .
+							'<a target="_blank" href="' .
+							$response['transaction_details']['external_resource_url'] . '">' .
+							__( 'here', 'woocommerce-mercadopago-module' ) .
+							'</a>', 1, false
+						);
+						return array(
+							'result' => 'success',
+							'redirect' => $order->get_checkout_order_received_url()
+						);
+					}
 				}
+			} else {
+				// Process when fields are imcomplete.
+				wc_add_notice(
+					'<p>' .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) . ' MERCADO PAGO: ' . $response .
+					'</p>',
+					'error'
+				);
+				return array(
+					'result' => 'fail',
+					'redirect' => '',
+				);
 			}
-			return $this->create_url( $order, $ticket_checkout );
 		} else {
 			// Process when fields are imcomplete.
 			wc_add_notice(
@@ -861,56 +910,27 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					__FUNCTION__,
 					'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']
 				);
-				return false;
+				return $checkout_info['response']['message'];
 			} elseif ( is_wp_error( $checkout_info ) ) {
 				// WordPress throwed an error.
 				$this->write_log(
 					__FUNCTION__,
 					'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']
 				);
-				return false;
+				return $checkout_info['response']['message'];
 			} else {
 				// Obtain the URL.
-				$response = $checkout_info['response'];
-				if ( array_key_exists( 'status', $response ) ) {
-					if ( $response['status'] == 'pending' ) {
-						if ( $response['status_detail'] == 'pending_waiting_payment' ) {
-							WC()->cart->empty_cart();
-							if ( $this->stock_reduce_mode == 'yes' ) {
-								$order->reduce_order_stock();
-							}
-							// WooCommerce 3.0 or later.
-							if ( method_exists( $order, 'update_meta_data' ) ) {
-								$order->update_meta_data( '_transaction_details_ticket', $response['transaction_details']['external_resource_url'] );
-								$order->save();
-							} else {
-								update_post_meta(
-									$order->id,
-									'_transaction_details_ticket',
-									$response['transaction_details']['external_resource_url']
-								);
-							}
-							// Shows some info in checkout page.
-							$order->add_order_note(
-								'Mercado Pago: ' .
-								__( 'Customer haven\'t paid yet.', 'woocommerce-mercadopago-module' )
-							);
-							$order->add_order_note(
-								'Mercado Pago: ' .
-								__( 'To reprint the ticket click ', 'woocommerce-mercadopago-module' ) .
-								'<a target="_blank" href="' .
-								$response['transaction_details']['external_resource_url'] . '">' .
-								__( 'here', 'woocommerce-mercadopago-module' ) .
-								'</a>', 1, false
-							);
-							return array(
-								'result' => 'success',
-								'redirect' => $order->get_checkout_order_received_url()
-							);
-						}
-					}
-				}
-				return false;
+				$this->write_log(
+					__FUNCTION__,
+					'payment link generated with success from mercado pago, with structure as follow: ' .
+					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE ) 
+				);
+				// TODO: Verify sandbox availability.
+				//if ( 'yes' == $this->sandbox ) {
+				//	return $checkout_info['response']['sandbox_init_point'];
+				//} else {
+				return $checkout_info['response'];
+				//}
 			}
 		} catch ( MercadoPagoException $ex ) {
 			// Something went wrong with the payment creation.
@@ -919,8 +939,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				'payment creation failed with exception: ' .
 				json_encode( $ex, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 			);
+			return $ex->getMessage();
 		}
-		return false;
 	}
 
 	/**
