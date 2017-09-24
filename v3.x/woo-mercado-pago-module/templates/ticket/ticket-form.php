@@ -83,8 +83,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo esc_html__( 'You must inform your SURNAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 				<div class="form-col-4" id="box-docnumber">
-					<label for="cpfcnpj" class="title-cpf"><?php echo echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
-					<label for="cpfcnpj" class="title-cnpj"><?php echo echo esc_html__( 'CNPJ', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="cpfcnpj" class="title-cpf"><?php echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="cpfcnpj" class="title-cnpj"><?php echo esc_html__( 'CNPJ', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['docNumber']; ?>"
 						id="cpfcnpj" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="14">
 					<span class="erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
@@ -181,7 +181,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php $atFirst = true; ?>
 					<?php foreach ( $payment_methods as $payment ) : ?>
 						<div class="mp-box-inputs mp-line">
-							<div id="paymentMethodId" class="mp-box-inputs mp-col-5">
+							<div id="paymentMethodIdTicket" class="mp-box-inputs mp-col-5">
 								<input type="radio" class="input-radio" name="mercadopago_ticket[paymentMethodId]"
 									style="display: block; height:16px; width:16px;" value="<?php echo $payment['id']; ?>"
 								<?php if ( $atFirst ) : ?> checked="checked" <?php endif; ?> />
@@ -201,7 +201,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 			<?php else : ?>
 				<div class="mp-box-inputs mp-col-100" style="display:none;">
-					<select id="paymentMethodId" name="mercadopago_ticket[paymentMethodId]">
+					<select id="paymentMethodIdTicket" name="mercadopago_ticket[paymentMethodId]">
 						<?php foreach ( $payment_methods as $payment ) : ?>
 							<option value="<?php echo $payment['id']; ?>" style="padding: 8px;
 							background: url('https://img.mlstatic.com/org-img/MP3/API/logos/bapropagos.gif')

@@ -24,7 +24,7 @@
 		],
 		selectors: {
 			// currency
-			currency_ratio: "#currency_ratio",
+			currency_ratio: "#currency_ratioTicket",
 			// coupom
 			couponCode: "#couponCodeTicket",
 			applyCoupon: "#applyCouponTicket",
@@ -34,7 +34,7 @@
 			campaign: "#campaignTicket",
 			discount: "#discountTicket",
 			// payment method and checkout
-			paymentMethodId: "#paymentMethodId",
+			paymentMethodId: "#paymentMethodIdTicket",
 			amount: "#amountTicket",
 			// other rules
 			boxFirstName: "#box-firstname",
