@@ -396,6 +396,8 @@ class WC_WooMercadoPagoSubscription_Gateway extends WC_Payment_Gateway {
 				$this->settings['client_id'],
 				$this->settings['client_secret']
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 		} else {
 			$this->mp = null;
 		}
@@ -904,6 +906,8 @@ class WC_WooMercadoPagoSubscription_Gateway extends WC_Payment_Gateway {
 				$this->client_id,
 				$this->client_secret
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 			$access_token = $this->mp->get_access_token();
 			$get_request = $this->mp->get( '/users/me?access_token=' . $access_token );
 
@@ -1449,6 +1453,7 @@ class WC_WooMercadoPagoSubscription_Gateway extends WC_Payment_Gateway {
 				);
 				break;
 			case 'cancelled':
+				$this->process_cancel_order_meta_box_actions( $order );
 				$order->update_status(
 					'cancelled',
 					'Mercado Pago: ' .

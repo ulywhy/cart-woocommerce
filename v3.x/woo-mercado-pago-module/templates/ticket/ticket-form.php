@@ -51,24 +51,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- payment method -->
 	<div id="mercadopago-form-ticket" class="mp-box-inputs mp-line" style="padding:0px 12px 0px 12px;">
 		<div id="form-ticket">
-			<div class="form-row">
+			<div class="form-row" style="margin-bottom:16px;">
+				<div class="form-col-1"> </div>
 				<div class="form-col-4">
-					<label for="firstname"><?php echo esc_html__( 'NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<input type="radio" name="mercadopago_ticket[docType]" class="MPv1Ticket-docType"
+						id="MPv1Ticket-docType-fisica" value="CPF" style="width:24px; height:24px;" checked="checked">
+						<?php echo esc_html__( 'Fisical Person', 'woocommerce-mercadopago-module' ); ?>
+					</input>
+				</div>
+				<div class="form-col-2"> </div>
+				<div class="form-col-4">
+					<input type="radio" name="mercadopago_ticket[docType]" class="MPv1Ticket-docType"
+						id="MPv1Ticket-docType-juridica" value="CNPJ" style="width:24px; height:24px;">
+						<?php echo esc_html__( 'Legal Person', 'woocommerce-mercadopago-module' ); ?>
+					</input>
+				</div>
+				<div class="form-col-1"> </div>
+			</div>
+			<div class="form-row">
+				<div class="form-col-4" id="box-firstname">
+					<label for="firstname" class="title-name"><?php echo esc_html__( 'NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="firstname" class="title-razao-social"><?php echo esc_html__( 'SOCIAL NAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['firstname']; ?>"
 						id="firstname" class="form-control-mine" name="mercadopago_ticket[firstname]">
 					<span class="erro_febraban" data-main="#firstname" id="error_firstname"><?php echo esc_html__( 'You must inform you NAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
-				<div class="form-col-4">
+				<div class="form-col-4" id="box-lastname">
 					<label for="lastname"><?php echo esc_html__( 'SURNAME', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['lastname']; ?>"
 						id="lastname" class="form-control-mine" name="mercadopago_ticket[lastname]">
 					<span class="erro_febraban" data-main="#lastname" id="error_lastname"><?php echo esc_html__( 'You must inform your SURNAME', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
-				<div class="form-col-4">
-					<label for="docNumber"><?php echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+				<div class="form-col-4" id="box-docnumber">
+					<label for="cpfcnpj" class="title-cpf"><?php echo esc_html__( 'DOCUMENT', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
+					<label for="cpfcnpj" class="title-cnpj"><?php echo esc_html__( 'CNPJ', 'woocommerce-mercadopago-module' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['docNumber']; ?>"
-						id="docNumber" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="11">
-					<span class="erro_febraban" data-main="#docNumber" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
+						id="cpfcnpj" class="form-control-mine" name="mercadopago_ticket[docNumber]" maxlength="14">
+					<span class="erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?php echo esc_html__( 'You must inform your DOCUMENT', 'woocommerce-mercadopago-module' ); ?></span>
 				</div>
 			</div>
 			<div class="form-row">
@@ -162,7 +181,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php $atFirst = true; ?>
 					<?php foreach ( $payment_methods as $payment ) : ?>
 						<div class="mp-box-inputs mp-line">
-							<div id="paymentMethodId" class="mp-box-inputs mp-col-5">
+							<div id="paymentMethodIdTicket" class="mp-box-inputs mp-col-5">
 								<input type="radio" class="input-radio" name="mercadopago_ticket[paymentMethodId]"
 									style="display: block; height:16px; width:16px;" value="<?php echo $payment['id']; ?>"
 								<?php if ( $atFirst ) : ?> checked="checked" <?php endif; ?> />
@@ -182,7 +201,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 			<?php else : ?>
 				<div class="mp-box-inputs mp-col-100" style="display:none;">
-					<select id="paymentMethodId" name="mercadopago_ticket[paymentMethodId]">
+					<select id="paymentMethodIdTicket" name="mercadopago_ticket[paymentMethodId]">
 						<?php foreach ( $payment_methods as $payment ) : ?>
 							<option value="<?php echo $payment['id']; ?>" style="padding: 8px;
 							background: url('https://img.mlstatic.com/org-img/MP3/API/logos/bapropagos.gif')
@@ -204,7 +223,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="mp-box-inputs mp-col-100" id="mercadopago-utilities">
 				<input type="hidden" id="site_id" value="<?php echo $site_id; ?>" name="mercadopago_ticket[site_id]"/>
 				<input type="hidden" id="amountTicket" value="<?php echo $amount; ?>" name="mercadopago_ticket[amount]"/>
-				<input type="hidden" id="currency_ratioTicket" value='<?php echo $currency_ratio; ?>' name="mercadopago_ticket[currency_ratio]"/>
+				<input type="hidden" id="currency_ratioTicket" value="<?php echo $currency_ratio; ?>" name="mercadopago_ticket[currency_ratio]"/>
 				<input type="hidden" id="campaign_idTicket" name="mercadopago_ticket[campaign_id]"/>
 				<input type="hidden" id="campaignTicket" name="mercadopago_ticket[campaign]"/>
 				<input type="hidden" id="discountTicket" name="mercadopago_ticket[discount]"/>

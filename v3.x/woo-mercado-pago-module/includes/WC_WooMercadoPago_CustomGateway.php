@@ -26,6 +26,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
 			get_option( '_mp_access_token' )
 		);
+		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+		$this->mp->set_email( $email );
 		
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-custom';
@@ -243,6 +245,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				WC_Woo_Mercado_Pago_Module::get_module_version(),
 				get_option( '_mp_access_token' )
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$mp->set_email( $email );
 			// Analytics.
 			$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
 			$infra_data['checkout_custom_credit_card'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
@@ -600,6 +604,18 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					default:
 						break;
 				}
+			} else {
+				// Process when fields are imcomplete.
+				wc_add_notice(
+					'<p>' .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) . ' MERCADO PAGO: ' . $response .
+					'</p>',
+					'error'
+				);
+				return array(
+					'result' => 'fail',
+					'redirect' => '',
+				);
 			}
 		} else {
 			// Process when fields are imcomplete.
@@ -857,14 +873,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					__FUNCTION__,
 					'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']
 				);
-				return false;
+				return $checkout_info['response']['message'];
 			} elseif ( is_wp_error( $checkout_info ) ) {
 				// WordPress throwed an error.
 				$this->write_log(
 					__FUNCTION__,
 					'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']
 				);
-				return false;
+				return $checkout_info['response']['message'];
 			} else {
 				// Obtain the URL.
 				$this->write_log(
@@ -886,7 +902,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'payment creation failed with exception: ' .
 				json_encode( $ex, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 			);
-			return false;
+			return $ex->getMessage();
 		}
 	}
 
@@ -1288,6 +1304,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				);
 				break;
 			case 'cancelled':
+				$this->process_cancel_order_meta_box_actions( $order );
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'cancelled' ),
 					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woocommerce-mercadopago-module' )

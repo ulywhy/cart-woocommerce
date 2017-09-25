@@ -73,6 +73,8 @@ class WC_MercadoEnvios_Admin_Orders {
 					$client_id,
 					$client_secret
 				);
+				$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+				$this->mp->set_email( $email );
 
 				echo '<label for="mercadoenvios_tracking_number">' . esc_html__( 'Tag:', 'woocommerce-mercadopago-module' ) . '</label><br />';
 				echo '<a href="https://api.mercadolibre.com/shipment_labels?shipment_ids=' . esc_attr( $shipment_id ) . '&savePdf=Y&access_token=' . $this->mp->get_access_token() . '" class="button-primary" target="_blank">' . esc_html__( 'Print', 'woocommerce-mercadopago-module' ) . '</a>';

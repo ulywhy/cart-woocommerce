@@ -109,6 +109,8 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 			$client_id,
 			$client_secret
 		);
+		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+		$this->mp->set_email( $email );
 
 		// Object package.
 		$me_package = new WC_MercadoEnvios_Package( $package );
@@ -336,6 +338,8 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 				$client_id,
 				$client_secret
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 			// Get default data.
 			$infra_data = WC_WooMercadoPago_Module::get_common_settings();
 			$infra_data['mercado_envios'] = $status;

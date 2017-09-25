@@ -907,6 +907,18 @@ msgstr "Su pago no tiene fondos suficientes."
 msgid "Your payment does not process payments with selected installments."
 msgstr "El pago no puede procesar la cuota seleccionada."
 
+msgid "Fisical Person"
+msgstr "Persona Física"
+
+msgid "Legal Person"
+msgstr "Persona Jurídica"
+
+msgid "SOCIAL NAME"
+msgstr "RAZÓN SOCIAL"
+
+msgid "CNPJ"
+msgstr "CNPJ"
+
 msgid "You have reached the limit of allowed attempts. Choose another card or another payment method."
 msgstr "Has alcanzado el límite de intentos permitidos. Elija otra tarjeta u otro medio de pago."
 

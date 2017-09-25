@@ -420,10 +420,13 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 		}
 
 		if ( ! empty( $this->settings['public_key'] ) && ! empty( $this->settings['access_token'] ) ) {
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 			$this->mp = new MP(
 				WC_WooMercadoPago_Module::get_module_version(),
 				$this->settings['access_token']
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 		} else {
 			$this->mp = null;
 		}
@@ -874,7 +877,7 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 			isset( $custom_checkout['installments'] ) && ! empty( $custom_checkout['installments'] ) &&
 			$custom_checkout['installments'] != -1 ) {
 
-			$response = self::create_url( $order, $custom_checkout );
+			$response = $this->create_url( $order, $custom_checkout );
 
 			if ( array_key_exists( 'status', $response ) ) {
 				switch ( $response['status'] ) {
@@ -947,6 +950,18 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 					default:
 						break;
 				}
+			} else {
+				// Process when fields are imcomplete.
+				wc_add_notice(
+					'<p>' .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) . ' MERCADO PAGO: ' . $response .
+					'</p>',
+					'error'
+				);
+				return array(
+					'result' => 'fail',
+					'redirect' => '',
+				);
 			}
 		} else {
 			// Process when fields are imcomplete.
@@ -1281,7 +1296,7 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 						'[create_url] - mercado pago gave error, payment creation failed with error: ' .
 						$checkout_info['response']['message'] );
 				}
-				return false;
+				return $checkout_info['response']['message'];
 			} elseif ( is_wp_error( $checkout_info ) ) {
 				// WordPress throwed an error.
 				if ( 'yes' == $this->debug ) {
@@ -1290,7 +1305,7 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 						'[create_url] - wordpress gave error, payment creation failed with error: ' .
 						$checkout_info['response']['message'] );
 				}
-				return false;
+				return $checkout_info['response']['message'];
 			} else {
 				// Obtain the URL.
 				if ( 'yes' == $this->debug ) {
@@ -1310,7 +1325,7 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 					json_encode( array( 'status' => $e->getCode(), 'message' => $e->getMessage() ) )
 				);
 			}
-			return false;
+			return $e->getMessage();
 		}
 	}
 
@@ -1466,6 +1481,8 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 				WC_WooMercadoPago_Module::get_module_version(),
 				$this->access_token
 			);
+			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+			$this->mp->set_email( $email );
 			$get_request = $this->mp->get(
 				'/users/me?access_token=' . $this->access_token
 			);
@@ -1906,6 +1923,7 @@ class WC_WooMercadoPagoCustom_Gateway extends WC_Payment_Gateway {
 				);
 				break;
 			case 'cancelled':
+				$this->process_cancel_order_meta_box_actions( $order );
 				$order->update_status(
 					'cancelled',
 					'Mercado Pago: ' .

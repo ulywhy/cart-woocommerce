@@ -45,6 +45,11 @@ class MP {
 
 	}
 
+	public function set_email( $email ) {
+		MPRestClient::set_email( $email );
+		MeliRestClient::set_email( $email );
+	}
+
 	public function sandbox_mode( $enable = NULL ) {
 		if ( ! is_null( $enable ) ) {
 			$this->sandbox = $enable === TRUE;
@@ -760,6 +765,7 @@ class MP {
 class MPRestClient {
 
 	const API_BASE_URL = 'https://api.mercadopago.com';
+	private static $email_admin = '';
 	private static $check_loop = 0;
 
 	private static function build_request( $request, $version ) {
@@ -940,7 +946,8 @@ class MPRestClient {
 			'module' => 'WooCommerce',
 			'module_version' => $version,
 			'url_store' => $_SERVER['HTTP_HOST'],
-			'errors' => $errors
+			'errors' => $errors,
+			'email_admin' => self::$email_admin
 		);
 		$request = array(
 			'uri' => '/modules/log',
@@ -987,11 +994,16 @@ class MPRestClient {
 		return self::exec( $request, $version );
 	}
 
+	public static function set_email( $email ) {
+		self::$email_admin = $email;
+	}
+
 }
 
 class MeliRestClient {
 	
 	const API_BASE_URL = 'https://api.mercadolibre.com';
+	private static $email_admin = '';
 	private static $check_loop = 0;
 
 	private static function build_request( $request, $version ) {
@@ -1171,7 +1183,8 @@ class MeliRestClient {
 			'module' => 'WooCommerce',
 			'module_version' => $version,
 			'url_store' => $_SERVER['HTTP_HOST'],
-			'errors' => $errors
+			'errors' => $errors,
+			'email_admin' => self::$email_admin
 		);
 		$request = array(
 			'uri' => '/modules/log',
@@ -1216,6 +1229,10 @@ class MeliRestClient {
 		$request['method'] = 'DELETE';
 
 		return self::exec( $request, $version );
+	}
+
+	public static function set_email( $email ) {
+		self::$email_admin = $email;
 	}
 
 }

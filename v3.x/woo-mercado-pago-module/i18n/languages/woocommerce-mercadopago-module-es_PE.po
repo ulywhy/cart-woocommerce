@@ -993,3 +993,15 @@ msgstr "Obligatorio informar su ESTADO"
 
 msgid "You must inform your ZIP"
 msgstr "Obligatorio informar su CÓDIGO POSTAL"
+
+msgid "Fisical Person"
+msgstr "Persona Física"
+
+msgid "Legal Person"
+msgstr "Persona Jurídica"
+
+msgid "SOCIAL NAME"
+msgstr "RAZÓN SOCIAL"
+
+msgid "CNPJ"
+msgstr "CNPJ"

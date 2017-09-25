@@ -977,7 +977,7 @@ msgid "You must inform your SURNAME"
 msgstr "Obrigatório o preenchimento do Sobrenome"
 
 msgid "You must inform your DOCUMENT"
-msgstr "Obrigatório o preenchimento do CPF"
+msgstr "Obrigatório o preenchimento do documento"
 
 msgid "You must inform your ADDRESS"
 msgstr "Obrigatório o preenchimento do Endereço"
@@ -993,3 +993,15 @@ msgstr "Obrigatório informar o estado"
 
 msgid "You must inform your ZIP"
 msgstr "Obrigatório informar o CEP"
+
+msgid "Fisical Person"
+msgstr "Pessoa Física"
+
+msgid "Legal Person"
+msgstr "Pessoa Jurídica"
+
+msgid "SOCIAL NAME"
+msgstr "RAZÃO SOCIAL"
+
+msgid "CNPJ"
+msgstr "CNPJ"
