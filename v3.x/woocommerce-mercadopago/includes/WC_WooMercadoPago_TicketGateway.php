@@ -37,11 +37,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			plugins_url( 'assets/images/bar_code.png', plugin_dir_path( __FILE__ ) )
 		);*/
 
-		$this->method_title = __( 'Mercado Pago - Ticket', 'woocommerce-mercadopago-module' );
+		$this->method_title = __( 'Mercado Pago - Ticket', 'woocommerce-mercadopago' );
 		$this->method_description = '<img width="200" height="52" src="' .
 			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) .
 		'"><br><br><strong>' .
-			__( 'We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.', 'woocommerce-mercadopago-module' ) .
+			__( 'We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.', 'woocommerce-mercadopago' ) .
 		'</strong>';
 
 		//$this->sandbox = get_option( '_mp_sandbox_mode', false );
@@ -140,9 +140,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			$this->form_fields = array(
 				'no_credentials_title' => array(
 					'title' => sprintf(
-						__( 'It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago-module' ),
+						__( 'It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago' ),
 						'<a href="' . esc_url( admin_url( 'admin.php?page=mercado-pago-settings' ) ) . '">' .
-						__( 'Mercado Pago Settings', 'woocommerce-mercadopago-module' ) .
+						__( 'Mercado Pago Settings', 'woocommerce-mercadopago' ) .
 						'</a>'
 					),
 					'type' => 'title'
@@ -155,9 +155,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		if ( empty( $this->settings['enabled'] ) || 'no' == $this->settings['enabled'] ) {
 			$this->form_fields = array(
 				'enabled' => array(
-					'title' => __( 'Enable/Disable', 'woocommerce-mercadopago-module' ),
+					'title' => __( 'Enable/Disable', 'woocommerce-mercadopago' ),
 					'type' => 'checkbox',
-					'label' => __( 'Enable Ticket Payment Method', 'woocommerce-mercadopago-module' ),
+					'label' => __( 'Enable Ticket Payment Method', 'woocommerce-mercadopago' ),
 					'default' => 'no'
 				)
 			);
@@ -167,49 +167,49 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		// This array draws each UI (text, selector, checkbox, label, etc).
 		$this->form_fields = array(
 			'enabled' => array(
-				'title' => __( 'Enable/Disable', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Enable/Disable', 'woocommerce-mercadopago' ),
 				'type' => 'checkbox',
-				'label' => __( 'Enable Ticket Payment Method', 'woocommerce-mercadopago-module' ),
+				'label' => __( 'Enable Ticket Payment Method', 'woocommerce-mercadopago' ),
 				'default' => 'no'
 			),
 			'checkout_options_title' => array(
-				'title' => __( 'Ticket Interface: How checkout is shown', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Ticket Interface: How checkout is shown', 'woocommerce-mercadopago' ),
 				'type' => 'title'
 			),
 			'title' => array(
-				'title' => __( 'Title', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Title', 'woocommerce-mercadopago' ),
 				'type' => 'text',
-				'description' => __( 'Title shown to the client in the ticket.', 'woocommerce-mercadopago-module' ),
-				'default' => __( 'Mercado Pago - Ticket', 'woocommerce-mercadopago-module' )
+				'description' => __( 'Title shown to the client in the ticket.', 'woocommerce-mercadopago' ),
+				'default' => __( 'Mercado Pago - Ticket', 'woocommerce-mercadopago' )
 			),
 			'description' => array(
-				'title' => __( 'Description', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Description', 'woocommerce-mercadopago' ),
 				'type' => 'textarea',
-				'description' => __( 'Description shown to the client in the ticket.', 'woocommerce-mercadopago-module' ),
-				'default' => __( 'Pay with Mercado Pago', 'woocommerce-mercadopago-module' )
+				'description' => __( 'Description shown to the client in the ticket.', 'woocommerce-mercadopago' ),
+				'default' => __( 'Pay with Mercado Pago', 'woocommerce-mercadopago' )
 			),
 			'payment_title' => array(
-				'title' => __( 'Payment Options: How payment options behaves', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Payment Options: How payment options behaves', 'woocommerce-mercadopago' ),
 				'type' => 'title'
 			),
 			'coupon_mode' => array(
-				'title' => __( 'Coupons', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Coupons', 'woocommerce-mercadopago' ),
 				'type' => 'checkbox',
-				'label' => __( 'Enable coupons of discounts', 'woocommerce-mercadopago-module' ),
+				'label' => __( 'Enable coupons of discounts', 'woocommerce-mercadopago' ),
 				'default' => 'no',
-				'description' => __( 'If there is a Mercado Pago campaign, allow your store to give discounts to customers.', 'woocommerce-mercadopago-module' )
+				'description' => __( 'If there is a Mercado Pago campaign, allow your store to give discounts to customers.', 'woocommerce-mercadopago' )
 			),
 			'stock_reduce_mode' => array(
-				'title' => __( 'Stock Reduce', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Stock Reduce', 'woocommerce-mercadopago' ),
 				'type' => 'checkbox',
-				'label' => __( 'Reduce Stock in Order Generation', 'woocommerce-mercadopago-module' ),
+				'label' => __( 'Reduce Stock in Order Generation', 'woocommerce-mercadopago' ),
 				'default' => 'no',
-				'description' => __( 'Enable this to reduce the stock on order creation. Disable this to reduce <strong>after</strong> the payment approval.', 'woocommerce-mercadopago-module' )
+				'description' => __( 'Enable this to reduce the stock on order creation. Disable this to reduce <strong>after</strong> the payment approval.', 'woocommerce-mercadopago' )
 			),
 			'gateway_discount' => array(
-				'title' => __( 'Discount by Gateway', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Discount by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
-				'description' => __( 'Give a percentual (0 to 100) discount for your customers if they use this payment gateway.', 'woocommerce-mercadopago-module' ),
+				'description' => __( 'Give a percentual (0 to 100) discount for your customers if they use this payment gateway.', 'woocommerce-mercadopago' ),
 				'default' => '0'
 			)
 		);
@@ -488,12 +488,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		}
 
 		$html = '<p>' .
-					__( 'Thank you for your order. Please, pay the ticket to get your order approved.', 'woocommerce-mercadopago-module' ) .
+					__( 'Thank you for your order. Please, pay the ticket to get your order approved.', 'woocommerce-mercadopago' ) .
 				'</p>' .
 				'<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
 				'<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
 				' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
-					__( 'Print the Ticket', 'woocommerce-mercadopago-module' ) .
+					__( 'Print the Ticket', 'woocommerce-mercadopago' ) .
 				'</a> ';
 		$added_text = '<p>' . $html . '</p>';
 		return $added_text;
@@ -504,7 +504,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		$amount = $this->get_order_total();
 		$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$customer = isset( $logged_user_email ) ? $this->mp->get_or_create_customer( $logged_user_email ) : null;
-		$discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago-module/?wc-api=WC_WooMercadoPago_TicketGateway';
+		$discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=WC_WooMercadoPago_TicketGateway';
 		$address = get_user_meta( wp_get_current_user()->ID, 'shipping_address_1', true );
 		$address_2 = get_user_meta( wp_get_current_user()->ID, 'shipping_address_2', true );
 		$address .= ( ! empty( $address_2 ) ? ' - ' . $address_2 : '' );
@@ -592,7 +592,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				! isset( $ticket_checkout['zipcode'] ) || empty( $ticket_checkout['zipcode'] ) ) {
 				wc_add_notice(
 					'<p>' .
-						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) .
 					'</p>',
 					'error'
 				);
@@ -627,14 +627,14 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 						// Shows some info in checkout page.
 						$order->add_order_note(
 							'Mercado Pago: ' .
-							__( 'Customer haven\'t paid yet.', 'woocommerce-mercadopago-module' )
+							__( 'Customer haven\'t paid yet.', 'woocommerce-mercadopago' )
 						);
 						$order->add_order_note(
 							'Mercado Pago: ' .
-							__( 'To reprint the ticket click ', 'woocommerce-mercadopago-module' ) .
+							__( 'To reprint the ticket click ', 'woocommerce-mercadopago' ) .
 							'<a target="_blank" href="' .
 							$response['transaction_details']['external_resource_url'] . '">' .
-							__( 'here', 'woocommerce-mercadopago-module' ) .
+							__( 'here', 'woocommerce-mercadopago' ) .
 							'</a>', 1, false
 						);
 						return array(
@@ -647,7 +647,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				// Process when fields are imcomplete.
 				wc_add_notice(
 					'<p>' .
-						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago-module' ) . ' MERCADO PAGO: ' . $response .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) . ' MERCADO PAGO: ' . $response .
 					'</p>',
 					'error'
 				);
@@ -660,7 +660,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			// Process when fields are imcomplete.
 			wc_add_notice(
 				'<p>' .
-					__( 'A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago-module' ) .
+					__( 'A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago' ) .
 				'</p>',
 				'error'
 			);
@@ -740,7 +740,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				'title' => method_exists( $order, 'get_id' ) ?
 					$order->get_shipping_method() :
 					$order->shipping_method,
-				'description' => __( 'Shipping service used by store', 'woocommerce-mercadopago-module' ),
+				'description' => __( 'Shipping service used by store', 'woocommerce-mercadopago' ),
 				'category_id' => get_option( '_mp_category_name', 'others' ),
 				'quantity' => 1,
 				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
@@ -755,8 +755,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			isset( $ticket_checkout['coupon_code'] ) && ! empty( $ticket_checkout['coupon_code'] ) &&
 			$ticket_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket' ) {
 		 	$item = array(
-				'title' => __( 'Discount provided by store', 'woocommerce-mercadopago-module' ),
-				'description' => __( 'Discount provided by store', 'woocommerce-mercadopago-module' ),
+				'title' => __( 'Discount provided by store', 'woocommerce-mercadopago' ),
+				'description' => __( 'Discount provided by store', 'woocommerce-mercadopago' ),
 				'category_id' => get_option( '_mp_category_name', 'others' ),
 				'quantity' => 1,
 				'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
@@ -973,7 +973,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				0 < $value, $woocommerce->cart )
 			) {
 				$woocommerce->cart->add_fee( sprintf(
-					__( 'Discount for %s coupon', 'woocommerce-mercadopago-module' ),
+					__( 'Discount for %s coupon', 'woocommerce-mercadopago' ),
 					esc_attr( $ticket_checkout['campaign']
 					) ), ( $value * -1 ), false
 				);
@@ -998,7 +998,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			if ( $this->gateway_discount >= 0 && $this->gateway_discount < 100 ) {
 				$price_percent = $this->gateway_discount / 100;
 				if ( $price_percent > 0 ) {
-					$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago-module' ) . ' ' .
+					$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago' ) . ' ' .
 						strip_tags( wc_price( $total * $price_percent ) ) . ' )';
 				}
 			}
@@ -1083,7 +1083,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				$obj = new stdClass();
 				$obj->status = 404;
 				$obj->response = array(
-					'message' => __( 'Please, inform your email in billing address to use this feature', 'woocommerce-mercadopago-module' ),
+					'message' => __( 'Please, inform your email in billing address to use this feature', 'woocommerce-mercadopago' ),
 					'error' => 'payer_not_found',
 					'status' => 404,
 					'cause' => array()
@@ -1106,7 +1106,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					'Mercado Pago Request failure: ' .
 					json_encode( $data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 				);
-				wp_die( __( 'Mercado Pago Request Failure', 'woocommerce-mercadopago-module' ) );
+				wp_die( __( 'Mercado Pago Request Failure', 'woocommerce-mercadopago' ) );
 			} else {
 				// At least, check if its a v0 ipn.
 				header( 'HTTP/1.1 200 OK' );
@@ -1179,10 +1179,10 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			// Updates the type of gateway.
 			$order->update_meta_data( '_used_gateway', 'WC_WooMercadoPago_TicketGateway' );
 			if ( ! empty( $data['payer']['email'] ) ) {
-				$order->update_meta_data( __( 'Payer email', 'woocommerce-mercadopago-module' ), $data['payer']['email'] );
+				$order->update_meta_data( __( 'Payer email', 'woocommerce-mercadopago' ), $data['payer']['email'] );
 			}
 			if ( ! empty( $data['payment_type_id'] ) ) {
-				$order->update_meta_data( __( 'Payment type', 'woocommerce-mercadopago-module' ), $data['payment_type_id'] );
+				$order->update_meta_data( __( 'Payment type', 'woocommerce-mercadopago' ), $data['payment_type_id'] );
 			}
 			$order->update_meta_data(
 				'Mercado Pago - Payment ' . $data['id'],
@@ -1197,10 +1197,10 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			// Updates the type of gateway.
 			update_post_meta( $order_id, '_used_gateway', 'WC_WooMercadoPago_TicketGateway' );
 			if ( ! empty( $data['payer']['email'] ) ) {
-				update_post_meta( $order_id, __( 'Payer email', 'woocommerce-mercadopago-module' ), $data['payer']['email'] );
+				update_post_meta( $order_id, __( 'Payer email', 'woocommerce-mercadopago' ), $data['payer']['email'] );
 			}
 			if ( ! empty( $data['payment_type_id'] ) ) {
-				update_post_meta( $order_id, __( 'Payment type', 'woocommerce-mercadopago-module' ), $data['payment_type_id'] );
+				update_post_meta( $order_id, __( 'Payment type', 'woocommerce-mercadopago' ), $data['payment_type_id'] );
 			}
 			update_post_meta(
 				$order_id,
@@ -1221,7 +1221,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		switch ( $status ) {
 			case 'approved':
 				$order->add_order_note(
-					'Mercado Pago: ' . __( 'Payment approved.', 'woocommerce-mercadopago-module' )
+					'Mercado Pago: ' . __( 'Payment approved.', 'woocommerce-mercadopago' )
 				);
 				if ( $this->stock_reduce_mode == 'no' ) {
 					$order->payment_complete();
@@ -1247,10 +1247,10 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				}
 				if ( ! $has_note ) {
 					$order->add_order_note(
-						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woocommerce-mercadopago-module' )
+						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woocommerce-mercadopago' )
 					);
 					$order->add_order_note(
-						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woocommerce-mercadopago-module' ),
+						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woocommerce-mercadopago' ),
 						1, false
 					);
 				}
@@ -1258,26 +1258,26 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			case 'in_process':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'on-hold' ),
-					'Mercado Pago: ' . __( 'Payment under review.', 'woocommerce-mercadopago-module' )
+					'Mercado Pago: ' . __( 'Payment under review.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'rejected':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'failed' ),
-					'Mercado Pago: ' . __( 'The payment was refused. The customer can try again.', 'woocommerce-mercadopago-module' )
+					'Mercado Pago: ' . __( 'The payment was refused. The customer can try again.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'refunded':
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'refunded' ),
-					'Mercado Pago: ' . __( 'The payment was refunded to the customer.', 'woocommerce-mercadopago-module' )
+					'Mercado Pago: ' . __( 'The payment was refunded to the customer.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'cancelled':
 				$this->process_cancel_order_meta_box_actions( $order );
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'cancelled' ),
-					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woocommerce-mercadopago-module' )
+					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'in_mediation':
@@ -1285,7 +1285,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'inmediation' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago-module' )
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'charged-back':
@@ -1293,7 +1293,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'chargedback' )
 				);
 				$order->add_order_note(
-					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago-module' )
+					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago' )
 				);
 				break;
 			default:
