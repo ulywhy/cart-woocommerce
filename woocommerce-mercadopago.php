@@ -22,6 +22,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Load plugin text domain.
+ *
+ * Need to require here before test for PHP version.
+ *
+ * @since 3.0.1
+ */
+function wc_mercado_pago_load_plugin_textdomain() {
+	load_plugin_textdomain(	'woocommerce-mercadopago', false, dirname( plugin_basename( __FILE__ ) ) . '/i18n/languages/' );
+}
+
+add_action( 'init', 'wc_mercado_pago_load_plugin_textdomain' );
+
+/**
+ * Notice about unsupported PHP version.
+ *
+ * @since 3.0.1
+ */
+function wc_mercado_pago_unsupported_php_version_notice() {
+	echo '<div class="error"><p>' . esc_html__( 'WooCommerce Mercado Pago requires PHP version 5.6 or later. Please update your PHP version.', 'woocommerce-mercadopago' ) . '</p></div>';
+}
+
+// Check for PHP version and throw notice.
+if ( version_compare( PHP_VERSION, '5.6', '<=' ) ) {
+	add_action( 'admin_notices', 'wc_mercado_pago_unsupported_php_version_notice' );
+	return;
+}
+
 // Load Mercado Pago SDK
 require_once dirname( __FILE__ ) . '/includes/sdk/lib/mercadopago.php';
 
@@ -81,8 +109,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 
 		// Class constructor.
 		private function __construct() {
-
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 			WC_Woo_Mercado_Pago_Module::$categories = WC_Woo_Mercado_Pago_Module::get_categories();
 			WC_Woo_Mercado_Pago_Module::$country_configs = array(
@@ -146,7 +172,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 
 			// First of all, verify if WooCommerce is already installed.
 			if ( class_exists( 'WC_Payment_Gateway' ) ) {
-				
+
 				// Adds each Mercado Pago gateway as available payment method.
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_BasicGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
@@ -162,7 +188,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-package.php';
 				add_filter( 'woocommerce_shipping_methods', array( $this, 'add_shipping' ) );
 				add_filter( 'woocommerce_available_payment_gateways', array( $this, 'filter_payment_method_by_shipping' ) );
-				
+
 				// This adds custom links in the plugin page.
 				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'woomercadopago_settings_link' ) );
 
@@ -239,15 +265,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					'<a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
 				) .
 				'</p></div>';
-		}
-
-		// Multi-language setup.
-		public function load_plugin_textdomain() {
-			load_plugin_textdomain(
-				'woocommerce-mercadopago',
-				false,
-				dirname( plugin_basename( __FILE__ ) ) . '/i18n/languages/'
-			);
 		}
 
 		// Add settings link on plugin page.
@@ -648,7 +665,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				<option value="processing"' . ( $selection == 'processing' ? 'selected="selected"' : '' ) . '>' .
 					__( "Update WooCommerce order to ", "woocommerce-mercadopago" ) . 'PROCESSING
 				</option>
-				<option value="on_hold"' . ( $selection == 'on_hold' ? 'selected="selected"' : '' ) . '>' . 
+				<option value="on_hold"' . ( $selection == 'on_hold' ? 'selected="selected"' : '' ) . '>' .
 					__( "Update WooCommerce order to ", "woocommerce-mercadopago" ) . 'ON-HOLD
 				</option>
 				<option value="completed"' . ( $selection == 'completed' ? 'selected="selected"' : '' ) . '>' .
@@ -954,7 +971,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					'<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
 					__( 'WooCommerce is installed and enabled.', 'woocommerce-mercadopago' ) :
 					'<img width="14" height="14" src="' . plugins_url( 'assets/images/error.png', __FILE__ ) . '"> ' .
-					__( 'You don\'t have WooCommerce installed and enabled.', 'woocommerce-mercadopago' );			
+					__( 'You don\'t have WooCommerce installed and enabled.', 'woocommerce-mercadopago' );
 				// Creating PHP version message.
 				$min_php_message = phpversion() >= WC_Woo_Mercado_Pago_Module::MIN_PHP ?
 					'<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
