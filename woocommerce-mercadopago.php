@@ -21,6 +21,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Load plugin text domain.
+ *
+ * Need to require here before test for PHP version.
+ *
+ * @since 3.0.1
+ */
+function wc_mercado_pago_load_plugin_textdomain() {
+	load_plugin_textdomain(	'woocommerce-mercadopago', false, dirname( plugin_basename( __FILE__ ) ) . '/i18n/languages/' );
+}
+
+add_action( 'init', 'wc_mercado_pago_load_plugin_textdomain' );
+
+/**
+ * Notice about unsupported PHP version.
+ *
+ * @since 3.0.1
+ */
+function wc_mercado_pago_unsupported_php_version_notice() {
+	echo '<div class="error"><p>' . esc_html__( 'WooCommerce Mercado Pago requires PHP version 5.6 or later. Please update your PHP version.', 'woocommerce-mercadopago' ) . '</p></div>';
+}
+
+// Check for PHP version and throw notice.
+if ( version_compare( PHP_VERSION, '5.6', '<=' ) ) {
+	add_action( 'admin_notices', 'wc_mercado_pago_unsupported_php_version_notice' );
+	return;
+}
+
 // Load Mercado Pago SDK
 require_once dirname( __FILE__ ) . '/includes/sdk/lib/mercadopago.php';
 
@@ -80,8 +108,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 
 		// Class constructor.
 		private function __construct() {
-
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 			WC_Woo_Mercado_Pago_Module::$categories = WC_Woo_Mercado_Pago_Module::get_categories();
 			WC_Woo_Mercado_Pago_Module::$country_configs = array(
@@ -238,15 +264,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					'<a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
 				) .
 				'</p></div>';
-		}
-
-		// Multi-language setup.
-		public function load_plugin_textdomain() {
-			load_plugin_textdomain(
-				'woocommerce-mercadopago',
-				false,
-				dirname( plugin_basename( __FILE__ ) ) . '/i18n/languages/'
-			);
 		}
 
 		// Add settings link on plugin page.
