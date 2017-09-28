@@ -2,8 +2,8 @@
 Contributors: mercadopago, mercadolivre, claudiosanches
 Donate link: https://www.mercadopago.com.br/developers/
 Tags: ecommerce, mercadopago, woocommerce
-Requires at least: WooCommerce 2.6.x
-Tested up to: WooCommerce 3.0.0
+Requires at least: 4.8
+Tested up to: 4.8
 Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -29,6 +29,10 @@ Mercado Pago owns the highest security standards with PCI certification level 1 
 * Payment via tickets;
 * Subscriptions;
 * Seller's Protection Program.
+
+= Compatibility =
+
+- WooCommerce 3.0 or later.
 
 == Installation ==
 
