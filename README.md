@@ -1,4 +1,4 @@
-[[/images/logo.png|Mercado Pago]]
+[[/assets/images/logo.png|Mercado Pago]]
 
 ## Documentation in English
 
