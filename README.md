@@ -1,4 +1,4 @@
-![Mercado Pago](https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png)
+![Mercado Pago](https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mercadopago.png)
 
 ## Documentation in English
 
