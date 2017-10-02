@@ -1,55 +1,64 @@
-![Mercado Pago](https://raw.githubusercontent.com/marcelohama/cart-woocommerce/master/README.img/logo.png)
+[[/images/logo.png|Mercado Pago]]
 
 ## Documentation in English
 
-Mercado Pago integration Module for WooCommerce
+Mercado Pago integration module for WooCommerce
 
-* [Requirements](https://github.com/marcelohama/cart-woocommerce/wiki/Requirements)
-* [Features](https://github.com/marcelohama/cart-woocommerce/wiki/Features)
-* [Installation](https://github.com/marcelohama/cart-woocommerce/wiki/Installation)
-* [Upgrade](https://github.com/marcelohama/cart-woocommerce/wiki/Upgrade)
-* Checkout Custom
-  * [Configure Credit Card and Ticket](https://github.com/marcelohama/cart-woocommerce/wiki/Configure-Credit-Card-and-Ticket)
+* [System Requirements](https://github.com/mercadopago/cart-woocommerce/wiki/System-Requirements)
+* [Features](https://github.com/mercadopago/cart-woocommerce/wiki/Features)
+* [Installation](https://github.com/mercadopago/cart-woocommerce/wiki/Installation)
+* [General Mercado Pago Settings](https://github.com/mercadopago/cart-woocommerce/wiki/General-Mercado-Pago-Settings)
+* Custom Checkout
+  * [Configuring Credit Card](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Credit-Card)
+  * [Configuring Tickets](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Tickets)
 * Basic Checkout
-  * [Configure Checkout Redirect, Iframe, and LightBox](https://github.com/marcelohama/cart-woocommerce/wiki/Configure-Checkout-Redirect,-Iframe-and-LightBox)
-  * [Configure Mercado Envios](https://github.com/marcelohama/cart-woocommerce/wiki/Configure-Mercado-Envios)
-  * [Configure Subscriptions](https://github.com/marcelohama/cart-woocommerce/wiki/Configure-Subscriptions)
-* [Payment Notification status Settings](https://github.com/marcelohama/cart-woocommerce/wiki/Payment-Notification-status-settings)
-* [FAQ](https://github.com/marcelohama/cart-woocommerce/wiki/FAQ-English)
-* [Support](https://github.com/marcelohama/cart-woocommerce/wiki/Support)
+  * [Configuring Checkout by Redirect, Iframe, or LightBox](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Checkout-by-Redirect,-Iframe,-or-Lightbox)
+  * [Configuring Mercado Envios](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Mercado-Envios)
+  * [Configuring Subscriptions](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Subscriptions)
+* [Instant Payment Notification Settings](https://github.com/mercadopago/cart-woocommerce/wiki/Instant-Payment-Notification-Settings)
+* [Upgrade](https://github.com/mercadopago/cart-woocommerce/wiki/Upgrade)
+* [FAQ](https://github.com/mercadopago/cart-woocommerce/wiki/Faq-English)
+* [Technical Support](https://github.com/mercadopago/cart-woocommerce/wiki/Technical-Support)
+* [How to Contribute](https://github.com/mercadopago/cart-woocommerce/wiki/How-to-Contribute)
 
 ## Documentación en Español
 
 Módulo de integración de Mercado Pago para WooCommerce
 
-* [Requisitos](https://github.com/marcelohama/cart-woocommerce/wiki/Requisitos-en-Español)
-* [Funcionalidad](https://github.com/marcelohama/cart-woocommerce/wiki/Funcionalidad)
-* [Instalación](https://github.com/marcelohama/cart-woocommerce/wiki/Instalación)
-* [Actualización](https://github.com/marcelohama/cart-woocommerce/wiki/Actualización)
+* [Requisitos del Sistema](https://github.com/mercadopago/cart-woocommerce/wiki/Requisitos-del-Sistema)
+* [Funcionalidad](https://github.com/mercadopago/cart-woocommerce/wiki/Funcionalidad)
+* [Instalación](https://github.com/mercadopago/cart-woocommerce/wiki/Instalación)
+* [Configuraciones Generales de Mercado Pago](https://github.com/mercadopago/cart-woocommerce/wiki/Configuraciones-Generales-de-Mercado-Pago)
 * Checkout Personalizado
-  * [Configuración de la Tarjeta de crédito y Tickets](https://github.com/marcelohama/cart-woocommerce/wiki/Configuración-de-la-tarjeta-de-crédito-y-tickets)
+  * [Configurando la Tarjeta de Crédito](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-la-Tarjeta-de-Crédito)
+  * [Configurando los Tickets](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-los-Tickets)
 * Checkout Básico
-  * [Configurar el Checkout Redirect, Iframe y LightBox](https://github.com/marcelohama/cart-woocommerce/wiki/Configurar-el-Checkout-Redirect,-Iframe-y-LightBox)
-  * [Configurar el Mercado Envios](https://github.com/marcelohama/cart-woocommerce/wiki/Configurar-Mercado-Envios)
-  * [Configurar Suscripciones](https://github.com/marcelohama/cart-woocommerce/wiki/Configurar-Suscripciones)
-* [Configuración de estado de las notificaciones de Pago](https://github.com/marcelohama/cart-woocommerce/wiki/Configuración-de-estado-de-las-notificaciones-de-Pago)
-* [FAQ](https://github.com/marcelohama/cart-woocommerce/wiki/FAQ-Espanhol)
-* [Soporte técnico](https://github.com/marcelohama/cart-woocommerce/wiki/Soporte-técnico)
+  * [Configurando el Checkout por Redirect, Iframe o LightBox](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-el-Checkout-por-Redirect,-Iframe-o-LightBox)
+  * [Configurando el Mercado Envios](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-el-Mercado-Envios)
+  * [Configurando las Suscripciones](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-las-Suscripciones)
+* [Configuraciones de las Notificaciones Instantáneas de Pago](https://github.com/mercadopago/cart-woocommerce/wiki/Configuraciones-de-las-Notificaciones-Instantáneas-de-Pago)
+* [Actualización](https://github.com/mercadopago/cart-woocommerce/wiki/Actualización)
+* [FAQ](https://github.com/mercadopago/cart-woocommerce/wiki/FAQ-Spanish)
+* [Soporte Técnico](https://github.com/mercadopago/cart-woocommerce/wiki/Soporte-Técnico)
+* [Cómo Contribuir](https://github.com/mercadopago/cart-woocommerce/wiki/Cómo-Contribuir)
 
 ## Documentação em Português
 
-Modulo de integração do Mercado Pago para WooCommerce
+Módulo de integração do Mercado Pago para WooCommerce
 
-* [Requisitos](https://github.com/marcelohama/cart-woocommerce/wiki/Requisitos)
-* [Funcionalidades](https://github.com/marcelohama/cart-woocommerce/wiki/Funcionalidades)
-* [Instalação](https://github.com/marcelohama/cart-woocommerce/wiki/Instala%C3%A7%C3%A3o)
-* [Atualização](https://github.com/marcelohama/cart-woocommerce/wiki/Atualização)
-* Checkout Custom (Transparente)
-  * [Configurando Cartão de Crédito e Boleto](https://github.com/marcelohama/cart-woocommerce/wiki/Configura%C3%A7%C3%A3o-Checkout-Custom-(Cart%C3%A3o-de-Cr%C3%A9dito-e-Boleto))
+* [Requisitos de Sistema](https://github.com/mercadopago/cart-woocommerce/wiki/Requisitos-de-Sistema)
+* [Funcionalidades](https://github.com/mercadopago/cart-woocommerce/wiki/Funcionalidades)
+* [Instalação](https://github.com/mercadopago/cart-woocommerce/wiki/Instalação)
+* [Configurações Gerais do Mercado Pago](https://github.com/mercadopago/cart-woocommerce/wiki/Configurações-Gerais-do-Mercado-Pago)
+* Checkout Transparente
+  * [Configurando o Cartão de Crédito](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-o-Cartão-de-Crédito)
+  * [Configurando os Boletos](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-os-Boletos)
 * Checkout Básico
-  * [Configurando o Checkout Redirect, Iframe e LightBox](https://github.com/marcelohama/cart-woocommerce/wiki/Configurando-o-Checkout-Cl%C3%A1ssico-(Redirect,-Iframe-e-LightBox))
-  * [Configurando o Mercado Envios](https://github.com/marcelohama/cart-woocommerce/wiki/Configurando-o-Mercado-Envios)
-  * [Configurando o Pagamento Recorrente](https://github.com/marcelohama/cart-woocommerce/wiki/Configurando-o-Pagamento-Recorrente)
-* [Configurações de status de Notificações de Pagamento](https://github.com/marcelohama/cart-woocommerce/wiki/Configurações-de-status-de-Notificações-de-Pagamento)
-* [FAQ](https://github.com/marcelohama/cart-woocommerce/wiki/FAQ-Portugues)
-* [Suporte](https://github.com/marcelohama/cart-woocommerce/wiki/Suporte)
+  * [Configurando o Checkout por Redirect, Iframe, ou LightBox](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-o-Checkout-por-Redirect,-Iframe,-ou-LightBox)
+  * [Configurando o Mercado Envios](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-o-Mercado-Envios)
+  * [Configurando as Assinaturas](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-as-Assinaturas)
+* [Configurações das Notificações Instantâneas de Pagamento](https://github.com/mercadopago/cart-woocommerce/wiki/Configurações-das-Notificações-Instantâneas-de-Pagamento)
+* [Atualização](https://github.com/mercadopago/cart-woocommerce/wiki/Atualização)
+* [FAQ](https://github.com/mercadopago/cart-woocommerce/wiki/FAQ-Portuguese)
+* [Suporte Técnico](https://github.com/mercadopago/cart-woocommerce/wiki/Suporte-Técnico)
+* [Como Contribuir](https://github.com/mercadopago/cart-woocommerce/wiki/Como-Contribuir)
