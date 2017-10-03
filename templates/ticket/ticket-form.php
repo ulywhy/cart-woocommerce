@@ -466,12 +466,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 		};
 
-		/*
-		*
-		* Utilities
-		*
-		*/
-
 		MPv1Ticket.referer = (function () {
 			var referer = window.location.protocol + "//" +
 				window.location.hostname + ( window.location.port ? ":" + window.location.port: "" );
@@ -800,15 +794,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			if (MPv1Ticket.site_id == "MLB") {
 				MPv1Ticket.actionsMLB();
 			}
-			/*if (MPv1Ticket.site_id != "MLB") {
-				document.querySelector(MPv1Ticket.selectors.formTicket).style.display = "none";
-			} else {
-				MPv1Ticket.addListenerEvent(
-					document.querySelector(MPv1Ticket.selectors.form),
-					"submit",
-					MPv1Ticket.validateInputsTicket
-				);
-			}*/
 
 			return;
 
@@ -826,7 +811,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	MPv1Ticket.getAmountWithoutDiscount = function() {
 		return document.querySelector( MPv1Ticket.selectors.amount ).value;
 	}
-	
 	
 	MPv1Ticket.text.apply = "<?php echo __( 'Apply', 'woocommerce-mercadopago' ); ?>";
 	MPv1Ticket.text.remove = "<?php echo __( 'Remove', 'woocommerce-mercadopago' ); ?>";

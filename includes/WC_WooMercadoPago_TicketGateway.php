@@ -1020,9 +1020,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		}
 		global $woocommerce;
 		$w_cart = $woocommerce->cart;
-		// Check if we have SSL.
+		// Check if we have SSL in non debug mode
 		if ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) {
-			return false;
+			$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
+			if ( empty ( $_mp_debug_mode ) ) {
+				return false;
+			}
 		}
 		// Check for recurrent product checkout.
 		if ( isset( $w_cart ) ) {

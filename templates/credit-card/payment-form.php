@@ -737,9 +737,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				// fragment.appendChild(option);
 				for ( var i=0; i<payerCosts.length; i++) {
-					/*html_option += "<option value='" + payerCosts[i].installments + "'>" +
-					( payerCosts[i].recommended_message || payerCosts[i].installments ) +
-					"</option>";*/
 					// Resolution 51/2017
 					var dataInput = "";
 					if ( MPv1.site_id == "MLA" ) {
@@ -1135,12 +1132,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			"change", MPv1.guessingPaymentMethod
 		);
 
-		/*
-		*
-		* Utilities
-		*
-		*/
-
 		MPv1.referer = (function () {
 			var referer = window.location.protocol + "//" +
 				window.location.hostname + ( window.location.port ? ":" + window.location.port: "" );
@@ -1360,7 +1351,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 		return;
 	}
-
 	
 	MPv1.text.apply = "<?php echo __( 'Apply', 'woocommerce-mercadopago' ); ?>";
 	MPv1.text.remove = "<?php echo __( 'Remove', 'woocommerce-mercadopago' ); ?>";
