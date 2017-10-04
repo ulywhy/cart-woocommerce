@@ -808,7 +808,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		return document.querySelector( MPv1Ticket.selectors.amount ).value;
 	}
 	
-	
 	MPv1Ticket.text.apply = "<?php echo __( 'Apply', 'woocommerce-mercadopago' ); ?>";
 	MPv1Ticket.text.remove = "<?php echo __( 'Remove', 'woocommerce-mercadopago' ); ?>";
 	MPv1Ticket.text.coupon_empty = "<?php echo __( 'Please, inform your coupon code', 'woocommerce-mercadopago' ); ?>";
