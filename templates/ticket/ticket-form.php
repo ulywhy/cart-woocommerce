@@ -31,10 +31,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </div>
 
-<fieldset id="ticket_checkout_fieldset" style="margin:0px; background:white; display: none;">
+<fieldset id="ticket_checkout_fieldset" style="margin:-1px; background:white; display: none;">
 
 	<!-- coupom -->
-	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" style="padding:0px 12px 16px 12px;" >
+	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" style="padding:0px 24px 16px 24px;" >
 		<div class="form-col-8">
 			<label for="couponCodeLabel"><?php echo esc_html__( 'Discount Coupon', 'woocommerce-mercadopago' ); ?></label>
 			<input type="text" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]"
@@ -148,19 +148,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="form-col-4">
 					<label for="zipcode"><?php echo esc_html__( 'ZIP', 'woocommerce-mercadopago' ); ?><em class="obrigatorio"> *</em></label>
 					<input type="text" value="<?php echo $febraban['zipcode']; ?>"
-						id="zipcode" class="form-control-mine" name="mercadopago_ticket[zipcode]"
-						onkeydown="return (event.which >= 48 && event.which <= 57) || event.which == 8 || event.which == 46">
+						id="zipcode" class="form-control-mine" name="mercadopago_ticket[zipcode]">
 					<span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?php echo esc_html__( 'You must inform your ZIP', 'woocommerce-mercadopago' ); ?></span>
 				</div>
 			</div>
-			<div class="form-col-12">
+			<div class="form-col-12" style="padding:0px 20px 0px 20px;">
 				<label>
 					<span class="mensagem-febraban"><em class="obrigatorio">* </em><?php echo esc_html__( 'Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil.', 'woocommerce-mercadopago' ); ?></span>
 				</label>
 			</div>
 		</div>
 
-		<div style="padding:0px 36px 0px 36px; margin-left: -32px; margin-right: -32px;">
+		<div style="padding:0px 24px 0px 24px;">
 			<p>
 				<?php
 					if ( count( $payment_methods ) > 1 ) :
@@ -381,7 +380,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				url += "&coupon_id=" + document.querySelector( MPv1Ticket.selectors.couponCode ).value;
 				url += "&amount=" + document.querySelector( MPv1Ticket.selectors.amount ).value;
 				url += "&payer=" + MPv1Ticket.coupon_of_discounts.payer_email;
-				//url += "&payer=" + document.getElementById( "billing_email" ).value;
 
 				MPv1Ticket.AJAX({
 					url: url,
@@ -406,8 +404,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 							document.querySelector( MPv1Ticket.selectors.discount ).value =
 								response.response.coupon_amount;
 							document.querySelector( MPv1Ticket.selectors.mpCouponApplyed ).innerHTML =
-								//"<div style='border-style: solid; border-width:thin; " +
-								//"border-color: #009EE3; padding: 8px 8px 8px 8px; margin-top: 4px;'>" +
 								MPv1Ticket.text.discount_info1 + " <strong>" +
 								MPv1Ticket.currencyIdToCurrency( response.response.currency_id ) + " " +
 								Math.round( response.response.coupon_amount * 100 ) / 100 +
@@ -465,12 +461,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				} );
 			}
 		};
-
-		/*
-		*
-		* Utilities
-		*
-		*/
 
 		MPv1Ticket.referer = (function () {
 			var referer = window.location.protocol + "//" +
@@ -800,15 +790,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			if (MPv1Ticket.site_id == "MLB") {
 				MPv1Ticket.actionsMLB();
 			}
-			/*if (MPv1Ticket.site_id != "MLB") {
-				document.querySelector(MPv1Ticket.selectors.formTicket).style.display = "none";
-			} else {
-				MPv1Ticket.addListenerEvent(
-					document.querySelector(MPv1Ticket.selectors.form),
-					"submit",
-					MPv1Ticket.validateInputsTicket
-				);
-			}*/
 
 			return;
 

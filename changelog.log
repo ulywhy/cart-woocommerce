@@ -1,5 +1,27 @@
 CHANGELOG:
 
+= v3.0.1 (04/10/2017) =
+* Bug fixes
+	- We fixed a Javascript problem that are occurring when payments were retried in custom checkout and tickets;
+	- Resolved the size of Mercado Pago icon in checkout form.
+* Improvements
+	- Allow merchants to customize IPN URL as in some cases the store is hosted in subdomains;
+	- Optmizations in form layout of custom checkout and tickets;
+	- Validating currency consistency before trying conversions;
+	- References to the new docummentations.
+
+= v3.0.0 (25/09/2017) =
+* Features
+	- All features already present in <a href="https://br.wordpress.org/plugins/woocommerce-mercadopago/">Woo-Mercado-Pago-Module 2.x</a>;
+	- Customization of status mappings between order and payments.
+* Improvements
+	- Added CNPJ document for brazilian tickets;
+	- Optimization in HTTP requests and algorithms;
+	- Removal of several redundancies;
+	- HTML and Javascript separation;
+	- Improvements in the checklist of system status;
+	- More intuitive menus and admin navigations.
+
 = v2.2.15 (22/09/2017) =
 * Bug fixes
 	- Synchronizing Mercado Pago account when WooCommerce back-office cancels an order.

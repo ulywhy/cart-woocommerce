@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-Basepath: ../Documents/woocommerce (MAMP)/wp-content/plugins/woo-mercado-pago-module\n"
 "X-Generator: Poedit 1.8.7\n"
 "Last-Translator: \n"
-"Language: es_MX\n"
+"Language: es_VE\n"
 "X-Poedit-SearchPath-0: .\n"
 
 msgid "This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store."
@@ -1008,3 +1008,9 @@ msgstr "RAZÓN SOCIAL"
 
 msgid "CNPJ"
 msgstr "CNPJ"
+
+msgid "Custom Domain for IPN"
+msgstr "Dominio personalizado para IPN"
+
+msgid "If your store is hosted as a subdomain, please inform the complete store URL here.<br>Format should be as: <code>https://yourdomain.com/yoursubdomain</code>."
+msgstr "Si su tienda está alojada como un subdominio, por favor informe la URL completa de la tienda aquí.<br>El formato debe ser como: <code>https://yourdomain.com/yoursubdomain</code>."

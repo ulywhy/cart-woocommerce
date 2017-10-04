@@ -25,10 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </div>
 
-<fieldset id="custom_checkout_fieldset" style="margin:0px; background:white; display: none;">
+<fieldset id="custom_checkout_fieldset" style="margin:-1px; background:white; display: none;">
 
-	<div class="mp-box-inputs mp-line" id="mercadopago-form-coupon"
-	style="padding:0px 12px 16px 12px;">
+	<div class="mp-box-inputs mp-line" id="mercadopago-form-coupon" style="padding:0px 24px 16px 24px;">
 		<label for="couponCodeLabel">
 			<?php echo esc_html__( 'Discount Coupon', 'woocommerce-mercadopago' ); ?>
 		</label>
@@ -50,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<!-- payment method -->
-	<div id="mercadopago-form-customer-and-card" style="padding:0px 12px 0px 12px;">
+	<div id="mercadopago-form-customer-and-card" style="padding:0px 24px 0px 24px;">
 		<div class="mp-box-inputs mp-line">
 			<label for="paymentMethodIdSelector">
 				<?php echo esc_html__( 'Payment Method', 'woocommerce-mercadopago' ); ?> <em>*</em>
@@ -99,7 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div> <!--  end mercadopago-form-osc -->
 
-	<div id="mercadopago-form" style="padding:0px 12px 0px 12px;">
+	<div id="mercadopago-form" style="padding:0px 24px 0px 24px;">
 		<!-- Card Number -->
 		<div class="mp-box-inputs mp-col-100">
 			<label for="cardNumber">
@@ -1266,7 +1265,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				document.querySelector( MPv1.selectors.mpDoc ).style.display = "none";
 
 				document.querySelector( MPv1.selectors.formCustomerAndCard ).removeAttribute( "style" );
-				document.querySelector( MPv1.selectors.formCustomerAndCard ).style.padding = "36px 12px 16px 12px";
+				document.querySelector( MPv1.selectors.formCustomerAndCard ).style.padding = "0px 24px 0px 24px";
 				document.querySelector( MPv1.selectors.mpSecurityCodeCustomerAndCard ).style.display = "none";
 
 				// Removing not used fields for this country.
@@ -1331,7 +1330,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		} else {
 			document.querySelector( MPv1.selectors.mpSecurityCodeCustomerAndCard ).style.display = "none";
 			document.querySelector( MPv1.selectors.form ).removeAttribute( "style" );
-			document.querySelector( MPv1.selectors.form ).style.padding = "0px 12px 0px 12px";
+			document.querySelector( MPv1.selectors.form ).style.padding = "0px 24px 0px 24px";
 		}
 		Mercadopago.clearSession();
 		if ( MPv1.create_token_on.event ) {

@@ -87,7 +87,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// ============================================================
 
 		// General constants.
-		const VERSION = '3.0.0';
+		const VERSION = '3.0.1';
 		const MIN_PHP = 5.6;
 
 		// Arrays to hold configurations for LatAm environment.
@@ -434,19 +434,22 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		 * @return a float that is the rate of conversion.
 		 */
 		public static function get_conversion_rate( $used_currency ) {
+			$wc_currency = get_woocommerce_currency();
 			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 			MPRestClient::set_email( $email );
-			$currency_obj = MPRestClient::get(
-				array( 'uri' => '/currency_conversions/search?' .
-					'from=' . get_woocommerce_currency() .
-					'&to=' . $used_currency
-				),
-				WC_Woo_Mercado_Pago_Module::get_module_version()
-			);
-			if ( isset( $currency_obj['response'] ) ) {
-				$currency_obj = $currency_obj['response'];
-				if ( isset( $currency_obj['ratio'] ) ) {
-					return ( (float) $currency_obj['ratio'] );
+			if ( strlen( $wc_currency ) == 3 && strlen( $used_currency ) == 3 ) {
+				$currency_obj = MPRestClient::get(
+					array( 'uri' => '/currency_conversions/search?' .
+						'from=' . get_woocommerce_currency() .
+						'&to=' . $used_currency
+					),
+					WC_Woo_Mercado_Pago_Module::get_module_version()
+				);
+				if ( isset( $currency_obj['response'] ) ) {
+					$currency_obj = $currency_obj['response'];
+					if ( isset( $currency_obj['ratio'] ) ) {
+						return ( (float) $currency_obj['ratio'] );
+					}
 				}
 			}
 			return -1;
@@ -941,6 +944,11 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					} else {
 						update_option( '_mp_store_identificator', '', true );
 					}
+					if ( isset( $_POST['custom_domain'] ) ) {
+						update_option( '_mp_custom_domain', $_POST['custom_domain'], true );
+					} else {
+						update_option( '_mp_custom_domain', '', true );
+					}
 					if ( isset( $_POST['currency_conversion_v0'] ) ) {
 						update_option( '_mp_currency_conversion_v0', $_POST['currency_conversion_v0'], true );
 					} else {
@@ -1020,6 +1028,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				}
 				// Store identification.
 				$store_identificator = get_option( '_mp_store_identificator', 'WC-' );
+				// Custom domain for IPN.
+				$custom_domain = get_option( '_mp_custom_domain', '' );
 				// Debug mode.
 				$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
 				if ( empty( $_mp_debug_mode ) ) {

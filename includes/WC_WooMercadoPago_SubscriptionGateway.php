@@ -35,7 +35,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		//$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) )
+			plugins_url( 'assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
 		);
 		
 		$this->method_title = __( 'Mercado Pago - Subscription', 'woocommerce-mercadopago' );
@@ -662,7 +662,12 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				}
 
 				// Do not set IPN url if it is a localhost.
-				if ( ! strrpos( get_site_url(), 'localhost' ) ) {
+				$url = get_option( '_mp_custom_domain', '' );
+				if ( ! empty( $url ) && filter_var( $url, FILTER_VALIDATE_URL ) ) {
+					$preapproval['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
+						esc_url( $url . '/wc-api/WC_WooMercadoPago_SubscriptionGateway' )
+					);
+				} elseif ( ! strrpos( get_site_url(), 'localhost' ) ) {
 					$preapproval['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
 						esc_url( WC()->api_request_url( 'WC_WooMercadoPago_SubscriptionGateway' ) )
 					);
@@ -793,7 +798,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				$price_percent = $this->gateway_discount / 100;
 				if ( $price_percent > 0 ) {
 					$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago' ) . ' ' .
-						strip_tags( wc_price( $total * $price_percent ) ) . ' )';
+						strip_tags( wc_price( $total * $price_percent ) ) . ')';
 				}
 			}
 		}

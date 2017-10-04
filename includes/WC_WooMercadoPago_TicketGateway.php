@@ -863,7 +863,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		}
 
 		// Do not set IPN url if it is a localhost.
-		if ( ! strrpos( get_site_url(), 'localhost' ) ) {
+		$url = get_option( '_mp_custom_domain', '' );
+		if ( ! empty( $url ) && filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
+				esc_url( $url . '/wc-api/WC_WooMercadoPago_TicketGateway' )
+			);
+		} elseif ( ! strrpos( get_site_url(), 'localhost' ) ) {
 			$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
 				esc_url( WC()->api_request_url( 'WC_WooMercadoPago_TicketGateway' ) )
 			);
@@ -999,7 +1004,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				$price_percent = $this->gateway_discount / 100;
 				if ( $price_percent > 0 ) {
 					$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago' ) . ' ' .
-						strip_tags( wc_price( $total * $price_percent ) ) . ' )';
+						strip_tags( wc_price( $total * $price_percent ) ) . ')';
 				}
 			}
 		}
@@ -1020,9 +1025,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		}
 		global $woocommerce;
 		$w_cart = $woocommerce->cart;
-		// Check if we have SSL.
+		// If we do not have SSL in production environment, we are not allowed to process.
+		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
 		if ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) {
-			return false;
+			if ( empty ( $_mp_debug_mode ) ) {
+				return false;
+			}
 		}
 		// Check for recurrent product checkout.
 		if ( isset( $w_cart ) ) {
