@@ -826,15 +826,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		}
 
 		// Do not set IPN url if it is a localhost.
-		$url = get_option( '_mp_custom_domain', '' );
-		if ( ! empty( $url ) && filter_var( $url, FILTER_VALIDATE_URL ) ) {
-			$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
-				esc_url( $url . '/wc-api/WC_WooMercadoPago_CustomGateway' )
-			);
-		} elseif ( ! strrpos( get_site_url(), 'localhost' ) ) {
-			$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
-				esc_url( WC()->api_request_url( 'WC_WooMercadoPago_CustomGateway' ) )
-			);
+		if ( ! strrpos( get_site_url(), 'localhost' ) ) {
+			$preferences['notification_url'] = WC()->api_request_url( 'WC_WooMercadoPago_CustomGateway' );
 		}
 
 		// Discounts features.

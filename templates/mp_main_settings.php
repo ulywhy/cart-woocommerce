@@ -297,7 +297,7 @@
 					</p>
 				</td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<th scope="row"><label><?php echo __( 'Custom Domain for IPN', 'woocommerce-mercadopago' ); ?></label></th>
 				<td>
 					<input name="custom_domain" type="text" id="custom_domain" aria-describedby="tagline-description" value="<?php echo $custom_domain; ?>" class="regular-text"/>
@@ -307,7 +307,7 @@
 						); ?>
 					</p>
 				</td>
-			</tr>
+			</tr>-->
 		</table>
 
 		<table class="form-table" border="0.5" frame="hsides" rules="void">

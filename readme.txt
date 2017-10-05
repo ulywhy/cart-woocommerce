@@ -107,7 +107,6 @@ Please, check our FAQ at: https://www.mercadopago.com.br/ajuda/
 	- Resolved the size of Mercado Pago icon in checkout form.
 * Improvements
 	- Allowing absence of SSL if debug mode is enabled;
-	- Allow merchants to customize IPN URL as in some cases the store is hosted in subdomains;
 	- Optmizations in form layout of custom checkout and tickets;
 	- Validating currency consistency before trying conversions;
 	- References to the new docummentations.
