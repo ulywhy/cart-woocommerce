@@ -32,10 +32,10 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-custom';
 		$this->supports = array( 'products', 'refunds' );
-		/*$this->icon = apply_filters(
+		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			plugins_url( 'assets/images/credit_card.png', plugin_dir_path( __FILE__ ) )
-		);*/
+			plugins_url( 'assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
+		);
 
 		$this->method_title = __( 'Mercado Pago - Custom Checkout', 'woocommerce-mercadopago' );
 		$this->method_description = '<img width="200" height="52" src="' .
