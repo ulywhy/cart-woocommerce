@@ -1008,6 +1008,3 @@ msgstr "RAZÓN SOCIAL"
 
 msgid "CNPJ"
 msgstr "CNPJ"
-
-msgid "Custom Domain for IPN"
-msgstr "Dominio personalizado para IPN"
