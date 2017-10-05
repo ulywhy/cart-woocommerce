@@ -5,7 +5,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.8
 Tested up to: 4.8
 Requires PHP: 5.6
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,7 +45,7 @@ You have two ways to install this module: from your WordPress Store, or by downl
 3. You should find the module read to be installed. Click install.
 
 = Manual Download =
-1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woocommerce-mercadopago.3.0.0.zip">WordPress Plugin Directory</a>);
+1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woocommerce-mercadopago.3.0.1.zip">WordPress Plugin Directory</a>);
 2. Unzip the folder and find "woocommerce-mercadopago" directory;
 3. Copy "woocommerce-mercadopago" directory to **[WordPressRootDirectory]/wp-content/plugins/** directory.
 
@@ -101,11 +101,23 @@ Please, check our FAQ at: https://www.mercadopago.com.br/ajuda/
 
 == Changelog ==
 
+= v3.0.1 (04/10/2017) =
+* Bug fixes
+	- We fixed a Javascript problem that are occurring when payments were retried in custom checkout and tickets;
+	- Resolved the size of Mercado Pago icon in checkout form.
+* Improvements
+	- Allowing absence of SSL if debug mode is enabled;
+	- Allow merchants to customize IPN URL as in some cases the store is hosted in subdomains;
+	- Optmizations in form layout of custom checkout and tickets;
+	- Validating currency consistency before trying conversions;
+	- References to the new docummentations.
+
 = v3.0.0 - 25/09/2017 =
 * Features
 	- All features already present in <a href="https://br.wordpress.org/plugins/woocommerce-mercadopago/">Woo-Mercado-Pago-Module 2.x</a>;
 	- Customization of status mappings between order and payments.
 * Improvements
+	- Added CNPJ document for brazilian tickets;
 	- Optimization in HTTP requests and algorithms;
 	- Removal of several redundancies;
 	- HTML and Javascript separation;
