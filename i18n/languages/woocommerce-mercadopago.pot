@@ -1008,9 +1008,3 @@ msgstr ""
 
 msgid "CNPJ"
 msgstr ""
-
-msgid "Custom Domain for IPN"
-msgstr ""
-
-msgid "If your store is hosted as a subdomain, please inform the complete store URL here.<br>Format should be as: <code>https://yourdomain.com/yoursubdomain</code>."
-msgstr ""

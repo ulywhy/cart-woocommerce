@@ -1008,9 +1008,3 @@ msgstr "Obligatorio informar su ESTADO"
 
 msgid "You must inform your ZIP"
 msgstr "Obligatorio informar su CÓDIGO POSTAL"
-
-msgid "Custom Domain for IPN"
-msgstr "Dominio personalizado para IPN"
-
-msgid "If your store is hosted as a subdomain, please inform the complete store URL here.<br>Format should be as: <code>https://yourdomain.com/yoursubdomain</code>."
-msgstr "Si su tienda está alojada como un subdominio, por favor informe la URL completa de la tienda aquí.<br>El formato debe ser como: <code>https://yourdomain.com/yoursubdomain</code>."
