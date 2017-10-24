@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <fieldset id="ticket_checkout_fieldset" style="margin:-1px; background:white; display: none;">
 
 	<!-- coupom -->
-	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" style="padding:0px 24px 16px 24px;" >
+	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" style="padding:0px 12px 16px 12px;" >
 		<div class="form-col-8">
 			<label for="couponCodeLabel"><?php echo esc_html__( 'Discount Coupon', 'woocommerce-mercadopago' ); ?></label>
 			<input type="text" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]"
@@ -159,7 +159,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div style="padding:0px 24px 0px 24px;">
+		<div style="padding:0px 12px 0px 12px;">
 			<p>
 				<?php
 					if ( count( $payment_methods ) > 1 ) :
@@ -789,6 +789,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			// flow: MLB
 			if (MPv1Ticket.site_id == "MLB") {
 				MPv1Ticket.actionsMLB();
+			} else {
+				document.querySelector(MPv1Ticket.selectors.formTicket).style.display = "none";
 			}
 
 			return;

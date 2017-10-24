@@ -1,5 +1,11 @@
 CHANGELOG:
 
+= v3.0.3 (25/10/2017) =
+* Features
+	- Rollout to Uruguay for Custom Checkout and Tickets.
+* Bug fixes
+	- Not showing ticket form when not needed.
+
 = v3.0.2 (19/10/2017) =
 * Bug fixes
 	- Fixed the absence of [zip_code] field in registered tickets for Brazil.
@@ -119,7 +125,7 @@ CHANGELOG:
 = v2.1.9 (23/03/2017) =
 * Features
 	- Mercado Envios for Basic Checkout. Now, merchants can use Mercado Envios services to ship products to their customers. For now, only available to Argentina, Brazil, and Mexico.
-	
+
 = v2.1.8 (13/02/2017) =
 * Features
 	- Rollout to Uruguay. This plugin is now supporting Uruguay for Basic Checkout with its local language translations.
