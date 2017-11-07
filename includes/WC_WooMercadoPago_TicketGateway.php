@@ -1232,7 +1232,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					);
 				} else {
 					$order->update_status(
-						WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'processing' )
+						WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'approved' )
 					);
 				}
 				break;
