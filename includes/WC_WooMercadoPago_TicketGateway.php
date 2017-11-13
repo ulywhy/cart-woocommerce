@@ -1220,14 +1220,10 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				);
 				if ( $this->stock_reduce_mode == 'no' ) {
 					$order->payment_complete();
-					$order->update_status(
-						WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'approved' )
-					);
-				} else {
-					$order->update_status(
-						WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'processing' )
-					);
 				}
+				$order->update_status(
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'approved' )
+				);
 				break;
 			case 'pending':
 				$order->update_status(
