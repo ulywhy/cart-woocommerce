@@ -19,7 +19,7 @@ require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
 class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 
 	public function __construct( $is_instance = false ) {
-		
+
 		// Mercao Pago instance.
 		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( true );
 		$this->mp = new MP(
@@ -55,7 +55,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		$this->coupon_mode        = $this->get_option( 'coupon_mode', 'no' );
 		$this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
 		$this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
-		
+
 		// Logging and debug.
 		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
 		if ( ! empty ( $_mp_debug_mode ) ) {
@@ -105,11 +105,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			'woocommerce_gateway_title',
 			array( $this, 'get_payment_method_title_ticket' ), 10, 2
 		);
-		// Customizes thank you page.
-		add_filter(
-			'woocommerce_thankyou_order_received_text',
-			array( $this, 'show_ticket_button' ), 10, 2
-		);
 
 		if ( ! empty( $this->settings['enabled'] ) && $this->settings['enabled'] == 'yes' ) {
 			if ( ! $is_instance ) {
@@ -120,7 +115,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				);
 				// Checkout updates.
 				add_action(
-					'woocommerce_thankyou',
+					'woocommerce_thankyou_' . $this->id,
 					array( $this, 'update_mp_settings_script_ticket' )
 				);
 			}
@@ -380,7 +375,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				$message = $response['response']['message'];
 				$status = $response['status'];
 				$this->write_log( __FUNCTION__,
-					'cancel payment of id ' . $p_id . ' => ' . 
+					'cancel payment of id ' . $p_id . ' => ' .
 					( $status >= 200 && $status < 300 ? 'SUCCESS' : 'FAIL - ' . $message )
 				);
 			}
@@ -456,25 +451,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				MA.put();
 			</script>';
 		}
-	}
 
-	public function add_checkout_scripts_ticket() {
-		if ( is_checkout() && $this->is_available() ) {
-			if ( ! get_query_var( 'order-received' ) ) {
-				wp_enqueue_style(
-					'woocommerce-mercadopago-style',
-					plugins_url( 'assets/css/custom_checkout_mercadopago.css', plugin_dir_path( __FILE__ ) )
-				);
-				wp_enqueue_script(
-					'woocommerce-mercadopago-ticket-js',
-					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
-				);
-			}
-		}
-	}
-
-	public function show_ticket_button( $thankyoutext, $order ) {
-
+		$order = wc_get_order( $order_id );
 		$used_gateway = ( method_exists( $order, 'get_meta' ) ) ?
 			$order->get_meta( '_used_gateway' ) :
 			get_post_meta( $order->id, '_used_gateway', true );
@@ -496,11 +474,26 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					__( 'Print the Ticket', 'woocommerce-mercadopago' ) .
 				'</a> ';
 		$added_text = '<p>' . $html . '</p>';
-		return $added_text;
+		echo $added_text;
+	}
+
+	public function add_checkout_scripts_ticket() {
+		if ( is_checkout() && $this->is_available() ) {
+			if ( ! get_query_var( 'order-received' ) ) {
+				wp_enqueue_style(
+					'woocommerce-mercadopago-style',
+					plugins_url( 'assets/css/custom_checkout_mercadopago.css', plugin_dir_path( __FILE__ ) )
+				);
+				wp_enqueue_script(
+					'woocommerce-mercadopago-ticket-js',
+					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
+				);
+			}
+		}
 	}
 
 	public function payment_fields() {
-		
+
 		$amount = $this->get_order_total();
 		$logged_user_email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$customer = isset( $logged_user_email ) ? $this->mp->get_or_create_customer( $logged_user_email ) : null;
@@ -713,7 +706,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					array_push( $items, array(
 						'id' => $item['product_id'],
 						'title' => html_entity_decode( $product_title ) . ' x ' . $item['qty'],
-						'description' => sanitize_file_name( html_entity_decode( 
+						'description' => sanitize_file_name( html_entity_decode(
 							strlen( $product_content ) > 230 ?
 							substr( $product_content, 0, 230 ) . '...' :
 							$product_content
@@ -922,7 +915,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				$this->write_log(
 					__FUNCTION__,
 					'payment link generated with success from mercado pago, with structure as follow: ' .
-					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE ) 
+					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 				);
 				// TODO: Verify sandbox availability.
 				//if ( 'yes' == $this->sandbox ) {
@@ -962,7 +955,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			$ticket_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket' ) {
 
 			$this->write_log( __FUNCTION__, 'ticket checkout trying to apply discount...' );
-			
+
 			$value = ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
 				floor( $ticket_checkout['discount'] / $ticket_checkout['currency_ratio'] ) :
 				floor( $ticket_checkout['discount'] / $ticket_checkout['currency_ratio'] * 100 ) / 100;

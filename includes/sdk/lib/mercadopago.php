@@ -12,7 +12,7 @@ $GLOBALS['LIB_LOCATION'] = dirname( __FILE__ );
 
 class MP {
 
-	private $version = '3.0.3';
+	private $version = '3.0.4';
 	private $client_id;
 	private $client_secret;
 	private $ll_access_token;
@@ -878,7 +878,7 @@ class MPRestClient {
 		if ( $api_result === FALSE ) {
 			throw new MercadoPagoException ( curl_error ( $connect ) );
 		}
-		
+
 		if ( $api_http_code != null && $api_result != null ) {
 			// A common response without error.
 			$response = array (
@@ -886,7 +886,7 @@ class MPRestClient {
 				'response' => json_decode( $api_result, true )
 			);
 		}
-		
+
 		// Error log API.
 		if ( $response != null && $response['status'] >= 400 && self::$check_loop == 0 ) {
 			try {
@@ -932,14 +932,14 @@ class MPRestClient {
 				throw new MercadoPagoException( 'error to call API LOGS' . $e );
 			}
 		}
-	
+
 		self::$check_loop = 0;
-	
+
 		curl_close( $connect );
-	
+
 		return $response;
 	}
-	
+
 	private static function sendErrorLog( $code, $errors, $version ) {
 		$data = array(
 			'code' => $code,
@@ -1001,7 +1001,7 @@ class MPRestClient {
 }
 
 class MeliRestClient {
-	
+
 	const API_BASE_URL = 'https://api.mercadolibre.com';
 	private static $email_admin = '';
 	private static $check_loop = 0;
@@ -1115,7 +1115,7 @@ class MeliRestClient {
 		if ( $api_result === FALSE ) {
 			throw new MercadoPagoException ( curl_error ( $connect ) );
 		}
-		
+
 		if ( $api_http_code != null && $api_result != null ) {
 			// A common response without error.
 			$response = array (
@@ -1123,7 +1123,7 @@ class MeliRestClient {
 				'response' => json_decode( $api_result, true ),
 			);
 		}
-		
+
 		// Error log API.
 		if ( $response != null && $response['status'] >= 400 && self::$check_loop == 0 ) {
 			try {
@@ -1169,14 +1169,14 @@ class MeliRestClient {
 				throw new MercadoPagoException( 'error to call API LOGS' . $e );
 			}
 		}
-	
+
 		self::$check_loop = 0;
-	
+
 		curl_close( $connect );
-	
+
 		return $response;
 	}
-	
+
 	private static function sendErrorLog( $code, $errors, $version ) {
 		$data = array(
 			'code' => $code,
