@@ -101,7 +101,7 @@ Please, check our FAQ at: https://www.mercadopago.com.br/ajuda/
 
 == Changelog ==
 
-= v3.0.4 (26/10/2017) =
+= v3.0.4 (13/11/2017) =
 * Improvements
 	- Improved webhook of ticket printing to a less generic one.
 
