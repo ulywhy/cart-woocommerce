@@ -5,7 +5,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.8
 Tested up to: 4.8
 Requires PHP: 5.6
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,7 +45,7 @@ You have two ways to install this module: from your WordPress Store, or by downl
 3. You should find the module read to be installed. Click install.
 
 = Manual Download =
-1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woocommerce-mercadopago.3.0.4.zip">WordPress Plugin Directory</a>);
+1. Get the module sources from a repository (<a href="https://github.com/mercadopago/cart-woocommerce/archive/master.zip">Github</a> or <a href="https://downloads.wordpress.org/plugin/woocommerce-mercadopago.3.0.5.zip">WordPress Plugin Directory</a>);
 2. Unzip the folder and find "woocommerce-mercadopago" directory;
 3. Copy "woocommerce-mercadopago" directory to **[WordPressRootDirectory]/wp-content/plugins/** directory.
 
@@ -100,6 +100,10 @@ Please, check our FAQ at: https://www.mercadopago.com.br/ajuda/
 4. `Plugin Options`
 
 == Changelog ==
+
+= v3.0.5 (22/11/2017) =
+* Bug fixes
+	- Fixed a bug in the URL of javascript source for light-box window.
 
 = v3.0.4 (13/11/2017) =
 * Improvements
