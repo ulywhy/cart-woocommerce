@@ -29,7 +29,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$this->mp->set_email( $email );
-		
+
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-subscription';
 		//$this->supports = array( 'products', 'refunds' );
@@ -37,7 +37,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			'woocommerce_mercadopago_icon',
 			plugins_url( 'assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
 		);
-		
+
 		$this->method_title = __( 'Mercado Pago - Subscription', 'woocommerce-mercadopago' );
 		$this->method_description = '<img width="200" height="52" src="' .
 			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) .
@@ -546,7 +546,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			$html = '<style type="text/css">
 						#MP-Checkout-dialog #MP-Checkout-IFrame { bottom: -28px !important; height: 590px !important; }
 					</style>';
-			$html = '<script type="text/javascript" src="//secure.mlstatic.com/mptools/render.js"></script>
+			$html = '<script type="text/javascript" src="https://secure.mlstatic.com/mptools/render.js"></script>
 					<script type="text/javascript">
 						(function() { $MPC.openCheckout({ url: "' . esc_url( $url ) . '", mode: "modal" }); })();
 					</script>';
@@ -879,7 +879,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			// ===== Client calls server when performing requests about cancelling or refund orders =====
 
 		} elseif ( isset( $data['id'] ) && isset( $data['topic'] ) ) {
-			
+
 			// ===== We have received a normal IPN call for this gateway =====
 			// Start process by getting the access token...
 			$access_token = array( 'access_token' => $this->mp->get_access_token() );

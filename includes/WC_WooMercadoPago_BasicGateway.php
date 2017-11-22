@@ -29,7 +29,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$this->mp->set_email( $email );
-		
+
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-basic';
 		$this->supports = array( 'products', 'refunds' );
@@ -483,14 +483,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	 * Handles the manual order cancellation in server-side.
 	 */
 	public function process_cancel_order_meta_box_actions( $order ) {
-		
+
 		$used_gateway = ( method_exists( $order, 'get_meta' ) ) ?
 			$order->get_meta( '_used_gateway' ) :
 			get_post_meta( $order->id, '_used_gateway', true );
 		$payments = ( method_exists( $order, 'get_meta' ) ) ?
 			$order->get_meta( '_Mercado_Pago_Payment_IDs' ) :
 			get_post_meta( $order->id, '_Mercado_Pago_Payment_IDs',	true );
-		
+
 		// A watchdog to prevent operations from other gateways.
 		if ( $used_gateway != 'WC_WooMercadoPago_BasicGateway' ) {
 			return;
@@ -546,7 +546,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 		$client_id = get_option( '_mp_client_id' );
 		$is_test_user = get_option( '_test_user_v0', false );
-		
+
 		if ( ! empty( $client_id ) && ! $is_test_user ) {
 
 			$w = WC_Woo_Mercado_Pago_Module::woocommerce_instance();
@@ -644,14 +644,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$url = $this->create_url( $order );
 
 		if ( 'modal' == $this->method && $url ) {
-			
+
 			$this->write_log( __FUNCTION__, 'rendering Mercado Pago lightbox (modal window).' );
 
 			// ===== The checkout is made by displaying a modal to the customer =====
 			$html = '<style type="text/css">
 						#MP-Checkout-dialog #MP-Checkout-IFrame { bottom: -28px !important; height: 590px !important; }
 					</style>';
-			$html = '<script type="text/javascript" src="//secure.mlstatic.com/mptools/render.js"></script>
+			$html = '<script type="text/javascript" src="https://secure.mlstatic.com/mptools/render.js"></script>
 					<script type="text/javascript">
 						(function() { $MPC.openCheckout({ url: "' . esc_url( $url ) . '", mode: "modal" }); })();
 					</script>';
