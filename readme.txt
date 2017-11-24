@@ -114,7 +114,7 @@ Bug fixes: Fixing a bug in Custom Checkout, that wasn't showing the form.
 > v2.2.12 (14/08/2017)
 Improvements: Improved layout alignment for custom checkout and tickets; Added a checklist for platform statuses of cURL, SSL and PHP verification; Added the ticket view after the checkout.
 Bug fixes: Fixed a bug that was locking inputs in ticket fields for Brazil.
-- v2.2.11 (24/07/2017)
+> v2.2.11 (24/07/2017)
 Improvements: Improved credential validation algorithm; Added FEBRABAN rules for brazilian tickets.
 Bug fixes: Resolved a bug when converting currency.
 > v2.2.10 (04/07/2017)
