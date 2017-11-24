@@ -96,7 +96,7 @@ For further information, you can check our FAQ at: https://www.mercadopago.com.b
 
 * If you're migrating between versions 1.x, 2.x or 3.x, please be sure to make a backup of your site and database, as there are many additional features and modifications between these versions.
 
-* Changelog of Woo Mercado Pago Module
+* Changelog of Woo Mercado Pago Module:
 > v2.2.18 (22/11/2017)
 Bug fixes: Fixed a bug in the URL of javascript source for light-box window.
 > v2.2.17 (13/11/2017)
@@ -201,7 +201,7 @@ Bug fixes: IPN URL wasn’t triggered when topic=payment. Fixed a bug for some s
 > v1.0.1 (23/03/2016)
 Improvements: Added payment ID in order custom fields information. Added some good informations about the payment in the order view; Removed some unused files/code. We've made some code cleaning; Redesign of the logic of preferences when creating cart, separating items. Itens are now separated in cart description. This increases the readability and consistency of informations in API level; Proper information of shipment cost. Previously, the shipment cost was passed together with the cart total order amount.
 > v1.0.0 (16/03/2016)
-* Features: LatAm Basic Checkout support. Great for merchants who want to get going quickly and easily. This is the basic payment integration with Mercado Pago. Want to see how it works on-the-fly? Please check this video: <a href="https://www.youtube.com/watch?v=DgOsX1eXjBU">Basic Checkout</a>; Set of configurable fields and customizations. Title, description, category, and external reference customizations, integrations via iframe, modal, and redirection, with configurable auto-returning, max installments and payment method exclusion setup; Sandbox and debug options. Basicer can test orders by enabling debug mode or using sandbox environment.
+Features: LatAm Basic Checkout support. Great for merchants who want to get going quickly and easily. This is the basic payment integration with Mercado Pago. Want to see how it works on-the-fly? Please check this video: <a href="https://www.youtube.com/watch?v=DgOsX1eXjBU">Basic Checkout</a>; Set of configurable fields and customizations. Title, description, category, and external reference customizations, integrations via iframe, modal, and redirection, with configurable auto-returning, max installments and payment method exclusion setup; Sandbox and debug options. Basicer can test orders by enabling debug mode or using sandbox environment.
 
 == Screenshots ==
 
