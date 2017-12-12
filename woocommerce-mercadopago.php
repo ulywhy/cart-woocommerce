@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce MercadoPago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store.
- * Version: 3.0.5
+ * Version: 3.0.6
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
@@ -80,6 +80,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - get_wc_status_for_mp_status( $mp_status )
 	 * - get_map( $selector_id )
 	 * - generate_refund_cancel_subscription( $domain, $success_msg, $fail_msg, $options, $str1, $str2, $str3, $str4 )
+	 * - is_product_dimensions_valid( $all_product_data )
 	 * @since 3.0.0
 	 */
 	class WC_Woo_Mercado_Pago_Module {
@@ -87,7 +88,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// ============================================================
 
 		// General constants.
-		const VERSION = '3.0.5';
+		const VERSION = '3.0.6';
 		const MIN_PHP = 5.6;
 
 		// Arrays to hold configurations for LatAm environment.
@@ -310,6 +311,9 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					$mp_v0 = new MP( WC_Woo_Mercado_Pago_Module::VERSION, $client_id, $client_secret );
 					$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 					$mp_v0->set_email( $email );
+					$locale = get_locale();
+					$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+					$mp_v0->set_locale( $locale[1] );
 					$access_token = $mp_v0->get_access_token();
 					$get_request = $mp_v0->get( '/users/me?access_token=' . $access_token );
 					if ( isset( $get_request['response']['site_id'] ) && ! empty( $access_token ) ) {
@@ -371,6 +375,9 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					$mp_v1 = new MP( WC_Woo_Mercado_Pago_Module::VERSION, $access_token );
 					$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 					$mp_v1->set_email( $email );
+					$locale = get_locale();
+					$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+					$mp_v1->set_locale( $locale[1] );
 					$access_token = $mp_v1->get_access_token();
 					$get_request = $mp_v1->get( '/users/me?access_token=' . $access_token );
 					if ( isset( $get_request['response']['site_id'] ) && ! empty( $public_key ) ) {
@@ -833,6 +840,34 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			'</table>';
 			return $subscription_js . $subscription_meta_box;
 		}
+		
+		/**
+		 * Check if product dimensions are well defined
+		 */
+		public static function is_product_dimensions_valid( $all_product_data ) {
+			if ( empty( $all_product_data ) ) {
+				return true;
+			}
+			foreach ( $all_product_data as $p ) {
+				$product = wc_get_product( $p->ID );
+				if ( ! $product->is_virtual() ) {
+					$dimensions = $product->get_dimensions( false );
+					if ( ! is_numeric( $dimensions['height'] ) ) {
+						return false;
+					}
+					if ( ! is_numeric( $dimensions['width'] ) ) {
+						return false;
+					}
+					if ( ! is_numeric( $dimensions['length'] ) ) {
+						return false;
+					}
+					if ( empty( $product->get_weight() ) || ! is_numeric( $product->get_weight() ) ) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
 
 	}
 
@@ -1000,6 +1035,16 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					__( 'SSL is missing in your site.', 'woocommerce-mercadopago' ) :
 					'<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
 					__( 'Your site has SSL enabled.', 'woocommerce-mercadopago' );
+				// Check porduct dimensions.
+				global $wpdb;
+				$all_product_data = $wpdb->get_results(
+					'SELECT ID FROM `' . $wpdb->prefix . 'posts` where post_type="product" and post_status = "publish"'
+				);
+				$is_all_products_with_valid_dimensions = WC_Woo_Mercado_Pago_Module::is_product_dimensions_valid( $all_product_data ) ?
+					'<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
+					__( 'Your products have theirs dimensions well defined.', 'woocommerce-mercadopago' ) :
+					'<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', __FILE__ ) . '"> ' .
+					__( 'You have product(s) with invalid dimensions.', 'woocommerce-mercadopago' );
 				// Create links for internal redirections to each payment solution.
 				$gateway_buttons = '<strong>' .
 					'<a class="button button-primary" href="' . esc_url( admin_url(

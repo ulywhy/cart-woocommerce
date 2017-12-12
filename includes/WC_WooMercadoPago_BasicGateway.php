@@ -29,6 +29,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$this->mp->set_email( $email );
+		$locale = get_locale();
+		$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+		$this->mp->set_locale( $locale[1] );
 
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-basic';
@@ -51,7 +54,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$this->mp->sandbox_mode( $this->sandbox );
 
 		// How checkout is shown.
-		$this->title              = $this->get_option( 'title' );
+		$this->title              = $this->get_option( 'title', __( 'Mercado Pago - Basic Checkout', 'woocommerce-mercadopago' ) );
 		$this->description        = $this->get_option( 'description' );
 		$this->method             = $this->get_option( 'method', 'iframe' );
 		$this->iframe_width       = $this->get_option( 'iframe_width', '640' );
@@ -375,6 +378,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			);
 			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 			$mp->set_email( $email );
+			$locale = get_locale();
+			$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+			$mp->set_locale( $locale[1] );
 			// Analytics.
 			if ( ! $is_test_user ) {
 				$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();

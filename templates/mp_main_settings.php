@@ -16,6 +16,8 @@
 				<?php echo $curl_message; ?>
 				<br>
 				<?php echo $is_ssl_message; ?>
+				<br>
+				<?php echo $is_all_products_with_valid_dimensions ?>
 			</td>
 			<th scope="row">
 				<?php echo $mp_logo; ?>

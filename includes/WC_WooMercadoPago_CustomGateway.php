@@ -28,6 +28,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$this->mp->set_email( $email );
+		$locale = get_locale();
+		$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+		$this->mp->set_locale( $locale[1] );
 		
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-custom';
@@ -48,7 +51,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		$this->mp->sandbox_mode( $this->sandbox );
 
 		// How checkout is shown.
-		$this->title              = $this->get_option( 'title' );
+		$this->title              = $this->get_option( 'title', __( 'Mercado Pago - Custom Checkout', 'woocommerce-mercadopago' ) );
 		$this->description        = $this->get_option( 'description' );
 		// How checkout payment behaves.
 		$this->coupon_mode        = $this->get_option( 'coupon_mode', 'no' );
@@ -247,6 +250,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			);
 			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 			$mp->set_email( $email );
+			$locale = get_locale();
+			$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+			$mp->set_locale( $locale[1] );
 			// Analytics.
 			$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
 			$infra_data['checkout_custom_credit_card'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
