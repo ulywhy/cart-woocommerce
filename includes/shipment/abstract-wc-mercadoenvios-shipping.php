@@ -118,6 +118,22 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 			return;
 		}
 
+		// Object package and zipcode.
+		$me_package = new WC_MercadoEnvios_Package( $package );
+		$dimensions = $me_package->get_data();
+		$zip_code = $package['destination']['postcode'];
+		
+		// An empty zipcode indicates that customer haven't set it yet
+		if ( empty( $zip_code ) ) {
+			return;
+		}
+		
+		// Check validity of dimensions
+		if ( ! is_numeric( $dimensions['height'] ) || ! is_numeric( $dimensions['width'] ) ||
+				 ! is_numeric( $dimensions['length'] ) || ! is_numeric( $dimensions['weight'] ) ) {
+			return;
+		}
+			
 		$shipping_method_id = $this->get_shipping_method_id( $site_id );
 		$mp = new MP(
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
@@ -126,11 +142,9 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$mp->set_email( $email );
-
-		// Object package and zipcode.
-		$me_package = new WC_MercadoEnvios_Package( $package );
-		$dimensions = $me_package->get_data();
-		$zip_code = $package['destination']['postcode'];
+		$locale = get_locale();
+		$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+		$mp->set_locale( $locale[1] );
 
 		// Height x width x length (centimeters), weight (grams).
 		$params = array(
@@ -342,6 +356,9 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$mp->set_email( $email );
+		$locale = get_locale();
+		$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+		$mp->set_locale( $locale[1] );
 
 		// Get default data.
 		$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();

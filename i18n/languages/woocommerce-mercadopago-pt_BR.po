@@ -1008,3 +1008,9 @@ msgstr "RAZÃO SOCIAL"
 
 msgid "CNPJ"
 msgstr "CNPJ"
+
+msgid "Your products have theirs dimensions well defined."
+msgstr "Seus produtos estão com as dimensões bem definidas."
+
+msgid "You have product(s) with invalid dimensions."
+msgstr "Um ou mais de seus produtos possuem dimensões inválidas."

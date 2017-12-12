@@ -1,5 +1,12 @@
 CHANGELOG:
 
+= v3.0.6 (13/12/2017) =
+* Improvements
+	- Added validation for dimensions of products;
+	- Added country code for analytics.
+* Bug fixes
+	- Fixed a problem related to the title of payment method, that were in blank when configuring the module for the first time.
+
 = v3.0.5 (22/11/2017) =
 * Bug fixes
 	- Fixed a bug in the URL of javascript source for light-box window.

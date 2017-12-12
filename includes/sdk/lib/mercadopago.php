@@ -12,7 +12,7 @@ $GLOBALS['LIB_LOCATION'] = dirname( __FILE__ );
 
 class MP {
 
-	private $version = '3.0.5';
+	private $version = '3.0.6';
 	private $client_id;
 	private $client_secret;
 	private $ll_access_token;
@@ -48,6 +48,11 @@ class MP {
 	public function set_email( $email ) {
 		MPRestClient::set_email( $email );
 		MeliRestClient::set_email( $email );
+	}
+	
+	public function set_locale( $country_code ) {
+		MPRestClient::set_locale( $country_code );
+		MeliRestClient::set_locale( $country_code );
 	}
 
 	public function sandbox_mode( $enable = NULL ) {
@@ -766,6 +771,7 @@ class MPRestClient {
 
 	const API_BASE_URL = 'https://api.mercadopago.com';
 	private static $email_admin = '';
+	private static $site_locale = '';
 	private static $check_loop = 0;
 
 	private static function build_request( $request, $version ) {
@@ -947,7 +953,8 @@ class MPRestClient {
 			'module_version' => $version,
 			'url_store' => $_SERVER['HTTP_HOST'],
 			'errors' => $errors,
-			'email_admin' => self::$email_admin
+			'email_admin' => self::$email_admin,
+			'country_initial' => self::$site_locale
 		);
 		$request = array(
 			'uri' => '/modules/log',
@@ -997,6 +1004,10 @@ class MPRestClient {
 	public static function set_email( $email ) {
 		self::$email_admin = $email;
 	}
+	
+	public static function set_locale( $country_code ) {
+		self::$site_locale = $country_code;
+	}
 
 }
 
@@ -1004,6 +1015,7 @@ class MeliRestClient {
 
 	const API_BASE_URL = 'https://api.mercadolibre.com';
 	private static $email_admin = '';
+	private static $site_locale = '';
 	private static $check_loop = 0;
 
 	private static function build_request( $request, $version ) {
@@ -1184,7 +1196,8 @@ class MeliRestClient {
 			'module_version' => $version,
 			'url_store' => $_SERVER['HTTP_HOST'],
 			'errors' => $errors,
-			'email_admin' => self::$email_admin
+			'email_admin' => self::$email_admin,
+			'country_initial' => self::$site_locale
 		);
 		$request = array(
 			'uri' => '/modules/log',
@@ -1233,6 +1246,10 @@ class MeliRestClient {
 
 	public static function set_email( $email ) {
 		self::$email_admin = $email;
+	}
+	
+	public static function set_locale( $country_code ) {
+		self::$site_locale = $country_code;
 	}
 
 }
