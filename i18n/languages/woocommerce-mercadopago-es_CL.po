@@ -1014,3 +1014,6 @@ msgstr "Sus productos tienen las dimensiones bien definidas."
 
 msgid "You have product(s) with invalid dimensions."
 msgstr "Hay un o más productos que tienen dimensiones invalidas."
+
+msgid "It seems you have <strong>Woo Mercado Pago Module</strong> installed. Please, uninstall it before using this version."
+msgstr "Parece que tienes el módulo <strong>Woo Mercado Pago Module</strong> instalado. Por favor, desinstálelo antes de usar esta versión."
