@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce MercadoPago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store.
- * Version: 3.0.6
+ * Version: 3.0.7
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
@@ -49,6 +49,23 @@ if ( version_compare( PHP_VERSION, '5.6', '<=' ) ) {
 	return;
 }
 
+/**
+ * Summary: Places a warning error to notify user that other older versions are active.
+ * Description: Places a warning error to notify user that other older versions are active.
+ * @since 3.0.7
+ */
+function wc_mercado_pago_notify_deprecated_presence() {
+	echo '<div class="error"><p>' .
+		__( 'It seems you have <strong>Woo Mercado Pago Module</strong> installed. Please, uninstall it before using this version.', 'woocommerce-mercadopago' ) .
+	'</p></div>';
+}
+
+// Check if previously versions are installed, as we can't let both operate.
+if ( class_exists( 'WC_WooMercadoPago_Module' ) ) {
+	add_action( 'admin_notices', 'wc_mercado_pago_notify_deprecated_presence' );
+	return;
+}
+
 // Load Mercado Pago SDK
 require_once dirname( __FILE__ ) . '/includes/sdk/lib/mercadopago.php';
 
@@ -88,7 +105,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// ============================================================
 
 		// General constants.
-		const VERSION = '3.0.6';
+		const VERSION = '3.0.7';
 		const MIN_PHP = 5.6;
 
 		// Arrays to hold configurations for LatAm environment.
@@ -172,7 +189,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 
 			// First of all, verify if WooCommerce is already installed.
 			if ( class_exists( 'WC_Payment_Gateway' ) ) {
-
+					
 				// Adds each Mercado Pago gateway as available payment method.
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_BasicGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
