@@ -49,6 +49,23 @@ if ( version_compare( PHP_VERSION, '5.6', '<=' ) ) {
 	return;
 }
 
+/**
+ * Summary: Places a warning error to notify user that other older versions are active.
+ * Description: Places a warning error to notify user that other older versions are active.
+ * @since 3.0.7
+ */
+function wc_mercado_pago_notify_deprecated_presence() {
+	echo '<div class="error"><p>' .
+		__( 'It seems you have <strong>Woo Mercado Pago Module</strong> installed. Please, uninstall it before using this version.', 'woocommerce-mercadopago' ) .
+	'</p></div>';
+}
+
+// Check if previously versions are installed, as we can't let both operate.
+if ( class_exists( 'WC_WooMercadoPago_Module' ) ) {
+	add_action( 'admin_notices', 'wc_mercado_pago_notify_deprecated_presence' );
+	return;
+}
+
 // Load Mercado Pago SDK
 require_once dirname( __FILE__ ) . '/includes/sdk/lib/mercadopago.php';
 
@@ -172,32 +189,25 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 
 			// First of all, verify if WooCommerce is already installed.
 			if ( class_exists( 'WC_Payment_Gateway' ) ) {
-
-				// Check if previously versions are installed, as we can't let both operate.
-				if ( ! class_exists( 'WC_WooMercadoPago_Module' ) ) {
 					
-					// Adds each Mercado Pago gateway as available payment method.
-					include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_BasicGateway.php';
-					include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
-					include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_TicketGateway.php';
-					include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_SubscriptionGateway.php';
-					include_once dirname( __FILE__ ) . '/includes/class-wc-product-mp_recurrent.php';
-					add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
+				// Adds each Mercado Pago gateway as available payment method.
+				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_BasicGateway.php';
+				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
+				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_TicketGateway.php';
+				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_SubscriptionGateway.php';
+				include_once dirname( __FILE__ ) . '/includes/class-wc-product-mp_recurrent.php';
+				add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
 
-					// Shipping.
-					include_once dirname( __FILE__ ) . '/includes/shipment/abstract-wc-mercadoenvios-shipping.php';
-					include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-shipping-normal.php';
-					include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-shipping-express.php';
-					include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-package.php';
-					add_filter( 'woocommerce_shipping_methods', array( $this, 'add_shipping' ) );
-					add_filter( 'woocommerce_available_payment_gateways', array( $this, 'filter_payment_method_by_shipping' ) );
+				// Shipping.
+				include_once dirname( __FILE__ ) . '/includes/shipment/abstract-wc-mercadoenvios-shipping.php';
+				include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-shipping-normal.php';
+				include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-shipping-express.php';
+				include_once dirname( __FILE__ ) . '/includes/shipment/class-wc-mercadoenvios-package.php';
+				add_filter( 'woocommerce_shipping_methods', array( $this, 'add_shipping' ) );
+				add_filter( 'woocommerce_available_payment_gateways', array( $this, 'filter_payment_method_by_shipping' ) );
 
-					// This adds custom links in the plugin page.
-					add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'woomercadopago_settings_link' ) );
-
-				} else {
-					add_action( 'admin_notices', array( $this, 'notify_deprecated_presence' ) );
-				}
+				// This adds custom links in the plugin page.
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'woomercadopago_settings_link' ) );
 
 			} else {
 				add_action( 'admin_notices', array( $this, 'notify_woocommerce_miss' ) );
@@ -272,16 +282,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					'<a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
 				) .
 				'</p></div>';
-		}
-
-		/**
-		 * Summary: Places a warning error to notify user that other older versions are active.
-		 * Description: Places a warning error to notify user that other older versions are active.
-		 */
-		public function notify_deprecated_presence() {
-			echo '<div class="error"><p>' .
-				__( 'It seems you have <strong>Woo Mercado Pago Module</strong> installed. Please, uninstall it before using this version.', 'woocommerce-mercadopago' ) .
-			'</p></div>';
 		}
 
 		// Add settings link on plugin page.
