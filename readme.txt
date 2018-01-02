@@ -1,5 +1,5 @@
 === WooCommerce MercadoPago ===
-Contributors: mercadopago, mercadolivre, claudiosanches
+Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.8
 Tested up to: 4.8
