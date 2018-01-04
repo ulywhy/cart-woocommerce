@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce MercadoPago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store.
- * Version: 3.0.7
+ * Version: 3.0.8
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
@@ -105,7 +105,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// ============================================================
 
 		// General constants.
-		const VERSION = '3.0.7';
+		const VERSION = '3.0.8';
 		const MIN_PHP = 5.6;
 
 		// Arrays to hold configurations for LatAm environment.
@@ -996,11 +996,11 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					} else {
 						update_option( '_mp_store_identificator', '', true );
 					}
-					/*if ( isset( $_POST['custom_domain'] ) ) {
+					if ( isset( $_POST['custom_domain'] ) ) {
 						update_option( '_mp_custom_domain', $_POST['custom_domain'], true );
 					} else {
 						update_option( '_mp_custom_domain', '', true );
-					}*/
+					}
 					if ( isset( $_POST['currency_conversion_v0'] ) ) {
 						update_option( '_mp_currency_conversion_v0', $_POST['currency_conversion_v0'], true );
 					} else {
@@ -1091,7 +1091,15 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				// Store identification.
 				$store_identificator = get_option( '_mp_store_identificator', 'WC-' );
 				// Custom domain for IPN.
-				/*$custom_domain = get_option( '_mp_custom_domain', '' );*/
+				$custom_domain = get_option( '_mp_custom_domain', '' );
+				if ( ! empty( $custom_domain ) && filter_var( $custom_domain, FILTER_VALIDATE_URL ) === FALSE ) {
+					$custom_domain_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', __FILE__ ) . '"> ' .
+					__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago' ) . ' ';
+				} else {
+					$custom_domain_message = sprintf( '%s',
+						__( 'If you want to use a custom URL for IPN inform it here.<br>Format should be as: <code>https://yourdomain.com/yoursubdomain</code>.', 'woocommerce-mercadopago' )
+					);
+				}
 				// Debug mode.
 				$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
 				if ( empty( $_mp_debug_mode ) ) {
@@ -1245,6 +1253,51 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	});
 
 	// ==========================================================================================
+
+	// add custom field for checkout
+	/*add_filter( 'woocommerce_checkout_fields', 'custom_override_checkout_fields', 10, 2 );
+	// check for specific countries to add specific custom fields
+	function custom_override_checkout_fields( $fields ) {
+		$fields['billing']['billing_payer_doc_type']['type'] = 'select';
+		$fields['billing']['billing_payer_doc_type']['options'] = array(
+			'option_1' => 'CPF',
+			'option_2' => 'CNPJ'
+		);
+		$fields['billing']['billing_payer_doc_type']['label'] = esc_html__( 'Document Type', 'woocommerce-mercadopago' );
+		$fields['billing']['billing_payer_doc_type']['class'] = array(
+			'form-row-first'
+		);
+		$fields['billing']['billing_payer_doc']['type'] = 'text';
+		$fields['billing']['billing_payer_doc']['label'] = esc_html__( 'Document number', 'woocommerce-mercadopago' );
+		$fields['billing']['billing_payer_doc']['required'] = true;
+		$fields['billing']['billing_payer_doc']['class'] = array(
+			'form-row-last'
+		);
+		$fields['billing']['billing_address_number']['type'] = 'text';
+		$fields['billing']['billing_address_number']['label'] = esc_html__( 'Address Number', 'woocommerce-mercadopago' );
+		$fields['billing']['billing_address_number']['class'] = array(
+			'form-row-first'
+		);
+		$fields['billing']['billing_address_2']['class'] = array(
+			'form-row-last'
+		);
+		$fields['billing']['billing_address_2']['label'] = esc_html__( 'Address Additional Info', 'woocommerce-mercadopago' );'Complemento';
+		$order = array(
+			'billing_first_name', 'billing_last_name',
+			'billing_payer_doc_type', 'billing_payer_doc',
+			'billing_company',
+			'billing_address_1',
+			'billing_address_number', 'billing_address_2',
+			'billing_postcode',
+			'billing_country',
+			'billing_email', 'billing_phone'
+		);
+		foreach( $order as $field ) {
+			$ordered_fields[$field] = $fields['billing'][$field];
+		}
+		$fields['billing'] = $ordered_fields;
+		return $fields;
+	}*/
 
 	// add our own item to the order actions meta box
 	add_action( 'woocommerce_order_actions', 'add_mp_order_meta_box_actions' );

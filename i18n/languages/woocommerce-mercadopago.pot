@@ -1017,3 +1017,15 @@ msgstr ""
 
 msgid "It seems you have <strong>Woo Mercado Pago Module</strong> installed. Please, uninstall it before using this version."
 msgstr ""
+
+msgid "Custom URL for IPN"
+msgstr ""
+
+msgid "If you want to use a custom URL for IPN inform it here.<br>Format should be as: <code>https://yourdomain.com/yoursubdomain</code>."
+msgstr ""
+
+msgid "Address Number"
+msgstr ""
+
+msgid "Address Additional Info"
+msgstr ""

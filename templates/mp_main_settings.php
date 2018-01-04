@@ -299,17 +299,15 @@
 					</p>
 				</td>
 			</tr>
-			<!--<tr>
-				<th scope="row"><label><?php echo __( 'Custom Domain for IPN', 'woocommerce-mercadopago' ); ?></label></th>
+			<tr>
+				<th scope="row"><label><?php echo __( 'Custom URL for IPN', 'woocommerce-mercadopago' ); ?></label></th>
 				<td>
 					<input name="custom_domain" type="text" id="custom_domain" aria-describedby="tagline-description" value="<?php echo $custom_domain; ?>" class="regular-text"/>
 					<p class="description" id="tagline-description">
-						<?php echo sprintf( '%s',
-							__( 'If your store is hosted as a subdomain, please inform the complete store URL here.<br>Format should be as: <code>https://yourdomain.com/yoursubdomain</code>.', 'woocommerce-mercadopago' )
-						); ?>
+						<?php echo $custom_domain_message; ?>
 					</p>
 				</td>
-			</tr>-->
+			</tr>
 		</table>
 
 		<table class="form-table" border="0.5" frame="hsides" rules="void">
