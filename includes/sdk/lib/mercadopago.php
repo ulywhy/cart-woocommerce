@@ -840,7 +840,7 @@ class MPRestClient {
 
 		// Set parameters and url
 		if ( isset( $request['params'] ) && is_array( $request['params'] ) ) {
-			if ( count( $request['params'] > 0 ) ) {
+			if ( count( $request['params'] ) > 0 ) {
 				$request['uri'] .= ( strpos( $request['uri'], '?' ) === false ) ? '?' : '&';
 				$request['uri'] .= self::build_query( $request['params'] );
 			}
@@ -1084,7 +1084,7 @@ class MeliRestClient {
 
 		// Set parameters and url
 		if ( isset( $request['params'] ) && is_array( $request['params'] ) ) {
-			if ( count( $request['params'] > 0 ) ) {
+			if ( count( $request['params'] ) > 0 ) {
 				$request['uri'] .= ( strpos( $request['uri'], '?' ) === false ) ? '?' : '&';
 				$request['uri'] .= self::build_query( $request['params'] );
 			}
