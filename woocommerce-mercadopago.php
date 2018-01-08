@@ -868,7 +868,11 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			foreach ( $all_product_data as $p ) {
 				$product = wc_get_product( $p->ID );
 				if ( ! $product->is_virtual() ) {
+					$w = $product->get_weight();
 					$dimensions = $product->get_dimensions( false );
+					if ( empty( $w ) || ! is_numeric( $w ) ) {
+						return false;
+					}
 					if ( ! is_numeric( $dimensions['height'] ) ) {
 						return false;
 					}
@@ -876,9 +880,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 						return false;
 					}
 					if ( ! is_numeric( $dimensions['length'] ) ) {
-						return false;
-					}
-					if ( empty( $product->get_weight() ) || ! is_numeric( $product->get_weight() ) ) {
 						return false;
 					}
 				}

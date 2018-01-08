@@ -217,6 +217,7 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 
 = v3.0.8 (05/01/2018) =
 * Improvements
+	- Increased support and handling to older PHP;
 	- IPN/Webhook now customizable.
 
 = v3.0.7 (21/12/2017) =
