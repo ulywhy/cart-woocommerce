@@ -845,17 +845,17 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			),
 			'back_urls' => array(
 				'success' => empty( $this->success_url ) ?
-					WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
+					WC_Woo_Mercado_Pago_Module::fix_url_ampersand(
 						esc_url( $this->get_return_url( $order ) )
 					) :
 					$this->success_url,
 				'failure' => empty( $this->failure_url ) ?
-					WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
+					WC_Woo_Mercado_Pago_Module::fix_url_ampersand(
 						esc_url( $order->get_cancel_order_url() )
 					) :
 					$this->failure_url,
 				'pending' => empty( $this->pending_url ) ?
-					WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug(
+					WC_Woo_Mercado_Pago_Module::fix_url_ampersand(
 						esc_url( $this->get_return_url( $order) )
 					) : $this->pending_url
 			),
@@ -928,7 +928,15 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 		// Do not set IPN url if it is a localhost.
 		if ( ! strrpos( get_site_url(), 'localhost' ) ) {
-			$preferences['notification_url'] = WC()->api_request_url( 'WC_WooMercadoPago_BasicGateway' );
+			$notification_url = get_option( '_mp_custom_domain', '' );
+			// Check if we have a custom URL.
+			if ( empty( $notification_url ) || filter_var( $notification_url, FILTER_VALIDATE_URL ) === FALSE ) {
+				$preferences['notification_url'] = WC()->api_request_url( 'WC_WooMercadoPago_BasicGateway' );
+			} else {
+				$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::fix_url_ampersand( esc_url(
+					$notification_url . '/wc-api/WC_WooMercadoPago_BasicGateway/'
+				) );
+			}
 		}
 
 		// Set sponsor ID.

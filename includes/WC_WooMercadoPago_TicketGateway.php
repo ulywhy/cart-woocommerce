@@ -864,7 +864,15 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 
 		// Do not set IPN url if it is a localhost.
 		if ( ! strrpos( get_site_url(), 'localhost' ) ) {
-			$preferences['notification_url'] = WC()->api_request_url( 'WC_WooMercadoPago_TicketGateway' );
+			$notification_url = get_option( '_mp_custom_domain', '' );
+			// Check if we have a custom URL.
+			if ( empty( $notification_url ) || filter_var( $notification_url, FILTER_VALIDATE_URL ) === FALSE ) {
+				$preferences['notification_url'] = WC()->api_request_url( 'WC_WooMercadoPago_TicketGateway' );
+			} else {
+				$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::fix_url_ampersand( esc_url(
+					$notification_url . '/wc-api/WC_WooMercadoPago_TicketGateway/'
+				) );
+			}
 		}
 
 		// Discounts features.

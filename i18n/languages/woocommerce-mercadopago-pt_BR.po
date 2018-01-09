@@ -1017,3 +1017,15 @@ msgstr "Um ou mais de seus produtos possuem dimensões inválidas."
 
 msgid "It seems you have <strong>Woo Mercado Pago Module</strong> installed. Please, uninstall it before using this version."
 msgstr "Parece que você possui o plugin <strong>Woo Mercado Pago Module</strong> instalado. Por favor, desinstale-o antes de usar esta versão."
+
+msgid "Custom URL for IPN"
+msgstr "URL customizada para IPN"
+
+msgid "If you want to use a custom URL for IPN inform it here.<br>Format should be as: <code>https://yourdomain.com/yoursubdomain</code>."
+msgstr "Caso você queira usar uma URL customizada para IPN informe-a aqui.<br>O formato deve ser: <code>https://yourdomain.com/yoursubdomain</code>."
+
+msgid "Address Number"
+msgstr "Número"
+
+msgid "Address Additional Info"
+msgstr "Complemento"

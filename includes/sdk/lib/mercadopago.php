@@ -12,7 +12,7 @@ $GLOBALS['LIB_LOCATION'] = dirname( __FILE__ );
 
 class MP {
 
-	private $version = '3.0.7';
+	private $version = '3.0.8';
 	private $client_id;
 	private $client_secret;
 	private $ll_access_token;
