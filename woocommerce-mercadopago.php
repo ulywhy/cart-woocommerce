@@ -83,7 +83,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - get_common_settings()
 	 * - get_categories()
 	 * - get_site_data( $is_v1 = false )
-	 * - workaround_ampersand_bug( $link )
+	 * - fix_url_ampersand( $link )
 	 * - get_templates_path()
 	 * - get_module_version()
 	 * - get_client_id( $at )
@@ -544,7 +544,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		}
 
 		// Fix to URL Problem : #038; replaces & and breaks the navigation.
-		public static function workaround_ampersand_bug( $link ) {
+		public static function fix_url_ampersand( $link ) {
 			return str_replace( '\/', '/', str_replace( '&#038;', '&', $link) );
 		}
 

@@ -838,7 +838,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			if ( empty( $notification_url ) || filter_var( $notification_url, FILTER_VALIDATE_URL ) === FALSE ) {
 				$preferences['notification_url'] = WC()->api_request_url( 'WC_WooMercadoPago_CustomGateway' );
 			} else {
-				$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::workaround_ampersand_bug( esc_url(
+				$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::fix_url_ampersand( esc_url(
 					$notification_url . '/wc-api/WC_WooMercadoPago_CustomGateway/'
 				) );
 			}
