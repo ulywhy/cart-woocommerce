@@ -217,7 +217,8 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 
 = v3.0.9 (16/01/2018) =
 * Bug fixes
-	- Fixed a bug in the URL of product image.
+	- Fixed a bug in the URL of product image;
+	- Fix count error in sdk (credits to xchwarze).
 
 = v3.0.8 (05/01/2018) =
 * Improvements
