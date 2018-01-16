@@ -31,7 +31,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		$locale = get_locale();
 		$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
 		$this->mp->set_locale( $locale[1] );
-		
+
 		// WooCommerce fields.
 		$this->id = 'woo-mercado-pago-custom';
 		$this->supports = array( 'products', 'refunds' );
@@ -57,7 +57,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		$this->coupon_mode        = $this->get_option( 'coupon_mode', 'no' );
 		$this->binary_mode        = $this->get_option( 'binary_mode', 'no' );
 		$this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
-		
+
 		// Logging and debug.
 		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
 		if ( ! empty ( $_mp_debug_mode ) ) {
@@ -474,7 +474,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	}
 
 	public function payment_fields() {
-		
+
 		wp_enqueue_script( 'wc-credit-card-form' );
 
 		$amount = $this->get_order_total();
@@ -680,15 +680,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					array_push( $items, array(
 						'id' => $item['product_id'],
 						'title' => html_entity_decode( $product_title ) . ' x ' . $item['qty'],
-						'description' => sanitize_file_name( html_entity_decode( 
+						'description' => sanitize_file_name( html_entity_decode(
 							strlen( $product_content ) > 230 ?
 							substr( $product_content, 0, 230 ) . '...' :
 							$product_content
 						) ),
-						'picture_url' => sizeof( $order->get_items() > 1 ) ?
+						'picture_url' => sizeof( $order->get_items() ) > 1 ?
 							plugins_url( 'assets/images/cart.png', plugin_dir_path( __FILE__ ) ) :
-							wp_get_attachment_url( $product->get_image_id()
-						),
+							wp_get_attachment_url( $product->get_image_id() ),
 						'category_id' => get_option( '_mp_category_name', 'others' ),
 						'quantity' => 1,
 						'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
@@ -898,7 +897,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				$this->write_log(
 					__FUNCTION__,
 					'payment link generated with success from mercado pago, with structure as follow: ' .
-					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE ) 
+					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 				);
 				// TODO: Verify sandbox availability.
 				//if ( 'yes' == $this->sandbox ) {
