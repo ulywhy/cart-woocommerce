@@ -717,10 +717,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 							substr( $product_content, 0, 230 ) . '...' :
 							$product_content
 						) ),
-						'picture_url' => sizeof( $order->get_items() > 1 ) ?
+						'picture_url' => sizeof( $order->get_items() ) > 1 ?
 							plugins_url( 'assets/images/cart.png', plugin_dir_path( __FILE__ ) ) :
-							wp_get_attachment_url( $product->get_image_id()
-						),
+							wp_get_attachment_url( $product->get_image_id() ),
 						'category_id' => get_option( '_mp_category_name', 'others' ),
 						'quantity' => 1,
 						'unit_price' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
