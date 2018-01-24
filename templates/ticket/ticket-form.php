@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div width="100%" class="mp-line" style="height:72px; margin-bottom:2px; padding:20px 36px 8px 36px; background:white;">
+<!--<div width="100%" class="mp-line" style="height:72px; margin-bottom:2px; padding:20px 36px 8px 36px; background:white;">
 	<div class="mp-box-inputs mp-col-50">
 		<img class="logo" src="<?php echo ($images_path . 'mplogo.png'); ?>" width="156" height="40" />
 	</div>
@@ -29,12 +29,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</div>
+</div>-->
+<div class="mp-box-inputs mp-line" >
+	<label>
+		<span class="mensagem-ticket">
+			<div class="tooltip">
+				<?php echo esc_html__( 'Note: Confirmation under payment approval.', 'woocommerce-mercadopago' ); ?>
+				<span class="tooltiptext">
+					<?php
+						echo esc_html__( 'Click [Place order] button. The ticket will be generated and you will be redirected to print it.', 'woocommerce-mercadopago' );
+						echo ' ';
+						echo esc_html__( 'Important: The order will be confirmed only after the payment approval.', 'woocommerce-mercadopago' );
+					?>
+				</span>
+			</div>
+		</span>
+	</label>
 </div>
 
 <fieldset id="ticket_checkout_fieldset" style="margin:-1px; background:white; display: none;">
 
 	<!-- coupom -->
-	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" style="padding:0px 12px 16px 12px;" >
+	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket" >
 		<div class="form-col-8">
 			<label for="couponCodeLabel"><?php echo esc_html__( 'Discount Coupon', 'woocommerce-mercadopago' ); ?></label>
 			<input type="text" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]"
@@ -49,24 +65,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<!-- payment method -->
-	<div id="mercadopago-form-ticket" class="mp-box-inputs mp-line" style="padding:0px 12px 0px 12px;">
+	<div id="mercadopago-form-ticket" class="mp-box-inputs mp-line" >
 		<div id="form-ticket">
-			<div class="form-row" style="margin-bottom:16px;">
-				<div class="form-col-1"> </div>
-				<div class="form-col-4">
+			<div class="form-row" style="height:24px; margin-bottom: 12px;">
+				<!--<div class="form-col-1"> </div>-->
+				<div class="form-col-6">
 					<input type="radio" name="mercadopago_ticket[docType]" class="MPv1Ticket-docType"
 						id="MPv1Ticket-docType-fisica" value="CPF" style="width:24px; height:24px;" checked="checked">
 						<?php echo esc_html__( 'Fisical Person', 'woocommerce-mercadopago' ); ?>
 					</input>
 				</div>
-				<div class="form-col-2"> </div>
-				<div class="form-col-4">
+				<!--<div class="form-col-2"> </div>-->
+				<div class="form-col-6">
 					<input type="radio" name="mercadopago_ticket[docType]" class="MPv1Ticket-docType"
 						id="MPv1Ticket-docType-juridica" value="CNPJ" style="width:24px; height:24px;">
 						<?php echo esc_html__( 'Legal Person', 'woocommerce-mercadopago' ); ?>
 					</input>
 				</div>
-				<div class="form-col-1"> </div>
+				<!--<div class="form-col-1"> </div>-->
 			</div>
 			<div class="form-row">
 				<div class="form-col-4" id="box-firstname">
@@ -152,24 +168,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?php echo esc_html__( 'You must inform your ZIP', 'woocommerce-mercadopago' ); ?></span>
 				</div>
 			</div>
-			<div class="form-col-12" style="padding:0px 20px 0px 20px;">
-				<label>
-					<span class="mensagem-febraban"><em class="obrigatorio">* </em><?php echo esc_html__( 'Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil.', 'woocommerce-mercadopago' ); ?></span>
-				</label>
-			</div>
+			<label>
+				<span class="mensagem-febraban">
+					<em class="obrigatorio">* </em>
+					<div class="tooltip">
+						<?php echo esc_html__( 'Needed informations', 'woocommerce-mercadopago' ); ?>
+						<span class="tooltiptext">
+							<?php echo esc_html__( 'Needed informations due to brazilian bank compliances numbers 3.461/09, 3.598/12 and 3.656/13 of the Central Bank of Brazil.', 'woocommerce-mercadopago' ); ?>
+						</span>
+					</div>
+				</span>
+			</label>
 		</div>
 
-		<div style="padding:0px 12px 0px 12px;">
+		<div>
 			<p>
 				<?php
 					if ( count( $payment_methods ) > 1 ) :
 						echo esc_html__( 'Please, select the ticket issuer of your preference.', 'woocommerce-mercadopago' );
 					endif;
-					echo esc_html__( 'Click [Place order] button. The ticket will be generated and you will be redirected to print it.', 'woocommerce-mercadopago' );
-				?>&nbsp;<?php
-					echo esc_html__( 'Important: The order will be confirmed only after the payment approval.', 'woocommerce-mercadopago' );
 					if ( $currency_ratio != 1 ) :
-	  					echo ' (' . esc_html__( 'Payment converted from', 'woocommerce-mercadopago' ) . ' ' .
+						echo ' (' . esc_html__( 'Payment converted from', 'woocommerce-mercadopago' ) . ' ' .
 						$woocommerce_currency . ' ' . esc_html__( 'to', 'woocommerce-mercadopago' ) . ' ' .
 						$account_currency . ')';
 					endif;
