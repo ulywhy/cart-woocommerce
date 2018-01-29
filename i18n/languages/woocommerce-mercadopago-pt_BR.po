@@ -1029,3 +1029,12 @@ msgstr "Número"
 
 msgid "Address Additional Info"
 msgstr "Complemento"
+
+msgid "CVC"
+msgstr "CVV"
+
+msgid "Needed informations"
+msgstr "Informações obrigatórias"
+
+msgid "Note: Confirmation under payment approval."
+msgstr "Nota: confirmação após aprovação do pagamento"

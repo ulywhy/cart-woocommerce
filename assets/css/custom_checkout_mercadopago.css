@@ -69,7 +69,7 @@ body{
 
 .mp-box-inputs label{
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 10px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   margin: 0 0 5px 0;
   display: block;
@@ -87,6 +87,7 @@ body{
   border-radius: 3px;
   color: #666;
   height: 40px;
+  vertical-align: middle;
 }
 
 .mp-box-inputs input:focus, .mp-box-inputs select:focus{
@@ -234,7 +235,7 @@ body{
 .form-control-mine {
   width: 100%;
   padding: 5px;
-  font-size: 16px;
+  font-size: 14px;
   color: #555;
   background-color: #fff;
   background-image: none;
@@ -247,13 +248,73 @@ select#fixed {
   -webkit-appearance: none;
 }
 
+.mensagem-credit-card{
+  font-size: 10px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .mensagem-febraban{
-  text-transform: uppercase;
+  text-transform: none;
   font-size: 12px;
   display: block;
   margin-top: 8px;
   margin-bottom: 16px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.mensagem-ticket{
+  text-transform: none;
+  font-size: 12px;
+  display: block;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 280px;
+    background-color: #333333;
+    color: #fff;
+    text-transform: none;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-top: 4px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.twenty-seventeen-cc-header {
+  width: 100%;
+  height: 64px;
+  margin-bottom: 2px;
+  padding: 16px 32px 8px 32px;
+  background: white;
+}
+
+.other-themes-cc-header {
+  width: 100%;
+  height: 48px;
+  margin-bottom: 2px;
+  padding: 16px 16px 8px 16px;
+  background: white;
 }
 
 /*

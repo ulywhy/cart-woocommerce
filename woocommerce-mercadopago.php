@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce MercadoPago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store.
- * Version: 3.0.9
+ * Version: 3.0.10
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
@@ -105,7 +105,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// ============================================================
 
 		// General constants.
-		const VERSION = '3.0.9';
+		const VERSION = '3.0.10';
 		const MIN_PHP = 5.6;
 
 		// Arrays to hold configurations for LatAm environment.

@@ -1029,3 +1029,12 @@ msgstr ""
 
 msgid "Address Additional Info"
 msgstr ""
+
+msgid "CVC"
+msgstr ""
+
+msgid "Needed informations"
+msgstr ""
+
+msgid "Note: Confirmation under payment approval."
+msgstr ""
