@@ -14,23 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<!--<div width="100%" class="mp-line" style="height:72px; margin-bottom:2px; padding:20px 36px 8px 36px; background:white;">
-	<div class="mp-box-inputs mp-col-50">
-		<img class="logo" src="<?php echo ($images_path . 'mplogo.png'); ?>" width="156" height="40"/>
-	</div>
-	<div class="mp-box-inputs mp-col-50">
-		<?php if ( ! empty( $banner_path ) ) : ?>
-			<img class="mp-creditcard-banner" src="<?php echo $banner_path;?>" width="312" height="40"/>
-		<?php endif; ?>
-	</div>
-</div>-->
-
 <?php
 $theme = wp_get_theme(); // gets the current theme
 if ( 'Twenty Seventeen' == $theme->name || 'Twenty Seventeen' == $theme->parent_theme ) {
-	echo '<div width="100%" class="mp-line" style="height:64px; margin-bottom:2px; padding:16px 32px 8px 32px; background:white;">';
+	echo '<div class="mp-line twenty-seventeen-cc-header" >';
 } else {
-	echo '<div width="100%" class="mp-line" style="height:48px; margin-bottom:2px; padding:16px 16px 8px 16px; background:white;">';
+	echo '<div class="mp-line other-themes-cc-header" >';
 }
 ?>
 	<?php if ( ! empty( $banner_path ) ) : ?>
