@@ -1026,6 +1026,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		}
 		global $woocommerce;
 		$w_cart = $woocommerce->cart;
+		$_mp_public_key = get_option( '_mp_public_key' );
+		$_mp_access_token = get_option( '_mp_access_token' );
+		$_site_id_v1 = get_option( '_site_id_v1' );
 		// If we do not have SSL in production environment, we are not allowed to process.
 		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
 		if ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) {
@@ -1045,9 +1048,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			return false;
 		}
 		// Check if this gateway is enabled and well configured.
-		$_mp_public_key = get_option( '_mp_public_key' );
-		$_mp_access_token = get_option( '_mp_access_token' );
-		$_site_id_v1 = get_option( '_site_id_v1' );
 		$available = ( 'yes' == $this->settings['enabled'] ) &&
 			! empty( $_mp_public_key ) &&
 			! empty( $_mp_access_token ) &&

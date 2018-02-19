@@ -217,7 +217,8 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 
 = v3.0.11 (19/02/2018) =
 * Improvements
-	- Improved feedback messages when an order fails.
+	- Improved feedback messages when an order fails;
+	- Improved credential validation for custom checkout by credit cards.
 
 = v3.0.10 (29/01/2018) =
 * Improvements
