@@ -606,6 +606,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 					case 'cancelled':
 					case 'in_mediation':
 					case 'charged-back':
+						// If we enter here (an order generating a direct [cancelled, in_mediation, or charged-back] status),
+						// them there must be something very wrong!
 						break;
 					default:
 						break;
@@ -614,7 +616,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				// Process when fields are imcomplete.
 				wc_add_notice(
 					'<p>' .
-						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) . ' MERCADO PAGO: ' . $response .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) . ' MERCADO PAGO: ' .
+						__( $response, 'woocommerce-mercadopago' ) .
 					'</p>',
 					'error'
 				);
@@ -627,7 +630,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			// Process when fields are imcomplete.
 			wc_add_notice(
 				'<p>' .
-					__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) .
+					__( 'A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago' ) .
 				'</p>',
 				'error'
 			);

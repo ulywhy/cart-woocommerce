@@ -646,7 +646,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				// Process when fields are imcomplete.
 				wc_add_notice(
 					'<p>' .
-						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) . ' MERCADO PAGO: ' . $response .
+						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) . ' MERCADO PAGO: ' .
+						__( $response, 'woocommerce-mercadopago' ) .
 					'</p>',
 					'error'
 				);

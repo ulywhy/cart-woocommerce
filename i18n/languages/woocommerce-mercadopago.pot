@@ -1038,3 +1038,16 @@ msgstr ""
 
 msgid "Note: Confirmation under payment approval."
 msgstr ""
+
+msgid "Invalid payment_method_id"
+msgstr ""
+
+msgid "Invalid transaction_amount"
+msgstr ""
+
+msgid "Invalid users involved"
+msgstr ""
+
+msgid "Unauthorized use of live credentials"
+msgstr ""
+
