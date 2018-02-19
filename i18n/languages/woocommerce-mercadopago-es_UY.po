@@ -1038,3 +1038,15 @@ msgstr "Información obligatoria"
 
 msgid "Note: Confirmation under payment approval."
 msgstr "Nota: confirmación después de la aprobación"
+
+msgid "Invalid payment_method_id"
+msgstr "El medio de pago no es válido o no está disponible."
+
+msgid "Invalid transaction_amount"
+msgstr "El monto de transacción no puede ser procesado por Mercado Pago. Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
+
+msgid "Invalid users involved"
+msgstr "Los usuários no son válidos. Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
+
+msgid "Unauthorized use of live credentials"
+msgstr "Uso no autorizado de credenciales de producción. Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."

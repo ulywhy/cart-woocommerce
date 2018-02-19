@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.8
 Tested up to: 4.8
 Requires PHP: 5.6
-Stable tag: 3.0.10
+Stable tag: 3.0.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -214,6 +214,11 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 4. `Plugin Options`
 
 == Changelog ==
+
+= v3.0.11 (19/02/2018) =
+* Improvements
+	- Improved feedback messages when an order fails;
+	- Improved credential validation for custom checkout by credit cards.
 
 = v3.0.10 (29/01/2018) =
 * Improvements
