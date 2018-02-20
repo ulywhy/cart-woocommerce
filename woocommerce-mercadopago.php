@@ -459,13 +459,16 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				return __( 'Invalid payment_method_id', 'woocommerce-mercadopago' );
 			}
 			if ( $key === 'Invalid transaction_amount' ) {
-				return __( 'Invalid transaction_amount', 'woocommerce-mercadopago' );
+				return __( 'Invalid transaction_amount', 'woocommerce-mercadopago' ) . ' ' .
+				__( 'Posible causes: Currency not supported; Values under the minimal or above the maximun allowed.', 'woocommerce-mercadopago' );
 			}
 			if ( $key === 'Invalid users involved' ) {
-				return __( 'Invalid users involved', 'woocommerce-mercadopago' );
+				return __( 'Invalid users involved', 'woocommerce-mercadopago' ) . ' ' .
+				__( 'Posible causes: Seller and buyer have the same email in Mercado Pago; Transaction involves production and test users.', 'woocommerce-mercadopago' );
 			}
 			if ( $key === 'Unauthorized use of live credentials' ) {
-				return __( 'Unauthorized use of live credentials', 'woocommerce-mercadopago' );
+				return __( 'Unauthorized use of live credentials', 'woocommerce-mercadopago' ) . ' ' .
+				__( 'Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor.', 'woocommerce-mercadopago' );
 			}
 			return $key;
 		}
