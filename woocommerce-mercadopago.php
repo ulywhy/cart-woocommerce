@@ -79,6 +79,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * - validate_credentials_v0()
 	 * - validate_credentials_v1()
 	 * - woocommerce_instance()
+	 * - get_common_error_messages( $key )
 	 * - get_conversion_rate( $used_currency )
 	 * - get_common_settings()
 	 * - get_categories()
@@ -450,6 +451,23 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				global $woocommerce;
 				return $woocommerce;
 			}
+		}
+
+		// Get common error messages
+		public static function get_common_error_messages( $key ) {
+			if ( $key === 'Invalid payment_method_id' ) {
+				return __( 'Invalid payment_method_id', 'woocommerce-mercadopago' );
+			}
+			if ( $key === 'Invalid transaction_amount' ) {
+				return __( 'Invalid transaction_amount', 'woocommerce-mercadopago' );
+			}
+			if ( $key === 'Invalid users involved' ) {
+				return __( 'Invalid users involved', 'woocommerce-mercadopago' );
+			}
+			if ( $key === 'Unauthorized use of live credentials' ) {
+				return __( 'Unauthorized use of live credentials', 'woocommerce-mercadopago' );
+			}
+			return $key;
 		}
 
 		/**
