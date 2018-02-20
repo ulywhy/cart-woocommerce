@@ -1057,5 +1057,5 @@ msgstr "Possíveis causas: Moeda não suportada; Valores abaixo do mínimo ou ac
 msgid "Posible causes: Seller and buyer have the same email in Mercado Pago; Transaction involves production and test users."
 msgstr "Possíveis causas: Comprador e vendedor têm o mesmo email no Mercado Pago; Transação envolvendo usuários de produção e usuários de teste."
 
-msgid "Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor."
-msgstr "Posible causes: Pending permission of use in production of the seller's credentials."
+msgid "Posible causes: Pending permission of use in production of the seller credentials."
+msgstr "Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor."
