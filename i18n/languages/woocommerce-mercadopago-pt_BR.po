@@ -1043,10 +1043,19 @@ msgid "Invalid payment_method_id"
 msgstr "O meio de pagamento não é válido ou está indisponível."
 
 msgid "Invalid transaction_amount"
-msgstr "O valor da transação não pode ser processado pelo Mercado Pago. Possíveis causas: Moeda não suportada; Valores abaixo do mínimo ou acima do máximo permitido."
+msgstr "O valor da transação não pode ser processado pelo Mercado Pago."
 
 msgid "Invalid users involved"
-msgstr "Os usuários envolvidos são inválidos. Possíveis causas: Comprador e vendedor têm o mesmo email no Mercado Pago; Transação envolvendo usuários de produção e usuários de teste."
+msgstr "Os usuários envolvidos são inválidos."
 
 msgid "Unauthorized use of live credentials"
-msgstr "Uso não autorizado de credenciais de produção. Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor."
+msgstr "Uso não autorizado de credenciais de produção."
+
+msgid "Posible causes: Currency not supported; Values under the minimal or above the maximun allowed."
+msgstr "Possíveis causas: Moeda não suportada; Valores abaixo do mínimo ou acima do máximo permitido."
+
+msgid "Posible causes: Seller and buyer have the same email in Mercado Pago; Transaction involves production and test users."
+msgstr "Possíveis causas: Comprador e vendedor têm o mesmo email no Mercado Pago; Transação envolvendo usuários de produção e usuários de teste."
+
+msgid "Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor."
+msgstr "Posible causes: Pending permission of use in production of the seller's credentials."
