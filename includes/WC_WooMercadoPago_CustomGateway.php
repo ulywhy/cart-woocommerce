@@ -617,7 +617,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				wc_add_notice(
 					'<p>' .
 						__( 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago' ) . ' MERCADO PAGO: ' .
-						__( $response, 'woocommerce-mercadopago' ) .
+						WC_Woo_Mercado_Pago_Module::get_common_error_messages( $response ) .
 					'</p>',
 					'error'
 				);
