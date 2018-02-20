@@ -1057,5 +1057,5 @@ msgstr ""
 msgid "Posible causes: Seller and buyer have the same email in Mercado Pago; Transaction involves production and test users."
 msgstr ""
 
-msgid "Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor."
+msgid "Posible causes: Pending permission of use in production of the seller credentials."
 msgstr ""

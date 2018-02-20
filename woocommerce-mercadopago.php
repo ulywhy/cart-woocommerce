@@ -468,7 +468,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			}
 			if ( $key === 'Unauthorized use of live credentials' ) {
 				return __( 'Unauthorized use of live credentials', 'woocommerce-mercadopago' ) . ' ' .
-				__( 'Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor.', 'woocommerce-mercadopago' );
+				__( 'Posible causes: Pending permission of use in production of the seller credentials.', 'woocommerce-mercadopago' );
 			}
 			return $key;
 		}
