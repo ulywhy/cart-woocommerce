@@ -425,15 +425,17 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			?>
 			<script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
 			<script type="text/javascript">
-				var MA = ModuleAnalytics;
-				MA.setPublicKey( '<?php echo $public_key; ?>' );
-				MA.setPlatform( 'WooCommerce' );
-				MA.setPlatformVersion( '<?php echo $w->version; ?>' );
-				MA.setModuleVersion( '<?php echo WC_Woo_Mercado_Pago_Module::VERSION; ?>' );
-				MA.setPayerEmail( '<?php echo ( $logged_user_email != null ? $logged_user_email : "" ); ?>' );
-				MA.setUserLogged( <?php echo ( empty( $logged_user_email ) ? 0 : 1 ); ?> );
-				MA.setInstalledModules( '<?php echo $available_payments; ?>' );
-				MA.post();
+				try {
+					var MA = ModuleAnalytics;
+					MA.setPublicKey( '<?php echo $public_key; ?>' );
+					MA.setPlatform( 'WooCommerce' );
+					MA.setPlatformVersion( '<?php echo $w->version; ?>' );
+					MA.setModuleVersion( '<?php echo WC_Woo_Mercado_Pago_Module::VERSION; ?>' );
+					MA.setPayerEmail( '<?php echo ( $logged_user_email != null ? $logged_user_email : "" ); ?>' );
+					MA.setUserLogged( <?php echo ( empty( $logged_user_email ) ? 0 : 1 ); ?> );
+					MA.setInstalledModules( '<?php echo $available_payments; ?>' );
+					MA.post();
+				} catch(err) {}
 			</script>
 			<?php
 		}
@@ -449,11 +451,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			$this->write_log( __FUNCTION__, 'updating order of ID ' . $order_id );
 			echo '<script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
 			<script type="text/javascript">
-				var MA = ModuleAnalytics;
-				MA.setPublicKey( "' . $public_key . '" );
-				MA.setPaymentType("credit_card");
-				MA.setCheckoutType("custom");
-				MA.put();
+				try {
+					var MA = ModuleAnalytics;
+					MA.setPublicKey( "' . $public_key . '" );
+					MA.setPaymentType("credit_card");
+					MA.setCheckoutType("custom");
+					MA.put();
+				} catch(err) {}
 			</script>';
 		}
 	}
