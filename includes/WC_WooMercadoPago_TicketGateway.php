@@ -57,6 +57,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		// How checkout payment behaves.
 		$this->coupon_mode        = $this->get_option( 'coupon_mode', 'no' );
 		$this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
+		$this->date_expiration    = $this->get_option( 'date_expiration', 3 );
 		$this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
 
 		// Logging and debug.
@@ -204,6 +205,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				'default' => 'no',
 				'description' => __( 'Enable this to reduce the stock on order creation. Disable this to reduce <strong>after</strong> the payment approval.', 'woocommerce-mercadopago' )
 			),
+			'date_expiration' => array(
+				'title' => __( 'Days for Expiration', 'woocommerce-mercadopago' ),
+				'type' => 'number',
+				'description' => __( 'Place the number of days (1 to 30) until expiration of the ticket.', 'woocommerce-mercadopago' ),
+				'default' => '3'
+			),
 			'gateway_discount' => array(
 				'title' => __( 'Discount by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
@@ -232,6 +239,16 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					} else {
 						if ( $value < 0 || $value >= 100 || empty ( $value ) ) {
 							$this->settings[$key] = 0;
+						} else {
+							$this->settings[$key] = $value;
+						}
+					}
+				} elseif ( $key == 'date_expiration' ) {
+					if ( ! is_numeric( $value ) || empty ( $value ) ) {
+						$this->settings[$key] = 3;
+					} else {
+						if ( $value < 1 || $value > 30 || empty ( $value ) ) {
+							$this->settings[$key] = 3;
 						} else {
 							$this->settings[$key] = $value;
 						}
@@ -828,9 +845,13 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					$order->shipping_address_2
 			)
 		);
+		
+		// Build the expiration date string.
+		$date_of_expiration = date( 'Y-m-d', strtotime( '+' . $this->date_expiration . ' days' ) ) . 'T00:00:00.000-00:00';
 
 		// The payment preference.
 		$preferences = array(
+			'date_of_expiration' => $date_of_expiration,
 			'transaction_amount' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
 				floor( $order_total * $currency_ratio ) :
 				floor( $order_total * $currency_ratio * 100 ) / 100,
