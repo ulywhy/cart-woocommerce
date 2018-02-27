@@ -439,10 +439,10 @@ msgstr ""
 msgid "Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago."
 msgstr ""
 
-msgid "Discount by Gateway"
+msgid "Discount/Fee by Gateway"
 msgstr ""
 
-msgid "Give a percentual (0 to 100) discount for your customers if they use this payment gateway."
+msgid "Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts."
 msgstr ""
 
 msgid "Two Cards Mode"
@@ -1058,4 +1058,13 @@ msgid "Posible causes: Seller and buyer have the same email in Mercado Pago; Tra
 msgstr ""
 
 msgid "Posible causes: Pending permission of use in production of the seller credentials."
+msgstr ""
+
+msgid "Days for Expiration"
+msgstr ""
+
+msgid "Place the number of days (1 to 30) until expiration of the ticket."
+msgstr ""
+
+msgid "Fee of"
 msgstr ""

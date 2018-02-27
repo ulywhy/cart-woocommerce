@@ -439,11 +439,11 @@ msgstr "Excluir medios de pago"
 msgid "Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago."
 msgstr "Selecione los medios de pago que <strong>no</strong> desea aceptar con Mercado Pago."
 
-msgid "Discount by Gateway"
-msgstr "Descuento por Gateway"
+msgid "Discount/Fee by Gateway"
+msgstr "Descuento/Tarifa por Gateway"
 
-msgid "Give a percentual (0 to 100) discount for your customers if they use this payment gateway."
-msgstr "Dé un descuento porcentual para sus clientes si utilizan este medio de pago."
+msgid "Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts."
+msgstr "Dé un descuento o tarifa porcentual para sus clientes si utilizan este medio de pago. Use negativo para las tarifas, positivo para los descuentos."
 
 msgid "Two Cards Mode"
 msgstr "Modo de Dos Tarjetas"
@@ -1059,3 +1059,12 @@ msgstr "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado 
 
 msgid "Posible causes: Pending permission of use in production of the seller credentials."
 msgstr "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
+
+msgid "Days for Expiration"
+msgstr "Días para Caducidad"
+
+msgid "Place the number of days (1 to 30) until expiration of the ticket."
+msgstr "Coloque la cantidad de días (de 1 a 30) hasta la expiración del ticket."
+
+msgid "Fee of"
+msgstr "Tarifa de"

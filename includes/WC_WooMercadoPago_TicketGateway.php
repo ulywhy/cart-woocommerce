@@ -57,6 +57,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		// How checkout payment behaves.
 		$this->coupon_mode        = $this->get_option( 'coupon_mode', 'no' );
 		$this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
+		$this->date_expiration    = $this->get_option( 'date_expiration', 3 );
 		$this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
 
 		// Logging and debug.
@@ -204,10 +205,16 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				'default' => 'no',
 				'description' => __( 'Enable this to reduce the stock on order creation. Disable this to reduce <strong>after</strong> the payment approval.', 'woocommerce-mercadopago' )
 			),
-			'gateway_discount' => array(
-				'title' => __( 'Discount by Gateway', 'woocommerce-mercadopago' ),
+			'date_expiration' => array(
+				'title' => __( 'Days for Expiration', 'woocommerce-mercadopago' ),
 				'type' => 'number',
-				'description' => __( 'Give a percentual (0 to 100) discount for your customers if they use this payment gateway.', 'woocommerce-mercadopago' ),
+				'description' => __( 'Place the number of days (1 to 30) until expiration of the ticket.', 'woocommerce-mercadopago' ),
+				'default' => '3'
+			),
+			'gateway_discount' => array(
+				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
+				'type' => 'number',
+				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
 				'default' => '0'
 			)
 		);
@@ -230,8 +237,18 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
 						$this->settings[$key] = 0;
 					} else {
-						if ( $value < 0 || $value >= 100 || empty ( $value ) ) {
+						if ( $value < -99 || $value > 99 || empty ( $value ) ) {
 							$this->settings[$key] = 0;
+						} else {
+							$this->settings[$key] = $value;
+						}
+					}
+				} elseif ( $key == 'date_expiration' ) {
+					if ( ! is_numeric( $value ) || empty ( $value ) ) {
+						$this->settings[$key] = 3;
+					} else {
+						if ( $value < 1 || $value > 30 || empty ( $value ) ) {
+							$this->settings[$key] = 3;
 						} else {
 							$this->settings[$key] = $value;
 						}
@@ -426,15 +443,17 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			?>
 			<script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
 			<script type="text/javascript">
-				var MA = ModuleAnalytics;
-				MA.setToken( '<?php echo $client_id; ?>' );
-				MA.setPlatform( 'WooCommerce' );
-				MA.setPlatformVersion( '<?php echo $w->version; ?>' );
-				MA.setModuleVersion( '<?php echo WC_Woo_Mercado_Pago_Module::VERSION; ?>' );
-				MA.setPayerEmail( '<?php echo ( $logged_user_email != null ? $logged_user_email : "" ); ?>' );
-				MA.setUserLogged( <?php echo ( empty( $logged_user_email ) ? 0 : 1 ); ?> );
-				MA.setInstalledModules( '<?php echo $available_payments; ?>' );
-				MA.post();
+				try {
+					var MA = ModuleAnalytics;
+					MA.setToken( '<?php echo $client_id; ?>' );
+					MA.setPlatform( 'WooCommerce' );
+					MA.setPlatformVersion( '<?php echo $w->version; ?>' );
+					MA.setModuleVersion( '<?php echo WC_Woo_Mercado_Pago_Module::VERSION; ?>' );
+					MA.setPayerEmail( '<?php echo ( $logged_user_email != null ? $logged_user_email : "" ); ?>' );
+					MA.setUserLogged( <?php echo ( empty( $logged_user_email ) ? 0 : 1 ); ?> );
+					MA.setInstalledModules( '<?php echo $available_payments; ?>' );
+					MA.post();
+				} catch(err) {}
 			</script>
 			<?php
 		}
@@ -450,11 +469,13 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 			$this->write_log( __FUNCTION__, 'updating order of ID ' . $order_id );
 			echo '<script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
 			<script type="text/javascript">
-				var MA = ModuleAnalytics;
-				MA.setToken( ' . $access_token . ' );
-				MA.setPaymentType("ticket");
-				MA.setCheckoutType("custom");
-				MA.put();
+				try {
+					var MA = ModuleAnalytics;
+					MA.setToken( ' . $access_token . ' );
+					MA.setPaymentType("ticket");
+					MA.setCheckoutType("custom");
+					MA.put();
+				} catch(err) {}
 			</script>';
 		}
 
@@ -472,13 +493,13 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 		}
 
 		$html = '<p>' .
-					__( 'Thank you for your order. Please, pay the ticket to get your order approved.', 'woocommerce-mercadopago' ) .
-				'</p>' .
-				'<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
-				'<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
-				' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
-					__( 'Print the Ticket', 'woocommerce-mercadopago' ) .
-				'</a> ';
+			__( 'Thank you for your order. Please, pay the ticket to get your order approved.', 'woocommerce-mercadopago' ) .
+		'</p>' .
+		'<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
+		'<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
+		' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
+			__( 'Print the Ticket', 'woocommerce-mercadopago' ) .
+		'</a> ';
 		$added_text = '<p>' . $html . '</p>';
 		echo $added_text;
 	}
@@ -824,9 +845,13 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 					$order->shipping_address_2
 			)
 		);
+		
+		// Build the expiration date string.
+		$date_of_expiration = date( 'Y-m-d', strtotime( '+' . $this->date_expiration . ' days' ) ) . 'T00:00:00.000-00:00';
 
 		// The payment preference.
 		$preferences = array(
+			'date_of_expiration' => $date_of_expiration,
 			'transaction_amount' => ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
 				floor( $order_total * $currency_ratio ) :
 				floor( $order_total * $currency_ratio * 100 ) / 100,
@@ -990,26 +1015,24 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 
 	// Display the discount in payment method title.
 	public function get_payment_method_title_ticket( $title, $id ) {
-
 		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return $title;
 		}
-
 		if ( $title != $this->title || $this->gateway_discount == 0 ) {
 			return $title;
 		}
-
-		$total = (float) WC()->cart->subtotal;
-		if ( is_numeric( $this->gateway_discount ) ) {
-			if ( $this->gateway_discount >= 0 && $this->gateway_discount < 100 ) {
-				$price_percent = $this->gateway_discount / 100;
-				if ( $price_percent > 0 ) {
-					$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago' ) . ' ' .
-						strip_tags( wc_price( $total * $price_percent ) ) . ')';
-				}
-			}
+		if ( ! is_numeric( $this->gateway_discount ) || $this->gateway_discount < -99 || $this->gateway_discount > 99 ) {
+			return $title;
 		}
-
+		$total = (float) WC()->cart->subtotal;
+		$price_percent = $this->gateway_discount / 100;
+		if ( $price_percent > 0 ) {
+			$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago' ) . ' ' .
+				strip_tags( wc_price( $total * $price_percent ) ) . ')';
+		} elseif ( $price_percent < 0 ) {
+			$title .= ' (' . __( 'Fee of', 'woocommerce-mercadopago' ) . ' ' .
+				strip_tags( wc_price( -$total * $price_percent ) ) . ')';
+		}
 		return $title;
 	}
 
