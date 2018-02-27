@@ -1058,7 +1058,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		if ( $title != $this->title || $this->gateway_discount == 0 ) {
 			return $title;
 		}
-		if ( WC()->session->chosen_payment_method !== 'woo-mercado-pago-basic' ) {
+		if ( WC()->session->chosen_payment_method === 'woo-mercado-pago-subscription' ) {
 			return $title;
 		}
 		if ( ! is_numeric( $this->gateway_discount ) || $this->gateway_discount < -99 || $this->gateway_discount > 99 ) {
@@ -1071,7 +1071,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				strip_tags( wc_price( $total * $price_percent ) ) . ')';
 		} elseif ( $price_percent < 0 ) {
 			$title .= ' (' . __( 'Fee of', 'woocommerce-mercadopago' ) . ' ' .
-				strip_tags( wc_price( $total * $price_percent ) ) . ')';
+				strip_tags( wc_price( -$total * $price_percent ) ) . ')';
 		}
 		return $title;
 	}
