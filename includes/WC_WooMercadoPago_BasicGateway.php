@@ -310,7 +310,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			'gateway_discount' => array(
 				'title' => __( 'Discount by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
-				'description' => __( 'Give a percentual (0 to 100) discount for your customers if they use this payment gateway.', 'woocommerce-mercadopago' ),
+				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway.', 'woocommerce-mercadopago' ),
 				'default' => '0'
 			),
 			'two_cards_mode' => array(
@@ -356,7 +356,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
 						$this->settings[$key] = 0;
 					} else {
-						if ( $value < 0 || $value >= 100 || empty ( $value ) ) {
+						if ( $value < -99 || $value > 99 || empty ( $value ) ) {
 							$this->settings[$key] = 0;
 						} else {
 							$this->settings[$key] = $value;
@@ -1058,13 +1058,19 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		if ( $title != $this->title || $this->gateway_discount == 0 ) {
 			return $title;
 		}
-		if ( WC()->session->chosen_payment_method == 'woo-mercado-pago-subscription' ) {
+		if ( WC()->session->chosen_payment_method !== 'woo-mercado-pago-basic' ) {
+			return $title;
+		}
+		if ( ! is_numeric( $this->gateway_discount ) || $this->gateway_discount < -99 || $this->gateway_discount > 99 ) {
 			return $title;
 		}
 		$total = (float) WC()->cart->subtotal;
 		$price_percent = $this->gateway_discount / 100;
 		if ( $price_percent > 0 ) {
 			$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago' ) . ' ' .
+				strip_tags( wc_price( $total * $price_percent ) ) . ')';
+		} elseif ( $price_percent < 0 ) {
+			$title .= ' (' . __( 'Fee of', 'woocommerce-mercadopago' ) . ' ' .
 				strip_tags( wc_price( $total * $price_percent ) ) . ')';
 		}
 		return $title;

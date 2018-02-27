@@ -442,8 +442,8 @@ msgstr "Selecione los medios de pago que <strong>no</strong> desea aceptar con M
 msgid "Discount by Gateway"
 msgstr "Descuento por Gateway"
 
-msgid "Give a percentual (0 to 100) discount for your customers if they use this payment gateway."
-msgstr "Dé un descuento porcentual para sus clientes si utilizan este medio de pago."
+msgid "Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway."
+msgstr "Dé un descuento o cuota porcentual para sus clientes si utilizan este medio de pago."
 
 msgid "Two Cards Mode"
 msgstr "Modo de Dos Tarjetas"
@@ -1065,3 +1065,6 @@ msgstr "Días para Caducidad"
 
 msgid "Place the number of days (1 to 30) until expiration of the ticket."
 msgstr "Coloque la cantidad de días (de 1 a 30) hasta la expiración del ticket."
+
+msgid "Fee of"
+msgstr "Cuota de"
