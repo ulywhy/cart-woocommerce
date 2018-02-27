@@ -301,9 +301,9 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				'type' => 'title'
 			),
 			'gateway_discount' => array(
-				'title' => __( 'Discount by Gateway', 'woocommerce-mercadopago' ),
+				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
-				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway.', 'woocommerce-mercadopago' ),
+				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
 				'default' => '0'
 			)
 		);

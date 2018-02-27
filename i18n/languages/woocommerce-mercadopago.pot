@@ -439,10 +439,10 @@ msgstr ""
 msgid "Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago."
 msgstr ""
 
-msgid "Discount by Gateway"
+msgid "Discount/Fee by Gateway"
 msgstr ""
 
-msgid "Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway."
+msgid "Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts."
 msgstr ""
 
 msgid "Two Cards Mode"

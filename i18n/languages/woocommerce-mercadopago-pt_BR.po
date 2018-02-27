@@ -439,11 +439,11 @@ msgstr "Excluir Métodos de Pagamento"
 msgid "Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago."
 msgstr "Selecione os meios de pagamento que <strong>não</strong> gostaria de receber com o Mercado Pago."
 
-msgid "Discount by Gateway"
-msgstr "Desconto por Gateway"
+msgid "Discount/Fee by Gateway"
+msgstr "Desconto/Taxa por Gateway"
 
-msgid "Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway."
-msgstr "Dê um desconto ou taxa porcentual (-99 a 99) para seus clientes caso eles usem este método de pagamento."
+msgid "Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts."
+msgstr "Dê um desconto ou taxa porcentual (-99 a 99) para seus clientes caso eles usem este método de pagamento. Use negativo para taxas, positivo para descontos."
 
 msgid "Two Cards Mode"
 msgstr "Modo Dois Cartões"
