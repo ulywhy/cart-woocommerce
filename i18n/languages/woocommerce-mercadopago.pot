@@ -1059,3 +1059,9 @@ msgstr ""
 
 msgid "Posible causes: Pending permission of use in production of the seller credentials."
 msgstr ""
+
+msgid "Days for Expiration"
+msgstr ""
+
+msgid "Place the number of days (1 to 30) until expiration of the ticket."
+msgstr ""

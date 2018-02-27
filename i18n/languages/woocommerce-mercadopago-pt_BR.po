@@ -1059,3 +1059,9 @@ msgstr "Possíveis causas: Comprador e vendedor têm o mesmo email no Mercado Pa
 
 msgid "Posible causes: Pending permission of use in production of the seller credentials."
 msgstr "Possíveis causas: Pendência de permissão de uso em produção para a credencial do vendedor."
+
+msgid "Days for Expiration"
+msgstr "Dias de Validade"
+
+msgid "Place the number of days (1 to 30) until expiration of the ticket."
+msgstr "Coloca um número de dias (1 a 30) para a validade do boleto."

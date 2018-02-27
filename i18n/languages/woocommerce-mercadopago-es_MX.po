@@ -1059,3 +1059,9 @@ msgstr "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado 
 
 msgid "Posible causes: Pending permission of use in production of the seller credentials."
 msgstr "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
+
+msgid "Days for Expiration"
+msgstr "Días para Caducidad"
+
+msgid "Place the number of days (1 to 30) until expiration of the ticket."
+msgstr "Coloque la cantidad de días (de 1 a 30) hasta la expiración del ticket."
