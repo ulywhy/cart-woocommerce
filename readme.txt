@@ -218,7 +218,7 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 = v3.0.12 (28/02/2018) =
 * Improvements
 	- Added date limit for ticket payment;
-	- Added extra tax by payment gateway;
+	- Added option for extra tax by payment gateway;
 	- Increased stability.
 
 = v3.0.11 (19/02/2018) =
