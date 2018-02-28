@@ -661,12 +661,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			$html = '<style type="text/css">
 						#MP-Checkout-dialog #MP-Checkout-IFrame { bottom: -28px !important; height: 590px !important; }
 					</style>';
-			$html = '<script type="text/javascript" src="https://secure.mlstatic.com/mptools/render.js"></script>
+			$html .= '<script type="text/javascript" src="https://secure.mlstatic.com/mptools/render.js"></script>
 					<script type="text/javascript">
 						(function() { $MPC.openCheckout({ url: "' . esc_url( $url ) . '", mode: "modal" }); })();
 					</script>';
-			$html = '<img width="468" height="60" src="' . $this->site_data['checkout_banner'] . '">';
-			$html = '<p></p><p>' . wordwrap(
+			$html .= '<img width="468" height="60" src="' . $this->site_data['checkout_banner'] . '">';
+			$html .= '<p></p><p>' . wordwrap(
 						__( 'Thank you for your order. Please, proceed with your payment clicking in the bellow button.', 'woocommerce-mercadopago' ),
 						60, '<br>'
 					) . '</p>
@@ -684,7 +684,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 			// ===== The checkout is made by rendering Mercado Pago form within a iframe =====
 			$html = '<img width="468" height="60" src="' . $this->site_data['checkout_banner'] . '">';
-			$html = '<p></p><p>' . wordwrap(
+			$html .= '<p></p><p>' . wordwrap(
 						__( 'Thank you for your order. Proceed with your payment completing the following information.', 'woocommerce-mercadopago' ),
 						60, '<br>'
 					) . '</p>

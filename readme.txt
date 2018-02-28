@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.8
 Tested up to: 4.8
 Requires PHP: 5.6
-Stable tag: 3.0.12
+Stable tag: 3.0.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,10 +215,14 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 
 == Changelog ==
 
+= v3.0.13 (01/03/2018) =
+* Bug fixes
+	- Fixed a bug in modal window for Basic Checkout.
+
 = v3.0.12 (28/02/2018) =
 * Improvements
 	- Added date limit for ticket payment;
-	- Added extra tax by payment gateway;
+	- Added option for extra tax by payment gateway;
 	- Increased stability.
 
 = v3.0.11 (19/02/2018) =
