@@ -217,6 +217,7 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 
 = v3.0.14 (13/03/2018) =
 * Improvements
+	- Discount and fee by gateway accepts two leading zeros after decimal point;
 	- Customers now have the option to not save their credit cards;
 	- Checkout banner is now customizable.
 

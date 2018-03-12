@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce MercadoPago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store.
- * Version: 3.0.14
+ * Version: 3.0.13
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
@@ -106,7 +106,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// ============================================================
 
 		// General constants.
-		const VERSION = '3.0.14';
+		const VERSION = '3.0.13';
 		const MIN_PHP = 5.6;
 
 		// Arrays to hold configurations for LatAm environment.
@@ -1018,6 +1018,11 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					} else {
 						update_option( '_mp_store_identificator', '', true );
 					}
+					if ( isset( $_POST['custom_banner'] ) ) {
+						update_option( '_mp_custom_banner', $_POST['custom_banner'], true );
+					} else {
+						update_option( '_mp_custom_banner', '', true );
+					}
 					if ( isset( $_POST['custom_domain'] ) ) {
 						update_option( '_mp_custom_domain', $_POST['custom_domain'], true );
 					} else {
@@ -1112,6 +1117,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				}
 				// Store identification.
 				$store_identificator = get_option( '_mp_store_identificator', 'WC-' );
+				// Custom domain for IPN.
+				$custom_banner = get_option( '_mp_custom_banner', '' );
 				// Custom domain for IPN.
 				$custom_domain = get_option( '_mp_custom_domain', '' );
 				if ( ! empty( $custom_domain ) && filter_var( $custom_domain, FILTER_VALIDATE_URL ) === FALSE ) {

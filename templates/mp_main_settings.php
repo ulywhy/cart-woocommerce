@@ -300,6 +300,17 @@
 				</td>
 			</tr>
 			<tr>
+				<th scope="row"><label><?php echo __( 'Custom banner for checkout', 'woocommerce-mercadopago' ); ?></label></th>
+				<td>
+					<input name="custom_banner" type="text" id="custom_banner" aria-describedby="tagline-description" value="<?php echo $custom_banner; ?>" class="regular-text"/>
+					<p class="description" id="tagline-description">
+						<?php echo esc_html(
+							__( 'Inform the URL of your banner image. Let blank to use Mercado Pago default.', 'woocommerce-mercadopago' )
+						); ?>
+					</p>
+				</td>
+			</tr>
+			<tr>
 				<th scope="row"><label><?php echo __( 'Custom URL for IPN', 'woocommerce-mercadopago' ); ?></label></th>
 				<td>
 					<input name="custom_domain" type="text" id="custom_domain" aria-describedby="tagline-description" value="<?php echo $custom_domain; ?>" class="regular-text"/>

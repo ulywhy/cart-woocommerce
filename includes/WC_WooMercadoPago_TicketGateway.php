@@ -215,7 +215,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_Payment_Gateway {
 				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
 				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
-				'default' => '0'
+				'default' => '0',
+				'custom_attributes' => array(
+					'step' 	=> '0.01',
+					'min'	=> '-99',
+					'max' => '99'
+				) 
 			)
 		);
 

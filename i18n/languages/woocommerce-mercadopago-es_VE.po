@@ -1068,3 +1068,12 @@ msgstr "Coloque la cantidad de días (de 1 a 30) hasta la expiración del ticket
 
 msgid "Fee of"
 msgstr "Tarifa de"
+
+msgid "Do not save my card"
+msgstr "No guardar mi tarjeta"
+
+msgid "Custom banner for checkout"
+msgstr "Customización de banner para checkout"
+
+msgid "Inform the URL of your banner image. Let blank to use Mercado Pago default."
+msgstr "Informe la URL de su imagen de banner. Dejar en blanco para usar el valor predeterminado de Mercado Pago."

@@ -207,7 +207,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
 				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
-				'default' => '0'
+				'default' => '0',
+				'custom_attributes' => array(
+					'step' 	=> '0.01',
+					'min'	=> '-99',
+					'max' => '99'
+				) 
 			)
 		);
 
@@ -492,6 +497,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate( $this->site_data['currency'] );
 			$currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
 		}
+		
+		$banner_url = get_option( '_mp_custom_banner' );
+		if ( ! isset( $banner_url ) || empty( $banner_url ) ) {
+			$banner_url = $this->site_data['checkout_banner_custom'];
+		}
 
 		$parameters = array(
 			'amount'                 => $amount,
@@ -503,7 +513,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			'payer_email'            => $logged_user_email,
 			// ===
 			'images_path'            => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
-			'banner_path'            => $this->site_data['checkout_banner_custom'],
+			'banner_path'            => $banner_url,
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
 			'customerId'             => isset( $customer ) ? ( isset( $customer['id'] ) ? $customer['id'] : null ) : null,
 			'currency_ratio'         => $currency_ratio,

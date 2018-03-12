@@ -1068,3 +1068,12 @@ msgstr ""
 
 msgid "Fee of"
 msgstr ""
+
+msgid "Do not save my card"
+msgstr ""
+
+msgid "Custom banner for checkout"
+msgstr ""
+
+msgid "Inform the URL of your banner image. Let blank to use Mercado Pago default."
+msgstr ""
