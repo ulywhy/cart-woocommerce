@@ -1,5 +1,10 @@
 CHANGELOG:
 
+= v3.0.14 (13/03/2018) =
+* Improvements
+	- Customers now have the option to not save their credit cards;
+	- Checkout banner is now customizable.
+
 = v3.0.13 (01/03/2018) =
 * Bug fixes
 	- Fixed a bug in modal window for Basic Checkout.
