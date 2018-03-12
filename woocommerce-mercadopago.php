@@ -1018,6 +1018,11 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					} else {
 						update_option( '_mp_store_identificator', '', true );
 					}
+					if ( isset( $_POST['custom_banner'] ) ) {
+						update_option( '_mp_custom_banner', $_POST['custom_banner'], true );
+					} else {
+						update_option( '_mp_custom_banner', '', true );
+					}
 					if ( isset( $_POST['custom_domain'] ) ) {
 						update_option( '_mp_custom_domain', $_POST['custom_domain'], true );
 					} else {
@@ -1112,6 +1117,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				}
 				// Store identification.
 				$store_identificator = get_option( '_mp_store_identificator', 'WC-' );
+				// Custom domain for IPN.
+				$custom_banner = get_option( '_mp_custom_banner', '' );
 				// Custom domain for IPN.
 				$custom_domain = get_option( '_mp_custom_domain', '' );
 				if ( ! empty( $custom_domain ) && filter_var( $custom_domain, FILTER_VALIDATE_URL ) === FALSE ) {

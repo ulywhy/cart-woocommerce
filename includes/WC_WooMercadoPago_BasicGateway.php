@@ -311,7 +311,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
 				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
-				'default' => '0'
+				'default' => '0',
+				'custom_attributes' => array(
+					'step' 	=> '0.01',
+					'min'	=> '-99',
+					'max' => '99'
+				) 
 			),
 			'two_cards_mode' => array(
 				'title' => __( 'Two Cards Mode', 'woocommerce-mercadopago' ),
@@ -652,6 +657,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 		$order = wc_get_order( $order_id );
 		$url = $this->create_url( $order );
+		
+		$banner_url = get_option( '_mp_custom_banner' );
+		if ( ! isset( $banner_url ) || empty( $banner_url ) ) {
+			$banner_url = $this->site_data['checkout_banner'];
+		}
 
 		if ( 'modal' == $this->method && $url ) {
 
@@ -665,7 +675,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					<script type="text/javascript">
 						(function() { $MPC.openCheckout({ url: "' . esc_url( $url ) . '", mode: "modal" }); })();
 					</script>';
-			$html .= '<img width="468" height="60" src="' . $this->site_data['checkout_banner'] . '">';
+			$html .= '<img width="468" height="60" src="' . $banner_url . '">';
 			$html .= '<p></p><p>' . wordwrap(
 						__( 'Thank you for your order. Please, proceed with your payment clicking in the bellow button.', 'woocommerce-mercadopago' ),
 						60, '<br>'
@@ -683,7 +693,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			$this->write_log( __FUNCTION__, 'embedding Mercado Pago iframe.' );
 
 			// ===== The checkout is made by rendering Mercado Pago form within a iframe =====
-			$html = '<img width="468" height="60" src="' . $this->site_data['checkout_banner'] . '">';
+			$html = '<img width="468" height="60" src="' . $banner_url . '">';
 			$html .= '<p></p><p>' . wordwrap(
 						__( 'Thank you for your order. Proceed with your payment completing the following information.', 'woocommerce-mercadopago' ),
 						60, '<br>'

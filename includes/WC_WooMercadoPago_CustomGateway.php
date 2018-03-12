@@ -207,7 +207,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
 				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
-				'default' => '0'
+				'default' => '0',
+				'custom_attributes' => array(
+					'step' 	=> '0.01',
+					'min'	=> '-99',
+					'max' => '99'
+				) 
 			)
 		);
 
@@ -492,6 +497,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate( $this->site_data['currency'] );
 			$currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
 		}
+		
+		$banner_url = get_option( '_mp_custom_banner' );
+		if ( ! isset( $banner_url ) || empty( $banner_url ) ) {
+			$banner_url = $this->site_data['checkout_banner_custom'];
+		}
 
 		$parameters = array(
 			'amount'                 => $amount,
@@ -503,7 +513,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			'payer_email'            => $logged_user_email,
 			// ===
 			'images_path'            => plugins_url( 'assets/images/', plugin_dir_path( __FILE__ ) ),
-			'banner_path'            => $this->site_data['checkout_banner_custom'],
+			'banner_path'            => $banner_url,
 			'customer_cards'         => isset( $customer ) ? ( isset( $customer['cards'] ) ? $customer['cards'] : array() ) : array(),
 			'customerId'             => isset( $customer ) ? ( isset( $customer['id'] ) ? $customer['id'] : null ) : null,
 			'currency_ratio'         => $currency_ratio,
@@ -553,6 +563,22 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			isset( $custom_checkout['installments'] ) && ! empty( $custom_checkout['installments'] ) &&
 			$custom_checkout['installments'] != -1 ) {
 			$response = $this->create_url( $order, $custom_checkout );
+			// Check for card save.
+			if ( method_exists( $order, 'update_meta_data' ) ) {
+				if ( isset( $custom_checkout['doNotSaveCard'] ) ) {
+					$order->update_meta_data( '_save_card', 'no' );
+				} else {
+					$order->update_meta_data( '_save_card', 'yes' );
+				}
+				$order->save();
+			} else {
+				if ( isset( $custom_checkout['doNotSaveCard'] ) ) {
+					update_post_meta( $order_id, '_save_card', 'no' );
+				} else {
+					update_post_meta( $order_id, '_save_card', 'yes' );
+				}
+			}
+			// Switch on response.
 			if ( array_key_exists( 'status', $response ) ) {
 				switch ( $response['status'] ) {
 					case 'approved':
@@ -1295,7 +1321,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				$order->add_order_note(
 					'Mercado Pago: ' . __( 'Payment approved.', 'woocommerce-mercadopago' )
 				);
-				$this->check_and_save_customer_card( $data );
+				// Check if we can save the customer card.
+				$save_card = ( method_exists( $order, 'get_meta' ) ) ?
+					$order->get_meta( '_save_card' ) :
+					get_post_meta( $order->id, '_save_card', true );
+				if ( $save_card === 'yes' ) {
+					$this->write_log( __FUNCTION__, 'Saving customer card: ' . json_encode( $data['card'], JSON_PRETTY_PRINT ) );
+					$this->check_and_save_customer_card( $data );
+				}
 				$order->payment_complete();
 				$order->update_status(
 					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'approved' )

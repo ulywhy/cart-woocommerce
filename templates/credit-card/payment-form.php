@@ -279,6 +279,13 @@ if ( 'Twenty Seventeen' == $theme->name || 'Twenty Seventeen' == $theme->parent_
 			<div id="mp-tax-cft-text"></div>
 		</div>
 	</div>
+	
+	<div style="padding:0px 12px 0px 12px;">
+		<label for="saveCard" class="show_if_simple tips" style="display: inline;">
+			<input type="checkbox" name="mercadopago_custom[doNotSaveCard]" id="doNotSaveCard" value="yes">
+			<?php echo esc_html__( 'Do not save my card', 'woocommerce-mercadopago' ); ?>
+		</label>
+	</div>
 
 	<div class="mp-box-inputs mp-line" style="padding:0px 12px 0px 12px;">
 		<!-- NOT DELETE LOADING-->
