@@ -567,11 +567,10 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			if ( method_exists( $order, 'update_meta_data' ) ) {
 				if ( isset( $custom_checkout['doNotSaveCard'] ) ) {
 					$order->update_meta_data( '_save_card', 'no' );
-					$order->save();
 				} else {
 					$order->update_meta_data( '_save_card', 'yes' );
-					$order->save();
 				}
+				$order->save();
 			} else {
 				if ( isset( $custom_checkout['doNotSaveCard'] ) ) {
 					update_post_meta( $order_id, '_save_card', 'no' );
