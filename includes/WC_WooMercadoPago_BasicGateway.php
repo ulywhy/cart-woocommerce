@@ -1403,7 +1403,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 							'total' => wc_format_decimal( $shipment_cost ),
 						) );
 						$shipping_item->save();
-						$this->calculate_shipping();
+						$order->calculate_shipping();
 					} else {
 						// Update shipping cost and method title.
 						$r = $order->update_shipping( $order_item_shipping_id, array(
