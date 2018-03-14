@@ -217,7 +217,7 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 
 = v3.0.15 (15/03/2018) =
 * Improvements
-	- Allowing customization by merchants, in ticket fields;
+	- Allowing customization by merchants, in ticket fields (credits to https://github.com/fernandoacosta)
 	- Fixed a bug in Mercado Envios processment.
 
 = v3.0.14 (13/03/2018) =
