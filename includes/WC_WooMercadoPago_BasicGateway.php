@@ -1322,7 +1322,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				break;
 			case 'rejected':
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'failed' ),
+					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'rejected' ),
 					'Mercado Pago: ' . __( 'The payment was refused. The customer can try again.', 'woocommerce-mercadopago' )
 				);
 				break;
