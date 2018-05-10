@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/3637ece536688a33d66d/maintainability)](https://codeclimate.com/github/mercadopago/cart-woocommerce/maintainability)
+
 ![Mercado Pago](https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png)
 
 ## Documentation in English
