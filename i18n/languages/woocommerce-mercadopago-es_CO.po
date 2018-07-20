@@ -457,6 +457,9 @@ msgstr "Su cliente será capaz de utilizar dos tarjetas diferentes para pagar el
 msgid "Thank you for your order. Please, proceed with your payment clicking in the bellow button."
 msgstr "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
 
+msgid "Thank you for your order. Please, transfer the money to get your order approved."
+msgstr "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
+
 msgid "Cancel order &amp; Clear cart"
 msgstr "Cancelar &amp; Limpiar carrito"
 
@@ -943,6 +946,9 @@ msgstr "Importante: La solicitud sólo será confirmada después de la aprobaci�
 msgid "Click [Place order] button. The ticket will be generated and you will be redirected to print it."
 msgstr "Haga clic en el botón [Realizar el pedido]. El ticket será generado y usted será redirigido a imprimirlo."
 
+msgid "Click [Place order] button. The bank transfer will be setup and you will be redirected to pay it."
+msgstr "Haga clic en el botón [Realizar el pedido]. La transferencia bancaria se inicializará y usted será redirigido para pagarla."
+
 msgid "Please, select the ticket issuer of your preference."
 msgstr "Por favor, seleccione el emisor de su elección."
 
@@ -973,6 +979,12 @@ msgstr "ESTADO"
 msgid "ZIP"
 msgstr "CÓDIGO POSTAL"
 
+msgid "BANK"
+msgstr "BANCO"
+
+msgid "PERSON TYPE"
+msgstr "TIPO DE PERSONA"
+
 msgid "You must inform you NAME"
 msgstr "Obligatorio informar su NOMBRE"
 
@@ -996,6 +1008,12 @@ msgstr "Obligatorio informar su ESTADO"
 
 msgid "You must inform your ZIP"
 msgstr "Obligatorio informar su CÓDIGO POSTAL"
+
+msgid "You must inform the FINANCIAL INSTITUTION"
+msgstr "Obligatorio informar el BANCO"
+
+msgid "You must inform your PERSON TYPE"
+msgstr "Obligatorio informar su TIPO DE PERSONA"
 
 msgid "Fisical Person"
 msgstr "Persona Física"

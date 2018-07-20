@@ -1,10 +1,10 @@
 === WooCommerce MercadoPago ===
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
-Requires at least: 4.8
-Tested up to: 4.8
+Requires at least: 4.9.7
+Tested up to: 4.9.7
 Requires PHP: 5.6
-Stable tag: 3.0.15
+Stable tag: 3.0.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -214,6 +214,12 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 4. `Plugin Options`
 
 == Changelog ==
+
+= v3.0.16 (20/07/2018) =
+* Feature MCO 
+  - Adding PSE gateway for Colombia
+* Improvements
+  - Some code improvements
 
 = v3.0.15 (15/03/2018) =
 * Improvements

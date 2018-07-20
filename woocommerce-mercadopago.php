@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce MercadoPago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store.
- * Version: 3.0.15
+ * Version: 3.0.16
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
  * Domain Path: /i18n/languages/
  * WC requires at least: 3.0.0
- * WC tested up to: 3.2.0
+ * WC tested up to: 3.4.3
  *
  * @package MercadoPago
  * @category Core
@@ -106,7 +106,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		// ============================================================
 
 		// General constants.
-		const VERSION = '3.0.15';
+		const VERSION = '3.0.16';
 		const MIN_PHP = 5.6;
 
 		// Arrays to hold configurations for LatAm environment.
@@ -195,6 +195,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_BasicGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_TicketGateway.php';
+				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_PSEGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_SubscriptionGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/class-wc-product-mp_recurrent.php';
 				add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
@@ -238,6 +239,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			$methods[] = 'WC_WooMercadoPago_BasicGateway';
 			$methods[] = 'WC_WooMercadoPago_CustomGateway';
 			$methods[] = 'WC_WooMercadoPago_TicketGateway';
+			$methods[] = 'WC_WooMercadoPago_PSEGateway';
 			$methods[] = 'WC_WooMercadoPago_SubscriptionGateway';
 			return $methods;
 		}
@@ -410,7 +412,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 								if ( $payment['payment_type_id'] != 'account_money' &&
 									$payment['payment_type_id'] != 'credit_card' &&
 									$payment['payment_type_id'] != 'debit_card' &&
-									$payment['payment_type_id'] != 'prepaid_card' ) {
+									$payment['payment_type_id'] != 'prepaid_card' &&
+                  $payment['id'] != 'pse') {
 									$obj = new stdClass();
 									$obj->id = $payment['id'];
 									$obj->name = $payment['name'];
@@ -916,86 +919,22 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 
 				// Check for submits.
 				if ( isset( $_POST['submit'] ) ) {
-					if ( isset( $_POST['client_id'] ) ) {
-						update_option( '_mp_client_id', $_POST['client_id'], true );
-					} else {
-						update_option( '_mp_client_id', '', true );
-					}
-					if ( isset( $_POST['client_secret'] ) ) {
-						update_option( '_mp_client_secret', $_POST['client_secret'], true );
-					} else {
-						update_option( '_mp_client_secret', '', true );
-					}
-					if ( isset( $_POST['public_key'] ) ) {
-						update_option( '_mp_public_key', $_POST['public_key'], true );
-					} else {
-						update_option( '_mp_public_key', '', true );
-					}
-					if ( isset( $_POST['access_token'] ) ) {
-						update_option( '_mp_access_token', $_POST['access_token'], true );
-					} else {
-						update_option( '_mp_access_token', '', true );
-					}
-					if ( isset( $_POST['success_url'] ) ) {
-						update_option( '_mp_success_url', $_POST['success_url'], true );
-					} else {
-						update_option( '_mp_success_url', '', true );
-					}
-					if ( isset( $_POST['fail_url'] ) ) {
-						update_option( '_mp_fail_url', $_POST['fail_url'], true );
-					} else {
-						update_option( '_mp_fail_url', '', true );
-					}
-					if ( isset( $_POST['pending_url'] ) ) {
-						update_option( '_mp_pending_url', $_POST['pending_url'], true );
-					} else {
-						update_option( '_mp_pending_url', '', true );
-					}
-					if ( isset( $_POST['order_status_pending_map'] ) ) {
-						update_option( '_mp_order_status_pending_map', $_POST['order_status_pending_map'], true );
-					} else {
-						update_option( '_mp_order_status_pending_map', '', true );
-					}
-					if ( isset( $_POST['order_status_approved_map'] ) ) {
-						update_option( '_mp_order_status_approved_map', $_POST['order_status_approved_map'], true );
-					} else {
-						update_option( '_mp_order_status_approved_map', '', true );
-					}
-					if ( isset( $_POST['order_status_inprocess_map'] ) ) {
-						update_option( '_mp_order_status_inprocess_map', $_POST['order_status_inprocess_map'], true );
-					} else {
-						update_option( '_mp_order_status_inprocess_map', '', true );
-					}
-					if ( isset( $_POST['order_status_inmediation_map'] ) ) {
-						update_option( '_mp_order_status_inmediation_map', $_POST['order_status_inmediation_map'], true );
-					} else {
-						update_option( '_mp_order_status_inmediation_map', '', true );
-					}
-					if ( isset( $_POST['order_status_rejected_map'] ) ) {
-						update_option( '_mp_order_status_rejected_map', $_POST['order_status_rejected_map'], true );
-					} else {
-						update_option( '_mp_order_status_rejected_map', '', true );
-					}
-					if ( isset( $_POST['order_status_cancelled_map'] ) ) {
-						update_option( '_mp_order_status_cancelled_map', $_POST['order_status_cancelled_map'], true );
-					} else {
-						update_option( '_mp_order_status_cancelled_map', '', true );
-					}
-					if ( isset( $_POST['order_status_refunded_map'] ) ) {
-						update_option( '_mp_order_status_refunded_map', $_POST['order_status_refunded_map'], true );
-					} else {
-						update_option( '_mp_order_status_refunded_map', '', true );
-					}
-					if ( isset( $_POST['order_status_chargedback_map'] ) ) {
-						update_option( '_mp_order_status_chargedback_map', $_POST['order_status_chargedback_map'], true );
-					} else {
-						update_option( '_mp_order_status_chargedback_map', '', true );
-					}
-					if ( isset( $_POST['statement_descriptor'] ) ) {
-						update_option( '_mp_statement_descriptor', $_POST['statement_descriptor'], true );
-					} else {
-						update_option( '_mp_statement_descriptor', '', true );
-					}
+          update_option( '_mp_client_id', isset( $_POST['client_id'] ) ? $_POST['client_id'] : '', true );
+					update_option( '_mp_client_secret', isset( $_POST['client_secret'] ) ? $_POST['client_secret'] : '', true );
+					update_option( '_mp_public_key', isset( $_POST['public_key'] ) ? $_POST['public_key'] : '', true );
+					update_option( '_mp_access_token', isset( $_POST['access_token'] ) ? $_POST['access_token'] : '', true );
+					update_option( '_mp_success_url', isset( $_POST['success_url'] ) ? $_POST['success_url'] : '', true );
+					update_option( '_mp_fail_url', isset( $_POST['fail_url'] ) ? $_POST['fail_url'] : '', true );
+					update_option( '_mp_pending_url', isset( $_POST['pending_url'] ) ? $_POST['pending_url'] : '', true );
+					update_option( '_mp_order_status_pending_map', isset( $_POST['order_status_pending_map'] ) ? $_POST['order_status_pending_map'] : '', true );
+					update_option( '_mp_order_status_approved_map', isset( $_POST['order_status_approved_map'] ) ? $_POST['order_status_approved_map'] : '', true );
+					update_option( '_mp_order_status_inprocess_map', isset( $_POST['order_status_inprocess_map'] ) ? $_POST['order_status_inprocess_map'] : '', true );
+					update_option( '_mp_order_status_inmediation_map', isset( $_POST['order_status_inmediation_map'] ) ? $_POST['order_status_inmediation_map'] : '', true );
+					update_option( '_mp_order_status_rejected_map', isset( $_POST['order_status_rejected_map'] ) ? $_POST['order_status_rejected_map'] : '', true );
+					update_option( '_mp_order_status_cancelled_map', isset( $_POST['order_status_cancelled_map'] ) ? $_POST['order_status_cancelled_map'] : '', true );
+					update_option( '_mp_order_status_refunded_map', isset( $_POST['order_status_refunded_map'] ) ? $_POST['order_status_refunded_map'] : '', true );
+					update_option( '_mp_order_status_chargedback_map', isset( $_POST['order_status_chargedback_map'] ) ? $_POST['order_status_chargedback_map'] : '', true );
+					update_option( '_mp_statement_descriptor', isset( $_POST['statement_descriptor'] ) ? $_POST['statement_descriptor'] : '', true );
 					if ( isset( $_POST['category_id'] ) ) {
 						update_option( '_mp_category_id', $_POST['category_id'], true );
 						$categories_data = WC_Woo_Mercado_Pago_Module::$categories;
@@ -1004,41 +943,13 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 						update_option( '_mp_category_id', '', true );
 						update_option( '_mp_category_name', 'others', true );
 					}
-					if ( isset( $_POST['store_identificator'] ) ) {
-						update_option( '_mp_store_identificator', $_POST['store_identificator'], true );
-					} else {
-						update_option( '_mp_store_identificator', '', true );
-					}
-					if ( isset( $_POST['custom_banner'] ) ) {
-						update_option( '_mp_custom_banner', $_POST['custom_banner'], true );
-					} else {
-						update_option( '_mp_custom_banner', '', true );
-					}
-					if ( isset( $_POST['custom_domain'] ) ) {
-						update_option( '_mp_custom_domain', $_POST['custom_domain'], true );
-					} else {
-						update_option( '_mp_custom_domain', '', true );
-					}
-					if ( isset( $_POST['currency_conversion_v0'] ) ) {
-						update_option( '_mp_currency_conversion_v0', $_POST['currency_conversion_v0'], true );
-					} else {
-						update_option( '_mp_currency_conversion_v0', '', true );
-					}
-					if ( isset( $_POST['currency_conversion_v1'] ) ) {
-						update_option( '_mp_currency_conversion_v1', $_POST['currency_conversion_v1'], true );
-					} else {
-						update_option( '_mp_currency_conversion_v1', '', true );
-					}
-					if ( isset( $_POST['debug_mode'] ) ) {
-						update_option( '_mp_debug_mode', $_POST['debug_mode'], true );
-					} else {
-						update_option( '_mp_debug_mode', '', true );
-					}
-					if ( isset( $_POST['sandbox_mode'] ) ) {
-						update_option( '_mp_sandbox_mode', $_POST['sandbox_mode'], true );
-					} else {
-						update_option( '_mp_sandbox_mode', '', true );
-					}
+					update_option( '_mp_store_identificator', isset( $_POST['store_identificator'] ) ? $_POST['store_identificator'] : '', true );
+					update_option( '_mp_custom_banner', isset( $_POST['custom_banner'] ) ? $_POST['custom_banner'] : '', true );
+					update_option( '_mp_custom_domain', isset( $_POST['custom_domain'] ) ? $_POST['custom_domain'] : '', true );
+					update_option( '_mp_currency_conversion_v0', isset( $_POST['currency_conversion_v0'] ) ? $_POST['currency_conversion_v0'] : '', true );
+					update_option( '_mp_currency_conversion_v1', isset( $_POST['currency_conversion_v1'] ) ? $_POST['currency_conversion_v1'] : '', true );
+					update_option( '_mp_debug_mode', isset( $_POST['debug_mode'] ) ? $_POST['debug_mode'] : '', true );
+					update_option( '_mp_sandbox_mode', isset( $_POST['sandbox_mode'] ) ? $_POST['sandbox_mode'] : '', true );
 				}
 
 				// Mercado Pago logo.
@@ -1093,8 +1004,13 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 						'">' . __( 'Ticket', 'woocommerce-mercadopago' ) . '</a>' . ' ' .
 					'<a class="button button-primary" href="' . esc_url( admin_url(
 						'admin.php?page=wc-settings&tab=checkout&section=woo-mercado-pago-subscription' ) ) .
-						'">' . __( 'Subscription', 'woocommerce-mercadopago' ) . '</a>' .
-				'</strong>';
+						'">' . __( 'Subscription', 'woocommerce-mercadopago' ) . '</a>';
+        if ( get_option('_site_id_v1', '') == 'MCO' ) {
+          $gateway_buttons .= ' <a class="button button-primary" href="' . esc_url( admin_url(
+						'admin.php?page=wc-settings&tab=checkout&section=woo-mercado-pago-pse' ) ) .
+						'">' . __( 'PSE', 'woocommerce-mercadopago' ) . '</a>';
+        }
+				$gateway_buttons .= '</strong>';
 				// Statement descriptor.
 				$statement_descriptor = get_option( '_mp_statement_descriptor', 'Mercado Pago' );
 				// Get categories.
@@ -1271,53 +1187,6 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			}
 		);
 	});
-
-	// ==========================================================================================
-
-	// add custom field for checkout
-	/*add_filter( 'woocommerce_checkout_fields', 'custom_override_checkout_fields', 10, 2 );
-	// check for specific countries to add specific custom fields
-	function custom_override_checkout_fields( $fields ) {
-		$fields['billing']['billing_payer_doc_type']['type'] = 'select';
-		$fields['billing']['billing_payer_doc_type']['options'] = array(
-			'option_1' => 'CPF',
-			'option_2' => 'CNPJ'
-		);
-		$fields['billing']['billing_payer_doc_type']['label'] = esc_html__( 'Document Type', 'woocommerce-mercadopago' );
-		$fields['billing']['billing_payer_doc_type']['class'] = array(
-			'form-row-first'
-		);
-		$fields['billing']['billing_payer_doc']['type'] = 'text';
-		$fields['billing']['billing_payer_doc']['label'] = esc_html__( 'Document number', 'woocommerce-mercadopago' );
-		$fields['billing']['billing_payer_doc']['required'] = true;
-		$fields['billing']['billing_payer_doc']['class'] = array(
-			'form-row-last'
-		);
-		$fields['billing']['billing_address_number']['type'] = 'text';
-		$fields['billing']['billing_address_number']['label'] = esc_html__( 'Address Number', 'woocommerce-mercadopago' );
-		$fields['billing']['billing_address_number']['class'] = array(
-			'form-row-first'
-		);
-		$fields['billing']['billing_address_2']['class'] = array(
-			'form-row-last'
-		);
-		$fields['billing']['billing_address_2']['label'] = esc_html__( 'Address Additional Info', 'woocommerce-mercadopago' );'Complemento';
-		$order = array(
-			'billing_first_name', 'billing_last_name',
-			'billing_payer_doc_type', 'billing_payer_doc',
-			'billing_company',
-			'billing_address_1',
-			'billing_address_number', 'billing_address_2',
-			'billing_postcode',
-			'billing_country',
-			'billing_email', 'billing_phone'
-		);
-		foreach( $order as $field ) {
-			$ordered_fields[$field] = $fields['billing'][$field];
-		}
-		$fields['billing'] = $ordered_fields;
-		return $fields;
-	}*/
 
 	// add our own item to the order actions meta box
 	add_action( 'woocommerce_order_actions', 'add_mp_order_meta_box_actions' );
