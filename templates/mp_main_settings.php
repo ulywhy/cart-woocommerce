@@ -61,7 +61,7 @@
 			<tr>
 				<th scope="row"><label>Client Secret</label></th>
 				<td>
-					<input name="client_secret" type="password" id="client_secret" aria-describedby="tagline-description" value="<?php form_option('_mp_client_secret'); ?>" class="regular-text" />
+					<input name="client_secret" type="text" id="client_secret" aria-describedby="tagline-description" value="<?php form_option('_mp_client_secret'); ?>" class="regular-text" />
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'Insert your Mercado Pago Client_secret.', 'woocommerce-mercadopago' ) ); ?>
 					</p>
@@ -104,7 +104,7 @@
 			<tr>
 				<th scope="row"><label>Access Token</label></th>
 				<td>
-					<input name="access_token" type="password" id="access_token" aria-describedby="tagline-description" value="<?php form_option('_mp_access_token'); ?>" class="regular-text" />
+					<input name="access_token" type="text" id="access_token" aria-describedby="tagline-description" value="<?php form_option('_mp_access_token'); ?>" class="regular-text" />
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'Insert your Mercado Pago Access token.', 'woocommerce-mercadopago' ) ); ?>
 					</p>
@@ -352,6 +352,10 @@
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
 								'woo-mercado-pago-ticket',
 								__( 'Tickets', 'woocommerce-mercadopago' )
+							),
+              WC_Woo_Mercado_Pago_Module::build_log_path_string(
+								'woo-mercado-pago-pse',
+								__( 'PSE', 'woocommerce-mercadopago' )
 							),
 							WC_Woo_Mercado_Pago_Module::build_log_path_string(
 								'woo-mercado-pago-subscription',

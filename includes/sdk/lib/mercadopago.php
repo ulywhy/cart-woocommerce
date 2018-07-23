@@ -12,7 +12,7 @@ $GLOBALS['LIB_LOCATION'] = dirname( __FILE__ );
 
 class MP {
 
-	private $version = '3.0.15';
+	private $version = '3.0.16';
 	private $client_id;
 	private $client_secret;
 	private $ll_access_token;
@@ -620,6 +620,19 @@ class MP {
 		return $response;
 
 	}
+  
+  public function get_payment_methods() {
+    $request = array(
+      'uri' => '/v1/payment_methods',
+      'params' => array(
+        'access_token' => $this->get_access_token()
+      )
+    );
+    
+    $response = MPRestClient::get( $request, $this->version );
+    
+    return $response;
+  }
 
 	//=== GENERIC RESOURCE CALL METHODS ===
 
