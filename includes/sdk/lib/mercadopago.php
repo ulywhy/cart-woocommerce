@@ -783,6 +783,7 @@ class MP {
 class MPRestClient {
 
 	const API_BASE_URL = 'https://api.mercadopago.com';
+	const X_PRODUCT_ID = 'BC32CR3U643001OI39E0'; //Identifier used to designate the product, device and version
 	private static $email_admin = '';
 	private static $site_locale = '';
 	private static $check_loop = 0;
@@ -998,7 +999,12 @@ class MPRestClient {
 
 	public static function post( $request, $version ) {
 		$request['method'] = 'POST';
-
+    
+	    if (! isset( $request['headers'] )) {
+	        $request['headers'] = array();
+	    }
+	    $request['headers']['x-product-id'] = self::X_PRODUCT_ID;
+    
 		return self::exec( $request, $version );
 	}
 
