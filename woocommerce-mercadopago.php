@@ -961,14 +961,19 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					'<img width="14" height="14" src="' . plugins_url( 'assets/images/error.png', __FILE__ ) . '"> ' .
 					__( 'You don\'t have WooCommerce installed and enabled.', 'woocommerce-mercadopago' );
 				// Creating PHP version message.
-				$min_php_message = phpversion() >= WC_Woo_Mercado_Pago_Module::MIN_PHP ?
-					'<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
-					__( 'Your PHP version is OK.', 'woocommerce-mercadopago' ) :
-					'<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', __FILE__ ) . '"> ' .
+
+				// Check for PHP version and throw notice.
+				$min_php_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
+				__( 'Your PHP version is OK.', 'woocommerce-mercadopago' );
+				
+				if ( version_compare( PHP_VERSION, WC_Woo_Mercado_Pago_Module::MIN_PHP, '<=' ) ) {
+					$min_php_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', __FILE__ ) . '"> ' .
 					sprintf(
 						__( 'Your PHP version do not support this module. You have %s, minimal required is %s.', 'woocommerce-mercadopago' ),
 						phpversion(), WC_Woo_Mercado_Pago_Module::MIN_PHP
 					);
+				}
+					
 				// Check cURL.
 				$curl_message = in_array( 'curl', get_loaded_extensions() ) ?
 					'<img width="14" height="14" src="' . plugins_url( 'assets/images/check.png', __FILE__ ) . '"> ' .
