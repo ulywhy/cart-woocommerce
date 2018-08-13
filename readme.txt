@@ -215,6 +215,11 @@ Features: LatAm Basic Checkout support. Great for merchants who want to get goin
 
 == Changelog ==
 
+= v3.0.17 (07/08/2018) =
+* Feature All 
+  - Adding X Product ID
+  - Migration from v0 (collections) to v1
+  
 = v3.0.16 (20/07/2018) =
 * Feature MCO 
   - Adding PSE gateway for Colombia
