@@ -195,7 +195,13 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_BasicGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_TicketGateway.php';
-				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_PSEGateway.php';
+
+				//Get site_id and enable PSE only when credentials are set up and are from Colombia
+				$_site_id_v1 = get_option( '_site_id_v1', '' );
+				if ( !empty( $_site_id_v1 ) && $_site_id_v1=='MCO' ) {
+					include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_PSEGateway.php';
+				}
+
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_SubscriptionGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/class-wc-product-mp_recurrent.php';
 				add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
@@ -239,7 +245,13 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			$methods[] = 'WC_WooMercadoPago_BasicGateway';
 			$methods[] = 'WC_WooMercadoPago_CustomGateway';
 			$methods[] = 'WC_WooMercadoPago_TicketGateway';
-			$methods[] = 'WC_WooMercadoPago_PSEGateway';
+			
+			//Get site_id and enable PSE only when credentials are set up and are from Colombia
+			$_site_id_v1 = get_option( '_site_id_v1', '' );
+			if ( !empty( $_site_id_v1 ) && $_site_id_v1=='MCO' ) {
+				$methods[] = 'WC_WooMercadoPago_PSEGateway';
+			}
+			
 			$methods[] = 'WC_WooMercadoPago_SubscriptionGateway';
 			return $methods;
 		}
