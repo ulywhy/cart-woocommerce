@@ -989,7 +989,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				$category_id = get_option( '_mp_category_id', 0 );
 				if ( count( $store_categories_id ) == 0 ) {
 					$store_category_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', __FILE__ ) . '">' . ' ' .
-						__( 'Configure your Client_id and Client_secret to have access to more options.', 'woocommerce-mercadopago' );
+						__( 'Configure your Public_key and Access_token to have access to more options.', 'woocommerce-mercadopago' );
 				} else {
 					$store_category_message = __( 'Define which type of products your store sells.', 'woocommerce-mercadopago' );
 				}
