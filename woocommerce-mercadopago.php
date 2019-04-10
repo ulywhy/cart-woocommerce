@@ -493,26 +493,30 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		 * @return an array with found categories and a description for its selector title.
 		 */
 		public static function get_categories() {
-			$store_categories_id = array();
-			$store_categories_description = array();
-			// Get Mercado Pago store categories.
-			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
-			MPRestClient::set_email( $email );
-			$categories = MPRestClient::get(
-				array( 'uri' => '/item_categories' ),
-				WC_Woo_Mercado_Pago_Module::get_module_version()
-			);
-			foreach ( $categories['response'] as $category ) {
-				array_push(
-					$store_categories_id, str_replace( '_', ' ', $category['id'] )
-				);
-				array_push(
-					$store_categories_description, str_replace( '_', ' ', $category['description'] )
-				);
-			}
-			return array(
-				'store_categories_id' => $store_categories_id,
-				'store_categories_description' => $store_categories_description
+// 			$store_categories_id = array();
+// 			$store_categories_description = array();
+// 			// Get Mercado Pago store categories.
+// 			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+// 			MPRestClient::set_email( $email );
+// 			$categories = MPRestClient::get(
+// 				array( 'uri' => '/item_categories' ),
+// 				WC_Woo_Mercado_Pago_Module::get_module_version()
+// 			);
+// 			foreach ( $categories['response'] as $category ) {
+// 				array_push(
+// 					$store_categories_id, str_replace( '_', ' ', $category['id'] )
+// 				);
+// 				array_push(
+// 					$store_categories_description, str_replace( '_', ' ', $category['description'] )
+// 				);
+// 			}
+// 			return array(
+// 				'store_categories_id' => $store_categories_id,
+// 				'store_categories_description' => $store_categories_description
+// 			);
+            return array(
+				'store_categories_id' => ["art", "baby", "coupons", "donations", "computing", "cameras", "video games", "television", "car electronics", "electronics", "automotive", "entertainment", "fashion", "games", "home", "musical", "phones", "services", "learnings", "tickets", "travels", "virtual goods", "others"],
+				'store_categories_description' => ["Collectibles & Art", "Toys for Baby, Stroller, Stroller Accessories, Car Safety Seats", "Coupons", "Donations", "Computers & Tablets", "Cameras & Photography", "Video Games & Consoles", "LCD, LED, Smart TV, Plasmas, TVs", "Car Audio, Car Alarm Systems & Security, Car DVRs, Car Video Players, Car PC", "Audio & Surveillance, Video & GPS, Others", "Parts & Accessories", "Music, Movies & Series, Books, Magazines & Comics, Board Games & Toys", "Men's, Women's, Kids & baby, Handbags & Accessories, Health & Beauty, Shoes, Jewelry & Watches", "Online Games & Credits", "Home appliances. Home & Garden", "Instruments & Gear", "Cell Phones & Accessories", "General services", "Trainings, Conferences, Workshops", "Tickets for Concerts, Sports, Arts, Theater, Family, Excursions tickets, Events & more", "Plane tickets, Hotel vouchers, Travel vouchers", "E-books, Music Files, Software, Digital Images,  PDF Files and any item which can be electronically stored in a file, Mobile Recharge, DTH Recharge and any Online Recharge", "Other categories"]
 			);
 		}
 

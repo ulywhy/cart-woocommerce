@@ -308,12 +308,14 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 				if ( isset( $shipping_methods['woo-mercado-pago-me-normal'] ) && isset( $shipping_methods['woo-mercado-pago-me-express'] ) ) {
 					if ( $shipping_methods['woo-mercado-pago-me-normal'] === true && $shipping_methods['woo-mercado-pago-me-express'] === true ) {
 						// Add settings.
-						$this->update_settings_api( 'true' );
+                        /**PERFOMANCE*/
+						//$this->update_settings_api( 'true' );
 						// Not display message.
 						return false;
 					} elseif ( $shipping_methods['woo-mercado-pago-me-normal'] === false && $shipping_methods['woo-mercado-pago-me-express'] === false ) {
 						// Remove settings.
-						$this->update_settings_api( 'false' );
+                        /**PERFOMANCE*/
+						//$this->update_settings_api( 'false' );
 						// Not display message.
 						return false;
 					}
