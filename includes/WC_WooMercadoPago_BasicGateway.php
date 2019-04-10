@@ -21,11 +21,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	public function __construct() {
 
 		// Mercao Pago instance.
-		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( false );
+		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data();
 		$this->mp = new MP(
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
-			get_option( '_mp_client_id' ),
-			get_option( '_mp_client_secret' )
+			get_option( '_mp_access_token' )
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$this->mp->set_email( $email );
@@ -150,8 +149,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	public function init_form_fields() {
 
 		// Show message if credentials are not properly configured.
-		$_site_id_v0 = get_option( '_site_id_v0', '' );
-		if ( empty( $_site_id_v0 ) ) {
+		$_site_id_v1 = get_option( '_site_id_v1', '' );
+		if ( empty( $_site_id_v1 ) ) {
 			$this->form_fields = array(
 				'no_credentials_title' => array(
 					'title' => sprintf(
@@ -372,14 +371,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				}
 			}
 		}
-		$_site_id_v0 = get_option( '_site_id_v0', '' );
-		$is_test_user = get_option( '_test_user_v0', false );
-		if ( ! empty( $_site_id_v0 ) ) {
+		$_site_id_v1 = get_option( '_site_id_v1', '' );
+		$is_test_user = get_option( '_test_user_v1', false );
+		if ( ! empty( $_site_id_v1 ) ) {
 			// Create MP instance.
 			$mp = new MP(
 				WC_Woo_Mercado_Pago_Module::get_module_version(),
-				get_option( '_mp_client_id' ),
-				get_option( '_mp_client_secret' )
+                get_option( '_mp_access_token' )
 			);
 			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 			$mp->set_email( $email );
@@ -555,10 +553,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 	public function add_checkout_script() {
 
-		$client_id = get_option( '_mp_client_id' );
-		$is_test_user = get_option( '_test_user_v0', false );
+        $_mp_public_key = get_option( '_mp_public_key' );
+		$is_test_user = get_option( '_test_user_v1', false );
 
-		if ( ! empty( $client_id ) && ! $is_test_user ) {
+		if ( ! empty( $_mp_public_key ) && ! $is_test_user ) {
 
 			$w = WC_Woo_Mercado_Pago_Module::woocommerce_instance();
 			$available_payments = array();
@@ -577,7 +575,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			<script type="text/javascript">
 				try {
 					var MA = ModuleAnalytics;
-					MA.setToken( '<?php echo $client_id; ?>' );
+                    MA.setPublicKey( '<?php echo $_mp_public_key; ?>' );
 					MA.setPlatform( 'WooCommerce' );
 					MA.setPlatformVersion( '<?php echo $w->version; ?>' );
 					MA.setModuleVersion( '<?php echo WC_Woo_Mercado_Pago_Module::VERSION; ?>' );
@@ -594,9 +592,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 	}
 
 	public function update_checkout_status( $order_id ) {
-		$client_id = get_option( '_mp_client_id' );
-		$is_test_user = get_option( '_test_user_v0', false );
-		if ( ! empty( $client_id ) && ! $is_test_user ) {
+        $_mp_public_key = get_option( '_mp_public_key' );
+		$is_test_user = get_option( '_test_user_v1', false );
+		if ( ! empty( $_mp_public_key ) && ! $is_test_user ) {
 			if ( get_post_meta( $order_id, '_used_gateway', true ) != 'WC_WooMercadoPago_BasicGateway' ) {
 				return;
 			}
@@ -605,7 +603,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			<script type="text/javascript">
 				try {
 					var MA = ModuleAnalytics;
-					MA.setToken( ' . $client_id . ' );
+                    MA.setPublicKey('. $_mp_public_key .');
 					MA.setPaymentType("basic");
 					MA.setCheckoutType("basic");
 					MA.put();
@@ -751,8 +749,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					$method_discount = $line_amount * ( $this->gateway_discount / 100 );
 
 					$currency_ratio = 1;
-					$_mp_currency_conversion_v0 = get_option( '_mp_currency_conversion_v0', '' );
-					if ( ! empty( $_mp_currency_conversion_v0 ) ) {
+					$_mp_currency_conversion_v1 = get_option( '_mp_currency_conversion_v1', '' );
+					if ( ! empty( $_mp_currency_conversion_v1 ) ) {
 						$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate( $this->site_data['currency'] );
 						$currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
 					}
@@ -953,8 +951,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		}
 
 		// Set sponsor ID.
-		$_test_user_v0 = get_option( '_test_user_v0', false );
-		if ( ! $_test_user_v0 ) {
+		$_test_user_v1 = get_option( '_test_user_v1', false );
+		if ( ! $_test_user_v1 ) {
 			$preferences['sponsor_id'] = $this->site_data['sponsor_id'];
 		}
 
@@ -1038,13 +1036,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			}
 		}
 		// Check if this gateway is enabled and well configured.
-		$_mp_client_id = get_option( '_mp_client_id' );
-		$_mp_client_secret = get_option( '_mp_client_secret' );
-		$_site_id_v0 = get_option( '_site_id_v0' );
+        $_mp_public_key = get_option( '_mp_public_key' );
+        $access_token = get_option( '_mp_access_token');
+		$_site_id_v1 = get_option( '_site_id_v1' );
 		$available = ( 'yes' == $this->settings['enabled'] ) &&
-			! empty( $_mp_client_id ) &&
-			! empty( $_mp_client_secret ) &&
-			! empty( $_site_id_v0 );
+            ! empty( $_mp_public_key ) &&
+            ! empty( $access_token ) &&
+			! empty( $_site_id_v1 );
 		return $available;
 	}
 

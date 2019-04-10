@@ -71,13 +71,8 @@ class WC_MercadoEnvios_Admin_Orders {
 				esc_attr( $tracking_number ) . '" style="width:100%; text-align:center;" />';
 			// Check exist shipment_id
 			if ( isset( $shipment_id ) && $shipment_id != '' ) {
-				$client_id = get_option( '_mp_client_id', '' );
-				$client_secret = get_option( '_mp_client_secret', '' );
-				$mp = new MP(
-					WC_Woo_Mercado_Pago_Module::get_module_version(),
-					$client_id,
-					$client_secret
-				);
+                $access_token = get_option( '_mp_access_token', '' );
+				$mp = new MP( WC_Woo_Mercado_Pago_Module::get_module_version(), $access_token );
 				$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 				$mp->set_email( $email );
 				echo '<br /><label for="mercadoenvios_tracking_number">' . esc_html__( 'Tag:', 'woocommerce-mercadopago' ) . '</label><br />';

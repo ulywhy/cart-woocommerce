@@ -21,7 +21,7 @@ class WC_WooMercadoPago_PSEGateway extends WC_Payment_Gateway {
 	public function __construct( $is_instance = false ) {
 
 		// Mercao Pago instance.
-		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( true );
+		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data();
 		$this->mp = new MP(
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
 			get_option( '_mp_access_token' )

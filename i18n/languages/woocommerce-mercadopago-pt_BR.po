@@ -157,8 +157,8 @@ msgstr "Gateways de Pagamento"
 msgid "Basic Checkout & Subscriptions"
 msgstr "Checkout Básico & Assinaturas"
 
-msgid "Custom Checkout & Tickets"
-msgstr "Checkout Transparente & Boletos"
+msgid "Your Credentials of Mercado Pago"
+msgstr "Sus credenciales de Mercado Pago"
 
 msgid "Insert your Mercado Pago Client_id."
 msgstr "Insira seu Client_id do Mercado Pago."
