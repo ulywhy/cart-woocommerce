@@ -21,7 +21,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	public function __construct( $is_instance = false ) {
 
 		// Mercao Pago instance.
-		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data( true );
+		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data();
 		$this->mp = new MP(
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
 			get_option( '_mp_access_token' )
@@ -538,7 +538,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 	 * @return an array containing the result of the processment and the URL to redirect.
 	 */
 	public function process_payment( $order_id ) {
-
 		if ( ! isset( $_POST['mercadopago_custom'] ) ) {
 			return;
 		}
@@ -563,6 +562,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 			isset( $custom_checkout['installments'] ) && ! empty( $custom_checkout['installments'] ) &&
 			$custom_checkout['installments'] != -1 ) {
 			$response = $this->create_url( $order, $custom_checkout );
+            
 			// Check for card save.
 			if ( method_exists( $order, 'update_meta_data' ) ) {
 				if ( isset( $custom_checkout['doNotSaveCard'] ) ) {
@@ -930,7 +930,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 				$this->write_log(
 					__FUNCTION__,
 					'payment link generated with success from mercado pago, with structure as follow: ' .
-					json_encode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
+					json_decode( $checkout_info, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE )
 				);
 				// TODO: Verify sandbox availability.
 				//if ( 'yes' == $this->sandbox ) {

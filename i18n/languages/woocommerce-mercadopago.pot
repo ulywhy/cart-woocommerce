@@ -121,16 +121,10 @@ msgstr ""
 msgid "Subscription"
 msgstr ""
 
-msgid "Configure your Client_id and Client_secret to have access to more options."
+msgid "Configure your Public_key and Access_token to have access to more options."
 msgstr ""
 
 msgid "Define which type of products your store sells."
-msgstr ""
-
-msgid "Your <strong>client_id</strong> and <strong>client_secret</strong> are <strong>valid</strong> for"
-msgstr ""
-
-msgid "Your <strong>client_id</strong> and <strong>client_secret</strong> are <strong>not valid</strong>!"
 msgstr ""
 
 msgid "These credentials are used in <strong>Basic Checkout</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
@@ -157,13 +151,7 @@ msgstr ""
 msgid "Basic Checkout & Subscriptions"
 msgstr ""
 
-msgid "Custom Checkout & Tickets"
-msgstr ""
-
-msgid "Insert your Mercado Pago Client_id."
-msgstr ""
-
-msgid "Insert your Mercado Pago Client_secret."
+msgid "Your Credentials of Mercado Pago"
 msgstr ""
 
 msgid "Currency Conversion"

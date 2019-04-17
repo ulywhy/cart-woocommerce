@@ -108,14 +108,17 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		}
 
 		// Some used variables and its validations.
-		$client_id = get_option( '_mp_client_id', '' );
-		$client_secret = get_option( '_mp_client_secret', '' );
-		$site_id = get_option( '_site_id_v0', '' );
-		if ( empty( $client_id ) || empty( $client_secret ) ) {
+        $public_key = get_option( '_mp_public_key', '' );
+		$access_token = get_option( '_mp_access_token', '' );
+		$site_id = get_option( '_site_id_v1', '' );
+		if ( empty( $public_key ) || empty( $access_token ) ) {
 			return;
 		}
-		if ( ! is_numeric( $client_id ) ) {
-			return;
+        if ( strpos( $public_key, 'APP_USR' ) === false && strpos( $public_key, 'TEST' ) === false ) {
+				return;
+		}
+		if ( strpos( $access_token, 'APP_USR' ) === false && strpos( $access_token, 'TEST' ) === false ) {
+				return;
 		}
 
 		// Object package and zipcode.
@@ -137,8 +140,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		$shipping_method_id = $this->get_shipping_method_id( $site_id );
 		$mp = new MP(
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
-			$client_id,
-			$client_secret
+			$access_token
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$mp->set_email( $email );
@@ -306,12 +308,14 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 				if ( isset( $shipping_methods['woo-mercado-pago-me-normal'] ) && isset( $shipping_methods['woo-mercado-pago-me-express'] ) ) {
 					if ( $shipping_methods['woo-mercado-pago-me-normal'] === true && $shipping_methods['woo-mercado-pago-me-express'] === true ) {
 						// Add settings.
-						$this->update_settings_api( 'true' );
+                        /**PERFOMANCE*/
+						//$this->update_settings_api( 'true' );
 						// Not display message.
 						return false;
 					} elseif ( $shipping_methods['woo-mercado-pago-me-normal'] === false && $shipping_methods['woo-mercado-pago-me-express'] === false ) {
 						// Remove settings.
-						$this->update_settings_api( 'false' );
+                        /**PERFOMANCE*/
+						//$this->update_settings_api( 'false' );
 						// Not display message.
 						return false;
 					}
@@ -341,18 +345,20 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 	public function update_settings_api( $status ) {
 
 		// Some used variables and its validations.
-		$client_id = get_option( '_mp_client_id', '' );
-		$client_secret = get_option( '_mp_client_secret', '' );
-		if ( empty( $client_id ) || empty( $client_secret ) ) {
+		$public_key = get_option( '_mp_public_key', '' );
+		$access_token = get_option( '_mp_access_token', '' );
+		if ( empty( $public_key ) || empty( $access_token ) ) {
 			return;
 		}
-		if ( ! is_numeric( $client_id ) ) {
-			return;
+        if ( strpos( $public_key, 'APP_USR' ) === false && strpos( $public_key, 'TEST' ) === false ) {
+				return;
+		}
+		if ( strpos( $access_token, 'APP_USR' ) === false && strpos( $access_token, 'TEST' ) === false ) {
+				return;
 		}
 		$mp = new MP(
 			WC_Woo_Mercado_Pago_Module::get_module_version(),
-			$client_id,
-			$client_secret
+			$access_token
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 		$mp->set_email( $email );

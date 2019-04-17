@@ -121,17 +121,11 @@ msgstr "Ticket"
 msgid "Subscription"
 msgstr "Suscripción"
 
-msgid "Configure your Client_id and Client_secret to have access to more options."
-msgstr "Configure su Client_id y Client_secret para tener acceso a más opciones."
+msgid "Configure your Public_key and Access_token to have access to more options."
+msgstr "Configure su Public_key y Access_token para tener acceso a más opciones."
 
 msgid "Define which type of products your store sells."
 msgstr "Defina qué tipo de productos se vende en su tienda."
-
-msgid "Your <strong>client_id</strong> and <strong>client_secret</strong> are <strong>valid</strong> for"
-msgstr "Su <strong>client_id</strong> y <strong>client_secret</strong> son <strong>válidos</strong> para"
-
-msgid "Your <strong>client_id</strong> and <strong>client_secret</strong> are <strong>not valid</strong>!"
-msgstr "Su <strong>client_id</strong> y <strong>client_secret</strong> son <strong>inválidas</strong>!"
 
 msgid "These credentials are used in <strong>Basic Checkout</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
 msgstr "Estas credenciales se utilizan en <strong>Checkout Básico</strong> y <strong>Suscripciones</strong>. Acceda este para su país en:<br>"
@@ -157,14 +151,8 @@ msgstr "Gateways de Pago"
 msgid "Basic Checkout & Subscriptions"
 msgstr "Checkout Básico & Suscripciones"
 
-msgid "Custom Checkout & Tickets"
-msgstr "Checkout Personalizado & Tickets"
-
-msgid "Insert your Mercado Pago Client_id."
-msgstr "Inserta su Client_id de Mercado Pago."
-
-msgid "Insert your Mercado Pago Client_secret."
-msgstr "Inserta su" Client_secret de Mercado Pago.
+msgid "Your Credentials of Mercado Pago"
+msgstr "Sus credenciales de Mercado Pago"
 
 msgid "Currency Conversion"
 msgstr "Conversión de Moneda"
