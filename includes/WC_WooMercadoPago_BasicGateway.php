@@ -55,9 +55,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		// How checkout is shown.
 		$this->title              = $this->get_option( 'title', __( 'Mercado Pago - Basic Checkout', 'woocommerce-mercadopago' ) );
 		$this->description        = $this->get_option( 'description' );
-		$this->method             = $this->get_option( 'method', 'iframe' );
-		$this->iframe_width       = $this->get_option( 'iframe_width', '640' );
-		$this->iframe_height      = $this->get_option( 'iframe_height', '800' );
+		$this->method             = $this->get_option( 'method', 'redirect' );
 		// How checkout redirections will behave.
 		$this->auto_return        = $this->get_option( 'auto_return', 'yes' );
 		$this->success_url        = $this->get_option( 'success_url', '' );
@@ -228,24 +226,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				'title' => __( 'Integration Method', 'woocommerce-mercadopago' ),
 				'type' => 'select',
 				'description' => __( 'Select how your clients should interact with Mercado Pago. Modal Window (inside your store), Redirect (Client is redirected to Mercado Pago), or iFrame (an internal window is embedded to the page layout).', 'woocommerce-mercadopago' ),
-				'default' => 'iframe',
+				'default' => 'redirect',
 				'options' => array(
-					'iframe' => __( 'iFrame', 'woocommerce-mercadopago' ),
-					'modal' => __( 'Modal Window', 'woocommerce-mercadopago' ),
-					'redirect' => __( 'Redirect', 'woocommerce-mercadopago' )
+                    'redirect' => __( 'Redirect', 'woocommerce-mercadopago' ),
+					'modal' => __( 'Modal Window', 'woocommerce-mercadopago' )
+					
 				)
-			),
-			'iframe_width' => array(
-				'title' => __( 'iFrame Width', 'woocommerce-mercadopago' ),
-				'type' => 'number',
-				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame width.', 'woocommerce-mercadopago' ),
-				'default' => '640'
-			),
-			'iframe_height' => array(
-				'title' => __( 'iFrame Height', 'woocommerce-mercadopago' ),
-				'type' => 'number',
-				'description' => __( 'If your integration method is iFrame, please inform the payment iFrame height.', 'woocommerce-mercadopago' ),
-				'default' => '800'
 			),
 			'checkout_navigation_title' => array(
 				'title' => __( 'Checkout Navigation: How checkout redirections will behave', 'woocommerce-mercadopago' ),
@@ -344,19 +330,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					// We dont save two card mode as it should come from api.
 					unset( $this->settings[$key] );
 					$this->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
-				} elseif ( $key == 'iframe_width' ) {
-					if ( ! is_numeric( $value ) || empty ( $value ) ) {
-						$this->settings[$key] = 480;
-					} else {
-						$this->settings[$key] = $value;
-					}
-				} elseif ( $key == 'iframe_height' ) {
-					if ( ! is_numeric( $value ) || empty ( $value ) ) {
-						$this->settings[$key] = 800;
-					} else {
-						$this->settings[$key] = $value;
-					}
-				} elseif ( $key == 'gateway_discount') {
+				}
+                elseif ( $key == 'gateway_discount') {
 					if ( ! is_numeric( $value ) || empty ( $value ) ) {
 						$this->settings[$key] = 0;
 					} else {
@@ -635,7 +610,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 				'result' => 'success',
 				'redirect' => $this->create_url( $order )
 			);
-		} elseif ( 'modal' == $this->method || 'iframe' == $this->method ) {
+		} elseif ( 'modal' == $this->method ) {
 			$this->write_log( __FUNCTION__, 'preparing to render Mercado Pago checkout view.' );
 			return array(
 				'result' => 'success',
@@ -685,22 +660,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					'</a>';
 			return $html;
 			// ===== The checkout is made by displaying a modal to the customer =====
-
-		} elseif ( 'modal' != $this->method && $url ) {
-
-			$this->write_log( __FUNCTION__, 'embedding Mercado Pago iframe.' );
-
-			// ===== The checkout is made by rendering Mercado Pago form within a iframe =====
-			$html = '<img width="468" height="60" src="' . $banner_url . '">';
-			$html .= '<p></p><p>' . wordwrap(
-						__( 'Thank you for your order. Proceed with your payment completing the following information.', 'woocommerce-mercadopago' ),
-						60, '<br>'
-					) . '</p>
-					<iframe src="' . esc_url( $url ) . '" name="MP-Checkout" ' .
-					'width="' . $this->iframe_width . '" ' . 'height="' . $this->iframe_height . '" ' .
-					'frameborder="0" scrolling="no" id="checkout_mercadopago"></iframe>';
-			return $html;
-			// ===== The checkout is made by rendering Mercado Pago form within a iframe =====
 
 		} else {
 
