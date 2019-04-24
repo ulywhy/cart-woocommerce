@@ -623,7 +623,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 				case 'MCO':
 					return __( 'Colombia', 'woocommerce-mercadopago' );
 				case 'MLA':
-					return __( 'Argentine', 'woocommerce-mercadopago' );
+					return __( 'Argentina', 'woocommerce-mercadopago' );
 				case 'MLB':
 					return __( 'Brazil', 'woocommerce-mercadopago' );
 				case 'MLC':
@@ -1048,8 +1048,8 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					'<a href="https://www.mercadopago.com/mlm/account/credentials?type=custom" target="_blank">%s</a>, ' .
 					'<a href="https://www.mercadopago.com/mpe/account/credentials?type=custom" target="_blank">%s</a> %s ' .
 					'<a href="https://www.mercadopago.com/mlv/account/credentials?type=custom" target="_blank">%s</a>',
-					__( 'These credentials are used in <strong>Custom Checkout</strong> and <strong>Tickets</strong>. Access it for your country:<br>', 'woocommerce-mercadopago' ),
-					__( 'Argentine', 'woocommerce-mercadopago' ),
+					__( 'These credentials are used in <strong>Basic Checkout</strong>, <strong>Custom Checkout</strong>, <strong>Tickets</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>', 'woocommerce-mercadopago' ),
+					__( 'Argentina', 'woocommerce-mercadopago' ),
 					__( 'Brazil', 'woocommerce-mercadopago' ),
 					__( 'Chile', 'woocommerce-mercadopago' ),
 					__( 'Colombia', 'woocommerce-mercadopago' ),

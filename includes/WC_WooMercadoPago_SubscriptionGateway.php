@@ -209,7 +209,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			'<a href="https://www.mercadopago.com.ar/ipn-notifications" target="_blank">%s</a>, ' .
 			'<a href="https://www.mercadopago.com.br/ipn-notifications" target="_blank">%s</a> %s ' .
 			'<a href="https://www.mercadopago.com.mx/ipn-notifications" target="_blank">%s</a>',
-			__( 'Argentine', 'woocommerce-mercadopago' ),
+			__( 'Argentina', 'woocommerce-mercadopago' ),
 			__( 'Brazil', 'woocommerce-mercadopago' ),
 			__( 'or', 'woocommerce-mercadopago' ),
 			__( 'Mexico', 'woocommerce-mercadopago' )

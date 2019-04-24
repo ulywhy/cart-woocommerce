@@ -14,10 +14,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;"
-"_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ../Documents/woocommerce (MAMP)/wp-content/plugins/woo-mercado-pago-module\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.2.1\n"
 "Last-Translator: \n"
 "Language: es_MX\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -58,7 +57,7 @@ msgstr "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
 msgid "Colombia"
 msgstr "Colombia"
 
-msgid "Argentine"
+msgid "Argentina"
 msgstr "Argentina"
 
 msgid "Brazil"
@@ -88,7 +87,7 @@ msgstr "No tiene suficientes permisos para acceder a esta página."
 msgid "WooCommerce is installed and enabled."
 msgstr "WooCommerce está instalado y habilitado."
 
-msgid "You don\'t have WooCommerce installed and enabled."
+msgid "You don't have WooCommerce installed and enabled."
 msgstr "No tiene WooCommerce instalado y habilitado."
 
 msgid "Your PHP version is OK."
@@ -127,9 +126,6 @@ msgstr "Configure su Public_key y Access_token para tener acceso a más opciones
 msgid "Define which type of products your store sells."
 msgstr "Defina qué tipo de productos se vende en su tienda."
 
-msgid "These credentials are used in <strong>Basic Checkout</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
-msgstr "Estas credenciales se utilizan en <strong>Checkout Básico</strong> y <strong>Suscripciones</strong>. Acceda este para su país en:<br>"
-
 msgid "or"
 msgstr "o"
 
@@ -139,17 +135,14 @@ msgstr "Su <strong>public_key</strong> y <strong>access_token</strong> son <stro
 msgid "Your <strong>public_key</strong> and <strong>access_token</strong> are <strong>not valid</strong>!"
 msgstr "Su <strong>public_key</strong> y <strong>acceso_token</strong> son <strong>inválidas</strong>!"
 
-msgid "These credentials are used in <strong>Custom Checkout</strong> and <strong>Tickets</strong>. Access it for your country:<br>"
-msgstr "Estas credenciales se usan en <strong>Checkout Personalizado</ strong> y <strong>Tickets</strong>. Acceda este para su país en:<br>"
+msgid "These credentials are used in <strong>Basic Checkout</strong>, <strong>Custom Checkout</strong>, <strong>Tickets</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
+msgstr "Estas credenciales se usan en <strong>Checkout Básico</strong>, <strong>Checkout Personalizado</ strong>, <strong>Tickets</strong> y <strong>Suscripciones</strong>. Acceda este para su país en:<br>"
 
 msgid "This module enables WooCommerce to use Mercado Pago as payment method for purchases made in your virtual store."
 msgstr "Este módulo permite a WooCommerce usar Mercado Pago como método de pago para compras realizadas en su tienda virtual."
 
 msgid "Payment Gateways"
 msgstr "Gateways de Pago"
-
-msgid "Basic Checkout & Subscriptions"
-msgstr "Checkout Básico & Suscripciones"
 
 msgid "Your Credentials of Mercado Pago"
 msgstr "Sus credenciales de Mercado Pago"
@@ -232,7 +225,7 @@ msgstr "Acá puede colocar detalles de su tienda."
 msgid "Statement Descriptor"
 msgstr "Descripción de la Factura"
 
-msgid "The description that will be shown in your customer\'s invoice."
+msgid "The description that will be shown in your customer's invoice."
 msgstr "La descripción que se muestra en la factura de su cliente."
 
 msgid "Store Category"
@@ -424,7 +417,7 @@ msgstr "24x mensualidades"
 msgid "Exclude Payment Methods"
 msgstr "Excluir medios de pago"
 
-msgid "Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago."
+msgid "Select the payment methods that you <strong>don't</strong> want to receive with Mercado Pago."
 msgstr "Selecione los medios de pago que <strong>no</strong> desea aceptar con Mercado Pago."
 
 msgid "Discount/Fee by Gateway"
@@ -475,7 +468,7 @@ msgstr "Medio de pago"
 msgid "Payment approved."
 msgstr "Pago aprobado."
 
-msgid "Customer haven\'t paid yet."
+msgid "Customer haven't paid yet."
 msgstr "El cliente todavía no efectuó el pago."
 
 msgid "Payment under review."

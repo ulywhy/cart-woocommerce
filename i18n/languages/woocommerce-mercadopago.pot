@@ -1,10 +1,11 @@
 # WordPress Blank Pot
 # Copyright (C) 2014 ...
 # This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2016-05-23 14:52-0300\n"
+"POT-Creation-Date: 2019-04-24 16:11-0300\n"
 "PO-Revision-Date: \n"
 "Language-Team: Product Development <translations@example.com>\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
@@ -14,10 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;"
-"_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ../Documents/woocommerce (MAMP)/wp-content/plugins/woo-mercado-pago-module\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.2.1\n"
 "Last-Translator: \n"
 "Language: es_MX\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Colombia"
 msgstr ""
 
-msgid "Argentine"
+msgid "Argentina"
 msgstr ""
 
 msgid "Brazil"
@@ -88,7 +88,7 @@ msgstr ""
 msgid "WooCommerce is installed and enabled."
 msgstr ""
 
-msgid "You don\'t have WooCommerce installed and enabled."
+msgid "You don't have WooCommerce installed and enabled."
 msgstr ""
 
 msgid "Your PHP version is OK."
@@ -127,9 +127,6 @@ msgstr ""
 msgid "Define which type of products your store sells."
 msgstr ""
 
-msgid "These credentials are used in <strong>Basic Checkout</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
-msgstr ""
-
 msgid "or"
 msgstr ""
 
@@ -139,16 +136,13 @@ msgstr ""
 msgid "Your <strong>public_key</strong> and <strong>access_token</strong> are <strong>not valid</strong>!"
 msgstr ""
 
-msgid "These credentials are used in <strong>Custom Checkout</strong> and <strong>Tickets</strong>. Access it for your country:<br>"
+msgid "These credentials are used in <strong>Basic Checkout</strong>, <strong>Custom Checkout</strong>, <strong>Tickets</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
 msgstr ""
 
 msgid "This module enables WooCommerce to use Mercado Pago as payment method for purchases made in your virtual store."
 msgstr ""
 
 msgid "Payment Gateways"
-msgstr ""
-
-msgid "Basic Checkout & Subscriptions"
 msgstr ""
 
 msgid "Your Credentials of Mercado Pago"
@@ -232,7 +226,7 @@ msgstr ""
 msgid "Statement Descriptor"
 msgstr ""
 
-msgid "The description that will be shown in your customer\'s invoice."
+msgid "The description that will be shown in your customer's invoice."
 msgstr ""
 
 msgid "Store Category"
@@ -424,7 +418,7 @@ msgstr ""
 msgid "Exclude Payment Methods"
 msgstr ""
 
-msgid "Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago."
+msgid "Select the payment methods that you <strong>don't</strong> want to receive with Mercado Pago."
 msgstr ""
 
 msgid "Discount/Fee by Gateway"
@@ -451,7 +445,7 @@ msgstr ""
 msgid "Thank you for your order. Proceed with your payment completing the following information."
 msgstr ""
 
-msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence.""
+msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence."
 msgstr ""
 
 msgid "Shipping service used by store"
@@ -472,7 +466,7 @@ msgstr ""
 msgid "Payment approved."
 msgstr ""
 
-msgid "Customer haven\'t paid yet."
+msgid "Customer haven't paid yet."
 msgstr ""
 
 msgid "Payment under review."
