@@ -57,13 +57,20 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		$this->description        = $this->get_option( 'description' );
 		$this->method             = $this->get_option( 'method', 'redirect' );
 		// How checkout redirections will behave.
+
 		$this->auto_return        = $this->get_option( 'auto_return', 'yes' );
 		$this->success_url        = $this->get_option( 'success_url', '' );
 		$this->failure_url        = $this->get_option( 'failure_url', '' );
 		$this->pending_url        = $this->get_option( 'pending_url', '' );
 		// How checkout payment behaves.
 		$this->installments       = $this->get_option( 'installments', '24' );
-		$this->ex_payments        = $this->get_option( 'ex_payments', 'n/d' );
+        $this->ex_payments = array();
+        $get_ex_payment_options = explode(',', get_option('_all_payment_methods_v0', ''));
+        foreach($get_ex_payment_options as $get_ex_payment_option) {
+            if ($this->get_option( 'ex_payments_' . $get_ex_payment_option, 'yes') == 'no') {
+                $this->ex_payments[] = $get_ex_payment_option;
+            }   
+        }
 		$this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
 		$this->two_cards_mode     = 'inactive';
 
@@ -177,96 +184,156 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		}
 
 		$this->two_cards_mode = $this->mp->check_two_cards();
-
-		// Validate back URL.
-		if ( ! empty( $this->success_url ) && filter_var( $this->success_url, FILTER_VALIDATE_URL ) === FALSE ) {
-			$success_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
-			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago' ) . ' ';
-		} else {
-			$success_back_url_message = __( 'Where customers should be redirected after a successful purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago' );
-		}
-		if ( ! empty( $this->failure_url ) && filter_var( $this->failure_url, FILTER_VALIDATE_URL ) === FALSE ) {
-			$fail_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
-			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago' ) . ' ';
-		} else {
-			$fail_back_url_message = __( 'Where customers should be redirected after a failed purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago' );
-		}
-		if ( ! empty( $this->pending_url ) && filter_var( $this->pending_url, FILTER_VALIDATE_URL ) === FALSE ) {
-			$pending_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
-			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago' ) . ' ';
-		} else {
-			$pending_back_url_message = __( 'Where customers should be redirected after a pending purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago' );
-		}
-
-		// This array draws each UI (text, selector, checkbox, label, etc).
-		$this->form_fields = array(
-			'enabled' => array(
+        $this->form_fields['enabled'] = $this->field_enabled();
+        $this->form_fields['checkout_options_title'] = $this->field_checkout_options_title();
+        $this->form_fields['title'] = $this->field_title();
+        $this->form_fields['description'] = $this->field_description();        
+        $this->form_fields['method'] = $this->field_method();
+        $this->form_fields['checkout_navigation_title'] = $this->field_checkout_navigation_title();
+        $this->form_fields['auto_return'] = $this->field_auto_return();
+        $this->form_fields['success_url'] = $this->field_success_url();
+        $this->form_fields['failure_url'] = $this->field_failure_url();
+        $this->form_fields['pending_url'] = $this->field_pending_url();
+        $this->form_fields['payment_title'] = $this->field_payment_title();
+        $this->form_fields['installments'] = $this->field_installments();
+        foreach ($this->field_ex_payments() as $key => $value) {
+        $this->form_fields[$key] = $value;
+        }
+        $this->form_fields['gateway_discount'] = $this->field_gateway_discount();
+        $this->form_fields['two_cards_mode'] = $this->field_two_cards_mode();
+  	}
+   
+    public function field_enabled() {
+    $enabled = array(
 				'title' => __( 'Enable/Disable', 'woocommerce-mercadopago' ),
 				'type' => 'checkbox',
 				'label' => __( 'Enable Basic Checkout', 'woocommerce-mercadopago' ),
 				'default' => 'no'
-			),
-			'checkout_options_title' => array(
+			);
+        return $enabled;
+    }
+    
+    public function field_checkout_options_title() {
+			$checkout_options_title = array(
 				'title' => __( 'Checkout Interface: How checkout is shown', 'woocommerce-mercadopago' ),
 				'type' => 'title'
-			),
-			'title' => array(
+			);
+        return $checkout_options_title;
+    }
+    
+    public function field_title() {
+			$title = array(
 				'title' => __( 'Title', 'woocommerce-mercadopago' ),
 				'type' => 'text',
 				'description' => __( 'Title shown to the client in the checkout.', 'woocommerce-mercadopago' ),
 				'default' => __( 'Mercado Pago', 'woocommerce-mercadopago' )
-			),
-			'description' => array(
+			);
+        return $title;
+    }
+    
+    public function field_description() {
+			$description = array(
 				'title' => __( 'Description', 'woocommerce-mercadopago' ),
 				'type' => 'textarea',
 				'description' => __( 'Description shown to the client in the checkout.', 'woocommerce-mercadopago' ),
 				'default' => __( 'Pay with Mercado Pago', 'woocommerce-mercadopago' )
-			),
-			'method' => array(
+			);
+        return $description;
+    }
+    
+    public function field_method() {
+			$method = array(
 				'title' => __( 'Integration Method', 'woocommerce-mercadopago' ),
 				'type' => 'select',
 				'description' => __( 'Select how your clients should interact with Mercado Pago. Modal Window (inside your store), Redirect (Client is redirected to Mercado Pago), or iFrame (an internal window is embedded to the page layout).', 'woocommerce-mercadopago' ),
 				'default' => 'redirect',
 				'options' => array(
                     'redirect' => __( 'Redirect', 'woocommerce-mercadopago' ),
-					'modal' => __( 'Modal Window', 'woocommerce-mercadopago' )
-					
+					'modal' => __( 'Modal Window', 'woocommerce-mercadopago' )	
 				)
-			),
-			'checkout_navigation_title' => array(
+			);
+        return $method;
+    }
+    
+    public function field_checkout_navigation_title() {
+			$checkout_navigation_title = array(
 				'title' => __( 'Checkout Navigation: How checkout redirections will behave', 'woocommerce-mercadopago' ),
 				'type' => 'title'
-			),
-			'auto_return' => array(
+			);
+        return $checkout_navigation_title;
+    }
+    
+    public function field_auto_return() {
+			$auto_return = array(
 				'title' => __( 'Auto Return', 'woocommerce-mercadopago' ),
 				'type' => 'checkbox',
 				'label' => __( 'Automatic Return After Payment', 'woocommerce-mercadopago' ),
 				'default' => 'yes',
 				'description' => __( 'After the payment, client is automatically redirected.', 'woocommerce-mercadopago' ),
-			),
-			'success_url' => array(
-				'title' => __( 'Sucess URL', 'woocommerce-mercadopago' ),
-				'type' => 'text',
-				'description' => $success_back_url_message,
-				'default' => ''
-			),
-			'failure_url' => array(
-				'title' => __( 'Failure URL', 'woocommerce-mercadopago' ),
-				'type' => 'text',
-				'description' => $fail_back_url_message,
-				'default' => ''
-			),
-			'pending_url' => array(
-				'title' => __( 'Pending URL', 'woocommerce-mercadopago' ),
-				'type' => 'text',
-				'description' => $pending_back_url_message,
-				'default' => ''
-			),
-			'payment_title' => array(
+			);
+        return $auto_return;
+    }
+    
+    public function field_success_url() {
+        // Validate back URL.
+		if ( ! empty( $this->success_url ) && filter_var( $this->success_url, FILTER_VALIDATE_URL ) === FALSE ) {
+			$success_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
+			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago' ) . ' ';
+		} else {
+			$success_back_url_message = __( 'Where customers should be redirected after a successful purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago' );
+		}
+        $success_url = array(
+            'title' => __( 'Sucess URL', 'woocommerce-mercadopago' ),
+            'type' => 'text',
+            'description' => $success_back_url_message,
+            'default' => ''
+        );
+        return $success_url;
+    }
+                
+    public function field_failure_url() {
+        if ( ! empty( $this->failure_url ) && filter_var( $this->failure_url, FILTER_VALIDATE_URL ) === FALSE ) {
+			$fail_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
+			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago' ) . ' ';
+		} else {
+			$fail_back_url_message = __( 'Where customers should be redirected after a failed purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago' );
+		}
+        $failure_url = array(
+            'title' => __( 'Failure URL', 'woocommerce-mercadopago' ),
+            'type' => 'text',
+            'description' => $fail_back_url_message,
+            'default' => ''
+        );
+        return $failure_url;
+    }
+    
+    public function field_pending_url() {
+         // Validate back URL.
+        if ( ! empty( $this->pending_url ) && filter_var( $this->pending_url, FILTER_VALIDATE_URL ) === FALSE ) {
+			$pending_back_url_message = '<img width="14" height="14" src="' . plugins_url( 'assets/images/warning.png', plugin_dir_path( __FILE__ ) ) . '"> ' .
+			__( 'This appears to be an invalid URL.', 'woocommerce-mercadopago' ) . ' ';
+		} else {
+			$pending_back_url_message = __( 'Where customers should be redirected after a pending purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago' );
+		}
+        $pending_url = array(
+            'title' => __( 'Pending URL', 'woocommerce-mercadopago' ),
+            'type' => 'text',
+            'description' => $pending_back_url_message,
+            'default' => ''
+        );
+        return $pending_url;
+    }
+    
+    public function field_payment_title() {
+			$payment_title = array(
 				'title' => __( 'Payment Options: How payment options behaves', 'woocommerce-mercadopago' ),
 				'type' => 'title'
-			),
-			'installments' => array(
+			);
+        return $payment_title;
+    }
+    
+    public function field_installments() {
+        	$installments = array(
 				'title' => __( 'Max installments', 'woocommerce-mercadopago' ),
 				'type' => 'select',
 				'description' => __( 'Select the max number of installments for your customers.', 'woocommerce-mercadopago' ),
@@ -284,15 +351,38 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					'18' => __( '18x installmens', 'woocommerce-mercadopago' ),
 					'24' => __( '24x installmens', 'woocommerce-mercadopago' )
 				)
-			),
-			'ex_payments' => array(
-				'title' => __( 'Exclude Payment Methods', 'woocommerce-mercadopago' ),
-				'description' => __( 'Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago.', 'woocommerce-mercadopago' ),
-				'type' => 'multiselect',
-				'options' => explode( ',', get_option( '_all_payment_methods_v0', '' ) ),
-				'default' => ''
-			),
-			'gateway_discount' => array(
+			);
+        return $installments;
+    }
+    
+    public function field_ex_payments() {
+        $ex_payments = array();
+        $get_payment_methods = explode(',', get_option('_all_payment_methods_v0', ''));
+        $count_paument = 0;
+        
+        foreach ($get_payment_methods as $payment_method) {
+            $count_paument++;
+            
+            $element = array(
+                'label' => $payment_method,
+                'id' => 'woocommerce_mercadopago_' . $payment_method,
+                'default' => 'yes',
+                'type' => 'checkbox'
+            );
+            if ($count_paument == 1) {
+                $element['title'] = __('Payment Methods Accepted', 'woocommerce-mercadopago');
+            }
+            if ($count_paument == count($get_payment_methods)) {
+                $element['description'] = __('Unselect the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago.', 'woocommerce-mercadopago');          
+            }
+            $ex_payments["ex_payments_" . $payment_method] = $element;
+        }
+            
+        return $ex_payments;
+    }
+    
+    public function field_gateway_discount() {
+        $gateway_discount = array(
 				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
 				'type' => 'number',
 				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
@@ -302,17 +392,20 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 					'min'	=> '-99',
 					'max' => '99'
 				) 
-			),
-			'two_cards_mode' => array(
-				'title' => __( 'Two Cards Mode', 'woocommerce-mercadopago' ),
-				'type' => 'checkbox',
-				'label' => __( 'Payments with Two Cards', 'woocommerce-mercadopago' ),
-				'default' => ( $this->two_cards_mode == 'active' ? 'yes' : 'no' ),
-				'description' => __( 'Your customer will be able to use two different cards to pay the order.', 'woocommerce-mercadopago' )
-			)
-		);
-
-	}
+			);
+        return $gateway_discount;
+    }
+    
+    public function field_two_cards_mode() {
+        $two_cards_mode = array(
+            'title' => __( 'Two Cards Mode', 'woocommerce-mercadopago' ),
+            'type' => 'checkbox',
+            'label' => __( 'Payments with Two Cards', 'woocommerce-mercadopago' ),
+            'default' => ( $this->two_cards_mode == 'active' ? 'yes' : 'no' ),
+            'description' => __( 'Your customer will be able to use two different cards to pay the order.', 'woocommerce-mercadopago' )
+        );
+        return $two_cards_mode;
+    }
 
 	/**
 	 * Processes and saves options.
@@ -757,14 +850,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 
 		// Create and setup payment options.
 		$excluded_payment_methods = array();
-		$payment_methods = explode( ',', get_option( '_all_payment_methods_v0', '' ) );
-		if ( is_array( $this->ex_payments ) || is_object( $this->ex_payments ) ) {
+		if ( is_array( $this->ex_payments ) && count($this->ex_payments) != 0 ) {
 			foreach ( $this->ex_payments as $excluded ) {
-				if ( $excluded == 0 ) {
-					break;
-				}
 				array_push( $excluded_payment_methods, array(
-					'id' => $payment_methods[$excluded]
+					'id' => $excluded
 				) );
 			}
 		}

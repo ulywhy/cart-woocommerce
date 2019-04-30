@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-04-24 16:11-0300\n"
+"POT-Creation-Date: 2019-04-30 17:09-0300\n"
 "PO-Revision-Date: \n"
 "Language-Team: Product Development <translations@example.com>\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
@@ -415,10 +415,10 @@ msgstr ""
 msgid "24x installmens"
 msgstr ""
 
-msgid "Exclude Payment Methods"
+msgid "Payment Methods Accepted"
 msgstr ""
 
-msgid "Select the payment methods that you <strong>don't</strong> want to receive with Mercado Pago."
+msgid "Unselect the payment methods that you <strong>don't</strong> want to receive with Mercado Pago."
 msgstr ""
 
 msgid "Discount/Fee by Gateway"

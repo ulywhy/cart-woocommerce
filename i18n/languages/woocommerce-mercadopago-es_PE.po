@@ -414,11 +414,11 @@ msgstr "18x cuotas"
 msgid "24x installmens"
 msgstr "24x cuotas"
 
-msgid "Exclude Payment Methods"
-msgstr "Excluir medios de pago"
+msgid "Payment Methods Accepted"
+msgstr "Medios de pago aceptados"
 
-msgid "Select the payment methods that you <strong>don't</strong> want to receive with Mercado Pago."
-msgstr "Selecione los medios de pago que <strong>no</strong> desea aceptar con Mercado Pago."
+msgid "Unselect the payment methods that you <strong>don't</strong> want to receive with Mercado Pago."
+msgstr "Deseleccionar los medios de pago que <strong>no</strong> desea aceptar con Mercado Pago."
 
 msgid "Discount/Fee by Gateway"
 msgstr "Descuento/Tarifa por Gateway"

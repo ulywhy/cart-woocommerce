@@ -355,19 +355,10 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 						update_option( '_site_id_v1', $get_request['response']['site_id'], true );
 						update_option( '_collector_id_v1', $get_request['response']['id'], true );
                         
-            // $payment_methods = $mp_v1->get( '/v1/payment_methods/?access_token=' . $access_token );
-						// $arr = array();
-						// $arr[] = 'n/d';
-						// foreach ( $payment_methods['response'] as $payment ) {
-						// 	$arr[] = $payment['id'];
-						// }
-						// update_option( '_all_payment_methods_v0', implode( ',', $arr ), true );
-                        
 						// Get available payment methods.
 						$payments = $mp_v1->get( '/v1/payment_methods/?access_token=' . $access_token );
 						$payment_methods_ticket = array();
 						$arr = array();
-						$arr[] = 'n/d';
 						foreach ( $payments['response'] as $payment ) {
 							$arr[] = $payment['id'];
 						}
