@@ -274,6 +274,15 @@
 					</p>
 				</td>
 			</tr>
+            <tr>
+				<th scope="row"><label><?php echo __( 'Sponsor ID', 'woocommerce-mercadopago' ); ?></label></th>
+				<td>
+					<input name="sponsor_id" type="text" id="sponsor_id" aria-describedby="tagline-description" value="<?php echo $sponsor_id; ?>" class="regular-text"/>
+					<p class="description" id="tagline-description">
+						<?php echo $sponsor_id_message; ?>
+					</p>
+				</td>
+			</tr>
 		</table>
 
 		<table class="form-table" border="0.5" frame="hsides" rules="void">

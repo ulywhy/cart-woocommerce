@@ -77,6 +77,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 	 * Description: Used as a kind of manager to enable/disable each Mercado Pago gateway.
 	 * Available Public Static Functions:
 	 * - validate_credentials_v1()
+   * - is_valid_sponsor_id( $sponsor_id )
 	 * - woocommerce_instance()
 	 * - get_common_error_messages( $key )
 	 * - get_conversion_rate( $used_currency )
@@ -320,6 +321,31 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 		}
 
 		// ============================================================
+        
+		// Save and valid Sponsor_id if the site_id returned that api is equal site_id costumers
+		public static function is_valid_sponsor_id($sponsor_id) {
+				$access_token = get_option( '_mp_access_token', '' );
+				if ( !empty( $access_token ) && $sponsor_id != get_option( '_mp_sponsor_id', '' ) ) {
+						if($sponsor_id !== '') {
+								$mp_sponsor_id = new MP( WC_Woo_Mercado_Pago_Module::VERSION, $access_token );
+								$get_sponor_id = $mp_sponsor_id->get( '/users/' . $sponsor_id, $access_token, false ); 
+								if ( ! is_wp_error( $get_sponor_id ) && ( $get_sponor_id['status'] == 200 || $get_sponor_id['status'] == 201 ) ) {
+										if ( $get_sponor_id['response']['site_id'] == get_option( '_site_id_v1', '' )) {
+												update_option( '_mp_sponsor_id', $sponsor_id, true );
+										} else {
+												echo '<div class="error"><p>' . __( 'The <strong>Sponsor ID</strong> must be from the same country as the seller!', 'woocommerce-mercadopago' ) . '</p></div>';	
+												update_option( '_mp_sponsor_id', '', true );
+										}
+								} else {
+										echo '<div class="error"><p>' . __( 'The <strong>Sponsor ID</strong> must be valid!', 'woocommerce-mercadopago' ) . '</p></div>';
+										update_option( '_mp_sponsor_id', '', true );
+								}
+
+						} else {
+								update_option( '_mp_sponsor_id', $sponsor_id, true );
+						} 
+				}
+		}
 
 		/**
 		 * Summary: Check if we have valid credentials for v1.
@@ -883,6 +909,7 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					update_option( '_mp_success_url', isset( $_POST['success_url'] ) ? $_POST['success_url'] : '', true );
 					update_option( '_mp_fail_url', isset( $_POST['fail_url'] ) ? $_POST['fail_url'] : '', true );
 					update_option( '_mp_pending_url', isset( $_POST['pending_url'] ) ? $_POST['pending_url'] : '', true );
+          WC_Woo_Mercado_Pago_Module::is_valid_sponsor_id( isset( $_POST['sponsor_id'] ) ? $_POST['sponsor_id'] : '' );
 					update_option( '_mp_order_status_pending_map', isset( $_POST['order_status_pending_map'] ) ? $_POST['order_status_pending_map'] : '', true );
 					update_option( '_mp_order_status_approved_map', isset( $_POST['order_status_approved_map'] ) ? $_POST['order_status_approved_map'] : '', true );
 					update_option( '_mp_order_status_inprocess_map', isset( $_POST['order_status_inprocess_map'] ) ? $_POST['order_status_inprocess_map'] : '', true );
@@ -1049,6 +1076,11 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 					__( 'or', 'woocommerce-mercadopago' ),
 					__( 'Venezuela', 'woocommerce-mercadopago' )
 				);
+                
+				// Sponsor ID
+				$sponsor_id = get_option( '_mp_sponsor_id', '' );
+				$sponsor_id_message = __( 'With this number we identify all your transactions and we know how many sales were processed by your account', 'woocommerce-mercadopago' );
+                
 				// Currency conversion.
 				$_mp_currency_conversion_v1 = get_option( '_mp_currency_conversion_v1', '' );
 				if ( empty( $_mp_currency_conversion_v1 ) ) {

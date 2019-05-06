@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-04-30 17:09-0300\n"
+"POT-Creation-Date: 2019-05-06 11:44-0300\n"
 "PO-Revision-Date: \n"
 "Language-Team: Product Development <translations@example.com>\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
@@ -1058,4 +1058,16 @@ msgid "Custom banner for checkout"
 msgstr ""
 
 msgid "Inform the URL of your banner image. Let blank to use Mercado Pago default."
+msgstr ""
+
+msgid "Sponsor ID"
+msgstr ""
+
+msgid "With this number we identify all your transactions and we know how many sales were processed by your account."
+msgstr ""
+
+msgid "The <strong>Sponsor ID</strong> must be from the same country as the seller!"
+msgstr ""
+
+msgid "The <strong>Sponsor ID</strong> must be valid!"
 msgstr ""

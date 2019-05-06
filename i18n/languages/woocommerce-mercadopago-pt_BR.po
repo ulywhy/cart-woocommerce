@@ -1076,3 +1076,15 @@ msgstr "Customização de banner para o checkout"
 
 msgid "Inform the URL of your banner image. Let blank to use Mercado Pago default."
 msgstr "Informe a URL da imagem do banner. Deixe em branco para usar o padrão do Mercado Pago."
+
+msgid "Sponsor ID"
+msgstr "Sponsor ID"
+
+msgid "With this number we identify all your transactions and we know how many sales were processed by your account."
+msgstr "Com este número identificamos todas as suas transações e sabemos quantas vendas foram processadas por sua conta."
+
+msgid "The <strong>Sponsor ID</strong> must be from the same country as the seller!"
+msgstr "O <strong>Sponsor ID</strong> deve ser do mesmo país que o vendedor!"
+
+msgid "The <strong>Sponsor ID</strong> must be valid!"
+msgstr "O <strong>Sponsor ID</strong> deve ser válido!"
