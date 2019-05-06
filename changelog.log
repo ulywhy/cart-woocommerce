@@ -1,5 +1,11 @@
 CHANGELOG:
 
+= v3.1.0 (17/04/2019) =
+* Performance Improvements 
+  - Removed unnecessary requests.
+  - Some functions have had their scope limited, in this way they will be called only when necessary.
+  - Removed Client_id and Client_secret, currently only using access_token and public_key.
+
 = v3.0.17 (07/08/2018) =
 * Feature All 
   - Adding X Product ID
