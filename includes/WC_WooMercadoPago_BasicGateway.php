@@ -73,6 +73,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
         }
 		$this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
 		$this->two_cards_mode     = 'inactive';
+        $this->binary_mode        = $this->get_option( 'binary_mode', 'no' );
 
 		// Logging and debug.
 		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
@@ -201,6 +202,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
         }
         $this->form_fields['gateway_discount'] = $this->field_gateway_discount();
         $this->form_fields['two_cards_mode'] = $this->field_two_cards_mode();
+        $this->form_fields['binary_mode'] = $this->field_binary_mode();
   	}
    
     public function field_enabled() {
@@ -405,6 +407,17 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
             'description' => __( 'Your customer will be able to use two different cards to pay the order.', 'woocommerce-mercadopago' )
         );
         return $two_cards_mode;
+    }
+    
+    public function field_binary_mode() {
+        $binary_mode = array(
+            'title' => __( 'Binary Mode', 'woocommerce-mercadopago' ),
+            'type' => 'checkbox',
+            'label' => __( 'Enable binary mode for checkout status', 'woocommerce-mercadopago' ),
+            'default' => 'no',
+            'description' => __( 'When charging a credit card, only [approved] or [reject] status will be taken.', 'woocommerce-mercadopago' )
+		);
+        return $binary_mode;
     }
 
 	/**
@@ -953,7 +966,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 			'payment_methods' => $payment_methods,
 			//'notification_url' =>
 			'external_reference' => get_option( '_mp_store_identificator', 'WC-' ) .
-				( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id )
+				( method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id ),
+            'binary_mode' => ( $this->binary_mode == 'yes' ),
 			//'additional_info' =>
 			//'expires' =>
 			//'expiration_date_from' =>
@@ -1001,7 +1015,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
 		// Set sponsor ID.
 		$_test_user_v1 = get_option( '_test_user_v1', false );
 		if ( ! $_test_user_v1 ) {
-			$preferences['sponsor_id'] = $this->site_data['sponsor_id'];
+			$preferences['sponsor_id'] = WC_Woo_Mercado_Pago_Module::get_sponsor_id();
 		}
 
 		// Auto return options.

@@ -890,7 +890,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_Payment_Gateway {
 		// Set sponsor ID.
 		$_test_user_v1 = get_option( '_test_user_v1', false );
 		if ( ! $_test_user_v1 ) {
-			$preferences['sponsor_id'] = $this->site_data['sponsor_id'];
+			$preferences['sponsor_id'] = WC_Woo_Mercado_Pago_Module::get_sponsor_id();
 		}
 
 		// Debug/log this preference.

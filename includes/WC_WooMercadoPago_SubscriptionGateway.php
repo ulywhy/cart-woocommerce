@@ -695,7 +695,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				// Set sponsor ID.
 				$_test_user_v1 = get_option( '_test_user_v1', false );
 				if ( ! $_test_user_v1 ) {
-					$preapproval['sponsor_id'] = $this->site_data['sponsor_id'];
+					$preapproval['sponsor_id'] = WC_Woo_Mercado_Pago_Module::get_sponsor_id();
 				}
 
 				// Debug/log this preapproval.

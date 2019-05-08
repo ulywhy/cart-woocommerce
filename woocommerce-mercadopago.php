@@ -324,28 +324,44 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
         
 		// Save and valid Sponsor_id if the site_id returned that api is equal site_id costumers
 		public static function is_valid_sponsor_id($sponsor_id) {
-				$access_token = get_option( '_mp_access_token', '' );
-				if ( !empty( $access_token ) && $sponsor_id != get_option( '_mp_sponsor_id', '' ) ) {
-						if($sponsor_id !== '') {
-								$mp_sponsor_id = new MP( WC_Woo_Mercado_Pago_Module::VERSION, $access_token );
-								$get_sponor_id = $mp_sponsor_id->get( '/users/' . $sponsor_id, $access_token, false ); 
-								if ( ! is_wp_error( $get_sponor_id ) && ( $get_sponor_id['status'] == 200 || $get_sponor_id['status'] == 201 ) ) {
-										if ( $get_sponor_id['response']['site_id'] == get_option( '_site_id_v1', '' )) {
-												update_option( '_mp_sponsor_id', $sponsor_id, true );
-										} else {
-												echo '<div class="error"><p>' . __( 'The <strong>Sponsor ID</strong> must be from the same country as the seller!', 'woocommerce-mercadopago' ) . '</p></div>';	
-												update_option( '_mp_sponsor_id', '', true );
-										}
-								} else {
-										echo '<div class="error"><p>' . __( 'The <strong>Sponsor ID</strong> must be valid!', 'woocommerce-mercadopago' ) . '</p></div>';
-										update_option( '_mp_sponsor_id', '', true );
-								}
+			$access_token = get_option( '_mp_access_token', '' );
+			$site_id = get_option( '_site_id_v1', '' );
+			error_log('Site ID ' . $site_id);
+			$varify_sponsor = true;
 
-						} else {
-								update_option( '_mp_sponsor_id', $sponsor_id, true );
-						} 
-				}
-		}
+			if ( empty( $access_token ) ) {
+					$varify_sponsor = false;
+			} elseif ( $sponsor_id == '' ) {
+					$varify_sponsor = false;
+					update_option( '_mp_sponsor_id', $sponsor_id, true );
+			} elseif ( !is_numeric($sponsor_id) ) {
+					$varify_sponsor = false;
+					echo '<div class="error"><p>' . __( 'The <strong>Sponsor ID</strong> must be valid!', 'woocommerce-mercadopago' ) . '</p></div>';
+			} elseif (  $sponsor_id != get_option( '_mp_sponsor_id', '' ) ) {
+					$varify_sponsor = true;
+			} elseif (  $site_id != get_option( '_mp_sponsor_site_id', '' ) ) {
+					$varify_sponsor = true;
+			}else {
+					$varify_sponsor = false;
+			}
+
+			if ( $varify_sponsor ) {
+					$mp_sponsor_id = new MP( WC_Woo_Mercado_Pago_Module::VERSION, $access_token );
+					$get_sponor_id = $mp_sponsor_id->get( '/users/' . $sponsor_id, $access_token, false ); 
+					if ( ! is_wp_error( $get_sponor_id ) && ( $get_sponor_id['status'] == 200 || $get_sponor_id['status'] == 201 ) ) {
+							if ( $get_sponor_id['response']['site_id'] == $site_id ) {
+									update_option( '_mp_sponsor_id', $sponsor_id, true );
+									update_option( '_mp_sponsor_site_id', $get_sponor_id['response']['site_id'], true );                            
+							} else {
+									echo '<div class="error"><p>' . __( 'The <strong>Sponsor ID</strong> must be from the same country as the seller!', 'woocommerce-mercadopago' ) . '</p></div>';	
+									update_option( '_mp_sponsor_id', '', true );
+							}
+					} else {
+							echo '<div class="error"><p>' . __( 'The <strong>Sponsor ID</strong> must be valid!', 'woocommerce-mercadopago' ) . '</p></div>';
+							update_option( '_mp_sponsor_id', '', true );
+					}
+			}      
+	}
 
 		/**
 		 * Summary: Check if we have valid credentials for v1.
@@ -503,6 +519,23 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			);
 			return $infra_data;
 		}
+        
+     /**
+		 * Summary: Get Sponsor ID to preferences.
+		 * Description: This function verifies, if the sponsor ID was configured, 
+         * if NO, return Sponsor ID determined of get_site_data(),
+         * if YES return Sponsor ID configured on plugin
+		 * @return a string.
+		 */
+        public static function get_sponsor_id() {
+            $site_data = WC_Woo_Mercado_Pago_Module::get_site_data();
+            $sponsor_id = get_option( '_mp_sponsor_id', '' );
+            if($sponsor_id == '' || empty($sponsor_id)){ 
+                return $site_data['sponsor_id'];
+            } else {
+                return $sponsor_id;
+            }
+        }
 
 		/**
 		 * Summary: Get store categories from Mercado Pago.
