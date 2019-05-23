@@ -191,6 +191,9 @@ if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :
 			// First of all, verify if WooCommerce is already installed.
 			if ( class_exists( 'WC_Payment_Gateway' ) ) {
 
+				// Add abstract class of payment
+				include_once dirname( __FILE__ ) . '/includes/abstract-wc-mercadopago-payments.php';
+				
 				// Adds each Mercado Pago gateway as available payment method.
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_BasicGateway.php';
 				include_once dirname( __FILE__ ) . '/includes/WC_WooMercadoPago_CustomGateway.php';
