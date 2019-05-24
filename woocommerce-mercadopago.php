@@ -67,7 +67,7 @@ if ( class_exists( 'WC_WooMercadoPago_Module' ) ) {
 }
 
 // Load Mercado Pago SDK
-require_once dirname( __FILE__ ) . '/includes/sdk/lib/mercadopago.php';
+require_once dirname( __FILE__ ) . '/includes/sdk/lib/MP.php';
 
 // Load module class if it wasn't loaded yet.
 if ( ! class_exists( 'WC_Woo_Mercado_Pago_Module' ) ) :

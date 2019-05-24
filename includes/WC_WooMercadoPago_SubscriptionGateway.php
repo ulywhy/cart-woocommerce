@@ -8,9 +8,6 @@
  * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
 
-// This include Mercado Pago library SDK
-require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
-
 /**
  * Summary: Extending from WooCommerce Payment Gateway class.
  * Description: This class implements Mercado Pago Subscription checkout.

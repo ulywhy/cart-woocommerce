@@ -4,9 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-// This include Mercado Pago library SDK
-require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
-
 /**
  * WC_WooMercadoPago_Payments
  */

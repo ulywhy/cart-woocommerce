@@ -20,8 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author 		Mercado Pago
  */
 
-include_once dirname( __FILE__ ) . '/../sdk/lib/mercadopago.php';
-
 abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 
 	protected $shipments_id = array();

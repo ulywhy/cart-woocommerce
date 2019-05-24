@@ -9,7 +9,6 @@
  */
 
 // This include Mercado Pago library SDK
-require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
 
 /**
  * Summary: Extending from WooCommerce Payment Gateway class.
