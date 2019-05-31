@@ -8,21 +8,26 @@
  * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
 
+// require_once dirname( __FILE__ ) . '/class-wc-mercadopago-preference-basic.php';
+// $preference_basic = new MercadoPagoPreferenceBasic($order, $this->ex_payments,  $this->installments);
+// error_log('PREFERENCES: ' . json_encode($preference_basic->get_preference()));
+  
 require_once dirname( __FILE__ ) . '/abstract-wc-mercadopago-preference.php';
 
 class MercadoPagoPreferenceBasic extends MercadoPagoPreference {
 
-    public function __construct($order, $method_payment, $ex_payments,  $installments) {
-        parent::__construct($order, $method_payment);
+    public function __construct($order, $ex_payments,  $installments) {
+        parent::__construct($order);
         
         $this->preference['items'] = $this->items;
         $this->preference['payer'] = $this->get_payer_basic();
         $this->preference['back_urls'] = $this->get_back_urls();
         $this->preference['shipments'] = $this->shipments_receiver_address();
         
-        if ( strpos($this->selected_shipping, 'Mercado Envios') !== 0 && $this->ship_cost > 0 ) {
-            $this->ship_cost();
+        if (strpos($this->selected_shipping, 'Mercado Envios') !== 0 && $this->ship_cost > 0) {
+           $this->preference['items'][] = $this->ship_cost_item();
         }
+        
         if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0 ) {
            $this->shipment_info();
         }
@@ -31,7 +36,6 @@ class MercadoPagoPreferenceBasic extends MercadoPagoPreference {
         $this->preference['auto_return'] = $this->auto_return();
     }
 
-    // TODO Basic preferences
     // Build additional information from the customer data.
     public function get_payer_basic() {
         $payer_additional_info = array(
@@ -61,7 +65,6 @@ class MercadoPagoPreferenceBasic extends MercadoPagoPreference {
         return $payer_additional_info;
     }
 
-    // TODO Basic preferences
     // Build Get Back Urls
     public function get_back_urls() {
         $success_url = get_option('success_url', '');
@@ -86,8 +89,6 @@ class MercadoPagoPreferenceBasic extends MercadoPagoPreference {
         return $back_urls;
     }
 
-
-    // TODO Basic preferences
     /**
      *  Create and setup payment options.
      * 
@@ -112,7 +113,6 @@ class MercadoPagoPreferenceBasic extends MercadoPagoPreference {
         return $payment_methods;
     }
 
-    // TODO Basic preferences
     // Auto return options.
     public function auto_return() {
         $auto_return = get_option('auto_return', 'yes');
@@ -122,7 +122,6 @@ class MercadoPagoPreferenceBasic extends MercadoPagoPreference {
         return;
     }
 
-    // TODO verificar pq usar o foreach e pq selected_shipping e usado no basic
     // If we're  using Mercado Envios, shipping cost should be setup in preferences.
     public function shipment_info() {
             $this->preference['shipments']['mode'] = 'me2';

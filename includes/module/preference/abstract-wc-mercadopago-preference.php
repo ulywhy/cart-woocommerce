@@ -12,7 +12,6 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
 
     protected $order;
     protected $custom_checkout;
-    protected $method_payment;
     protected $currency_ratio;
     protected $items;
     protected $order_total;
@@ -21,28 +20,27 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
     protected $selected_shipping;
     protected $ship_cost;
 
-    public function __construct($order, $method_payment, $custom_checkout = null) {
+    public function __construct($order, $custom_checkout = null) {
 
         $this->site_id = get_option('_site_id_v1', '');
         $this->order = $order;
         $this->custom_checkout = $custom_checkout;
-        $this->method_payment = $method_payment;
-        $this->currency_ratio = 1;
+        $this->currency_ratio = $this->get_currency_conversion();
         $this->items = array();
         $this->order_total = 0;
         $this->list_of_items = array();
         $this->selected_shipping = $order->get_shipping_method();
         $this->ship_cost = $this->order->get_total_shipping() + $this->order->get_shipping_tax();
 
-        $this->preference = $this->make_preference();
-
-        $this->get_currency_conversion();
-        $this->get_items_build_array();
-        $this->add_discounts();
-
+        $this->preference = $this->make_basic_preference();
+        
+         if (sizeof($this->order->get_items()) > 0) {
+          $this->items = $this->get_items_build_array();
+         }
+        
     }
 
-    public function make_preference() {
+    public function make_basic_preference() {
         $preference = array(
             'binary_mode' => $this->get_binary_mode(),
             'external_reference' => $this->get_external_reference(),
@@ -53,17 +51,19 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
     }
 
     public function get_currency_conversion() {
+        $currency_ratio = 1;
         $_mp_currency_conversion_v1 = get_option('_mp_currency_conversion_v1', '');
         if (!empty($_mp_currency_conversion_v1)) {
-            $this->currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate($this->site_data['currency']);
-            $this->currency_ratio = $this->currency_ratio > 0 ? $this->currency_ratio : 1;
+            $currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate($this->site_data['currency']);
+            $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
         }
+        return $currency_ratio;
     }
 
     public function get_items_build_array() {
         $gateway_discount = get_option( 'gateway_discount', 0 );
 
-        if (sizeof($this->order->get_items()) > 0) {
+       $items = array();
             foreach ($this->order->get_items() as $item) {
                 if ($item['qty']) {
                     $product = new WC_product($item['product_id']);
@@ -77,7 +77,7 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
 
                     // Add the item.
                     array_push($this->list_of_items, $product_title . ' x ' . $item['qty']);
-                    array_push($this->items, array(
+                    array_push($items, array(
                         'id' => $item['product_id'],
                         'title' => html_entity_decode($product_title) . ' x ' . $item['qty'],
                         'description' => sanitize_file_name(html_entity_decode(
@@ -92,13 +92,13 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
                             floor(($line_amount - $discount_by_gateway) * $this->currency_ratio) : floor(($line_amount - $discount_by_gateway) * $this->currency_ratio * 100) / 100,
                         'currency_id' => $this->site_id
                     ));
-                }
             }
         }
+        return $items;
     }
 
     // Creates the shipment cost structure.
-    public function ship_cost() {
+    public function ship_cost_item() {
             $item = array(
                 'title' => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
                 'title' => __('Shipping service used by store', 'woocommerce-mercadopago'),
@@ -109,30 +109,9 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
                 floor($this->ship_cost * $this->currency_ratio) : floor($this->ship_cost * $this->currency_ratio * 100) / 100,
                 'currency_id' => $this->site_id
             );
-            array_push($this->preference['items'], $item);
+        return $item;
     }
 
-    // Discounts features.
-    // TODO Basic/Custom verificar a linha WC()->session->chosen_payment_method == 'woo-mercado-pago-custom'
-    public function add_discounts() {
-        if (
-            isset($this->custom_checkout['discount']) && !empty($this->custom_checkout['discount']) &&
-            isset($this->custom_checkout['coupon_code']) && !empty($this->ustom_checkout['coupon_code']) &&
-            $this->custom_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom'
-        ) {
-            $item = array(
-                'title' => __('Discount provided by store', 'woocommerce-mercadopago'),
-                'description' => __('Discount provided by store', 'woocommerce-mercadopago'),
-                'quantity' => 1,
-                'category_id' => get_option('_mp_category_name', 'others'),
-                'unit_price' => ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
-                    -floor($this->custom_checkout['discount'] * $this->currency_ratio) : -floor($this->custom_checkout['discount'] * $this->currency_ratio * 100) / 100
-            );
-            $items[] = $item;
-        }
-    }
-
-    // TODO Basic/Custom preference
     // Create the shipment address information set.
     public function shipments_receiver_address() {
         $shipments = array(
@@ -161,23 +140,21 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
         return $shipments;
     }
 
-    // TODO Basic/Custom preferences
     // Do not set IPN url if it is a localhost.
     public function get_notification_url() {
         if (!strrpos(get_site_url(), 'localhost')) {
             $notification_url = get_option('_mp_custom_domain', '');
             // Check if we have a custom URL.
             if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === FALSE) {
-                $preferences['notification_url'] = WC()->api_request_url('WC_WooMercadoPago_CustomGateway');
+                return WC()->api_request_url('WC_WooMercadoPago_CustomGateway');
             } else {
-                $preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::fix_url_ampersand(esc_url(
+                return WC_Woo_Mercado_Pago_Module::fix_url_ampersand(esc_url(
                     $notification_url . '/wc-api/WC_WooMercadoPago_CustomGateway/'
                 ));
             }
         }
     }
 
-    // TODO Basic/Custom preferences
     // Binary Mode
     public function get_binary_mode() {
         $binary_mode = get_option( 'binary_mode', 'no' );
@@ -188,7 +165,6 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
         }
     }
 
-    // TODO Basic/Custom preferences
     // Set sponsor ID.
     public function get_sponsor_id() {
         $_test_user_v1 = get_option('_test_user_v1', false);
@@ -197,7 +173,6 @@ abstract class MercadoPagoPreference  extends WC_Payment_Gateway {
         }
     }
 
-    // TODO Basic/Custom preferences
     public function get_external_reference() {
         $store_identificator =  get_option('_mp_store_identificator', 'WC-');
         if (method_exists($this->order, 'get_id')) {
