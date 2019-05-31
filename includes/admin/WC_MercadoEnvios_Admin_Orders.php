@@ -1,18 +1,7 @@
 <?php
-
-/**
- * Part of Woo Mercado Pago Module
- * Author - Mercado Pago
- * Developer - Marcelo Tomio Hama / marcelo.hama@mercadolivre.com, Gabriel Matsuoka / gabriel.matsuoka@mercadopago.com
- * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
- * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-include_once dirname( __FILE__ ) . '/../sdk/lib/mercadopago.php';
 
 /**
  * MercadoEnvios orders.
@@ -72,7 +61,7 @@ class WC_MercadoEnvios_Admin_Orders {
 			// Check exist shipment_id
 			if ( isset( $shipment_id ) && $shipment_id != '' ) {
                 $access_token = get_option( '_mp_access_token', '' );
-				$mp = new MP( WC_Woo_Mercado_Pago_Module::get_module_version(), $access_token );
+				$mp = new MP( WC_WooMercadoPago_Module::get_module_version(), $access_token );
 				$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 				$mp->set_email( $email );
 				echo '<br /><label for="mercadoenvios_tracking_number">' . esc_html__( 'Tag:', 'woocommerce-mercadopago' ) . '</label><br />';

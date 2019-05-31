@@ -45,7 +45,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 			if ( class_exists( 'WC_Logger' ) ) {
 				$this->log = new WC_Logger();
 			} else {
-				$this->log = WC_Woo_Mercado_Pago_Module::woocommerce_instance()->logger();
+				$this->log = WC_WooMercadoPago_Module::woocommerce_instance()->logger();
 			}
 		}
 
@@ -137,7 +137,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 			
 		$shipping_method_id = $this->get_shipping_method_id( $site_id );
 		$mp = new MP(
-			WC_Woo_Mercado_Pago_Module::get_module_version(),
+			WC_WooMercadoPago_Module::get_module_version(),
 			$access_token
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
@@ -236,7 +236,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 	 */
 	public function init_form_fields() {
 		// Force quit loop.
-		$mp = WC_Woo_Mercado_Pago_Module::init_mercado_pago_class();
+		$mp = WC_WooMercadoPago_Module::init_mercado_pago_class();
 		if ( isset( $mp->mercado_envios_loop ) && $mp->mercado_envios_loop ) {
 			return false;
 		}
@@ -282,7 +282,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 	public function get_shipping_methods_zone_by_shipping_id( $shipping_id ) {
 		$shipping_zone = WC_Shipping_Zones::get_zone_by( 'instance_id', $shipping_id );
 		// Set looping shipping methods.
-		$mp = WC_Woo_Mercado_Pago_Module::init_mercado_pago_class();
+		$mp = WC_WooMercadoPago_Module::init_mercado_pago_class();
 		$mp->mercado_envios_loop = true;
 		$shipping_methods_list = array();
 		foreach ( $shipping_zone->get_shipping_methods() as $key => $shipping_object ) {
@@ -355,7 +355,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 				return;
 		}
 		$mp = new MP(
-			WC_Woo_Mercado_Pago_Module::get_module_version(),
+			WC_WooMercadoPago_Module::get_module_version(),
 			$access_token
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
@@ -365,7 +365,7 @@ abstract class WC_MercadoEnvios_Shipping extends WC_Shipping_Method {
 		$mp->set_locale( $locale[1] );
 
 		// Get default data.
-		$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
+		$infra_data = WC_WooMercadoPago_Module::get_common_settings();
 		$infra_data['mercado_envios'] = $status;
 
 		// Request.

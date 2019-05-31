@@ -1,11 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
 
 /**
  * Class AbstractRestClient
  */
 abstract class AbstractRestClient
 {
-    public static $api_base_url = '';
     public static $email_admin = '';
     public static $site_locale = '';
     public static $check_loop = 0;
@@ -13,10 +15,11 @@ abstract class AbstractRestClient
     /**
      * @param $request
      * @param $version
+     * @param $apiBaseUrl
      * @return false|resource
      * @throws MercadoPagoException
      */
-    public static function build_request($request, $version)
+    public static function build_request($request, $version, $apiBaseUrl)
     {
         if (!extension_loaded('curl')) {
             throw new MercadoPagoException('cURL extension not found. You need to enable cURL in your php.ini or another configuration you have.');
@@ -65,7 +68,9 @@ abstract class AbstractRestClient
                 $request['uri'] .= self::build_query($request['params']);
             }
         }
-        curl_setopt($connect, CURLOPT_URL, self::getApiBaseUrl() . $request['uri']);
+
+        curl_setopt($connect, CURLOPT_URL, $apiBaseUrl . $request['uri']);
+
 
         if (isset($request['data'])) {
             if ($json_content) {
@@ -95,11 +100,9 @@ abstract class AbstractRestClient
      * @return array|null
      * @throws MercadoPagoException
      */
-    public static function exec($request, $version)
+    public static function execute($request, $version, $connect)
     {
         $response = null;
-        $connect = self::build_request($request, $version);
-
         $api_result = curl_exec($connect);
         $api_http_code = curl_getinfo($connect, CURLINFO_HTTP_CODE);
 
@@ -203,57 +206,6 @@ abstract class AbstractRestClient
 
     }
 
-    /**
-     * @param $request
-     * @param $version
-     * @return array|null
-     * @throws MercadoPagoException
-     */
-    public static function get($request, $version)
-    {
-        $request['method'] = 'GET';
-
-        return self::exec($request, $version);
-    }
-
-    /**
-     * @param $request
-     * @param $version
-     * @return array|null
-     * @throws MercadoPagoException
-     */
-    public static function post($request, $version)
-    {
-        $request['method'] = 'POST';
-
-        return self::exec($request, $version);
-    }
-
-    /**
-     * @param $request
-     * @param $version
-     * @return array|null
-     * @throws MercadoPagoException
-     */
-    public static function put($request, $version)
-    {
-        $request['method'] = 'PUT';
-
-        return self::exec($request, $version);
-    }
-
-    /**
-     * @param $request
-     * @param $version
-     * @return array|null
-     * @throws MercadoPagoException
-     */
-    public static function delete($request, $version)
-    {
-        $request['method'] = 'DELETE';
-
-        return self::exec($request, $version);
-    }
 
     /**
      * @param $email
@@ -269,21 +221,5 @@ abstract class AbstractRestClient
     public static function set_locale($country_code)
     {
         self::$site_locale = $country_code;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getApiBaseUrl()
-    {
-        return self::$api_base_url;
-    }
-
-    /**
-     * @param string $api_base_url
-     */
-    public static function setApiBaseUrl($api_base_url)
-    {
-        self::$api_base_url = $api_base_url;
     }
 }

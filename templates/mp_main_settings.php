@@ -102,7 +102,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_pending_map" id="order_status_pending_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_pending_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_pending_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'when Mercado Pago updates a payment status to PENDING.', 'woocommerce-mercadopago' ) ); ?>
@@ -115,7 +115,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_approved_map" id="order_status_approved_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_approved_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_approved_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'When Mercado Pago updates a payment status to APPROVED.', 'woocommerce-mercadopago' ) ); ?>
@@ -128,7 +128,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_inprocess_map" id="order_status_inprocess_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_inprocess_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_inprocess_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'When Mercado Pago updates a payment status to IN_PROCESS.', 'woocommerce-mercadopago' ) ); ?>
@@ -141,7 +141,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_inmediation_map" id="order_status_inmediation_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_inmediation_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_inmediation_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'When Mercado Pago updates a payment status to IN_MEDIATION.', 'woocommerce-mercadopago' ) ); ?>
@@ -154,7 +154,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_rejected_map" id="order_status_rejected_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_rejected_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_rejected_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'When Mercado Pago updates a payment status to REJECTED.', 'woocommerce-mercadopago' ) ); ?>
@@ -167,7 +167,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_cancelled_map" id="order_status_cancelled_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_cancelled_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_cancelled_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'When Mercado Pago updates a payment status to CANCELLED.', 'woocommerce-mercadopago' ) ); ?>
@@ -180,7 +180,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_refunded_map" id="order_status_refunded_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_refunded_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_refunded_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'When Mercado Pago updates a payment status to REFUNDED.', 'woocommerce-mercadopago' ) ); ?>
@@ -193,7 +193,7 @@
 				</label></th>
 				<td>
 					<select name="order_status_chargedback_map" id="order_status_chargedback_map">
-						<?php echo WC_Woo_Mercado_Pago_Module::get_map( 'order_status_chargedback_map' ); ?>
+						<?php echo WC_WooMercadoPago_Module::get_map( 'order_status_chargedback_map' ); ?>
 					</select>
 					<p class="description" id="tagline-description">
 						<?php echo esc_html( __( 'When Mercado Pago updates a payment status to CHARGED_BACK.', 'woocommerce-mercadopago' ) ); ?>
@@ -305,31 +305,31 @@
 						<?php echo sprintf(
 							__( 'Register event logs of Mercado Pago, such as API requests, for', 'woocommerce-mercadopago' ) .
 							':<br>%s, %s, %s, %s, %s, ' . __( 'or', 'woocommerce-mercadopago' ) . ' %s.',
-							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+							WC_WooMercadoPago_Module::build_log_path_string(
 								'woo-mercado-pago-basic',
 								__( 'Basic Checkout', 'woocommerce-mercadopago' )
 							),
-							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+							WC_WooMercadoPago_Module::build_log_path_string(
 								'woo-mercado-pago-custom',
 								__( 'Custom Checkout', 'woocommerce-mercadopago' )
 							),
-							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+							WC_WooMercadoPago_Module::build_log_path_string(
 								'woo-mercado-pago-ticket',
 								__( 'Tickets', 'woocommerce-mercadopago' )
 							),
-                            WC_Woo_Mercado_Pago_Module::build_log_path_string(
+                            WC_WooMercadoPago_Module::build_log_path_string(
 								'woo-mercado-pago-pse',
 								__( 'PSE', 'woocommerce-mercadopago' )
 							),
-							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+							WC_WooMercadoPago_Module::build_log_path_string(
 								'woo-mercado-pago-subscription',
 								__( 'Subscription', 'woocommerce-mercadopago' )
 							),
-							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+							WC_WooMercadoPago_Module::build_log_path_string(
 								'woo-mercado-pago-me-normal',
 								'Mercado Envios - Normal'
 							),
-							WC_Woo_Mercado_Pago_Module::build_log_path_string(
+							WC_WooMercadoPago_Module::build_log_path_string(
 								'woo-mercado-pago-me-express',
 								'Mercado Envios - Express'
 							) . '.<br>' .

@@ -1,9 +1,13 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Class MercadoPagoException
  */
-class MercadoPagoException extends Exception {
+class WC_WooMercadoPago_Exception extends Exception {
 
     /**
      * MercadoPagoException constructor.

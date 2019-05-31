@@ -13,14 +13,14 @@
  * Description: This class implements Mercado Pago Subscription checkout.
  * @since 3.0.0
  */
-class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
+class WC_WooMercadoPago_SubscriptionGateway extends WC_WooMercadoPago_PaymentAbstract {
 
 	public function __construct() {
 
 		// Mercao Pago instance.
-		$this->site_data = WC_Woo_Mercado_Pago_Module::get_site_data();
+		$this->site_data = WC_WooMercadoPago_Module::get_site_data();
 		$this->mp = new MP(
-			WC_Woo_Mercado_Pago_Module::get_module_version(),
+			WC_WooMercadoPago_Module::get_module_version(),
 			get_option( '_mp_access_token' )
 		);
 		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
@@ -34,12 +34,12 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		//$this->supports = array( 'products', 'refunds' );
 		$this->icon = apply_filters(
 			'woocommerce_mercadopago_icon',
-			plugins_url( 'assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
+			plugins_url( '../assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
 		);
 
 		$this->method_title = __( 'Mercado Pago - Subscription', 'woocommerce-mercadopago' );
 		$this->method_description = '<img width="200" height="52" src="' .
-			plugins_url( 'assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) .
+			plugins_url( '../assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) .
 		'"><br><br><strong>' .
 			__( 'This service allows you to subscribe customers to subscription plans.', 'woocommerce-mercadopago' ) .
 		'</strong>';
@@ -66,7 +66,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			if ( class_exists( 'WC_Logger' ) ) {
 				$this->log = new WC_Logger();
 			} else {
-				$this->log = WC_Woo_Mercado_Pago_Module::woocommerce_instance()->logger();
+				$this->log = WC_WooMercadoPago_Module::woocommerce_instance()->logger();
 			}
 		}
 
@@ -355,7 +355,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		if ( ! empty( $_site_id_v1 ) && ! $is_test_user ) {
 			// Create MP instance.
 			$mp = new MP(
-				WC_Woo_Mercado_Pago_Module::get_module_version(),
+				WC_WooMercadoPago_Module::get_module_version(),
 				get_option( '_mp_access_token' )
 			);
 			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
@@ -364,7 +364,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 			$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
 			$mp->set_locale( $locale[1] );
 			// Analytics.
-			$infra_data = WC_Woo_Mercado_Pago_Module::get_common_settings();
+			$infra_data = WC_WooMercadoPago_Module::get_common_settings();
 			$infra_data['checkout_subscription'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
 			$response = $mp->analytics_save_settings( $infra_data );
 		}
@@ -447,7 +447,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 
 		if ( ! empty( $_mp_public_key ) && ! $is_test_user ) {
 
-			$w = WC_Woo_Mercado_Pago_Module::woocommerce_instance();
+			$w = WC_WooMercadoPago_Module::woocommerce_instance();
 			$logged_user_email = null;
 			$payments = array();
 			$gateways = WC()->payment_gateways->get_available_payment_gateways();
@@ -468,7 +468,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 					MA.setPublicKey( '<?php echo $_mp_public_key; ?>' );
 					MA.setPlatform( 'WooCommerce' );
 					MA.setPlatformVersion( '<?php echo $w->version; ?>' );
-					MA.setModuleVersion( '<?php echo WC_Woo_Mercado_Pago_Module::VERSION; ?>' );
+					MA.setModuleVersion( '<?php echo WC_WooMercadoPago_Module::VERSION; ?>' );
 					MA.setPayerEmail( '<?php echo ( $logged_user_email != null ? $logged_user_email : "" ); ?>' );
 					MA.setUserLogged( <?php echo ( empty( $logged_user_email ) ? 0 : 1 ); ?> );
 					MA.setInstalledModules( '<?php echo $payments; ?>' );
@@ -637,7 +637,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				$currency_ratio = 1;
 				$_mp_currency_conversion_v1 = get_option( '_mp_currency_conversion_v1', '' );
 				if ( ! empty( $_mp_currency_conversion_v1 ) ) {
-					$currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate( $this->site_data['currency'] );
+					$currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate( $this->site_data['currency'] );
 					$currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
 				}
 
@@ -652,7 +652,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 						$order->get_billing_email() :
 						$order->billing_email,
 					'back_url' => ( empty( $this->success_url ) ?
-						WC_Woo_Mercado_Pago_Module::fix_url_ampersand(
+						WC_WooMercadoPago_Module::fix_url_ampersand(
 							esc_url( $this->get_return_url( $order ) )
 						) : $this->success_url
 					),
@@ -683,7 +683,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 					if ( empty( $notification_url ) || filter_var( $notification_url, FILTER_VALIDATE_URL ) === FALSE ) {
 						$preferences['notification_url'] = WC()->api_request_url( 'WC_WooMercadoPago_SubscriptionGateway' );
 					} else {
-						$preferences['notification_url'] = WC_Woo_Mercado_Pago_Module::fix_url_ampersand( esc_url(
+						$preferences['notification_url'] = WC_WooMercadoPago_Module::fix_url_ampersand( esc_url(
 							$notification_url . '/wc-api/WC_WooMercadoPago_SubscriptionGateway/'
 						) );
 					}
@@ -692,7 +692,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				// Set sponsor ID.
 				$_test_user_v1 = get_option( '_test_user_v1', false );
 				if ( ! $_test_user_v1 ) {
-					$preapproval['sponsor_id'] = WC_Woo_Mercado_Pago_Module::get_sponsor_id();
+					$preapproval['sponsor_id'] = WC_WooMercadoPago_Module::get_sponsor_id();
 				}
 
 				// Debug/log this preapproval.
@@ -767,7 +767,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		$w_cart = $woocommerce->cart;
 		// Check for recurrent product checkout.
 		if ( isset( $w_cart ) ) {
-			if ( ! WC_Woo_Mercado_Pago_Module::is_subscription( $w_cart->get_cart() ) ) {
+			if ( ! WC_WooMercadoPago_Module::is_subscription( $w_cart->get_cart() ) ) {
 				return false;
 			}
 		}
@@ -1084,7 +1084,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 		$this->write_log(
 			__FUNCTION__,
 			'Changing order status to: ' .
-			WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( str_replace( '_', '', $status ) )
+			WC_WooMercadoPago_Module::get_wc_status_for_mp_status( str_replace( '_', '', $status ) )
 		);
 		switch ( $status ) {
 			case 'authorized':
@@ -1094,12 +1094,12 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				);
 				$order->payment_complete();
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'approved' )
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'approved' )
 				);
 				break;
 			case 'pending':
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'pending' )
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'pending' )
 				);
 				$order->add_order_note(
 					'Mercado Pago: ' . __( 'Customer haven\'t paid yet.', 'woocommerce-mercadopago' )
@@ -1107,32 +1107,32 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				break;
 			case 'in_process':
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'on-hold' ),
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'on-hold' ),
 					'Mercado Pago: ' . __( 'Payment under review.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'rejected':
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'rejected' ),
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'rejected' ),
 					'Mercado Pago: ' . __( 'The payment was refused. The customer can try again.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'refunded':
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'refunded' ),
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'refunded' ),
 					'Mercado Pago: ' . __( 'The payment was refunded to the customer.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'cancelled':
 				$this->process_cancel_order_meta_box_actions( $order );
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'cancelled' ),
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'cancelled' ),
 					'Mercado Pago: ' . __( 'The payment was cancelled.', 'woocommerce-mercadopago' )
 				);
 				break;
 			case 'in_mediation':
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'inmediation' )
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'inmediation' )
 				);
 				$order->add_order_note(
 					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago' )
@@ -1140,7 +1140,7 @@ class WC_WooMercadoPago_SubscriptionGateway extends WC_Payment_Gateway {
 				break;
 			case 'charged-back':
 				$order->update_status(
-					WC_Woo_Mercado_Pago_Module::get_wc_status_for_mp_status( 'chargedback' )
+					WC_WooMercadoPago_Module::get_wc_status_for_mp_status( 'chargedback' )
 				);
 				$order->add_order_note(
 					'Mercado Pago: ' . __( 'The payment is under mediation or it was charged-back.', 'woocommerce-mercadopago' )
