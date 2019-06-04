@@ -25,7 +25,7 @@ class MP
     function __construct()
     {
         $includes_path = dirname(__FILE__);
-        require_once($includes_path . '');
+
         require_once($includes_path . '/RestClient/AbstractRestClient.php');
         require_once($includes_path . '/RestClient/MeliRestClient.php');
         require_once($includes_path . '/RestClient/MpRestClient.php');
@@ -285,9 +285,7 @@ class MP
     public function check_two_cards()
     {
 
-        $request = array(
-            'uri' => '/account/settings?access_token=' . $this->get_access_token()
-        );
+        $request = array('uri' => '/account/settings?access_token=' . $this->get_access_token());
 
         $two_cards_info = MPRestClient::get($request, $this->version);
         if ($two_cards_info['status'] == 200)

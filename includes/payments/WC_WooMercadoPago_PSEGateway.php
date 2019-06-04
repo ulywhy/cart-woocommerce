@@ -17,7 +17,7 @@
  */
 class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 
-	public function __construct( $is_instance = false ) {
+	public function __construct() {
 
 		// Mercao Pago instance.
 		$this->site_data = WC_WooMercadoPago_Module::get_site_data();

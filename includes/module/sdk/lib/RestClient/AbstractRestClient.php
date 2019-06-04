@@ -17,20 +17,20 @@ abstract class AbstractRestClient
      * @param $version
      * @param $apiBaseUrl
      * @return false|resource
-     * @throws MercadoPagoException
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function build_request($request, $version, $apiBaseUrl)
     {
         if (!extension_loaded('curl')) {
-            throw new MercadoPagoException('cURL extension not found. You need to enable cURL in your php.ini or another configuration you have.');
+            throw new WC_WooMercadoPago_Exception('cURL extension not found. You need to enable cURL in your php.ini or another configuration you have.');
         }
 
         if (!isset($request['method'])) {
-            throw new MercadoPagoException('No HTTP METHOD specified');
+            throw new WC_WooMercadoPago_Exception('No HTTP METHOD specified');
         }
 
         if (!isset($request['uri'])) {
-            throw new MercadoPagoException('No URI specified');
+            throw new WC_WooMercadoPago_Exception('No URI specified');
         }
 
         $headers = array('accept: application/json');
@@ -82,7 +82,7 @@ abstract class AbstractRestClient
                 if (function_exists('json_last_error')) {
                     $json_error = json_last_error();
                     if ($json_error != JSON_ERROR_NONE) {
-                        throw new MercadoPagoException("JSON Error [{$json_error}] - Data: " . $request['data']);
+                        throw new WC_WooMercadoPago_Exception("JSON Error [{$json_error}] - Data: " . $request['data']);
                     }
                 }
             } elseif ($form_content) {
@@ -97,8 +97,9 @@ abstract class AbstractRestClient
     /**
      * @param $request
      * @param $version
+     * @param $connect
      * @return array|null
-     * @throws MercadoPagoException
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function execute($request, $version, $connect)
     {
@@ -107,7 +108,7 @@ abstract class AbstractRestClient
         $api_http_code = curl_getinfo($connect, CURLINFO_HTTP_CODE);
 
         if ($api_result === FALSE) {
-            throw new MercadoPagoException (curl_error($connect));
+            throw new WC_WooMercadoPago_Exception (curl_error($connect));
         }
 
         if ($api_http_code != null && $api_result != null) {
@@ -154,7 +155,7 @@ abstract class AbstractRestClient
                 );
                 self::sendErrorLog($response['status'], $errors, $version);
             } catch (Exception $e) {
-                throw new MercadoPagoException('Error to call API LOGS' . $e);
+                throw new WC_WooMercadoPago_Exception('Error to call API LOGS' . $e);
             }
         }
 
@@ -168,7 +169,7 @@ abstract class AbstractRestClient
      * @param $errors
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function sendErrorLog($code, $errors, $version)
     {

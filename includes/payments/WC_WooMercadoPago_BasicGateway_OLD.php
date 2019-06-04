@@ -16,7 +16,7 @@ require_once dirname( __FILE__ ) . '/sdk/lib/mercadopago.php';
  * Description: This class implements Mercado Pago Basic checkout.
  * @since 3.0.0
  */
-class WC_WooMercadoPago_BasicGateway extends WC_Payment_Gateway {
+class WC_WooMercadoPago_BasicGate3way extends WC_Payment_Gateway {
 
 	public function __construct() {
 

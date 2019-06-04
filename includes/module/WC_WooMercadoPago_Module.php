@@ -20,6 +20,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         self::loadConfigs();
+        self::loadLog();
         if (!class_exists('WC_Payment_Gateway')) {
             add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
         }
@@ -28,7 +29,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
 
         self::loadNotifications();
-        self::loadLog();
         self::loadShipments();
         add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
         add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
@@ -102,10 +102,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
         $_site_id_v1 = get_option('_site_id_v1', '');
         if (!empty($_site_id_v1) && $_site_id_v1 == 'MCO') {
-            include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_PSEGateway.php';
+            //include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_PSEGateway.php';
         }
 
-        include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_SubscriptionGateway.php';
         include_once dirname(__FILE__) . '/../payments/class-wc-product-mp_recurrent.php';
     }
 
