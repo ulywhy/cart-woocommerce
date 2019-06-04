@@ -1,221 +1,44 @@
 <?php
-
 /**
- * Part of Woo Mercado Pago Module
- * Author - Mercado Pago
- * Developer - Marcelo Mita / marcelo.mita@mercadolivre.com
- * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
- * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
- */
-
-// This include Mercado Pago library SDK
-
-/**
- * Summary: Extending from WooCommerce Payment Gateway class.
- * Description: This class implements Mercado Pago pse payment method.
- * @since 3.0.16
+ * Class WC_WooMercadoPago_PSEGateway
  */
 class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 
 	public function __construct() {
 
-		// Mercao Pago instance.
-		$this->site_data = WC_WooMercadoPago_Module::get_site_data();
-		$this->mp = new MP(
-			WC_WooMercadoPago_Module::get_module_version(),
-			get_option( '_mp_access_token' )
-		);
-		$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
-		$this->mp->set_email( $email );
-		$locale = get_locale();
-		$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
-		$this->mp->set_locale( $locale[1] );
+        $this->form_fields = $this->getFormFields('Custom');
+        $this->id = 'woo-mercado-pago-pse';
+        $this->method_title = __('Mercado Pago - PSE', 'woocommerce-mercadopago');
+        $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
+        $this->title = get_option('title', __('Mercado Pago - PSE', 'woocommerce-mercadopago'));
+        $this->coupon_mode = get_option('coupon_mode', 'no');
+        $this->installments = get_option('installments', '24');
+        $this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
+        $this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
+        parent::__construct();
 
-		// WooCommerce fields.
-		$this->id = 'woo-mercado-pago-pse';
-		$this->supports = array( 'products', 'refunds' );
-		$this->icon = apply_filters(
-			'woocommerce_mercadopago_icon',
-			plugins_url( '../assets/images/mercadopago.png', plugin_dir_path( __FILE__ ) )
-		);
 
-		$this->method_title = __( 'Mercado Pago - PSE', 'woocommerce-mercadopago' );
-		$this->method_description = '<img width="200" height="52" src="' .
-			plugins_url( '../assets/images/mplogo.png', plugin_dir_path( __FILE__ ) ) .
-		'"><br><br><strong>' .
-			__( 'We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.', 'woocommerce-mercadopago' ) .
-		'</strong>';
-
-		//$this->sandbox = get_option( '_mp_sandbox_mode', false );
-		$this->sandbox = false;
-		$this->mp->sandbox_mode( $this->sandbox );
-
-		// How checkout is shown.
-		$this->title              = $this->get_option( 'title', __( 'Mercado Pago - PSE', 'woocommerce-mercadopago' ) );
-		$this->description        = $this->get_option( 'description' );
-		// How checkout payment behaves.
-// 		$this->coupon_mode        = $this->get_option( 'coupon_mode', 'no' );
-		$this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
-		$this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
-
-		// Logging and debug.
-		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
-		if ( ! empty ( $_mp_debug_mode ) ) {
-			if ( class_exists( 'WC_Logger' ) ) {
-				$this->log = new WC_Logger();
-			} else {
-				$this->log = WC_WooMercadoPago_Module::woocommerce_instance()->logger();
-			}
-		}
-
-		// Render our configuration page and init/load fields.
-		$this->init_form_fields();
-		$this->init_settings();
-
-		// Used by IPN to receive IPN incomings.
-		add_action(
-			'woocommerce_api_wc_woomercadopago_psegateway',
-			array( $this, 'check_ipn_response' )
-		);
-		// Used by IPN to process valid incomings.
-		add_action(
-			'valid_mercadopago_pse_ipn_request',
-			array( $this, 'successful_request' )
-		);
-		// process the cancel order meta box order action
-		add_action(
-			'woocommerce_order_action_cancel_order',
-			array( $this, 'process_cancel_order_meta_box_actions' )
-		);
-		// Used in settings page to hook "save settings" action.
-		add_action(
-			'woocommerce_update_options_payment_gateways_' . $this->id,
-			array( $this, 'custom_process_admin_options' )
-		);
-		// Scripts for custom checkout.
-		add_action(
-			'wp_enqueue_scripts',
-			array( $this, 'add_checkout_scripts_pse' )
-		);
-		// Apply the discounts.
-		add_action(
-			'woocommerce_cart_calculate_fees',
-			array( $this, 'add_discount_pse' ), 10
-		);
-		// Display discount in payment method title.
-		add_filter(
-			'woocommerce_gateway_title',
-			array( $this, 'get_payment_method_title_pse' ), 10, 2
-		);
-
-		if ( ! empty( $this->settings['enabled'] ) && $this->settings['enabled'] == 'yes' ) {
-			if ( ! $is_instance ) {
-				// Scripts for order configuration.
-				add_action(
-					'woocommerce_after_checkout_form',
-					array( $this, 'add_mp_settings_script_pse' )
-				);
-				// Checkout updates.
-				add_action(
-					'woocommerce_thankyou_' . $this->id,
-					array( $this, 'update_mp_settings_script_pse' )
-				);
-			}
-		}
 
 	}
 
-	/**
-	 * Summary: Initialise Gateway Settings Form Fields.
-	 * Description: Initialise Gateway settings form fields with a customized page.
-	 */
-	public function init_form_fields() {
 
-		// Show message if credentials are not properly configured.
-		$_site_id_v1 = get_option( '_site_id_v1', '' );
-		if ( empty( $_site_id_v1 ) || $_site_id_v1!='MCO' ) {
-			$this->form_fields = array(
-				'no_credentials_title' => array(
-					'title' => sprintf(
-						__( 'It appears that your credentials are not properly configured or are not from an account in Colombia.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago' ),
-						'<a href="' . esc_url( admin_url( 'admin.php?page=mercado-pago-settings' ) ) . '">' .
-						__( 'Mercado Pago Settings', 'woocommerce-mercadopago' ) .
-						'</a>'
-					),
-					'type' => 'title'
-				),
-			);
-			return;
-		}
+    public function mp_hooks($is_instance = false)
+    {
+        parent::mp_hooks($is_instance);
+        add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts_pse'));
+        add_action('woocommerce_api_wc_woomercadopago_psegateway', array($this, 'check_ipn_response'));
+        add_action('valid_mercadopago_pse_ipn_request', array($this, 'successful_request'));
+        add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount_pse'), 10);
+        add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title_pse'), 10, 2);
 
-		// If module is disabled, we do not need to load and process the settings page.
-		if ( empty( $this->settings['enabled'] ) || 'no' == $this->settings['enabled'] ) {
-			$this->form_fields = array(
-				'enabled' => array(
-					'title' => __( 'Enable/Disable', 'woocommerce-mercadopago' ),
-					'type' => 'checkbox',
-					'label' => __( 'Enable PSE Payment Method', 'woocommerce-mercadopago' ),
-					'default' => 'no'
-				)
-			);
-			return;
-		}
+        if (!empty($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
+            if (!$is_instance) {
+                add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_pse'));
+                add_action('woocommerce_thankyou_' . $this->id, array($this, 'update_mp_settings_script_pse'));
+            }
+        }
 
-		// This array draws each UI (text, selector, checkbox, label, etc).
-		$this->form_fields = array(
-			'enabled' => array(
-				'title' => __( 'Enable/Disable', 'woocommerce-mercadopago' ),
-				'type' => 'checkbox',
-				'label' => __( 'Enable PSE Payment Method', 'woocommerce-mercadopago' ),
-				'default' => 'no'
-			),
-			'checkout_options_title' => array(
-				'title' => __( 'PSE Interface: How checkout is shown', 'woocommerce-mercadopago' ),
-				'type' => 'title'
-			),
-			'title' => array(
-				'title' => __( 'Title', 'woocommerce-mercadopago' ),
-				'type' => 'text',
-				'description' => __( 'Title shown to the client in the pse.', 'woocommerce-mercadopago' ),
-				'default' => __( 'Mercado Pago - PSE', 'woocommerce-mercadopago' )
-			),
-			'description' => array(
-				'title' => __( 'Description', 'woocommerce-mercadopago' ),
-				'type' => 'textarea',
-				'description' => __( 'Description shown to the client in the pse.', 'woocommerce-mercadopago' ),
-				'default' => __( 'Pay with Mercado Pago', 'woocommerce-mercadopago' )
-			),
-			'payment_title' => array(
-				'title' => __( 'Payment Options: How payment options behaves', 'woocommerce-mercadopago' ),
-				'type' => 'title'
-			),
-// 			'coupon_mode' => array(
-// 				'title' => __( 'Coupons', 'woocommerce-mercadopago' ),
-// 				'type' => 'checkbox',
-// 				'label' => __( 'Enable coupons of discounts', 'woocommerce-mercadopago' ),
-// 				'default' => 'no',
-// 				'description' => __( 'If there is a Mercado Pago campaign, allow your store to give discounts to customers.', 'woocommerce-mercadopago' )
-// 			),
-			'stock_reduce_mode' => array(
-				'title' => __( 'Stock Reduce', 'woocommerce-mercadopago' ),
-				'type' => 'checkbox',
-				'label' => __( 'Reduce Stock in Order Generation', 'woocommerce-mercadopago' ),
-				'default' => 'no',
-				'description' => __( 'Enable this to reduce the stock on order creation. Disable this to reduce <strong>after</strong> the payment approval.', 'woocommerce-mercadopago' )
-			),
-			'gateway_discount' => array(
-				'title' => __( 'Discount/Fee by Gateway', 'woocommerce-mercadopago' ),
-				'type' => 'number',
-				'description' => __( 'Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago' ),
-				'default' => '0',
-				'custom_attributes' => array(
-					'step' 	=> '0.01',
-					'min'	=> '-99',
-					'max' => '99'
-				) 
-			)
-		);
-	}
+    }
 
 	/**
 	 * Processes and saves options.

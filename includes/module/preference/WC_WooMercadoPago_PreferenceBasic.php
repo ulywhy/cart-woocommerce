@@ -2,35 +2,45 @@
 /**
  * Part of Woo Mercado Pago Module
  * Author - Mercado Pago
- * Developer 
+ * Developer
  * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
  * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
-  
-require_once dirname( __FILE__ ) . '/WC_WooMercadoPago_PreferenceAbstract.php';
 
-class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbstract {
-    public function __construct($order, $ex_payments,  $installments) {
+class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbstract
+{
+    /**
+     * WC_WooMercadoPago_PreferenceBasic constructor.
+     * @param $order
+     * @param $ex_payments
+     * @param $installments
+     */
+    public function __construct($order, $ex_payments, $installments)
+    {
         parent::__construct($order);
-        
+
         $this->preference['items'] = $this->items;
         $this->preference['payer'] = $this->get_payer_basic();
         $this->preference['back_urls'] = $this->get_back_urls();
         $this->preference['shipments'] = $this->shipments_receiver_address();
-        
+
         if (strpos($this->selected_shipping, 'Mercado Envios') !== 0 && $this->ship_cost > 0) {
-           $this->preference['items'][] = $this->ship_cost_item();
+            $this->preference['items'][] = $this->ship_cost_item();
         }
-        
-        if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0 ) {
-           $this->shipment_info();
+
+        if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
+            $this->shipment_info();
         }
-        
+
         $this->preference['payment_methods'] = $this->get_payment_methods($ex_payments, $installments);
         $this->preference['auto_return'] = $this->auto_return();
     }
-    // Build additional information from the customer data.
-    public function get_payer_basic() {
+
+    /**
+     * @return array
+     */
+    public function get_payer_basic()
+    {
         $payer_additional_info = array(
             'name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
             'surname' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
@@ -56,8 +66,12 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         );
         return $payer_additional_info;
     }
-    // Build Get Back Urls
-    public function get_back_urls() {
+
+    /**
+     * @return array
+     */
+    public function get_back_urls()
+    {
         $success_url = get_option('success_url', '');
         $failure_url = get_option('failure_url', '');
         $pending_url = get_option('pending_url', '');
@@ -77,13 +91,14 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         );
         return $back_urls;
     }
+
     /**
-     *  Create and setup payment options.
-     * 
-     *  $this->ex_payments
-     *  $this->installments
+     * @param $ex_payments
+     * @param $installments
+     * @return array
      */
-    public function get_payment_methods($ex_payments, $installments) {
+    public function get_payment_methods($ex_payments, $installments)
+    {
         $excluded_payment_methods = array();
         if (is_array($ex_payments) && count($ex_payments) != 0) {
             foreach ($ex_payments as $excluded) {
@@ -99,36 +114,44 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         );
         return $payment_methods;
     }
-    // Auto return options.
-    public function auto_return() {
+
+    /**
+     * @return string|void
+     */
+    public function auto_return()
+    {
         $auto_return = get_option('auto_return', 'yes');
         if ('yes' == $auto_return) {
             return 'approved';
         }
         return;
     }
-    // If we're  using Mercado Envios, shipping cost should be setup in preferences.
-    public function shipment_info() {
-            $this->preference['shipments']['mode'] = 'me2';
-            foreach ($this->order->get_shipping_methods() as $shipping) {
-                $this->preference['shipments']['dimensions'] = $shipping['dimensions'];
-                $this->preference['shipments']['default_shipping_method'] = (int)$shipping['shipping_method_id'];
-                $this->preference['shipments']['free_methods'] = array();
-                // Get shipping method id.
-                $prepare_method_id = explode(':', $shipping['method_id']);
-                // Get instance_id.
-                $shipping_id = $prepare_method_id[count($prepare_method_id) - 1];
-                // TODO: Refactor to Get zone by instance_id.
-                $shipping_zone = WC_Shipping_Zones::get_zone_by('instance_id', $shipping_id);
-                // Get all shipping and filter by free_shipping (Mercado Envios).
-                foreach ($shipping_zone->get_shipping_methods() as $key => $shipping_object) {
-                    // Check is a free method.
-                    if ($shipping_object->get_option('free_shipping') == 'yes') {
-                        // Get shipping method id (Mercado Envios).
-                        $shipping_method_id = $shipping_object->get_shipping_method_id($this->site_data['site_id']);
-                        $this->preference['shipments']['free_methods'][] = array('id' => (int)$shipping_method_id);
-                    }
+
+    /**
+     * Shipment Info
+     */
+    public function shipment_info()
+    {
+        $this->preference['shipments']['mode'] = 'me2';
+        foreach ($this->order->get_shipping_methods() as $shipping) {
+            $this->preference['shipments']['dimensions'] = $shipping['dimensions'];
+            $this->preference['shipments']['default_shipping_method'] = (int)$shipping['shipping_method_id'];
+            $this->preference['shipments']['free_methods'] = array();
+            // Get shipping method id.
+            $prepare_method_id = explode(':', $shipping['method_id']);
+            // Get instance_id.
+            $shipping_id = $prepare_method_id[count($prepare_method_id) - 1];
+            // TODO: Refactor to Get zone by instance_id.
+            $shipping_zone = WC_Shipping_Zones::get_zone_by('instance_id', $shipping_id);
+            // Get all shipping and filter by free_shipping (Mercado Envios).
+            foreach ($shipping_zone->get_shipping_methods() as $key => $shipping_object) {
+                // Check is a free method.
+                if ($shipping_object->get_option('free_shipping') == 'yes') {
+                    // Get shipping method id (Mercado Envios).
+                    $shipping_method_id = $shipping_object->get_shipping_method_id($this->site_data['site_id']);
+                    $this->preference['shipments']['free_methods'][] = array('id' => (int)$shipping_method_id);
                 }
             }
+        }
     }
 }

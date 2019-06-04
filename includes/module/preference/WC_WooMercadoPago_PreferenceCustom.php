@@ -2,15 +2,20 @@
 /**
  * Part of Woo Mercado Pago Module
  * Author - Mercado Pago
- * Developer 
+ * Developer
  * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
  * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
 
-require_once dirname(__FILE__) . '/WC_WooMercadoPago_PreferenceAbstractphp';
-
-class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbstract {
-    public function __construct($order, $custom_checkout) {
+class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbstract
+{
+    /**
+     * WC_WooMercadoPago_PreferenceCustom constructor.
+     * @param $order
+     * @param $custom_checkout
+     */
+    public function __construct($order, $custom_checkout)
+    {
         parent::__construct($order, $custom_checkout);
         $this->preference['transaction_amount'] = $this->get_transaction_amount();
         $this->preference['token'] = $this->checkout['token'];
@@ -40,8 +45,12 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         }
         $this->add_discounts_campaign();
     }
-    // Build additional information from the customer data.
-    public function get_payer_custom() {
+
+    /**
+     * @return array
+     */
+    public function get_payer_custom()
+    {
         $payer_additional_info = array(
             'first_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
             'last_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
@@ -67,8 +76,12 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         );
         return $payer_additional_info;
     }
-    // Discounts features.
-    public function add_discounts() {
+
+    /**
+     * @return array
+     */
+    public function add_discounts()
+    {
         $item = array(
             'title' => __('Discount provided by store', 'woocommerce-mercadopago'),
             'description' => __('Discount provided by store', 'woocommerce-mercadopago'),
@@ -79,8 +92,12 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         );
         return $item;
     }
-    // Discounts features.
-    public function add_discounts_campaign() {
+
+    /**
+     * Discount Campaign
+     */
+    public function add_discounts_campaign()
+    {
         if (
             isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
             isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
@@ -92,14 +109,24 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
             $this->preference['coupon_code'] = strtoupper($this->checkout['coupon_code']);
         }
     }
-    public function get_transaction_amount() {
+
+    /**
+     * @return float|int
+     */
+    public function get_transaction_amount()
+    {
         if ($this->site_id == 'COP' || $this->site_id == 'CLP') {
             return floor($this->order_total * $this->currency_ratio);
         } else {
             return floor($this->order_total * $this->currency_ratio * 100) / 100;
         }
     }
-    public function get_email() {
+
+    /**
+     * @return mixed
+     */
+    public function get_email()
+    {
         if (method_exists($this->order, 'get_id')) {
             return $this->order->get_billing_email();
         } else {

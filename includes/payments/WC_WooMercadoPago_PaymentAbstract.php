@@ -228,39 +228,42 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
 
     public function mp_hooks($is_instance = false)
     {
-        add_action('woocommerce_thankyou', array( $this, 'show_ticket_script' ));
-        // Used by IPN to receive IPN incomings.
+        add_action('woocommerce_order_action_cancel_order', array( $this, 'process_cancel_order_meta_box_actions' ));
+        add_action('woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'custom_process_admin_options' ));
+
+
+
+        add_action('woocommerce_thankyou', array($this, 'show_ticket_script'));
         add_action('woocommerce_api_' . strtolower(get_class($this)), array($this, 'check_ipn_response'));
-
-        // Used by IPN to process valid incomings.
         add_action('valid_mercadopago_ipn_request' . strtolower(get_class($this)), array($this, 'successful_request'));
-
-        // Process the cancel order meta box order action.
         add_action('woocommerce_order_action_cancel_order', array($this, 'process_cancel_order_meta_box_actions'));
-
-        // Used in settings page to hook "save settings" action.
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'custom_process_admin_options'));
-
-        // Send setting of checkout to MP
         add_action('send_options_payment_gateways' . strtolower(get_class($this)), array($this, 'send_settings_mp'));
-
-        // Apply the discounts.
         add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount'), 10);
-
-        // Scripts for custom checkout.
         add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts'));
-
-        // Display discount in payment method title.
+        add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts_pse'));
         add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title'), 10, 2);
 
         if (!empty($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
             if (!$is_instance || get_class($this) == 'WC_WooMercadoPago_BasicGateway') {
-                // Scripts for order configuration.
                 add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script'));
-                // Checkout updates.
                 add_action('woocommerce_thankyou', array($this, 'update_mp_settings_script'));
             }
         }
+
+
+        add_action('woocommerce_api_wc_woomercadopago_psegateway', array($this, 'check_ipn_response'));
+        add_action('valid_mercadopago_pse_ipn_request', array($this, 'successful_request'));
+        add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount_pse'), 10);
+        add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title_pse'), 10, 2);
+
+        if (!empty($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
+            if (!$is_instance) {
+                add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_pse'));
+                add_action('woocommerce_thankyou_' . $this->id, array($this, 'update_mp_settings_script_pse'));
+            }
+        }
+
     }
 
 
