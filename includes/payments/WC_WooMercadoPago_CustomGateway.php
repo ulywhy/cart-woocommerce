@@ -4,8 +4,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-require_once dirname( __FILE__ ) . '../module/preference/WC_WooMercadoPago_PreferenceCustom.php';
-
+require_once dirname( __FILE__ ) . '/../module/preference/WC_WooMercadoPago_PreferenceCustom.php';
 
 /**
  *
