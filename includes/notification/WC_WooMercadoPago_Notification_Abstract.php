@@ -22,6 +22,8 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         $this->mp = WC_WooMercadoPago_Module::init_mercado_pago_instance();
         $this->sandbox = get_option('_mp_sandbox_mode', false);
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
+
+        add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
     }
 
     /**

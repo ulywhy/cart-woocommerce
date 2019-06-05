@@ -22,23 +22,7 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 	}
 
 
-    public function mp_hooks($is_instance = false)
-    {
-        parent::mp_hooks($is_instance);
-        add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts_pse'));
-        add_action('woocommerce_api_wc_woomercadopago_psegateway', array($this, 'check_ipn_response'));
-        add_action('valid_mercadopago_pse_ipn_request', array($this, 'successful_request'));
-        add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount_pse'), 10);
-        add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title_pse'), 10, 2);
 
-        if (!empty($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
-            if (!$is_instance) {
-                add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_pse'));
-                add_action('woocommerce_thankyou_' . $this->id, array($this, 'update_mp_settings_script_pse'));
-            }
-        }
-
-    }
 
 	/**
 	 * Processes and saves options.
@@ -310,20 +294,7 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 		echo $added_text;
 	}
 
-	public function add_checkout_scripts_pse() {
-		if ( is_checkout() && $this->is_available() ) {
-			if ( ! get_query_var( 'order-received' ) ) {
-				wp_enqueue_style(
-					'woocommerce-mercadopago-style',
-					plugins_url( 'assets/css/custom_checkout_mercadopago.css', plugin_dir_path( __FILE__ ) )
-				);
-				wp_enqueue_script(
-					'woocommerce-mercadopago-pse-js',
-					'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'
-				);
-			}
-		}
-	}
+
 
 	public function payment_fields() {
 
@@ -789,63 +760,10 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 	* Summary: Receive post data and applies a discount based in the received values.
 	* Description: Receive post data and applies a discount based in the received values.
 	*/
-	public function add_discount_pse() {
 
-		if ( ! isset( $_POST['mercadopago_pse'] ) ) {
-			return;
-		}
-
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) || is_cart() ) {
-			return;
-		}
-
-		$pse_checkout = $_POST['mercadopago_pse'];
-		if ( isset( $pse_checkout['discount'] ) && ! empty( $pse_checkout['discount'] ) &&
-			isset( $pse_checkout['coupon_code'] ) && ! empty( $pse_checkout['coupon_code'] ) &&
-			$pse_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-pse' ) {
-
-			$this->write_log( __FUNCTION__, 'pse checkout trying to apply discount...' );
-
-			$value = ( $this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP' ) ?
-				floor( $pse_checkout['discount'] / $pse_checkout['currency_ratio'] ) :
-				floor( $pse_checkout['discount'] / $pse_checkout['currency_ratio'] * 100 ) / 100;
-			global $woocommerce;
-			if ( apply_filters(
-				'wc_mercadopagopse_module_apply_discount',
-				0 < $value, $woocommerce->cart )
-			) {
-				$woocommerce->cart->add_fee( sprintf(
-					__( 'Discount for %s coupon', 'woocommerce-mercadopago' ),
-					esc_attr( $pse_checkout['campaign']
-					) ), ( $value * -1 ), false
-				);
-			}
-		}
-
-	}
 
 	// Display the discount in payment method title.
-	public function get_payment_method_title_pse( $title, $id ) {
-		if ( ! is_checkout() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			return $title;
-		}
-		if ( $title != $this->title || $this->gateway_discount == 0 ) {
-			return $title;
-		}
-		if ( ! is_numeric( $this->gateway_discount ) || $this->gateway_discount < -99 || $this->gateway_discount > 99 ) {
-			return $title;
-		}
-		$total = (float) WC()->cart->subtotal;
-		$price_percent = $this->gateway_discount / 100;
-		if ( $price_percent > 0 ) {
-			$title .= ' (' . __( 'Discount of', 'woocommerce-mercadopago' ) . ' ' .
-				strip_tags( wc_price( $total * $price_percent ) ) . ')';
-		} elseif ( $price_percent < 0 ) {
-			$title .= ' (' . __( 'Fee of', 'woocommerce-mercadopago' ) . ' ' .
-				strip_tags( wc_price( -$total * $price_percent ) ) . ')';
-		}
-		return $title;
-	}
+
 
 	/*
 	 * ========================================================================

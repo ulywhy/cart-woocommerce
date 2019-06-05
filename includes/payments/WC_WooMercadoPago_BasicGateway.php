@@ -80,29 +80,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
 
     // Display the discount in payment method title.
-    public function get_payment_method_title_basic($title, $id)
-    {
-        if (!is_checkout() && !(defined('DOING_AJAX') && DOING_AJAX)) {
-            return $title;
-        }
-        if ($title != $this->title || $this->gateway_discount == 0) {
-            return $title;
-        }
-        if (WC()->session->chosen_payment_method === 'woo-mercado-pago-subscription') {
-            return $title;
-        }
-        if (!is_numeric($this->gateway_discount) || $this->gateway_discount < -99 || $this->gateway_discount > 99) {
-            return $title;
-        }
-        $total = (float)WC()->cart->subtotal;
-        $price_percent = $this->gateway_discount / 100;
-        if ($price_percent > 0) {
-            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($total * $price_percent)) . ')';
-        } elseif ($price_percent < 0) {
-            $title .= ' (' . __('Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price(-$total * $price_percent)) . ')';
-        }
-        return $title;
-    }
+
 
 
     public function field_method()
@@ -310,71 +288,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $infra_data;
     }
 
-    /*
-     * ========================================================================
-     * HANDLES ORDER
-     * ========================================================================
-     *
-	 * Summary: Show the custom renderization for the checkout.
-	 * Description: Order page and this generates the form that shows the pay button. This step
-	 * generates the form to proceed to checkout.
-	 * @return the html to be rendered.
-	 */
-
-    public function render_order_form($order_id)
-    {
-
-        $order = wc_get_order($order_id);
-        $url = $this->create_url($order);
-
-        $banner_url = get_option('_mp_custom_banner');
-        if (!isset($banner_url) || empty($banner_url)) {
-            $banner_url = $this->site_data['checkout_banner'];
-        }
-
-        if ('modal' == $this->method && $url) {
-
-            $this->write_log(__FUNCTION__, 'rendering Mercado Pago lightbox (modal window).');
-
-            // ===== The checkout is made by displaying a modal to the customer =====
-            $html = '<style type="text/css">
-						#MP-Checkout-dialog #MP-Checkout-IFrame { bottom: -28px !important; height: 590px !important; }
-					</style>';
-            $html .= '<script type="text/javascript" src="https://secure.mlstatic.com/mptools/render.js"></script>
-					<script type="text/javascript">
-						(function() { $MPC.openCheckout({ url: "' . esc_url($url) . '", mode: "modal" }); })();
-					</script>';
-            $html .= '<img width="468" height="60" src="' . $banner_url . '">';
-            $html .= '<p></p><p>' . wordwrap(
-                    __('Thank you for your order. Please, proceed with your payment clicking in the bellow button.', 'woocommerce-mercadopago'),
-                    60, '<br>'
-                ) . '</p>
-					<a id="submit-payment" href="' . esc_url($url) . '" name="MP-Checkout" class="button alt" mp-mode="modal">' .
-                __('Pay with Mercado Pago', 'woocommerce-mercadopago') .
-                '</a> <a class="button cancel" href="' . esc_url($order->get_cancel_order_url()) . '">' .
-                __('Cancel order &amp; Clear cart', 'woocommerce-mercadopago') .
-                '</a>';
-            return $html;
-            // ===== The checkout is made by displaying a modal to the customer =====
-
-        } else {
-
-            $this->write_log(__FUNCTION__, 'unable to build Mercado Pago checkout URL.');
-
-            // ===== Reaching at this point means that the URL could not be build by some reason =====
-            $html = '<p>' .
-                __('An error occurred when proccessing your payment. Please try again or contact us for assistence.', 'woocommerce-mercadopago') .
-                '</p>' .
-                '<a class="button" href="' . esc_url($order->get_checkout_payment_url()) . '">' .
-                __('Click to try again', 'woocommerce-mercadopago') .
-                '</a>
-			';
-            return $html;
-            // ===== Reaching at this point means that the URL could not be build by some reason =====
-
-        }
-
-    }
 
     /*
     * ========================================================================

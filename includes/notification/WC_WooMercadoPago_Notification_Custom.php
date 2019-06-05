@@ -21,9 +21,6 @@ class WC_WooMercadoPago_Notification_Custom extends WC_WooMercadoPago_Notificati
     public function __construct()
     {
         parent::__construct();
-        add_action('woocommerce_api_wc_woomercadopago_customgateway', array($this, 'check_ipn_response'));
-        add_action('valid_mercadopago_custom_ipn_request', array($this, 'successful_request'));
-        add_action('woocommerce_order_action_cancel_order', array($this, 'process_cancel_order_meta_box_actions'));
 
         $this->log->setId('WooMercadoPago_Notification_Custom');
     }
@@ -97,54 +94,9 @@ class WC_WooMercadoPago_Notification_Custom extends WC_WooMercadoPago_Notificati
     public function successful_request($data)
     {
         $order = parent::successful_request($data);
-
-        $status = isset($data['status']) ? $data['status'] : 'pending';
-        $total_paid = isset($data['transaction_details']['total_paid_amount']) ? $data['transaction_details']['total_paid_amount'] : 0.00;
-        $total_refund = isset($data['transaction_amount_refunded']) ? $data['transaction_amount_refunded'] : 0.00;
-
-        // WooCommerce 3.0 or later.
-        if (method_exists($order, 'update_meta_data')) {
-            // Updates the type of gateway.
-            $order->update_meta_data('_used_gateway', 'WC_WooMercadoPago_CustomGateway');
-            if (!empty($data['payer']['email'])) {
-                $order->update_meta_data(__('Payer email', 'woocommerce-mercadopago'), $data['payer']['email']);
-            }
-            if (!empty($data['payment_type_id'])) {
-                $order->update_meta_data(__('Payment type', 'woocommerce-mercadopago'), $data['payment_type_id']);
-            }
-            $order->update_meta_data(
-                'Mercado Pago - Payment ' . $data['id'],
-                '[Date ' . date('Y-m-d H:i:s', strtotime($data['date_created'])) .
-                ']/[Amount ' . $data['transaction_amount'] .
-                ']/[Paid ' . $total_paid .
-                ']/[Refund ' . $total_refund . ']'
-            );
-            $order->update_meta_data('_Mercado_Pago_Payment_IDs', $data['id']);
-            $order->save();
-        } else {
-            // Updates the type of gateway.
-            update_post_meta($order->id, '_used_gateway', 'WC_WooMercadoPago_CustomGateway');
-            if (!empty($data['payer']['email'])) {
-                update_post_meta($order->id, __('Payer email', 'woocommerce-mercadopago'), $data['payer']['email']);
-            }
-            if (!empty($data['payment_type_id'])) {
-                update_post_meta($order->id, __('Payment type', 'woocommerce-mercadopago'), $data['payment_type_id']);
-            }
-            update_post_meta(
-                $order->id,
-                'Mercado Pago - Payment ' . $data['id'],
-                '[Date ' . date('Y-m-d H:i:s', strtotime($data['date_created'])) .
-                ']/[Amount ' . $data['transaction_amount'] .
-                ']/[Paid ' . $total_paid .
-                ']/[Refund ' . $total_refund . ']'
-            );
-            update_post_meta($order->id, '_Mercado_Pago_Payment_IDs', $data['id']);
-        }
-        // Switch the status and update in WooCommerce.
+        $status = $this->process_status_mp_business($data, $order);
         $this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $status)));
-
         $this->proccessStatus($status, $data, $order);
-
     }
 
     /**

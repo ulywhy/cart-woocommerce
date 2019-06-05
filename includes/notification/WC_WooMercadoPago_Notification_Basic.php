@@ -1,8 +1,9 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
+
 /**
  * Class WC_WooMercadoPago_Notification_Basic
  */
@@ -15,7 +16,6 @@ class WC_WooMercadoPago_Notification_Basic extends WC_WooMercadoPago_Notificatio
     public function __construct()
     {
         parent::__construct();
-        add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
     }
 
     /**
@@ -61,7 +61,6 @@ class WC_WooMercadoPago_Notification_Basic extends WC_WooMercadoPago_Notificatio
 
     /**
      * @param $data
-     * @throws MercadoPagoException
      */
     public function successful_request($data)
     {
@@ -69,9 +68,7 @@ class WC_WooMercadoPago_Notification_Basic extends WC_WooMercadoPago_Notificatio
         $processed_status = $this->process_status_mp_business($data, $order);
         $this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $processed_status)));
         $this->proccessStatus($processed_status, $data, $order);
-        if (get_class($this) == 'WC_WooMercadoPago_BasicGateway') {
-            $this->check_mercado_envios($data);
-        }
+        $this->check_mercado_envios($data);
     }
 
     /**

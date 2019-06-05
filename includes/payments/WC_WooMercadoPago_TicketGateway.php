@@ -31,24 +31,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->mp_hooks();
     }
 
-
-    public function mp_hooks($is_instance = false)
-    {
-        parent::mp_hooks($is_instance);
-        add_action('woocommerce_api_wc_woomercadopago_ticketgateway', array( $this, 'check_ipn_response' ));
-        add_action('valid_mercadopago_ticket_ipn_request', array( $this, 'successful_request' ));
-        add_action('wp_enqueue_scripts', array( $this, 'add_checkout_scripts_ticket'));
-        add_action('woocommerce_cart_calculate_fees', array( $this, 'add_discount_ticket' ), 10);
-        add_filter('woocommerce_gateway_title', array( $this, 'get_payment_method_title_ticket' ), 10, 2);
-
-        if ( ! empty( $this->settings['enabled'] ) && $this->settings['enabled'] == 'yes' ) {
-            if ( ! $is_instance ) {
-                add_action('woocommerce_after_checkout_form', array( $this, 'add_mp_settings_script_ticket' ));
-                add_action('woocommerce_thankyou_' . $this->id, array( $this, 'update_mp_settings_script_ticket' ));
-            }
-        }
-    }
-
     /**
      *
      */
