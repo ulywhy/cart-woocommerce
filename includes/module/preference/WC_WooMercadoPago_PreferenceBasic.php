@@ -77,15 +77,15 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $pending_url = get_option('pending_url', '');
         $back_urls = array(
             'success' => empty($success_url) ?
-                WC_Woo_Mercado_Pago_Module::fix_url_ampersand(
+                WC_WooMercadoPago_Module::fix_url_ampersand(
                     esc_url($this->get_return_url($this->order))
                 ) : $this->success_url,
             'failure' => empty($failure_url) ?
-                WC_Woo_Mercado_Pago_Module::fix_url_ampersand(
+                WC_WooMercadoPago_Module::fix_url_ampersand(
                     esc_url($this->order->get_cancel_order_url())
                 ) : $failure_url,
             'pending' => empty($pending_url) ?
-                WC_Woo_Mercado_Pago_Module::fix_url_ampersand(
+                WC_WooMercadoPago_Module::fix_url_ampersand(
                     esc_url($this->get_return_url($this->order))
                 ) : $pending_url
         );

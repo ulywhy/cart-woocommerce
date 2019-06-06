@@ -15,7 +15,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static $categories = array();
     public static $country_configs = array();
     public static $site_data;
-    protected static $instance = null;
+    public static $instance = null;
+    public static $mpInstance = null;
 
     public function __construct()
     {
@@ -25,6 +26,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
         }
 
+
+        self::loadHooks();
         self::loadPreferences();
         self::loadPayments();
         add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
@@ -45,7 +48,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * @return MP
      * @throws MercadoPagoException
      */
-    public function getMpInstance()
+    public static function getMpInstance()
     {
         $mp = new MP(self::get_module_version(), get_option('_mp_access_token'));
         $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
@@ -57,6 +60,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $mp->sandbox_mode(get_option('_mp_sandbox_mode', false));
 
         return $mp;
+    }
+
+    public static function teste(){
+        if (self::$mpInstance === null) {
+            self::$mpInstance = self::getMpInstance();
+        }
+        return self::$mpInstance;
     }
 
     /**
@@ -77,7 +87,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function init_mercado_pago_instance(){
         $mpClass = self::init_mercado_pago_class();
-        return $mpClass->getMpInstance();
+        $inst = $mpClass->getMpInstance();
+        return $inst;
     }
 
     /**
@@ -87,8 +98,18 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         $configs = new parent();
         self::$categories = $configs->getCategories();
-        self::$country_configs = $configs->getCategories();
+        self::$country_configs = $configs->getCountryConfigs();
         self::$site_data = self::get_site_data();
+    }
+
+    public static function loadHooks()
+    {
+        include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Abstract.php';
+        include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Basic.php';
+        include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Custom.php';
+        include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Pse.php';
+        include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Ticket.php';
+
     }
 
     /**
@@ -100,6 +121,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
         include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
     }
+
     /**
      *  Load Payment Classes
      */
@@ -391,9 +413,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     }
 
     /**
-     * Summary: Builds up the array for the mp_install table, with info related with checkout.
-     * Description: Builds up the array for the mp_install table, with info related with checkout.
-     * @return an array with the module informations.
+     * @return array
      */
     public static function get_common_settings()
     {

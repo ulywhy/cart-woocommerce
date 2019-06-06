@@ -28,7 +28,13 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->checkout_type = "custom";
         parent::__construct();
         $this->admin_notices();
-        $this->mp_hooks();
+        $this->loadHooks();
+    }
+
+
+    public function loadHooks(){
+        $hooks = new WC_WooMercadoPago_Hook_Ticket($this);
+        $hooks->loadHooks();
     }
 
     /**
@@ -81,37 +87,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      * @return bool was anything saved?
      */
 
-    public function process_settings($post_data)
-    {
-        foreach ($this->get_form_fields() as $key => $field) {
-            if ('title' !== $this->get_field_type($field)) {
-                $value = $this->get_field_value($key, $field, $post_data);
-                if ($key == 'gateway_discount') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->settings[$key] = 0;
-                    } else {
-                        if ($value < -99 || $value > 99 || empty ($value)) {
-                            $this->settings[$key] = 0;
-                        } else {
-                            $this->settings[$key] = $value;
-                        }
-                    }
-                } elseif ($key == 'date_expiration') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->settings[$key] = 3;
-                    } else {
-                        if ($value < 1 || $value > 30 || empty ($value)) {
-                            $this->settings[$key] = 3;
-                        } else {
-                            $this->settings[$key] = $value;
-                        }
-                    }
-                } else {
-                    $this->settings[$key] = $this->get_field_value($key, $field, $post_data);
-                }
-            }
-        }
-    }
+
 
     public function define_settings_to_send()
     {
@@ -614,5 +590,3 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
 
 }
-
-new WC_WooMercadoPago_TicketGateway(true);

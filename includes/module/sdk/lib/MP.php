@@ -25,7 +25,6 @@ class MP
     function __construct()
     {
         $includes_path = dirname(__FILE__);
-
         require_once($includes_path . '/RestClient/AbstractRestClient.php');
         require_once($includes_path . '/RestClient/MeliRestClient.php');
         require_once($includes_path . '/RestClient/MpRestClient.php');

@@ -73,7 +73,8 @@ if (class_exists('WC_WooMercadoPago_Module')) {
 require_once dirname(__FILE__) . '/includes/module/sdk/lib/MP.php';
 
 // Load module class if it wasn't loaded yet.
-if (!class_exists('WC_WooMercadoPago_Module')) {
+if (!class_exists('WC_WooMercadoPago_Module'))
+{
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Configs.php';
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Module.php';
     require_once dirname(__FILE__) . '/includes/admin/WC_WooMercadoPago_Main_Settings.php';
@@ -86,5 +87,4 @@ if (!class_exists('WC_WooMercadoPago_Module')) {
     }
 
     add_action('plugins_loaded', array('WC_WooMercadoPago_Module', 'init_mercado_pago_class'));
-
 }

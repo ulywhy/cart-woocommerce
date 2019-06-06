@@ -64,7 +64,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $currency_ratio = 1;
         $_mp_currency_conversion_v1 = get_option('_mp_currency_conversion_v1', '');
         if (!empty($_mp_currency_conversion_v1)) {
-            $currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate($this->site_data['currency']);
+            $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($this->site_data['currency']);
             $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
         }
         return $currency_ratio;
@@ -114,7 +114,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function ship_cost_item()
     {
         $item = array(
-            'title' => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
+            //'title' => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
             'title' => __('Shipping service used by store', 'woocommerce-mercadopago'),
             'description' => __('Shipping service used by store', 'woocommerce-mercadopago'),
             'category_id' => get_option('_mp_category_name', 'others'),
@@ -167,7 +167,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === FALSE) {
                 return WC()->api_request_url('WC_WooMercadoPago_CustomGateway');
             } else {
-                return WC_Woo_Mercado_Pago_Module::fix_url_ampersand(esc_url(
+                return WC_WooMercadoPago_Module::fix_url_ampersand(esc_url(
                     $notification_url . '/wc-api/WC_WooMercadoPago_CustomGateway/'
                 ));
             }
@@ -181,9 +181,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $binary_mode = get_option('binary_mode', 'no');
         if ($binary_mode == 'yes') {
-            return true;
+            return 1;
         } else {
-            return false;
+            return 0;
         }
     }
 
@@ -194,7 +194,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $_test_user_v1 = get_option('_test_user_v1', false);
         if (!$_test_user_v1) {
-            $preferences['sponsor_id'] = WC_Woo_Mercado_Pago_Module::get_sponsor_id();
+            $preferences['sponsor_id'] = WC_WooMercadoPago_Module::get_sponsor_id();
         }
     }
 

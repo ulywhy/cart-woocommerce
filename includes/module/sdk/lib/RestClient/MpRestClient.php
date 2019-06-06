@@ -15,14 +15,19 @@ class MPRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return false|resource
-     * @throws MercadoPagoException
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function requestApi($request, $version)
     {
         return self::build_request($request, $version, self::API_BASE_URL);
     }
 
-
+    /**
+     * @param $request
+     * @param $version
+     * @return array|null
+     * @throws WC_WooMercadoPago_Exception
+     */
     public static function exec($request, $version)
     {
         $connect = self::build_request($request, $version, self::API_BASE_URL);
@@ -33,7 +38,6 @@ class MPRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function get($request, $version)
     {
@@ -46,7 +50,6 @@ class MPRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function post($request, $version)
     {
@@ -59,7 +62,6 @@ class MPRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function put($request, $version)
     {
@@ -72,7 +74,6 @@ class MPRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function delete($request, $version)
     {

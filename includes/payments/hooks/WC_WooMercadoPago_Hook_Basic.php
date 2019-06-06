@@ -1,16 +1,25 @@
 <?php
 
+/**
+ * Class WC_WooMercadoPago_Hook_Basic
+ */
 class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
 {
+    /**
+     * WC_WooMercadoPago_Hook_Basic constructor.
+     * @param $payment
+     */
     public function __construct($payment)
     {
         parent::__construct($payment);
     }
 
+    /**
+     * @param bool $is_instance
+     */
     public function loadHooks($is_instance = false)
     {
         parent::loadHooks();
-
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_basic'));
             add_action('woocommerce_thankyou', array($this, 'update_mp_settings_script_basic'));
@@ -94,6 +103,88 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
 
     }
 
+    public function custom_process_admin_options() {
+        $this->payment->init_settings();
+        $post_data = $this->payment->get_post_data();
+        foreach ( $this->payment->get_form_fields() as $key => $field ) {
+            if ( 'title' !== $this->payment->get_field_type( $field ) ) {
+                $value = $this->payment->get_field_value( $key, $field, $post_data );
+                if ( $key == 'two_cards_mode' ) {
+                    // We dont save two card mode as it should come from api.
+                    unset( $this->payment->settings[$key] );
+                    $this->payment->two_cards_mode = ( $value == 'yes' ? 'active' : 'inactive' );
+                }
+                elseif ( $key == 'gateway_discount') {
+                    if ( ! is_numeric( $value ) || empty ( $value ) ) {
+                        $this->payment->settings[$key] = 0;
+                    } else {
+                        if ( $value < -99 || $value > 99 || empty ( $value ) ) {
+                            $this->payment->settings[$key] = 0;
+                        } else {
+                            $this->payment->settings[$key] = $value;
+                        }
+                    }
+                } else {
+                    $this->payment->settings[$key] = $this->payment->get_field_value( $key, $field, $post_data );
+                }
+            }
+        }
+        $_site_id_v1 = get_option( '_site_id_v1', '' );
+        $is_test_user = get_option( '_test_user_v1', false );
+        if ( ! empty( $_site_id_v1 ) ) {
+            // Create MP instance.
+            $mp = new MP(
+                WC_WooMercadoPago_Module::get_module_version(),
+                get_option( '_mp_access_token' )
+            );
+            $email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+            $mp->set_email( $email );
+            $locale = get_locale();
+            $locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+            $mp->set_locale( $locale[1] );
+            // Analytics.
+            if ( ! $is_test_user ) {
+                $infra_data = WC_WooMercadoPago_Module::get_common_settings();
+                $infra_data['checkout_basic'] = ( $this->payment->settings['enabled'] == 'yes' ? 'true' : 'false' );
+                $infra_data['two_cards'] = ( $this->payment->two_cards_mode == 'active' ? 'true' : 'false' );
+                $response = $mp->analytics_save_settings( $infra_data );
+            }
+            // Two cards mode.
+            $response = $mp->set_two_cards_mode( $this->payment->two_cards_mode );
+        }
+        // Apply updates.
+        return update_option(
+            $this->payment->get_option_key(),
+            apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings )
+        );
+    }
+
+    public function process_settings($post_data)
+    {
+        foreach ($this->payment->get_form_fields() as $key => $field) {
+            if ('title' !== $this->payment->get_field_type($field)) {
+                $value = $this->payment->get_field_value($key, $field, $post_data);
+                if ($key == 'two_cards_mode') {
+                    unset($this->payment->settings[$key]);
+                    $this->payment->two_cards_mode = ($value == 'yes' ? 'active' : 'inactive');
+                } elseif ($key == 'gateway_discount') {
+                    if (!is_numeric($value) || empty ($value)) {
+                        $this->payment->settings[$key] = 0;
+                    } else {
+                        if ($value < -99 || $value > 99 || empty ($value)) {
+                            $this->payment->settings[$key] = 0;
+                        } else {
+                            $this->payment->settings[$key] = $value;
+                        }
+                    }
+                } else {
+                    $this->payment->settings[$key] = $this->payment->get_field_value($key, $field, $post_data);
+                }
+            }
+        }
+    }
+
+
     /**
      * Scripts to basic
      */
@@ -110,5 +201,11 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
         parent::update_mp_settings_script($order_id);
     }
 
+    /**
+     *  Discount not apply
+     */
+    public function add_discount(){
+        return;
+    }
 
 }
