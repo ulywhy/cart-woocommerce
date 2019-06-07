@@ -28,10 +28,8 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
             if (!empty($this->checkout['CustomerId'])) {
                 $this->preference['payer']['id'] = $this->checkout['CustomerId'];
             }
-            if ( array_key_exists( 'issuer', $this->checkout ) ) {
-                if (!empty($this->checkout['issuer'])) {
-                    $this->preference['issuer_id'] = (integer)$this->checkout['issuer'];
-                }
+            if (!empty($this->checkout['issuer'])) {
+                $this->preference['issuer_id'] = (integer)$this->checkout['issuer'];
             }
         }
         $this->preference['statement_descriptor'] = get_option('_mp_statement_descriptor', 'Mercado Pago');

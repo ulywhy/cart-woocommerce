@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class MercadoPagoException
+ * Class WC_WooMercadoPago_Exception
  */
 class WC_WooMercadoPago_Exception extends Exception {
 

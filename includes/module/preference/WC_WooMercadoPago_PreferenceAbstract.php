@@ -64,7 +64,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $currency_ratio = 1;
         $_mp_currency_conversion_v1 = get_option('_mp_currency_conversion_v1', '');
         if (!empty($_mp_currency_conversion_v1)) {
-            $currency_ratio = WC_Woo_Mercado_Pago_Module::get_conversion_rate($this->site_data['currency']);
+            $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($this->site_data['currency']);
             $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
         }
         return $currency_ratio;
@@ -211,9 +211,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $binary_mode = get_option('binary_mode', 'no');
         if ($binary_mode == 'yes') {
-            return true;
+            return 1;
         } else {
-            return false;
+            return 0;
         }
     }
 
@@ -224,7 +224,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $_test_user_v1 = get_option('_test_user_v1', false);
         if (!$_test_user_v1) {
-            $preferences['sponsor_id'] = WC_Woo_Mercado_Pago_Module::get_sponsor_id();
+            $preferences['sponsor_id'] = WC_WooMercadoPago_Module::get_sponsor_id();
         }
     }
 

@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-require_once dirname( __FILE__ ) . '/../module/preference/WC_WooMercadoPago_PreferenceCustom.php';
-
 /**
  *
  * WC_WooMercadoPago_CustomGateway
@@ -27,6 +25,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->coupon_mode = $this->get_option('coupon_mode', 'no');
         $this->installments = $this->get_option('installments', '24');
         parent::__construct();
+        $this->loadHooks();
     }
 
     /**
@@ -40,6 +39,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['coupon_mode'] = $this->field_coupon_mode();
         $form_fields['title'] = $this->field_title();
         return $form_fields;
+    }
+
+    public function loadHooks(){
+        $hooks = new WC_WooMercadoPago_Hook_Custom($this);
+        $hooks->loadHooks();
     }
 
     public function field_coupon_mode()
@@ -125,27 +129,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      * @return bool was anything saved?
      */
 
-    public function process_settings($post_data)
-    {
-        foreach ($this->get_form_fields() as $key => $field) {
-            if ('title' !== $this->get_field_type($field)) {
-                $value = $this->get_field_value($key, $field, $post_data);
-                if ($key == 'gateway_discount') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->settings[$key] = 0;
-                    } else {
-                        if ($value < -99 || $value > 99 || empty ($value)) {
-                            $this->settings[$key] = 0;
-                        } else {
-                            $this->settings[$key] = $value;
-                        }
-                    }
-                } else {
-                    $this->settings[$key] = $this->get_field_value($key, $field, $post_data);
-                }
-            }
-        }
-    }
+
 
     public function define_settings_to_send()
     {
@@ -239,7 +223,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
             // ===
-            'images_path' => plugins_url('assets/images/', plugin_dir_path(__FILE__)),
+            'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
             'banner_path' => $banner_url,
             'customer_cards' => isset($customer) ? (isset($customer['cards']) ? $customer['cards'] : array()) : array(),
             'customerId' => isset($customer) ? (isset($customer['id']) ? $customer['id'] : null) : null,
@@ -247,7 +231,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
             // ===
-            'path_to_javascript' => plugins_url('assets/js/credit-card.js', plugin_dir_path(__FILE__))
+            'path_to_javascript' => plugins_url('../assets/js/credit-card.js', plugin_dir_path(__FILE__))
         );
         wc_get_template(
             'credit-card/payment-form.php',
@@ -531,5 +515,3 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $customNotification->check_ipn_response();
     }
 }
-
-new WC_WooMercadoPago_CustomGateway(true);

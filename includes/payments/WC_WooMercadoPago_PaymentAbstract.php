@@ -44,17 +44,17 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function __construct()
     {
+
         $this->description = get_option('description');
         $this->binary_mode = get_option('binary_mode', 'no');
         $this->gateway_discount = get_option('gateway_discount', 0);
         $this->sandbox = get_option('_mp_sandbox_mode', false);
         $this->supports = array('products', 'refunds');
-        $this->icon = apply_filters('woocommerce_mercadopago_icon', plugins_url('../assets/images/mercadopago.png', plugin_dir_path(__FILE__)));
+        $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
-        $this->mp = WC_WooMercadoPago_Module::init_mercado_pago_instance();
+        $this->mp = WC_WooMercadoPago_Module::teste();
         $this->init_settings();
-        $this->mp_hooks();
     }
 
     /**
@@ -72,7 +72,6 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         return apply_filters('woocommerce_mercadopago_icon', plugins_url('../assets/images/mercadopago.png', plugin_dir_path(__FILE__)));
     }
-
 
     /**
      * @param $description
@@ -102,6 +101,7 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 ),
             );
         }
+
 
         if (empty($this->settings['enabled']) || 'no' == $this->settings['enabled'] && empty($form_fields)) {
             $form_fields = array(
@@ -268,44 +268,9 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         );
     }
 
-    public function process_settings($post_data)
-    {
-        foreach ($this->get_form_fields() as $key => $field) {
-            if ('title' !== $this->get_field_type($field)) {
-                $value = $this->get_field_value($key, $field, $post_data);
-                if ($key == 'gateway_discount') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->settings[$key] = 0;
-                    } else {
-                        if ($value < -99 || $value > 99 || empty ($value)) {
-                            $this->settings[$key] = 0;
-                        } else {
-                            $this->settings[$key] = $value;
-                        }
-                    }
-                } else {
-                    $this->settings[$key] = $this->get_field_value($key, $field, $post_data);
-                }
-            }
-        }
-    }
 
-    public function send_settings_mp()
-    {
-        $_site_id_v1 = get_option('_site_id_v1', '');
-        $is_test_user = get_option('_test_user_v1', false);
-        if (!empty($_site_id_v1)) {
-            // Analytics.
-            if (!$is_test_user) {
-                $this->mp->analytics_save_settings($this->define_settings_to_send());
-            }
 
-            if (get_class($this) == 'WC_WooMercadoPago_BasicGateway') {
-                // Two cards mode.
-                $this->mp->set_two_cards_mode($this->two_cards_mode);
-            }
-        }
-    }
+
 
     public function define_settings_to_send()
     {
@@ -589,17 +554,9 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             !empty($_site_id_v1);
         return $available;
 
-        // Available especific rule of gateway method
-        if (!$this->mp_config_rule_is_available()) {
-            return false;
-        }
+
     }
 
-    // Enter a gateway method-specific rule within this function
-    public function mp_config_rule_is_available()
-    {
-        return true;
-    }
 
     // Get the URL to admin page.
     protected function admin_url()

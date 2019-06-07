@@ -16,12 +16,15 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
         $this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
         $this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
         parent::__construct();
-
+        $this->loadHooks();
 
 
 	}
 
-
+    public function loadHooks(){
+        $hooks = new WC_WooMercadoPago_Hook_Pse($this);
+        $hooks->loadHooks();
+    }
 
 
 	/**
@@ -30,48 +33,7 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 	 * erroring field out.
 	 * @return bool was anything saved?
 	 */
-	public function custom_process_admin_options() {
-		$this->init_settings();
-		$post_data = $this->get_post_data();
-		foreach ( $this->get_form_fields() as $key => $field ) {
-			if ( 'title' !== $this->get_field_type( $field ) ) {
-				$value = $this->get_field_value( $key, $field, $post_data );
-				if ( $key == 'gateway_discount') {
-					if ( ! is_numeric( $value ) || empty ( $value ) || $value < -99 || $value > 99 ) {
-						$this->settings[$key] = 0;
-					} else {
-						$this->settings[$key] = $value;
-					}
-				} else {
-					$this->settings[$key] = $this->get_field_value( $key, $field, $post_data );
-				}
-			}
-		}
-		$_site_id_v1 = get_option( '_site_id_v1', '' );
-		$is_test_user = get_option( '_test_user_v1', false );
-		if ( ! empty( $_site_id_v1 ) && ! $is_test_user ) {
-			// Create MP instance.
-			$mp = new MP(
-				WC_WooMercadoPago_Module::get_module_version(),
-				get_option( '_mp_access_token' )
-			);
-			$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
-			$mp->set_email( $email );
-			$locale = get_locale();
-			$locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
-			$mp->set_locale( $locale[1] );
-			// Analytics.
-			$infra_data = WC_WooMercadoPago_Module::get_common_settings();
-			$infra_data['checkout_custom_pse'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
-// 			$infra_data['checkout_custom_pse_coupon'] = ( $this->settings['coupon_mode'] == 'yes' ? 'true' : 'false' );
-			$response = $mp->analytics_save_settings( $infra_data );
-		}
-		// Apply updates.
-		return update_option(
-			$this->get_option_key(),
-			apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings )
-		);
-	}
+
 
 	/**
 	 * Handles the manual order refunding in server-side.
@@ -1051,5 +1013,3 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 	}
 
 }
-
-new WC_WooMercadoPago_PSEGateway( true );

@@ -12,7 +12,7 @@ class WC_WooMercadoPago_Configs
      */
     public function getCountryConfigs()
     {
-        array(
+        return array(
             'MCO' => array(
                 'site_id' => 'MCO',
                 'sponsor_id' => 208687643,
@@ -121,7 +121,6 @@ class WC_WooMercadoPago_Configs
         $methods[] = 'WC_WooMercadoPago_BasicGateway';
         $methods[] = 'WC_WooMercadoPago_CustomGateway';
         $methods[] = 'WC_WooMercadoPago_TicketGateway';
-        $methods[] = 'WC_WooMercadoPago_SubscriptionGateway';
 
         $_site_id_v1 = get_option('_site_id_v1', '');
         if (!empty($_site_id_v1) && $_site_id_v1 == 'MCO') {

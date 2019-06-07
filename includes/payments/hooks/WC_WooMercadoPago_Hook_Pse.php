@@ -1,14 +1,21 @@
 <?php
 
+/**
+ * Class WC_WooMercadoPago_Hook_Pse
+ */
 class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
 {
+    /**
+     * WC_WooMercadoPago_Hook_Pse constructor.
+     * @param $payment
+     */
     public function __construct($payment)
     {
         parent::__construct($payment);
     }
 
     /**
-     *
+     * Load Hooks
      */
     public function loadHooks()
     {
@@ -18,7 +25,7 @@ class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
         add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount_pse'), 10);
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_pse'));
-            add_action('woocommerce_thankyou_' . $this->id, array($this, 'update_mp_settings_script_pse'));
+            add_action('woocommerce_thankyou_' . $this->id, array($this, 'success_page_pse'));
         }
     }
 
@@ -33,19 +40,12 @@ class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
     /**
      * @param $order_id
      */
-    public function update_mp_settings_script_pse($order_id)
+    public function success_page_pse($order_id)
     {
         parent::update_mp_settings_script($order_id);
         $order = wc_get_order($order_id);
-        $used_gateway = (method_exists($order, 'get_meta')) ?
-            $order->get_meta('_used_gateway') :
-            get_post_meta($order->id, '_used_gateway', true);
-        $transaction_details = (method_exists($order, 'get_meta')) ?
-            $order->get_meta('_transaction_details_pse') :
-            get_post_meta($order->id, '_transaction_details_pse', true);
-
-        // A watchdog to prevent operations from other gateways.
-        if ($used_gateway != 'WC_WooMercadoPago_PSEGateway' || empty($transaction_details)) {
+        $transaction_details = (method_exists($order, 'get_meta')) ? $order->get_meta('_transaction_details_pse') : get_post_meta($order->id, '_transaction_details_pse', true);
+        if (empty($transaction_details)) {
             return;
         }
 
@@ -78,10 +78,8 @@ class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
         if (isset($pse_checkout['discount']) && !empty($pse_checkout['discount']) &&
             isset($pse_checkout['coupon_code']) && !empty($pse_checkout['coupon_code']) &&
             $pse_checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-pse') {
-
-            $this->write_log(__FUNCTION__, 'pse checkout trying to apply discount...');
-
-            $value = ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
+            $this->payment->log->write_log(__FUNCTION__, 'pse checkout trying to apply discount...');
+            $value = ($this->payment->site_data['currency'] == 'COP' || $this->payment->site_data['currency'] == 'CLP') ?
                 floor($pse_checkout['discount'] / $pse_checkout['currency_ratio']) :
                 floor($pse_checkout['discount'] / $pse_checkout['currency_ratio'] * 100) / 100;
             global $woocommerce;
@@ -92,6 +90,50 @@ class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
             }
         }
 
+    }
+
+
+    public function custom_process_admin_options() {
+        $this->init_settings();
+        $post_data = $this->get_post_data();
+        foreach ( $this->get_form_fields() as $key => $field ) {
+            if ( 'title' !== $this->get_field_type( $field ) ) {
+                $value = $this->get_field_value( $key, $field, $post_data );
+                if ( $key == 'gateway_discount') {
+                    if ( ! is_numeric( $value ) || empty ( $value ) || $value < -99 || $value > 99 ) {
+                        $this->settings[$key] = 0;
+                    } else {
+                        $this->settings[$key] = $value;
+                    }
+                } else {
+                    $this->settings[$key] = $this->get_field_value( $key, $field, $post_data );
+                }
+            }
+        }
+        $_site_id_v1 = get_option( '_site_id_v1', '' );
+        $is_test_user = get_option( '_test_user_v1', false );
+        if ( ! empty( $_site_id_v1 ) && ! $is_test_user ) {
+            // Create MP instance.
+            $mp = new MP(
+                WC_WooMercadoPago_Module::get_module_version(),
+                get_option( '_mp_access_token' )
+            );
+            $email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
+            $mp->set_email( $email );
+            $locale = get_locale();
+            $locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
+            $mp->set_locale( $locale[1] );
+            // Analytics.
+            $infra_data = WC_WooMercadoPago_Module::get_common_settings();
+            $infra_data['checkout_custom_pse'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
+// 			$infra_data['checkout_custom_pse_coupon'] = ( $this->settings['coupon_mode'] == 'yes' ? 'true' : 'false' );
+            $response = $mp->analytics_save_settings( $infra_data );
+        }
+        // Apply updates.
+        return update_option(
+            $this->get_option_key(),
+            apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings )
+        );
     }
 
 

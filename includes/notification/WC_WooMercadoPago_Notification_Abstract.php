@@ -19,11 +19,13 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function __construct()
     {
-        $this->mp = WC_WooMercadoPago_Module::init_mercado_pago_instance();
+        //$this->mp = WC_WooMercadoPago_Module::init_mercado_pago_instance();
         $this->sandbox = get_option('_mp_sandbox_mode', false);
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
 
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
+        add_action('woocommerce_order_action_cancel_order', array($this, 'process_cancel_order_meta_box_actions'));
+
     }
 
     /**
