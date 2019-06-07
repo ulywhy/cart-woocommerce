@@ -70,6 +70,37 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         return $currency_ratio;
     }
 
+     /**
+     * @return array
+     */
+    public function get_payer_custom()
+    {
+        $payer_additional_info = array(
+            'first_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
+            'last_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
+            //'registration_date' =>
+            'phone' => array(
+                //'area_code' =>
+                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone)
+            ),
+            'address' => array(
+                'zip_code' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
+                //'street_number' =>
+                'street_name' => html_entity_decode(
+                    method_exists($this->order, 'get_id') ?
+                        $this->order->get_billing_address_1() . ' / ' .
+                        $this->order->get_billing_city() . ' ' .
+                        $this->order->get_billing_state() . ' ' .
+                        $this->order->get_billing_country() : $this->order->billing_address_1 . ' / ' .
+                        $this->order->billing_city . ' ' .
+                        $this->order->billing_state . ' ' .
+                        $this->order->billing_country
+                )
+            )
+        );
+        return $payer_additional_info;
+    }
+
     /**
      * @return array
      */
@@ -115,7 +146,6 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $item = array(
             'title' => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
-            'title' => __('Shipping service used by store', 'woocommerce-mercadopago'),
             'description' => __('Shipping service used by store', 'woocommerce-mercadopago'),
             'category_id' => get_option('_mp_category_name', 'others'),
             'quantity' => 1,
@@ -165,10 +195,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             $notification_url = get_option('_mp_custom_domain', '');
             // Check if we have a custom URL.
             if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === FALSE) {
-                return WC()->api_request_url('WC_WooMercadoPago_CustomGateway');
+                return WC()->api_request_url(get_class($this));
             } else {
                 return WC_Woo_Mercado_Pago_Module::fix_url_ampersand(esc_url(
-                    $notification_url . '/wc-api/WC_WooMercadoPago_CustomGateway/'
+                    $notification_url . '/wc-api/' . get_class($this) . '/'
                 ));
             }
         }
@@ -217,5 +247,34 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function get_preference()
     {
         return $this->preference;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function get_transaction_amount()
+    {
+        if ($this->site_id == 'COP' || $this->site_id == 'CLP') {
+            return floor($this->order_total * $this->currency_ratio);
+        } else {
+            return floor($this->order_total * $this->currency_ratio * 100) / 100;
+        }
+    }
+
+    /**
+     * Discount Campaign
+     */
+    public function add_discounts_campaign()
+    {
+        if (
+            isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
+            isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
+            $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom'
+        ) {
+            $this->preference['campaign_id'] = (int)$this->checkout['campaign_id'];
+            $this->preference['coupon_amount'] = ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
+                floor($this->checkout['discount'] * $this->currency_ratio) : floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100;
+            $this->preference['coupon_code'] = strtoupper($this->checkout['coupon_code']);
+        }
     }
 }
