@@ -28,19 +28,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         parent::__construct();
         $this->form_fields = $this->getFormFields('Ticket');
         $this->admin_notices();
-        $this->loadHooks();
+        $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
     }
 
     /**
-     * Load Hooks
-     */
-    public function loadHooks(){
-        $hooks = new WC_WooMercadoPago_Hook_Ticket($this);
-        $hooks->loadHooks();
-    }
-
-    /**
-     *
+     * Admin Notices
      */
     public function admin_notices()
     {
@@ -77,33 +69,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         echo $added_text;
     }
 
-    /**
-     *
-     * ========================================================================
-     * SAVE CHECKOUT SETTINGS
-     * ========================================================================
-     *
-     * Processes and saves options.
-     * If there is an error thrown, will continue to save and validate fields, but will leave the
-     * erroring field out.
-     * @return bool was anything saved?
-     */
 
-
-
-    public function define_settings_to_send()
-    {
-        $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-        $infra_data['checkout_custom_ticket'] = ($this->settings['enabled'] == 'yes' ? 'true' : 'false');
-        $infra_data['checkout_custom_ticket_coupon'] = ($this->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
-        return $infra_data;
-    }
-
-    /*
-	 * ========================================================================
-	 * CHECKOUT BUSINESS RULES (CLIENT SIDE)
-	 * ========================================================================
-	 */
 
     public function payment_fields()
     {
@@ -166,16 +132,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     }
 
     /**
-     * ========================================================================
-     * PROCESS PAYMENT.
-     * ========================================================================
-     *
-     * Summary: Handle the payment and processing the order.
-     * Description: This function is called after we click on [place_order] button, and each field is
-     * passed to this function through $_POST variable.
-     * @return an array containing the result of the processment and the URL to redirect.
+     * @param $order_id
+     * @return array|void
      */
-
     public function process_payment($order_id)
     {
 

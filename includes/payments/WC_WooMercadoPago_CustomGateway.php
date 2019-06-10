@@ -17,7 +17,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function __construct()
     {
-
         $this->id = 'woo-mercado-pago-custom';
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
@@ -26,7 +25,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->installments = get_option('installments', '24');
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
-        $this->loadHooks();
+        $this->hook = new WC_WooMercadoPago_Hook_Custom($this);
     }
 
     /**
@@ -41,14 +40,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['title'] = $this->field_title();
         $form_fields = parent::getFormFields($label);
         return $form_fields;
-    }
-
-    /**
-     *
-     */
-    public function loadHooks(){
-        $hooks = new WC_WooMercadoPago_Hook_Custom($this);
-        $hooks->loadHooks();
     }
 
     /**
@@ -67,13 +58,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
 
 
-    public function define_settings_to_send()
-    {
-        $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-        $infra_data['checkout_custom_credit_card'] = ($this->settings['enabled'] == 'yes' ? 'true' : 'false');
-        $infra_data['checkout_custom_credit_card_coupon'] = ($this->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
-        return $infra_data;
-    }
 
     /*
      * ========================================================================
@@ -131,10 +115,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
     public function payment_fields()
     {
-
-        exit('Michel');
         wp_enqueue_script('wc-credit-card-form');
-
         $amount = $this->get_order_total();
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $customer = isset($logged_user_email) ? $this->mp->get_or_create_customer($logged_user_email) : null;

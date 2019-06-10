@@ -19,24 +19,8 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->gateway_discount   = get_option( 'gateway_discount', 0 );
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
-        $this->loadHooks();
+        $this->hook = new WC_WooMercadoPago_Hook_Pse($this);
 	}
-
-    /**
-     * Load Hooks
-     */
-    public function loadHooks(){
-        $hooks = new WC_WooMercadoPago_Hook_Pse($this);
-        $hooks->loadHooks();
-    }
-
-	/**
-	 * Processes and saves options.
-	 * If there is an error thrown, will continue to save and validate fields, but will leave the
-	 * erroring field out.
-	 * @return bool was anything saved?
-	 */
-
 
 	/**
 	 * Handles the manual order refunding in server-side.
@@ -126,52 +110,7 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract
 		return false;
 	}
 
-	/**
-	 * Handles the manual order cancellation in server-side.
-	 */
-	public function process_cancel_order_meta_box_actions( $order ) {
 
-		$used_gateway = ( method_exists( $order, 'get_meta' ) ) ?
-			$order->get_meta( '_used_gateway' ) :
-			get_post_meta( $order->id, '_used_gateway', true );
-		$payments = ( method_exists( $order, 'get_meta' ) ) ?
-			$order->get_meta( '_Mercado_Pago_Payment_IDs' ) :
-			get_post_meta( $order->id, '_Mercado_Pago_Payment_IDs',	true );
-
-		// A watchdog to prevent operations from other gateways.
-		if ( $used_gateway != 'WC_WooMercadoPago_PSEGateway' ) {
-			return;
-		}
-
-		$this->write_log( __FUNCTION__, 'cancelling payments for ' . $payments );
-
-		// Canceling the order and all of its payments.
-		if ( $this->mp != null && ! empty( $payments ) ) {
-			$payment_ids = explode( ', ', $payments );
-			foreach ( $payment_ids as $p_id ) {
-				$response = $this->mp->cancel_payment( $p_id );
-				$message = $response['response']['message'];
-				$status = $response['status'];
-				$this->write_log( __FUNCTION__,
-					'cancel payment of id ' . $p_id . ' => ' .
-					( $status >= 200 && $status < 300 ? 'SUCCESS' : 'FAIL - ' . $message )
-				);
-			}
-		} else {
-			$this->write_log( __FUNCTION__, 'no payments or credentials invalid' );
-		}
-	}
-
-	// Write log.
-	private function write_log( $function, $message ) {
-		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
-		if ( ! empty ( $_mp_debug_mode ) ) {
-			$this->log->add(
-				$this->id,
-				'[' . $function . ']: ' . $message
-			);
-		}
-	}
 
 	/*
 	 * ========================================================================
@@ -214,50 +153,6 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract
 		}
 	}
 
-	public function update_mp_settings_script_pse( $order_id ) {
-		$access_token = get_option( '_mp_access_token' );
-		$is_test_user = get_option( '_test_user_v1', false );
-		if ( ! empty( $access_token ) && ! $is_test_user ) {
-			if ( get_post_meta( $order_id, '_used_gateway', true ) != 'WC_WooMercadoPago_PSEGateway' ) {
-				return;
-			}
-			$this->write_log( __FUNCTION__, 'updating order of ID ' . $order_id );
-			echo '<script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
-			<script type="text/javascript">
-				try {
-					var MA = ModuleAnalytics;
-					MA.setToken( ' . $access_token . ' );
-					MA.setPaymentType("pse");
-					MA.setCheckoutType("custom");
-					MA.put();
-				} catch(err) {}
-			</script>';
-		}
-
-		$order = wc_get_order( $order_id );
-		$used_gateway = ( method_exists( $order, 'get_meta' ) ) ?
-			$order->get_meta( '_used_gateway' ) :
-			get_post_meta( $order->id, '_used_gateway', true );
-		$transaction_details = ( method_exists( $order, 'get_meta' ) ) ?
-			$order->get_meta( '_transaction_details_pse' ) :
-			get_post_meta( $order->id, '_transaction_details_pse', true );
-
-		// A watchdog to prevent operations from other gateways.
-		if ( $used_gateway != 'WC_WooMercadoPago_PSEGateway' || empty( $transaction_details ) ) {
-			return;
-		}
-
-		$html = '<p>' .
-			__( 'Thank you for your order. Please, transfer the money to get your order approved.', 'woocommerce-mercadopago' ) .
-		'</p>' .
-		'<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
-		'<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
-		' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
-			__( 'Transfer', 'woocommerce-mercadopago' ) .
-		'</a> ';
-		$added_text = '<p>' . $html . '</p>';
-		echo $added_text;
-	}
 
 
 
@@ -736,36 +631,7 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract
 	 * ========================================================================
 	 */
 
-	// Called automatically by WooCommerce, verify if Module is available to use.
-	public function is_available() {
-		if ( ! did_action( 'wp_loaded' ) ) {
-			return false;
-		}
-		global $woocommerce;
-		$w_cart = $woocommerce->cart;
-		$_mp_public_key = get_option( '_mp_public_key' );
-		$_mp_access_token = get_option( '_mp_access_token' );
-		$_site_id_v1 = get_option( '_site_id_v1' );
-		// If we do not have SSL in production environment, we are not allowed to process.
-		$_mp_debug_mode = get_option( '_mp_debug_mode', '' );
-		if ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) {
-			if ( empty ( $_mp_debug_mode ) ) {
-				return false;
-			}
-		}
-		// Check for recurrent product checkout.
-		if ( isset( $w_cart ) ) {
-			if ( WC_WooMercadoPago_Module::is_subscription( $w_cart->get_cart() ) ) {
-				return false;
-			}
-		}
-		// Check if this gateway is enabled and well configured.
-		$available = ( 'yes' == $this->settings['enabled'] ) &&
-			! empty( $_mp_public_key ) &&
-			! empty( $_mp_access_token ) &&
-			! empty( $_site_id_v1 );
-		return $available;
-	}
+
 
 	/*
 	 * ========================================================================

@@ -1,7 +1,6 @@
 <?php
-
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+    exit;
 }
 
 /**
@@ -17,8 +16,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function __construct()
     {
-        //echo 'oioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioio<br>';
-
         $this->id = 'woo-mercado-pago-basic';
         $this->method_title = __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Receive payments in a matter of minutes. We make it easy for you: just tell us what you want to collect and we’ll take care of the rest.');
@@ -34,8 +31,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         parent::__construct();
         $this->form_fields = $this->getFormFields('Basic');
         $this->two_cards_mode = $this->mp->check_two_cards();
-        $this->loadHooks();
-
+        $this->hook = new WC_WooMercadoPago_Hook_Basic($this);
     }
 
     /**
@@ -44,6 +40,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
+        $this->init_form_fields();
         $form_fields = array();
         $form_fields['method'] = $this->field_method();
         $form_fields['checkout_navigation_title'] = $this->field_checkout_navigation_title();
@@ -57,17 +54,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields[$key] = $value;
         }
         $form_fields['two_cards_mode'] = $this->field_two_cards_mode();
-        $form_fields = parent::getFormFields($label);
+        $form_fields_abs = parent::getFormFields($label);
 
-        return $form_fields;
-    }
+        $form_fields_merge = array_merge_recursive($form_fields_abs, $form_fields);
 
-    /**
-     * Load Hooks
-     */
-    public function loadHooks(){
-        $hooks = new WC_WooMercadoPago_Hook_Basic($this);
-        $hooks->loadHooks();
+        return $form_fields_merge;
     }
 
     /**
@@ -105,6 +96,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $method;
     }
 
+    /**
+     * @return array
+     */
     public function field_checkout_navigation_title()
     {
         $checkout_navigation_title = array(
@@ -114,6 +108,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $checkout_navigation_title;
     }
 
+    /**
+     * @return array
+     */
     public function field_auto_return()
     {
         $auto_return = array(
@@ -126,6 +123,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $auto_return;
     }
 
+    /**
+     * @return array
+     */
     public function field_success_url()
     {
         // Validate back URL.
@@ -144,6 +144,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $success_url;
     }
 
+    /**
+     * @return array
+     */
     public function field_failure_url()
     {
         if (!empty($this->failure_url) && filter_var($this->failure_url, FILTER_VALIDATE_URL) === FALSE) {
@@ -161,6 +164,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $failure_url;
     }
 
+    /**
+     * @return array
+     */
     public function field_pending_url()
     {
         // Validate back URL.
@@ -179,7 +185,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $pending_url;
     }
 
-
+    /**
+     * @return array
+     */
     public function field_installments()
     {
         $installments = array(
@@ -204,6 +212,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $installments;
     }
 
+    /**
+     * @return array
+     */
     public function field_ex_payments()
     {
         $ex_payments = array();
@@ -213,10 +224,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $get_payment_methods = explode(',', $get_payment_methods);
         }
 
-        $count_paument = 0;
+        $count_payment = 0;
 
         foreach ($get_payment_methods as $payment_method) {
-            $count_paument++;
+            $count_payment++;
 
             $element = array(
                 'label' => $payment_method,
@@ -224,10 +235,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 'default' => 'yes',
                 'type' => 'checkbox'
             );
-            if ($count_paument == 1) {
+            if ($count_payment == 1) {
                 $element['title'] = __('Payment Methods Accepted', 'woocommerce-mercadopago');
             }
-            if ($count_paument == count($get_payment_methods)) {
+            if ($count_payment == count($get_payment_methods)) {
                 $element['description'] = __('Unselect the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago.', 'woocommerce-mercadopago');
             }
             $ex_payments["ex_payments_" . $payment_method] = $element;
@@ -236,7 +247,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $ex_payments;
     }
 
-
+    /**
+     * @return array
+     */
     public function field_two_cards_mode()
     {
         $two_cards_mode = array(
@@ -249,62 +262,25 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         return $two_cards_mode;
     }
 
-
-    /*
-    * ========================================================================
-    * SAVE CHECKOUT SETTINGS
-    * ========================================================================
-    *
-    * Processes and saves options.
-    * If there is an error thrown, will continue to save and validate fields, but will leave the
-    * erroring field out.
-    * @return bool was anything saved?
-    */
-
-
-    public function define_settings_to_send()
-    {
-        $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-        $infra_data['checkout_basic'] = ($this->settings['enabled'] == 'yes' ? 'true' : 'false');
-        $infra_data['two_cards'] = ($this->two_cards_mode == 'active' ? 'true' : 'false');
-        return $infra_data;
-    }
-
-
-    /*
-    * ========================================================================
-    * CHECKOUT BUSINESS RULES (CLIENT SIDE)
-    * ========================================================================
-    */
-
+    /**
+     * Payment Fields
+     */
     public function payment_fields()
     {
-        echo wpautop(wptexturize($this->get_description()));
-        return;
-        // basic checkout
-        if ($description = $this->get_description()) {
-            echo wpautop(wptexturize($description));
+        if ( $description = $this->get_description() ) {
+            echo wpautop( wptexturize( $description ) );
         }
-        if ($this->supports('default_credit_card_form')) {
+        if ( $this->supports( 'default_credit_card_form' ) ) {
             $this->credit_card_form();
         }
     }
 
     /**
-     * ========================================================================
-     * PROCESS PAYMENT.
-     * ========================================================================
-     *
-     * Summary: Handle the payment and processing the order.
-     * Description: First step occurs when the customer selects Mercado Pago and proceed to checkout.
-     * This method verify which integration method was selected and makes the build for the checkout
-     * URL.
-     * @return an array containing the result of the processment and the URL to redirect.
+     * @param $order_id
+     * @return array
      */
-
     public function process_payment($order_id)
     {
-
         $order = wc_get_order($order_id);
         if (method_exists($order, 'update_meta_data')) {
             $order->update_meta_data('_used_gateway', get_class($this));
@@ -326,64 +302,32 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 'redirect' => $order->get_checkout_payment_url(true)
             );
         }
-
     }
 
     /**
-     * Summary: Build Mercado Pago preference.
-     * Description: Create Mercado Pago preference and get init_point URL based in the order options
-     * from the cart.
-     * @return the preference object.
+     * @param $order
+     * @return bool
      */
-
-    protected function create_url($order)
+    public function create_url($order)
     {
-        // Creates the order parameters by checking the cart configuration.
-        $preferences1 = new WC_WooMercadoPago_PreferenceBasic($order, $this->ex_payments,  $this->installments);
-        $preferences = $preferences1->get_preference();
+        $preferences = new WC_WooMercadoPago_PreferenceBasic($order, $this->ex_payments, $this->installments);
         try {
-
-            $this->log->write_log(
-                __FUNCTION__,
-                'michel : ' . print_r($preferences, true)
-            );
-            //return false;
             $checkout_info = $this->mp->create_preference(json_encode($preferences));
             if ($checkout_info['status'] < 200 || $checkout_info['status'] >= 300) {
-                // Mercado Pago throwed an error.
-                $this->log->write_log(
-                    __FUNCTION__,
-                    'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']
-                );
+                $this->log->write_log(__FUNCTION__, 'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
                 return false;
             } elseif (is_wp_error($checkout_info)) {
-                // WordPress throwed an error.
-                $this->log->write_log(
-                    __FUNCTION__,
-                    'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']
-                );
+                $this->log->write_log(__FUNCTION__, 'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
                 return false;
             } else {
-                // Obtain the URL.
-                $this->log->write_log(
-                    __FUNCTION__,
-                    'payment link generated with success from mercado pago, with structure as follow: ' .
-                    json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-                );
-                // TODO: Verify sandbox availability.
-                //if ( $this->sandbox ) {
-                //	return $checkout_info['response']['sandbox_init_point'];
-                //} else {
+                $this->log->write_log(__FUNCTION__, 'payment link generated with success from mercado pago, with structure as follow: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                if ($this->sandbox) {
+                    return $checkout_info['response']['sandbox_init_point'];
+                }
                 return $checkout_info['response']['init_point'];
-                //}
             }
         } catch (MercadoPagoException $ex) {
-            // Something went wrong with the payment creation.
-            $this->log->write_log(
-                __FUNCTION__,
-                'payment creation failed with exception: ' .
-                json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-            );
+            $this->log->write_log(__FUNCTION__, 'payment creation failed with exception: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             return false;
         }
     }

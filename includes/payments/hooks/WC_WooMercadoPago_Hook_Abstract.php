@@ -6,6 +6,8 @@
 abstract class WC_WooMercadoPago_Hook_Abstract
 {
     public $payment;
+    public $class;
+    public $mpInstance;
 
     /**
      * WC_WooMercadoPago_Hook_Abstract constructor.
@@ -14,6 +16,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function __construct($payment)
     {
         $this->payment = $payment;
+        $this->class = get_class($payment);
+        $this->mpInstance = $payment->mp;
+        $this->loadHooks();
     }
 
     /**
@@ -22,8 +27,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function loadHooks()
     {
         add_action('woocommerce_update_options_payment_gateways_' . $this->payment->id, array($this, 'custom_process_admin_options'));
-        add_action('send_options_payment_gateways' . strtolower(get_class($this->payment)), array($this, 'send_settings_mp'));
-        add_action('woocommerce_api_' . strtolower(get_class($this->payment)), array($this, 'check_ipn_response'));
+        add_action('send_options_payment_gateways' . strtolower($this->class), array($this, 'send_settings_mp'));
+        add_action('woocommerce_api_' . strtolower($this->class), array($this, 'check_ipn_response'));
         add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount'), 10);
         add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title'), 10, 2);
 
@@ -34,50 +39,13 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * @return mixed
-     */
-//    public function custom_process_admin_options()
-//    {
-//        $this->payment->init_settings();
-//        $post_data = $this->payment->get_post_data();
-//        $this->process_settings($post_data);
-//        do_action('send_options_payment_gateways' . strtolower(get_class($this->payment)));
-//        return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
-//    }
-
-    /**
-     * @param $post_data
-     */
-    public function process_settings($post_data)
-    {
-        foreach ($this->payment->get_form_fields() as $key => $field) {
-            if ('title' !== $this->payment->get_field_type($field)) {
-                $value = $this->payment->get_field_value($key, $field, $post_data);
-                if ($key == 'gateway_discount') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->payment->settings[$key] = 0;
-                    } else {
-                        if ($value < -99 || $value > 99 || empty ($value)) {
-                            $this->payment->settings[$key] = 0;
-                        } else {
-                            $this->payment->settings[$key] = $value;
-                        }
-                    }
-                } else {
-                    $this->payment->settings[$key] = $this->payment->get_field_value($key, $field, $post_data);
-                }
-            }
-        }
-    }
-
-    /**
      * @param $checkout
      */
     public function add_discount_abst($checkout)
     {
         if (isset($checkout['discount']) && !empty($checkout['discount']) && isset($checkout['coupon_code']) && !empty($checkout['coupon_code']) && $checkout['discount'] > 0 && WC()->session->chosen_payment_method == $this->payment->id)
         {
-            $this->payment->log->write_log(__FUNCTION__, get_class($this->payment).'trying to apply discount...');
+            $this->payment->log->write_log(__FUNCTION__, $this->class.'trying to apply discount...');
             $value = ($this->payment->site_data['currency'] == 'COP' || $this->payment->site_data['currency'] == 'CLP') ? floor($checkout['discount'] / $checkout['currency_ratio']) : floor($checkout['discount'] / $checkout['currency_ratio'] * 100) / 100;
             global $woocommerce;
             if (apply_filters('wc_mercadopago_custommodule_apply_discount', 0 < $value, $woocommerce->cart)) {
@@ -98,7 +66,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $this->payment->mp->analytics_save_settings($this->define_settings_to_send());
             }
 
-            if (get_class($this->payment) == 'WC_WooMercadoPago_BasicGateway') {
+            if ($this->class == 'WC_WooMercadoPago_BasicGateway') {
                 $this->payment->mp->set_two_cards_mode($this->payment->two_cards_mode);
             }
         }
@@ -110,7 +78,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function define_settings_to_send()
     {
         $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-        switch (get_class($this->payment)) {
+        switch ($this->class) {
             case 'WC_WooMercadoPago_BasicGateway':
                 $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
                 $infra_data['two_cards'] = ($this->payment->two_cards_mode == 'active' ? 'true' : 'false');
@@ -128,7 +96,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     *
+     * ADD Checkout Scripts
      */
     public function add_checkout_scripts()
     {
@@ -168,7 +136,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     *
+     * MP Settings Script
      */
     public function add_mp_settings_script()
     {
@@ -176,7 +144,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         $is_test_user = get_option('_test_user_v1', false);
 
         if (!empty($public_key) && !$is_test_user) {
-
             $w = WC_WooMercadoPago_Module::woocommerce_instance();
             $available_payments = array();
             $gateways = WC()->payment_gateways->get_available_payment_gateways();
@@ -217,10 +184,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     {
         $_mp_public_key = get_option('_mp_public_key');
         $is_test_user = get_option('_test_user_v1', false);
-        if (!empty($_mp_public_key) && !$is_test_user) {
-            if (get_post_meta($order_id, '_used_gateway', true) != 'WC_WooMercadoPago_BasicGateway') {
-                return;
-            }
+        if (!$is_test_user) {
             $this->payment->log->write_log(__FUNCTION__, 'updating order of ID ' . $order_id);
             return '<script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
 			<script type="text/javascript">
@@ -234,5 +198,4 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 			</script>';
         }
     }
-
 }

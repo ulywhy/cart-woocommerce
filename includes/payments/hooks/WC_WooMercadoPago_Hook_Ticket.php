@@ -21,7 +21,6 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
     {
         parent::loadHooks();
         add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts'));
-        //add_action('valid_mercadopago_ticket_ipn_request', array( $this, 'successful_request' ));
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_ticket'));
             add_action('woocommerce_thankyou_' . $this->payment->id, array($this, 'update_mp_settings_script_ticket'));
@@ -43,38 +42,9 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
         parent::add_discount_abst($ticket_checkout);
     }
 
-    public function process_settings($post_data)
-    {
-        foreach ($this->payment->get_form_fields() as $key => $field) {
-            if ('title' !== $this->payment->get_field_type($field)) {
-                $value = $this->payment->get_field_value($key, $field, $post_data);
-                if ($key == 'gateway_discount') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->payment->settings[$key] = 0;
-                    } else {
-                        if ($value < -99 || $value > 99 || empty ($value)) {
-                            $this->payment->settings[$key] = 0;
-                        } else {
-                            $this->payment->settings[$key] = $value;
-                        }
-                    }
-                } elseif ($key == 'date_expiration') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->payment->settings[$key] = 3;
-                    } else {
-                        if ($value < 1 || $value > 30 || empty ($value)) {
-                            $this->payment->settings[$key] = 3;
-                        } else {
-                            $this->payment->settings[$key] = $value;
-                        }
-                    }
-                } else {
-                    $this->payment->settings[$key] = $this->payment->get_field_value($key, $field, $post_data);
-                }
-            }
-        }
-    }
-
+    /**
+     * @return mixed
+     */
     public function custom_process_admin_options()
     {
         $this->payment->init_settings();
@@ -111,10 +81,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
         $is_test_user = get_option('_test_user_v1', false);
         if (!empty($_site_id_v1) && !$is_test_user) {
             // Create MP instance.
-            $mp = new MP(
-                WC_WooMercadoPago_Module::get_module_version(),
-                get_option('_mp_access_token')
-            );
+            $mp = new MP(WC_WooMercadoPago_Module::get_module_version(), get_option('_mp_access_token'));
             $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
             $mp->set_email($email);
             $locale = get_locale();
@@ -127,14 +94,11 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
             $response = $mp->analytics_save_settings($infra_data);
         }
         // Apply updates.
-        return update_option(
-            $this->payment->get_option_key(),
-            apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings)
-        );
+        return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
     }
 
     /**
-     *
+     * MP Settings Ticket
      */
     public function add_mp_settings_script_ticket()
     {
