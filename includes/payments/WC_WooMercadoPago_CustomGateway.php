@@ -17,7 +17,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function __construct()
     {
-        $this->form_fields = $this->getFormFields('Custom');
+
         $this->id = 'woo-mercado-pago-custom';
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
@@ -25,6 +25,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->coupon_mode = $this->get_option('coupon_mode', 'no');
         $this->installments = $this->get_option('installments', '24');
         parent::__construct();
+        $this->form_fields = $this->getFormFields('Custom');
         $this->loadHooks();
     }
 
@@ -34,18 +35,25 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
-        $form_fields = parent::getFormFields($label);
+        $form_fields = array();
         $form_fields['enabled'] = $this->field_enabled('Custom');
         $form_fields['coupon_mode'] = $this->field_coupon_mode();
         $form_fields['title'] = $this->field_title();
+        $form_fields = parent::getFormFields($label);
         return $form_fields;
     }
 
+    /**
+     *
+     */
     public function loadHooks(){
         $hooks = new WC_WooMercadoPago_Hook_Custom($this);
         $hooks->loadHooks();
     }
 
+    /**
+     * @return array
+     */
     public function field_coupon_mode()
     {
         return array(
@@ -56,78 +64,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'description' => __('If there is a Mercado Pago campaign, allow your store to give discounts to customers.', 'woocommerce-mercadopago')
         );
     }
-
-    // Define field of Settings paymet method woocomerce page able payments
-    public function mp_form_fields()
-    {
-        $this->form_fields = array(
-            'enabled' => array(
-                'title' => __('Enable/Disable', 'woocommerce-mercadopago'),
-                'type' => 'checkbox',
-                'label' => __('Enable', 'woocommerce-mercadopago') . ' ' . $this->title,
-                'default' => 'no'
-            ),
-            'checkout_options_title' => array(
-                'title' => __('Checkout Interface: How checkout is shown', 'woocommerce-mercadopago'),
-                'type' => 'title'
-            ),
-            'title' => array(
-                'title' => __('Title', 'woocommerce-mercadopago'),
-                'type' => 'text',
-                'description' => __('Title shown to the client in the checkout.', 'woocommerce-mercadopago'),
-                'default' => __('Mercado Pago - Generic Checkout', 'woocommerce-mercadopago')
-            ),
-            'description' => array(
-                'title' => __('Description', 'woocommerce-mercadopago'),
-                'type' => 'textarea',
-                'description' => __('Description shown to the client in the checkout.', 'woocommerce-mercadopago'),
-                'default' => __('Pay with Mercado Pago Generic checkout', 'woocommerce-mercadopago')
-            ),
-            'payment_title' => array(
-                'title' => __('Payment Options: How payment options behaves', 'woocommerce-mercadopago'),
-                'type' => 'title'
-            ),
-            'coupon_mode' => array(
-                'title' => __('Coupons', 'woocommerce-mercadopago'),
-                'type' => 'checkbox',
-                'label' => __('Enable coupons of discounts', 'woocommerce-mercadopago'),
-                'default' => 'no',
-                'description' => __('If there is a Mercado Pago campaign, allow your store to give discounts to customers.', 'woocommerce-mercadopago')
-            ),
-            'binary_mode' => array(
-                'title' => __('Binary Mode', 'woocommerce-mercadopago'),
-                'type' => 'checkbox',
-                'label' => __('Enable binary mode for checkout status', 'woocommerce-mercadopago'),
-                'default' => 'no',
-                'description' => __('When charging a credit card, only [approved] or [reject] status will be taken.', 'woocommerce-mercadopago')
-            ),
-            'gateway_discount' => array(
-                'title' => __('Discount/Fee by Gateway', 'woocommerce-mercadopago'),
-                'type' => 'number',
-                'description' => __('Give a percentual (-99 to 99) discount or fee for your customers if they use this payment gateway. Use negative for fees, positive for discounts.', 'woocommerce-mercadopago'),
-                'default' => '0',
-                'custom_attributes' => array(
-                    'step' => '0.01',
-                    'min' => '-99',
-                    'max' => '99'
-                )
-            )
-        );
-
-        return $this->form_fields;
-    }
-
-    /**
-     *
-     * ========================================================================
-     * SAVE CHECKOUT SETTINGS
-     * ========================================================================
-     *
-     * Processes and saves options.
-     * If there is an error thrown, will continue to save and validate fields, but will leave the
-     * erroring field out.
-     * @return bool was anything saved?
-     */
 
 
 
@@ -195,6 +131,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
     public function payment_fields()
     {
+
+        exit('Michel');
         wp_enqueue_script('wc-credit-card-form');
 
         $amount = $this->get_order_total();

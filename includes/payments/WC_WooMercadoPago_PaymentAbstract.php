@@ -44,7 +44,6 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function __construct()
     {
-
         $this->description = get_option('description');
         $this->binary_mode = get_option('binary_mode', 'no');
         $this->gateway_discount = get_option('gateway_discount', 0);
@@ -54,6 +53,7 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
         $this->mp = WC_WooMercadoPago_Module::teste();
+
         $this->init_settings();
     }
 
@@ -91,29 +91,16 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $_site_id_v1 = get_option('_site_id_v1', '');
         $form_fields = array();
         if (empty($_site_id_v1)) {
-            $form_fields = array(
-                'no_credentials_title' => array(
-                    'title' => sprintf(__('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago'),
-                        '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Mercado Pago Settings', 'woocommerce-mercadopago') .
-                        '</a>'
-                    ),
-                    'type' => 'title'
-                ),
-            );
+            $form_fields['no_credentials_title'] = $this->field_no_credentials();
+            return $form_fields;
         }
 
-
-        if (empty($this->settings['enabled']) || 'no' == $this->settings['enabled'] && empty($form_fields)) {
-            $form_fields = array(
-                'enabled' => array(
-                    'title' => __('Enable/Disable', 'woocommerce-mercadopago'),
-                    'type' => 'checkbox',
-                    'label' => __('Enable ' . $label . ' Checkout', 'woocommerce-mercadopago'),
-                    'default' => 'no'
-                )
-            );
+        $form_fields['enabled'] = $this->field_enabled($label);
+        if (empty($this->settings['enabled']) || 'no' == $this->settings['enabled']) {
+            $form_fields_enable = array();
+            $form_fields_enable['enabled'] = $form_fields['enabled'];
+            return $form_fields_enable;
         }
-
         $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
         $form_fields['description'] = $this->field_description();
         $form_fields['payment_title'] = $this->field_payment_title();
@@ -121,6 +108,20 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $form_fields['gateway_discount'] = $this->field_gateway_discount();
 
         return $form_fields;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_no_credentials()
+    {
+        $noCredentials = array(
+            'title' => sprintf(__('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago'),
+                '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Mercado Pago Settings', 'woocommerce-mercadopago') .
+                '</a>'
+            ),
+            'type' => 'title');
+        return $noCredentials;
     }
 
     /**
@@ -226,9 +227,6 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
 
-
-
-
     /**
      * Mensage credentials not configured.
      *
@@ -267,9 +265,6 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings)
         );
     }
-
-
-
 
 
     public function define_settings_to_send()
@@ -341,7 +336,6 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $this->credit_card_form();
         }
     }
-
 
 
     public function update_mp_settings_script($order_id)
