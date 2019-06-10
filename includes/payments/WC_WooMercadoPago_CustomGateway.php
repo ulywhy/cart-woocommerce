@@ -21,9 +21,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->id = 'woo-mercado-pago-custom';
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
-        $this->title = $this->get_option('title', __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago'));
-        $this->coupon_mode = $this->get_option('coupon_mode', 'no');
-        $this->installments = $this->get_option('installments', '24');
+        $this->title = get_option('title', __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago'));
+        $this->coupon_mode = get_option('coupon_mode', 'no');
+        $this->installments = get_option('installments', '24');
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
         $this->loadHooks();

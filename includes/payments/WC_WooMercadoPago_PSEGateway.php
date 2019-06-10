@@ -2,8 +2,11 @@
 /**
  * Class WC_WooMercadoPago_PSEGateway
  */
-class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
-
+class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract
+{
+    /**
+     * WC_WooMercadoPago_PSEGateway constructor.
+     */
 	public function __construct()
     {
         $this->id = 'woo-mercado-pago-pse';
@@ -12,18 +15,20 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
         $this->title = get_option('title', __('Mercado Pago - PSE', 'woocommerce-mercadopago'));
         $this->coupon_mode = get_option('coupon_mode', 'no');
         $this->installments = get_option('installments', '24');
-        $this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
-        $this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
+        $this->stock_reduce_mode  = get_option( 'stock_reduce_mode', 'no' );
+        $this->gateway_discount   = get_option( 'gateway_discount', 0 );
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
         $this->loadHooks();
 	}
 
+    /**
+     * Load Hooks
+     */
     public function loadHooks(){
         $hooks = new WC_WooMercadoPago_Hook_Pse($this);
         $hooks->loadHooks();
     }
-
 
 	/**
 	 * Processes and saves options.
@@ -1011,3 +1016,4 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 	}
 
 }
+new WC_WooMercadoPago_PSEGateway();

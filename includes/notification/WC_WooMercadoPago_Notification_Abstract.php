@@ -143,7 +143,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
                 $order->payment_complete();
                 break;
             case 'WC_WooMercadoPago_TicketGateway':
-                if ($this->get_option('stock_reduce_mode', 'no') == 'no') {
+                if (get_option('stock_reduce_mode', 'no') == 'no') {
                     $order->payment_complete();
                 }
                 break;

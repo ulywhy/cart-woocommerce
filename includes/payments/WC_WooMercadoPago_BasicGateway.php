@@ -79,7 +79,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $get_ex_payment_options = get_option('_all_payment_methods_v0', '');
         if (!empty($get_ex_payment_options)) {
             foreach ($get_ex_payment_options = explode(',', $get_ex_payment_options) as $get_ex_payment_option) {
-                if ($this->get_option('ex_payments_' . $get_ex_payment_option, 'yes') == 'no') {
+                if (get_option('ex_payments_' . $get_ex_payment_option, 'yes') == 'no') {
                     $ex_payments[] = $get_ex_payment_option;
                 }
             }
