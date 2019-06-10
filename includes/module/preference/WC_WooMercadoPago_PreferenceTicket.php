@@ -10,6 +10,12 @@
 
 class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbstract {
 
+	/**
+     * WC_WooMercadoPago_PreferenceTicket constructor.
+     * @param $order
+     * @param $ticket_checkout
+	 * @param $date_expiration
+     */
     public function __construct($order, $ticket_checkout, $date_expiration) {
         parent::__construct($order, $ticket_checkout);
 
@@ -18,7 +24,7 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
 		$this->preference['description'] = implode(', ', $this->list_of_items);
         $this->preference['payment_method_id'] = $this->checkout['paymentMethodId'];
 
-        if ( $this->site_id == 'MLB' ) {
+        if ( $this->site_data[$this->site_id]['currency'] == 'MLB' ) {
 			$this->preference['payer']['first_name'] = $this->checkout['firstname'];
 			$this->preference['payer']['last_name'] = strlen( $this->checkout['docNumber'] ) == 14 ? $this->checkout['lastname'] : $this->checkout['firstname'];
 			$this->preference['payer']['identification']['type'] = strlen( $this->checkout['docNumber'] ) == 14 ? 'CPF' : 'CNPJ';

@@ -65,15 +65,4 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         return $item;
     }
 
-    /**
-     * @return mixed
-     */
-    public function get_email()
-    {
-        if (method_exists($this->order, 'get_id')) {
-            return $this->order->get_billing_email();
-        } else {
-            return $this->order->billing_email;
-        }
-    }
 }
