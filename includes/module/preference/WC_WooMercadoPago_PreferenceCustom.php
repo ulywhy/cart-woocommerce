@@ -36,45 +36,17 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
+        if ($this->ship_cost > 0) {
+            $this->preference['additional_info']['items'][] = $this->ship_cost_item();
+        } 
         if (
             isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
-            isset($this->checkout['coupon_code']) && !empty($this->ustom_checkout['coupon_code']) &&
+            isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
             $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom'
         ) {
             $this->preference['additional_info']['items'][] = $this->add_discounts();
         }
         $this->add_discounts_campaign();
-    }
-
-    /**
-     * @return array
-     */
-    public function get_payer_custom()
-    {
-        $payer_additional_info = array(
-            'first_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
-            'last_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
-            //'registration_date' =>
-            'phone' => array(
-                //'area_code' =>
-                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone)
-            ),
-            'address' => array(
-                'zip_code' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
-                //'street_number' =>
-                'street_name' => html_entity_decode(
-                    method_exists($this->order, 'get_id') ?
-                        $this->order->get_billing_address_1() . ' / ' .
-                        $this->order->get_billing_city() . ' ' .
-                        $this->order->get_billing_state() . ' ' .
-                        $this->order->get_billing_country() : $this->order->billing_address_1 . ' / ' .
-                        $this->order->billing_city . ' ' .
-                        $this->order->billing_state . ' ' .
-                        $this->order->billing_country
-                )
-            )
-        );
-        return $payer_additional_info;
     }
 
     /**
@@ -91,35 +63,6 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
                 -floor($this->checkout['discount'] * $this->currency_ratio) : -floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100
         );
         return $item;
-    }
-
-    /**
-     * Discount Campaign
-     */
-    public function add_discounts_campaign()
-    {
-        if (
-            isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
-            isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
-            $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom'
-        ) {
-            $this->preference['campaign_id'] = (int)$this->checkout['campaign_id'];
-            $this->preference['coupon_amount'] = ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
-                floor($this->checkout['discount'] * $this->currency_ratio) : floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100;
-            $this->preference['coupon_code'] = strtoupper($this->checkout['coupon_code']);
-        }
-    }
-
-    /**
-     * @return float|int
-     */
-    public function get_transaction_amount()
-    {
-        if ($this->site_id == 'COP' || $this->site_id == 'CLP') {
-            return floor($this->order_total * $this->currency_ratio);
-        } else {
-            return floor($this->order_total * $this->currency_ratio * 100) / 100;
-        }
     }
 
     /**
