@@ -18,7 +18,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function __construct()
     {
         //echo 'oioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioioio<br>';
-        $this->form_fields = $this->getFormFields('Basic');
+
         $this->id = 'woo-mercado-pago-basic';
         $this->method_title = __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Receive payments in a matter of minutes. We make it easy for you: just tell us what you want to collect and we’ll take care of the rest.');
@@ -32,6 +32,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->gateway_discount = get_option('gateway_discount', 0);
         $this->ex_payments = $this->getExPayments();
         parent::__construct();
+        $this->form_fields = $this->getFormFields('Basic');
         $this->two_cards_mode = $this->mp->check_two_cards();
         $this->loadHooks();
 
@@ -43,8 +44,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
-        $form_fields = parent::getFormFields($label);
-        $form_fields['enabled'] = $this->field_enabled($label);
+        $form_fields = array();
         $form_fields['method'] = $this->field_method();
         $form_fields['checkout_navigation_title'] = $this->field_checkout_navigation_title();
         $form_fields['auto_return'] = $this->field_auto_return();
@@ -56,11 +56,15 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         foreach ($this->field_ex_payments() as $key => $value) {
             $form_fields[$key] = $value;
         }
-
         $form_fields['two_cards_mode'] = $this->field_two_cards_mode();
+        $form_fields = parent::getFormFields($label);
+
         return $form_fields;
     }
 
+    /**
+     * Load Hooks
+     */
     public function loadHooks(){
         $hooks = new WC_WooMercadoPago_Hook_Basic($this);
         $hooks->loadHooks();

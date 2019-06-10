@@ -15,7 +15,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function __construct()
     {
-        $this->form_fields = $this->getFormFields('Ticket');
         $this->id = 'woo-mercado-pago-ticket';
         $this->method_title = __('Mercado Pago - Ticket', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
@@ -27,11 +26,14 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->payment_type = "ticket";
         $this->checkout_type = "custom";
         parent::__construct();
+        $this->form_fields = $this->getFormFields('Ticket');
         $this->admin_notices();
         $this->loadHooks();
     }
 
-
+    /**
+     * Load Hooks
+     */
     public function loadHooks(){
         $hooks = new WC_WooMercadoPago_Hook_Ticket($this);
         $hooks->loadHooks();
@@ -132,7 +134,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
             // ===
-            'images_path' => plugins_url('assets/images/', plugin_dir_path(__FILE__)),
+            'images_path' => plugins_url('../../assets/images/', plugin_dir_path(__FILE__)),
             'currency_ratio' => $currency_ratio,
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
@@ -152,7 +154,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                     'firstname' => '', 'lastname' => '', 'docNumber' => '', 'address' => '',
                     'number' => '', 'city' => '', 'state' => '', 'zipcode' => ''
                 ),
-            'path_to_javascript' => plugins_url('assets/js/ticket.js', plugin_dir_path(__FILE__))
+            'path_to_javascript' => plugins_url('../../assets/js/ticket.js', plugin_dir_path(__FILE__))
         );
 
         wc_get_template(

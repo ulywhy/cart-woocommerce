@@ -40,51 +40,45 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
         parent::add_discount_abst($custom_checkout);
     }
 
-    public function custom_process_admin_options() {
-        $this->init_settings();
-        $post_data = $this->get_post_data();
-        foreach ( $this->get_form_fields() as $key => $field ) {
-            if ( 'title' !== $this->get_field_type( $field ) ) {
-                $value = $this->get_field_value( $key, $field, $post_data );
-                if ( $key == 'gateway_discount') {
-                    if ( ! is_numeric( $value ) || empty ( $value ) ) {
-                        $this->settings[$key] = 0;
+    public function custom_process_admin_options()
+    {
+        $this->payment->init_settings();
+        $post_data = $this->payment->get_post_data();
+        foreach ($this->payment->get_form_fields() as $key => $field) {
+            if ('title' !== $this->payment->get_field_type($field)) {
+                $value = $this->payment->get_field_value($key, $field, $post_data);
+                if ($key == 'gateway_discount') {
+                    if (!is_numeric($value) || empty ($value)) {
+                        $this->payment->settings[$key] = 0;
                     } else {
-                        if ( $value < -99 || $value > 99 || empty ( $value ) ) {
-                            $this->settings[$key] = 0;
+                        if ($value < -99 || $value > 99 || empty ($value)) {
+                            $this->payment->settings[$key] = 0;
                         } else {
-                            $this->settings[$key] = $value;
+                            $this->payment->settings[$key] = $value;
                         }
                     }
                 } else {
-                    $this->settings[$key] = $this->get_field_value( $key, $field, $post_data );
+                    $this->payment->settings[$key] = $this->payment->get_field_value($key, $field, $post_data);
                 }
             }
         }
-        $_site_id_v1 = get_option( '_site_id_v1', '' );
-        $is_test_user = get_option( '_test_user_v1', false );
-        if ( ! empty( $_site_id_v1 ) && ! $is_test_user ) {
+        $_site_id_v1 = get_option('_site_id_v1', '');
+        $is_test_user = get_option('_test_user_v1', false);
+        if (!empty($_site_id_v1) && !$is_test_user) {
             // Create MP instance.
-            $mp = new MP(
-                WC_WooMercadoPago_Module::get_module_version(),
-                get_option( '_mp_access_token' )
-            );
-            $email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
-            $mp->set_email( $email );
+            $mp = new MP(WC_WooMercadoPago_Module::get_module_version(), get_option('_mp_access_token'));
+            $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
+            $mp->set_email($email);
             $locale = get_locale();
-            $locale = ( strpos( $locale, '_' ) !== false && strlen( $locale ) == 5 ) ? explode( '_', $locale ) : array('','');
-            $mp->set_locale( $locale[1] );
+            $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
+            $mp->set_locale($locale[1]);
             // Analytics.
             $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-            $infra_data['checkout_custom_credit_card'] = ( $this->settings['enabled'] == 'yes' ? 'true' : 'false' );
-            $infra_data['checkout_custom_credit_card_coupon'] = ( $this->settings['coupon_mode'] == 'yes' ? 'true' : 'false' );
-            $response = $mp->analytics_save_settings( $infra_data );
+            $infra_data['checkout_custom_credit_card'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
+            $infra_data['checkout_custom_credit_card_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
+            $response = $mp->analytics_save_settings($infra_data);
         }
-        // Apply updates.
-        return update_option(
-            $this->get_option_key(),
-            apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings )
-        );
+        return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
     }
 
     public function process_settings($post_data)

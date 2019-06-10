@@ -4,9 +4,8 @@
  */
 class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 
-	public function __construct() {
-
-        $this->form_fields = $this->getFormFields('Custom');
+	public function __construct()
+    {
         $this->id = 'woo-mercado-pago-pse';
         $this->method_title = __('Mercado Pago - PSE', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
@@ -16,9 +15,8 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
         $this->stock_reduce_mode  = $this->get_option( 'stock_reduce_mode', 'no' );
         $this->gateway_discount   = $this->get_option( 'gateway_discount', 0 );
         parent::__construct();
+        $this->form_fields = $this->getFormFields('Custom');
         $this->loadHooks();
-
-
 	}
 
     public function loadHooks(){
@@ -308,7 +306,7 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract {
 					'bank' => '',
 					'personType' => ''
 			),
-			'path_to_javascript'     => plugins_url( 'assets/js/pse.js', plugin_dir_path( __FILE__ ) )
+			'path_to_javascript'     => plugins_url( '../../assets/js/pse.js', plugin_dir_path( __FILE__ ) )
 		);
     
 		wc_get_template(
