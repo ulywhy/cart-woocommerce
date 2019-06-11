@@ -10,6 +10,8 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 {
 
+    const FIELD_FORMS_ORDER = array();
+
     /**
      * Constructor.
      */
@@ -29,6 +31,20 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = $this->getFormFields('Ticket');
         $this->admin_notices();
         $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
+    }
+
+    /**
+     * @param $label
+     * @return array
+     */
+    public function getFormFields($label)
+    {
+        $form_fields_abs = parent::getFormFields($label);
+        if (count($form_fields_abs) == 1) {
+            return $form_fields_abs;
+        }
+        $form_fields = $this->sortFormFields($form_fields_abs, self::FIELD_FORMS_ORDER);
+        return $form_fields;
     }
 
     /**
@@ -68,7 +84,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $added_text = '<p>' . $html . '</p>';
         echo $added_text;
     }
-
 
 
     public function payment_fields()
@@ -546,8 +561,29 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         }
     }
 
-    // Here, we process the status... this is the business rules!
-    // Reference: https://www.mercadopago.com.br/developers/en/api-docs/basic-checkout/ipn/payment-status/
+    /**
+     * @return bool
+     */
+    public function is_available()
+    {
+        if (!parent::is_available()) {
+            return false;
+        }
+
+        $_mp_debug_mode = get_option('_mp_debug_mode', '');
+        if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
+            if (empty ($_mp_debug_mode)) {
+                return false;
+            }
+        }
+
+        $payment_methods = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
+        if (count($payment_methods) == 0) {
+            return false;
+        }
+
+        return true;
+    }
 
 
 }

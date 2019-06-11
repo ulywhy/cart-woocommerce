@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 /**
  * WC_WooMercadoPago_Payments
  */
-abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
+class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
 {
 
 
@@ -55,7 +55,6 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
         $this->mp = WC_WooMercadoPago_Module::teste();
-        $this->init_settings();
     }
 
     /**
@@ -89,6 +88,8 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getFormFields($label)
     {
+        $this->init_form_fields();
+        $this->init_settings();
         $_site_id_v1 = get_option('_site_id_v1', '');
         $form_fields = array();
         if (empty($_site_id_v1)) {
@@ -109,6 +110,21 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $form_fields['gateway_discount'] = $this->field_gateway_discount();
 
         return $form_fields;
+    }
+
+    /**
+     * @param $formFields
+     * @param $ordenation
+     * @return array
+     */
+    public function sortFormFields($formFields, $ordenation)
+    {
+        $array = array();
+        foreach ($ordenation as $order => $key) {
+            $array[$key] = $formFields[$key];
+            unset($formFields[$key]);
+        }
+        return array_merge_recursive($array, $formFields);
     }
 
     /**
@@ -227,7 +243,6 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return $gateway_discount;
     }
 
-
     /**
      * Mensage credentials not configured.
      *
@@ -250,29 +265,18 @@ abstract class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         }
         global $woocommerce;
         $w_cart = $woocommerce->cart;
-
-        $_mp_public_key = get_option('_mp_public_key');
-        $_mp_access_token = get_option('_mp_access_token');
-        $_site_id_v1 = get_option('_site_id_v1');
-        $_mp_debug_mode = get_option('_mp_debug_mode', '');
-
-        if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
-            if (empty ($_mp_debug_mode)) {
-                return false;
-            }
-        }
+        // Check for recurrent product checkout.
         if (isset($w_cart)) {
             if (WC_WooMercadoPago_Module::is_subscription($w_cart->get_cart())) {
                 return false;
             }
         }
-        $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
-        if ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && $is_prod_credentials) {
-            return false;
-        }
 
-        $available = ('yes' == $this->settings['enabled']) && !empty($_mp_public_key) && !empty($_mp_access_token) && !empty($_site_id_v1);
-        return $available;
+        $_mp_public_key = get_option('_mp_public_key');
+        $_mp_access_token = get_option('_mp_access_token');
+        $_site_id_v1 = get_option('_site_id_v1');
+
+        return ( 'yes' == $this->settings['enabled'] ) && !empty( $_mp_public_key ) && ! empty( $_mp_access_token ) && ! empty( $_site_id_v1 );
     }
 
 

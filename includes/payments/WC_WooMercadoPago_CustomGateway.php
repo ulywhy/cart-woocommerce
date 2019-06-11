@@ -12,6 +12,8 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 {
 
+    const FIELD_FORMS_ORDER = array();
+
     /**
      * Constructor.
      */
@@ -38,8 +40,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['enabled'] = $this->field_enabled('Custom');
         $form_fields['coupon_mode'] = $this->field_coupon_mode();
         $form_fields['title'] = $this->field_title();
-        $form_fields = parent::getFormFields($label);
-        return $form_fields;
+        $form_fields_abs = parent::getFormFields($label);
+        if (count($form_fields_abs) == 1) {
+            return $form_fields_abs;
+        }
+        $form_fields_merge = array_merge($form_fields_abs, $form_fields);
+        $fields = $this->sortFormFields($form_fields_merge, self::FIELD_FORMS_ORDER);
+        return $fields;
     }
 
     /**
@@ -55,8 +62,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'description' => __('If there is a Mercado Pago campaign, allow your store to give discounts to customers.', 'woocommerce-mercadopago')
         );
     }
-
-
 
 
     /*
@@ -419,11 +424,30 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
     }
 
-    /*
-	 * ========================================================================
-	 * IPN MECHANICS (SERVER SIDE)
-	 * ========================================================================
-	 */
+    /**
+     * @return bool
+     */
+    public function is_available()
+    {
+        if (!parent::is_available()) {
+            return false;
+        }
+
+        $_mp_debug_mode = get_option( '_mp_debug_mode', '' );
+        if ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) {
+            if ( empty ( $_mp_debug_mode ) ) {
+                return false;
+            }
+        }
+
+        $_mp_access_token = get_option('_mp_access_token');
+        $is_prod_credentials = strpos( $_mp_access_token, 'TEST' ) === false;
+        if ( ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) && $is_prod_credentials ) {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * @throws MercadoPagoException

@@ -11,6 +11,9 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 {
 
+    CONST FIELD_FORMS_ORDER = array();
+//"enabled", 'success_url', 'installments', 'description'
+
     /**
      * Constructor.
      */
@@ -34,13 +37,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->hook = new WC_WooMercadoPago_Hook_Basic($this);
     }
 
+
     /**
      * @param $label
      * @return array
      */
     public function getFormFields($label)
     {
-        $this->init_form_fields();
         $form_fields = array();
         $form_fields['method'] = $this->field_method();
         $form_fields['checkout_navigation_title'] = $this->field_checkout_navigation_title();
@@ -55,10 +58,20 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         }
         $form_fields['two_cards_mode'] = $this->field_two_cards_mode();
         $form_fields_abs = parent::getFormFields($label);
+        if (count($form_fields_abs) == 1) {
+            return $form_fields_abs;
+        }
+        $form_fields_merge = array_merge($form_fields_abs, $form_fields);
+        $fields = $this->sortFormFields($form_fields_merge, self::FIELD_FORMS_ORDER);
 
-        $form_fields_merge = array_merge_recursive($form_fields_abs, $form_fields);
+        return $fields;
+    }
 
-        return $form_fields_merge;
+    /**
+     * @return bool
+     */
+    public function is_available() {
+        return parent::is_available();
     }
 
     /**
@@ -267,10 +280,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function payment_fields()
     {
-        if ( $description = $this->get_description() ) {
-            echo wpautop( wptexturize( $description ) );
+        if ($description = $this->get_description()) {
+            echo wpautop(wptexturize($description));
         }
-        if ( $this->supports( 'default_credit_card_form' ) ) {
+        if ($this->supports('default_credit_card_form')) {
             $this->credit_card_form();
         }
     }

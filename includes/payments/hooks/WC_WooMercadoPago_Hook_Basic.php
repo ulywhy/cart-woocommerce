@@ -151,7 +151,7 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
      */
     public function add_mp_settings_script_basic()
     {
-        parent::add_mp_settings_script();
+        echo parent::add_mp_settings_script();
     }
 
     /**

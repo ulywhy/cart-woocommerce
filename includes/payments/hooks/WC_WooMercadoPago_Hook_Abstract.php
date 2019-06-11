@@ -114,7 +114,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      * @param $title
      * @return string
      */
-    public function get_payment_method_title($title)
+    public function get_payment_method_title($title,$id)
     {
         if (!is_checkout() && !(defined('DOING_AJAX') && DOING_AJAX)) {
             return $title;
