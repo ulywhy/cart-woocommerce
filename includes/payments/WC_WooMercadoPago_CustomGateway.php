@@ -46,6 +46,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
         $form_fields_merge = array_merge($form_fields_abs, $form_fields);
         $fields = $this->sortFormFields($form_fields_merge, self::FIELD_FORMS_ORDER);
+
         return $fields;
     }
 
@@ -436,14 +437,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $_mp_debug_mode = get_option( '_mp_debug_mode', '' );
         if ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) {
             if ( empty ( $_mp_debug_mode ) ) {
-                return false;
+              //  return false;
             }
         }
 
         $_mp_access_token = get_option('_mp_access_token');
         $is_prod_credentials = strpos( $_mp_access_token, 'TEST' ) === false;
         if ( ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) && $is_prod_credentials ) {
-            return false;
+           // return false;
         }
 
         return true;

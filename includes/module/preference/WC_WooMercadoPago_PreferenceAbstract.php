@@ -230,9 +230,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $binary_mode = get_option('binary_mode', 'no');
         if ($binary_mode == 'yes') {
-            return 1;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     }
 

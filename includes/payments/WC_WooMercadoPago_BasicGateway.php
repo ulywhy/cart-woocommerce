@@ -323,7 +323,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function create_url($order)
     {
-        $preferences = new WC_WooMercadoPago_PreferenceBasic($order, $this->ex_payments, $this->installments);
+        $preferencesBasic = new WC_WooMercadoPago_PreferenceBasic($order, $this->ex_payments, $this->installments);
+        $preferences = $preferencesBasic->get_preference();
         try {
             $checkout_info = $this->mp->create_preference(json_encode($preferences));
             if ($checkout_info['status'] < 200 || $checkout_info['status'] >= 300) {

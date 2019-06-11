@@ -904,5 +904,3 @@ class WC_WooMercadoPago_PSEGateway extends WC_WooMercadoPago_PaymentAbstract
     }
 
 }
-
-new WC_WooMercadoPago_PSEGateway();
