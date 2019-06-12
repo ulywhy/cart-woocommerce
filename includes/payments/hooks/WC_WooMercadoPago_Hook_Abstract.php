@@ -105,7 +105,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 wp_enqueue_style('woocommerce-mercadopago-style',
                     plugins_url('../../assets/css/custom_checkout_mercadopago.css', plugin_dir_path(__FILE__))
                 );
-                wp_enqueue_script('woocommerce-mercadopago-pse-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
+                wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
+                //wp_enqueue_script('woocommerce-mercadopago-pse-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
             }
         }
     }

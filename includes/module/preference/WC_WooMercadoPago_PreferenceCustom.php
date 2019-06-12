@@ -65,4 +65,18 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         return $item;
     }
 
+    /**
+     * @return array
+     */
+    public function get_items_build_array()
+    {
+       $items = parent::get_items_build_array();
+       foreach ($items as $key => $item){
+           if(isset($item['currency_id'])){
+               unset($items[$key]['currency_id']);
+           }
+       }
+
+       return $items;
+    }
 }

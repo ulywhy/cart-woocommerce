@@ -53,7 +53,7 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
     public function render_order_form($order_id)
     {
         $order = wc_get_order($order_id);
-        $url = $this->payment->create_url($order);
+        $url = $this->payment->create_preference($order);
 
         $banner_url = get_option('_mp_custom_banner');
         if (!isset($banner_url) || empty($banner_url)) {

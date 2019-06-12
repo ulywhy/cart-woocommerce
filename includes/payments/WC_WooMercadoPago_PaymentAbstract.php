@@ -54,7 +54,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
-        $this->mp = WC_WooMercadoPago_Module::teste();
+        $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton();
     }
 
     /**
