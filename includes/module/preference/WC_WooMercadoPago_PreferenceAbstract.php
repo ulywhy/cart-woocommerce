@@ -31,7 +31,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $this->test_user_v1 = get_option('_test_user_v1', false);
         $this->site_id = get_option('_site_id_v1', '');
-        $this->site_data = WC_WooMercadoPago_Configs::getCountryConfigs();
+        $this->site_data = WC_WooMercadoPago_Module::$country_configs;
         $this->order = $order;
         $this->checkout = $checkout;
         $this->currency_ratio = $this->get_currency_conversion();

@@ -306,7 +306,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->log->write_log(__FUNCTION__, 'customer being redirected to Mercado Pago.');
             return array(
                 'result' => 'success',
-                'redirect' => $this->create_url($order)
+                'redirect' => $this->create_preference($order)
             );
         } elseif ('modal' == $this->method) {
             $this->log->write_log(__FUNCTION__, 'preparing to render Mercado Pago checkout view.');
@@ -321,7 +321,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      * @param $order
      * @return bool
      */
-    public function create_url($order)
+    public function create_preference($order)
     {
         $preferencesBasic = new WC_WooMercadoPago_PreferenceBasic($order, $this->ex_payments, $this->installments);
         $preferences = $preferencesBasic->get_preference();

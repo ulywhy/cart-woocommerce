@@ -112,7 +112,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     }
 
     /**
-     *
+     * Payment Fields
      */
     public function payment_fields()
     {
@@ -141,28 +141,22 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
-            'images_path' => plugins_url('../../assets/images/', plugin_dir_path(__FILE__)),
+            'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
             'banner_path' => $banner_url,
             'customer_cards' => isset($customer) ? (isset($customer['cards']) ? $customer['cards'] : array()) : array(),
             'customerId' => isset($customer) ? (isset($customer['id']) ? $customer['id'] : null) : null,
             'currency_ratio' => $currency_ratio,
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
-            //'path_to_javascript' => plugins_url('/../../assets/js/credit-card.js', plugin_dir_path(__FILE__))
+            'path_to_javascript' => plugins_url('../assets/js/credit-card.js', plugin_dir_path(__FILE__))
         );
 
         wc_get_template('credit-card/payment-form.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
     }
 
     /**
-     * ========================================================================
-     * PROCESS PAYMENT.
-     * ========================================================================
-     *
-     * Summary: Handle the payment and processing the order.
-     * Description: This function is called after we click on [place_order] button, and each field is
-     * passed to this function through $_POST variable.
-     * @return an array containing the result of the processment and the URL to redirect.
+     * @param int $order_id
+     * @return array|void
      */
     public function process_payment($order_id)
     {
@@ -186,7 +180,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             isset($custom_checkout['paymentMethodId']) && !empty($custom_checkout['paymentMethodId']) &&
             isset($custom_checkout['installments']) && !empty($custom_checkout['installments']) &&
             $custom_checkout['installments'] != -1) {
-            $response = $this->create_url($order, $custom_checkout);
+            $response = $this->create_preference($order, $custom_checkout);
 
             // Check for card save.
             if (method_exists($order, 'update_meta_data')) {
@@ -264,26 +258,15 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 }
             } else {
                 // Process when fields are imcomplete.
-                wc_add_notice(
-                    '<p>' .
-                    __('A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago') . ' MERCADO PAGO: ' .
-                    WC_WooMercadoPago_Module::get_common_error_messages($response) .
-                    '</p>',
-                    'error'
-                );
+                wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago') . ' MERCADO PAGO: ' .
+                    WC_WooMercadoPago_Module::get_common_error_messages($response) . '</p>', 'error');
                 return array(
                     'result' => 'fail',
                     'redirect' => '',
                 );
             }
         } else {
-            // Process when fields are imcomplete.
-            wc_add_notice(
-                '<p>' .
-                __('A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago') .
-                '</p>',
-                'error'
-            );
+            wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago') . '</p>', 'error');
             return array(
                 'result' => 'fail',
                 'redirect' => '',
@@ -291,64 +274,39 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
     }
 
-    protected function create_url($order, $custom_checkout)
+    /**
+     * @param $order
+     * @param $custom_checkout
+     * @return string
+     */
+    protected function create_preference($order, $custom_checkout)
     {
-        // Creates the order parameters by checking the cart configuration.
         $preferencesCustom = new WC_WooMercadoPago_PreferenceCustom($order, $custom_checkout);
         $preferences = $preferencesCustom->get_preference();
-        // Checks for sandbox mode.
-        $this->mp->sandbox_mode($this->sandbox);
-        // Create order preferences with Mercado Pago API request.
         try {
             $checkout_info = $this->mp->post('/v1/payments', json_encode($preferences));
             if ($checkout_info['status'] < 200 || $checkout_info['status'] >= 300) {
-                // Mercado Pago throwed an error.
-                $this->log->write_log(__FUNCTION__,'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
+                $this->log->write_log(__FUNCTION__, 'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
                 return $checkout_info['response']['message'];
             } elseif (is_wp_error($checkout_info)) {
-                // WordPress throwed an error.
-                $this->log->write_log(
-                    __FUNCTION__,
-                    'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']
-                );
+                $this->log->write_log(__FUNCTION__, 'wordpress gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
                 return $checkout_info['response']['message'];
             } else {
-                // Obtain the URL.
-                $this->log->write_log(
-                    __FUNCTION__,
-                    'payment link generated with success from mercado pago, with structure as follow: ' .
-                    json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-                );
-                // TODO: Verify sandbox availability.
-                //if ( 'yes' == $this->sandbox ) {
-                //	return $checkout_info['response']['sandbox_init_point'];
-                //} else {
+                $this->log->write_log(__FUNCTION__, 'payment link generated with success from mercado pago, with structure as follow: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
                 return $checkout_info['response'];
-                //}
             }
         } catch (MercadoPagoException $ex) {
-            // Something went wrong with the payment creation.
-            $this->log->write_log(
-                __FUNCTION__,
-                'payment creation failed with exception: ' .
-                json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-            );
+            $this->log->write_log(__FUNCTION__, 'payment creation failed with exception: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             return $ex->getMessage();
         }
     }
 
     /**
-     * Summary: Check if we have existing customer card, if not we create and save it.
-     * Description: Check if we have existing customer card, if not we create and save it.
-     * @return boolean true/false depending on the validation result.
+     * @param $checkout_info
      */
     public function check_and_save_customer_card($checkout_info)
     {
-        $this->log->write_log(
-            __FUNCTION__,
-            'checking info to create card: ' .
-            json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-        );
+        $this->log->write_log(__FUNCTION__, 'checking info to create card: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         $custId = null;
         $token = null;
         $issuer_id = null;
@@ -372,21 +330,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         try {
             $this->mp->create_card_in_customer($custId, $token, $payment_method_id, $issuer_id);
         } catch (MercadoPagoException $ex) {
-            $this->write_log(
-                __FUNCTION__,
-                'card creation failed: ' .
-                json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-            );
+            $this->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     }
 
-    /*
-	 * ========================================================================
-	 * AUXILIARY AND FEEDBACK METHODS (SERVER SIDE)
-	 * ========================================================================
-	 */
-
-    // Enter a gateway method-specific rule within this function
+    /**
+     * @return bool
+     */
     public function mp_config_rule_is_available()
     {
         $_mp_access_token = get_option('_mp_access_token');
@@ -415,17 +365,17 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             return false;
         }
 
-        $_mp_debug_mode = get_option( '_mp_debug_mode', '' );
-        if ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) {
-            if ( empty ( $_mp_debug_mode ) ) {
-              //  return false;
+        $_mp_debug_mode = get_option('_mp_debug_mode', '');
+        if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
+            if (empty ($_mp_debug_mode)) {
+                return false;
             }
         }
 
         $_mp_access_token = get_option('_mp_access_token');
-        $is_prod_credentials = strpos( $_mp_access_token, 'TEST' ) === false;
-        if ( ( empty( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] == 'off' ) && $is_prod_credentials ) {
-           // return false;
+        $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
+        if ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && $is_prod_credentials) {
+            return false;
         }
 
         return true;
