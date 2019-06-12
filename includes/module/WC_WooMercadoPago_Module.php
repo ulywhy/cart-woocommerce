@@ -1,5 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -36,7 +36,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         self::loadShipments();
         add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
         add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
-        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'woomercadopago_settings_link'));
+        add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
+        add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
 
         if (is_admin()) {
@@ -62,7 +63,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         return $mp;
     }
 
-    public static function teste(){
+    public static function teste()
+    {
         if (self::$mpInstance === null) {
             self::$mpInstance = self::getMpInstance();
         }
@@ -85,7 +87,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * @return MP
      * @throws MercadoPagoException
      */
-    public static function init_mercado_pago_instance(){
+    public static function init_mercado_pago_instance()
+    {
         $mpClass = self::init_mercado_pago_class();
         $inst = $mpClass->getMpInstance();
         return $inst;
@@ -109,7 +112,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Custom.php';
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Pse.php';
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Ticket.php';
-
     }
 
     /**
@@ -117,9 +119,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function loadPreferences()
     {
-        include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceAbstract.php';
-        include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
-        include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
+        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceAbstract.php';
+        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
+        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
     }
 
     /**
@@ -217,12 +219,32 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function woomercadopago_settings_link($links)
     {
         $plugin_links = array();
-        $plugin_links[] = '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) .'">' . __('Mercado Pago Settings', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<a target="_blank" href="' .'https://wordpress.org/support/plugin/woo-mercado-pago-module/reviews/?rate=5#new-post' .'">' .
-            sprintf(__('Rate Us', 'woocommerce-mercadopago') . ' %s','&#9733;&#9733;&#9733;&#9733;&#9733;') . '</a>';
-        $plugin_links[] = '<br><a target="_blank" href="' .'https://github.com/mercadopago/cart-woocommerce#installation' .'">' . __('Tutorial', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<a target="_blank" href="' .'https://wordpress.org/support/plugin/woo-mercado-pago-module#postform' .'">' . __('Report Issue', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Settings', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woo-mercado-pago-module/reviews/?rate=5#new-post' . '">' . __('Tu opnión nos  ayuda a mejorar', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<br><a target="_blank" href="' . 'https://github.com/mercadopago/cart-woocommerce#installation' . '">' . __('Guías y Documentación', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woo-mercado-pago-module#postform' . '">' . __('Informar Problema', 'woocommerce-mercadopago') . '</a>';
         return array_merge($plugin_links, $links);
+    }
+
+    /**
+     * Show row meta on the plugin screen.
+     *
+     * @param mixed $links Plugin Row Meta.
+     * @param mixed $file  Plugin Base file.
+     *
+     * @return array
+     */
+    public function mp_plugin_row_meta($links, $file)
+    {
+        if (WC_MERCADOPAGO_BASENAME === $file) {
+            $new_link = array();
+            $new_link[] = $links[0];
+            $new_link[] = esc_html__('By Mercado Pago', 'woocommerce');
+
+            return  $new_link;
+        }
+
+        return (array)$links;
     }
 
     // ============================================================
@@ -315,11 +337,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
                     foreach ($payments['response'] as $payment) {
                         if (isset($payment['payment_type_id'])) {
-                            if ($payment['payment_type_id'] != 'account_money' &&
+                            if (
+                                $payment['payment_type_id'] != 'account_money' &&
                                 $payment['payment_type_id'] != 'credit_card' &&
                                 $payment['payment_type_id'] != 'debit_card' &&
                                 $payment['payment_type_id'] != 'prepaid_card' &&
-                                $payment['id'] != 'pse') {
+                                $payment['id'] != 'pse'
+                            ) {
                                 $obj = new stdClass();
                                 $obj->id = $payment['id'];
                                 $obj->name = $payment['name'];
@@ -395,9 +419,10 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         MPRestClient::set_email($email);
         if (strlen($wc_currency) == 3 && strlen($used_currency) == 3) {
             $currency_obj = MPRestClient::get(
-                array('uri' => '/currency_conversions/search?' .
-                    'from=' . get_woocommerce_currency() .
-                    '&to=' . $used_currency
+                array(
+                    'uri' => '/currency_conversions/search?' .
+                        'from=' . get_woocommerce_currency() .
+                        '&to=' . $used_currency
                 ),
                 WC_WooMercadoPago_Module::get_module_version()
             );
@@ -508,8 +533,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         if (sizeof($items) == 1) {
             foreach ($items as $cart_item_key => $cart_item) {
                 $is_recurrent = (method_exists($cart_item, 'get_meta')) ?
-                    $cart_item->get_meta('_used_gateway') :
-                    get_post_meta($cart_item['product_id'], '_mp_recurring_is_recurrent', true);
+                    $cart_item->get_meta('_used_gateway') : get_post_meta($cart_item['product_id'], '_mp_recurring_is_recurrent', true);
                 if ($is_recurrent == 'yes') {
                     $is_subscription = true;
                 }
@@ -581,7 +605,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function build_log_path_string($gateway_id, $gateway_name)
     {
         return '<a href="' . esc_url(admin_url('admin.php?page=wc-status&tab=logs&log_file=' .
-                esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
+            esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
 
@@ -797,5 +821,4 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         }
         return true;
     }
-
 }
