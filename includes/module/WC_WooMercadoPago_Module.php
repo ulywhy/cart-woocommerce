@@ -474,7 +474,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function get_templates_path()
     {
-        return plugin_dir_path(__FILE__) . 'templates/';
+        return plugin_dir_path(__FILE__) . '../../templates/';
     }
 
     /**

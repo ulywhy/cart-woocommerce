@@ -22,8 +22,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->id = 'woo-mercado-pago-basic';
         $this->method_title = __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Receive payments in a matter of minutes. We make it easy for you: just tell us what you want to collect and we’ll take care of the rest.');
-        $this->method = get_option('method', 'redirect');
-        $this->title = get_option('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));
+        $this->method = $this->get_option('method', 'redirect');
+        $this->title = $this->get_option('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));
         $this->auto_return = get_option('auto_return', 'yes');
         $this->success_url = get_option('success_url', '');
         $this->failure_url = get_option('failure_url', '');

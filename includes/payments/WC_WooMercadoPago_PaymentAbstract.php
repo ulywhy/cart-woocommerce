@@ -46,7 +46,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function __construct()
     {
-        $this->description = get_option('description');
+        $this->description = $this->get_option('description');
         $this->binary_mode = get_option('binary_mode', 'no');
         $this->gateway_discount = get_option('gateway_discount', 0);
         $this->sandbox = get_option('_mp_sandbox_mode', false);
