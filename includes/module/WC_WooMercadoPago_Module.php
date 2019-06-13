@@ -36,8 +36,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         self::loadShipments();
         add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
         add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
-        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'woomercadopago_settings_link'));
-
+        add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
+        add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
         if (is_admin()) {
             self::loadMercadoEnviosAdmin();
