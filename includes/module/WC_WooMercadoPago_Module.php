@@ -121,17 +121,11 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function loadPreferences()
     {
-<<<<<<< HEAD
-        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceAbstract.php';
-        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
-        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
-=======
         include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceAbstract.php';
         include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
         include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
         include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceTicket.php';
 
->>>>>>> 0c13c74d4090d48ef3c26248b419432995452931
     }
 
     /**
