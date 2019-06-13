@@ -340,7 +340,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 }
                 return $checkout_info['response']['init_point'];
             }
-        } catch (MercadoPagoException $ex) {
+        } catch (WC_WooMercadoPago_Exception $ex) {
             $this->log->write_log(__FUNCTION__, 'payment creation failed with exception: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             return false;
         }

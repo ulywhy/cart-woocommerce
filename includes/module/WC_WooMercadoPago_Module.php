@@ -36,8 +36,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         self::loadShipments();
         add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
         add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
-        add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
-        add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'woomercadopago_settings_link'));
 
 
         if (is_admin()) {
@@ -47,7 +46,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
     /**
      * @return MP
-     * @throws MercadoPagoException
      */
     public static function getMpInstance()
     {
@@ -87,7 +85,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
     /**
      * @return MP
-     * @throws MercadoPagoException
      */
     public static function init_mercado_pago_instance()
     {
@@ -151,8 +148,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function loadNotifications()
     {
         include_once dirname(__FILE__) . '/../notification/WC_WooMercadoPago_Notification_Abstract.php';
-        include_once dirname(__FILE__) . '/../notification/WC_WooMercadoPago_Notification_Basic.php';
-        include_once dirname(__FILE__) . '/../notification/WC_WooMercadoPago_Notification_Custom.php';
+        include_once dirname(__FILE__) . '/../notification/WC_WooMercadoPago_Notification_IPN.php';
+        include_once dirname(__FILE__) . '/../notification/WC_WooMercadoPago_Notification_Webhook.php';
     }
 
     /**
@@ -366,7 +363,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                     }
                     return true;
                 }
-            } catch (MercadoPagoException $e) {
+            } catch (WC_WooMercadoPago_Exception $e) {
                 // TODO: should we handle an exception here?
             }
         }
@@ -609,7 +606,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function build_log_path_string($gateway_id, $gateway_name)
     {
         return '<a href="' . esc_url(admin_url('admin.php?page=wc-status&tab=logs&log_file=' .
-            esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
+                esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
 

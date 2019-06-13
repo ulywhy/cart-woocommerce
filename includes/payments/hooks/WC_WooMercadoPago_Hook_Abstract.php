@@ -28,7 +28,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     {
         add_action('woocommerce_update_options_payment_gateways_' . $this->payment->id, array($this, 'custom_process_admin_options'));
         add_action('send_options_payment_gateways' . strtolower($this->class), array($this, 'send_settings_mp'));
-        add_action('woocommerce_api_' . strtolower($this->class), array($this, 'check_ipn_response'));
         add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount'), 10);
         add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title'), 10, 2);
 
@@ -43,9 +42,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function add_discount_abst($checkout)
     {
-        if (isset($checkout['discount']) && !empty($checkout['discount']) && isset($checkout['coupon_code']) && !empty($checkout['coupon_code']) && $checkout['discount'] > 0 && WC()->session->chosen_payment_method == $this->payment->id)
-        {
-            $this->payment->log->write_log(__FUNCTION__, $this->class.'trying to apply discount...');
+        if (isset($checkout['discount']) && !empty($checkout['discount']) && isset($checkout['coupon_code']) && !empty($checkout['coupon_code']) && $checkout['discount'] > 0 && WC()->session->chosen_payment_method == $this->payment->id) {
+            $this->payment->log->write_log(__FUNCTION__, $this->class . 'trying to apply discount...');
             $value = ($this->payment->site_data['currency'] == 'COP' || $this->payment->site_data['currency'] == 'CLP') ? floor($checkout['discount'] / $checkout['currency_ratio']) : floor($checkout['discount'] / $checkout['currency_ratio'] * 100) / 100;
             global $woocommerce;
             if (apply_filters('wc_mercadopago_custommodule_apply_discount', 0 < $value, $woocommerce->cart)) {
@@ -115,7 +113,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      * @param $title
      * @return string
      */
-    public function get_payment_method_title($title,$id)
+    public function get_payment_method_title($title, $id)
     {
         if (!is_checkout() && !(defined('DOING_AJAX') && DOING_AJAX)) {
             return $title;

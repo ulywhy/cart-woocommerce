@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 if ( ! defined( 'WC_MERCADOPAGO_BASENAME' ) ) {
-	define( 'WC_MERCADOPAGO_BASENAME', plugin_basename( __FILE__ ) );
+    define( 'WC_MERCADOPAGO_BASENAME', plugin_basename( __FILE__ ) );
 }
 
 /**

@@ -15,14 +15,14 @@ abstract class WC_WooMercadoPago_Notification_Abstract
 
     /**
      * WC_WooMercadoPago_Notification_Abstract constructor.
-     * @throws MercadoPagoException
      */
     public function __construct()
     {
-        //$this->mp = WC_WooMercadoPago_Module::init_mercado_pago_instance();
+        $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton();
         $this->sandbox = get_option('_mp_sandbox_mode', false);
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
 
+        add_action('woocommerce_api_' . strtolower(get_class($this)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
         add_action('woocommerce_order_action_cancel_order', array($this, 'process_cancel_order_meta_box_actions'));
 
@@ -54,16 +54,16 @@ abstract class WC_WooMercadoPago_Notification_Abstract
     public function check_ipn_response()
     {
         @ob_clean();
-        $this->write_log(__FUNCTION__, 'received _get content: ' . json_encode($_GET, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $this->mp->sandbox_mode($this->sandbox);
+        $this->log->write_log(__FUNCTION__, 'received _get content: ' . json_encode($_GET, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
     /**
      * @param $data
+     * @return bool|void|WC_Order|WC_Order_Refund
      */
     public function successful_request($data)
     {
-        $this->write_log(__FUNCTION__, 'starting to process ipn update...');
+        $this->log->write_log(__FUNCTION__, 'starting to process ipn update...');
         $order_key = $data['external_reference'];
         if (empty($order_key)) {
             return;
@@ -75,11 +75,11 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             return;
         }
 
-        $order_id = (method_exists($order, 'get_id') ? $order->get_id() : $order->id);
+        $order_id = (method_exists($order, 'get_id') ? $order->get_id() : $order->get_id());
         if ($order_id !== $id) {
             return;
         }
-        $this->write_log(__FUNCTION__, 'updating metadata and status with data: ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        $this->log->write_log(__FUNCTION__, 'updating metadata and status with data: ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         return $order;
     }
@@ -292,7 +292,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         }
         try {
             $this->mp->create_card_in_customer($custId, $token, $payment_method_id, $issuer_id);
-        } catch (MercadoPagoException $ex) {
+        } catch (WC_WooMercadoPago_Exception $ex) {
             $this->log->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     }

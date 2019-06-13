@@ -14,7 +14,7 @@ class MeliRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return false|resource
-     * @throws MercadoPagoException
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function requestApi($request, $version)
     {
@@ -31,7 +31,6 @@ class MeliRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function get($request, $version)
     {
@@ -44,7 +43,6 @@ class MeliRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function post($request, $version)
     {
@@ -57,7 +55,6 @@ class MeliRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function put($request, $version)
     {
@@ -70,7 +67,6 @@ class MeliRestClient extends AbstractRestClient
      * @param $request
      * @param $version
      * @return array|null
-     * @throws MercadoPagoException
      */
     public static function delete($request, $version)
     {

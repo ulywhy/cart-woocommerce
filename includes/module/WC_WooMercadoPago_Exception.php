@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_WooMercadoPago_Exception extends Exception {
 
     /**
-     * MercadoPagoException constructor.
+     * WC_WooMercadoPago_Exception constructor.
      * @param $message
      * @param int $code
      * @param Exception|null $previous

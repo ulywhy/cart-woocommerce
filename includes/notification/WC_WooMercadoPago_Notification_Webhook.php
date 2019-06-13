@@ -5,9 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class WC_WooMercadoPago_Notification_Custom
+ * Class WC_WooMercadoPago_Notification_Webhook
  */
-class WC_WooMercadoPago_Notification_Custom extends WC_WooMercadoPago_Notification_Abstract
+class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notification_Abstract
 {
     /**
      * @var null
@@ -15,19 +15,16 @@ class WC_WooMercadoPago_Notification_Custom extends WC_WooMercadoPago_Notificati
     private static $instance = null;
 
     /**
-     * WC_WooMercadoPago_Notification_Custom constructor.
-     * @throws MercadoPagoException
+     * WC_WooMercadoPago_Notification_Webhook constructor.
      */
     public function __construct()
     {
         parent::__construct();
-
-        $this->log->setId('WooMercadoPago_Notification_Custom');
+        $this->log->setId('WooMercadoPago_Notification_Webhook');
     }
 
     /**
-     * @return WC_WooMercadoPago_Notification_Custom|null
-     * @throws MercadoPagoException
+     * @return WC_WooMercadoPago_Notification_Webhook|null
      */
     public static function getNotificationCustomInstance()
     {
@@ -101,7 +98,6 @@ class WC_WooMercadoPago_Notification_Custom extends WC_WooMercadoPago_Notificati
 
     /**
      * @param $order
-     * @throws MercadoPagoException
      */
     public function process_cancel_order_meta_box_actions($order)
     {
@@ -155,7 +151,7 @@ class WC_WooMercadoPago_Notification_Custom extends WC_WooMercadoPago_Notificati
         }
         try {
             $this->mp->create_card_in_customer($custId, $token, $payment_method_id, $issuer_id);
-        } catch (MercadoPagoException $ex) {
+        } catch (WC_WooMercadoPago_Exception $ex) {
             $this->log->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     }
@@ -211,3 +207,4 @@ class WC_WooMercadoPago_Notification_Custom extends WC_WooMercadoPago_Notificati
         return $status;
     }
 }
+new WC_WooMercadoPago_Notification_Webhook();

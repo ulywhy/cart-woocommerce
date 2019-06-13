@@ -5,13 +5,12 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class WC_WooMercadoPago_Notification_Basic
+ * Class WC_WooMercadoPago_Notification_IPN
  */
-class WC_WooMercadoPago_Notification_Basic extends WC_WooMercadoPago_Notification_Abstract
+class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_Abstract
 {
     /**
-     * WC_WooMercadoPago_Notification_Basic constructor.
-     * @throws MercadoPagoException
+     * WC_WooMercadoPago_Notification_IPN constructor.
      */
     public function __construct()
     {
@@ -164,7 +163,7 @@ class WC_WooMercadoPago_Notification_Basic extends WC_WooMercadoPago_Notificatio
 
     /**
      * @param $merchant_order
-     * @throws MercadoPagoException
+     * @throws WC_Data_Exception
      */
     public function check_mercado_envios($merchant_order)
     {

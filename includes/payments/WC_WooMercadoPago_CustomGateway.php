@@ -295,7 +295,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 $this->log->write_log(__FUNCTION__, 'payment link generated with success from mercado pago, with structure as follow: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
                 return $checkout_info['response'];
             }
-        } catch (MercadoPagoException $ex) {
+        } catch (WC_WooMercadoPago_Exception $ex) {
             $this->log->write_log(__FUNCTION__, 'payment creation failed with exception: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             return $ex->getMessage();
         }
@@ -329,7 +329,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
         try {
             $this->mp->create_card_in_customer($custId, $token, $payment_method_id, $issuer_id);
-        } catch (MercadoPagoException $ex) {
+        } catch (WC_WooMercadoPago_Exception $ex) {
             $this->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     }
@@ -379,14 +379,5 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         return true;
-    }
-
-    /**
-     * @throws MercadoPagoException
-     */
-    public function check_ipn_response()
-    {
-        $customNotification = WC_WooMercadoPago_Notification_Custom::getNotificationCustomInstance();
-        $customNotification->check_ipn_response();
     }
 }

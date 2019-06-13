@@ -268,7 +268,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 $this->log->write_log(__FUNCTION__, 'payment link generated with success from mercado pago, with structure as follow: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
                 return $checkout_info['response'];
             }
-        } catch (MercadoPagoException $ex) {
+        } catch (WC_WooMercadoPago_Exception $ex) {
             $this->log->write_log(__FUNCTION__, 'payment creation failed with exception: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             return $ex->getMessage();
         }

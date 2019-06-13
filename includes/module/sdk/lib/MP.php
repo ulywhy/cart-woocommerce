@@ -20,7 +20,7 @@ class MP
 
     /**
      * MP constructor.
-     * @throws MercadoPagoException
+     * @throws WC_WooMercadoPago_Exception
      */
     function __construct()
     {
@@ -31,7 +31,7 @@ class MP
 
         $i = func_num_args();
         if ($i > 3 || $i < 2) {
-            throw new MercadoPagoException('Invalid arguments. Use CLIENT_ID and CLIENT SECRET, or ACCESS_TOKEN');
+            throw new WC_WooMercadoPago_Exception('Invalid arguments. Use CLIENT_ID and CLIENT SECRET, or ACCESS_TOKEN');
         }
 
         if ($i == 2) {
@@ -79,7 +79,6 @@ class MP
 
     /**
      * @return mixed|null
-     * @throws MercadoPagoException
      */
     public function get_access_token()
     {
@@ -117,7 +116,6 @@ class MP
     /**
      * @param $id
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function search_paymentV1($id)
     {
@@ -135,8 +133,7 @@ class MP
 
     /**
      * @param $payer_email
-     * @return array|mixed
-     * @throws MercadoPagoException
+     * @return array|mixed|null
      */
     public function get_or_create_customer($payer_email)
     {
@@ -157,7 +154,6 @@ class MP
     /**
      * @param $email
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function create_customer($email)
     {
@@ -180,7 +176,6 @@ class MP
     /**
      * @param $email
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function search_customer($email)
     {
@@ -204,7 +199,6 @@ class MP
      * @param null $payment_method_id
      * @param null $issuer_id
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function create_card_in_customer($customer_id, $token, $payment_method_id = null,
                                             $issuer_id = null)
@@ -231,7 +225,6 @@ class MP
      * @param $customer_id
      * @param $token
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function get_all_customer_cards($customer_id, $token)
     {
@@ -255,7 +248,6 @@ class MP
      * @param $payer_email
      * @param $coupon_code
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function check_discount_campaigns($transaction_amount, $payer_email, $coupon_code)
     {
@@ -279,7 +271,6 @@ class MP
 
     /**
      * @return string
-     * @throws MercadoPagoException
      */
     public function check_two_cards()
     {
@@ -298,7 +289,6 @@ class MP
     /**
      * @param $mode
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function set_two_cards_mode($mode)
     {
@@ -323,7 +313,6 @@ class MP
     /**
      * @param $id
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function get_authorized_payment($id)
     {
@@ -343,7 +332,6 @@ class MP
     /**
      * @param $preference
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function create_preference($preference)
     {
@@ -368,7 +356,6 @@ class MP
      * @param $id
      * @param $preference
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function update_preference($id, $preference)
     {
@@ -389,7 +376,6 @@ class MP
     /**
      * @param $id
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function get_preference($id)
     {
@@ -409,7 +395,6 @@ class MP
     /**
      * @param $preference
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function create_payment($preference)
     {
@@ -432,7 +417,6 @@ class MP
     /**
      * @param $preapproval_payment
      * @return array|null
-     * @throws MercadoPagoException
      */
     public function create_preapproval_payment($preapproval_payment)
     {
