@@ -28,6 +28,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
         $this->hook = new WC_WooMercadoPago_Hook_Custom($this);
+        $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
     }
 
     /**

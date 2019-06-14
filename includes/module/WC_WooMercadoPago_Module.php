@@ -46,6 +46,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
     /**
      * @return MP
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function getMpInstance()
     {
@@ -63,6 +64,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
     /**
      * @return MP|null
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function getMpInstanceSingleton(){
         if (self::$mpInstance === null) {
@@ -85,6 +87,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
     /**
      * @return MP
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function init_mercado_pago_instance()
     {
@@ -165,10 +168,10 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function loadShipments()
     {
-        include_once dirname(__FILE__) . '/../shipment/abstract-wc-mercadoenvios-shipping.php';
-        include_once dirname(__FILE__) . '/../shipment/class-wc-mercadoenvios-shipping-normal.php';
-        include_once dirname(__FILE__) . '/../shipment/class-wc-mercadoenvios-shipping-express.php';
-        include_once dirname(__FILE__) . '/../shipment/class-wc-mercadoenvios-package.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
     }
 
     /**

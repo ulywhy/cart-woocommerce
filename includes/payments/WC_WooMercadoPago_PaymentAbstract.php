@@ -40,6 +40,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $log;
     public $sandbox;
     public $mp;
+    public $notification;
 
     /**
      * Constructor.

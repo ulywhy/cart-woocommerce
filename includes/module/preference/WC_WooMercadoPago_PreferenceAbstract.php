@@ -40,7 +40,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $this->list_of_items = array();
         $this->selected_shipping = $order->get_shipping_method();
         $this->ship_cost = $this->order->get_total_shipping() + $this->order->get_shipping_tax();
-        $this->preference = $this->make_basic_preference();
+
         if (!$this->test_user_v1) {
             $this->preference['sponsor_id'] = $this->get_sponsor_id();
         }

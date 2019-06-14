@@ -12,13 +12,13 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
     /**
      * WC_WooMercadoPago_Notification_IPN constructor.
      */
-    public function __construct()
+    public function __construct($payment)
     {
-        parent::__construct();
+        parent::__construct($payment);
     }
 
     /**
-     *  Webhook
+     *  IPN
      */
     public function check_ipn_response()
     {
@@ -60,6 +60,8 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
 
     /**
      * @param $data
+     * @return bool|void|WC_Order|WC_Order_Refund
+     * @throws WC_Data_Exception
      */
     public function successful_request($data)
     {
