@@ -121,11 +121,11 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
                 }
             }
         }
-        $_site_id_v1 = get_option('_site_id_v1', '');
-        $is_test_user = get_option('_test_user_v1', false);
-        if (!empty($_site_id_v1)) {
+        $_site_id_v0 = get_option('_site_id_v0', '');
+        $is_test_user = get_option('_test_user_v0', false);
+        if (!empty($_site_id_v0)) {
             // Create MP instance.
-            $mp = new MP(WC_WooMercadoPago_Module::get_module_version(), get_option('_mp_access_token'));
+            $mp = new MP(WC_WooMercadoPago_Module::get_module_version(), get_option( '_mp_client_id' ), get_option( '_mp_client_secret' ));
             $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
             $mp->set_email($email);
             $locale = get_locale();

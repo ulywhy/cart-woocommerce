@@ -5,6 +5,8 @@
     <table class="form-table">
         <tr>
             <td>
+                <?php echo $v0_credentials_message; ?>
+                <br>
                 <?php echo $v1_credentials_message; ?>
                 <br>
                 <?php echo $has_woocommerce_message; ?>
@@ -37,6 +39,48 @@
     <form method="post" action="" novalidate="novalidate" method="post">
 
         <?php settings_fields('mercadopago'); ?>
+        <table class="form-table" border="0.5" frame="above" rules="void">
+            <tr>
+                <th scope="row"><label><h3>
+                            <?php echo esc_html( __( 'Basic Checkout & Subscriptions', 'woocommerce-mercadopago' ) ); ?>
+                        </h3></label></th>
+                <td><label class="description" id="tagline-description">
+                        <?php echo $v0_credential_locales; ?>
+                    </label></td>
+            </tr>
+            <tr>
+                <th scope="row"><label>Client ID</label></th>
+                <td>
+                    <input name="client_id" type="text" id="client_id" value="<?php form_option('_mp_client_id'); ?>" class="regular-text" />
+                    <p class="description" id="tagline-description">
+                        <?php echo esc_html( __( 'Insert your Mercado Pago Client_id.', 'woocommerce-mercadopago' ) ); ?>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label>Client Secret</label></th>
+                <td>
+                    <input name="client_secret" type="text" id="client_secret" aria-describedby="tagline-description" value="<?php form_option('_mp_client_secret'); ?>" class="regular-text" />
+                    <p class="description" id="tagline-description">
+                        <?php echo esc_html( __( 'Insert your Mercado Pago Client_secret.', 'woocommerce-mercadopago' ) ); ?>
+                    </p>
+                </td>
+            </tr>
+            <?php if ( ! empty ( $site_id_v0 ) ) { ?>
+                <tr>
+                    <th scope="row"><label><?php echo __( 'Currency Conversion', 'woocommerce-mercadopago' ); ?></label></th>
+                    <td>
+                        <label>
+                            <input class="" type="checkbox" name="currency_conversion_v0" id="currency_conversion_v0" <?php echo $is_currency_conversion_v0; ?>>
+                            <?php echo __( 'If the used currency in WooCommerce is different or not supported by Mercado Pago, convert values of your transactions using Mercado Pago currency ratio. This service may slow down your server as each conversion is made in the checkout moment.', 'woocommerce-mercadopago' ); ?>
+                        </label>
+                        <p class="description" id="tagline-description">
+                            <?php echo $currency_conversion_v0_message; ?>
+                        </p>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
 
         <table class="form-table" border="0.5" frame="above" rules="void">
             <tr>

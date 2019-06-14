@@ -346,6 +346,4 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             return false;
         }
     }
-
-
 }

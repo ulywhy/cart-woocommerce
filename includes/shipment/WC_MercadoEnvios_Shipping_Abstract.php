@@ -16,7 +16,6 @@ if (!defined('ABSPATH')) {
  */
 abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
 {
-
     protected $shipments_id = array();
 
     /**
