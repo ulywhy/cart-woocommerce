@@ -110,10 +110,8 @@ class WC_WooMercadoPago_Main_Settings
                         '">' . __('Custom Checkout', 'woocommerce-mercadopago') . '</a>' . ' ' .
                         '<a class="button button-primary" href="' . esc_url(admin_url(
                             'admin.php?page=wc-settings&tab=checkout&section=woo-mercado-pago-ticket')) .
-                        '">' . __('Ticket', 'woocommerce-mercadopago') . '</a>' . ' ' .
-                        '<a class="button button-primary" href="' . esc_url(admin_url(
-                            'admin.php?page=wc-settings&tab=checkout&section=woo-mercado-pago-subscription')) .
-                        '">' . __('Subscription', 'woocommerce-mercadopago') . '</a>';
+                        '">' . __('Ticket', 'woocommerce-mercadopago') . '</a>';
+                    
                     if (get_option('_site_id_v1', '') == 'MCO') {
                         $gateway_buttons .= ' <a class="button button-primary" href="' . esc_url(admin_url(
                                 'admin.php?page=wc-settings&tab=checkout&section=woo-mercado-pago-pse')) .
@@ -163,9 +161,9 @@ class WC_WooMercadoPago_Main_Settings
                     // ===== v1 verifications =====
                     // Trigger v1 API to validate credentials.
                     $site_id_v1 = '';
-                    if (WC_WooMercadoPago_Module::validate_credentials_v1()) {
+                    if (WC_WooMercadoPago_Credentials::validate_credentials_v1()) {
                         $site_id_v1 = get_option('_site_id_v1', '');
-                        $v1_credentials_message = WC_WooMercadoPago_Module::validate_credentials_v1() ?
+                        $v1_credentials_message = WC_WooMercadoPago_Credentials::validate_credentials_v1() ?
                             '<img width="14" height="14" src="' . plugins_url('../../assets/images/check.png', __FILE__) . '"> ' .
                             __('Your <strong>public_key</strong> and <strong>access_token</strong> are <strong>valid</strong> for', 'woocommerce-mercadopago') . ': ' .
                             '<img style="margin-top:2px;" width="18.6" height="12" src="' .

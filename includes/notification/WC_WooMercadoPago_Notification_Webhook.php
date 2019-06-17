@@ -10,28 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notification_Abstract
 {
     /**
-     * @var null
-     */
-    private static $instance = null;
-
-    /**
      * WC_WooMercadoPago_Notification_Webhook constructor.
+     * @param $payment
      */
-    public function __construct()
+    public function __construct($payment)
     {
-        parent::__construct();
+        parent::__construct($payment);
         $this->log->setId('WooMercadoPago_Notification_Webhook');
-    }
-
-    /**
-     * @return WC_WooMercadoPago_Notification_Webhook|null
-     */
-    public static function getNotificationCustomInstance()
-    {
-        if (self::$instance === null) {
-            self::$instance = new self;
-        }
-        return self::$instance;
     }
 
     /**
@@ -101,13 +86,7 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
      */
     public function process_cancel_order_meta_box_actions($order)
     {
-
-        $used_gateway = (method_exists($order, 'get_meta')) ? $order->get_meta('_used_gateway') : get_post_meta($order->id, '_used_gateway', true);
         $payments = (method_exists($order, 'get_meta')) ? $order->get_meta('_Mercado_Pago_Payment_IDs') : get_post_meta($order->id, '_Mercado_Pago_Payment_IDs', true);
-
-        if ($used_gateway != 'WC_WooMercadoPago_CustomGateway') {
-            return;
-        }
         $this->log->write_log(__FUNCTION__, 'cancelling payments for ' . $payments);
         // Canceling the order and all of its payments.
         if ($this->mp != null && !empty($payments)) {
@@ -207,4 +186,3 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
         return $status;
     }
 }
-new WC_WooMercadoPago_Notification_Webhook();

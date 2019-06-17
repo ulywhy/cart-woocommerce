@@ -43,14 +43,19 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $log;
     public $sandbox;
     public $mp;
+<<<<<<< HEAD
     public $checkout_credential_production;
     public $mp_public_key_test;
     public $mp_access_token_test;
     public $mp_public_key_prod; 
     public $mp_access_token_prod;
+=======
+    public $notification;
+>>>>>>> cf0cc2ffd186f59149e80b6c3fbc59b369474e2b
 
     /**
-     * Constructor.
+     * WC_WooMercadoPago_PaymentAbstract constructor.
+     * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
@@ -72,7 +77,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
-        $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton($this);
     }
 
     /**

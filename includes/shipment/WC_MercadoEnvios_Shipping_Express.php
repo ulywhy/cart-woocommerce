@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author 		Mercado Pago
 */
 
-class WC_MercadoEnvios_Shipping_Express extends WC_MercadoEnvios_Shipping {
+class WC_MercadoEnvios_Shipping_Express extends WC_MercadoEnvios_Shipping_Abstract {
 
 	protected $shipments_id = array(
 		'MLA' => 73330,

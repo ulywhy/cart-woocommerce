@@ -20,21 +20,18 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
     public function __construct()
     {
-        self::loadConfigs();
-        self::loadLog();
         if (!class_exists('WC_Payment_Gateway')) {
             add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
         }
 
+        $this->loadConfigs();
+        $this->loadLog();
+        $this->loadHooks();
+        $this->loadPreferences();
+        $this->loadPayments();
+        $this->loadNotifications();
+        $this->loadShipments();
 
-        self::loadHooks();
-        self::loadPreferences();
-        self::loadPayments();
-        add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
-
-        self::loadNotifications();
-        self::loadShipments();
-        add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
         add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
         add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
         add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
@@ -45,11 +42,24 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     }
 
     /**
+     * @param $payment
      * @return MP
+     * @throws WC_WooMercadoPago_Exception
      */
-    public static function getMpInstance()
+    public static function getMpInstance($payment)
     {
-        $mp = new MP(self::get_module_version(), get_option('_mp_access_token'));
+        $credentials = new WC_WooMercadoPago_Credentials($payment);
+        $validateCredentials = $credentials->validateCredentials();
+        if ($validateCredentials == WC_WooMercadoPago_Credentials::TYPE_ACCESS_TOKEN) {
+            $mp = new MP(self::get_module_version(), $credentials->accessToken);
+        }
+        if ($validateCredentials == WC_WooMercadoPago_Credentials::TYPE_ACCESS_CLIENT) {
+            $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
+        }
+        if (!$validateCredentials) {
+            throw new WC_WooMercadoPago_Exception('error'); //TODO: return??
+        }
+
         $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $mp->set_email($email);
 
@@ -63,10 +73,12 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
     /**
      * @return MP|null
+     * @throws WC_WooMercadoPago_Exception
      */
-    public static function getMpInstanceSingleton(){
+    public static function getMpInstanceSingleton($payment)
+    {
         if (self::$mpInstance === null) {
-            self::$mpInstance = self::getMpInstance();
+            self::$mpInstance = self::getMpInstance($payment);
         }
         return self::$mpInstance;
     }
@@ -84,19 +96,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     }
 
     /**
-     * @return MP
-     */
-    public static function init_mercado_pago_instance()
-    {
-        $mpClass = self::init_mercado_pago_class();
-        $inst = $mpClass->getMpInstance();
-        return $inst;
-    }
-
-    /**
      * Load Config / Categories
      */
-    public static function loadConfigs()
+    public function loadConfigs()
     {
         $configs = new parent();
         self::$categories = $configs->getCategories();
@@ -104,7 +106,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         self::$site_data = self::get_site_data();
     }
 
-    public static function loadHooks()
+    public function loadHooks()
     {
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Abstract.php';
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Basic.php';
@@ -116,19 +118,19 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     /**
      * Load Preferences Classes
      */
-    public static function loadPreferences()
+    public function loadPreferences()
     {
-        include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceAbstract.php';
-        include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
-        include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
-        include_once dirname( __FILE__ ) . '/preference/WC_WooMercadoPago_PreferenceTicket.php';
+        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceAbstract.php';
+        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
+        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
+        include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceTicket.php';
 
     }
 
     /**
      *  Load Payment Classes
      */
-    public static function loadPayments()
+    public function loadPayments()
     {
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_PaymentAbstract.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_BasicGateway.php';
@@ -140,12 +142,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_PSEGateway.php';
         }
         include_once dirname(__FILE__) . '/../payments/mercadoenvios/WC_WooMercadoPago_Product_Recurrent.php';
+        add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
     }
 
     /**
      *
      */
-    public static function loadNotifications()
+    public function loadNotifications()
     {
         include_once dirname(__FILE__) . '/../notification/WC_WooMercadoPago_Notification_Abstract.php';
         include_once dirname(__FILE__) . '/../notification/WC_WooMercadoPago_Notification_IPN.php';
@@ -155,7 +158,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     /**
      *
      */
-    public static function loadLog()
+    public function loadLog()
     {
         include_once dirname(__FILE__) . '/log/WC_WooMercadoPago_Log.php';
     }
@@ -163,12 +166,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     /**
      *  Load Shipment Types
      */
-    public static function loadShipments()
+    public function loadShipments()
     {
-        include_once dirname(__FILE__) . '/../shipment/abstract-wc-mercadoenvios-shipping.php';
-        include_once dirname(__FILE__) . '/../shipment/class-wc-mercadoenvios-shipping-normal.php';
-        include_once dirname(__FILE__) . '/../shipment/class-wc-mercadoenvios-shipping-express.php';
-        include_once dirname(__FILE__) . '/../shipment/class-wc-mercadoenvios-package.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
+        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
+        add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
     }
 
     /**
@@ -202,6 +206,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         }
         return $methods;
     }
+
     /**
      * Summary: Places a warning error to notify user that WooCommerce is missing.
      * Description: Places a warning error to notify user that WooCommerce is missing.
@@ -231,7 +236,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * Show row meta on the plugin screen.
      *
      * @param mixed $links Plugin Row Meta.
-     * @param mixed $file  Plugin Base file.
+     * @param mixed $file Plugin Base file.
      *
      * @return array
      */
@@ -242,7 +247,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $new_link[] = $links[0];
             $new_link[] = esc_html__('By Mercado Pago', 'woocommerce');
 
-            return  $new_link;
+            return $new_link;
         }
 
         return (array)$links;
@@ -297,84 +302,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * Description: Check if we have valid credentials.
      * @return boolean true/false depending on the validation result.
      */
-    public static function validate_credentials_v1()
-    {
-        $public_key = get_option('_mp_public_key', '');
-        $access_token = get_option('_mp_access_token', '');
-        // Pre-validate.
-        $is_valid_credentials = true;
-        if (empty($public_key) || empty($access_token)) {
-            $is_valid_credentials = false;
-        }
-        if (strpos($public_key, 'APP_USR') === false && strpos($public_key, 'TEST') === false) {
-            $is_valid_credentials = false;
-        }
-        if (strpos($access_token, 'APP_USR') === false && strpos($access_token, 'TEST') === false) {
-            $is_valid_credentials = false;
-        }
-        if ($is_valid_credentials) {
-            try {
-                $mp_v1 = new MP(WC_WooMercadoPago_Module::VERSION, $access_token);
-                $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-                $mp_v1->set_email($email);
-                $locale = get_locale();
-                $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
-                $mp_v1->set_locale($locale[1]);
-                $access_token = $mp_v1->get_access_token();
-                $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
-                if (isset($get_request['response']['site_id']) && !empty($public_key)) {
-                    update_option('_test_user_v1', in_array('test_user', $get_request['response']['tags']), true);
-                    update_option('_site_id_v1', $get_request['response']['site_id'], true);
-                    update_option('_collector_id_v1', $get_request['response']['id'], true);
 
-                    // Get available payment methods.
-                    $payments = $mp_v1->get('/v1/payment_methods/?access_token=' . $access_token);
-                    $payment_methods_ticket = array();
-                    $arr = array();
-                    foreach ($payments['response'] as $payment) {
-                        $arr[] = $payment['id'];
-                    }
-                    update_option('_all_payment_methods_v0', implode(',', $arr), true);
-
-                    foreach ($payments['response'] as $payment) {
-                        if (isset($payment['payment_type_id'])) {
-                            if (
-                                $payment['payment_type_id'] != 'account_money' &&
-                                $payment['payment_type_id'] != 'credit_card' &&
-                                $payment['payment_type_id'] != 'debit_card' &&
-                                $payment['payment_type_id'] != 'prepaid_card' &&
-                                $payment['id'] != 'pse'
-                            ) {
-                                $obj = new stdClass();
-                                $obj->id = $payment['id'];
-                                $obj->name = $payment['name'];
-                                $obj->secure_thumbnail = $payment['secure_thumbnail'];
-                                array_push($payment_methods_ticket, $obj);
-                            }
-                        }
-                    }
-                    update_option('_all_payment_methods_ticket', json_encode($payment_methods_ticket), true);
-                    // Check for auto converstion of currency.
-                    $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate(WC_WooMercadoPago_Module::$country_configs[$get_request['response']['site_id']]['currency']);
-                    if ($currency_ratio > 0) {
-                        update_option('_can_do_currency_conversion_v1', true, true);
-                    } else {
-                        update_option('_can_do_currency_conversion_v1', false, true);
-                    }
-                    return true;
-                }
-            } catch (WC_WooMercadoPago_Exception $e) {
-                // TODO: should we handle an exception here?
-            }
-        }
-        update_option('_test_user_v1', '', true);
-        update_option('_site_id_v1', '', true);
-        update_option('_collector_id_v1', '', true);
-        update_option('_all_payment_methods_v0', array(), true);
-        update_option('_all_payment_methods_ticket', '[]', true);
-        update_option('_can_do_currency_conversion_v1', false, true);
-        return false;
-    }
 
     // Get WooCommerce instance
     public static function woocommerce_instance()
@@ -609,7 +537,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                 esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
-
 
 
     public static function get_map($selector_id)
