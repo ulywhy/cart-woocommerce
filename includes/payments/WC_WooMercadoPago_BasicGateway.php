@@ -36,7 +36,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->two_cards_mode = $this->mp->check_two_cards();
         $this->hook = new WC_WooMercadoPago_Hook_Basic($this);
         $this->notification = new WC_WooMercadoPago_Notification_IPN($this);
-
     }
 
 
@@ -397,12 +396,42 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function payment_fields()
     {
-        if ($description = $this->get_description()) {
-            echo wpautop(wptexturize($description));
+        //add css
+        wp_enqueue_style(
+            'woocommerce-mercadopago-basic-checkout-styles',
+            plugins_url('../assets/css/basic_checkout_mercadopago.css', plugin_dir_path(__FILE__))
+        );
+
+        //validate active payments methods
+        $debito = 0;
+        $credito = 0;
+        $efectivo = 0;
+        $tarjetas = get_option('_checkout_payments_methods', '');
+        $cho_tarjetas = array();
+
+        foreach ($tarjetas as $tarjeta) {
+            if ($this->get_option($tarjeta['config'], '') == 'yes') {
+                $cho_tarjetas[] = $tarjeta;
+                if ($tarjeta['type'] == 'credit_card') {
+                    $credito += 1;
+                } elseif ($tarjeta['type'] == 'debit_card' || $tarjeta['type'] == 'prepaid_card') {
+                    $debito += 1;
+                } else {
+                    $efectivo += 1;
+                }
+            }
         }
-        if ($this->supports('default_credit_card_form')) {
-            $this->credit_card_form();
-        }
+
+        $parameters = array(
+            "debito" => $debito,
+            "credito" => $credito,
+            "efectivo" => $efectivo,
+            "tarjetas" => $cho_tarjetas,
+            "installments" => $this->get_option('installments', ''),
+            "cho_image" => plugins_url('../assets/images/redirect_checkout.png', plugin_dir_path(__FILE__)),
+        );
+
+        wc_get_template('basic-checkout/basic-checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
     }
 
     /**

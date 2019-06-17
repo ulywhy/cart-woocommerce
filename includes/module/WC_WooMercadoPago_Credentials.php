@@ -6,8 +6,8 @@
 class WC_WooMercadoPago_Credentials
 {
 
-    CONST TYPE_ACCESS_CLIENT = 'client';
-    CONST TYPE_ACCESS_TOKEN = 'token';
+    const TYPE_ACCESS_CLIENT = 'client';
+    const TYPE_ACCESS_TOKEN = 'token';
 
     public $payment;
     public $publicKey;
@@ -23,13 +23,13 @@ class WC_WooMercadoPago_Credentials
     public function __construct($payment)
     {
         $this->payment = $payment;
-        $this->testUser = get_option( '_test_user_v1', false);
+        $this->testUser = get_option('_test_user_v1', false);
 
         $this->publicKey = get_option('_mp_public_key', '');
         $this->accessToken = get_option('_mp_access_token', '');
 
-        $this->clientId = get_option( '_mp_client_id' );
-        $this->clientSecret = get_option( '_mp_client_secret' );
+        $this->clientId = get_option('_mp_client_id');
+        $this->clientSecret = get_option('_mp_client_secret');
     }
 
     /**
@@ -37,9 +37,9 @@ class WC_WooMercadoPago_Credentials
      */
     public function validateCredentials()
     {
-        if($this->payment instanceof WC_WooMercadoPago_BasicGateway){
-            if(!$this->tokenIsValid()){
-                if(!$this->clientIsValid()){
+        if ($this->payment instanceof WC_WooMercadoPago_BasicGateway) {
+            if (!$this->tokenIsValid()) {
+                if (!$this->clientIsValid()) {
                     return false;
                 }
                 return self::TYPE_ACCESS_CLIENT;
@@ -53,8 +53,8 @@ class WC_WooMercadoPago_Credentials
      */
     public function clientIsValid()
     {
-        if(empty($this->clientId) || empty($this->clientSecret)){
-           return false;
+        if (empty($this->clientId) || empty($this->clientSecret)) {
+            return false;
         }
         return true;
     }
@@ -64,17 +64,14 @@ class WC_WooMercadoPago_Credentials
      */
     public function tokenIsValid()
     {
-        if(empty($this->publicKey) || empty($this->accessToken))
-        {
+        if (empty($this->publicKey) || empty($this->accessToken)) {
             return false;
         }
 
-        if (strpos($this->publicKey, 'APP_USR') === false && strpos($this->publicKey, 'TEST') === false)
-        {
+        if (strpos($this->publicKey, 'APP_USR') === false && strpos($this->publicKey, 'TEST') === false) {
             return false;
         }
-        if (strpos($this->accessToken, 'APP_USR') === false && strpos($this->accessToken, 'TEST') === false)
-        {
+        if (strpos($this->accessToken, 'APP_USR') === false && strpos($this->accessToken, 'TEST') === false) {
             return false;
         }
 
@@ -87,9 +84,9 @@ class WC_WooMercadoPago_Credentials
     public static function validate_credentials_v1()
     {
         $public_key =
-        $access_token =
-        // Pre-validate.
-        $is_valid_credentials = true;
+            $access_token =
+            // Pre-validate.
+            $is_valid_credentials = true;
         if (empty($public_key) || empty($access_token)) {
             $is_valid_credentials = false;
         }
@@ -119,14 +116,25 @@ class WC_WooMercadoPago_Credentials
 
                     // Get available payment methods.
                     $payments = $mp_v1->get('/v1/payment_methods/?access_token=' . $access_token);
+                    $payments_response = $payments['response'];
+
                     $payment_methods_ticket = array();
                     $arr = array();
-                    foreach ($payments['response'] as $payment) {
+                    $cho = array();
+                    foreach ($payments_response as $payment) {
                         $arr[] = $payment['id'];
-                    }
-                    update_option('_all_payment_methods_v0', implode(',', $arr), true);
 
-                    foreach ($payments['response'] as $payment) {
+                        $cho[] = array(
+                            "type" => $payment['payment_type_id'],
+                            "image" => $payment['secure_thumbnail'],
+                            "config" => "ex_payments_" . $payment['id'],
+                        );
+                    }
+
+                    update_option('_all_payment_methods_v0', implode(',', $arr), true);
+                    update_option('_checkout_payments_methods', $cho, true);
+
+                    foreach ($payments_response as $payment) {
                         if (isset($payment['payment_type_id'])) {
                             if (
                                 $payment['payment_type_id'] != 'account_money' &&
