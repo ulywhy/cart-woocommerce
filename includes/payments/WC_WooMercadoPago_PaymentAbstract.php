@@ -43,15 +43,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $log;
     public $sandbox;
     public $mp;
-<<<<<<< HEAD
     public $checkout_credential_production;
     public $mp_public_key_test;
     public $mp_access_token_test;
     public $mp_public_key_prod; 
     public $mp_access_token_prod;
-=======
     public $notification;
->>>>>>> cf0cc2ffd186f59149e80b6c3fbc59b369474e2b
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.

@@ -11,11 +11,7 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 {
 
-<<<<<<< HEAD
     //"enabled", 'success_url', 'installments', 'description'
-=======
-    CONST FIELD_FORMS_ORDER = array();
->>>>>>> cf0cc2ffd186f59149e80b6c3fbc59b369474e2b
 
     /**
      * Constructor.
