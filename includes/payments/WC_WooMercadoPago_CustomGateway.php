@@ -12,8 +12,6 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 {
 
-    const FIELD_FORMS_ORDER = array();
-
     /**
      * Constructor.
      */
@@ -25,6 +23,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->title = get_option('title', __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago'));
         $this->coupon_mode = get_option('coupon_mode', 'no');
         $this->installments = get_option('installments', '24');
+        $this->field_forms_order = array();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
         $this->hook = new WC_WooMercadoPago_Hook_Custom($this);
@@ -45,7 +44,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             return $form_fields_abs;
         }
         $form_fields_merge = array_merge($form_fields_abs, $form_fields);
-        $fields = $this->sortFormFields($form_fields_merge, self::FIELD_FORMS_ORDER);
+        $fields = $this->sortFormFields($form_fields_merge, $this->field_forms_order);
 
         return $fields;
     }

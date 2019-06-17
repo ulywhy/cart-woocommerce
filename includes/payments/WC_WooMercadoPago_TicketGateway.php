@@ -10,8 +10,6 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 {
 
-    const FIELD_FORMS_ORDER = array();
-
     /**
      * Constructor.
      */
@@ -27,6 +25,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->date_expiration = get_option('date_expiration', 3);
         $this->payment_type = "ticket";
         $this->checkout_type = "custom";
+        $this->field_forms_order = array();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Ticket');
         $this->admin_notices();
@@ -43,7 +42,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         if (count($form_fields_abs) == 1) {
             return $form_fields_abs;
         }
-        $form_fields = $this->sortFormFields($form_fields_abs, self::FIELD_FORMS_ORDER);
+        $form_fields = $this->sortFormFields($form_fields_abs,  $this->field_forms_order);
         return $form_fields;
     }
 
