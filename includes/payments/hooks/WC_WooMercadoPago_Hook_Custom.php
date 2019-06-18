@@ -68,18 +68,11 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
         $_site_id_v1 = get_option('_site_id_v1', '');
         $is_test_user = get_option('_test_user_v1', false);
         if (!empty($_site_id_v1) && !$is_test_user) {
-            // Create MP instance.
-            $mp = new MP(WC_WooMercadoPago_Module::get_module_version(), get_option('_mp_access_token'));
-            $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-            $mp->set_email($email);
-            $locale = get_locale();
-            $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
-            $mp->set_locale($locale[1]);
             // Analytics.
             $infra_data = WC_WooMercadoPago_Module::get_common_settings();
             $infra_data['checkout_custom_credit_card'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
             $infra_data['checkout_custom_credit_card_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
-            $mp->analytics_save_settings($infra_data);
+            $this->mpInstance->analytics_save_settings($infra_data);
         }
         // Apply updates.
         return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));

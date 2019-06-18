@@ -11,7 +11,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     const VERSION = '3.1.0';
     const MIN_PHP = 5.6;
 
-
     public static $categories = array();
     public static $country_configs = array();
     public static $site_data;
@@ -46,7 +45,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * @return MP
      * @throws WC_WooMercadoPago_Exception
      */
-    public static function getMpInstance($payment)
+    public static function getMpInstance($payment = null)
     {
         $credentials = new WC_WooMercadoPago_Credentials($payment);
         $validateCredentials = $credentials->validateCredentials();
@@ -75,7 +74,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * @return MP|null
      * @throws WC_WooMercadoPago_Exception
      */
-    public static function getMpInstanceSingleton($payment)
+    public static function getMpInstanceSingleton($payment = null)
     {
         if (self::$mpInstance === null) {
             self::$mpInstance = self::getMpInstance($payment);
@@ -260,7 +259,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         $access_token = get_option('_mp_access_token', '');
         $site_id = get_option('_site_id_v1', '');
-        error_log('Site ID ' . $site_id);
+
         $varify_sponsor = true;
 
         if (empty($access_token)) {
@@ -280,7 +279,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         }
 
         if ($varify_sponsor) {
-            $mp_sponsor_id = new MP(WC_WooMercadoPago_Module::VERSION, $access_token);
+            $mp_sponsor_id = WC_WooMercadoPago_Module::getMpInstanceSingleton();
             $get_sponor_id = $mp_sponsor_id->get('/users/' . $sponsor_id, $access_token, false);
             if (!is_wp_error($get_sponor_id) && ($get_sponor_id['status'] == 200 || $get_sponor_id['status'] == 201)) {
                 if ($get_sponor_id['response']['site_id'] == $site_id) {
