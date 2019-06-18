@@ -45,7 +45,6 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
         }
 
         $this->init();
-
     }
 
     // Write log.
@@ -53,7 +52,7 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
     {
         $_mp_debug_mode = get_option('_mp_debug_mode', '');
         if (!empty ($_mp_debug_mode)) {
-            $this->log->add($this->id,'[' . $function . ']: ' . $message);
+            $this->log->add($this->id, '[' . $function . ']: ' . $message);
         }
     }
 
@@ -72,7 +71,7 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
         $this->free_shipping = $this->get_option('free_shipping');
         $this->show_delivery_time = $this->get_option('show_delivery_time');
         // Actions.
-        add_action('woocommerce_update_options_shipping_' . $this->id,array($this, 'process_admin_options'));
+        add_action('woocommerce_update_options_shipping_' . $this->id, array($this, 'process_admin_options'));
     }
 
     // Multi-language plugin.
@@ -86,28 +85,15 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
     }
 
     /**
-     * Calculate shipping function.
+     * @param array $package
+     * @throws WC_WooMercadoPago_Exception
      */
     public function calculate_shipping($package = array())
     {
         // Check if Basic Checkout is enabled.
-        $checkout_standard = new WC_WooMercadoPago_BasicGateway();
-        if ($checkout_standard->get_option('enabled') != 'yes') {
+        $basic = new WC_WooMercadoPago_BasicGateway();
+        if ($basic->get_option('enabled') != 'yes') {
             $this->write_log(__FUNCTION__, 'mercado pago standard needs to be active... ');
-            return;
-        }
-
-        // Some used variables and its validations.
-        $public_key = get_option('_mp_public_key', '');
-        $access_token = get_option('_mp_access_token', '');
-        $site_id = get_option('_site_id_v1', '');
-        if (empty($public_key) || empty($access_token)) {
-            return;
-        }
-        if (strpos($public_key, 'APP_USR') === false && strpos($public_key, 'TEST') === false) {
-            return;
-        }
-        if (strpos($access_token, 'APP_USR') === false && strpos($access_token, 'TEST') === false) {
             return;
         }
 
@@ -115,8 +101,6 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
         $me_package = new WC_MercadoEnvios_Package($package);
         $dimensions = $me_package->get_data();
         $zip_code = $package['destination']['postcode'];
-
-        // An empty zipcode indicates that customer haven't set it yet
         if (empty($zip_code)) {
             return;
         }
@@ -127,16 +111,9 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
             return;
         }
 
+        $site_id = get_option('_site_id_v1', '');
         $shipping_method_id = $this->get_shipping_method_id($site_id);
-        $mp = new MP(
-            WC_WooMercadoPago_Module::get_module_version(),
-            $access_token
-        );
-        $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        $mp->set_email($email);
-        $locale = get_locale();
-        $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
-        $mp->set_locale($locale[1]);
+        $mp = $basic->mp;
 
         // Height x width x length (centimeters), weight (grams).
         $params = array(
@@ -337,38 +314,15 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
     }
 
     /**
-     * Update settings api.
+     * @param $status
+     * @throws WC_WooMercadoPago_Exception
      */
     public function update_settings_api($status)
     {
-
-        // Some used variables and its validations.
-        $public_key = get_option('_mp_public_key', '');
-        $access_token = get_option('_mp_access_token', '');
-        if (empty($public_key) || empty($access_token)) {
-            return;
-        }
-        if (strpos($public_key, 'APP_USR') === false && strpos($public_key, 'TEST') === false) {
-            return;
-        }
-        if (strpos($access_token, 'APP_USR') === false && strpos($access_token, 'TEST') === false) {
-            return;
-        }
-        $mp = new MP(
-            WC_WooMercadoPago_Module::get_module_version(),
-            $access_token
-        );
-        $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        $mp->set_email($email);
-        $locale = get_locale();
-        $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
-        $mp->set_locale($locale[1]);
-
-        // Get default data.
         $infra_data = WC_WooMercadoPago_Module::get_common_settings();
         $infra_data['mercado_envios'] = $status;
 
-        // Request.
+        $mp = WC_WooMercadoPago_Module::getMpInstanceSingleton();
         $response = $mp->analytics_save_settings($infra_data);
         $this->write_log(__FUNCTION__, 'analytics response: ' . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }

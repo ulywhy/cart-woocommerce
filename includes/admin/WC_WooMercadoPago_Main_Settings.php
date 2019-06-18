@@ -27,6 +27,8 @@ class WC_WooMercadoPago_Main_Settings
 
                     // Check for submits.
                     if (isset($_POST['submit'])) {
+                        update_option('_mp_client_id', isset($_POST['client_id']) ? $_POST['client_id'] : '', true);
+                        update_option('_mp_client_secret', isset($_POST['client_secret']) ? $_POST['client_secret'] : '', true);
                         update_option('_mp_public_key', isset($_POST['public_key']) ? $_POST['public_key'] : '', true);
                         update_option('_mp_access_token', isset($_POST['access_token']) ? $_POST['access_token'] : '', true);
                         update_option('_mp_success_url', isset($_POST['success_url']) ? $_POST['success_url'] : '', true);

@@ -7,6 +7,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_WooMercadoPago_Configs
 {
+
+    public function __construct()
+    {
+        $this->migrationVersion();
+    }
+
+    public function migrationVersion(){
+
+    }
+
     /**
      *  Country Configs
      */

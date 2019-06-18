@@ -6,8 +6,8 @@
 class WC_WooMercadoPago_Credentials
 {
 
-    const TYPE_ACCESS_CLIENT = 'client';
-    const TYPE_ACCESS_TOKEN = 'token';
+    CONST TYPE_ACCESS_CLIENT = 'client';
+    CONST TYPE_ACCESS_TOKEN = 'token';
 
     public $payment;
     public $publicKey;
@@ -20,7 +20,7 @@ class WC_WooMercadoPago_Credentials
      * WC_WooMercadoPago_Credentials constructor.
      * @param $payment
      */
-    public function __construct($payment)
+    public function __construct($payment = null)
     {
         $this->payment = $payment;
         $this->testUser = get_option('_test_user_v1', false);
@@ -83,8 +83,8 @@ class WC_WooMercadoPago_Credentials
      */
     public static function validate_credentials_v1()
     {
-        $public_key =
-            $access_token =
+        $public_key = get_option('_mp_public_key');
+        $access_token = get_option('_mp_access_token');
             // Pre-validate.
             $is_valid_credentials = true;
         if (empty($public_key) || empty($access_token)) {
@@ -98,15 +98,7 @@ class WC_WooMercadoPago_Credentials
         }
         if ($is_valid_credentials) {
             try {
-
-                $mp_v1 = new MP(WC_WooMercadoPago_Module::VERSION, $access_token);
-                $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-                $mp_v1->set_email($email);
-                $locale = get_locale();
-                $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
-                $mp_v1->set_locale($locale[1]);
-
-
+                $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
                 $access_token = $mp_v1->get_access_token();
                 $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
                 if (isset($get_request['response']['site_id']) && !empty($public_key)) {
