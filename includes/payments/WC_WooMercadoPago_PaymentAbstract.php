@@ -46,7 +46,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $checkout_credential_production;
     public $mp_public_key_test;
     public $mp_access_token_test;
-    public $mp_public_key_prod; 
+    public $mp_public_key_prod;
     public $mp_access_token_prod;
     public $notification;
 
@@ -108,6 +108,18 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getFormFields($label)
     {
+        //add css
+        wp_enqueue_style(
+            'woocommerce-mercadopago-basic-config-styles',
+            plugins_url('../assets/css/basic_config_mercadopago.css', plugin_dir_path(__FILE__))
+        );
+
+        //add js
+        wp_enqueue_script(
+            'woocommerce-mercadopago-basic-config-script',
+            plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
+        );
+
         $this->init_form_fields();
         $this->init_settings();
         $_site_id_v1 = get_option('_site_id_v1', '');
@@ -128,6 +140,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $valid_credentials = false;
         if (!$valid_credentials) { }
 
+        $form_fields['checkout_steps'] = $this->field_checkout_steps();
         $form_fields['checkout_credential_title'] = $this->field_checkout_credential_title();
         $form_fields['checkout_credential_subtitle'] = $this->field_checkout_credential_subtitle();
         $form_fields['checkout_credential_production'] = $this->field_checkout_credential_production();
@@ -145,6 +158,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $form_fields['gateway_discount'] = $this->field_gateway_discount();
         $form_fields['checkout_ready_title'] = $this->field_checkout_ready_title();
         $form_fields['checkout_ready_description'] = $this->field_checkout_ready_description();
+        $form_fields['checkout_ready_description_link'] = $this->field_checkout_ready_description_link();
 
         return $form_fields;
     }
@@ -162,6 +176,51 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             unset($formFields[$key]);
         }
         return array_merge_recursive($array, $formFields);
+    }
+
+    /**
+     * @return void
+     */
+    public function field_checkout_steps()
+    {
+        $checkout_steps = array(
+            'title' => sprintf(
+                '<div class="row">
+              <h4 class="title-checkout-body pb-20">' . __('Sigue estos pasos para activar Mercado Pago en tu tienda:') . '</h4>
+              
+              <div class="col-md-3 text-center">
+                <p class="number-checkout-body">1</p>
+                <p class="text-checkout-body text-center px-20">
+                  ' . __('Carga tus <b> credenciales </b> para poder testear la tienda y cobrar con tu cuenta de Mercado Pago según el país en el que estés registrado.') . '
+                </p>
+              </div>
+            
+              <div class="col-md-3 text-center">
+                <p class="number-checkout-body">2</p>
+                <p class="text-checkout-body text-center px-20">
+                  ' . __('Añade la información básica de tu negocio en la configuración del plugin.') . '
+                </p>
+              </div>
+
+              <div class="col-md-3 text-center">
+                <p class="number-checkout-body">3</p>
+                <p class="text-checkout-body text-center px-20">
+                  ' . __('Configura la <b> experiencia de pago final: </b> habilita Mercado Pago en tu tienda, elige los medios de pago disponibles para tus clientes y define el máximo de cuotas en el que podrán pagarte.') . '
+                </p>
+              </div>
+
+              <div class="col-md-3 text-center">
+                <p class="number-checkout-body">4</p>
+                <p class="text-checkout-body text-center px-20">
+                  ' . __('Realiza configuraciones avanzadas tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos.') . '
+                </p>
+              </div>
+            </div>'
+            ),
+            'type' => 'title',
+            'class' => 'mp_title_checkout'
+        );
+        return $checkout_steps;
     }
 
     /**
@@ -187,7 +246,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $field_checkout_credential_title = array(
             'title' => __('Ahora tus credenciales están activas', 'woocommerce-mercadopago'),
-            'type' => 'title'
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd'
         );
         return $field_checkout_credential_title;
     }
@@ -199,7 +259,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $field_checkout_credential_subtitle = array(
             'title' => __('Elegí cómo vas a operar', 'woocommerce-mercadopago'),
-            'type' => 'title'
+            'type' => 'title',
+            'class' => 'mp_text'
         );
         return $field_checkout_credential_subtitle;
     }
@@ -264,7 +325,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return $mp_public_key_prod;
     }
 
- /**
+    /**
      * @return array
      */
     public function field_checkout_credential_accesstoken_prod()
@@ -279,18 +340,18 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return $mp_public_key_prod;
     }
 
-      /**
+    /**
      * @return array
      */
     public function field_checkout_credential_description()
     {
         $checkout_credential_description = array(
             'title' => sprintf(
-                __('<b>Atención:</b> Crea una cuenta en Mercado Pago para obtener tus credenciales. %s en Mercado Pago para ir a Producción y cobrar en tu tienda.', 'woocommerce-mercadopago'),
-                '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Homologa tu cuenta', 'woocommerce-mercadopago') .
-                    '</a>'
+                __('<b>Atención:</b> Crea una cuenta en Mercado Pago para obtener tus credenciales. %s en <br> Mercado Pago para ir a Producción y cobrar en tu tienda.', 'woocommerce-mercadopago'),
+                '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Homologa tu cuenta', 'woocommerce-mercadopago') . '</a>'
             ),
-            'type' => 'title'
+            'type' => 'title',
+            'class' => 'mp_small_text'
         );
         return $checkout_credential_description;
     }
@@ -350,7 +411,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_options_explanation = array(
             'title' => __('Ajustes avanzados', 'woocommerce-mercadopago'),
-            'type' => 'title'
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd'
         );
         return $checkout_options_explanation;
     }
@@ -459,7 +521,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_options_title = array(
             'title' => __('¿Todo listo para el despegue de tus ventas?', 'woocommerce-mercadopago'),
-            'type' => 'title'
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd_mb'
         );
         return $checkout_options_title;
     }
@@ -470,8 +533,25 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_ready_description()
     {
         $checkout_options_subtitle = array(
-            'title' => __('Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online.', 'woocommerce-mercadopago'),
-            'type' => 'title'
+            'title' => __('Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text'
+        );
+        return $checkout_options_subtitle;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_checkout_ready_description_link()
+    {
+        $checkout_options_subtitle = array(
+            'title' => sprintf(
+                __('%s', 'woocommerce-mercadopago'),
+                '<a href="" target="_blank">' . __('Quiero testear mis ventas', 'woocommerce-mercadopago') . '</a>'
+            ),
+            'type' => 'title',
+            'class' => 'mp_tienda_link'
         );
         return $checkout_options_subtitle;
     }
