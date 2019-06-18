@@ -16,6 +16,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function __construct()
     {
         $this->id = 'woo-mercado-pago-ticket';
+        $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Ticket', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
         $this->title = get_option('title', __('Mercado Pago - Ticket', 'woocommerce-mercadopago'));

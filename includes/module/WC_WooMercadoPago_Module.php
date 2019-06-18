@@ -23,6 +23,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
         }
 
+        parent::__construct();
+
         $this->loadConfigs();
         $this->loadLog();
         $this->loadHooks();

@@ -44,7 +44,7 @@ class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
     {
         parent::update_mp_settings_script($order_id);
         $order = wc_get_order($order_id);
-        $transaction_details = (method_exists($order, 'get_meta')) ? $order->get_meta('_transaction_details_pse') : get_post_meta($order->id, '_transaction_details_pse', true);
+        $transaction_details = (method_exists($order, 'get_meta')) ? $order->get_meta('_transaction_details_pse') : get_post_meta($order->get_id(), '_transaction_details_pse', true);
         if (empty($transaction_details)) {
             return;
         }
