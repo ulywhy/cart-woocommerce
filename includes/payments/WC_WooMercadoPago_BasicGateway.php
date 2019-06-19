@@ -10,14 +10,19 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 {
-
+    CONST ID = 'woo-mercado-pago-basic';
     /**
      * WC_WooMercadoPago_BasicGateway constructor.
      * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
-        $this->id = 'woo-mercado-pago-basic';
+        $this->id = self::ID;
+
+        if(!$this->validateSection()){
+            return;
+        }
+
         $this->form_fields = array();
         $this->method = $this->get_option('method', 'redirect');
         $this->title = $this->get_option('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));
@@ -60,6 +65,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         foreach ($this->field_ex_payments() as $key => $value) {
             $form_fields[$key] = $value;
         }
+
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
             return $form_fields_abs;
@@ -315,7 +321,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $ex_payments = array();
         $ex_payments_sort = array();
 
+        $all_payments = get_option('_checkout_payments_methods', '');
         $get_payment_methods = get_option('_all_payment_methods_v0', '');
+
         if (!empty($get_payment_methods)) {
             $get_payment_methods = explode(',', $get_payment_methods);
         }
@@ -323,14 +331,33 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $count_payment = 0;
 
         foreach ($get_payment_methods as $payment_method) {
+            if ($all_payments[$count_payment]['type'] == 'credit_card' || $all_payments[$count_payment]['type'] == 'debit_card' || $all_payments[$count_payment]['type'] == 'prepaid_card') {
+                $element = array(
+                    'label' => $all_payments[$count_payment]['name'],
+                    'id' => 'woocommerce_mercadopago_' . $payment_method,
+                    'default' => 'yes',
+                    'type' => 'checkbox',
+                    'class' => 'online_payment_method',
+                    'custom_attributes' => array(
+                        'data-translate' => __('Selecciona pagos online', 'woocommerce-mercadopago') 
+                    ),
+                );
+            }
+            else{
+                $element = array(
+                    'label' => $all_payments[$count_payment]['name'],
+                    'id' => 'woocommerce_mercadopago_' . $payment_method,
+                    'default' => 'yes',
+                    'type' => 'checkbox',
+                    'class' => 'offline_payment_method',
+                    'custom_attributes' => array(
+                        'data-translate' => __('Selecciona pagos offline' , 'woocommerce-mercadopago')
+                    ),
+                );
+            }
+
             $count_payment++;
 
-            $element = array(
-                'label' => $payment_method,
-                'id' => 'woocommerce_mercadopago_' . $payment_method,
-                'default' => 'yes',
-                'type' => 'checkbox'
-            );
             if ($count_payment == 1) {
                 $element['title'] = __('Medios de pago', 'woocommerce-mercadopago');
                 $element['desc_tip'] = __('Selecciona los medios de pago disponibles en tu tienda.', 'woocommerce-services');
@@ -338,6 +365,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             if ($count_payment == count($get_payment_methods)) {
                 $element['description'] = __('Habilita los medios de pago disponibles para tus clientes.', 'woocommerce-mercadopago');
             }
+
             $ex_payments["ex_payments_" . $payment_method] = $element;
             $ex_payments_sort[] = "ex_payments_" . $payment_method;
         }

@@ -16,15 +16,19 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static $site_data;
     public static $instance = null;
     public static $mpInstance = null;
+    public static $payments_name = null;
 
+    /**
+     * WC_WooMercadoPago_Module constructor.
+     */
     public function __construct()
     {
         if (!class_exists('WC_Payment_Gateway')) {
             add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
         }
 
-        parent::__construct();
-
+        //update_option('_mp_public_key_prod', '', true);
+        //update_option('_mp_access_token_prod', '', true);
         $this->loadConfigs();
         $this->loadLog();
         $this->loadHooks();
@@ -105,8 +109,12 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         self::$categories = $configs->getCategories();
         self::$country_configs = $configs->getCountryConfigs();
         self::$site_data = self::get_site_data();
+        self::$payments_name = self::setPaymentGateway();
     }
 
+    /**
+     *  Load Hooks
+     */
     public function loadHooks()
     {
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Abstract.php';

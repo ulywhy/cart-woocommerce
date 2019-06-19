@@ -47,22 +47,33 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     {
         $this->payment->init_settings();
         $post_data = $this->payment->get_post_data();
+
+        $array = array('_mp_public_key_test', '_mp_access_token_test', '_mp_public_key_prod', '_mp_access_token_prod', 'checkout_credential_production');
         foreach ($this->payment->get_form_fields() as $key => $field) {
             if ('title' !== $this->payment->get_field_type($field)) {
+
                 $value = $this->payment->get_field_value($key, $field, $post_data);
-                if ($key == 'gateway_discount') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->payment->settings[$key] = 0;
-                    } else {
-                        if ($value < -99 || $value > 99 || empty ($value)) {
-                            $this->payment->settings[$key] = 0;
-                        } else {
-                            $this->payment->settings[$key] = $value;
-                        }
-                    }
-                } else {
-                    $this->payment->settings[$key] = $this->payment->get_field_value($key, $field, $post_data);
+//
+//
+//                    $payments = WC_WooMercadoPago_Module::$payments_name;
+//                    foreach ($payments as $payment){
+//                        $id = forward_static_call(array($payment, 'getId'));
+//                        $name = "woocommerce_".$id.'_settings';
+//                        $config = get_option($name);
+//                        $config[$key] = $value;
+//
+//                        update_option($name, apply_filters('woocommerce_settings_api_sanitized_fields_' . $id, $config));
+//                    }
+//                    update_option($key, $value, true);
+//                    continue;
+//                }
+                $array = $this->payment->getCommonConfigs();
+                if (in_array($key, $array)) {
+                    update_option($key, $value, true);
                 }
+                $value = $this->payment->get_field_value($key, $field, $post_data);
+                $this->payment->settings[$key] = $value;
+
             }
         }
         $_site_id_v1 = get_option('_site_id_v1', '');

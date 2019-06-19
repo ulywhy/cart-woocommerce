@@ -77,4 +77,84 @@ window.onload = function () {
     }
   }
 
+  //online payments
+  var onlineChecked = "";
+  var countOnlineChecked = 0;
+  var onlineInputs = document.querySelectorAll(".online_payment_method");
+  for (var ion = 0; ion < onlineInputs.length; ion++) {
+    var online_payment_translate = onlineInputs[ion].getAttribute("data-translate");
+    if (onlineInputs[ion].checked == true) {
+      countOnlineChecked += 1;
+    }
+  }
+
+  if (countOnlineChecked == onlineInputs.length) {
+    onlineChecked = "checked";
+  }
+
+  var checkbox_online = document.querySelector("#input_payments");
+  var checkbox_online_prepend = "<div class='all_checkbox'>\
+    <label for='checkmeon' id='input_payments'>\
+      <input type='checkbox' name='checkmeon' id='checkmeon' "+ onlineChecked + " onclick='completeOnlineCheckbox()'>\
+      "+online_payment_translate+"\
+    </label>\
+  </div>";
+  checkbox_online.insertAdjacentHTML('beforebegin', checkbox_online_prepend);
+
+  //offline payments configuration form
+  var offlineChecked = "";
+  var countOfflineChecked = 0;
+  var offlineInputs = document.querySelectorAll(".offline_payment_method");
+  for (var ioff = 0; ioff < offlineInputs.length; ioff++) {
+    var offline_payment_translate = offlineInputs[ioff].getAttribute("data-translate");
+    if (offlineInputs[ioff].checked == true) {
+      countOfflineChecked += 1;
+    }
+  }
+
+  if (countOfflineChecked == offlineInputs.length) {
+    offlineChecked = "checked";
+  }
+
+  for (ioff = 0; ioff < offlineInputs.length; ioff++) {
+    if (ioff == 0) {
+      var checkbox_offline_prepend = "<div class='all_checkbox'>\
+        <label for='checkmeoff' id='input_payments' style='margin-bottom: 37px !important;'>\
+          <input type='checkbox' name='checkmeoff' id='checkmeoff' "+ offlineChecked + " onclick='completeOfflineCheckbox()'>\
+          "+offline_payment_translate+"\
+        </label>\
+      </div>";
+      offlineInputs[ioff].parentElement.insertAdjacentHTML('beforebegin', checkbox_offline_prepend);
+      break;
+    }
+  }
+
+}
+
+//Online payments
+function completeOnlineCheckbox() {
+  var onlineCheck = document.getElementById("checkmeon").checked;
+  var onlineInputs = document.querySelectorAll(".online_payment_method");
+  for (var i = 0; i < onlineInputs.length; i++) {
+    if (onlineCheck == true) {
+      onlineInputs[i].checked = true;
+    }
+    else {
+      onlineInputs[i].checked = false;
+    }
+  }
+}
+
+//Offline payments
+function completeOfflineCheckbox() {
+  var offlineCheck = document.getElementById("checkmeoff").checked;
+  var offlineInputs = document.querySelectorAll(".offline_payment_method");
+  for (var i = 0; i < offlineInputs.length; i++) {
+      if (offlineCheck == true) {
+          offlineInputs[i].checked = true;
+      }
+      else {
+          offlineInputs[i].checked = false;
+      }
+  }
 }

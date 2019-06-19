@@ -49,15 +49,17 @@
 
 #input_payments{
   border: 1px solid #ccc;
-  padding: 10px;
-  width: 375px;
+  padding: 15px;
+  width: 365px;
+  margin-top: -8px !important;
+  margin-bottom: 8px !important;
 }
 
 #input_payments_mt{
   border: 1px solid #ccc;
-  padding: 10px;
-  width: 375px;
-  margin-top: -38px !important;
+  padding: 15px;
+  width: 365px;
+  margin-top: -39px !important;
 }
 
 .mp_text{
