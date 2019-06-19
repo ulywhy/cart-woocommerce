@@ -56,20 +56,20 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function __construct()
     {
-        $this->mp_public_key_test = get_option('_mp_public_key_test', '');
-        $this->mp_access_token_test = get_option('_mp_access_token_test', '');
+        $this->mp_public_key_test = $this->get_option('_mp_public_key_test', '');
+        $this->mp_access_token_test = $this->get_option('_mp_access_token_test', '');
         $this->mp_public_key_prod = $this->get_option('_mp_public_key_prod', '');
         $this->mp_access_token_prod = $this->get_option('_mp_access_token_prod', '');
-        $this->checkout_credential_token_production = get_option('checkout_credential_production', 'no');
+        $this->checkout_credential_production = $this->get_option('checkout_credential_production', 'no');
         $this->description = $this->get_option('description');
-        $this->mp_category_id = get_option('_mp_category_id', 0);
-        $this->store_identificator = get_option('_mp_store_identificator', 'WC-');
-        $this->debug_mode = get_option('_mp_debug_mode', 'no');
-        $this->custom_domain = get_option('_mp_custom_domain', '');
+        $this->mp_category_id = $this->get_option('_mp_category_id', 0);
+        $this->store_identificator = $this->get_option('_mp_store_identificator', 'WC-');
+        $this->debug_mode = $this->get_option('_mp_debug_mode', 'no');
+        $this->custom_domain = $this->get_option('_mp_custom_domain', '');
         // TODO: fazer logica para _mp_category_name usado na preference
-        $this->binary_mode = get_option('binary_mode', 'no');
-        $this->gateway_discount = get_option('gateway_discount', 0);
-        $this->sandbox = get_option('_mp_sandbox_mode', false);
+        $this->binary_mode = $this->get_option('binary_mode', 'no');
+        $this->gateway_discount = $this->get_option('gateway_discount', 0);
+        $this->sandbox = $this->get_option('_mp_sandbox_mode', false);
         $this->supports = array('products', 'refunds');
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
@@ -151,6 +151,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $form_fields['checkout_credential_description'] = $this->field_checkout_credential_description();
         $form_fields['_mp_category_id'] = $this->field_category_store();
         $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
+        $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
+        $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
         $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
         $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
         $form_fields['_mp_custom_domain'] = $this->field_custom_url_ipn();
@@ -431,6 +433,59 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'desc_tip' => __('Depuramos la información de nuestro archivo de cambios.', 'woocommerce-services')
         );
         return $debug_mode;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_checkout_payments_subtitle()
+    {
+        $checkout_payments_subtitle = array(
+            'title' => __('Configuración Básica de la experiencia de pago.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_subtitle'
+        );
+        return $checkout_payments_subtitle;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_checkout_options_description()
+    {
+        $checkout_options_description = array(
+            'title' => __('Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y <br> define el máximo de cuotas en el que podrán pagarte.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text'
+        );
+        return $checkout_options_description;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_installments()
+    {
+        $installments = array(
+            'title' => __('Máximo de cuotas', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'description' => __('¿Cuál es el máximo de cuotas con las que un cliente puede comprar?', 'woocommerce-mercadopago'),
+            'default' => '24',
+            'options' => array(
+                '1' => __('1x installment', 'woocommerce-mercadopago'),
+                '2' => __('2x installmens', 'woocommerce-mercadopago'),
+                '3' => __('3x installmens', 'woocommerce-mercadopago'),
+                '4' => __('4x installmens', 'woocommerce-mercadopago'),
+                '5' => __('5x installmens', 'woocommerce-mercadopago'),
+                '6' => __('6x installmens', 'woocommerce-mercadopago'),
+                '10' => __('10x installmens', 'woocommerce-mercadopago'),
+                '12' => __('12x installmens', 'woocommerce-mercadopago'),
+                '15' => __('15x installmens', 'woocommerce-mercadopago'),
+                '18' => __('18x installmens', 'woocommerce-mercadopago'),
+                '24' => __('24x installmens', 'woocommerce-mercadopago')
+            )
+        );
+        return $installments;
     }
 
     /**
