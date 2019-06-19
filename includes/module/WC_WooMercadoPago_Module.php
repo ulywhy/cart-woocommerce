@@ -16,6 +16,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static $site_data;
     public static $instance = null;
     public static $mpInstance = null;
+    public static $payments_name = null;
 
     /**
      * WC_WooMercadoPago_Module constructor.
@@ -108,8 +109,12 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         self::$categories = $configs->getCategories();
         self::$country_configs = $configs->getCountryConfigs();
         self::$site_data = self::get_site_data();
+        self::$payments_name = self::setPaymentGateway();
     }
 
+    /**
+     *  Load Hooks
+     */
     public function loadHooks()
     {
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Abstract.php';

@@ -9,13 +9,19 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 {
-
+    CONST ID = 'woo-mercado-pago-ticket';
     /**
-     * Constructor.
+     * WC_WooMercadoPago_TicketGateway constructor.
+     * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
         $this->id = 'woo-mercado-pago-ticket';
+
+        if (!$this->validateSection()) {
+            return;
+        }
+
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Ticket', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
@@ -32,6 +38,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
     }
 
+
     /**
      * @param $label
      * @return array
@@ -42,7 +49,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         if (count($form_fields_abs) == 1) {
             return $form_fields_abs;
         }
-        $form_fields = $this->sortFormFields($form_fields_abs,  $this->field_forms_order);
+        $form_fields = $this->sortFormFields($form_fields_abs, $this->field_forms_order);
         return $form_fields;
     }
 
@@ -118,7 +125,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'path_to_javascript' => plugins_url('../assets/js/ticket.js', plugin_dir_path(__FILE__))
         );
 
-        wc_get_template('ticket/ticket-form.php',$parameters,'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
+        wc_get_template('ticket/ticket-form.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
     }
 
     /**
@@ -295,6 +302,4 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
         return true;
     }
-
-
 }

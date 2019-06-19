@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
 {
 
+    //ONLY get_option in this fields
+    CONST COMMON_CONFIGS = array('_mp_public_key_test', '_mp_access_token_test', '_mp_public_key_prod', '_mp_access_token_prod', 'checkout_credential_production');
+
     public $field_forms_order;
     public $id;
     public $method_title;
@@ -62,7 +65,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_public_key_prod = get_option('_mp_public_key_prod', '');
         $this->mp_access_token_prod = get_option('_mp_access_token_prod', '');
         $this->checkout_credential_token_production = get_option('checkout_credential_production', 'no');
-
         $this->description = $this->get_option('description');
         $this->mp_category_id = get_option('_mp_category_id', 0);
         $this->store_identificator = get_option('_mp_store_identificator', 'WC-');
@@ -77,6 +79,33 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
         $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton($this);
+    }
+
+    public function normalizeCommonAdminFields()
+    {
+        $changed = false;
+        foreach (self::COMMON_CONFIGS as $config){
+            $commonOption = get_option($config);
+            if(isset($this->settings[$config]) && $this->settings[$config] != $commonOption){
+                $changed = true;
+                $this->settings[$config] = $commonOption;
+            }
+        }
+
+        if($changed){
+            update_option($this->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings));
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function validateSection()
+    {
+        if (isset($_GET['section']) && !empty($_GET['section']) && ($this->id != $_GET['section'])) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -154,6 +183,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $form_fields['checkout_ready_title'] = $this->field_checkout_ready_title();
         $form_fields['checkout_ready_description'] = $this->field_checkout_ready_description();
         $form_fields['checkout_ready_description_link'] = $this->field_checkout_ready_description_link();
+
+        if(is_admin()){
+            $this->normalizeCommonAdminFields();
+        }
 
         return $form_fields;
     }
@@ -284,7 +317,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Public key de Prueba', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Haz las pruebas que quieras.', 'woocommerce-mercadopago'),
-            'default' => ''
+            'default' => get_option('_mp_public_key_test', '')
         );
 
         return $mp_public_key_test;
@@ -299,7 +332,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Credenciales de Prueba', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Haz las pruebas que quieras.', 'woocommerce-mercadopago'),
-            'default' => ''
+            'default' => get_option('_mp_access_token_test', '')
         );
 
         return $mp_access_token_test;
@@ -314,7 +347,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Public key de Producción', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Empieza a recibir pagos.', 'woocommerce-mercadopago'),
-            'default' => ''
+            'default' => get_option('_mp_public_key_prod', '')
         );
 
         return $mp_public_key_prod;
@@ -329,7 +362,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Credenciales de Producción', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Empieza a recibir pagos.', 'woocommerce-mercadopago'),
-            'default' => ''
+            'default' => get_option('_mp_access_token_prod', '')
         );
 
         return $mp_public_key_prod;
@@ -505,7 +538,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => sprintf(
                 __('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago'),
                 '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Mercado Pago Settings', 'woocommerce-mercadopago') .
-                    '</a>'
+                '</a>'
             ),
             'type' => 'title'
         );
@@ -638,5 +671,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             return admin_url('admin.php?page=wc-settings&tab=checkout&section=' . $this->id);
         }
         return admin_url('admin.php?page=woocommerce_settings&tab=payment_gateways&section=' . get_class($this));
+    }
+
+    /**
+     * @return array
+     */
+    public function getCommonConfigs(){
+        return self::COMMON_CONFIGS;
     }
 }

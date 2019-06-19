@@ -11,13 +11,20 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 {
+    CONST ID = 'woo-mercado-pago-custom';
 
     /**
-     * Constructor.
+     * WC_WooMercadoPago_CustomGateway constructor.
+     * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
-        $this->id = 'woo-mercado-pago-custom';
+        $this->id = self::ID;
+
+        if(!$this->validateSection()){
+            return;
+        }
+
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
@@ -40,13 +47,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
         $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
-        $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle($label);
+        $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
         $form_fields['checkout_custom_options_description'] = $this->field_checkout_custom_options_description();
         $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
         $form_fields['installments'] = $this->field_installments();
         $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
         $form_fields['checkout_custom_payments_advanced_description'] = $this->field_checkout_custom_payments_advanced_description();
-
 
         $form_fields['enabled'] = $this->field_enabled('Custom');
         $form_fields['coupon_mode'] = $this->field_coupon_mode();
@@ -533,4 +539,5 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
         return true;
     }
+
 }

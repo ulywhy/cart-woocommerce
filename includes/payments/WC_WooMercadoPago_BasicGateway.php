@@ -10,14 +10,19 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 {
-
+    CONST ID = 'woo-mercado-pago-basic';
     /**
      * WC_WooMercadoPago_BasicGateway constructor.
      * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
-        $this->id = 'woo-mercado-pago-basic';
+        $this->id = self::ID;
+
+        if(!$this->validateSection()){
+            return;
+        }
+
         $this->form_fields = array();
         $this->method = $this->get_option('method', 'redirect');
         $this->title = $this->get_option('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));

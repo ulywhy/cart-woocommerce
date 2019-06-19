@@ -16,7 +16,7 @@ class WC_WooMercadoPago_Configs
     }
 
     /**
-     *
+     * Update Token in New Version
      */
     private function updateTokenNewVersion()
     {
@@ -163,7 +163,7 @@ class WC_WooMercadoPago_Configs
      * @param $methods
      * @return array
      */
-    public function setPaymentGateway($methods)
+    public function setPaymentGateway($methods = null)
     {
         $methods[] = 'WC_WooMercadoPago_BasicGateway';
         $methods[] = 'WC_WooMercadoPago_CustomGateway';
