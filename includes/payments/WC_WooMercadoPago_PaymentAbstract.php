@@ -57,20 +57,21 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function __construct()
     {
-        $this->mp_public_key_test = $this->get_option('_mp_public_key_test', '');
-        $this->mp_access_token_test = $this->get_option('_mp_access_token_test', '');
-        $this->mp_public_key_prod = $this->get_option('_mp_public_key_prod', '');
-        $this->mp_access_token_prod = $this->get_option('_mp_access_token_prod', '');
-        $this->checkout_credential_production = $this->get_option('checkout_credential_production', 'no');
+        $this->mp_public_key_test = get_option('_mp_public_key_test', '');
+        $this->mp_access_token_test = get_option('_mp_access_token_test', '');
+        $this->mp_public_key_prod = get_option('_mp_public_key_prod', '');
+        $this->mp_access_token_prod = get_option('_mp_access_token_prod', '');
+        $this->checkout_credential_token_production = get_option('checkout_credential_production', 'no');
+
         $this->description = $this->get_option('description');
-        $this->mp_category_id = $this->get_option('_mp_category_id', 0);
-        $this->store_identificator = $this->get_option('_mp_store_identificator', 'WC-');
-        $this->debug_mode = $this->get_option('_mp_debug_mode', 'no');
-        $this->custom_domain = $this->get_option('_mp_custom_domain', '');
+        $this->mp_category_id = get_option('_mp_category_id', 0);
+        $this->store_identificator = get_option('_mp_store_identificator', 'WC-');
+        $this->debug_mode = get_option('_mp_debug_mode', 'no');
+        $this->custom_domain = get_option('_mp_custom_domain', '');
         // TODO: fazer logica para _mp_category_name usado na preference
-        $this->binary_mode = $this->get_option('binary_mode', 'no');
-        $this->gateway_discount = $this->get_option('gateway_discount', 0);
-        $this->sandbox = $this->get_option('_mp_sandbox_mode', false);
+        $this->binary_mode = get_option('binary_mode', 'no');
+        $this->gateway_discount = get_option('gateway_discount', 0);
+        $this->sandbox = get_option('_mp_sandbox_mode', false);
         $this->supports = array('products', 'refunds');
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
@@ -123,13 +124,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
 
         $this->init_form_fields();
         $this->init_settings();
-        $_site_id_v1 = get_option('_site_id_v1', '');
         $form_fields = array();
-        if (empty($_site_id_v1)) {
-            $form_fields['no_credentials_title'] = $this->field_no_credentials();
-            return $form_fields;
-        }
-
         $form_fields['enabled'] = $this->field_enabled($label);
         if (empty($this->settings['enabled']) || 'no' == $this->settings['enabled']) {
             $form_fields_enable = array();
@@ -608,17 +603,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         );
         return $checkout_options_subtitle;
     }
-
-    /**
-     * Mensage credentials not configured.
-     *
-     * @return string Error Mensage.
-     */
-    public function credential_missing_message()
-    {
-        echo '<div class="error"><p><strong> Mercado Pago: </strong>' . sprintf(__('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago'), '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Mercado Pago Settings', 'woocommerce-mercadopago') . '</a>') . '</p></div>';
-    }
-
 
     /**
      * @return bool

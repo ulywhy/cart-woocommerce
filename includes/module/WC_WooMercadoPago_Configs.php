@@ -7,14 +7,51 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_WooMercadoPago_Configs
 {
-
+    /**
+     * WC_WooMercadoPago_Configs constructor.
+     */
     public function __construct()
     {
-        $this->migrationVersion();
+        $this->updateTokenNewVersion();
     }
 
-    public function migrationVersion(){
+    /**
+     *
+     */
+    private function updateTokenNewVersion()
+    {
+        if(empty(get_option('_mp_public_key_prod', '')) || empty(get_option('_mp_access_token_prod', '')))
+        {
+            if(!empty(get_option('_mp_public_key')) && !empty(get_option('_mp_access_token')))
+            {
+                $this->updateToken();
+            }
+        }
 
+        if(empty(get_option('_mp_public_key_prod')) && empty(get_option('_mp_access_token_prod')))
+        {
+            if(!empty(get_option('_mp_client_id')) && !empty(get_option('_mp_client_secret')))
+            {
+                add_action('admin_notices', array($this, 'noticeUpdateAccessToken'));
+            }
+        }
+    }
+
+    /**
+     *  Notice
+     */
+    public function noticeUpdateAccessToken()
+    {
+        echo '<div class="error"><p><strong> PLEASE UPDATE PUBLIC KEY AND ACCESS TOKEN </strong></p></div>'; //TODO ALTERAR MENSAGEM
+    }
+
+    /**
+     * UpdateToken
+     */
+    private function updateToken()
+    {
+        update_option('_mp_public_key_prod', get_option('_mp_public_key'), true);
+        update_option('_mp_access_token_prod', get_option('_mp_access_token'), true);
     }
 
     /**

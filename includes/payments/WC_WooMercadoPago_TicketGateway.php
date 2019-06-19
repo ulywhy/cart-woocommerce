@@ -29,7 +29,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->field_forms_order = array();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Ticket');
-        $this->admin_notices();
         $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
     }
 
@@ -45,21 +44,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         }
         $form_fields = $this->sortFormFields($form_fields_abs,  $this->field_forms_order);
         return $form_fields;
-    }
-
-    /**
-     * Admin Notices
-     */
-    public function admin_notices()
-    {
-        if (is_admin()) {
-            // Show message if credentials are not properly configured.
-            $_site_id_v1 = get_option('_site_id_v1', '');
-            if (empty($_site_id_v1)) {
-                add_action('admin_notices', array($this, 'credential_missing_message'));
-                $this->form_fields = array();
-            }
-        }
     }
 
     /**

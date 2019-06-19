@@ -17,14 +17,17 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static $instance = null;
     public static $mpInstance = null;
 
+    /**
+     * WC_WooMercadoPago_Module constructor.
+     */
     public function __construct()
     {
         if (!class_exists('WC_Payment_Gateway')) {
             add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
         }
 
-        parent::__construct();
-
+        //update_option('_mp_public_key_prod', '', true);
+        //update_option('_mp_access_token_prod', '', true);
         $this->loadConfigs();
         $this->loadLog();
         $this->loadHooks();

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
@@ -27,38 +27,7 @@ class WC_WooMercadoPago_Main_Settings
 
                     // Check for submits.
                     if (isset($_POST['submit'])) {
-                        update_option('_mp_client_id', isset($_POST['client_id']) ? $_POST['client_id'] : '', true);
-                        update_option('_mp_client_secret', isset($_POST['client_secret']) ? $_POST['client_secret'] : '', true);
-                        update_option('_mp_public_key', isset($_POST['public_key']) ? $_POST['public_key'] : '', true);
-                        update_option('_mp_access_token', isset($_POST['access_token']) ? $_POST['access_token'] : '', true);
-                        update_option('_mp_success_url', isset($_POST['success_url']) ? $_POST['success_url'] : '', true);
-                        update_option('_mp_fail_url', isset($_POST['fail_url']) ? $_POST['fail_url'] : '', true);
-                        update_option('_mp_pending_url', isset($_POST['pending_url']) ? $_POST['pending_url'] : '', true);
-                        WC_WooMercadoPago_Module::is_valid_sponsor_id(isset($_POST['sponsor_id']) ? $_POST['sponsor_id'] : '');
-                        update_option('_mp_order_status_pending_map', isset($_POST['order_status_pending_map']) ? $_POST['order_status_pending_map'] : '', true);
-                        update_option('_mp_order_status_approved_map', isset($_POST['order_status_approved_map']) ? $_POST['order_status_approved_map'] : '', true);
-                        update_option('_mp_order_status_inprocess_map', isset($_POST['order_status_inprocess_map']) ? $_POST['order_status_inprocess_map'] : '', true);
-                        update_option('_mp_order_status_inmediation_map', isset($_POST['order_status_inmediation_map']) ? $_POST['order_status_inmediation_map'] : '', true);
-                        update_option('_mp_order_status_rejected_map', isset($_POST['order_status_rejected_map']) ? $_POST['order_status_rejected_map'] : '', true);
-                        update_option('_mp_order_status_cancelled_map', isset($_POST['order_status_cancelled_map']) ? $_POST['order_status_cancelled_map'] : '', true);
-                        update_option('_mp_order_status_refunded_map', isset($_POST['order_status_refunded_map']) ? $_POST['order_status_refunded_map'] : '', true);
-                        update_option('_mp_order_status_chargedback_map', isset($_POST['order_status_chargedback_map']) ? $_POST['order_status_chargedback_map'] : '', true);
-                        update_option('_mp_statement_descriptor', isset($_POST['statement_descriptor']) ? $_POST['statement_descriptor'] : '', true);
-                        if (isset($_POST['category_id'])) {
-                            update_option('_mp_category_id', $_POST['category_id'], true);
-                            $categories_data = WC_WooMercadoPago_Module::$categories;
-                            update_option('_mp_category_name', $categories_data['store_categories_id'][$_POST['category_id']], true);
-                        } else {
-                            update_option('_mp_category_id', '', true);
-                            update_option('_mp_category_name', 'others', true);
-                        }
-                        update_option('_mp_store_identificator', isset($_POST['store_identificator']) ? $_POST['store_identificator'] : '', true);
-                        update_option('_mp_custom_banner', isset($_POST['custom_banner']) ? $_POST['custom_banner'] : '', true);
-                        update_option('_mp_custom_domain', isset($_POST['custom_domain']) ? $_POST['custom_domain'] : '', true);
-                        update_option('_mp_currency_conversion_v0', isset($_POST['currency_conversion_v0']) ? $_POST['currency_conversion_v0'] : '', true);
-                        update_option('_mp_currency_conversion_v1', isset($_POST['currency_conversion_v1']) ? $_POST['currency_conversion_v1'] : '', true);
-                        update_option('_mp_debug_mode', isset($_POST['debug_mode']) ? $_POST['debug_mode'] : '', true);
-                        update_option('_mp_sandbox_mode', isset($_POST['sandbox_mode']) ? $_POST['sandbox_mode'] : '', true);
+                        $this->saveSettings();
                     }
 
                     // Mercado Pago logo.
@@ -77,7 +46,7 @@ class WC_WooMercadoPago_Main_Settings
 
                     if (version_compare(PHP_VERSION, WC_WooMercadoPago_Module::MIN_PHP, '<=')) {
                         $min_php_message = '<img width="14" height="14" src="' . plugins_url('../../assets/images/warning.png', __FILE__) . '"> ' .
-                            sprintf(__('Your PHP version do not support this module. You have %s, minimal required is %s.', 'woocommerce-mercadopago'),phpversion(), WC_WooMercadoPago_Module::MIN_PHP);
+                            sprintf(__('Your PHP version do not support this module. You have %s, minimal required is %s.', 'woocommerce-mercadopago'), phpversion(), WC_WooMercadoPago_Module::MIN_PHP);
                     }
 
                     // Check cURL.
@@ -113,7 +82,7 @@ class WC_WooMercadoPago_Main_Settings
                         '<a class="button button-primary" href="' . esc_url(admin_url(
                             'admin.php?page=wc-settings&tab=checkout&section=woo-mercado-pago-ticket')) .
                         '">' . __('Ticket', 'woocommerce-mercadopago') . '</a>';
-                    
+
                     if (get_option('_site_id_v1', '') == 'MCO') {
                         $gateway_buttons .= ' <a class="button button-primary" href="' . esc_url(admin_url(
                                 'admin.php?page=wc-settings&tab=checkout&section=woo-mercado-pago-pse')) .
@@ -238,6 +207,44 @@ class WC_WooMercadoPago_Main_Settings
         });
     }
 
+    /**
+     * Save Settings
+     */
+    public function saveSettings()
+    {
+        update_option('_mp_client_id', isset($_POST['client_id']) ? $_POST['client_id'] : '', true);
+        update_option('_mp_client_secret', isset($_POST['client_secret']) ? $_POST['client_secret'] : '', true);
+        update_option('_mp_public_key', isset($_POST['public_key']) ? $_POST['public_key'] : '', true);
+        update_option('_mp_access_token', isset($_POST['access_token']) ? $_POST['access_token'] : '', true);
+        update_option('_mp_success_url', isset($_POST['success_url']) ? $_POST['success_url'] : '', true);
+        update_option('_mp_fail_url', isset($_POST['fail_url']) ? $_POST['fail_url'] : '', true);
+        update_option('_mp_pending_url', isset($_POST['pending_url']) ? $_POST['pending_url'] : '', true);
+        WC_WooMercadoPago_Module::is_valid_sponsor_id(isset($_POST['sponsor_id']) ? $_POST['sponsor_id'] : '');
+        update_option('_mp_order_status_pending_map', isset($_POST['order_status_pending_map']) ? $_POST['order_status_pending_map'] : '', true);
+        update_option('_mp_order_status_approved_map', isset($_POST['order_status_approved_map']) ? $_POST['order_status_approved_map'] : '', true);
+        update_option('_mp_order_status_inprocess_map', isset($_POST['order_status_inprocess_map']) ? $_POST['order_status_inprocess_map'] : '', true);
+        update_option('_mp_order_status_inmediation_map', isset($_POST['order_status_inmediation_map']) ? $_POST['order_status_inmediation_map'] : '', true);
+        update_option('_mp_order_status_rejected_map', isset($_POST['order_status_rejected_map']) ? $_POST['order_status_rejected_map'] : '', true);
+        update_option('_mp_order_status_cancelled_map', isset($_POST['order_status_cancelled_map']) ? $_POST['order_status_cancelled_map'] : '', true);
+        update_option('_mp_order_status_refunded_map', isset($_POST['order_status_refunded_map']) ? $_POST['order_status_refunded_map'] : '', true);
+        update_option('_mp_order_status_chargedback_map', isset($_POST['order_status_chargedback_map']) ? $_POST['order_status_chargedback_map'] : '', true);
+        update_option('_mp_statement_descriptor', isset($_POST['statement_descriptor']) ? $_POST['statement_descriptor'] : '', true);
+        if (isset($_POST['category_id'])) {
+            update_option('_mp_category_id', $_POST['category_id'], true);
+            $categories_data = WC_WooMercadoPago_Module::$categories;
+            update_option('_mp_category_name', $categories_data['store_categories_id'][$_POST['category_id']], true);
+        } else {
+            update_option('_mp_category_id', '', true);
+            update_option('_mp_category_name', 'others', true);
+        }
+        update_option('_mp_store_identificator', isset($_POST['store_identificator']) ? $_POST['store_identificator'] : '', true);
+        update_option('_mp_custom_banner', isset($_POST['custom_banner']) ? $_POST['custom_banner'] : '', true);
+        update_option('_mp_custom_domain', isset($_POST['custom_domain']) ? $_POST['custom_domain'] : '', true);
+        update_option('_mp_currency_conversion_v0', isset($_POST['currency_conversion_v0']) ? $_POST['currency_conversion_v0'] : '', true);
+        update_option('_mp_currency_conversion_v1', isset($_POST['currency_conversion_v1']) ? $_POST['currency_conversion_v1'] : '', true);
+        update_option('_mp_debug_mode', isset($_POST['debug_mode']) ? $_POST['debug_mode'] : '', true);
+        update_option('_mp_sandbox_mode', isset($_POST['sandbox_mode']) ? $_POST['sandbox_mode'] : '', true);
+    }
 }
 
 new WC_WooMercadoPago_Main_Settings();
