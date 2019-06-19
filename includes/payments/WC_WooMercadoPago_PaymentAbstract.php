@@ -49,6 +49,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $mp_public_key_prod;
     public $mp_access_token_prod;
     public $notification;
+    public $checkout_credential_token_production;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -137,9 +138,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         }
 
         $form_fields['description'] = $this->field_description();
-        $valid_credentials = false;
-        if (!$valid_credentials) { }
-
         $form_fields['checkout_steps'] = $this->field_checkout_steps();
         $form_fields['checkout_credential_title'] = $this->field_checkout_credential_title();
         $form_fields['checkout_credential_subtitle'] = $this->field_checkout_credential_subtitle();
@@ -181,7 +179,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
     /**
-     * @return void
+     * @return array
      */
     public function field_checkout_steps()
     {
@@ -377,7 +375,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_category_store()
     {
-        $category_store = WC_WooMercadoPago_Configs::getCategories();
+        $category_store = WC_WooMercadoPago_Module::$categories;
         $option_category = array();
         for ($i = 0; $i < count($category_store['store_categories_id']); $i++) {
             $option_category[$category_store['store_categories_id'][$i]] = __($category_store['store_categories_id'][$i], 'woocommerce-mercadopago');

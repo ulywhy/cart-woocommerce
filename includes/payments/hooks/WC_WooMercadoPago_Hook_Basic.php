@@ -124,22 +124,15 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
         $_site_id_v0 = get_option('_site_id_v0', '');
         $is_test_user = get_option('_test_user_v0', false);
         if (!empty($_site_id_v0)) {
-            // Create MP instance.
-            $mp = new MP(WC_WooMercadoPago_Module::get_module_version(), get_option( '_mp_client_id' ), get_option( '_mp_client_secret' ));
-            $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-            $mp->set_email($email);
-            $locale = get_locale();
-            $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
-            $mp->set_locale($locale[1]);
             // Analytics.
             if (!$is_test_user) {
                 $infra_data = WC_WooMercadoPago_Module::get_common_settings();
                 $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
                 $infra_data['two_cards'] = ($this->payment->two_cards_mode == 'active' ? 'true' : 'false');
-                $mp->analytics_save_settings($infra_data);
+                $this->mpInstance->analytics_save_settings($infra_data);
             }
             // Two cards mode.
-            $mp->set_two_cards_mode($this->payment->two_cards_mode);
+            $this->mpInstance->set_two_cards_mode($this->payment->two_cards_mode);
         }
         // Apply updates.
         return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
@@ -151,7 +144,7 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
      */
     public function add_mp_settings_script_basic()
     {
-        echo parent::add_mp_settings_script();
+        parent::add_mp_settings_script();
     }
 
     /**

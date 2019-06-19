@@ -11,14 +11,14 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 {
 
-    //"enabled", 'success_url', 'installments', 'description'
-
     /**
-     * Constructor.
+     * WC_WooMercadoPago_BasicGateway constructor.
+     * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
         $this->id = 'woo-mercado-pago-basic';
+        $this->form_fields = array();
         $this->method = $this->get_option('method', 'redirect');
         $this->title = $this->get_option('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));
         $this->auto_return = $this->get_option('auto_return', 'yes');
@@ -46,7 +46,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields = array();
         $form_fields['checkout_header'] = $this->field_checkout_header();
         $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
-        $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle($label);
+        $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
         $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
         $form_fields['installments'] = $this->field_installments();
         $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();

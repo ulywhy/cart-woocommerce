@@ -5,8 +5,6 @@
     <table class="form-table">
         <tr>
             <td>
-                <?php echo $v0_credentials_message; ?>
-                <br>
                 <?php echo $v1_credentials_message; ?>
                 <br>
                 <?php echo $has_woocommerce_message; ?>

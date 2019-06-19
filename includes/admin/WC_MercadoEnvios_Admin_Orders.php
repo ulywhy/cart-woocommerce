@@ -36,11 +36,10 @@ class WC_MercadoEnvios_Admin_Orders {
 		}
 	}
 
-	/**
-	 * Tracking code metabox content.
-	 *
-	 * @param WC_Post $post Post data.
-	 */
+    /**
+     * @param $post
+     * @throws WC_WooMercadoPago_Exception
+     */
 	public function metabox_content( $post ) {
 
 		$order = wc_get_order( $post->ID );
@@ -60,8 +59,7 @@ class WC_MercadoEnvios_Admin_Orders {
 				esc_attr( $tracking_number ) . '" style="width:100%; text-align:center;" />';
 			// Check exist shipment_id
 			if ( isset( $shipment_id ) && $shipment_id != '' ) {
-                $access_token = get_option( '_mp_access_token', '' );
-				$mp = new MP( WC_WooMercadoPago_Module::get_module_version(), $access_token );
+				$mp = WC_WooMercadoPago_Module::getMpInstanceSingleton();
 				$email = ( wp_get_current_user()->ID != 0 ) ? wp_get_current_user()->user_email : null;
 				$mp->set_email( $email );
 				echo '<br /><label for="mercadoenvios_tracking_number">' . esc_html__( 'Tag:', 'woocommerce-mercadopago' ) . '</label><br />';
