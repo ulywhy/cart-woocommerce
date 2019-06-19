@@ -10,23 +10,28 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 {
-
+    CONST ID = 'woo-mercado-pago-basic';
     /**
      * WC_WooMercadoPago_BasicGateway constructor.
      * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
-        $this->id = 'woo-mercado-pago-basic';
+        $this->id = self::ID;
+
+        if(!$this->validateSection()){
+            return;
+        }
+
         $this->form_fields = array();
         $this->method = $this->get_option('method', 'redirect');
         $this->title = $this->get_option('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));
-        $this->auto_return = get_option('auto_return', 'yes');
-        $this->success_url = get_option('success_url', '');
-        $this->failure_url = get_option('failure_url', '');
-        $this->pending_url = get_option('pending_url', '');
-        $this->installments = get_option('installments', '24');
-        $this->gateway_discount = get_option('gateway_discount', 0);
+        $this->auto_return = $this->get_option('auto_return', 'yes');
+        $this->success_url = $this->get_option('success_url', '');
+        $this->failure_url = $this->get_option('failure_url', '');
+        $this->pending_url = $this->get_option('pending_url', '');
+        $this->installments = $this->get_option('installments', '24');
+        $this->gateway_discount = $this->get_option('gateway_discount', 0);
         $this->field_forms_order = $this->get_fields_sequence();
         $this->ex_payments = $this->getExPayments();
         parent::__construct();
@@ -48,8 +53,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
         $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
         $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
-        $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
-        $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
         $form_fields['installments'] = $this->field_installments();
         $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();
         $form_fields['method'] = $this->field_method();
@@ -193,20 +196,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     /**
      * @return array
      */
-    public function field_checkout_options_description()
-    {
-        $checkout_options_subtitle = array(
-            'title' => __('Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y <br> define el máximo de cuotas en el que podrán pagarte.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_small_text'
-        );
-        return $checkout_options_subtitle;
-    }
-
-
-    /**
-     * @return array
-     */
     public function field_checkout_payments_title()
     {
         $checkout_payments_title = array(
@@ -215,46 +204,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'class' => 'mp_title_bd'
         );
         return $checkout_payments_title;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_payments_subtitle()
-    {
-        $checkout_payments_subtitle = array(
-            'title' => __('Configuración Básica de la experiencia de pago.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_subtitle'
-        );
-        return $checkout_payments_subtitle;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_installments()
-    {
-        $installments = array(
-            'title' => __('Máximo de cuotas', 'woocommerce-mercadopago'),
-            'type' => 'select',
-            'description' => __('¿Cuál es el máximo de cuotas con las que un cliente puede comprar?', 'woocommerce-mercadopago'),
-            'default' => '24',
-            'options' => array(
-                '1' => __('1x installment', 'woocommerce-mercadopago'),
-                '2' => __('2x installmens', 'woocommerce-mercadopago'),
-                '3' => __('3x installmens', 'woocommerce-mercadopago'),
-                '4' => __('4x installmens', 'woocommerce-mercadopago'),
-                '5' => __('5x installmens', 'woocommerce-mercadopago'),
-                '6' => __('6x installmens', 'woocommerce-mercadopago'),
-                '10' => __('10x installmens', 'woocommerce-mercadopago'),
-                '12' => __('12x installmens', 'woocommerce-mercadopago'),
-                '15' => __('15x installmens', 'woocommerce-mercadopago'),
-                '18' => __('18x installmens', 'woocommerce-mercadopago'),
-                '24' => __('24x installmens', 'woocommerce-mercadopago')
-            )
-        );
-        return $installments;
     }
 
     /**
