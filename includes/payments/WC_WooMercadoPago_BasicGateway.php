@@ -78,29 +78,42 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function get_fields_sequence()
     {
         return [
+            // Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel.
             'checkout_header',
             'checkout_steps',
+            // ¿En qué país vas a activar tu tienda?
+            'checkout_country_title',
+            'checkout_country_subtitle',
+            'checkout_country',
+            'checkout_btn_save',
+            // Carga tus credenciales
             'checkout_credential_title',
             'checkout_credential_subtitle',
             'checkout_credential_production',
+            'checkout_credential_link',
+            'checkout_credential_title_test',
             '_mp_public_key_test',
             '_mp_access_token_test',
+            'checkout_credential_title_prod',
             '_mp_public_key_prod',
             '_mp_access_token_prod',
-            'checkout_credential_description',
+            // Configura WooCommerce Mercado Pago
             'checkout_options_title',
             'checkout_options_subtitle',
             'description',
             '_mp_category_id',
             '_mp_store_identificator',
+            // Ajustes avanzados
             'checkout_advanced_settings',
             '_mp_debug_mode',
             '_mp_custom_domain',
+            // Configura la experiencia de pago en tu tienda
             'checkout_payments_title',
             'checkout_payments_subtitle',
             'checkout_payments_description',
             'enabled',
             'installments',
+            // Configuración Avanzada de la experiencia de pago
             'checkout_payments_advanced_title',
             'auto_return',
             'method',
@@ -109,6 +122,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'pending_url',
             'binary_mode',
             'gateway_discount',
+            // ¿Todo listo para el despegue de tus ventas?
             'checkout_ready_title',
             'checkout_ready_description',
             'checkout_ready_description_link'
@@ -139,7 +153,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         }
         return $ex_payments;
     }
-  
+
     /**
      * @return array
      */
@@ -147,11 +161,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_header = array(
             'title' => sprintf(
-            __('Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel. %s', 'woocommerce-mercadopago'), 
-            '<div class="row">
+                __('Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel. %s', 'woocommerce-mercadopago'),
+                '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
-                  '.__('Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige la experiencia de <br> pago final entre las opciones disponibles.').'
+                  ' . __('Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige la experiencia de <br> pago final entre las opciones disponibles.') . '
                 </p>
               </div>
             </div>'
@@ -195,7 +209,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_payments_title = array(
             'title' => __('Configura la experiencia de pago en tu tienda.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class'=> 'mp_title_bd'
+            'class' => 'mp_title_bd'
         );
         return $checkout_payments_title;
     }
@@ -328,7 +342,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $ex_payments_sort[] = "ex_payments_" . $payment_method;
         }
 
-        array_splice($this->field_forms_order, 13, 0, $ex_payments_sort);
+        array_splice($this->field_forms_order, 29, 0, $ex_payments_sort);
 
         return $ex_payments;
     }
