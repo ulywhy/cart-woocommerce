@@ -118,6 +118,7 @@ class WC_WooMercadoPago_Credentials
 
                         $cho[] = array(
                             "id" => $payment['id'],
+                            "name"=> $payment['name'],
                             "type" => $payment['payment_type_id'],
                             "image" => $payment['secure_thumbnail'],
                             "config" => "ex_payments_" . $payment['id'],
