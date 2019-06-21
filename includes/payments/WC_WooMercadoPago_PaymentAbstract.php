@@ -230,28 +230,28 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 '<div class="row">
               <h4 class="title-checkout-body pb-20">' . __('Sigue estos pasos para activar Mercado Pago en tu tienda:', 'woocommerce-mercadopago') . '</h4>
               
-              <div class="col-md-3 text-center">
+              <div class="col-md-3 text-center pb-10">
                 <p class="number-checkout-body">1</p>
                 <p class="text-checkout-body text-center px-20">
                   ' . __('Carga tus <b> credenciales </b> para poder testear la tienda y cobrar con tu cuenta de Mercado Pago según el país en el que estés registrado.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             
-              <div class="col-md-3 text-center">
+              <div class="col-md-3 text-center pb-10">
                 <p class="number-checkout-body">2</p>
                 <p class="text-checkout-body text-center px-20">
                   ' . __('Añade la información básica de tu negocio en la configuración del plugin.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-3 text-center">
+              <div class="col-md-3 text-center pb-10">
                 <p class="number-checkout-body">3</p>
                 <p class="text-checkout-body text-center px-20">
                   ' . __('Configura la <b> experiencia de pago final: </b> habilita Mercado Pago en tu tienda, elige los medios de pago disponibles para tus clientes y define el máximo de cuotas en el que podrán pagarte.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-3 text-center">
+              <div class="col-md-3 text-center pb-10">
                 <p class="number-checkout-body">4</p>
                 <p class="text-checkout-body text-center px-20">
                   ' . __('Realiza configuraciones avanzadas tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos.', 'woocommerce-mercadopago') . '
