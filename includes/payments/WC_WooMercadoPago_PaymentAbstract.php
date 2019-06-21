@@ -395,13 +395,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_link = array(
             'title' => sprintf(
                 '%s',
-                '<div class="row">
-                <div class="col-md-3">' . __('Cargar credenciales.', 'woocommerce-mercadopago') . '</div>
-                <div class="col-md-3"><a href="https://www.mercadopago.com/' . $country . '/account/credentials?type=basic" target="_blank">' . __('Buscar mis credenciales', 'woocommerce-mercadopago') . '</a></div>
-                <div class="col-md-12">' . __('Copy que explique su uso', 'woocommerce-mercadopago') . '</div></div>'
+                '<table class="form-table" id="mp_table_7">
+                    <tbody>
+                        <tr valign="top">
+                            <th scope="row" id="mp_field_text">
+                                <label>' . __('Cargar credenciales', 'woocommerce-mercadopago') . '</label>
+                            </th>
+                            <td class="forminp">
+                                <fieldset>
+                                    <a class="mp_general_links" href="https://www.mercadopago.com/' . $country . '/account/credentials?type=basic" target="_blank">' . __('Buscar mis credenciales', 'woocommerce-mercadopago') . '</a>
+                                    <p class="description fw-400 mb-0">' . __('Copy que explique su uso', 'woocommerce-mercadopago') . '</p>
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>'
             ),
             'type' => 'title',
-            'class' => 'mp_tienda_link'
         );
         return $checkout_credential_link;
     }
@@ -414,7 +424,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_title_test = array(
             'title' => __('Credenciales de prueba', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_subtitle'
         );
         return $checkout_credential_title_test;
     }
@@ -459,7 +468,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_title_prod = array(
             'title' => __('Credenciales para producción', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_subtitle'
         );
         return $checkout_credential_title_prod;
     }
