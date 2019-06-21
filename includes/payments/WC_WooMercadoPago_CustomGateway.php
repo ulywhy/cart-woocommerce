@@ -48,7 +48,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'woocommerce-mercadopago-custom-config-script',
             plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__))
         );
-        
+
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
         $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
@@ -461,7 +461,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     /**
      * @param $order
      * @param $custom_checkout
-     * @return string
+     * @return string|array
      */
     protected function create_preference($order, $custom_checkout)
     {
