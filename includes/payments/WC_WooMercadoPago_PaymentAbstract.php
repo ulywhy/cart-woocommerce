@@ -61,28 +61,45 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function __construct()
     {
-
-        $this->checkout_country = get_option('checkout_country', '');
-        $this->mp_public_key_test = get_option('_mp_public_key_test', '');
-        $this->mp_access_token_test = get_option('_mp_access_token_test', '');
-        $this->mp_public_key_prod = get_option('_mp_public_key_prod', '');
-        $this->mp_access_token_prod = get_option('_mp_access_token_prod', '');
-        $this->checkout_credential_token_production = get_option('checkout_credential_production', 'no');
-        $this->description = '';
-        $this->_mp_statement_descriptor = get_option('_mp_statement_descriptor', 'Mercado Pago');
-        $this->mp_category_id = get_option('_mp_category_id', 0);
-        $this->store_identificator = get_option('_mp_store_identificator', 'WC-');
-        $this->debug_mode = get_option('_mp_debug_mode', 'no');
-        $this->custom_domain = get_option('_mp_custom_domain', '');
+        $this->mp_public_key_test = $this->getOption('_mp_public_key_test');
+        $this->mp_access_token_test = $this->getOption('_mp_access_token_test');
+        $this->mp_public_key_prod = $this->getOption('_mp_public_key_prod');
+        $this->mp_access_token_prod = $this->getOption('_mp_access_token_prod');
+        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', 'no');
+        $this->description = $this->get_option('description');
+        $this->mp_category_id = $this->getOption('_mp_category_id', 0);
+        $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
+        $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
+        $this->custom_domain = $this->getOption('_mp_custom_domain');
         // TODO: fazer logica para _mp_category_name usado na preference
-        $this->binary_mode = get_option('binary_mode', 'no');
-        $this->gateway_discount = get_option('gateway_discount', 0);
-        $this->sandbox = get_option('_mp_sandbox_mode', false);
+        $this->binary_mode = $this->getOption('binary_mode', 'no');
+        $this->gateway_discount = $this->getOption('gateway_discount', 0);
+        $this->sandbox = $this->getOption('_mp_sandbox_mode', false);
         $this->supports = array('products', 'refunds');
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
         $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton($this);
+    }
+
+    /**
+     * @param $key
+     * @param string $default
+     * @return mixed|string
+     */
+    public function getOption($key, $default = '')
+    {
+        $wordpressConfigs = array('_mp_access_token_prod', 'checkout_credential_production', '_mp_public_key_test', '_mp_access_token_test', '_mp_public_key_prod');
+        if (in_array($key, $wordpressConfigs)) {
+            return get_option($key, $default);
+        }
+
+        $option = $this->get_option($key, $default);
+        if (!empty($option)) {
+            return $option;
+        }
+
+        return get_option($key, $default);
     }
 
     public function normalizeCommonAdminFields()

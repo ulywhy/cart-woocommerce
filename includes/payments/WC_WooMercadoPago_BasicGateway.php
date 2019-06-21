@@ -41,7 +41,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->notification = new WC_WooMercadoPago_Notification_IPN($this);
     }
 
-
     /**
      * @param $label
      * @return array
