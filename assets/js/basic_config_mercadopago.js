@@ -2,15 +2,7 @@ window.onload = function () {
   //remove link breadcrumb and save button
   document.querySelector(".wc-admin-breadcrumb").style.display = 'none';
   document.querySelector("p.submit").style.display = 'none';
-
-  //remover mercadopago header
-  var remove_p_title = document.querySelectorAll("p");
-  for (var i = 0; i < document.querySelectorAll("p").length; i++) {
-    if (i == 16 || i == 17) {
-      remove_p_title[i].style.display = 'none';
-    }
-  }
-
+  
   //update form_fields label
   var label = document.querySelectorAll("th.titledesc");
   for (var i = 0; i < label.length; i++) {
