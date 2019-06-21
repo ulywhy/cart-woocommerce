@@ -19,7 +19,7 @@ window.onload = function () {
   }
 
   var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_advanced_settings");
-  var collapse_table = document.querySelector("#mp_table_13");
+  var collapse_table = document.querySelector("#mp_table_16");
   collapse_table.style.display = "none";
   collapse_title.style.cursor = "pointer";
 
@@ -44,7 +44,7 @@ window.onload = function () {
 
   //collpase Configuración Avanzada
   var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_title");
-  var collapse_table_2 = document.querySelector("#mp_table_17");
+  var collapse_table_2 = document.querySelector("#mp_table_20");
   collapse_table_2.style.display = "none";
   collapse_title_2.style.cursor = "pointer";
 
@@ -68,7 +68,7 @@ window.onload = function () {
   }
 
   //payment methods
-  var input_payments = document.querySelectorAll('#mp_table_16 td.forminp label');
+  var input_payments = document.querySelectorAll('#mp_table_19 td.forminp label');
   for (i = 0; i < input_payments.length; i++) {
     if (i == 0) {
       input_payments[i].id = "input_payments";
