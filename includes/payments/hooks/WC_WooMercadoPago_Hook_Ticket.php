@@ -43,7 +43,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function custom_process_admin_options()
     {
@@ -52,17 +52,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
         foreach ($this->payment->get_form_fields() as $key => $field) {
             if ('title' !== $this->payment->get_field_type($field)) {
                 $value = $this->payment->get_field_value($key, $field, $post_data);
-                if ($key == 'gateway_discount') {
-                    if (!is_numeric($value) || empty ($value)) {
-                        $this->payment->settings[$key] = 0;
-                    } else {
-                        if ($value < -99 || $value > 99 || empty ($value)) {
-                            $this->payment->settings[$key] = 0;
-                        } else {
-                            $this->payment->settings[$key] = $value;
-                        }
-                    }
-                } elseif ($key == 'date_expiration') {
+                if ($key == 'date_expiration') {
                     if (!is_numeric($value) || empty ($value)) {
                         $this->payment->settings[$key] = 3;
                     } else {

@@ -94,29 +94,15 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function custom_process_admin_options()
     {
-        $this->payment->init_settings();
-        $post_data = $this->payment->get_post_data();
+        $updateOptions = parent::custom_process_admin_options();
 
-        $array = array('_mp_public_key_test', '_mp_access_token_test', '_mp_public_key_prod', '_mp_access_token_prod', 'checkout_credential_production');
-        foreach ($this->payment->get_form_fields() as $key => $field) {
-            if ('title' !== $this->payment->get_field_type($field)) {
-
-                $value = $this->payment->get_field_value($key, $field, $post_data);
-
-                $array = $this->payment->getCommonConfigs();
-                if (in_array($key, $array)) {
-                    update_option($key, $value, true);
-                }
-                $this->payment->settings[$key] = $value;
-            }
-        }
-        $_site_id_v0 = get_option('_site_id_v0', '');
-        $is_test_user = get_option('_test_user_v0', false);
-        if (!empty($_site_id_v0)) {
+        $_site_id_v1 = get_option('_site_id_v1', '');
+        $is_test_user = get_option('_test_user_v1', false);
+        if (!empty($_site_id_v1)) {
             // Analytics.
             if (!$is_test_user) {
                 $infra_data = WC_WooMercadoPago_Module::get_common_settings();
@@ -124,11 +110,10 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
                 $infra_data['two_cards'] = ($this->payment->two_cards_mode == 'active' ? 'true' : 'false');
                 $this->mpInstance->analytics_save_settings($infra_data);
             }
-            // Two cards mode.
             $this->mpInstance->set_two_cards_mode($this->payment->two_cards_mode);
         }
-        // Apply updates.
-        return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
+
+        return $updateOptions;
     }
 
 

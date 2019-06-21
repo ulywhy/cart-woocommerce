@@ -11,7 +11,20 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
 {
 
     //ONLY get_option in this fields
-    const COMMON_CONFIGS = array('_mp_public_key_test', '_mp_access_token_test', '_mp_public_key_prod', '_mp_access_token_prod', 'checkout_credential_production');
+    const COMMON_CONFIGS = array(
+        '_mp_public_key_test',
+        '_mp_access_token_test',
+        '_mp_public_key_prod',
+        '_mp_access_token_prod',
+        'checkout_credential_production',
+        'checkout_country',
+        'mp_statement_descriptor',
+        '_mp_category_id',
+        '_mp_store_identificator',
+        '_mp_debug_mode',
+        '_mp_custom_domain',
+        'installments'
+    );
 
     public $field_forms_order;
     public $id;
@@ -108,7 +121,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $changed = false;
         foreach (self::COMMON_CONFIGS as $config) {
             $commonOption = get_option($config);
-            if (isset($this->settings[$config]) && $this->settings[$config] != $commonOption) {
+            if ($this->settings[$config] != $commonOption) {
                 $changed = true;
                 $this->settings[$config] = $commonOption;
             }
