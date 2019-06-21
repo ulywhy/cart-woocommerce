@@ -1,6 +1,7 @@
 window.onload = function () {
-  //remove link breadcrumb
-  var breadcrumb_link = document.querySelector(".wc-admin-breadcrumb").style.display = 'none';
+  //remove link breadcrumb and save button
+  document.querySelector(".wc-admin-breadcrumb").style.display = 'none';
+  document.querySelector("p.submit").style.display = 'none';
 
   //update form_fields label
   var label = document.querySelectorAll("th.titledesc");
@@ -18,8 +19,16 @@ window.onload = function () {
     table[i].id = "mp_table_" + i;
   }
 
+  //clone save button
+  var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_btn_save');
+  document.getElementById("mp_table_11").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_16").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_17").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_20").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
+  
   var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_advanced_settings");
-  var collapse_table = document.querySelector("#mp_table_16");
+  var collapse_table = document.querySelector("#mp_table_17");
   collapse_table.style.display = "none";
   collapse_title.style.cursor = "pointer";
 
@@ -44,7 +53,7 @@ window.onload = function () {
 
   //collpase Configuración Avanzada
   var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_title");
-  var collapse_table_2 = document.querySelector("#mp_table_20");
+  var collapse_table_2 = document.querySelector("#mp_table_21");
   collapse_table_2.style.display = "none";
   collapse_title_2.style.cursor = "pointer";
 
@@ -68,13 +77,9 @@ window.onload = function () {
   }
 
   //payment methods
-  var input_payments = document.querySelectorAll('#mp_table_19 td.forminp label');
+  var input_payments = document.querySelectorAll('#mp_table_20 td.forminp label');
   for (i = 0; i < input_payments.length; i++) {
-    if (i == 0) {
-      input_payments[i].id = "input_payments";
-    } else {
-      input_payments[i].id = "input_payments_mt";
-    }
+    input_payments[i].id = "input_payments_mt";
   }
 
   //online payments
@@ -92,14 +97,18 @@ window.onload = function () {
     onlineChecked = "checked";
   }
 
-  var checkbox_online = document.querySelector("#input_payments");
-  var checkbox_online_prepend = "<div class='all_checkbox'>\
-    <label for='checkmeon' id='input_payments'>\
-      <input type='checkbox' name='checkmeon' id='checkmeon' "+ onlineChecked + " onclick='completeOnlineCheckbox()'>\
-      "+online_payment_translate+"\
-    </label>\
-  </div>";
-  checkbox_online.insertAdjacentHTML('beforebegin', checkbox_online_prepend);
+  for (var ion = 0; ion < onlineInputs.length; ion++) {
+    if (ion == 0) {
+      var checkbox_online_prepend = "<div class='all_checkbox'>\
+        <label for='checkmeon' id='input_payments'>\
+          <input type='checkbox' name='checkmeon' id='checkmeon' "+ onlineChecked + " onclick='completeOnlineCheckbox()'>\
+          "+ online_payment_translate + "\
+        </label>\
+      </div>";
+      onlineInputs[ion].parentElement.insertAdjacentHTML('beforebegin', checkbox_online_prepend);
+      break;
+    }
+  }
 
   //offline payments configuration form
   var offlineChecked = "";
@@ -121,7 +130,7 @@ window.onload = function () {
       var checkbox_offline_prepend = "<div class='all_checkbox'>\
         <label for='checkmeoff' id='input_payments' style='margin-bottom: 37px !important;'>\
           <input type='checkbox' name='checkmeoff' id='checkmeoff' "+ offlineChecked + " onclick='completeOfflineCheckbox()'>\
-          "+offline_payment_translate+"\
+          "+ offline_payment_translate + "\
         </label>\
       </div>";
       offlineInputs[ioff].parentElement.insertAdjacentHTML('beforebegin', checkbox_offline_prepend);
@@ -150,11 +159,11 @@ function completeOfflineCheckbox() {
   var offlineCheck = document.getElementById("checkmeoff").checked;
   var offlineInputs = document.querySelectorAll(".offline_payment_method");
   for (var i = 0; i < offlineInputs.length; i++) {
-      if (offlineCheck == true) {
-          offlineInputs[i].checked = true;
-      }
-      else {
-          offlineInputs[i].checked = false;
-      }
+    if (offlineCheck == true) {
+      offlineInputs[i].checked = true;
+    }
+    else {
+      offlineInputs[i].checked = false;
+    }
   }
 }

@@ -33,7 +33,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->pending_url = $this->get_option('pending_url', '');
         $this->installments = $this->get_option('installments', '24');
         $this->gateway_discount = $this->get_option('gateway_discount', 0);
-        $this->commission = $this->get_option('commission', 0);
         $this->field_forms_order = $this->get_fields_sequence();
         $this->ex_payments = $this->getExPayments();
         parent::__construct();
@@ -42,7 +41,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->hook = new WC_WooMercadoPago_Hook_Basic($this);
         $this->notification = new WC_WooMercadoPago_Notification_IPN($this);
     }
-
 
     /**
      * @param $label
@@ -127,8 +125,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'installments',
             // Configuración Avanzada de la experiencia de pago
             'checkout_payments_advanced_title',
-            'method',
             'auto_return',
+            'method',
             'success_url',
             'failure_url',
             'pending_url',
@@ -251,8 +249,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'description' => __('Define qué experiencia de pago tendrán tus clientes, si dentro o fuera de tu tienda. Conoce las ventajas y desventajas de cada opción en  nuestra guiás', 'woocommerce-mercadopago'),
             'default' => 'redirect',
             'options' => array(
-                'redirect' => __('Redireccionar', 'woocommerce-mercadopago'),
-                'modal' => __('Ventana modal', 'woocommerce-mercadopago')
+                'redirect' => __('Redirect', 'woocommerce-mercadopago'),
+                'modal' => __('Modal Window', 'woocommerce-mercadopago')
             )
         );
         return $method;
@@ -268,10 +266,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $success_back_url_message = '<img width="14" height="14" src="' . plugins_url('assets/images/warning.png', plugin_dir_path(__FILE__)) . '"> ' .
                 __('This appears to be an invalid URL.', 'woocommerce-mercadopago') . ' ';
         } else {
-            $success_back_url_message = __('Elegí la URL que mostraremos a tus clientes cuando terminen su compra.', 'woocommerce-mercadopago');
+            $success_back_url_message = __('Where customers should be redirected after a successful purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago');
         }
         $success_url = array(
-            'title' => __('URL de éxito', 'woocommerce-mercadopago'),
+            'title' => __('Sucess URL', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => $success_back_url_message,
             'default' => ''
@@ -288,10 +286,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $fail_back_url_message = '<img width="14" height="14" src="' . plugins_url('assets/images/warning.png', plugin_dir_path(__FILE__)) . '"> ' .
                 __('This appears to be an invalid URL.', 'woocommerce-mercadopago') . ' ';
         } else {
-            $fail_back_url_message = __('Elegí la URL que mostraremos a tus clientes cuando rechacemos su compra. Asegurate de que incluya un mensaje adecuado a la situación y dales información útil para que puedan solucionarlo.', 'woocommerce-mercadopago');
+            $fail_back_url_message = __('Where customers should be redirected after a failed purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago');
         }
         $failure_url = array(
-            'title' => __('URL de pago rechazado', 'woocommerce-mercadopago'),
+            'title' => __('Failure URL', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => $fail_back_url_message,
             'default' => ''
@@ -309,10 +307,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $pending_back_url_message = '<img width="14" height="14" src="' . plugins_url('assets/images/warning.png', plugin_dir_path(__FILE__)) . '"> ' .
                 __('This appears to be an invalid URL.', 'woocommerce-mercadopago') . ' ';
         } else {
-            $pending_back_url_message = __('Elegí la URL que mostraremos a tus clientes cuando tengan un pago pendiente de aprobación.', 'woocommerce-mercadopago');
+            $pending_back_url_message = __('Where customers should be redirected after a pending purchase. Let blank to redirect to the default store order resume page.', 'woocommerce-mercadopago');
         }
         $pending_url = array(
-            'title' => __('URL de pago pendiente', 'woocommerce-mercadopago'),
+            'title' => __('Pending URL', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => $pending_back_url_message,
             'default' => ''
@@ -389,13 +387,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $auto_return = array(
             'title' => __('Volver a la tienda', 'woocommerce-mercadopago'),
-            'type' => 'select',
+            'type' => 'checkbox',
+            'label' => __('Si', 'woocommerce-mercadopago'),
             'default' => 'yes',
             'description' => __('¿Quieres que tu cliente vuelva a la tienda después de finalizar la compra?', 'woocommerce-mercadopago'),
-            'options' => array(
-                'no' => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Sí', 'woocommerce-mercadopago')
-            )
         );
         return $auto_return;
     }
