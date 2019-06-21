@@ -74,6 +74,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         // TODO: fazer logica para _mp_category_name usado na preference
         $this->binary_mode = $this->getOption('binary_mode', 'no');
         $this->gateway_discount = $this->getOption('gateway_discount', 0);
+        $this->commission = $this->getOption('commission', 0);
         $this->sandbox = $this->getOption('_mp_sandbox_mode', false);
         $this->supports = array('products', 'refunds');
         $this->icon = $this->getMpIcon();

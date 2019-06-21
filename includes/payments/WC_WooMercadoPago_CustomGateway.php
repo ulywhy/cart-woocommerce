@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 {
-    CONST ID = 'woo-mercado-pago-custom';
+    const ID = 'woo-mercado-pago-custom';
 
     /**
      * WC_WooMercadoPago_CustomGateway constructor.
@@ -21,7 +21,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $this->id = self::ID;
 
-        if(!$this->validateSection()){
+        if (!$this->validateSection()) {
             return;
         }
 
@@ -53,10 +53,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['installments'] = $this->field_installments();
         $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
         $form_fields['checkout_custom_payments_advanced_description'] = $this->field_checkout_custom_payments_advanced_description();
-
-        $form_fields['enabled'] = $this->field_enabled('Custom');
         $form_fields['coupon_mode'] = $this->field_coupon_mode();
-        $form_fields['title'] = $this->field_title();
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
             return $form_fields_abs;
@@ -75,33 +72,54 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function get_fields_sequence()
     {
         return [
+            // Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. 
             'checkout_custom_header',
             'checkout_steps',
+            // ¿En qué país vas a activar tu tienda?
+            'checkout_country_title',
+            'checkout_country_subtitle',
+            'checkout_country',
+            'checkout_btn_save',
+            // Carga tus credenciales
             'checkout_credential_title',
             'checkout_credential_subtitle',
             'checkout_credential_production',
+            'checkout_credential_link',
+            'checkout_credential_title_test',
             '_mp_public_key_test',
             '_mp_access_token_test',
+            'checkout_credential_title_prod',
             '_mp_public_key_prod',
             '_mp_access_token_prod',
+            // No olvides de homologar tu cuenta
+            'checkout_homolog_title',
+            'checkout_homolog_subtitle',
+            'checkout_homolog_link',
+            // Configura la experiencia de pago en tu tienda
             'checkout_custom_options_title',
             'checkout_custom_options_subtitle',
             'checkout_custom_options_description',
-            'description',
+            'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
+            // Ajustes avanzados
             'checkout_advanced_settings',
             '_mp_debug_mode',
             '_mp_custom_domain',
+            // Configura la experiencia de pago personalizada en tu tienda
             'checkout_custom_payments_title',
             'checkout_payments_subtitle',
             'checkout_payments_description',
             'enabled',
             'installments',
+            // Configuración avanzada de la experiencia de pago personalizada
             'checkout_custom_payments_advanced_title',
+            'checkout_custom_payments_advanced_description',
             'coupon_mode',
             'binary_mode',
             'gateway_discount',
+            'commission',
+            // ¿Todo listo para el despegue de tus ventas?
             'checkout_ready_title',
             'checkout_ready_description',
             'checkout_ready_description_link'
@@ -174,7 +192,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_custom_payments_title()
     {
         $checkout_custom_payments_title = array(
-            'title' => __('Configura la experiencia de pago en tu tienda.', 'woocommerce-mercadopago'),
+            'title' => __('Configura la experiencia de pago personalizada en tu tienda', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_title_bd'
         );
@@ -213,14 +231,16 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_coupon_mode()
     {
         return array(
-            'title' => __('Coupons', 'woocommerce-mercadopago'),
+            'title' => __('Cupones de descuento', 'woocommerce-mercadopago'),
             'type' => 'checkbox',
-            'label' => __('Enable coupons of discounts', 'woocommerce-mercadopago'),
             'default' => 'no',
-            'description' => __('If there is a Mercado Pago campaign, allow your store to give discounts to customers.', 'woocommerce-mercadopago')
+            'description' => __('¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?, allow your store to give discounts to customers.', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Sí', 'woocommerce-mercadopago')
+            )
         );
     }
-
 
     /**
      * @param $status_detail
@@ -539,5 +559,4 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
         return true;
     }
-
 }
