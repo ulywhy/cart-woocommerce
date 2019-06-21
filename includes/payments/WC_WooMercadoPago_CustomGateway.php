@@ -305,21 +305,21 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=' . get_class($this);
 
         $currency_ratio = 1;
-        $_mp_currency_conversion_v1 = get_option('_mp_currency_conversion_v1', '');
+        $_mp_currency_conversion_v1 = $this->getOption('_mp_currency_conversion_v1', '');
         if (!empty($_mp_currency_conversion_v1)) {
             $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($this->site_data['currency']);
             $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
         }
 
-        $banner_url = get_option('_mp_custom_banner');
+        $banner_url = $this->getOption('_mp_custom_banner');
         if (!isset($banner_url) || empty($banner_url)) {
             $banner_url = $this->site_data['checkout_banner_custom'];
         }
 
         $parameters = array(
             'amount' => $amount,
-            'site_id' => get_option('_site_id_v1'),
-            'public_key' => get_option('_mp_public_key'),
+            'site_id' => $this->getOption('_site_id_v1'),
+            'public_key' => $this->getPublicKey(),
             'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
@@ -380,6 +380,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 } else {
                     update_post_meta($order_id, '_save_card', 'yes');
                 }
+            }
+            if(!is_array($response)){
+                return array(
+                    'result' => 'fail',
+                    'redirect' => '',
+                );
             }
             // Switch on response.
             if (array_key_exists('status', $response)) {

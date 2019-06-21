@@ -55,7 +55,7 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
         $order = wc_get_order($order_id);
         $url = $this->payment->create_preference($order);
 
-        $banner_url = get_option('_mp_custom_banner');
+        $banner_url = $this->payment->getOption('_mp_custom_banner');
         if (!isset($banner_url) || empty($banner_url)) {
             $banner_url = $this->payment->site_data['checkout_banner'];
         }
@@ -99,12 +99,9 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
     public function custom_process_admin_options()
     {
         $updateOptions = parent::custom_process_admin_options();
-
-        $_site_id_v1 = get_option('_site_id_v1', '');
-        $is_test_user = get_option('_test_user_v1', false);
-        if (!empty($_site_id_v1)) {
+        if (!empty($this->siteId)) {
             // Analytics.
-            if (!$is_test_user) {
+            if (!$this->testUser) {
                 $infra_data = WC_WooMercadoPago_Module::get_common_settings();
                 $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
                 $infra_data['two_cards'] = ($this->payment->two_cards_mode == 'active' ? 'true' : 'false');

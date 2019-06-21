@@ -68,7 +68,7 @@ class WC_WooMercadoPago_Configs
      */
     public function noticeUpdateAccessToken()
     {
-        echo '<div class="error"><p><strong> PLEASE UPDATE PUBLIC KEY AND ACCESS TOKEN </strong></p></div>'; //TODO ALTERAR MENSAGEM
+        echo '<div class="error"><p style="font-size:20px"><strong>PLEASE UPDATE PUBLIC KEY AND ACCESS TOKEN</strong></p></div>'; //TODO ALTERAR MENSAGEM
     }
 
     /**

@@ -79,7 +79,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_public_key_prod = $this->getOption('_mp_public_key_prod');
         $this->mp_access_token_prod = $this->getOption('_mp_access_token_prod');
         $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', 'no');
-        $this->description = $this->get_option('description');
+        $this->description = $this->getOption('description');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
@@ -97,13 +97,35 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
     /**
+     * @return mixed|string
+     */
+    public function getAccessToken()
+    {
+        if($this->checkout_credential_token_production == 'no'){
+            return $this->mp_access_token_test;
+        }
+        return $this->mp_access_token_prod;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getPublicKey()
+    {
+        if($this->checkout_credential_token_production == 'no'){
+            return $this->mp_access_token_test;
+        }
+        return $this->mp_access_token_prod;
+    }
+
+    /**
      * @param $key
      * @param string $default
      * @return mixed|string
      */
     public function getOption($key, $default = '')
     {
-        $wordpressConfigs = array('_mp_access_token_prod', 'checkout_credential_production', '_mp_public_key_test', '_mp_access_token_test', '_mp_public_key_prod');
+        $wordpressConfigs = self::COMMON_CONFIGS;
         if (in_array($key, $wordpressConfigs)) {
             return get_option($key, $default);
         }
@@ -471,7 +493,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Public key', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Haz las pruebas que quieras.', 'woocommerce-mercadopago'),
-            'default' => get_option('_mp_public_key_test', ''),
+            'default' => $this->getOption('_mp_public_key_test', ''),
             'placeholder' => 'TEST-0000000000000000000000000000000'
         );
 
@@ -487,7 +509,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Access token', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Haz las pruebas que quieras.', 'woocommerce-mercadopago'),
-            'default' => get_option('_mp_access_token_test', ''),
+            'default' => $this->getOption('_mp_access_token_test', ''),
             'placeholder' => 'TEST-0000000000000000000000000000000'
         );
 
@@ -515,7 +537,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Public key', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Empieza a recibir pagos.', 'woocommerce-mercadopago'),
-            'default' => get_option('_mp_public_key_prod', ''),
+            'default' => $this->getOption('_mp_public_key_prod', ''),
             'placeholder' => 'APP-USR-0000000000000000000000000000000'
 
         );
@@ -532,7 +554,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Access token', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Empieza a recibir pagos.', 'woocommerce-mercadopago'),
-            'default' => get_option('_mp_access_token_prod', ''),
+            'default' => $this->getOption('_mp_access_token_prod', ''),
             'placeholder' => 'APP-USR-0000000000000000000000000000000'
         );
 
@@ -873,9 +895,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             }
         }
 
-        $_mp_public_key = get_option('_mp_public_key');
-        $_mp_access_token = get_option('_mp_access_token');
-        $_site_id_v1 = get_option('_site_id_v1');
+        $_mp_public_key = $this->getPublicKey();
+        $_mp_access_token = $this->getAccessToken();
+        $_site_id_v1 = $this->getOption('_site_id_v1');
 
         return ('yes' == $this->settings['enabled']) && !empty($_mp_public_key) && !empty($_mp_access_token) && !empty($_site_id_v1);
     }

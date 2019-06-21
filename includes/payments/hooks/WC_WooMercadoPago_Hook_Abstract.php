@@ -8,6 +8,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public $payment;
     public $class;
     public $mpInstance;
+    public $publicKey;
+    public $testUser;
+    public $siteId;
 
     /**
      * WC_WooMercadoPago_Hook_Abstract constructor.
@@ -18,6 +21,10 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         $this->payment = $payment;
         $this->class = get_class($payment);
         $this->mpInstance = $payment->mp;
+        $this->publicKey = $payment->getPublicKey();
+        $this->testUser = $payment->getOption('_test_user_v1', false);
+        $this->siteId = $payment->getOption('_site_id_v1');
+
         $this->loadHooks();
     }
 
@@ -57,10 +64,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function send_settings_mp()
     {
-        $_site_id_v1 = get_option('_site_id_v1', '');
-        $is_test_user = get_option('_test_user_v1', false);
-        if (!empty($_site_id_v1)) {
-            if (!$is_test_user) {
+        if (!empty($this->siteId)) {
+            if (!$this->testUser) {
                 $this->payment->mp->analytics_save_settings($this->define_settings_to_send());
             }
 
@@ -100,11 +105,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     {
         if (is_checkout() && $this->payment->is_available()) {
             if (!get_query_var('order-received')) {
-                wp_enqueue_style('woocommerce-mercadopago-style',
-                    plugins_url('../../assets/css/custom_checkout_mercadopago.css', plugin_dir_path(__FILE__))
-                );
+                wp_enqueue_style('woocommerce-mercadopago-style', plugins_url('../../assets/css/custom_checkout_mercadopago.css', plugin_dir_path(__FILE__)));
                 wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
-                //wp_enqueue_script('woocommerce-mercadopago-pse-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
             }
         }
     }
@@ -139,37 +141,35 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function add_mp_settings_script()
     {
-        $public_key = get_option('_mp_public_key');
-        $is_test_user = get_option('_test_user_v1', false);
+        if (!empty($this->publicKey) && !$this->testUser)
+        {
+            $woo = WC_WooMercadoPago_Module::woocommerce_instance();
+            $gateways = $woo->payment_gateways->get_available_payment_gateways();
 
-        if (!empty($public_key) && !$is_test_user) {
-            $w = WC_WooMercadoPago_Module::woocommerce_instance();
             $available_payments = array();
-            $gateways = WC()->payment_gateways->get_available_payment_gateways();
-            foreach ($gateways as $g) {
-                $available_payments[] = $g->id;
+            foreach ($gateways as $gateway) {
+                $available_payments[] = $gateway->id;
             }
+
             $available_payments = str_replace('-', '_', implode(', ', $available_payments));
+            $logged_user_email = null;
             if (wp_get_current_user()->ID != 0) {
                 $logged_user_email = wp_get_current_user()->user_email;
-            } else {
-                $logged_user_email = null;
             }
             ?>
             <script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
             <script type="text/javascript">
                 try {
                     var MA = ModuleAnalytics;
-                    MA.setPublicKey('<?php echo $public_key; ?>');
+                    MA.setPublicKey('<?php echo $this->publicKey; ?>');
                     MA.setPlatform('WooCommerce');
-                    MA.setPlatformVersion('<?php echo $w->version; ?>');
+                    MA.setPlatformVersion('<?php echo $woo->version; ?>');
                     MA.setModuleVersion('<?php echo WC_WooMercadoPago_Module::VERSION; ?>');
                     MA.setPayerEmail('<?php echo($logged_user_email != null ? $logged_user_email : ""); ?>');
                     MA.setUserLogged( <?php echo(empty($logged_user_email) ? 0 : 1); ?> );
                     MA.setInstalledModules('<?php echo $available_payments; ?>');
                     MA.post();
-                } catch (err) {
-                }
+                } catch(err) {}
             </script>
             <?php
         }
@@ -181,15 +181,14 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function update_mp_settings_script($order_id)
     {
-        $_mp_public_key = get_option('_mp_public_key');
-        $is_test_user = get_option('_test_user_v1', false);
-        if (!$is_test_user) {
+        if (!empty($this->publicKey) && !$this->testUser)
+        {
             $this->payment->log->write_log(__FUNCTION__, 'updating order of ID ' . $order_id);
             return '<script src="https://secure.mlstatic.com/modules/javascript/analytics.js"></script>
 			<script type="text/javascript">
 				try {
 					var MA = ModuleAnalytics;
-                    MA.setPublicKey(' . $_mp_public_key . ');
+                    MA.setPublicKey(' . $this->publicKey . ');
 					MA.setPaymentType("basic");
 					MA.setCheckoutType("basic");
 					MA.put();

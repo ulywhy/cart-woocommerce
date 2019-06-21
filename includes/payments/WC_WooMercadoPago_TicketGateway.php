@@ -91,7 +91,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $address .= (!empty($country) ? ' - ' . $country : '');
 
         $currency_ratio = 1;
-        $_mp_currency_conversion_v1 = get_option('_mp_currency_conversion_v1', '');
+        $_mp_currency_conversion_v1 = $this->getOption('_mp_currency_conversion_v1', '');
         if (!empty($_mp_currency_conversion_v1)) {
             $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($this->site_data['currency']);
             $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
@@ -100,7 +100,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $parameters = array(
             'amount' => $amount,
             'payment_methods' => json_decode(get_option('_all_payment_methods_ticket', '[]'), true),
-            'site_id' => get_option('_site_id_v1'),
+            'site_id' => $this->getOption('_site_id_v1'),
             'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
@@ -149,7 +149,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         // Check for brazilian FEBRABAN rules.
-        if (get_option('_site_id_v1') == 'MLB') {
+        if ($this->getOption('_site_id_v1') == 'MLB') {
             if (!isset($ticket_checkout['firstname']) || empty($ticket_checkout['firstname']) ||
                 !isset($ticket_checkout['lastname']) || empty($ticket_checkout['lastname']) ||
                 !isset($ticket_checkout['docNumber']) || empty($ticket_checkout['docNumber']) ||
@@ -235,7 +235,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 'redirect' => '',
             );
         }
-
     }
 
     /**
@@ -271,7 +270,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function mp_config_rule_is_available()
     {
         // Check if there are available payments with ticket.
-        $payment_methods = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
+        $payment_methods = json_decode($this->getOption('_all_payment_methods_ticket', '[]'), true);
         if (count($payment_methods) == 0) {
             return false;
         } else {
@@ -288,14 +287,14 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             return false;
         }
 
-        $_mp_debug_mode = get_option('_mp_debug_mode', '');
+        $_mp_debug_mode = $this->getOption('_mp_debug_mode', '');
         if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
             if (empty ($_mp_debug_mode)) {
                 return false;
             }
         }
 
-        $payment_methods = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
+        $payment_methods = json_decode($this->getOption('_all_payment_methods_ticket', '[]'), true);
         if (count($payment_methods) == 0) {
             return false;
         }

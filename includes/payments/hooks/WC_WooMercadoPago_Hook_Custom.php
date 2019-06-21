@@ -47,9 +47,8 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     {
         $updateOptions = parent::custom_process_admin_options();
 
-        $_site_id_v1 = get_option('_site_id_v1', '');
-        $is_test_user = get_option('_test_user_v1', false);
-        if (!empty($_site_id_v1) && !$is_test_user) {
+        if (!empty($this->siteId) && !$this->testUser)
+        {
             // Analytics.
             $infra_data = WC_WooMercadoPago_Module::get_common_settings();
             $infra_data['checkout_custom_credit_card'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
