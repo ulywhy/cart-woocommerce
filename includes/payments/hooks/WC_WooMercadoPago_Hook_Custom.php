@@ -41,41 +41,12 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function custom_process_admin_options()
     {
-        $this->payment->init_settings();
-        $post_data = $this->payment->get_post_data();
+        $updateOptions = parent::custom_process_admin_options();
 
-        $array = array('_mp_public_key_test', '_mp_access_token_test', '_mp_public_key_prod', '_mp_access_token_prod', 'checkout_credential_production');
-        foreach ($this->payment->get_form_fields() as $key => $field) {
-            if ('title' !== $this->payment->get_field_type($field)) {
-
-                $value = $this->payment->get_field_value($key, $field, $post_data);
-//
-//
-//                    $payments = WC_WooMercadoPago_Module::$payments_name;
-//                    foreach ($payments as $payment){
-//                        $id = forward_static_call(array($payment, 'getId'));
-//                        $name = "woocommerce_".$id.'_settings';
-//                        $config = get_option($name);
-//                        $config[$key] = $value;
-//
-//                        update_option($name, apply_filters('woocommerce_settings_api_sanitized_fields_' . $id, $config));
-//                    }
-//                    update_option($key, $value, true);
-//                    continue;
-//                }
-                $array = $this->payment->getCommonConfigs();
-                if (in_array($key, $array)) {
-                    update_option($key, $value, true);
-                }
-                $value = $this->payment->get_field_value($key, $field, $post_data);
-                $this->payment->settings[$key] = $value;
-
-            }
-        }
         $_site_id_v1 = get_option('_site_id_v1', '');
         $is_test_user = get_option('_test_user_v1', false);
         if (!empty($_site_id_v1) && !$is_test_user) {
@@ -85,9 +56,10 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
             $infra_data['checkout_custom_credit_card_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
             $this->mpInstance->analytics_save_settings($infra_data);
         }
-        // Apply updates.
-        return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
+
+        return $updateOptions;
     }
+
 
     /**
      *
