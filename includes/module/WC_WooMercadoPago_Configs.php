@@ -16,7 +16,7 @@ class WC_WooMercadoPago_Configs
     }
 
     /**
-     * Update Token in New Version
+     * @throws WC_WooMercadoPago_Exception
      */
     private function updateTokenNewVersion()
     {
@@ -35,6 +35,32 @@ class WC_WooMercadoPago_Configs
                 add_action('admin_notices', array($this, 'noticeUpdateAccessToken'));
             }
         }
+
+
+        $allPayments = get_option('_checkout_payments_methods', '');
+        if(empty($allPayments)){
+            $this->updatePayments();
+            return;
+        }
+
+        if(!empty($allPayments)){
+            foreach ($allPayments as $payment){
+                if(!isset($payment['name'])){
+                    $this->updatePayments();
+                    break;
+                }
+            }
+        }
+
+    }
+
+    /**
+     * @throws WC_WooMercadoPago_Exception
+     */
+    private function updatePayments()
+    {
+        $mpInstance = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        WC_WooMercadoPago_Credentials::updatePaymentMethods($mpInstance, $mpInstance->get_access_token());
     }
 
     /**

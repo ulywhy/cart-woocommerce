@@ -344,7 +344,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                     'type' => 'checkbox',
                     'class' => 'online_payment_method',
                     'custom_attributes' => array(
-                        'data-translate' => __('Selecciona pagos online', 'woocommerce-mercadopago') 
+                        'data-translate' => __('Selecciona pagos online', 'woocommerce-mercadopago')
                     ),
                 );
             }

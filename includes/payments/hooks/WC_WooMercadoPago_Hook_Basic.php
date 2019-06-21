@@ -98,7 +98,6 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
      */
     public function custom_process_admin_options()
     {
-        WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $this->mpInstance->get_access_token());
         $updateOptions = parent::custom_process_admin_options();
 
         $_site_id_v1 = get_option('_site_id_v1', '');
