@@ -25,11 +25,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Ticket', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
-        $this->title = get_option('title', __('Mercado Pago - Ticket', 'woocommerce-mercadopago'));
-        $this->coupon_mode = get_option('coupon_mode', 'no');
-        $this->installments = get_option('installments', '24');
-        $this->stock_reduce_mode = get_option('stock_reduce_mode', 'no');
-        $this->date_expiration = get_option('date_expiration', 3);
+        $this->title = $this->getOption('title', __('Mercado Pago - Ticket', 'woocommerce-mercadopago'));
+        $this->coupon_mode = $this->getOption('coupon_mode', 'no');
+        $this->installments = $this->getOption('installments', '24');
+        $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');
+        $this->date_expiration = $this->getOption('date_expiration', 3);
         $this->payment_type = "ticket";
         $this->checkout_type = "custom";
         $this->field_forms_order = array();

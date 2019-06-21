@@ -24,15 +24,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method = $this->get_option('method', 'redirect');
-        $this->title = $this->get_option('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));
-        $this->auto_return = $this->get_option('auto_return', 'yes');
-        $this->success_url = $this->get_option('success_url', '');
-        $this->failure_url = $this->get_option('failure_url', '');
-        $this->pending_url = $this->get_option('pending_url', '');
-        $this->installments = $this->get_option('installments', '24');
-        $this->gateway_discount = $this->get_option('gateway_discount', 0);
-        $this->commission = $this->get_option('commission', 0);
+        $this->method = $this->getOption('method', 'redirect');
+        $this->title = $this->getOption('title', __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago'));
+        $this->auto_return = $this->getOption('auto_return', 'yes');
+        $this->success_url = $this->getOption('success_url');
+        $this->failure_url = $this->getOption('failure_url');
+        $this->pending_url = $this->getOption('pending_url');
+        $this->installments = $this->getOption('installments', '24');
+        $this->gateway_discount = $this->getOption('gateway_discount', 0);
         $this->field_forms_order = $this->get_fields_sequence();
         $this->ex_payments = $this->getExPayments();
         parent::__construct();

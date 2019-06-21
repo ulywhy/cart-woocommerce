@@ -54,14 +54,14 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function getMpInstance($payment = null)
     {
         $credentials = new WC_WooMercadoPago_Credentials($payment);
-        $validateCredentials = $credentials->validateCredentials();
-        if ($validateCredentials == WC_WooMercadoPago_Credentials::TYPE_ACCESS_TOKEN) {
+        $validateCredentialsType = $credentials->validateCredentialsType();
+        if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_TOKEN) {
             $mp = new MP(self::get_module_version(), $credentials->accessToken);
         }
-        if ($validateCredentials == WC_WooMercadoPago_Credentials::TYPE_ACCESS_CLIENT) {
+        if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_CLIENT) {
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
         }
-        if (!$validateCredentials) {
+        if (!$validateCredentialsType) {
             throw new WC_WooMercadoPago_Exception('error'); //TODO: return??
         }
 
