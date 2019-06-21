@@ -47,6 +47,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
+        //add js
+        wp_enqueue_script(
+            'woocommerce-mercadopago-basic-config-script',
+            plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
+        );
+        
         $form_fields = array();
         $form_fields['checkout_header'] = $this->field_checkout_header();
         $form_fields['checkout_options_title'] = $this->field_checkout_options_title();

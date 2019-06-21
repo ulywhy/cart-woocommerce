@@ -26,9 +26,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
         $this->title = $this->getOption('title', __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago'));
+        $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->installments = $this->getOption('installments', '24');
         $this->field_forms_order = $this->get_fields_sequence();
@@ -44,6 +43,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
+        //add js
+        wp_enqueue_script(
+            'woocommerce-mercadopago-custom-config-script',
+            plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__))
+        );
+        
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
         $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();

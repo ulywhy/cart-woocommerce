@@ -180,12 +180,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             plugins_url('../assets/css/basic_config_mercadopago.css', plugin_dir_path(__FILE__))
         );
 
-        //add js
-        wp_enqueue_script(
-            'woocommerce-mercadopago-basic-config-script',
-            plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
-        );
-
         $this->init_form_fields();
         $this->init_settings();
         $form_fields = array();

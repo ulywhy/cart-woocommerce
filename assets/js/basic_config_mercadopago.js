@@ -3,6 +3,14 @@ window.onload = function () {
   document.querySelector(".wc-admin-breadcrumb").style.display = 'none';
   document.querySelector("p.submit").style.display = 'none';
 
+  //remover mercadopago header
+  var remove_p_title = document.querySelectorAll("p");
+  for (var i = 0; i < document.querySelectorAll("p").length; i++) {
+    if (i == 16 || i == 17) {
+      remove_p_title[i].style.display = 'none';
+    }
+  }
+
   //update form_fields label
   var label = document.querySelectorAll("th.titledesc");
   for (var i = 0; i < label.length; i++) {
@@ -26,7 +34,7 @@ window.onload = function () {
   document.getElementById("mp_table_17").append(cloneSaveButton.cloneNode(true));
   document.getElementById("mp_table_20").append(cloneSaveButton.cloneNode(true));
   document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
-  
+
   var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_advanced_settings");
   var collapse_table = document.querySelector("#mp_table_17");
   collapse_table.style.display = "none";
