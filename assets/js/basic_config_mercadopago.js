@@ -26,7 +26,7 @@ window.onload = function () {
   document.getElementById("mp_table_17").append(cloneSaveButton.cloneNode(true));
   document.getElementById("mp_table_20").append(cloneSaveButton.cloneNode(true));
   document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
-
+  
   var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_advanced_settings");
   var collapse_table = document.querySelector("#mp_table_17");
   collapse_table.style.display = "none";

@@ -102,10 +102,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_credential_title_prod',
             '_mp_public_key_prod',
             '_mp_access_token_prod',
+            // No olvides de homologar tu cuenta
+            'checkout_homolog_title',
+            'checkout_homolog_subtitle',
+            'checkout_homolog_link',
             // Configura WooCommerce Mercado Pago
             'checkout_options_title',
             'checkout_options_subtitle',
-            'description',
+            'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
             // Ajustes avanzados
@@ -127,6 +131,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'pending_url',
             'binary_mode',
             'gateway_discount',
+            'commission',
             // ¿Todo listo para el despegue de tus ventas?
             'checkout_ready_title',
             'checkout_ready_description',
@@ -369,7 +374,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $ex_payments_sort[] = "ex_payments_" . $payment_method;
         }
 
-        array_splice($this->field_forms_order, 29, 0, $ex_payments_sort);
+        array_splice($this->field_forms_order, 31, 0, $ex_payments_sort);
 
         return $ex_payments;
     }
