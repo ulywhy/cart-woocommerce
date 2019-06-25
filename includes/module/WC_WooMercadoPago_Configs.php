@@ -9,6 +9,7 @@ class WC_WooMercadoPago_Configs
 {
     /**
      * WC_WooMercadoPago_Configs constructor.
+     * @throws WC_WooMercadoPago_Exception
      */
     public function __construct()
     {
@@ -34,6 +35,11 @@ class WC_WooMercadoPago_Configs
             {
                 add_action('admin_notices', array($this, 'noticeUpdateAccessToken'));
             }
+        }
+
+        if(empty(get_option('_site_id_v1')))
+        {
+            WC_WooMercadoPago_Credentials::validate_credentials_v1();
         }
 
 

@@ -17,6 +17,7 @@ class MP
     private $client_secret;
     private $ll_access_token;
     private $sandbox = FALSE;
+    private $accessTokenByClient;
 
     /**
      * MP constructor.
@@ -87,6 +88,10 @@ class MP
             return $this->ll_access_token;
         }
 
+        if(!empty($this->accessTokenByClient)){
+            return $this->accessTokenByClient;
+        }
+
         $app_client_values = array(
             'client_id' => $this->client_id,
             'client_secret' => $this->client_secret,
@@ -108,9 +113,10 @@ class MP
             return null;
         }
 
-        $access_data = $access_data['response'];
-        return $access_data['access_token'];
+        $response = $access_data['response'];
+        $this->accessTokenByClient = $response['access_token'];
 
+        return $this->accessTokenByClient;
     }
 
     /**
