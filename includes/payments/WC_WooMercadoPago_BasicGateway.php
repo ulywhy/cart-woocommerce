@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 {
-    CONST ID = 'woo-mercado-pago-basic';
+    const ID = 'woo-mercado-pago-basic';
     /**
      * WC_WooMercadoPago_BasicGateway constructor.
      * @throws WC_WooMercadoPago_Exception
@@ -19,7 +19,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $this->id = self::ID;
 
-        if(!$this->validateSection()){
+        if (!$this->validateSection()) {
             return;
         }
 
@@ -53,23 +53,31 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'woocommerce-mercadopago-basic-config-script',
             plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
         );
-        
+
         $form_fields = array();
+
         $form_fields['checkout_header'] = $this->field_checkout_header();
-        $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
-        $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
-        $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
-        $form_fields['installments'] = $this->field_installments();
-        $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();
-        $form_fields['method'] = $this->field_method();
-        $form_fields['success_url'] = $this->field_success_url();
-        $form_fields['failure_url'] = $this->field_failure_url();
-        $form_fields['pending_url'] = $this->field_pending_url();
-        $form_fields['auto_return'] = $this->field_auto_return();
+        if (!empty($this->settings['checkout_country'])) {
+            $_site_id_v1 = get_option('_site_id_v1', '');
+
+            if (!empty($_site_id_v1)) {
+
+                $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
+                $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
+                $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
+                $form_fields['installments'] = $this->field_installments();
+                $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();
+                $form_fields['method'] = $this->field_method();
+                $form_fields['success_url'] = $this->field_success_url();
+                $form_fields['failure_url'] = $this->field_failure_url();
+                $form_fields['pending_url'] = $this->field_pending_url();
+                $form_fields['auto_return'] = $this->field_auto_return();
 
 
-        foreach ($this->field_ex_payments() as $key => $value) {
-            $form_fields[$key] = $value;
+                foreach ($this->field_ex_payments() as $key => $value) {
+                    $form_fields[$key] = $value;
+                }
+            }
         }
 
         $form_fields_abs = parent::getFormFields($label);
@@ -353,8 +361,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                         'data-translate' => __('Selecciona pagos online', 'woocommerce-mercadopago')
                     ),
                 );
-            }
-            else{
+            } else {
                 $element = array(
                     'label' => $all_payments[$count_payment]['name'],
                     'id' => 'woocommerce_mercadopago_' . $payment_method,
@@ -362,7 +369,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                     'type' => 'checkbox',
                     'class' => 'offline_payment_method',
                     'custom_attributes' => array(
-                        'data-translate' => __('Selecciona pagos offline' , 'woocommerce-mercadopago')
+                        'data-translate' => __('Selecciona pagos offline', 'woocommerce-mercadopago')
                     ),
                 );
             }
