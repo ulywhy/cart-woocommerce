@@ -1,6 +1,7 @@
 window.onload = function () {
-  //remove link breadcrumb and save button
+  //remove link breadcrumb, header and save button
   document.querySelector(".wc-admin-breadcrumb").style.display = 'none';
+  document.querySelector(".mp-header-logo").style.display = 'none';
   document.querySelector("p.submit").style.display = 'none';
 
   //update form_fields label
