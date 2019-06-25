@@ -44,14 +44,15 @@ class WC_WooMercadoPago_Credentials
      */
     public function validateCredentialsType()
     {
-        if ($this->payment instanceof WC_WooMercadoPago_BasicGateway) {
-            if (!$this->tokenIsValid()) {
-                if (!$this->clientIsValid()) {
-                    return false;
-                }
-                return self::TYPE_ACCESS_CLIENT;
+
+        $basicIsEnabled = self::basicIsEnabled();
+        if (!$this->tokenIsValid() && ($this->payment instanceof WC_WooMercadoPago_BasicGateway || $basicIsEnabled == 'yes')) {
+            if (!$this->clientIsValid()) {
+                return false;
             }
+            return self::TYPE_ACCESS_CLIENT;
         }
+
         return self::TYPE_ACCESS_TOKEN;
     }
 
@@ -104,16 +105,26 @@ class WC_WooMercadoPago_Credentials
     public static function validate_credentials_v1()
     {
         $credentials = new self();
+        $basicIsEnabled = 'no';
         if (!$credentials->tokenIsValid()) {
-            $credentials->setNoCredentials();
-            return false;
+            $basicIsEnabled = self::basicIsEnabled();
+            if($basicIsEnabled != 'yes'){
+                $credentials->setNoCredentials();
+                return false;
+            }
         }
 
         try {
             $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+            if($mp_v1 instanceof MP == false){
+                $credentials->setNoCredentials();
+                return false;
+            }
             $access_token = $mp_v1->get_access_token();
             $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
-            if (isset($get_request['response']['site_id']) && !empty($credentials->publicKey)) {
+            if (isset($get_request['response']['site_id']) && (!empty($credentials->publicKey) || $basicIsEnabled == 'yes'))
+            {
+
                 update_option('_test_user_v1', in_array('test_user', $get_request['response']['tags']), true);
                 update_option('_site_id_v1', $get_request['response']['site_id'], true);
                 update_option('_collector_id_v1', $get_request['response']['id'], true);
@@ -165,6 +176,10 @@ class WC_WooMercadoPago_Credentials
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
 
+        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 && $paymentsResponse['status'] != 201)) {
+            return;
+        }
+
         $arr = array();
         $cho = array();
         foreach ($paymentsResponse as $payment) {
@@ -214,5 +229,19 @@ class WC_WooMercadoPago_Credentials
         }
 
         update_option('_all_payment_methods_ticket', json_encode($payment_methods_ticket), true);
+    }
+
+    /**
+     * @return string
+     */
+    public static function basicIsEnabled()
+    {
+        $basicIsEnabled = 'no';
+        $basicSettings = get_option('woocommerce_woo-mercado-pago-basic_settings', '');
+        if ($basicSettings) {
+            $basicIsEnabled = $basicSettings['enabled'];
+        }
+
+        return $basicIsEnabled;
     }
 }

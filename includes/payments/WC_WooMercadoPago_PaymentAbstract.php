@@ -138,6 +138,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return get_option($key, $default);
     }
 
+    /**
+     * Normalize fields in admin
+     */
     public function normalizeCommonAdminFields()
     {
         $changed = false;

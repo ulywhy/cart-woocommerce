@@ -208,6 +208,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             if ('title' !== $this->payment->get_field_type($field)) {
                 $value = $this->payment->get_field_value($key, $field, $post_data);
                 $commonConfigs = $this->payment->getCommonConfigs();
+
+
+
                 if (in_array($key, $commonConfigs)) {
                     update_option($key, $value, true);
                 }
