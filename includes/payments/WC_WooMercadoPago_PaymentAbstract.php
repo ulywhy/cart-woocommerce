@@ -66,6 +66,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $notification;
     public $checkout_credential_token_production;
     public $checkout_country;
+    public $wc_country;
     public $commission;
 
     /**
@@ -78,6 +79,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_access_token_test = $this->getOption('_mp_access_token_test');
         $this->mp_public_key_prod = $this->getOption('_mp_public_key_prod');
         $this->mp_access_token_prod = $this->getOption('_mp_access_token_prod');
+        $this->checkout_country = get_option('checkout_country', '');
+        $this->wc_country = get_option('woocommerce_default_country', '');
         $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', 'no');
         $this->description = $this->getOption('description');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
@@ -208,14 +211,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->init_form_fields();
         $this->init_settings();
         $form_fields = array();
-        $form_fields['enabled'] = $this->field_enabled($label);
-        if (empty($this->settings['enabled']) || 'no' == $this->settings['enabled']) {
-            $form_fields_enable = array();
-            $form_fields_enable['enabled'] = $form_fields['enabled'];
-            return $form_fields_enable;
-        }
-
-
         $form_fields['checkout_steps'] = $this->field_checkout_steps();
         $form_fields['checkout_country_title'] = $this->field_checkout_country_title();
         $form_fields['checkout_country_subtitle'] = $this->field_checkout_country_subtitle();
@@ -243,6 +238,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
             $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
             $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
+            $form_fields['enabled'] = $this->field_enabled($label);
             $form_fields['_mp_custom_domain'] = $this->field_custom_url_ipn();
             $form_fields['binary_mode'] = $this->field_binary_mode();
             $form_fields['gateway_discount'] = $this->field_gateway_discount();
@@ -352,11 +348,27 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_country()
     {
+        $country = array(
+            'AR' => 'mla', // Argentinian
+            'BR' => 'mlb', // Brazil
+            'CL' => 'mlc', // Chile
+            'CO' => 'mco', // Colombia
+            'MX' => 'mlm', // Mexico
+            'PE' => 'mpe', // Peru
+            'UY' => 'mlu', // Uruguay
+        );
+        
+        $country_default = '';
+        if(!empty($this->wc_country) && empty($this->checkout_country) ){
+        $country_default =  strlen($this->wc_country) > 2 ? substr($this->wc_country, 0, 2) : $this->wc_country;
+        $country_default =  array_key_exists($country_default, $country) ? $country[$country_default] : 'mla';
+        } 
+
         $checkout_country = array(
             'title' => __('Selecciona tu país', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Habilita los medios de pago disponibles para tus clientes.', 'woocommerce-mercadopago'),
-            'default' => '',
+            'default' => empty($this->checkout_country) ? $country_default : $this->checkout_country,
             'options' => array(
                 'mla' => __('Argentina', 'woocommerce-mercadopago'),
                 'mlb' => __('Brasil', 'woocommerce-mercadopago'),
@@ -365,7 +377,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 'mlm' => __('México', 'woocommerce-mercadopago'),
                 'mpe' => __('Perú', 'woocommerce-mercadopago'),
                 'mlu' => __('Uruguay', 'woocommerce-mercadopago'),
-                'mlv' => __('Venezuela', 'woocommerce-mercadopago')
             )
         );
         return $checkout_country;

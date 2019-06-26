@@ -53,10 +53,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'woocommerce-mercadopago-basic-config-script',
             plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
         );
-
+        if(empty($this->settings['checkout_country'])) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 5);
+        }
         $form_fields = array();
-
+        
         $form_fields['checkout_header'] = $this->field_checkout_header();
+        
         if (!empty($this->settings['checkout_country'])) {
                 $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
                 $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
