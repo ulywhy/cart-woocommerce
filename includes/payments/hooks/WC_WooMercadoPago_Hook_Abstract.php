@@ -208,12 +208,42 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             if ('title' !== $this->payment->get_field_type($field)) {
                 $value = $this->payment->get_field_value($key, $field, $post_data);
                 $commonConfigs = $this->payment->getCommonConfigs();
-
-
-
                 if (in_array($key, $commonConfigs)) {
+                if ($key == '_mp_public_key_test' && strpos($value, 'TEST') === false) {
+                    update_option($key, '', true);
+                    continue;
+                } elseif ($key == '_mp_access_token_test') {
+                    if (strpos($value, 'TEST') === false) {
+                        update_option($key, '', true);
+                        continue;
+                    } else {
+                        if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
+                    update_option($key, $value, true);
+                            continue;
+                        } else {
+                            update_option($key, '', true);
+                            continue;
+                        }
+                }
+                } elseif ($key == '_mp_public_key_prod' && strpos($value, 'APP_USR') === false) {
+                    update_option($key, '', true);
+                    continue;
+                } elseif ($key == '_mp_access_token_prod') {
+                    if (strpos($value, 'APP_USR') === false) {
+                        continue;
+                    } else {
+                        if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
+                    update_option($key, $value, true);
+                            continue;
+                        } else {
+                            update_option($key, '', true);
+                            continue;
+                }
+                }
+                } else {
                     update_option($key, $value, true);
                 }
+            }
                 $value = $this->payment->get_field_value($key, $field, $post_data);
                 $this->payment->settings[$key] = $value;
             }

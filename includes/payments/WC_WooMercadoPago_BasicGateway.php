@@ -58,10 +58,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $form_fields['checkout_header'] = $this->field_checkout_header();
         if (!empty($this->settings['checkout_country'])) {
-            $_site_id_v1 = get_option('_site_id_v1', '');
-
-            if (!empty($_site_id_v1)) {
-
                 $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
                 $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
                 $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
@@ -72,13 +68,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 $form_fields['failure_url'] = $this->field_failure_url();
                 $form_fields['pending_url'] = $this->field_pending_url();
                 $form_fields['auto_return'] = $this->field_auto_return();
-
-
                 foreach ($this->field_ex_payments() as $key => $value) {
                     $form_fields[$key] = $value;
                 }
             }
-        }
 
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {

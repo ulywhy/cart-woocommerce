@@ -233,27 +233,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['checkout_credential_title_prod'] = $this->field_checkout_credential_title_prod();
             $form_fields['_mp_public_key_prod'] = $this->field_checkout_credential_publickey_prod();
             $form_fields['_mp_access_token_prod'] = $this->field_checkout_credential_accesstoken_prod();
-
-            $_site_id_v1 = get_option('_site_id_v1', '');
-            if (!empty($_site_id_v1)) {
-                $form_fields['_mp_category_id'] = $this->field_category_store();
-                $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
-                $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
-                $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link();
-                $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
-                $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
-                $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
-                $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
-                $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
-                $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
-                $form_fields['_mp_custom_domain'] = $this->field_custom_url_ipn();
-                $form_fields['binary_mode'] = $this->field_binary_mode();
-                $form_fields['gateway_discount'] = $this->field_gateway_discount();
-                $form_fields['commission'] = $this->field_commission();
-                $form_fields['checkout_ready_title'] = $this->field_checkout_ready_title();
-                $form_fields['checkout_ready_description'] = $this->field_checkout_ready_description();
-                $form_fields['checkout_ready_description_link'] = $this->field_checkout_ready_description_link();
-            }
+            $form_fields['_mp_category_id'] = $this->field_category_store();
+            $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
+            $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
+            $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link();
+            $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
+            $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
+            $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
+            $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
+            $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
+            $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
+            $form_fields['_mp_custom_domain'] = $this->field_custom_url_ipn();
+            $form_fields['binary_mode'] = $this->field_binary_mode();
+            $form_fields['gateway_discount'] = $this->field_gateway_discount();
+            $form_fields['commission'] = $this->field_commission();
+            $form_fields['checkout_ready_title'] = $this->field_checkout_ready_title();
+            $form_fields['checkout_ready_description'] = $this->field_checkout_ready_description();
+            $form_fields['checkout_ready_description_link'] = $this->field_checkout_ready_description_link();
         }
 
         if (is_admin()) {
