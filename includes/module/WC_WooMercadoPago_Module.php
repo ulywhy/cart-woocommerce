@@ -60,6 +60,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
         }
         if (!$validateCredentialsType) {
+            return;
             //throw new WC_WooMercadoPago_Exception('error'); //TODO: return??
         }
 

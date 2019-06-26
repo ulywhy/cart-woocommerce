@@ -102,6 +102,21 @@ class WC_WooMercadoPago_Credentials
     /**
      * @return bool
      */
+    public static function access_token_is_valid($access_token)
+    {
+        $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
+        if ($get_request['status'] > 202) {
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log();
+            $log->write_log('API valid_access_token error:' , $get_request['response']['message']);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
     public static function validate_credentials_v1()
     {
         $credentials = new self();

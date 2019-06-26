@@ -96,6 +96,3 @@ if (!class_exists('WC_WooMercadoPago_Module'))
 
     add_action('plugins_loaded', array('WC_WooMercadoPago_Module', 'init_mercado_pago_class'));
 }
-$total1 = microtime(true) - $inicio1;
-echo 'Tempo de execução do primeiro script: ' . $total1;
-exit();
