@@ -190,7 +190,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getMethodDescription($description)
     {
-        return '<img width="200" height="52" src="' . plugins_url('../assets/images/mplogo.png', plugin_dir_path(__FILE__)) . '"><br><br><strong>' . __($description, 'woocommerce-mercadopago') . '</strong>';
+        return '<div class="mp-header-logo"><img width="200" height="52" src="' . plugins_url('../assets/images/mplogo.png', plugin_dir_path(__FILE__)) . '"><br><br><strong>' . __($description, 'woocommerce-mercadopago') . '</strong></div>';
     }
 
     /**
