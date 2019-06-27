@@ -43,6 +43,11 @@
   float: left;
 }
 
+.col-md-2{
+  width: 20%;
+  float: left;
+}
+
 #mp_field_text{
   font-family: sans-serif !important;
   font-family: sans-serif !important;
@@ -239,5 +244,30 @@
 }
 
 .woocommerce-save-button{
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.42857;
+  border-radius: 2px !important;
+  border: solid 1px #c2c2c2 !important;
+  padding: 12px 50px !important;
+  font-size: 13px !important;
+  background-color: #fafafa !important;
+  text-decoration: none;
+  color: #555;
+  font-family: sans-serif;
   margin-bottom: 10px !important;
+}
+
+.woocommerce-save-button:hover{
+  color: #fff !important;
+  background-color: #00aff0 !important;
+  border-color: #008abd !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none;
 }
