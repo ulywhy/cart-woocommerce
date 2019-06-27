@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 {
     CONST ID = 'woo-mercado-pago-ticket';
+
     /**
      * WC_WooMercadoPago_TicketGateway constructor.
      * @throws WC_WooMercadoPago_Exception
@@ -287,14 +288,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             return false;
         }
 
-        $_mp_debug_mode = $this->getOption('_mp_debug_mode', '');
-        if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
-            if (empty ($_mp_debug_mode)) {
-                return false;
-            }
-        }
-
-        $payment_methods = json_decode($this->getOption('_all_payment_methods_ticket', '[]'), true);
+        $payment_methods = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
         if (count($payment_methods) == 0) {
             return false;
         }

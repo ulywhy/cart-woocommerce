@@ -273,47 +273,6 @@ class MP
 
     }
 
-    //=== ACCOUNT SETTINGS FUNCTIONS ===
-
-    /**
-     * @return string
-     */
-    public function check_two_cards()
-    {
-
-        $request = array('uri' => '/account/settings?access_token=' . $this->get_access_token());
-
-        $two_cards_info = MPRestClient::get($request, $this->version);
-        if ($two_cards_info['status'] == 200)
-            return $two_cards_info['response']['two_cards'];
-        else {
-            return 'inactive';
-        }
-
-    }
-
-    /**
-     * @param $mode
-     * @return array|null
-     */
-    public function set_two_cards_mode($mode)
-    {
-
-        $request = array(
-            'uri' => '/account/settings?access_token=' . $this->get_access_token(),
-            'data' => array(
-                'two_cards' => $mode
-            ),
-            'headers' => array(
-                'content-type' => 'application/json'
-            )
-        );
-
-        $two_cards_info = MPRestClient::put($request, $this->version);
-        return $two_cards_info;
-
-    }
-
     //=== CHECKOUT AUXILIARY FUNCTIONS ===
 
     /**

@@ -37,7 +37,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->ex_payments = $this->getExPayments();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Basic');
-        $this->two_cards_mode = $this->mp->check_two_cards();
         $this->hook = new WC_WooMercadoPago_Hook_Basic($this);
         $this->notification = new WC_WooMercadoPago_Notification_IPN($this);
     }

@@ -266,7 +266,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     // Save and valid Sponsor_id if the site_id returned that api is equal site_id costumers
     public static function is_valid_sponsor_id($sponsor_id)
     {
-        $access_token = get_option('_mp_access_token', '');
+        $access_token = get_option('_mp_access_token_prod', '');
         $site_id = get_option('_site_id_v1', '');
 
         $varify_sponsor = true;

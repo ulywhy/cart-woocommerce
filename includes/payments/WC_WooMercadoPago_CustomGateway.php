@@ -529,7 +529,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function mp_config_rule_is_available()
     {
-        $_mp_access_token = get_option('_mp_access_token');
+        $_mp_access_token = get_option('_mp_access_token_prod');
         $_mp_debug_mode = get_option('_mp_debug_mode', '');
         $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
 
@@ -562,7 +562,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             }
         }
 
-        $_mp_access_token = get_option('_mp_access_token');
+        $_mp_access_token = get_option('_mp_access_token_prod');
         $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
         if ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && $is_prod_credentials) {
             return false;

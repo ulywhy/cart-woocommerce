@@ -104,10 +104,8 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
             if (!$this->testUser) {
                 $infra_data = WC_WooMercadoPago_Module::get_common_settings();
                 $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
-                $infra_data['two_cards'] = ($this->payment->two_cards_mode == 'active' ? 'true' : 'false');
                 $this->mpInstance->analytics_save_settings($infra_data);
             }
-            $this->mpInstance->set_two_cards_mode($this->payment->two_cards_mode);
         }
 
         return $updateOptions;
