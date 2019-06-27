@@ -53,7 +53,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
         $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
         $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
-        $form_fields['checkout_custom_options_description'] = $this->field_checkout_custom_options_description();
         $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
         $form_fields['installments'] = $this->field_installments();
         $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
@@ -82,18 +81,22 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_steps',
             // ¿En qué país vas a activar tu tienda?
             'checkout_country_title',
-            'checkout_country_subtitle',
             'checkout_country',
             'checkout_btn_save',
             // Carga tus credenciales
             'checkout_credential_title',
-            'checkout_credential_subtitle',
+            'checkout_credential_mod_test_title',
+            'checkout_credential_mod_test_description',
+            'checkout_credential_mod_prod_title',
+            'checkout_credential_mod_prod_description',
             'checkout_credential_production',
             'checkout_credential_link',
             'checkout_credential_title_test',
+            'checkout_credential_description_test',
             '_mp_public_key_test',
             '_mp_access_token_test',
             'checkout_credential_title_prod',
+            'checkout_credential_description_prod',
             '_mp_public_key_prod',
             '_mp_access_token_prod',
             // No olvides de homologar tu cuenta
@@ -103,7 +106,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             // Configura la experiencia de pago en tu tienda
             'checkout_custom_options_title',
             'checkout_custom_options_subtitle',
-            'checkout_custom_options_description',
             'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
@@ -172,23 +174,10 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_custom_options_subtitle()
     {
         $checkout_custom_options_subtitle = array(
-            'title' => __('Configuración Básica de la experiencia de pago', 'woocommerce-mercadopago'),
+            'title' => __('Ve a lo básico. Coloca la información de tu negocio.', 'woocommerce-mercadopago'),
             'type' => 'title'
         );
         return $checkout_custom_options_subtitle;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_custom_options_description()
-    {
-        $checkout_custom_options_description = array(
-            'title' => __('Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y <br>define el máximo de cuotas en el que podrán pagarte.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_small_text'
-        );
-        return $checkout_custom_options_description;
     }
 
     /**
@@ -239,7 +228,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => __('Cupones de descuento', 'woocommerce-mercadopago'),
             'type' => 'checkbox',
             'default' => 'no',
-            'description' => __('¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?, allow your store to give discounts to customers.', 'woocommerce-mercadopago'),
+            'description' => __('¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?', 'woocommerce-mercadopago'),
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Sí', 'woocommerce-mercadopago')
