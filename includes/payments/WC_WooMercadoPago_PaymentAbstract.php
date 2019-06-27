@@ -38,7 +38,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $failure_url;
     public $pending_url;
     public $installments;
-    public $two_cards_mode;
     public $form_fields;
     public $coupon_mode;
     public $payment_type;

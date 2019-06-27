@@ -68,10 +68,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             if (!$this->testUser) {
                 $this->payment->mp->analytics_save_settings($this->define_settings_to_send());
             }
-
-            if ($this->class == 'WC_WooMercadoPago_BasicGateway') {
-                $this->payment->mp->set_two_cards_mode($this->payment->two_cards_mode);
-            }
         }
     }
 
@@ -84,7 +80,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         switch ($this->class) {
             case 'WC_WooMercadoPago_BasicGateway':
                 $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
-                $infra_data['two_cards'] = ($this->payment->two_cards_mode == 'active' ? 'true' : 'false');
                 break;
             case 'WC_WooMercadoPago_CustomGateway':
                 $infra_data['checkout_custom_credit_card'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
@@ -209,6 +204,23 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $value = $this->payment->get_field_value($key, $field, $post_data);
                 $commonConfigs = $this->payment->getCommonConfigs();
                 if (in_array($key, $commonConfigs)) {
+
+                    if($key == '_mp_public_key_test' && $value == $this->payment->mp_public_key_test){
+                        continue;
+                    }
+
+                    if($key == '_mp_access_token_test' && $value == $this->payment->mp_access_token_test){
+                        continue;
+                    }
+
+                    if($key == '_mp_public_key_prod' && $value == $this->payment->mp_public_key_prod){
+                        continue;
+                    }
+
+                    if($key == '_mp_access_token_prod' && $value == $this->payment->mp_access_token_prod){
+                        continue;
+                    }
+
                 if ($key == '_mp_public_key_test' && strpos($value, 'TEST') === false) {
                     update_option($key, '', true);
                     continue;
