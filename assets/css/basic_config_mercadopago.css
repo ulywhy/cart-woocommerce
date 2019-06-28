@@ -254,7 +254,7 @@ margin-top: 5px;
     font-weight: bold;
 }
 
-.woocommerce-save-button{
+.mp-save-button{
   display: inline-block;
   margin-bottom: 0;
   font-weight: 400;
@@ -275,7 +275,7 @@ margin-top: 5px;
   margin-bottom: 10px !important;
 }
 
-.woocommerce-save-button:hover{
+.mp-save-button:hover{
   color: #fff !important;
   background-color: #00aff0 !important;
   border-color: #008abd !important;

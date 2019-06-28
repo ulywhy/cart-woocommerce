@@ -40,6 +40,10 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
         if (is_admin()) {
+            $credentials = new WC_WooMercadoPago_Credentials();
+            if (!$credentials->tokenIsValid()) {
+                add_action('admin_notices', array($this, 'enablePaymentNotice'));
+            }
             self::loadMercadoEnviosAdmin();
         }
     }
@@ -58,10 +62,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         }
         if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_CLIENT) {
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
-        }
-        if (!$validateCredentialsType) {
-            return;
-            //throw new WC_WooMercadoPago_Exception('error'); //TODO: return??
         }
 
         $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
@@ -216,6 +216,22 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     }
 
     /**
+     * Enable Payment Notice
+     */
+    public function enablePaymentNotice()
+    {
+        $message = __('Cadastre as credenciais para habilitar os pagamentos.');
+        echo '<div class="notice notice-warning is-dismissible">  
+                    <p style="font-size:13px">
+                        <strong>MERCADO PAGO:</strong> ' . $message . '
+                    </p>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text">Dispensar este aviso.</span>
+                    </button>
+              </div>';
+    }
+
+    /**
      * Summary: Places a warning error to notify user that WooCommerce is missing.
      * Description: Places a warning error to notify user that WooCommerce is missing.
      */
@@ -233,7 +249,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function woomercadopago_settings_link($links)
     {
         $plugin_links = array();
-        $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Settings', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Configurar', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woo-mercado-pago-module/reviews/?rate=5#new-post' . '">' . __('Tu opnión nos  ayuda a mejorar', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<br><a target="_blank" href="' . 'https://github.com/mercadopago/cart-woocommerce#installation' . '">' . __('Guías y Documentación', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woo-mercado-pago-module#postform' . '">' . __('Informar Problema', 'woocommerce-mercadopago') . '</a>';

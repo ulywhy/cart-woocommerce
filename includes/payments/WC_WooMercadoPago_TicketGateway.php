@@ -24,9 +24,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method_title = __('Mercado Pago - Ticket', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
-        $this->title = $this->getOption('title', __('Mercado Pago - Ticket', 'woocommerce-mercadopago'));
+        $this->method_title = __('WooCommerce Mercado Pago: Checkout Personalizado', 'woocommerce-mercadopago');
+        $this->method_description = $this->getMethodDescription('Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto.');
+        $this->title = $this->getOption('title', __('WooCommerce Mercado Pago: Checkout Personalizado', 'woocommerce-mercadopago'));
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->installments = $this->getOption('installments', '24');
         $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');

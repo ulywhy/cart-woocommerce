@@ -26,8 +26,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->title = $this->getOption('title', __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago'));
-        $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
+        $this->title = $this->getOption('title', __('WooCommerce Mercado Pago: Checkout Básico', 'woocommerce-mercadopago'));
+        $this->method_description = $this->getMethodDescription('Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->installments = $this->getOption('installments', '24');
         $this->field_forms_order = $this->get_fields_sequence();
@@ -43,12 +43,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
-        //add js
-        wp_enqueue_script(
-            'woocommerce-mercadopago-custom-config-script',
-            plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__))
-        );
+        if(is_admin()){
+            wp_enqueue_script('woocommerce-mercadopago-custom-config-script', plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__)));
+        }
 
+
+        if(empty($this->settings['checkout_country'])) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 5);
+        }
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
         $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
@@ -227,7 +229,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         return array(
             'title' => __('Cupones de descuento', 'woocommerce-mercadopago'),
-            'type' => 'checkbox',
+            'type' => 'select',
             'default' => 'no',
             'description' => __('¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?', 'woocommerce-mercadopago'),
             'options' => array(
