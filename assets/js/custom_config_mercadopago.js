@@ -22,14 +22,14 @@ window.onload = function () {
 
   //clone save button
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_btn_save');
-  document.getElementById("mp_table_11").append(cloneSaveButton.cloneNode(true));
-  document.getElementById("mp_table_17").append(cloneSaveButton.cloneNode(true));
-  document.getElementById("mp_table_18").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_16").append(cloneSaveButton.cloneNode(true));
   document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
-  document.getElementById("mp_table_23").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_22").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_25").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_27").append(cloneSaveButton.cloneNode(true));
 
   var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-custom_checkout_advanced_settings");
-  var collapse_table = document.querySelector("#mp_table_18");
+  var collapse_table = document.querySelector("#mp_table_22");
   collapse_table.style.display = "none";
   collapse_title.style.cursor = "pointer";
 
@@ -53,10 +53,10 @@ window.onload = function () {
   }
 
   //collpase Configuración Avanzada
-  document.querySelector("#mp_table_22").style.display = "none";
+  document.querySelector("#mp_table_26").style.display = "none";
   
   var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-custom_checkout_custom_payments_advanced_title");
-  var collapse_table_2 = document.querySelector("#mp_table_23");
+  var collapse_table_2 = document.querySelector("#mp_table_27");
   collapse_table_2.style.display = "none";
   collapse_title_2.style.cursor = "pointer";
 

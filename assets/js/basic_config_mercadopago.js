@@ -22,14 +22,14 @@ window.onload = function () {
 
   //clone save button
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_btn_save');
-  document.getElementById("mp_table_11").append(cloneSaveButton.cloneNode(true));
   document.getElementById("mp_table_16").append(cloneSaveButton.cloneNode(true));
-  document.getElementById("mp_table_17").append(cloneSaveButton.cloneNode(true));
-  document.getElementById("mp_table_20").append(cloneSaveButton.cloneNode(true));
   document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_22").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_25").append(cloneSaveButton.cloneNode(true));
+  document.getElementById("mp_table_27").append(cloneSaveButton.cloneNode(true));
 
   var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_advanced_settings");
-  var collapse_table = document.querySelector("#mp_table_17");
+  var collapse_table = document.querySelector("#mp_table_22");
   collapse_table.style.display = "none";
   collapse_title.style.cursor = "pointer";
 
@@ -54,8 +54,10 @@ window.onload = function () {
 
   //collpase Configuración Avanzada
   var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_title");
-  var collapse_table_2 = document.querySelector("#mp_table_21");
+  var collapse_table_2 = document.querySelector("#mp_table_27");
+  var collapse_description_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_description");
   collapse_table_2.style.display = "none";
+  collapse_description_2.style.display = "none";
   collapse_title_2.style.cursor = "pointer";
 
   collapse_title_2.innerHTML += "<span class='btn-collapsible' id='header_plus_2' style='display:block'>+</span>\
@@ -67,18 +69,20 @@ window.onload = function () {
   collapse_title_2.onclick = function () {
     if (collapse_table_2.style.display == "none") {
       collapse_table_2.style.display = "block";
+      collapse_description_2.style.display = "block";
       header_less_2.style.display = "block";
       header_plus_2.style.display = "none";
     }
     else {
       collapse_table_2.style.display = "none";
+      collapse_description_2.style.display = "none";
       header_less_2.style.display = "none";
       header_plus_2.style.display = "block";
     }
   }
 
   //payment methods
-  var input_payments = document.querySelectorAll('#mp_table_20 td.forminp label');
+  var input_payments = document.querySelectorAll('#mp_table_25 td.forminp label');
   for (i = 0; i < input_payments.length; i++) {
     input_payments[i].id = "input_payments_mt";
   }

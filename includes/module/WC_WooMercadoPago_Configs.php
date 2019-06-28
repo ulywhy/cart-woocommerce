@@ -1,7 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
+
 /**
  * Class WC_WooMercadoPago_Configs
  */
@@ -14,6 +15,23 @@ class WC_WooMercadoPago_Configs
     public function __construct()
     {
         $this->updateTokenNewVersion();
+        $this->showNotices();
+    }
+
+    /**
+     *  Show Notices in ADMIN
+     */
+    private function showNotices()
+    {
+        if (empty(get_option('_mp_public_key_prod')) && empty(get_option('_mp_access_token_prod'))) {
+            if (!empty(get_option('_mp_client_id')) && !empty(get_option('_mp_client_secret'))) {
+                add_action('admin_notices', array($this, 'noticeUpdateAccessToken'));
+            }
+        }
+
+        if ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off')) {
+            add_action('admin_notices', array($this, 'noticeHttps'));
+        }
     }
 
     /**
@@ -21,37 +39,30 @@ class WC_WooMercadoPago_Configs
      */
     private function updateTokenNewVersion()
     {
-        if(empty(get_option('_mp_public_key_prod', '')) || empty(get_option('_mp_access_token_prod', '')))
-        {
-            if(!empty(get_option('_mp_public_key')) && !empty(get_option('_mp_access_token')))
-            {
+        if (empty(get_option('_mp_public_key_prod', '')) || empty(get_option('_mp_access_token_prod', ''))) {
+            if (!empty(get_option('_mp_public_key')) && !empty(get_option('_mp_access_token'))) {
                 $this->updateToken();
             }
         }
 
-        if(empty(get_option('_mp_public_key_prod')) && empty(get_option('_mp_access_token_prod')))
-        {
-            if(!empty(get_option('_mp_client_id')) && !empty(get_option('_mp_client_secret')))
-            {
-                add_action('admin_notices', array($this, 'noticeUpdateAccessToken'));
-            }
-        }
-
-        if(empty(get_option('_site_id_v1')))
-        {
+        if (empty(get_option('_site_id_v1'))) {
             WC_WooMercadoPago_Credentials::validate_credentials_v1();
         }
 
+        $ticketMethods = get_option('_all_payment_methods_ticket', '');
+        if (empty($ticketMethods)) {
+            $this->updateTicketMethods();
+        }
 
         $allPayments = get_option('_checkout_payments_methods', '');
-        if(empty($allPayments)){
+        if (empty($allPayments)) {
             $this->updatePayments();
             return;
         }
 
-        if(!empty($allPayments)){
-            foreach ($allPayments as $payment){
-                if(!isset($payment['name'])){
+        if (!empty($allPayments)) {
+            foreach ($allPayments as $payment) {
+                if (!isset($payment['name'])) {
                     $this->updatePayments();
                     break;
                 }
@@ -70,11 +81,35 @@ class WC_WooMercadoPago_Configs
     }
 
     /**
-     *  Notice
+     * @throws WC_WooMercadoPago_Exception
+     */
+    private function updateTicketMethods()
+    {
+        $mpInstance = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        WC_WooMercadoPago_Credentials::updateTicketMethod($mpInstance, $mpInstance->get_access_token());
+    }
+
+    /**
+     *  Notice AccessToken
      */
     public function noticeUpdateAccessToken()
     {
-        echo '<div class="error"><p style="font-size:20px"><strong>PLEASE UPDATE PUBLIC KEY AND ACCESS TOKEN</strong></p></div>'; //TODO ALTERAR MENSAGEM
+        echo '<div class="error is-dismissible"><p style="font-size:20px"><strong>MERCADOPAGO:</strong> PLEASE UPDATE PUBLIC KEY PROD AND ACCESS TOKEN PROD</p></div>'; //TODO ALTERAR MENSAGEM
+    }
+
+    /**
+     * Notice HTTPS
+     */
+    public function noticeHttps()
+    {
+        echo '<div class="notice notice-warning is-dismissible">  
+                    <p style="font-size:13px">
+                        <strong>MERCADOPAGO:</strong> Use HTTPS para exibir os métodos de pagamento.
+                    </p>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text">Dispensar este aviso.</span>
+                    </button>
+              </div>';
     }
 
     /**
@@ -208,7 +243,6 @@ class WC_WooMercadoPago_Configs
 
         return $methods;
     }
-
 
 
 }
