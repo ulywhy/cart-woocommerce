@@ -26,8 +26,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->title = $this->getOption('title', __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago'));
-        $this->method_description = $this->getMethodDescription('We give you the possibility to adapt the payment experience you want to offer 100% in your website, mobile app or anywhere you want. You can build the design that best fits your business model, aiming to maximize conversion.');
+        $this->title = $this->getOption('title', __('WooCommerce Mercado Pago: Checkout Básico', 'woocommerce-mercadopago'));
+        $this->method_description = $this->getMethodDescription('Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->installments = $this->getOption('installments', '24');
         $this->field_forms_order = $this->get_fields_sequence();
