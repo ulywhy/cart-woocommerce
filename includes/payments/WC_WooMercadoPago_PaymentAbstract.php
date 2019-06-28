@@ -398,28 +398,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return $checkout_country;
     }
 
-     /**
-     * Get seller protect link
-     *
-     * @param [string] $country
-     * @return string
-     */
-    public function setSellerProtectLink($country)
-    {
-        $protect_link = array(
-            'mld' => 'https://www.mercadopago.com/',
-            'mco' => 'https://www.mercadopago.com.co/ayuda/seguridad-vendedor_1800',
-            'mla' => 'https://www.mercadopago.com.ar/ayuda/dinero-seguridad-ventas_288',
-            'mlb' => 'https://www.mercadopago.com.br/ajuda/como-protegemos-vendedores_500',
-            'mlc' => 'https://www.mercadopago.cl/ayuda/proteccion-vendedores_1807',
-            'mlm' => 'https://www.mercadopago.com.mx/ayuda/dinero-seguridad-ventas_701',
-            'mlu' => 'https://www.mercadopago.com.uy/ayuda/dinero-seguridad-ventas_288',
-            'mlv' => 'https://www.mercadopago.com.ve/accion-pausada',
-            'mpe' => 'https://www.mercadopago.com.pe/ayuda/dinero-seguridad-ventas_288',
-        );
-        return $protect_link[$country];
-    }
-
     /**
      * @return string
      */
