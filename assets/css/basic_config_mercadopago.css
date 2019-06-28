@@ -254,6 +254,22 @@ margin-top: 5px;
     font-weight: bold;
 }
 
+.mp-header-logo {
+  align-items: center;
+}
+
+.left-header {
+  min-width: 120px;
+}
+
+.left-header img{
+  max-width: 150px;
+}
+
+.right-header {
+  padding-top: 20px;
+}
+
 .mp-save-button{
   display: inline-block;
   margin-bottom: 0;
