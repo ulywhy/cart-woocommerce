@@ -43,11 +43,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
-        //add js
-        wp_enqueue_script(
-            'woocommerce-mercadopago-custom-config-script',
-            plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__))
-        );
+        if(is_admin()){
+            wp_enqueue_script('woocommerce-mercadopago-custom-config-script', plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__)));
+        }
+
+
         if(empty($this->settings['checkout_country'])) {
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 5);
         }

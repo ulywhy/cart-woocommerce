@@ -98,7 +98,7 @@ class WC_WooMercadoPago_Configs
      */
     public function noticeUpdateAccessToken()
     {
-        echo '<div class="error is-dismissible"><p style="font-size:20px"><strong>MERCADOPAGO:</strong> PLEASE UPDATE PUBLIC KEY PROD AND ACCESS TOKEN PROD</p></div>'; //TODO ALTERAR MENSAGEM
+        echo '<div class="error is-dismissible"><p style="font-size:20px"><strong>MERCADO PAGO:</strong> PLEASE UPDATE PUBLIC KEY PROD AND ACCESS TOKEN PROD</p></div>'; //TODO ALTERAR MENSAGEM
     }
 
     /**
@@ -108,7 +108,7 @@ class WC_WooMercadoPago_Configs
     {
         echo '<div class="notice notice-warning is-dismissible">  
                     <p style="font-size:13px">
-                        <strong>MERCADOPAGO:</strong> Use HTTPS para exibir os métodos de pagamento.
+                        <strong>MERCADO PAGO:</strong> Use HTTPS para exibir os métodos de pagamento.
                     </p>
                     <button type="button" class="notice-dismiss">
                         <span class="screen-reader-text">Dispensar este aviso.</span>

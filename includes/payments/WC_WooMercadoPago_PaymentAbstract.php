@@ -196,6 +196,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
     /**
+     * @param string $key
+     * @param string $value
+     * @return bool
+     */
+    public function update_option($key, $value = '')
+    {
+        if ($key == 'enabled' && $value == 'yes') {
+            if (empty($this->mp->get_access_token())) {
+                $message = _('Necessário cadastrar as credenciais para habilitar pagamentos.');
+                echo json_encode(array('success' => false, 'data' => $message));
+                die();
+            }
+        }
+        return parent::update_option($key, $value);
+    }
+
+    /**
      * @param $label
      * @return array
      */

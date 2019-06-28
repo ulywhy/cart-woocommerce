@@ -40,6 +40,10 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
         if (is_admin()) {
+            $credentials = new WC_WooMercadoPago_Credentials();
+            if (!$credentials->tokenIsValid()) {
+                add_action('admin_notices', array($this, 'enablePaymentNotice'));
+            }
             self::loadMercadoEnviosAdmin();
         }
     }
@@ -58,10 +62,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         }
         if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_CLIENT) {
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
-        }
-        if (!$validateCredentialsType) {
-            return;
-            //throw new WC_WooMercadoPago_Exception('error'); //TODO: return??
         }
 
         $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
@@ -213,6 +213,22 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             return $new_array;
         }
         return $methods;
+    }
+
+    /**
+     * Enable Payment Notice
+     */
+    public function enablePaymentNotice()
+    {
+        $message = __('Cadastre as credenciais para habilitar os pagamentos.');
+        echo '<div class="notice notice-warning is-dismissible">  
+                    <p style="font-size:13px">
+                        <strong>MERCADO PAGO:</strong> ' . $message . '
+                    </p>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text">Dispensar este aviso.</span>
+                    </button>
+              </div>';
     }
 
     /**
