@@ -86,7 +86,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
         $this->custom_domain = $this->getOption('_mp_custom_domain');
-        // TODO: fazer logica para _mp_category_name usado na preference
         $this->binary_mode = $this->getOption('binary_mode', 'no');
         $this->gateway_discount = $this->getOption('gateway_discount', 0);
         $this->commission = $this->getOption('commission', 0);
@@ -149,7 +148,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $changed = false;
         foreach (self::COMMON_CONFIGS as $config) {
             $commonOption = get_option($config);
-            if ($this->settings[$config] != $commonOption) {
+            if (isset($this->settings[$config]) && $this->settings[$config] != $commonOption) {
                 $changed = true;
                 $this->settings[$config] = $commonOption;
             }

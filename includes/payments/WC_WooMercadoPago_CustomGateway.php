@@ -48,7 +48,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'woocommerce-mercadopago-custom-config-script',
             plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__))
         );
-
+        if(empty($this->settings['checkout_country'])) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 5);
+        }
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
         $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
