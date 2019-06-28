@@ -283,7 +283,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_steps = array(
             'title' => sprintf(
                 '<div class="row">
-              <h4 class="title-checkout-body pb-20">' . __('Sigue estos pasos para activar Mercado Pago en tu tienda:', 'woocommerce-mercadopago') . '</h4>
+              <h4 class="title-checkout-body pb-20">' . __('<b>Sigue estos pasos para activar Mercado Pago en tu tienda:</b>', 'woocommerce-mercadopago') . '</h4>
               
               <div class="col-md-2 text-center pb-10">
                 <p class="number-checkout-body">1</p>
@@ -568,7 +568,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                             </th>
                             <td class="forminp">
                                 <fieldset>
-                                    <a class="mp_general_links" href="https://www.mercadopago.com/' . $country . '/account/credentials?type=basic" target="_blank">' . __('Buscar mis credenciales', 'woocommerce-mercadopago') . '</a>
+                                    <a class="mp_general_links" href="https://www.mercadopago.com/' . $country . '/account/credentials" target="_blank">' . __('Buscar mis credenciales', 'woocommerce-mercadopago') . '</a>
                                     <p class="description fw-400 mb-0"></p>
                                 </fieldset>
                             </td>
@@ -599,7 +599,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_description_test()
     {
         $checkout_credential__description_test = array(
-            'title' => __('Con estas claves podrás hacer las pruebas que quieras.', 'woocommerce-mercadopago'),
+            'title' => __('Con estas claves podrás <b>hacer las pruebas</b> que quieras.', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_small_text mt--10'
         );
@@ -656,7 +656,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_description_prod()
     {
         $checkout_credential__description_prod = array(
-            'title' => __('Con estas claves podrás recibir pagos reales de tus clientes.', 'woocommerce-mercadopago'),
+            'title' => __('Con estas claves podrás <b>recibir pagos reales</b> de tus clientes.', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_small_text mt--10'
         );
@@ -745,7 +745,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_mp_statement_descriptor()
     {
         $mp_statement_descriptor = array(
-            'title' => __('Descripción de la tienda', 'woocommerce-mercadopago'),
+            'title' => __('Nombre de la tienda', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Este nombre aparecerá en la factura de tus clientes.', 'woocommerce-mercadopago'),
             'default' => __('Mercado Pago', 'woocommerce-mercadopago')

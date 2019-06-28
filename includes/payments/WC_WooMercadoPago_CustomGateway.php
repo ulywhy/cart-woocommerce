@@ -229,7 +229,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         return array(
             'title' => __('Cupones de descuento', 'woocommerce-mercadopago'),
-            'type' => 'checkbox',
+            'type' => 'select',
             'default' => 'no',
             'description' => __('¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?', 'woocommerce-mercadopago'),
             'options' => array(
