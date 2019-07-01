@@ -64,6 +64,10 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
         }
 
+        if(!isset($mp)) {
+            return false;
+        }
+
         $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $mp->set_email($email);
 

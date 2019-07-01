@@ -26,7 +26,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method_title = __( 'WooCommerce Mercado Pago: Checkout Personalizado', 'woocommerce-mercadopago' );
+        $this->method_title = __('WooCommerce Mercado Pago: Checkout Personalizado', 'woocommerce-mercadopago');
         $this->title = __('Acepta pagos con tarjetas', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Crecer está en tus manos. Diseña y adapta la experiencia de pago que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
@@ -44,23 +44,29 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
-        if(is_admin()){
+        if (is_admin()) {
             wp_enqueue_script('woocommerce-mercadopago-custom-config-script', plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__)));
         }
 
-
-        if(empty($this->settings['checkout_country'])) {
-            $this->field_forms_order = array_slice($this->field_forms_order, 0, 5);
+        if (empty($this->checkout_country)) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
         }
+
+        if(!empty($this->checkout_country) && empty($this->mp_access_token_test) && empty($this->mp_access_token_prod)) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
+        }
+
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
-        $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
-        $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
-        $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
-        $form_fields['installments'] = $this->field_installments();
-        $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
-        $form_fields['checkout_custom_payments_advanced_description'] = $this->field_checkout_custom_payments_advanced_description();
-        $form_fields['coupon_mode'] = $this->field_coupon_mode();
+        if (!empty($this->checkout_country) && !empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
+            $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
+            $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
+            $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
+            $form_fields['installments'] = $this->field_installments();
+            $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
+            $form_fields['checkout_custom_payments_advanced_description'] = $this->field_checkout_custom_payments_advanced_description();
+            $form_fields['coupon_mode'] = $this->field_coupon_mode();
+        }
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
             return $form_fields_abs;
@@ -79,6 +85,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function get_fields_sequence()
     {
         return [
+            // Necessary to run
+            'title',
+            'description',
             // Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. 
             'checkout_custom_header',
             'checkout_steps',
@@ -374,7 +383,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                     update_post_meta($order_id, '_save_card', 'yes');
                 }
             }
-            if(!is_array($response)){
+            if (!is_array($response)) {
                 return array(
                     'result' => 'fail',
                     'redirect' => '',
@@ -505,7 +514,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             return;
         }
         if (isset($checkout_info['issuer_id']) && !empty($checkout_info['issuer_id'])) {
-            $issuer_id = (integer)($checkout_info['issuer_id']);
+            $issuer_id = (int) ($checkout_info['issuer_id']);
         }
         if (isset($checkout_info['payment_method_id']) && !empty($checkout_info['payment_method_id'])) {
             $payment_method_id = $checkout_info['payment_method_id'];

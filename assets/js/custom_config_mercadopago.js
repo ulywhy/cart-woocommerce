@@ -3,6 +3,7 @@ window.onload = function () {
   document.querySelector(".wc-admin-breadcrumb").style.display = 'none';
   document.querySelector(".mp-header-logo").style.display = 'none';
   document.querySelector("p.submit").style.display = 'none';
+  document.querySelectorAll("h2")[4].style.display = 'none';
 
   //update form_fields label
   var label = document.querySelectorAll("th.titledesc");
@@ -19,6 +20,13 @@ window.onload = function () {
   for (i = 0; i < table.length; i++) {
     table[i].id = "mp_table_" + i;
   }
+
+   // Remove title and description label necessary for custom
+   document.querySelector(".hidden-field-mp-title").setAttribute("type", "hidden");
+   document.querySelector(".hidden-field-mp-desc").setAttribute("type", "hidden");
+   var removeLabel = document.querySelectorAll("#mp_table_0");
+   removeLabel[0].children[0].children[0].style.display = 'none';
+   removeLabel[0].children[0].children[1].style.display = 'none';
 
   //clone save button
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_btn_save');

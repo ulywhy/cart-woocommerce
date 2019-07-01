@@ -253,7 +253,7 @@ class WC_WooMercadoPago_Credentials
     {
         $basicIsEnabled = 'no';
         $basicSettings = get_option('woocommerce_woo-mercado-pago-basic_settings', '');
-        if ($basicSettings) {
+        if (isset($basicSettings['enabled'])) {
             $basicIsEnabled = $basicSettings['enabled'];
         }
 

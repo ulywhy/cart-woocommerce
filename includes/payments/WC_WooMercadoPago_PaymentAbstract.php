@@ -23,15 +23,14 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         '_mp_store_identificator',
         '_mp_debug_mode',
         '_mp_custom_domain',
-        'installments',
-        'title',
-        'description'
+        'installments'
     );
 
     public $field_forms_order;
     public $id;
     public $method_title;
     public $title;
+    public $description;
     public $ex_payments = array();
     public $method;
     public $method_description;
@@ -49,7 +48,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $hook;
     public $supports;
     public $icon;
-    public $description;
     public $mp_category_id;
     public $store_identificator;
     public $debug_mode;
@@ -245,8 +243,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $form_fields['checkout_country'] = $this->field_checkout_country($this->wc_country, $this->checkout_country);
         $form_fields['checkout_btn_save'] = $this->field_checkout_btn_save();
 
-        if (!empty($this->settings['checkout_country'])) {
-            $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
+        if (!empty($this->checkout_country)) {
             $form_fields['checkout_credential_title'] = $this->field_checkout_credential_title();
             $form_fields['checkout_credential_mod_test_title'] = $this->field_checkout_credential_mod_test_title();
             $form_fields['checkout_credential_mod_test_description'] = $this->field_checkout_credential_mod_test_description();
@@ -263,6 +260,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['_mp_public_key_prod'] = $this->field_checkout_credential_publickey_prod();
             $form_fields['_mp_access_token_prod'] = $this->field_checkout_credential_accesstoken_prod();
             $form_fields['_mp_category_id'] = $this->field_category_store();
+            if (!empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
+                $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
             $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
             $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
             $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link($this->checkout_country, $this->application_id);
@@ -282,6 +281,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['checkout_ready_description'] = $this->field_checkout_ready_description();
             $form_fields['checkout_ready_description_link'] = $this->field_checkout_ready_description_link();
         }
+        }
 
         if (is_admin()) {
             $this->normalizeCommonAdminFields();
@@ -297,9 +297,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $field_title = array(
             'title' => __('Title', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'hidden-field-mp-title',
+            'type' => 'text',
             'description' => '',
+            'class' => 'hidden-field-mp-title',
             'default' => $this->title
         );
         return $field_title;
@@ -312,7 +312,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $field_description = array(
             'title' => __('Description', 'woocommerce-mercadopago'),
-            'type' => 'title',
+            'type' => 'text',
             'class' => 'hidden-field-mp-desc',
             'description' => '',
             'default' => $this->method_description
@@ -391,18 +391,19 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      * @return array
      */
 
-    public function field_checkout_steps_link_homolog($country_link, $appliocation_id) {
+    public function field_checkout_steps_link_homolog($country_link, $appliocation_id)
+    {
         $checkout_steps_link_homolog = array(
-            'title' => sprintf(__('Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda.', 'woocommerce-mercadopago'),
+            'title' => sprintf(
+                __('Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda.', 'woocommerce-mercadopago'),
             '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('cuenta homologada', 'woocommerce-mercadopago') . '</a>'
         ),
             'type' => 'title',
             'class' => 'mp_small_text'
         );
 
-        array_splice($this->field_forms_order, 2, 0, 'checkout_steps_link_homolog');
+        array_splice($this->field_forms_order, 4, 0, 'checkout_steps_link_homolog');
         return $checkout_steps_link_homolog;
-
     }
 
     /**
@@ -435,7 +436,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         );
         
         $country_default = '';
-        if(!empty($wc_country) && empty($checkout_country) ){
+        if (!empty($wc_country) && empty($checkout_country)) {
         $country_default =  strlen($wc_country) > 2 ? substr($wc_country, 0, 2) : $wc_country;
         $country_default =  array_key_exists($country_default, $country) ? $country[$country_default] : 'mla';
         } 
@@ -463,13 +464,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getApplicationId($mp_access_token_prod)
     {
-        if(empty($mp_access_token_prod)) {
+        if (empty($mp_access_token_prod)) {
             return '';
         } else {
             $application_id = explode('-', $mp_access_token_prod);
             return $application_id[1];
         }
-
     }
 
     /**

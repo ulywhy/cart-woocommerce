@@ -24,9 +24,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method_title = __( 'WooCommerce Mercado Pago: Checkout Básico', 'woocommerce-mercadopago' );
+        $this->method_title = __('WooCommerce Mercado Pago: Checkout Básico %s', 'woocommerce-mercadopago');
         $this->method = $this->getOption('method', 'redirect');
-        $this->title = __( 'Acepta todos los medios de pago', 'woocommerce-mercadopago' );
+        $this->title = __('Acepta todos los medios de pago', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto.');
         $this->auto_return = $this->getOption('auto_return', 'yes');
         $this->success_url = $this->getOption('success_url', '');
@@ -48,35 +48,40 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
-        if(is_admin()){
+        if (is_admin()) {
             wp_enqueue_script(
                 'woocommerce-mercadopago-basic-config-script',
                 plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
             );
         }
 
-        if(empty($this->settings['checkout_country'])) {
-            $this->field_forms_order = array_slice($this->field_forms_order, 0, 5);
+        if (empty($this->checkout_country)) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
         }
+
+        if(!empty($this->checkout_country) && empty($this->mp_access_token_test) && empty($this->mp_access_token_prod)) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
+        }
+
         $form_fields = array();
-        
+
         $form_fields['checkout_header'] = $this->field_checkout_header();
-        
-        if (!empty($this->settings['checkout_country'])) {
-                $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
-                $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
-                $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
-                $form_fields['installments'] = $this->field_installments();
-                $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();
-                $form_fields['method'] = $this->field_method();
-                $form_fields['success_url'] = $this->field_success_url();
-                $form_fields['failure_url'] = $this->field_failure_url();
-                $form_fields['pending_url'] = $this->field_pending_url();
-                $form_fields['auto_return'] = $this->field_auto_return();
-                foreach ($this->field_ex_payments() as $key => $value) {
-                    $form_fields[$key] = $value;
-                }
+
+        if (!empty($this->checkout_country) && !empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
+            $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
+            $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
+            $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
+            $form_fields['installments'] = $this->field_installments();
+            $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();
+            $form_fields['method'] = $this->field_method();
+            $form_fields['success_url'] = $this->field_success_url();
+            $form_fields['failure_url'] = $this->field_failure_url();
+            $form_fields['pending_url'] = $this->field_pending_url();
+            $form_fields['auto_return'] = $this->field_auto_return();
+            foreach ($this->field_ex_payments() as $key => $value) {
+                $form_fields[$key] = $value;
             }
+        }
 
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
@@ -96,6 +101,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function get_fields_sequence()
     {
         return [
+            // Necessary to run
+            'title',
+            'description',
             // Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel.
             'checkout_header',
             'checkout_steps',
@@ -162,10 +170,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function is_available()
     {
-        if(parent::is_available()){
-           return true;
+        if (parent::is_available()) {
+            return true;
         }
-        if($this->mp instanceof MP){
+        if ($this->mp instanceof MP) {
             $accessToken = $this->mp->get_access_token();
             if (strpos($accessToken, 'APP_USR') === false && strpos($accessToken, 'TEST') === false) {
                 return false;
@@ -401,7 +409,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $ex_payments_sort[] = "ex_payments_" . $payment_method;
         }
 
-        array_splice($this->field_forms_order, 35, 0, $ex_payments_sort);
+        array_splice($this->field_forms_order, 37, 0, $ex_payments_sort);
 
         return $ex_payments;
     }
@@ -416,10 +424,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'type' => 'select',
             'default' => 'yes',
             'description' => __('Que tu cliente vuelva automáticamente a la tienda después del pago.', 'woocommerce-mercadopago'),
-                'options' => array(
-                    'yes' => __('Sí', 'woocommerce-mercadopago'),
-                    'no' => __('No', 'woocommerce-mercadopago'),
-                )
+            'options' => array(
+                'yes' => __('Sí', 'woocommerce-mercadopago'),
+                'no' => __('No', 'woocommerce-mercadopago'),
+            )
         );
         return $auto_return;
     }
