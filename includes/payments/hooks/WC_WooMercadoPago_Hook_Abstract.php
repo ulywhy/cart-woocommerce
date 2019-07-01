@@ -22,8 +22,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         $this->class = get_class($payment);
         $this->mpInstance = $payment->mp;
         $this->publicKey = $payment->getPublicKey();
-        $this->testUser = $payment->getOption('_test_user_v1', false);
-        $this->siteId = $payment->getOption('_site_id_v1');
+        $this->testUser = get_option('_test_user_v1');
+        $this->siteId = get_option('_site_id_v1');
 
         $this->loadHooks();
     }

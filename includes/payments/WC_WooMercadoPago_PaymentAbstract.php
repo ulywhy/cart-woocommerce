@@ -23,7 +23,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         '_mp_store_identificator',
         '_mp_debug_mode',
         '_mp_custom_domain',
-        'installments'
+        'installments',
+        'title',
+        'description'
     );
 
     public $field_forms_order;
@@ -67,6 +69,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $checkout_country;
     public $wc_country;
     public $commission;
+    public $application_id;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -131,6 +134,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         if (in_array($key, $wordpressConfigs)) {
             return get_option($key, $default);
         }
+
 
         $option = $this->get_option($key, $default);
         if (!empty($option)) {
@@ -234,6 +238,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->init_form_fields();
         $this->init_settings();
         $form_fields = array();
+        $form_fields['title'] = $this->field_title();
+        $form_fields['description'] = $this->field_description();
         $form_fields['checkout_steps'] = $this->field_checkout_steps();
         $form_fields['checkout_country_title'] = $this->field_checkout_country_title();
         $form_fields['checkout_country'] = $this->field_checkout_country($this->wc_country, $this->checkout_country);
@@ -282,6 +288,36 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         }
 
         return $form_fields;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_title()
+    {
+        $field_title = array(
+            'title' => __('Title', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'hidden-field-mp-title',
+            'description' => '',
+            'default' => $this->title
+        );
+        return $field_title;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_description()
+    {
+        $field_description = array(
+            'title' => __('Description', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'hidden-field-mp-desc',
+            'description' => '',
+            'default' => $this->method_description
+        );
+        return $field_description;
     }
 
     /**
@@ -921,17 +957,17 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     /**
      * @return array
      */
-    public function field_title()
-    {
-        $title = array(
-            'title' => __('Title', 'woocommerce-mercadopago'),
-            'type' => 'text',
-            'description' => __('Title shown to the client in the checkout.', 'woocommerce-mercadopago'),
-            'default' => __('Mercado Pago', 'woocommerce-mercadopago')
-        );
-
-        return $title;
-    }
+//    public function field_title()
+//    {
+//        $title = array(
+//            'title' => __('Title', 'woocommerce-mercadopago'),
+//            'type' => 'text',
+//            'description' => __('Title shown to the client in the checkout.', 'woocommerce-mercadopago'),
+//            'default' => __('Mercado Pago', 'woocommerce-mercadopago')
+//        );
+//
+//        return $title;
+//    }
 
     /**
      * @return array

@@ -15,9 +15,6 @@
  * @category Core
  * @author Mercado Pago
  */
-$inicio1 = microtime(true);
-
-
 
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
