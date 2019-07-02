@@ -24,9 +24,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method_title = __('Mercado Pago: Checkout Personalizado', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription('Crecer está en tus manos. Diseña y adapta la experiencia de pagos en efectivo en tu sitio web o aplicación y maximiza la conversión de tu negocio.');
-        $this->title = __('Acepta pagos en efectivo', 'woocommerce-mercadopago');
+        $this->method_title = __('Mercado Pago - Checkout personalizado', 'woocommerce-mercadopago');
+        $this->method_description = $this->getMethodDescription('Acepta medios de pago en efectivo y amplía las opciones de compra de tus clientes.');
+        $this->title = __('Paga con medios de pago en efectivo', 'woocommerce-mercadopago');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->installments = $this->getOption('installments', '24');
         $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');
