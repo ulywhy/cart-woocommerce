@@ -117,12 +117,13 @@ class WC_WooMercadoPago_Configs
     }
 
     /**
-     * UpdateToken
+     *  UpdateToken
      */
     private function updateToken()
     {
         update_option('_mp_public_key_prod', get_option('_mp_public_key'), true);
         update_option('_mp_access_token_prod', get_option('_mp_access_token'), true);
+        update_option('checkout_credential_production', 'yes', true);
     }
 
     /**

@@ -173,12 +173,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         if (parent::is_available()) {
             return true;
         }
-        if ($this->mp instanceof MP) {
-            $accessToken = $this->mp->get_access_token();
-            if (strpos($accessToken, 'APP_USR') === false && strpos($accessToken, 'TEST') === false) {
-                return false;
+        if($this->settings['enabled'] == true){
+            if ($this->mp instanceof MP) {
+                $accessToken = $this->mp->get_access_token();
+                if (strpos($accessToken, 'APP_USR') === false && strpos($accessToken, 'TEST') === false) {
+                    return false;
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }

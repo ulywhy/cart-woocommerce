@@ -105,6 +105,9 @@ class WC_WooMercadoPago_Credentials
     public static function access_token_is_valid($access_token)
     {
         $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        if(empty($mp_v1)){
+            return false;
+        }
         $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
         if ($get_request['status'] > 202) {
             $log = WC_WooMercadoPago_Log::init_mercado_pago_log();

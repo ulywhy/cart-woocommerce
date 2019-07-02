@@ -58,7 +58,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
-        if (!empty($this->checkout_country) && !empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
+        if (!empty($this->checkout_country) && !empty($this->getAccessToken())) {
             $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
             $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
@@ -331,9 +331,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function process_payment($order_id)
     {
-        if (!isset($_POST['mercadopago_custom'])) {
-            return;
-        }
         $custom_checkout = $_POST['mercadopago_custom'];
         $order = wc_get_order($order_id);
         if (method_exists($order, 'update_meta_data')) {

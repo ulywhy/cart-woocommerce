@@ -329,6 +329,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $array = array();
         foreach ($ordenation as $order => $key) {
+            if(!isset($formFields[$key])){
+                continue;
+            }
             $array[$key] = $formFields[$key];
             unset($formFields[$key]);
         }
