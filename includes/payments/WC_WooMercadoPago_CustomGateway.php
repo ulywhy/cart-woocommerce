@@ -286,7 +286,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function payment_fields()
     {
-        wp_enqueue_script('wc-credit-card-form');
         $amount = $this->get_order_total();
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $customer = isset($logged_user_email) ? $this->mp->get_or_create_customer($logged_user_email) : null;
@@ -318,7 +317,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'currency_ratio' => $currency_ratio,
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
-            'path_to_javascript' => plugins_url('../assets/js/credit-card.js', plugin_dir_path(__FILE__))
+            'path_to_javascript' => plugins_url('../assets/js/credit-card.js', plugin_dir_path(__FILE__)),
+            /** === gio === */
+            'installments' => $this->get_option('installments'),
         );
 
         wc_get_template('credit-card/payment-form.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
