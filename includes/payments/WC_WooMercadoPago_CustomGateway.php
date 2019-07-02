@@ -26,7 +26,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method_title = __('WooCommerce Mercado Pago: Checkout Personalizado', 'woocommerce-mercadopago');
+        $this->method_title = __('Mercado Pago: Checkout Personalizado', 'woocommerce-mercadopago');
         $this->title = __('Acepta pagos con tarjetas', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Crecer está en tus manos. Diseña y adapta la experiencia de pago que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
@@ -64,7 +64,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
             $form_fields['installments'] = $this->field_installments();
             $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
-            $form_fields['checkout_custom_payments_advanced_description'] = $this->field_checkout_custom_payments_advanced_description();
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
         }
         $form_fields_abs = parent::getFormFields($label);
@@ -133,7 +132,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'installments',
             // Configuración avanzada de la experiencia de pago personalizada
             'checkout_custom_payments_advanced_title',
-            'checkout_custom_payments_advanced_description',
+            'checkout_payments_advanced_description',
             'coupon_mode',
             'binary_mode',
             'gateway_discount',
@@ -217,19 +216,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'class' => 'mp_subtitle_bd'
         );
         return $checkout_custom_payments_advanced_title;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_custom_payments_advanced_description()
-    {
-        $checkout_custom_payments_advanced_description = array(
-            'title' => __('Edita estos campos avanzados de la experiencia de pago solo cuando quieras modificar <br>los valores preestablecidos.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_small_text'
-        );
-        return $checkout_custom_payments_advanced_description;
     }
 
     /**

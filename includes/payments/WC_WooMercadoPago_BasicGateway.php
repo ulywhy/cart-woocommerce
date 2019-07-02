@@ -24,7 +24,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->form_fields = array();
-        $this->method_title = __('WooCommerce Mercado Pago: Checkout Básico %s', 'woocommerce-mercadopago');
+        $this->method_title = __('Mercado Pago: Checkout Básico', 'woocommerce-mercadopago');
         $this->method = $this->getOption('method', 'redirect');
         $this->title = __('Acepta todos los medios de pago', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto.');
