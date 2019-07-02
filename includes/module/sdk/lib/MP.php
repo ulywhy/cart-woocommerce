@@ -23,7 +23,7 @@ class MP
      * MP constructor.
      * @throws WC_WooMercadoPago_Exception
      */
-    function __construct()
+    public function __construct()
     {
         $includes_path = dirname(__FILE__);
         require_once($includes_path . '/RestClient/AbstractRestClient.php');

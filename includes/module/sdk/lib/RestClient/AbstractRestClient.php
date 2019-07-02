@@ -1,16 +1,26 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
-}
 
 /**
  * Class AbstractRestClient
  */
-abstract class AbstractRestClient
+class AbstractRestClient
 {
     public static $email_admin = '';
     public static $site_locale = '';
     public static $check_loop = 0;
+
+    /**
+     * @param $request
+     * @param $version
+     * @param $baseUrl
+     * @return array|null
+     * @throws WC_WooMercadoPago_Exception
+     */
+    public static function execAbs($request, $version, $baseUrl)
+    {
+        $connect = self::build_request($request, $version, $baseUrl);
+        return self::execute($request, $version, $connect);
+    }
 
     /**
      * @param $request
@@ -206,7 +216,6 @@ abstract class AbstractRestClient
         }
 
     }
-
 
     /**
      * @param $email

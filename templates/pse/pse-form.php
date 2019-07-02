@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <fieldset id="pse_checkout_fieldset" style="margin:-1px; background:white; display: none;">
-
+<legend></legend>
 	<!-- coupom -->
 <!-- 	<div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-pse" >
 		<div class="form-col-8">

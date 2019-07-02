@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] == 'credit_card'): ?>
-                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" />
+                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" alt=""/>
               <?php endif; ?>
             <?php endforeach; ?>
         </div>
@@ -42,7 +42,7 @@ if (!defined('ABSPATH')) {
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] == 'debit_card' || $tarjeta['type'] == 'prepaid_card'): ?>
-                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" />
+                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" alt="" />
               <?php endif; ?>
             <?php endforeach; ?>
         </div>
@@ -56,7 +56,7 @@ if (!defined('ABSPATH')) {
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] != 'credit_card' && $tarjeta['type'] != 'debit_card' && $tarjeta['type'] != 'prepaid_card'): ?>
-                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" />
+                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" alt=""/>
               <?php endif; ?>
             <?php endforeach; ?>
         </div>
@@ -65,7 +65,7 @@ if (!defined('ABSPATH')) {
     
     <div class="col-md-12 pt-20">
         <div class="redirect-frame">
-            <img src="<?= $cho_image ?>" class="img-fluid" />
+            <img src="<?= $cho_image ?>" class="img-fluid" alt=""/>
             <p>Te llevamos a nuestro sitio para completar el pago</p>
         </div>
     </div>

@@ -47,8 +47,8 @@ if (!defined('ABSPATH')) {
     </label>
 </div>
 
-<fieldset id="ticket_checkout_fieldset" style="margin:-1px; background:white; display: none;">
-
+<fieldset id="ticket_checkout_fieldset" legend style="margin:-1px; background:white; display: none;">
+<legend></legend>
     <!-- coupom -->
     <div class="mp-box-inputs mp-line form-row" id="mercadopago-form-coupon-ticket">
         <div class="form-col-8">
