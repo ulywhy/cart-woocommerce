@@ -1,315 +1,315 @@
 .pt-20 {
-  padding-top: 20px !important;
+    padding-top: 20px !important;
 }
 
 .pt-10 {
-  padding-top: 10px !important;
+    padding-top: 10px !important;
 }
 
 .pl-10 {
-  padding-left: 10px !important;
+    padding-left: 10px !important;
 }
 
 .pr-10 {
-  padding-right: 10px !important;
+    padding-right: 10px !important;
 }
 
 .pr-25 {
-  padding-right: 25px !important;
+    padding-right: 25px !important;
 }
 
 .mt-5 {
-  margin-top: 5px !important;
+    margin-top: 5px !important;
 }
 
 .mb-0 {
-  margin-bottom: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 .display-inherit {
-  display: inherit !important;
+    display: inherit !important;
 }
 
 .pointer {
-  cursor: pointer !important;
+    cursor: pointer !important;
 }
 
 .row {
-  width: 100%;
-  display: inline-block;
+    width: 100%;
+    display: inline-block;
 }
 
 .col-md-12 {
-  width: 100%;
-  display: inline-block;
-  padding-left: 0px;
-  padding-right: 0px;
-  text-align: left !important;
+    width: 100%;
+    display: inline-block;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left !important;
 }
 
 .col-md-9 {
-  flex: 0 0 75%;
-  width: 75%;
-  float: left;
+    flex: 0 0 75%;
+    width: 75%;
+    float: left;
 }
 
 .col-md-8 {
-  flex: 0 0 66.666667%;
-  width: 66.666667%;
-  float: left;
+    flex: 0 0 66.666667%;
+    width: 66.666667%;
+    float: left;
 }
 
 .col-md-6 {
-  width: 50%;
-  float: left;
-  padding-left: 0px;
-  padding-right: 0px;
-  text-align: left !important;
+    width: 50%;
+    float: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left !important;
 }
 
 .col-md-4 {
-  flex: 0 0 33.333333%;
-  width: 33.333333%;
-  float: left;
+    flex: 0 0 33.333333%;
+    width: 33.333333%;
+    float: left;
 }
 
 .col-md-3 {
-  flex: 0 0 25%;
-  width: 25%;
-  float: left;
+    flex: 0 0 25%;
+    width: 25%;
+    float: left;
 }
 
 .img-fluid {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .panel-checkout {
-  background-color: #fff;
-  padding: 20px 20px 25px;
+    background-color: #fff;
+    padding: 20px 20px 25px;
 }
 
 .title-checkout {
-  padding: 0px 0 0px;
-  font-family: sans-serif;
-  font-size: 1.25rem !important;
-  font-weight: 600 !important;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.25 !important;
-  letter-spacing: normal;
-  color: #04204c;
-  margin: 0 !important;
+    padding: 0px 0 0px;
+    font-family: sans-serif;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.25 !important;
+    letter-spacing: normal;
+    color: #04204c;
+    margin: 0 !important;
 }
 
 .subtitle-checkout {
-  font-size: 15px !important;
-  font-family: sans-serif !important;
-  color: #7a7a7a;
-  font-weight: 400;
-  padding: 20px 0px 0px;
-  margin: 0px 0 5px !important;
-  text-transform: uppercase;
+    font-size: 15px !important;
+    font-family: sans-serif !important;
+    color: #7a7a7a;
+    font-weight: 400;
+    padding: 20px 0px 0px;
+    margin: 0px 0 5px !important;
+    text-transform: uppercase;
 }
 
 .badge-checkout {
-  font-size: 15px !important;
-  font-family: sans-serif !important;
-  padding: 5px 10px;
-  margin-left: 5px;
-  display: inline-block;
-  background-color: #2ec74b;
-  color: #fff;
-  text-transform: none;
-  border-radius: 2px;
+    font-size: 15px !important;
+    font-family: sans-serif !important;
+    padding: 5px 10px;
+    margin-left: 5px;
+    display: inline-block;
+    background-color: #2ec74b;
+    color: #fff;
+    text-transform: none;
+    border-radius: 2px;
 }
 
 .img-tarjetas {
-  padding: 10px !important;
+    padding: 10px !important;
 }
 
 .redirect-frame {
-  width: 100%;
-  text-align: center;
-  background-color: #f5f5f5;
-  padding: 25px 20px 20px;
-  display: inline-block;
+    width: 100%;
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 25px 20px 20px;
+    display: inline-block;
 }
 
 .redirect-frame img {
-  max-width: 160px !important;
+    max-width: 160px !important;
 }
 
 .redirect-frame p {
-  padding-top: 15px !important;
-  margin-top: 0px !important;
-  font-family: sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  font-style: normal !important;
-  font-stretch: normal !important;
-  line-height: 1.71 !important;
-  letter-spacing: normal !important;
-  text-align: center !important;
-  color: #333333 !important;
+    padding-top: 15px !important;
+    margin-top: 0px !important;
+    font-family: sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+    font-stretch: normal !important;
+    line-height: 1.71 !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
+    color: #333333 !important;
 }
 
 /* ----- Custom Checkout ----- */
 
 .panel-custom-checkout {
-  background-color: #fff;
-  padding: 20px 20px 0px;
+    background-color: #fff;
+    padding: 20px 20px 0px;
 }
 
 .subtitle-custom-checkout {
-  font-size: 17px !important;
-  font-family: sans-serif !important;
-  color: #04204c;
-  font-weight: 600;
-  padding: 30px 0px 0px;
-  margin: 0px 0 5px !important;
+    font-size: 17px !important;
+    font-family: sans-serif !important;
+    color: #04204c;
+    font-weight: 600;
+    padding: 30px 0px 0px;
+    margin: 0px 0 5px !important;
 }
 
 .mp-form-control {
-  font-family: sans-serif !important;
-  width: 100%;
-  height: 40px;
-  border-radius: 5px !important;
-  font-size: 13px !important;
-  padding: 0 10px !important;
-  background-color: #fff !important;
-  border: 1px solid #d1d1d1 !important;
+    font-family: sans-serif !important;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px !important;
+    font-size: 13px !important;
+    padding: 0 10px !important;
+    background-color: #fff !important;
+    border: 1px solid #d1d1d1 !important;
 }
 
 .mp-form-control-error {
-  border: 2px solid #f04449 !important;
+    border: 2px solid #f04449 !important;
 }
 
 .mp-form-control-check {
-  margin: 5px 10px 0 0 !important;
-  font-family: sans-serif !important;
-  border-radius: 5px !important;
-  font-size: 13px !important;
-  padding: 0 10px !important;
-  background-color: #fff !important;
-  border: 1px solid #d1d1d1 !important;
-  float: left;
+    margin: 5px 10px 0 0 !important;
+    font-family: sans-serif !important;
+    border-radius: 5px !important;
+    font-size: 13px !important;
+    padding: 0 10px !important;
+    background-color: #fff !important;
+    border: 1px solid #d1d1d1 !important;
+    float: left;
 }
 
 .mp-button {
-  width: 100%;
-  height: 40px;
-  border-radius: 5px !important;
-  color: #fff !important;
-  background-color: #3483fa !important;
-  text-transform: none !important;
-  font-size: 15px !important;
-  font-weight: normal !important;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1 !important;
-  letter-spacing: normal !important;
-  text-align: center !important;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px !important;
+    color: #fff !important;
+    background-color: #3483fa !important;
+    text-transform: none !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1 !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
 }
 
 .mp-error {
-  font-family: sans-serif !important;
-  font-size: 12px !important;
-  font-weight: normal !important;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.29;
-  letter-spacing: normal;
-  color: #f04449 !important;
+    font-family: sans-serif !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #f04449 !important;
 }
 
 .mp-desc {
-  font-family: sans-serif !important;
-  font-size: 12px !important;
-  font-weight: normal !important;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.29;
-  letter-spacing: normal;
-  color: rgba(0, 0, 0, 0.45) !important;
+    font-family: sans-serif !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.45) !important;
 }
 
 .mp-label-form-check {
-  font-family: sans-serif !important;
-  font-size: 14px !important;
-  font-weight: normal !important;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  color: rgba(0, 0, 0, 0.8) !important;
-  vertical-align: baseline !important;
+    font-family: sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.8) !important;
+    vertical-align: baseline !important;
 }
 
 .mp-label-form {
-  font-family: sans-serif !important;
-  font-size: 14px !important;
-  font-weight: normal !important;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  color: rgba(0, 0, 0, 0.45) !important;
+    font-family: sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.45) !important;
 }
 
 .mp-label-form em {
-  font-size: 18px !important;
-  color: #f04449 !important;
-  font-family: "Merriweather, Georgia";
+    font-size: 18px !important;
+    color: #f04449 !important;
+    font-family: "Merriweather, Georgia";
 }
 
 .mp-obrigatory {
-  font-family: sans-serif !important;
-  font-size: 12px !important;
-  font-weight: normal !important;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.29;
-  letter-spacing: normal;
-  color: #f04449 !important;
-  padding-top: 10px;
+    font-family: sans-serif !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #f04449 !important;
+    padding-top: 10px;
 }
 
 .mp-obrigatory em {
-  font-size: 18px !important;
-  color: #f04449 !important;
-  margin: -2px 5px 0 0px;
-  font-family: "Merriweather, Georgia";
-  float: left;
+    font-size: 18px !important;
+    color: #f04449 !important;
+    margin: -2px 5px 0 0px;
+    font-family: "Merriweather, Georgia";
+    float: left;
 }
 
 .mp-frame-links {
-  display: inline-flex;
-  padding-top: 10px;
+    display: inline-flex;
+    padding-top: 10px;
 }
 
 .mp-checkout-link {
-  font-family: sans-serif !important;
-  font-size: 14px;
-  text-decoration: none !important;
-  vertical-align: middle;
-  box-shadow: none !important;
-  cursor: pointer;
+    font-family: sans-serif !important;
+    font-size: 14px;
+    text-decoration: none !important;
+    vertical-align: middle;
+    box-shadow: none !important;
+    cursor: pointer;
 }
 
 .frame-payments {
-  display: none;
-  background-color: #f5f5f5;
-  margin-top: 10px;
-  padding: 10px 10px 10px;
+    display: none;
+    background-color: #f5f5f5;
+    margin-top: 10px;
+    padding: 10px 10px 10px;
 }
 
 .subtitle-checkout-custom {
-  font-size: 13px !important;
-  font-family: sans-serif !important;
-  color: #7a7a7a;
-  font-weight: 400;
-  padding: 00px 0px 0px;
-  margin: 0px 0 5px !important;
-  text-transform: uppercase;
+    font-size: 13px !important;
+    font-family: sans-serif !important;
+    color: #7a7a7a;
+    font-weight: 400;
+    padding: 00px 0px 0px;
+    margin: 0px 0 5px !important;
+    text-transform: uppercase;
 }

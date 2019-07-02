@@ -230,7 +230,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         //add css
         wp_enqueue_style(
             'woocommerce-mercadopago-basic-config-styles',
-            plugins_url('../assets/css/basic_config_mercadopago.css', plugin_dir_path(__FILE__))
+            plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
         );
 
         $this->init_form_fields();

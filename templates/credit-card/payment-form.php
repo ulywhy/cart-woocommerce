@@ -1,19 +1,8 @@
 <?php
-
-/**
- * Part of Woo Mercado Pago Module
- * Author - Mercado Pago
- * Developer - Marcelo Tomio Hama / marcelo.hama@mercadolivre.com
- * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
- * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
- */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
-
 ?>
-
 <div class="panel-custom-checkout">
   <div class="row">
     <h2 class="title-checkout">

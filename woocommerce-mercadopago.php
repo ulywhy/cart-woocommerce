@@ -82,7 +82,6 @@ if (!class_exists('WC_WooMercadoPago_Module'))
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Configs.php';
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Module.php';
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Credentials.php';
-    require_once dirname(__FILE__) . '/includes/admin/WC_WooMercadoPago_Main_Settings.php';
 
     add_action('woocommerce_order_actions', 'add_mp_order_meta_box_actions');
     function add_mp_order_meta_box_actions($actions)

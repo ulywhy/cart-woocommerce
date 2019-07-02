@@ -46,36 +46,55 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function getFormFields($label)
     {
+        if (is_admin()) {
+            wp_enqueue_script('woocommerce-mercadopago-ticket-config-script', plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__)));
+        }
+
+        if (empty($this->checkout_country)) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
+        }
+
+        if(!empty($this->checkout_country) && empty($this->mp_access_token_test) && empty($this->mp_access_token_prod)) {
+            $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
+        }
+
+        $form_fields = array();
+        if (!empty($this->checkout_country) && !empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
+             //$form_fields['installments'] = $this->field_installments();
+        }
+
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
             return $form_fields_abs;
         }
-        $form_fields = $this->sortFormFields($form_fields_abs, $this->field_forms_order);
-        return $form_fields;
+        $form_fields_merge = array_merge($form_fields_abs, $form_fields);
+        $fields = $this->sortFormFields($form_fields_merge, $this->field_forms_order);
+
+        return $fields;
     }
 
     /**
      * @param $order_id
      */
-    public function show_ticket_script($order_id)
-    {
-        $order = wc_get_order($order_id);
-        $transaction_details = (method_exists($order, 'get_meta')) ? $order->get_meta('_transaction_details_ticket') : get_post_meta($order->get_id(), '_transaction_details_ticket', true);
-        if (empty($transaction_details)) {
-            return;
-        }
-
-        $html = '<p>' .
-            __('Thank you for your order. Please, pay the ticket to get your order approved.', 'woocommerce-mercadopago') .
-            '</p>' .
-            '<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
-            '<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
-            ' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
-            __('Print the Ticket', 'woocommerce-mercadopago') .
-            '</a> ';
-        $added_text = '<p>' . $html . '</p>';
-        echo $added_text;
-    }
+//    public function show_ticket_script($order_id)
+//    {
+//        $order = wc_get_order($order_id);
+//        $transaction_details = (method_exists($order, 'get_meta')) ? $order->get_meta('_transaction_details_ticket') : get_post_meta($order->get_id(), '_transaction_details_ticket', true);
+//        if (empty($transaction_details)) {
+//            return;
+//        }
+//
+//        $html = '<p>' .
+//            __('Thank you for your order. Please, pay the ticket to get your order approved.', 'woocommerce-mercadopago') .
+//            '</p>' .
+//            '<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
+//            '<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
+//            ' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
+//            __('Print the Ticket', 'woocommerce-mercadopago') .
+//            '</a> ';
+//        $added_text = '<p>' . $html . '</p>';
+//        echo $added_text;
+//    }
 
     /**
      *
@@ -135,10 +154,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function process_payment($order_id)
     {
-
-        if (!isset($_POST['mercadopago_ticket'])) {
-            return;
-        }
         $ticket_checkout = apply_filters('wc_mercadopagoticket_ticket_checkout', $_POST['mercadopago_ticket']);
 
         $order = wc_get_order($order_id);
@@ -271,7 +286,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function mp_config_rule_is_available()
     {
         // Check if there are available payments with ticket.
-        $payment_methods = json_decode($this->getOption('_all_payment_methods_ticket', '[]'), true);
+        $payment_methods = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
         if (count($payment_methods) == 0) {
             return false;
         } else {

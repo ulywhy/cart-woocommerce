@@ -1,17 +1,7 @@
 <?php
-
-/**
- * Part of Woo Mercado Pago Module
- * Author - Mercado Pago
- * Developer - Marcelo Tomio Hama / marcelo.hama@mercadolivre.com
- * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
- * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
- */
-
 if (!defined('ABSPATH')) {
     exit;
 }
-
 ?>
 
 <!--<div width="100%" class="mp-line" style="height:72px; margin-bottom:2px; padding:20px 36px 8px 36px; background:white;">
@@ -360,8 +350,7 @@ if (!defined('ABSPATH')) {
     </div>
 </fieldset>
 
-<script type="text/javascript" src="<?php echo $path_to_javascript; ?>"/>
-
+<script type="text/javascript" src="<?php echo $path_to_javascript; ?>"></script>
 <script type="text/javascript">
     MPv1Ticket.text.apply = "<?php echo __('Apply', 'woocommerce-mercadopago'); ?>";
     MPv1Ticket.text.remove = "<?php echo __('Remove', 'woocommerce-mercadopago'); ?>";
