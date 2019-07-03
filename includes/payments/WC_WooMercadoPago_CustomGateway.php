@@ -303,6 +303,19 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $banner_url = $this->site_data['checkout_banner_custom'];
         }
 
+        //credit or debit card
+        $debit_card = array();
+        $credit_card = array();
+        $tarjetas = get_option('_checkout_payments_methods', '');
+
+        foreach ($tarjetas as $tarjeta) {
+          if ($tarjeta['type'] == 'credit_card') {
+              $credit_card[] = $tarjeta['image'];
+          } elseif ($tarjeta['type'] == 'debit_card' || $tarjeta['type'] == 'prepaid_card') {
+              $debit_card[] = $tarjeta['image'];
+          }
+        }
+
         $parameters = array(
             'amount' => $amount,
             'site_id' => $this->getOption('_site_id_v1'),
@@ -319,6 +332,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'account_currency' => $this->site_data['currency'],
             'path_to_javascript' => plugins_url('../assets/js/credit-card.js', plugin_dir_path(__FILE__)),
             /** === gio === */
+            'debit_card' => $debit_card,
+            'credit_card' => $credit_card,
             'installments' => $this->get_option('installments'),
         );
 

@@ -16,15 +16,19 @@ if (!defined('ABSPATH')) {
 		<div class="frame-payments" id="frame-payments">
 			<div class="col-md-12">
 				<div class="frame-tarjetas">
-					<p class="subtitle-checkout-custom">Tarjetas de crédito</p>
-					<img src="https://www.mercadopago.com/org-img/MP3/API/logos/elo.gif" class="img-fluid img-tarjetas">
-					<img src="https://www.mercadopago.com/org-img/MP3/API/logos/master.gif" class="img-fluid img-tarjetas">
-					<img src="https://www.mercadopago.com/org-img/MP3/API/logos/hipercard.gif" class="img-fluid img-tarjetas">
-					<img src="https://www.mercadopago.com/org-img/MP3/API/logos/amex.gif" class="img-fluid img-tarjetas">
+					<?php if (count($credit_card) != 0) : ?>
+						<p class="subtitle-checkout-custom">Tarjetas de crédito</p>
+						<?php foreach ($credit_card as $credit_image) : ?>
+							<img src="<?= $credit_image ?>" class="img-fluid img-tarjetas" alt="" />
+						<?php endforeach; ?>
+					<?php endif; ?>
 
-					<p class="subtitle-checkout-custom pt-10">Tarjetas de débito</p>
-					<img src="https://www.mercadopago.com/org-img/MP3/API/logos/pec.gif" class="img-fluid img-tarjetas">
-					<img src="https://www.mercadopago.com/org-img/MP3/API/logos/bolbradesco.gif" class="img-fluid img-tarjetas">
+					<?php if (count($debit_card) != 0) : ?>
+						<p class="subtitle-checkout-custom pt-10">Tarjetas de débito</p>
+						<?php foreach ($debit_card as $debit_image) : ?>
+							<img src="<?= $debit_image ?>" class="img-fluid img-tarjetas" alt="" />
+						<?php endforeach; ?>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
@@ -63,11 +67,11 @@ if (!defined('ABSPATH')) {
 								<optgroup label="<?= esc_html__('Your Card', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
 									<?php foreach ($customer_cards as $card) : ?>
 										<option value="<?= $card['id']; ?>
-											first_six_digits=<?= $card['first_six_digits']; ?>
-											last_four_digits=<?= $card['last_four_digits']; ?>
-											security_code_length=<?= $card['security_code']['length']; ?>
-											type_checkout='customer_and_card'
-											payment_method_id=<?= $card['payment_method']['id']; ?>">
+												first_six_digits=<?= $card['first_six_digits']; ?>
+												last_four_digits=<?= $card['last_four_digits']; ?>
+												security_code_length=<?= $card['security_code']['length']; ?>
+												type_checkout='customer_and_card'
+												payment_method_id=<?= $card['payment_method']['id']; ?>">
 											<?= ucfirst($card['payment_method']['name']); ?>
 											<?= esc_html__('ended in', 'woocommerce-mercadopago'); ?>
 											<?= $card['last_four_digits']; ?>
