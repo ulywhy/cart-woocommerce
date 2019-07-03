@@ -245,6 +245,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                         } else {
                             if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
                                 update_option($key, $value, true);
+                                WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
                                 continue;
                             } else {
                                 update_option($key, '', true);

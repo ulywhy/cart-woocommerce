@@ -284,7 +284,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => __('Método de integración', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Define qué experiencia de pago tendrán tus clientes, si dentro o fuera de tu tienda.', 'woocommerce-mercadopago'),
-            'default' => 'redirect',
+            'default' => ($this->method == 'iframe') ? 'redirect' : $this->method,
             'options' => array(
                 'redirect' => __('Redirect', 'woocommerce-mercadopago'),
                 'modal' => __('Modal Window', 'woocommerce-mercadopago')
@@ -491,7 +491,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             update_post_meta($order_id, '_used_gateway', get_class($this));
         }
 
-        if ('redirect' == $this->method) {
+        if ('redirect' == $this->method || 'iframe' == $this->method) {
             $this->log->write_log(__FUNCTION__, 'customer being redirected to Mercado Pago.');
             return array(
                 'result' => 'success',
