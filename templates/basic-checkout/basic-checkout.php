@@ -5,7 +5,9 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="panel-checkout">
   <div class="row">
-    <h2 class="title-checkout">Usa el medio de pago que prefieras.</h2>
+    <?php if(count($tarjetas) != 0): ?>
+      <h2 class="title-checkout">Usa el medio de pago que prefieras.</h2>
+    <?php endif; ?>
     
     <?php if($credito != 0): ?>
     <div class="col-md-12">

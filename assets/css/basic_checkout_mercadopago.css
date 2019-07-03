@@ -14,8 +14,8 @@
     padding-right: 10px !important;
 }
 
-.pr-25 {
-    padding-right: 25px !important;
+.pr-15 {
+    padding-right: 15px !important;
 }
 
 .mt-5 {
@@ -86,11 +86,11 @@
 
 .panel-checkout {
     background-color: #fff;
-    padding: 20px 20px 25px;
+    padding: 5px 20px 25px;
 }
 
 .title-checkout {
-    padding: 0px 0 0px;
+    padding: 15px 0 0px;
     font-family: sans-serif;
     font-size: 1.25rem !important;
     font-weight: 600 !important;
@@ -158,7 +158,7 @@
 
 .panel-custom-checkout {
     background-color: #fff;
-    padding: 20px 20px 0px;
+    padding: 0px 15px 0px;
 }
 
 .subtitle-custom-checkout {
@@ -210,6 +210,10 @@
     line-height: 1 !important;
     letter-spacing: normal !important;
     text-align: center !important;
+}
+
+.mp-button:hover{
+  opacity: 0.8;
 }
 
 .mp-error {
@@ -286,6 +290,7 @@
 .mp-frame-links {
     display: inline-flex;
     padding-top: 10px;
+    text-align: center;
 }
 
 .mp-checkout-link {
@@ -312,4 +317,35 @@
     padding: 00px 0px 0px;
     margin: 0px 0 5px !important;
     text-transform: uppercase;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background: #3483fa;
+  color: #fff;
+  padding: 5px 0;
+  position: absolute;
+  width: 250px;
+  text-align: center;
+  margin: -20px 0 0 100px;
+  font-size: 12px;
+}
+
+.tooltip .tooltiptext:before {
+  border: 6px solid transparent;
+  border-right-color: #3483fa;
+  content: "";
+  left: -12px;
+  position: absolute;
+  top: 5px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }

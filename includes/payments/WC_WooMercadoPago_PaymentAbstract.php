@@ -116,9 +116,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function getPublicKey()
     {
         if ($this->checkout_credential_token_production == 'no') {
-            return $this->mp_access_token_test;
+            return $this->mp_public_key_test;
         }
-        return $this->mp_access_token_prod;
+        return $this->mp_public_key_prod;
     }
 
     /**
