@@ -286,6 +286,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function payment_fields()
     {
+        //add css
+        wp_enqueue_style(
+            'woocommerce-mercadopago-basic-checkout-styles',
+            plugins_url('../assets/css/basic_checkout_mercadopago.css', plugin_dir_path(__FILE__))
+        );
+        
         $amount = $this->get_order_total();
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $customer = isset($logged_user_email) ? $this->mp->get_or_create_customer($logged_user_email) : null;

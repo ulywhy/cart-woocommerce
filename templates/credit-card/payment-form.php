@@ -67,11 +67,11 @@ if (!defined('ABSPATH')) {
 								<optgroup label="<?= esc_html__('Your Card', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
 									<?php foreach ($customer_cards as $card) : ?>
 										<option value="<?= $card['id']; ?>
-												first_six_digits=<?= $card['first_six_digits']; ?>
-												last_four_digits=<?= $card['last_four_digits']; ?>
-												security_code_length=<?= $card['security_code']['length']; ?>
-												type_checkout='customer_and_card'
-												payment_method_id=<?= $card['payment_method']['id']; ?>">
+													first_six_digits=<?= $card['first_six_digits']; ?>
+													last_four_digits=<?= $card['last_four_digits']; ?>
+													security_code_length=<?= $card['security_code']['length']; ?>
+													type_checkout='customer_and_card'
+													payment_method_id=<?= $card['payment_method']['id']; ?>">
 											<?= ucfirst($card['payment_method']['name']); ?>
 											<?= esc_html__('ended in', 'woocommerce-mercadopago'); ?>
 											<?= $card['last_four_digits']; ?>
@@ -148,7 +148,14 @@ if (!defined('ABSPATH')) {
 							<p class="subtitle-custom-checkout">Cuántas cuotas querés pagar</p>
 
 							<div class="row pt-10">
-								<div class="col-md-8 pr-15">
+								<div class="col-md-4 pr-15">
+									<div class="mp-issuer">
+										<label for="issuer" class="mp-label-form"><?= esc_html__('Issuer', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+										<select class="mp-form-control pointer mt-5" id="issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
+									</div>
+								</div>
+
+								<div class="col-md-8">
 									<?php if ($currency_ratio != 1) : ?>
 										<label for="installments" class="mp-label-form">
 											<div class="tooltip">
@@ -174,13 +181,6 @@ if (!defined('ABSPATH')) {
 											<div id="mp-tax-tea-text"></div>
 										</div>
 										<div id="mp-tax-cft-text"></div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="mp-box-inputs mp-col-45 mp-issuer">
-										<label for="issuer" class="mp-label-form"><?= esc_html__('Issuer', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-										<select class="mp-form-control pointer mt-5" id="issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
 									</div>
 								</div>
 							</div>
@@ -1312,8 +1312,7 @@ if (!defined('ABSPATH')) {
 			} else if (MPv1.site_id == "MCO") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
 			} else if (MPv1.site_id == "MLA") {
-				document.querySelector(MPv1.selectors.boxInstallmentsSelector).classList.remove("mp-col-100");
-				document.querySelector(MPv1.selectors.boxInstallmentsSelector).classList.add("mp-col-70");
+				document.querySelector(MPv1.selectors.mpIssuer).style.display = "block";
 				document.querySelector(MPv1.selectors.taxCFT).style.display = "block";
 				document.querySelector(MPv1.selectors.taxTEA).style.display = "block";
 				MPv1.addListenerEvent(document.querySelector(MPv1.selectors.installments), "change", MPv1.showTaxes);

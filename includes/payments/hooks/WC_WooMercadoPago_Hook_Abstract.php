@@ -100,7 +100,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     {
         if (is_checkout() && $this->payment->is_available()) {
             if (!get_query_var('order-received')) {
-                wp_enqueue_style('woocommerce-mercadopago-style', plugins_url('../../assets/css/checkout_mercadopago.css', plugin_dir_path(__FILE__)));
                 wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
             }
         }
