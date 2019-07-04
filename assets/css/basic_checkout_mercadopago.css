@@ -34,6 +34,14 @@
     cursor: pointer !important;
 }
 
+.text-center{
+    text-align: center !important;
+}
+
+.text-justify{
+    text-align: justify !important;
+}
+
 .row {
     width: 100%;
     display: inline-block;
@@ -86,13 +94,13 @@
 
 .panel-checkout {
     background-color: #fff;
-    padding: 5px 20px 25px;
+    padding: 10px 15px 25px;
 }
 
 .title-checkout {
     padding: 15px 0 0px;
     font-family: sans-serif;
-    font-size: 1rem !important;
+    font-size: 1.20rem !important;
     font-weight: 600 !important;
     font-style: normal;
     font-stretch: normal;
@@ -106,10 +114,11 @@
     content: "" !important;
     width: 0 !important;
     height: 0 !important;
+    margin: 0 !important;
 }
 
 .subtitle-checkout {
-    font-size: 15px !important;
+    font-size: 14px !important;
     font-family: sans-serif !important;
     color: #7a7a7a;
     font-weight: 400;
@@ -131,7 +140,9 @@
 }
 
 .img-tarjetas {
-    padding: 10px !important;
+    padding: 8px !important;
+    max-height: 35px !important; 
+    width: auto !important;
 }
 
 .redirect-frame {
@@ -164,7 +175,7 @@
 
 .panel-custom-checkout {
     background-color: #fff;
-    padding: 0px 15px 0px;
+    padding: 10px 15px 0px;
 }
 
 .subtitle-custom-checkout {

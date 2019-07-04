@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {
     <?php endif; ?>
     
     <?php if($debito != 0): ?>
-    <div class="col-md-6">
+    <div class="col-md-6 pr-15">
         <div class="frame-tarjetas">
             <p class="subtitle-checkout">Tarjetas de débito</p>
             

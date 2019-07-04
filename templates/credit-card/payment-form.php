@@ -34,7 +34,7 @@ if (!defined('ABSPATH')) {
 		</div>
 
 		<div class="col-md-12">
-			<div class="frame-tarjetas">
+			<div class="frame-tarjetas text-justify">
 				<p class="subtitle-custom-checkout">Ingresa tu cupón de descuento</p>
 
 				<div id="mercadopago-form-coupon">
@@ -44,7 +44,7 @@ if (!defined('ABSPATH')) {
 						</div>
 
 						<div class="col-md-3">
-							<input type="button" class="mp-button" id="applyCoupon" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
+							<input type="button" class="mp-button pointer" id="applyCoupon" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
 						</div>
 					</div>
 
