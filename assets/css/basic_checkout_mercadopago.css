@@ -92,7 +92,7 @@
 .title-checkout {
     padding: 15px 0 0px;
     font-family: sans-serif;
-    font-size: 1.25rem !important;
+    font-size: 1rem !important;
     font-weight: 600 !important;
     font-style: normal;
     font-stretch: normal;
@@ -100,6 +100,12 @@
     letter-spacing: normal;
     color: #04204c;
     margin: 0 !important;
+}
+
+.title-checkout::before {
+    content: "" !important;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 .subtitle-checkout {

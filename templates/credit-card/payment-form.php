@@ -223,6 +223,9 @@ if (!defined('ABSPATH')) {
 				</div>
 				<!-- end new card -->
 
+				<!-- NOT DELETE LOADING-->
+        		<div id="mp-box-loading"></div>
+
 			</div>
 		</div>
 
