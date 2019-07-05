@@ -29,7 +29,7 @@ window.onload = function () {
   removeLabel[0].children[0].children[1].style.display = 'none';
 
   //clone save button
-  var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_btn_save');
+  var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_btn_save');
   if (document.getElementById("mp_table_15") != undefined && document.getElementById("mp_table_16") == undefined) {
     document.getElementById("mp_table_15").append(cloneSaveButton.cloneNode(true));
   }
@@ -38,11 +38,11 @@ window.onload = function () {
     document.getElementById("mp_table_16").append(cloneSaveButton.cloneNode(true));
     document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
     document.getElementById("mp_table_22").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_25").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_27").append(cloneSaveButton.cloneNode(true));
+    document.getElementById("mp_table_24").append(cloneSaveButton.cloneNode(true));
+    document.getElementById("mp_table_26").append(cloneSaveButton.cloneNode(true));
 
 
-    var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_advanced_settings");
+    var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-ticket_checkout_advanced_settings");
     var collapse_table = document.querySelector("#mp_table_22");
     collapse_table.style.display = "none";
     collapse_title.style.cursor = "pointer";
@@ -67,9 +67,9 @@ window.onload = function () {
     }
 
     //collpase Configuración Avanzada
-    var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_title");
-    var collapse_table_2 = document.querySelector("#mp_table_27");
-    var collapse_description_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_description");
+    var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-ticket_checkout_ticket_payments_advanced_title");
+    var collapse_table_2 = document.querySelector("#mp_table_26");
+    var collapse_description_2 = document.querySelector("#woocommerce_woo-mercado-pago-ticket_checkout_payments_advanced_description");
     collapse_table_2.style.display = "none";
     collapse_description_2.style.display = "none";
     collapse_title_2.style.cursor = "pointer";
@@ -96,43 +96,15 @@ window.onload = function () {
     }
 
     //payment methods
-    var input_payments = document.querySelectorAll('#mp_table_25 td.forminp label');
+    var input_payments = document.querySelectorAll('#mp_table_24 td.forminp label');
     for (i = 0; i < input_payments.length; i++) {
       input_payments[i].id = "input_payments_mt";
-    }
-
-    //online payments
-    var onlineChecked = "";
-    var countOnlineChecked = 0;
-    var onlineInputs = document.querySelectorAll(".online_payment_method");
-    for (var ion = 0; ion < onlineInputs.length; ion++) {
-      var online_payment_translate = onlineInputs[ion].getAttribute("data-translate");
-      if (onlineInputs[ion].checked == true) {
-        countOnlineChecked += 1;
-      }
-    }
-
-    if (countOnlineChecked == onlineInputs.length) {
-      onlineChecked = "checked";
-    }
-
-    for (var ion = 0; ion < onlineInputs.length; ion++) {
-      if (ion == 0) {
-        var checkbox_online_prepend = "<div class='all_checkbox'>\
-        <label for='checkmeon' id='input_payments'>\
-          <input type='checkbox' name='checkmeon' id='checkmeon' "+ onlineChecked + " onclick='completeOnlineCheckbox()'>\
-          "+ online_payment_translate + "\
-        </label>\
-      </div>";
-        onlineInputs[ion].parentElement.insertAdjacentHTML('beforebegin', checkbox_online_prepend);
-        break;
-      }
     }
 
     //offline payments configuration form
     var offlineChecked = "";
     var countOfflineChecked = 0;
-    var offlineInputs = document.querySelectorAll(".offline_payment_method");
+    var offlineInputs = document.querySelectorAll(".ticket_payment_method_select");
     for (var ioff = 0; ioff < offlineInputs.length; ioff++) {
       var offline_payment_translate = offlineInputs[ioff].getAttribute("data-translate");
       if (offlineInputs[ioff].checked == true) {
@@ -160,24 +132,10 @@ window.onload = function () {
   }
 }
 
-//Online payments
-function completeOnlineCheckbox() {
-  var onlineCheck = document.getElementById("checkmeon").checked;
-  var onlineInputs = document.querySelectorAll(".online_payment_method");
-  for (var i = 0; i < onlineInputs.length; i++) {
-    if (onlineCheck == true) {
-      onlineInputs[i].checked = true;
-    }
-    else {
-      onlineInputs[i].checked = false;
-    }
-  }
-}
-
 //Offline payments
 function completeOfflineCheckbox() {
   var offlineCheck = document.getElementById("checkmeoff").checked;
-  var offlineInputs = document.querySelectorAll(".offline_payment_method");
+  var offlineInputs = document.querySelectorAll(".ticket_payment_method_select");
   for (var i = 0; i < offlineInputs.length; i++) {
     if (offlineCheck == true) {
       offlineInputs[i].checked = true;
