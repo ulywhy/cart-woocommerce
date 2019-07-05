@@ -62,6 +62,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
             $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
+            $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
+            $form_fields['binary_mode'] = $this->field_binary_mode();
             $form_fields['installments'] = $this->field_installments();
             $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
@@ -216,23 +218,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'class' => 'mp_subtitle_bd'
         );
         return $checkout_custom_payments_advanced_title;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_coupon_mode()
-    {
-        return array(
-            'title' => __('Cupones de descuento', 'woocommerce-mercadopago'),
-            'type' => 'select',
-            'default' => 'no',
-            'description' => __('¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?', 'woocommerce-mercadopago'),
-            'options' => array(
-                'no' => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Sí', 'woocommerce-mercadopago')
-            )
-        );
     }
 
     /**
