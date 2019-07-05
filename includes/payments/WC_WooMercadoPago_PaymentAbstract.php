@@ -1108,6 +1108,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $_mp_access_token = $this->getAccessToken();
         $_site_id_v1 = $this->getOption('_site_id_v1');
 
+
         return ('yes' == $this->settings['enabled']) && !empty($_mp_public_key) && !empty($_mp_access_token) && !empty($_site_id_v1);
     }
 
