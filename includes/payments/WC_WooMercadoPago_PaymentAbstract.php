@@ -68,6 +68,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $wc_country;
     public $commission;
     public $application_id;
+    public $type_payments;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -261,19 +262,17 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['_mp_access_token_prod'] = $this->field_checkout_credential_accesstoken_prod();
             $form_fields['_mp_category_id'] = $this->field_category_store();
             if (!empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
-                $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
+            $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
             $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
             $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
             $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link($this->checkout_country, $this->application_id);
             $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
             $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
-            $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
             $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
             $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
             $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
             $form_fields['enabled'] = $this->field_enabled($label);
             $form_fields['_mp_custom_domain'] = $this->field_custom_url_ipn();
-            $form_fields['binary_mode'] = $this->field_binary_mode();
             $form_fields['gateway_discount'] = $this->field_gateway_discount();
             $form_fields['commission'] = $this->field_commission();
             $form_fields['checkout_payments_advanced_description'] = $this->field_checkout_payments_advanced_description();
@@ -398,7 +397,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_steps_link_homolog = array(
             'title' => sprintf(
-                __('Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda.', 'woocommerce-mercadopago'),
+                __('Las credenciales son las claves que te proporcionamos para que integres de forma rápida <br>y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar <br>en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda.', 'woocommerce-mercadopago'),
             '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('cuenta homologada', 'woocommerce-mercadopago') . '</a>'
         ),
             'type' => 'title',
@@ -786,7 +785,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_mp_statement_descriptor()
     {
         $mp_statement_descriptor = array(
-            'title' => __('Nombre de la tienda', 'woocommerce-mercadopago'),
+            'title' => __('Descripción de la tienda', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Este nombre aparecerá en la factura de tus clientes.', 'woocommerce-mercadopago'),
             'default' => __('Mercado Pago', 'woocommerce-mercadopago')
@@ -939,6 +938,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'class' => 'mp_small_text mt--10'
         );
         return $checkout_payments_advanced_description;
+    }
+  
+   /**
+     * @return array
+     */
+    public function field_coupon_mode()
+    {
+        return array(
+            'title' => __('Cupones de descuento', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Sí', 'woocommerce-mercadopago')
+            )
+        );
     }
 
     /**

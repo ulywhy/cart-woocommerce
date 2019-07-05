@@ -25,20 +25,19 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Checkout personalizado', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription('Acepta medios de pago en efectivo y amplía las opciones de compra de tus clientes.');
         $this->title = __('Paga con medios de pago en efectivo', 'woocommerce-mercadopago');
+        $this->method_description = $this->getMethodDescription('Acepta medios de pago en efectivo y amplía las opciones de compra de tus clientes.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
-        $this->installments = $this->getOption('installments', '24');
         $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');
         $this->date_expiration = $this->getOption('date_expiration', 3);
+        $this->type_payments = $this->getOption('type_payments', 'no');
         $this->payment_type = "ticket";
         $this->checkout_type = "custom";
-        $this->field_forms_order = array();
+        $this->field_forms_order = $this->get_fields_sequence();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Ticket');
         $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
     }
-
 
     /**
      * @param $label
@@ -59,9 +58,17 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $form_fields = array();
-        if (!empty($this->checkout_country) && !empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
-             //$form_fields['installments'] = $this->field_installments();
-        }
+             $form_fields['checkout_ticket_header'] = $this->field_checkout_ticket_header();
+              if (!empty($this->checkout_country) && !empty($this->getAccessToken())) {
+                  $form_fields['checkout_ticket_options_title'] = $this->field_checkout_ticket_options_title();
+                  $form_fields['checkout_ticket_options_subtitle'] = $this->field_checkout_ticket_options_subtitle();
+                  $form_fields['checkout_ticket_payments_title'] = $this->field_checkout_ticket_payments_title();
+                  $form_fields['checkout_ticket_payments_advanced_title'] = $this->field_checkout_ticket_payments_advanced_title();
+                  $form_fields['coupon_mode'] = $this->field_coupon_mode();
+                  $form_fields['stock_reduce_mode'] = $this->field_stock_reduce_mode();
+                  $form_fields['date_expiration'] = $this->field_date_expiration();
+                  $form_fields['type_payments'] = $this->field_type_payments();
+              }
 
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
@@ -73,6 +80,193 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         return $fields;
     }
 
+    /**
+     * get_fields_sequence
+     *
+     * @return array
+     */
+    public function get_fields_sequence()
+    {
+        return [
+            // Necessary to run
+            'title',
+            'description',
+            // Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. 
+            'checkout_ticket_header',
+            'checkout_steps',
+            // ¿En qué país vas a activar tu tienda?
+            'checkout_country_title',
+            'checkout_country',
+            'checkout_btn_save',
+            // Carga tus credenciales
+            'checkout_credential_title',
+            'checkout_credential_mod_test_title',
+            'checkout_credential_mod_test_description',
+            'checkout_credential_mod_prod_title',
+            'checkout_credential_mod_prod_description',
+            'checkout_credential_production',
+            'checkout_credential_link',
+            'checkout_credential_title_test',
+            'checkout_credential_description_test',
+            '_mp_public_key_test',
+            '_mp_access_token_test',
+            'checkout_credential_title_prod',
+            'checkout_credential_description_prod',
+            '_mp_public_key_prod',
+            '_mp_access_token_prod',
+            // No olvides de homologar tu cuenta
+            'checkout_homolog_title',
+            'checkout_homolog_subtitle',
+            'checkout_homolog_link',
+            // Configura la experiencia de pago en tu tienda
+            'checkout_ticket_options_title',
+            'checkout_ticket_options_subtitle',
+            'mp_statement_descriptor',
+            '_mp_category_id',
+            '_mp_store_identificator',
+            // Ajustes avanzados
+            'checkout_advanced_settings',
+            '_mp_debug_mode',
+            '_mp_custom_domain',
+            // Configura la experiencia de pago personalizada en tu tienda
+            'checkout_ticket_payments_title',
+            'checkout_payments_subtitle',
+            'checkout_payments_description',
+            'enabled',
+            'type_payments',
+            'date_expiration',
+            // Configuración avanzada de la experiencia de pago personalizada
+            'checkout_ticket_payments_advanced_title',
+            'checkout_payments_advanced_description',
+            'coupon_mode',
+            'stock_reduce_mode',
+            'gateway_discount',
+            'commission',
+            // ¿Todo listo para el despegue de tus ventas?
+            'checkout_ready_title',
+            'checkout_ready_description',
+            'checkout_ready_description_link'
+        ];
+    }
+  
+     /**
+     * @return array
+     */
+    public function field_checkout_ticket_header()
+    {
+        $checkout_ticket_header = array(
+            'title' => sprintf(
+                __('Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. %s', 'woocommerce-mercadopago'),
+                '<div class="row">
+              <div class="col-md-12">
+                <p class="text-checkout-body mb-0">
+                  ' . __('Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización.') . '
+                </p>
+              </div>
+            </div>'
+            ),
+            'type' => 'title',
+            'class' => 'mp_title_checkout'
+        );
+        return $checkout_ticket_header;
+    }
+  
+   /**
+     * @return array
+     */
+    public function field_checkout_ticket_options_title()
+    {
+        $checkout_options_title = array(
+            'title' => __('Configura WooCommerce Mercado Pago', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_title_bd'
+        );
+        return $checkout_options_title;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_checkout_ticket_options_subtitle()
+    {
+        $checkout_options_subtitle = array(
+            'title' => __('Ve a lo básico. Coloca la información de tu negocio.', 'woocommerce-mercadopago'),
+            'type' => 'title'
+        );
+        return $checkout_options_subtitle;
+    }
+  
+   /**
+     * @return array
+     */
+    public function field_checkout_ticket_payments_title()
+    {
+        $checkout_payments_title = array(
+            'title' => __('Configura la experiencia de pagos en efectivo en tu tienda.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_title_bd'
+        );
+        return $checkout_payments_title;
+    }
+  
+  /**
+     * @return array
+     */
+    public function field_checkout_ticket_payments_advanced_title()
+    {
+        $checkout_ticket_payments_advanced_title = array(
+            'title' => __('Configuración avanzada de la experiencia de pago en efectivo', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd'
+        );
+        return $checkout_ticket_payments_advanced_title;
+    }
+  
+   /**
+     * @return array
+     */
+    public function field_stock_reduce_mode()
+    {
+        return array(
+            'title' => __('Reducir inventario', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('Activa la reducción del inventario durante la creación de un pedido, sea aprobado o no el pago final. Desactiva esta opción para reducirlo solo cuando estén aprobados los pagos.', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Sí', 'woocommerce-mercadopago')
+            )
+        );
+    }
+  
+    /**
+     * @return array
+     */
+    public function field_date_expiration()
+    {
+  return array(
+				'title' => __( 'Vencimiento del pago', 'woocommerce-mercadopago' ),
+				'type' => 'number',
+				'description' => __( 'En cuántos días caducarán los pagos en efectivo.', 'woocommerce-mercadopago' ),
+				'default' => '3'
+			);
+    }
+  
+   /**
+     * @return array
+     */
+    public function field_type_payments()
+    {
+        return array(
+            'title' => __('Medios de pago', 'woocommerce-mercadopago'),
+            'type' => 'checkbox',
+            'default' => 'no',
+            'description' => __('Habilita los medios de pago disponibles para tus clientes.', 'woocommerce-services'),
+            'desc_tip' => __('Selecciona los medios de pago disponibles en tu tienda.', 'woocommerce-services'),
+				    'label' => __( 'Todos los medios de pago', 'woocommerce-mercadopago' )
+        );
+    }
+ 
     /**
      * @param $order_id
      */

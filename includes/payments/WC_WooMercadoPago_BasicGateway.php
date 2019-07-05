@@ -71,6 +71,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
             $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
             $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
+            $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
+            $form_fields['binary_mode'] = $this->field_binary_mode();
             $form_fields['installments'] = $this->field_installments();
             $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();
             $form_fields['method'] = $this->field_method();
