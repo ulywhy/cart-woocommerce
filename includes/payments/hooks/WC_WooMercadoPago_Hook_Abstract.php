@@ -192,6 +192,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 
     /**
      * @return bool
+     * @throws WC_WooMercadoPago_Exception
      */
     public function custom_process_admin_options()
     {
@@ -203,57 +204,10 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $commonConfigs = $this->payment->getCommonConfigs();
                 if (in_array($key, $commonConfigs)) {
 
-                    if ($key == '_mp_public_key_test' && $value == $this->payment->mp_public_key_test) {
+                    if ($this->validateCredentials($key, $value)) {
                         continue;
                     }
-
-                    if ($key == '_mp_access_token_test' && $value == $this->payment->mp_access_token_test) {
-                        continue;
-                    }
-
-                    if ($key == '_mp_public_key_prod' && $value == $this->payment->mp_public_key_prod) {
-                        continue;
-                    }
-
-                    if ($key == '_mp_access_token_prod' && $value == $this->payment->mp_access_token_prod) {
-                        continue;
-                    }
-
-                    if ($key == '_mp_public_key_test' && strpos($value, 'TEST') === false) {
-                        update_option($key, '', true);
-                        continue;
-                    } elseif ($key == '_mp_access_token_test') {
-                        if (strpos($value, 'TEST') === false) {
-                            update_option($key, '', true);
-                            continue;
-                        } else {
-                            if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
-                                update_option($key, $value, true);
-                                continue;
-                            } else {
-                                update_option($key, '', true);
-                                continue;
-                            }
-                        }
-                    } elseif ($key == '_mp_public_key_prod' && strpos($value, 'APP_USR') === false) {
-                        update_option($key, '', true);
-                        continue;
-                    } elseif ($key == '_mp_access_token_prod') {
-                        if (strpos($value, 'APP_USR') === false) {
-                            continue;
-                        } else {
-                            if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
-                                update_option($key, $value, true);
-                                WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
-                                continue;
-                            } else {
-                                update_option($key, '', true);
-                                continue;
-                            }
-                        }
-                    } else {
-                        update_option($key, $value, true);
-                    }
+                    update_option($key, $value, true);
                 }
 
                 $value = $this->payment->get_field_value($key, $field, $post_data);
@@ -261,5 +215,98 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             }
         }
         return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     * @throws WC_WooMercadoPago_Exception
+     */
+    private function validateCredentials($key, $value)
+    {
+        if ($key == '_mp_public_key_test' && $value == $this->payment->mp_public_key_test) {
+            return true;
+        }
+
+        if ($key == '_mp_access_token_test' && $value == $this->payment->mp_access_token_test) {
+            return true;
+        }
+
+        if ($key == '_mp_public_key_prod' && $value == $this->payment->mp_public_key_prod) {
+            return true;
+        }
+
+        if ($key == '_mp_access_token_prod' && $value == $this->payment->mp_access_token_prod) {
+            return true;
+        }
+
+        if ($this->validatePublicKey($key, $value)) {
+            return true;
+        }
+
+        if ($this->validateAccessToken($key, $value)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    private function validatePublicKey($key, $value)
+    {
+        if ($key != '_mp_public_key_test' && $key != '_mp_public_key_prod') {
+            return false;
+        }
+
+        if ($key == '_mp_public_key_prod' && strpos($value, 'APP_USR') === false) {
+            update_option($key, '', true);
+            return true;
+        }
+
+        if ($key == '_mp_public_key_test' && strpos($value, 'TEST') === false) {
+            update_option($key, '', true);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     * @throws WC_WooMercadoPago_Exception
+     */
+    private function validateAccessToken($key, $value)
+    {
+        if ($key != '_mp_access_token_prod' && $key != '_mp_access_token_test') {
+            return false;
+        }
+
+        if ($key == '_mp_access_token_prod' && strpos($value, 'APP_USR') === false) {
+            update_option($key, '', true);
+            return true;
+        }
+
+        if ($key == '_mp_access_token_test' && strpos($value, 'TEST') === false) {
+            update_option($key, '', true);
+            return true;
+        }
+
+        if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
+            update_option($key, $value, true);
+            if ($key == '_mp_access_token_prod') {
+                WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
+            }
+            return true;
+        }
+
+        update_option($key, '', true);
+        return true;
     }
 }

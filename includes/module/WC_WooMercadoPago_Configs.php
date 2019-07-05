@@ -68,7 +68,6 @@ class WC_WooMercadoPago_Configs
                 }
             }
         }
-
     }
 
     /**
@@ -77,7 +76,7 @@ class WC_WooMercadoPago_Configs
     private function updatePayments()
     {
         $mpInstance = WC_WooMercadoPago_Module::getMpInstanceSingleton();
-        if($mpInstance){
+        if ($mpInstance) {
             WC_WooMercadoPago_Credentials::updatePaymentMethods($mpInstance, $mpInstance->get_access_token());
         }
     }
@@ -88,7 +87,7 @@ class WC_WooMercadoPago_Configs
     private function updateTicketMethods()
     {
         $mpInstance = WC_WooMercadoPago_Module::getMpInstanceSingleton();
-        if($mpInstance){
+        if ($mpInstance) {
             WC_WooMercadoPago_Credentials::updateTicketMethod($mpInstance, $mpInstance->get_access_token());
         }
     }
@@ -121,9 +120,17 @@ class WC_WooMercadoPago_Configs
      */
     private function updateToken()
     {
-        update_option('_mp_public_key_prod', get_option('_mp_public_key'), true);
-        update_option('_mp_access_token_prod', get_option('_mp_access_token'), true);
-        update_option('checkout_credential_production', 'yes', true);
+        if (strpos(get_option('_mp_public_key'), 'TEST') === 0 && strpos(get_option('_mp_access_token'), 'TEST') === 0) {
+            update_option('_mp_public_key_test', get_option('_mp_public_key'), true);
+            update_option('_mp_access_token_test', get_option('_mp_access_token'), true);
+            update_option('checkout_credential_production', 'no', true);
+        }
+
+        if (strpos(get_option('_mp_public_key'), 'APP_USR') === 0 && strpos(get_option('_mp_access_token'), 'APP_USR') === 0) {
+            update_option('_mp_public_key_prod', get_option('_mp_public_key'), true);
+            update_option('_mp_access_token_prod', get_option('_mp_access_token'), true);
+            update_option('checkout_credential_production', 'yes', true);
+        }
     }
 
     /**

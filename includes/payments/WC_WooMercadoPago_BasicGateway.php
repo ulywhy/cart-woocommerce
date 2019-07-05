@@ -67,7 +67,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $form_fields['checkout_header'] = $this->field_checkout_header();
 
-        if (!empty($this->checkout_country) && !empty($this->mp_access_token_test) && !empty($this->mp_access_token_prod)) {
+        if (!empty($this->checkout_country) && (!empty($this->mp_access_token_test) || !empty($this->mp_access_token_prod)) ) {
             $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
             $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
             $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
