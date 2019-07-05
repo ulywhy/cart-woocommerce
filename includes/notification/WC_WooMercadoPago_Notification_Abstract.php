@@ -27,7 +27,6 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         add_action('woocommerce_api_' . strtolower(get_class($payment)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
         add_action('woocommerce_order_action_cancel_order', array($this, 'process_cancel_order_meta_box_actions'));
-
     }
 
     /**
