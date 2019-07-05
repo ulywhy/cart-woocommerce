@@ -33,6 +33,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->type_payments = $this->getOption('type_payments', 'no');
         $this->payment_type = "ticket";
         $this->checkout_type = "custom";
+        $this->activated_payment = $this->get_activated_payment();
         $this->field_forms_order = $this->get_fields_sequence();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Ticket');
@@ -67,7 +68,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                   $form_fields['coupon_mode'] = $this->field_coupon_mode();
                   $form_fields['stock_reduce_mode'] = $this->field_stock_reduce_mode();
                   $form_fields['date_expiration'] = $this->field_date_expiration();
-                  $form_fields['type_payments'] = $this->field_type_payments();
+                  foreach ($this->field_ticket_payments() as $key => $value) {
+                    $form_fields[$key] = $value;
+                  }
               }
 
         $form_fields_abs = parent::getFormFields($label);
@@ -133,7 +136,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_payments_subtitle',
             'checkout_payments_description',
             'enabled',
-            'type_payments',
             'date_expiration',
             // Configuración avanzada de la experiencia de pago personalizada
             'checkout_ticket_payments_advanced_title',
@@ -149,6 +151,25 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         ];
     }
   
+     /**
+     * @return string
+     */
+    public static function get_activated_payment()
+    {
+      $activated_payment = array();
+      $get_payment_methods_ticket = json_decode(get_option('_all_payment_methods_ticket', ''), true);
+      
+      if(!empty($get_payment_methods_ticket)){
+      $saved_optons = get_option('woocommerce_woo-mercado-pago-ticket_settings', '');
+
+      foreach ($get_payment_methods_ticket as $payment_methods_ticket) {
+       if ($saved_optons['ticket_payment_' . $payment_methods_ticket['id']] == 'yes'){
+         array_push($activated_payment, $payment_methods_ticket);
+       } 
+      }
+      }
+      return $activated_payment;
+    }
      /**
      * @return array
      */
@@ -252,20 +273,51 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 			);
     }
   
-   /**
+    /**
      * @return array
      */
-    public function field_type_payments()
+    public function field_ticket_payments()
     {
-        return array(
-            'title' => __('Medios de pago', 'woocommerce-mercadopago'),
-            'type' => 'checkbox',
-            'default' => 'no',
-            'description' => __('Habilita los medios de pago disponibles para tus clientes.', 'woocommerce-services'),
-            'desc_tip' => __('Selecciona los medios de pago disponibles en tu tienda.', 'woocommerce-services'),
-				    'label' => __( 'Todos los medios de pago', 'woocommerce-mercadopago' )
-        );
+        $ticket_payments = array();
+        $ticket_payments_sort = array();
+
+        $all_payments = get_option('_checkout_payments_methods', '');
+        $get_payment_methods_ticket = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
+
+        $count_payment = 0;
+
+        foreach ($get_payment_methods_ticket as $payment_method_ticket) {
+          
+          $element = array(
+                    'label' => $payment_method_ticket['name'],
+                    'id' => 'woocommerce_mercadopago_' . $payment_method_ticket['id'],
+                    'default' => 'yes',
+                    'type' => 'checkbox',
+                    'class' => 'online_payment_method',
+                    'custom_attributes' => array(
+                        'data-translate' => __('Todos los medios de pago', 'woocommerce-mercadopago')
+                    ),
+                );
+           
+            $count_payment++;
+
+            if ($count_payment == 1) {
+                $element['title'] = __('Medios de pago', 'woocommerce-mercadopago');
+                $element['desc_tip'] = __('Selecciona los medios de pago disponibles en tu tienda.', 'woocommerce-services');
+            }
+            if ($count_payment == count($get_payment_methods_ticket)) {
+                $element['description'] = __('Habilita los medios de pago disponibles para tus clientes.', 'woocommerce-mercadopago');
+            }
+
+            $ticket_payments["ticket_payment_" . $payment_method_ticket['id']] = $element;
+            $ticket_payments_sort[] = "ticket_payment_" . $payment_method_ticket['id'];
+        }
+
+        array_splice($this->field_forms_order, 37, 0, $ticket_payments_sort);
+
+        return $ticket_payments;
     }
+
  
     /**
      * @param $order_id
@@ -313,7 +365,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $parameters = array(
             'amount' => $amount,
-            'payment_methods' => json_decode(get_option('_all_payment_methods_ticket', '[]'), true),
+            'payment_methods' => $this->activated_payment,
             'site_id' => $this->getOption('_site_id_v1'),
             'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
             'discount_action_url' => $discount_action_url,

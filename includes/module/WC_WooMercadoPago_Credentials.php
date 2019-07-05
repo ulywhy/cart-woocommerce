@@ -226,10 +226,14 @@ class WC_WooMercadoPago_Credentials
         if (empty($paymentsResponse)) {
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
+      
+        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 && $paymentsResponse['status'] != 201)) {
+            return;
+        }
 
         $payment_methods_ticket = array();
         foreach ($paymentsResponse as $payment) {
-            if (isset($payment['payment_type_id'])) {
+              if(isset($payment['payment_type_id']) && $payment['payment_type_id'] == "ticket" || $payment['payment_type_id'] == "atm"){
                 if (
                     $payment['payment_type_id'] != 'account_money' &&
                     $payment['payment_type_id'] != 'credit_card' &&
