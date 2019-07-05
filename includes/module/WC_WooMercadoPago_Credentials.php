@@ -100,7 +100,9 @@ class WC_WooMercadoPago_Credentials
     }
 
     /**
+     * @param $access_token
      * @return bool
+     * @throws WC_WooMercadoPago_Exception
      */
     public static function access_token_is_valid($access_token)
     {
