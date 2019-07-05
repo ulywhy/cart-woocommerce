@@ -47,7 +47,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function getFormFields($label)
     {
         if (is_admin()) {
-            wp_enqueue_script('woocommerce-mercadopago-ticket-config-script', plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__)));
+            wp_enqueue_script('woocommerce-mercadopago-ticket-config-script', plugins_url('../assets/js/ticket_config_mercadopago.js', plugin_dir_path(__FILE__)));
         }
 
         if (empty($this->checkout_country)) {
@@ -293,7 +293,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                     'id' => 'woocommerce_mercadopago_' . $payment_method_ticket['id'],
                     'default' => 'yes',
                     'type' => 'checkbox',
-                    'class' => 'online_payment_method',
+                    'class' => 'ticket_payment_method_select',
                     'custom_attributes' => array(
                         'data-translate' => __('Todos los medios de pago', 'woocommerce-mercadopago')
                     ),
