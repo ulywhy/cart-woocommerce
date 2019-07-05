@@ -391,7 +391,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'path_to_javascript' => plugins_url('../assets/js/ticket.js', plugin_dir_path(__FILE__))
         );
 
-        wc_get_template('ticket/ticket-form.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
+        wc_get_template('checkout/ticket_checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
     }
 
     /**
@@ -502,7 +502,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     /**
      * @param $order
      * @param $ticket_checkout
-     * @return string
+     * @return string|array
      */
     public function create_preference($order, $ticket_checkout)
     {

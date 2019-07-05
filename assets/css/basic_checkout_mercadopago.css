@@ -6,6 +6,10 @@
     padding-top: 10px !important;
 }
 
+.pb-20 {
+    padding-bottom: 20px !important;
+}
+
 .pl-10 {
     padding-left: 10px !important;
 }
@@ -365,4 +369,16 @@
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+/* ----- Ticket ----- */
+.erro_febraban {
+    font-family: sans-serif !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #f04449 !important;
 }
