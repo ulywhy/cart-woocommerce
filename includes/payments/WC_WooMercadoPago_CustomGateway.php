@@ -52,7 +52,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
         }
 
-        if(!empty($this->checkout_country) && empty($this->mp_access_token_test) && empty($this->mp_access_token_prod)) {
+        if(!empty($this->checkout_country) && empty($this->getAccessToken())) {
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
         }
 

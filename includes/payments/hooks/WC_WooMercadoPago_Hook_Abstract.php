@@ -204,7 +204,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $commonConfigs = $this->payment->getCommonConfigs();
                 if (in_array($key, $commonConfigs)) {
 
-                    if ($this->validateCredentials($key, $value)) {
+                    if ($this->validateCredentials($key, $value, $this->payment->id)) {
                         continue;
                     }
                     update_option($key, $value, true);
@@ -223,7 +223,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      * @return bool
      * @throws WC_WooMercadoPago_Exception
      */
-    private function validateCredentials($key, $value)
+    private function validateCredentials($key, $value, $payment_id)
     {
         if ($key == '_mp_public_key_test' && $value == $this->payment->mp_public_key_test) {
             return true;
@@ -245,7 +245,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             return true;
         }
 
-        if ($this->validateAccessToken($key, $value)) {
+        if ($this->validateAccessToken($key, $value, $payment_id)) {
             return true;
         }
 
@@ -282,7 +282,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      * @return bool
      * @throws WC_WooMercadoPago_Exception
      */
-    private function validateAccessToken($key, $value)
+    private function validateAccessToken($key, $value, $payment_id)
     {
         if ($key != '_mp_access_token_prod' && $key != '_mp_access_token_test') {
             return false;
@@ -301,7 +301,12 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
             update_option($key, $value, true);
             if ($key == '_mp_access_token_prod') {
-                WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
+              if($payment_id == 'woo-mercado-pago-basic') {
+                 WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
+              }
+              if($payment_id == 'woo-mercado-pago-ticket') {
+                 WC_WooMercadoPago_Credentials::updateTicketMethod($this->mpInstance, $value);
+              }    
             }
             return true;
         }

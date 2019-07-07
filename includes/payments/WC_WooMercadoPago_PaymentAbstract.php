@@ -261,7 +261,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['_mp_public_key_prod'] = $this->field_checkout_credential_publickey_prod();
             $form_fields['_mp_access_token_prod'] = $this->field_checkout_credential_accesstoken_prod();
             $form_fields['_mp_category_id'] = $this->field_category_store();
-            if (!empty($this->mp_access_token_test) || !empty($this->mp_access_token_prod)) {
+            if (!empty($this->getAccessToken())) {
             $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
             $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
             $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();

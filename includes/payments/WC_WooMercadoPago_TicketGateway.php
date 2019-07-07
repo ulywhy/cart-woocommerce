@@ -17,7 +17,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function __construct()
     {
-        $this->id = 'woo-mercado-pago-ticket';
+        $this->id = self::ID;
 
         if (!$this->validateSection()) {
             return;
@@ -38,6 +38,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         parent::__construct();
         $this->form_fields = $this->getFormFields('Ticket');
         $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
+        $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
+
     }
 
     /**
