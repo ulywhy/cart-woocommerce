@@ -518,28 +518,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     /**
      * @return bool
      */
-    public function mp_config_rule_is_available()
-    {
-        $_mp_access_token = get_option('_mp_access_token_prod');
-        $_mp_debug_mode = get_option('_mp_debug_mode', '');
-        $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
-
-        // If we do not have SSL in production environment, we are not allowed to process.
-        if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
-            if (empty($_mp_debug_mode)) {
-                return false;
-            }
-        } elseif ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && $is_prod_credentials) {
-            // If we don't have SSL, we can only enable this payment method with TEST credentials.
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * @return bool
-     */
     public function is_available()
     {
         if (!parent::is_available()) {
