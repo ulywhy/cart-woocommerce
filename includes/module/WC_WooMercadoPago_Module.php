@@ -39,7 +39,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
         add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
-        if (is_admin()) {
+        if (is_admin() && isset($_REQUEST['section'])) {
             $credentials = new WC_WooMercadoPago_Credentials();
             if (!$credentials->tokenIsValid()) {
                 add_action('admin_notices', array($this, 'enablePaymentNotice'));
@@ -64,7 +64,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
         }
 
-        if(!isset($mp)) {
+        if (!isset($mp)) {
             return false;
         }
 
