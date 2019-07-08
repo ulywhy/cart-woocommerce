@@ -6,8 +6,16 @@
     padding-top: 10px !important;
 }
 
+.pb-15 {
+    padding-bottom: 15px !important;
+}
+
 .pb-20 {
     padding-bottom: 20px !important;
+}
+
+.pb-30 {
+    padding-bottom: 30px !important;
 }
 
 .pl-10 {
@@ -381,4 +389,12 @@
     line-height: 1.29;
     letter-spacing: normal;
     color: #f04449 !important;
+}
+
+.subtitle-ticket-checkout {
+    font-size: 17px !important;
+    font-family: sans-serif !important;
+    color: #04204c;
+    font-weight: 600;
+    margin: 0px 0 5px !important;
 }

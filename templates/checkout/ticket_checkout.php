@@ -135,7 +135,7 @@ if (!defined('ABSPATH')) {
                             </div>
                         </div>
 
-                        <div class="col-md-12 pt-10">
+                        <div class="col-md-12 pt-10 pb-30">
                             <div class="frame-tarjetas">
                                 <div class="row pt-10">
                                     <p class="mp-obrigatory"><?= esc_html__('Completa todos los campos, son obligatorios.', 'woocommerce-mercadopago'); ?></p>
@@ -147,12 +147,12 @@ if (!defined('ABSPATH')) {
                     <div class="col-md-12">
                         <div class="frame-tarjetas">
                             <?php if (count($payment_methods) > 1) : ?>
-                                <p class="subtitle-custom-checkout">Por favor, selecciona el emisor de su elección</p>
+                                <p class="subtitle-ticket-checkout">Por favor, selecciona el emisor de su elección</p>
 
                                 <div class="row pt-10">
                                     <?php $atFirst = true; ?>
                                     <?php foreach ($payment_methods as $payment) : ?>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 pb-15">
                                             <div id="paymentMethodIdTicket">
                                                 <label for="<?= $payment['id']; ?>" class="mp-label-form pointer">
                                                     <input type="radio" class="mp-form-control-check" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id']; ?>" value="<?= $payment['id']; ?>" <?php if ($atFirst) : ?> checked="checked" <?php endif; ?> />
