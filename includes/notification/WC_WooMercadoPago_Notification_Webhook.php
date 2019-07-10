@@ -16,7 +16,6 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
     public function __construct($payment)
     {
         parent::__construct($payment);
-        $this->log->setId('WooMercadoPago_Notification_Webhook');
     }
 
     /**
