@@ -6,8 +6,8 @@
 class WC_WooMercadoPago_Credentials
 {
 
-    CONST TYPE_ACCESS_CLIENT = 'client';
-    CONST TYPE_ACCESS_TOKEN = 'token';
+    const TYPE_ACCESS_CLIENT = 'client';
+    const TYPE_ACCESS_TOKEN = 'token';
 
     public $payment;
     public $publicKey;
@@ -30,7 +30,7 @@ class WC_WooMercadoPago_Credentials
 
 
         if (!is_null($this->payment) && ($this->payment->getOption('checkout_credential_production', '') == 'no' ||
-                empty($this->payment->getOption('checkout_credential_production', '')))) {
+            empty($this->payment->getOption('checkout_credential_production', '')))) {
             $publicKey = get_option('_mp_public_key_test', '');
             $accessToken = get_option('_mp_access_token_test', '');
         }
@@ -118,9 +118,11 @@ class WC_WooMercadoPago_Credentials
             $log->write_log('API valid_access_token error:', $get_request['response']['message']);
             return false;
         }
-        if (isset($get_request['site_id'])) {
-            update_option('_site_id_v1', $get_request['site_id'], true);
+
+        if (isset($get_request['response']['site_id'])) {
+            update_option('_site_id_v1', $get_request['response']['site_id'], true);
         }
+
         return true;
     }
 
