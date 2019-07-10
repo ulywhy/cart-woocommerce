@@ -28,11 +28,15 @@ class WC_WooMercadoPago_Credentials
         $publicKey = get_option('_mp_public_key_prod', '');
         $accessToken = get_option('_mp_access_token_prod', '');
 
-        if (get_option('checkout_credential_production', '') == 'no' || empty(get_option('checkout_credential_production', ''))) {
+
+
+        if (!is_null($this->payment) && ($this->payment->getOption('checkout_credential_production', '') == 'no' ||
+            empty($this->payment->getOption('checkout_credential_production', ''))))
+        {
             $publicKey = get_option('_mp_public_key_test', '');
             $accessToken = get_option('_mp_access_token_test', '');
         }
-
+        
         $this->publicKey = $publicKey;
         $this->accessToken = $accessToken;
         $this->clientId = get_option('_mp_client_id');
