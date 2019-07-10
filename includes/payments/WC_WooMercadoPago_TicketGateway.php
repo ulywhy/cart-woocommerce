@@ -179,7 +179,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_ticket_header = array(
             'title' => sprintf(
-                __('Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. %s', 'woocommerce-mercadopago'),
+                __('Checkout Personalizado Offline. Acepta medios de pago en efectivo y amplía las opciones de compra. %s', 'woocommerce-mercadopago'),
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
@@ -271,7 +271,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 				'title' => __( 'Vencimiento del pago', 'woocommerce-mercadopago' ),
 				'type' => 'number',
 				'description' => __( 'En cuántos días caducarán los pagos en efectivo.', 'woocommerce-mercadopago' ),
-				'default' => '3'
+				'default' => ''
 			);
     }
   
@@ -319,30 +319,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
         return $ticket_payments;
     }
-
- 
-    /**
-     * @param $order_id
-     */
-//    public function show_ticket_script($order_id)
-//    {
-//        $order = wc_get_order($order_id);
-//        $transaction_details = (method_exists($order, 'get_meta')) ? $order->get_meta('_transaction_details_ticket') : get_post_meta($order->get_id(), '_transaction_details_ticket', true);
-//        if (empty($transaction_details)) {
-//            return;
-//        }
-//
-//        $html = '<p>' .
-//            __('Thank you for your order. Please, pay the ticket to get your order approved.', 'woocommerce-mercadopago') .
-//            '</p>' .
-//            '<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
-//            '<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
-//            ' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
-//            __('Print the Ticket', 'woocommerce-mercadopago') .
-//            '</a> ';
-//        $added_text = '<p>' . $html . '</p>';
-//        echo $added_text;
-//    }
 
     /**
      *

@@ -33,11 +33,11 @@ if (!defined('ABSPATH')) {
 			</div>
 		</div>
 
-		<div class="col-md-12">
-			<div class="frame-tarjetas text-justify">
-				<p class="subtitle-custom-checkout">Ingresa tu cupón de descuento</p>
-
+		<div class="col-md-12 mb-20">
+			<div class="frame-tarjetas text-justify pb-10">
 				<div id="mercadopago-form-coupon">
+					<p class="subtitle-custom-checkout">Ingresa tu cupón de descuento</p>
+
 					<div class="row pt-10">
 						<div class="col-md-9 pr-15">
 							<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="Ingresá tu cupón" />
@@ -56,7 +56,7 @@ if (!defined('ABSPATH')) {
 
 		<div class="col-md-12">
 			<div class="frame-tarjetas">
-				<p class="subtitle-custom-checkout">Ingresa los datos de tu tarjeta</p>
+				<p class="subtitle-custom-checkout pt-0">Ingresa los datos de tu tarjeta</p>
 
 				<!-- saved cards -->
 				<div id="mercadopago-form-customer-and-card">
@@ -67,11 +67,11 @@ if (!defined('ABSPATH')) {
 								<optgroup label="<?= esc_html__('Your Card', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
 									<?php foreach ($customer_cards as $card) : ?>
 										<option value="<?= $card['id']; ?>
-													first_six_digits=<?= $card['first_six_digits']; ?>
-													last_four_digits=<?= $card['last_four_digits']; ?>
-													security_code_length=<?= $card['security_code']['length']; ?>
-													type_checkout='customer_and_card'
-													payment_method_id=<?= $card['payment_method']['id']; ?>">
+														first_six_digits=<?= $card['first_six_digits']; ?>
+														last_four_digits=<?= $card['last_four_digits']; ?>
+														security_code_length=<?= $card['security_code']['length']; ?>
+														type_checkout='customer_and_card'
+														payment_method_id=<?= $card['payment_method']['id']; ?>">
 											<?= ucfirst($card['payment_method']['name']); ?>
 											<?= esc_html__('ended in', 'woocommerce-mercadopago'); ?>
 											<?= $card['last_four_digits']; ?>
@@ -224,7 +224,7 @@ if (!defined('ABSPATH')) {
 				<!-- end new card -->
 
 				<!-- NOT DELETE LOADING-->
-        		<div id="mp-box-loading"></div>
+				<div id="mp-box-loading"></div>
 
 			</div>
 		</div>
@@ -459,7 +459,7 @@ if (!defined('ABSPATH')) {
 				// Set loading.
 				document.querySelector(MPv1.selectors.mpCouponApplyed).style.display = "none";
 				document.querySelector(MPv1.selectors.mpCouponError).style.display = "none";
-				document.querySelector(MPv1.selectors.couponCode).style.background = "url(" + MPv1.paths.loading + ") 94% 50% no-repeat #fff";
+				document.querySelector(MPv1.selectors.couponCode).style.background = "url(" + MPv1.paths.loading + ") 98% 50% no-repeat #fff";
 				document.querySelector(MPv1.selectors.couponCode).style.border = "1px solid #cecece";
 				document.querySelector(MPv1.selectors.applyCoupon).disabled = true;
 
@@ -520,7 +520,7 @@ if (!defined('ABSPATH')) {
 							document.querySelector(MPv1.selectors.couponCode).style.background =
 								null;
 							document.querySelector(MPv1.selectors.couponCode).style.background =
-								"url(" + MPv1.paths.check + ") 94% 50% no-repeat #fff";
+								"url(" + MPv1.paths.check + ") 98% 50% no-repeat #fff";
 							document.querySelector(MPv1.selectors.couponCode).style.border = "1px solid #cecece";
 							document.querySelector(MPv1.selectors.applyCoupon).value =
 								MPv1.text.remove;
@@ -535,7 +535,7 @@ if (!defined('ABSPATH')) {
 							document.querySelector(MPv1.selectors.mpCouponError).innerHTML = response.response.message;
 							MPv1.coupon_of_discounts.status = false;
 							document.querySelector(MPv1.selectors.couponCode).style.background = null;
-							document.querySelector(MPv1.selectors.couponCode).style.background = "url(" + MPv1.paths.error + ") 94% 50% no-repeat #fff";
+							document.querySelector(MPv1.selectors.couponCode).style.background = "url(" + MPv1.paths.error + ") 98% 50% no-repeat #fff";
 							document.querySelector(MPv1.selectors.applyCoupon).value = MPv1.text.apply;
 							document.querySelector(MPv1.selectors.discount).value = 0;
 							MPv1.cardsHandler();
@@ -1253,7 +1253,7 @@ if (!defined('ABSPATH')) {
 					MPv1.checkCouponEligibility
 				);
 			} else {
-				document.querySelector(MPv1.selectors.formCoupon).style.display = "block";
+				document.querySelector(MPv1.selectors.formCoupon).style.display = "none";
 			}
 
 			// Flow: customer & cards.

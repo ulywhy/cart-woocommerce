@@ -59,7 +59,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
         }
 
-        if(!empty($this->checkout_country) && empty($this->getAccessToken())) {
+        if (!empty($this->checkout_country) && empty($this->getAccessToken())) {
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
         }
 
@@ -67,7 +67,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $form_fields['checkout_header'] = $this->field_checkout_header();
 
-        if (!empty($this->checkout_country) && !empty($this->getAccessToken()) ) {
+        if (!empty($this->checkout_country) && !empty($this->getAccessToken())) {
             $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
             $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
             $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
@@ -176,7 +176,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             return true;
         }
 
-        if($this->settings['enabled'] == 'yes'){
+        if ($this->settings['enabled'] == 'yes') {
             if ($this->mp instanceof MP) {
                 $accessToken = $this->mp->get_access_token();
                 if (strpos($accessToken, 'APP_USR') === false && strpos($accessToken, 'TEST') === false) {

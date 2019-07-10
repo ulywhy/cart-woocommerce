@@ -213,7 +213,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         if ($key == 'enabled' && $value == 'yes') {
             if (empty($this->mp->get_access_token())) {
-                $message = _('Necessário cadastrar as credenciais para habilitar pagamentos.');
+                $message = _('Configure as credenciais para habilitar os métodos de pagamento do Mercado Pago.');
                 echo json_encode(array('success' => false, 'data' => $message));
                 die();
             }
@@ -1078,7 +1078,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_options_subtitle = array(
             'title' => sprintf(
                 __('%s', 'woocommerce-mercadopago'),
-                '<a href="" target="_blank">' . __('Quiero testear mis ventas', 'woocommerce-mercadopago') . '</a>'
+                '<a href="'.get_site_url().'" target="_blank">' . __('Quiero testear mis ventas', 'woocommerce-mercadopago') . '</a>'
             ),
             'type' => 'title',
             'class' => 'mp_tienda_link'

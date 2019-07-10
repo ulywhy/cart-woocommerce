@@ -19,12 +19,12 @@ if (!defined('ABSPATH')) {
                         </div>
 
                         <div class="col-md-3">
-                            <input type="button" class="mp-button pointer" id="applyCoupon" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
+                            <input type="button" class="mp-button pointer" id="applyCouponTicket" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
                         </div>
                     </div>
 
-                    <span class="mp-discount" id="mpCouponApplyed"></span>
-                    <span class="mp-error" id="mpCouponError">El código que ingresaste es incorrecto</span>
+                    <span class="mp-discount" id="mpCouponApplyedTicket"></span>
+                    <span class="erro_febraban" id="mpCouponErrorTicket">El código que ingresaste es incorrecto</span>
                 </div>
             </div>
         </div>
