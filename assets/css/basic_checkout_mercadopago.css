@@ -38,6 +38,10 @@
     margin-bottom: 0px !important;
 }
 
+.mt-20 {
+    margin-top: 20px !important;
+}
+
 .display-inherit {
     display: inherit !important;
 }

@@ -349,6 +349,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function payment_fields()
     {
+        //add css
+        wp_enqueue_style(
+            'woocommerce-mercadopago-basic-checkout-styles',
+            plugins_url('../assets/css/basic_checkout_mercadopago.css', plugin_dir_path(__FILE__))
+        );
+        
         $amount = $this->get_order_total();
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=WC_WooMercadoPago_TicketGateway';
