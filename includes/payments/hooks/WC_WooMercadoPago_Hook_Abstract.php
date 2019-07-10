@@ -114,18 +114,21 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         if (!is_checkout() && !(defined('DOING_AJAX') && DOING_AJAX)) {
             return $title;
         }
-        if ($title != $this->payment->title || $this->payment->gateway_discount == 0) {
+        if ($title != $this->payment->title && ( $this->payment->commission == 0 && $this->payment->gateway_discount == 0)) {
             return $title;
         }
-        if (!is_numeric($this->payment->gateway_discount) || $this->payment->gateway_discount < -99 || $this->payment->gateway_discount > 99) {
+        if (!is_numeric($this->payment->gateway_discount) || $this->payment->commission > 99 || $this->payment->gateway_discount > 99) {
             return $title;
         }
         $total = (float)WC()->cart->subtotal;
-        $price_percent = $this->$this->payment->gateway_discount / 100;
-        if ($price_percent > 0) {
-            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($total * $price_percent)) . ')';
-        } elseif ($price_percent < 0) {
-            $title .= ' (' . __('Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price(-$total * $price_percent)) . ')';
+        $price_discount = $total * ($this->payment->gateway_discount / 100);
+        $price_commission = $total * ($this->payment->commission / 100);
+       if ($this->payment->gateway_discount > 0 && $this->payment->commission > 0) {
+            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . __(' and Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
+        } elseif ($this->payment->gateway_discount > 0) {
+            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . ')';
+        } elseif ($this->payment->commission > 0) {
+            $title .= ' (' . __('Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
         }
         return $title;
     }
@@ -196,15 +199,19 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function custom_process_admin_options()
     {
+        $valueCredentialProduction = null;
         $this->payment->init_settings();
         $post_data = $this->payment->get_post_data();
         foreach ($this->payment->get_form_fields() as $key => $field) {
             if ('title' !== $this->payment->get_field_type($field)) {
                 $value = $this->payment->get_field_value($key, $field, $post_data);
+                if ($key == 'checkout_credential_production') {
+                    $valueCredentialProduction = $value;
+                }
                 $commonConfigs = $this->payment->getCommonConfigs();
                 if (in_array($key, $commonConfigs)) {
 
-                    if ($this->validateCredentials($key, $value)) {
+                    if ($this->validateCredentials($key, $value, $valueCredentialProduction)) {
                         continue;
                     }
                     update_option($key, $value, true);
@@ -220,10 +227,11 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     /**
      * @param $key
      * @param $value
+     * @param null $valueCredentialProduction
      * @return bool
      * @throws WC_WooMercadoPago_Exception
      */
-    private function validateCredentials($key, $value)
+    private function validateCredentials($key, $value, $valueCredentialProduction = null)
     {
         if ($key == '_mp_public_key_test' && $value == $this->payment->mp_public_key_test) {
             return true;
@@ -245,7 +253,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             return true;
         }
 
-        if ($this->validateAccessToken($key, $value)) {
+        if ($this->validateAccessToken($key, $value, $valueCredentialProduction)) {
             return true;
         }
 
@@ -279,10 +287,11 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     /**
      * @param $key
      * @param $value
+     * @param null $valueCredentialProduction
      * @return bool
      * @throws WC_WooMercadoPago_Exception
      */
-    private function validateAccessToken($key, $value)
+    private function validateAccessToken($key, $value, $valueCredentialProduction = null)
     {
         if ($key != '_mp_access_token_prod' && $key != '_mp_access_token_test') {
             return false;
@@ -298,23 +307,51 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             return true;
         }
 
+        if (empty($valueCredentialProduction)) {
+            $valueCredentialProduction = $this->payment->checkout_credential_token_production;
+        }
+
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
             update_option($key, $value, true);
             if (
-                ($key == '_mp_access_token_prod' && $this->payment->checkout_credential_token_production == 'yes') ||
-                ($key == '_mp_access_token_test' && $this->payment->checkout_credential_token_production == 'no')
+                ($key == '_mp_access_token_prod' && $valueCredentialProduction == 'yes') ||
+                ($key == '_mp_access_token_test' && $valueCredentialProduction == 'no')
             ) {
-                if ($this->payment instanceof WC_WooMercadoPago_BasicGateway) {
-                    WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
-                }
-                if ($this->payment instanceof WC_WooMercadoPago_TicketGateway) {
-                    WC_WooMercadoPago_Credentials::updateTicketMethod($this->mpInstance, $value);
-                }
+                WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
+                WC_WooMercadoPago_Credentials::updateTicketMethod($this->mpInstance, $value);
             }
             return true;
         }
 
+        if ($key == '_mp_access_token_prod') {
+            update_option('_mp_public_key_prod', '', true);
+            add_action('admin_notices', array($this, 'noticeInvalidProdCredentials'));
+        } else {
+            update_option('_mp_public_key_test', '', true);
+            add_action('admin_notices', array($this, 'noticeInvalidTestCredentials'));
+        }
+
         update_option($key, '', true);
         return true;
+    }
+
+    /**
+     *  ADMIN NOTICE
+     */
+    public function noticeInvalidProdCredentials()
+    {
+        echo '<div class="error is-dismissible">
+                <p style="font-size:18px"><strong>MERCADO PAGO:</strong> INVALID PROD CREDENTIALS</p>
+                </div>';
+    }
+
+    /**
+     * ADMIN NOTICE
+     */
+    public function noticeInvalidTestCredentials()
+    {
+        echo '<div class="error is-dismissible">
+                <p style="font-size:18px"><strong>MERCADO PAGO:</strong> INVALID TEST CREDENTIALS</p>
+                </div>';
     }
 }
