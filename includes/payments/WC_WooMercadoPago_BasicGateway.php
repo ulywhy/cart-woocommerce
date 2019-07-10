@@ -33,7 +33,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->failure_url = $this->getOption('failure_url', '');
         $this->pending_url = $this->getOption('pending_url', '');
         $this->installments = $this->getOption('installments', '24');
-        $this->gateway_discount = $this->getOption('gateway_discount', 0);
         $this->field_forms_order = $this->get_fields_sequence();
         $this->ex_payments = $this->getExPayments();
         parent::__construct();
@@ -515,7 +514,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function create_preference($order)
     {
-        $preferencesBasic = new WC_WooMercadoPago_PreferenceBasic($order, $this->ex_payments, $this->installments);
+        $preferencesBasic = new WC_WooMercadoPago_PreferenceBasic($this->gateway_discount, $this->commission, $order, $this->ex_payments, $this->installments);
         $preferences = $preferencesBasic->get_preference();
         try {
             $checkout_info = $this->mp->create_preference(json_encode($preferences));

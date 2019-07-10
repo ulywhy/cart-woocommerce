@@ -114,18 +114,21 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         if (!is_checkout() && !(defined('DOING_AJAX') && DOING_AJAX)) {
             return $title;
         }
-        if ($title != $this->payment->title || $this->payment->gateway_discount == 0) {
+        if ($title != $this->payment->title && ( $this->payment->commission == 0 && $this->payment->gateway_discount == 0)) {
             return $title;
         }
-        if (!is_numeric($this->payment->gateway_discount) || $this->payment->gateway_discount < -99 || $this->payment->gateway_discount > 99) {
+        if (!is_numeric($this->payment->gateway_discount) || $this->payment->commission > 99 || $this->payment->gateway_discount > 99) {
             return $title;
         }
         $total = (float)WC()->cart->subtotal;
-        $price_percent = $this->$this->payment->gateway_discount / 100;
-        if ($price_percent > 0) {
-            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($total * $price_percent)) . ')';
-        } elseif ($price_percent < 0) {
-            $title .= ' (' . __('Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price(-$total * $price_percent)) . ')';
+        $price_discount = $total * ($this->payment->gateway_discount / 100);
+        $price_commission = $total * ($this->payment->commission / 100);
+       if ($this->payment->gateway_discount > 0 && $this->payment->commission > 0) {
+            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . __(' and Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
+        } elseif ($this->payment->gateway_discount > 0) {
+            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . ')';
+        } elseif ($this->payment->commission > 0) {
+            $title .= ' (' . __('Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
         }
         return $title;
     }

@@ -462,7 +462,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     protected function create_preference($order, $custom_checkout)
     {
-        $preferencesCustom = new WC_WooMercadoPago_PreferenceCustom($order, $custom_checkout);
+        $preferencesCustom = new WC_WooMercadoPago_PreferenceCustom($this->gateway_discount, $this->commission, $order, $custom_checkout);
         $preferences = $preferencesCustom->get_preference();
         try {
             $checkout_info = $this->mp->post('/v1/payments', json_encode($preferences));

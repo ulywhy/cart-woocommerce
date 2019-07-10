@@ -22,7 +22,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         '_mp_store_identificator',
         '_mp_debug_mode',
         '_mp_custom_domain',
-        'installments'
+        'installments',
+        'auto_return'
     );
 
     public $field_forms_order;
@@ -1018,7 +1019,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'default' => '0',
             'custom_attributes' => array(
                 'step' => '0.01',
-                'min' => '-99',
+                'min' => '0',
                 'max' => '99'
             )
         );
@@ -1037,7 +1038,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'default' => '0',
             'custom_attributes' => array(
                 'step' => '0.01',
-                'min' => '-99',
+                'min' => '0',
                 'max' => '99'
             )
         );

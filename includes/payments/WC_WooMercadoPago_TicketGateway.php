@@ -165,7 +165,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
       $saved_optons = get_option('woocommerce_woo-mercado-pago-ticket_settings', '');
 
       foreach ($get_payment_methods_ticket as $payment_methods_ticket) {
-       if ($saved_optons['ticket_payment_' . $payment_methods_ticket['id']] == 'yes'){
+       if (!empty($saved_optons) && $saved_optons['ticket_payment_' . $payment_methods_ticket['id']] == 'yes'){
          array_push($activated_payment, $payment_methods_ticket);
        } 
       }
@@ -514,7 +514,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function create_preference($order, $ticket_checkout)
     {
-        $preferencesTicket = new WC_WooMercadoPago_PreferenceTicket($order, $ticket_checkout);
+        $preferencesTicket = new WC_WooMercadoPago_PreferenceTicket($this->gateway_discount, $this->commission, $order, $ticket_checkout);
         $preferences = $preferencesTicket->get_preference();
         try {
             $checkout_info = $this->mp->post('/v1/payments', json_encode($preferences));
