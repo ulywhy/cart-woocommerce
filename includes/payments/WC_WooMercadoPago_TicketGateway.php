@@ -152,9 +152,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_ready_description_link'
         ];
     }
-  
-     /**
-     * @return string
+
+    /**
+     * @return array
      */
     public static function get_activated_payment()
     {

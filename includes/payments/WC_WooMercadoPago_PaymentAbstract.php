@@ -25,6 +25,13 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         'installments'
     );
 
+    const CREDENTIAL_FIELDS = array(
+        '_mp_public_key_test',
+        '_mp_access_token_test',
+        '_mp_public_key_prod',
+        '_mp_access_token_prod'
+    );
+
     public $field_forms_order;
     public $id;
     public $method_title;
@@ -68,6 +75,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $commission;
     public $application_id;
     public $type_payments;
+    public $activated_payment;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
