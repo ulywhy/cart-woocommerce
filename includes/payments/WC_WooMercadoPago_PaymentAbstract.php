@@ -103,7 +103,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->supports = array('products', 'refunds');
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
-        $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log();
+        $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log(get_class($this));
         $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton($this);
         $this->application_id = $this->getApplicationId($this->mp_access_token_prod);
     }

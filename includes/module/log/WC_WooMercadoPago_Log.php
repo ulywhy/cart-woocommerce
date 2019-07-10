@@ -30,14 +30,21 @@ class WC_WooMercadoPago_Log
     }
 
     /**
+     * @param null $id
      * @return WC_WooMercadoPago_Log|null
      */
-    public static function init_mercado_pago_log()
+    public static function init_mercado_pago_log($id = null)
     {
         if (self::$instance === null) {
             self::$instance = new self;
         }
-        return self::$instance;
+
+        $log = self::$instance;
+        if (!empty($log)) {
+            $log->setId($id);
+        }
+
+        return $log;
     }
 
     /**

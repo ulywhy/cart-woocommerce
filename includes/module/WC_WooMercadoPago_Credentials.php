@@ -15,6 +15,7 @@ class WC_WooMercadoPago_Credentials
     public $clientId;
     public $clientSecret;
     public $testUser;
+    public $log;
 
     /**
      * WC_WooMercadoPago_Credentials constructor.
@@ -39,6 +40,7 @@ class WC_WooMercadoPago_Credentials
         $this->accessToken = $accessToken;
         $this->clientId = get_option('_mp_client_id');
         $this->clientSecret = get_option('_mp_client_secret');
+        $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log(get_class($this));
     }
 
     /**
@@ -114,7 +116,7 @@ class WC_WooMercadoPago_Credentials
         }
         $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
         if ($get_request['status'] > 202) {
-            $log = WC_WooMercadoPago_Log::init_mercado_pago_log();
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Credentials');
             $log->write_log('API valid_access_token error:', $get_request['response']['message']);
             return false;
         }
@@ -168,7 +170,7 @@ class WC_WooMercadoPago_Credentials
                 return true;
             }
         } catch (WC_WooMercadoPago_Exception $e) {
-            $log = WC_WooMercadoPago_Log::init_mercado_pago_log();
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Credentials');
             $log->write_log('validate_credentials_v1', 'Exception ERROR');
         }
 
