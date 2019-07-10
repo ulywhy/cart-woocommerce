@@ -262,7 +262,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Configurar', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Tu opnión nos  ayuda a mejorar', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<br><a target="_blank" href="' . 'https://github.com/mercadopago/cart-woocommerce#installation' . '">' . __('Guías y Documentación', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woo-mercado-pago-module#postform' . '">' . __('Informar Problema', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a target="_blank" href="' . 'https://www.mercadopago.com.br/ajuda' . '">' . __('Informar Problema', 'woocommerce-mercadopago') . '</a>';
         return array_merge($plugin_links, $links);
     }
 
