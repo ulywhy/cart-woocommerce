@@ -95,6 +95,7 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
 
     /**
      * @return bool
+     * @throws WC_WooMercadoPago_Exception
      */
     public function custom_process_admin_options()
     {

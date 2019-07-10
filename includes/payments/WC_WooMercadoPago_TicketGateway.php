@@ -537,20 +537,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     /**
      * @return bool
      */
-    public function mp_config_rule_is_available()
-    {
-        // Check if there are available payments with ticket.
-        $payment_methods = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
-        if (count($payment_methods) == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * @return bool
-     */
     public function is_available()
     {
         if (!parent::is_available()) {

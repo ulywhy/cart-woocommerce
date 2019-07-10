@@ -16,7 +16,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         '_mp_access_token_test',
         '_mp_public_key_prod',
         '_mp_access_token_prod',
-        'checkout_credential_production',
         'checkout_country',
         'mp_statement_descriptor',
         '_mp_category_id',
@@ -583,7 +582,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Producción', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Elige “SÍ” solo cuando estés listo para vender. Cambia a NO para activar el modo Pruebas.', 'woocommerce-mercadopago'),
-            'default' => get_option('checkout_credential_production', 'no'),
+            'default' => $this->getOption('checkout_credential_production', 'no'),
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Sí', 'woocommerce-mercadopago')

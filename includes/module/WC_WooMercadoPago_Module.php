@@ -23,28 +23,34 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function __construct()
     {
-        if (!class_exists('WC_Payment_Gateway')) {
-            add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
-        }
+        try {
 
-        $this->loadConfigs();
-        $this->loadLog();
-        $this->loadHooks();
-        $this->loadPreferences();
-        $this->loadPayments();
-        $this->loadNotifications();
-        $this->loadShipments();
 
-        add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
-        add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
-        add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
-
-        if (is_admin()) {
-            $credentials = new WC_WooMercadoPago_Credentials();
-            if (!$credentials->tokenIsValid()) {
-                add_action('admin_notices', array($this, 'enablePaymentNotice'));
+            if (!class_exists('WC_Payment_Gateway')) {
+                add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
             }
-            self::loadMercadoEnviosAdmin();
+
+            $this->loadConfigs();
+            $this->loadLog();
+            $this->loadHooks();
+            $this->loadPreferences();
+            $this->loadPayments();
+            $this->loadNotifications();
+            $this->loadShipments();
+
+            add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
+            add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
+            add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
+
+            if (is_admin() && isset($_REQUEST['section'])) {
+                $credentials = new WC_WooMercadoPago_Credentials();
+                if (!$credentials->tokenIsValid()) {
+                    add_action('admin_notices', array($this, 'enablePaymentNotice'));
+                }
+                self::loadMercadoEnviosAdmin();
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -64,7 +70,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
         }
 
-        if(!isset($mp)) {
+        if (!isset($mp)) {
             return false;
         }
 
