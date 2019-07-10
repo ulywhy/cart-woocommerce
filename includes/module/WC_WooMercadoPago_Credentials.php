@@ -29,14 +29,12 @@ class WC_WooMercadoPago_Credentials
         $accessToken = get_option('_mp_access_token_prod', '');
 
 
-
         if (!is_null($this->payment) && ($this->payment->getOption('checkout_credential_production', '') == 'no' ||
-            empty($this->payment->getOption('checkout_credential_production', ''))))
-        {
+                empty($this->payment->getOption('checkout_credential_production', '')))) {
             $publicKey = get_option('_mp_public_key_test', '');
             $accessToken = get_option('_mp_access_token_test', '');
         }
-        
+
         $this->publicKey = $publicKey;
         $this->accessToken = $accessToken;
         $this->clientId = get_option('_mp_client_id');
@@ -111,14 +109,17 @@ class WC_WooMercadoPago_Credentials
     public static function access_token_is_valid($access_token)
     {
         $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
-        if(empty($mp_v1)){
+        if (empty($mp_v1)) {
             return false;
         }
         $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
         if ($get_request['status'] > 202) {
             $log = WC_WooMercadoPago_Log::init_mercado_pago_log();
-            $log->write_log('API valid_access_token error:' , $get_request['response']['message']);
+            $log->write_log('API valid_access_token error:', $get_request['response']['message']);
             return false;
+        }
+        if (isset($get_request['site_id'])) {
+            update_option('_site_id_v1', $get_request['site_id'], true);
         }
         return true;
     }
@@ -132,7 +133,7 @@ class WC_WooMercadoPago_Credentials
         $basicIsEnabled = 'no';
         if (!$credentials->tokenIsValid()) {
             $basicIsEnabled = self::basicIsEnabled();
-            if($basicIsEnabled != 'yes'){
+            if ($basicIsEnabled != 'yes') {
                 $credentials->setNoCredentials();
                 return false;
             }
@@ -140,14 +141,13 @@ class WC_WooMercadoPago_Credentials
 
         try {
             $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
-            if($mp_v1 instanceof MP == false){
+            if ($mp_v1 instanceof MP == false) {
                 $credentials->setNoCredentials();
                 return false;
             }
             $access_token = $mp_v1->get_access_token();
             $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
-            if (isset($get_request['response']['site_id']) && (!empty($credentials->publicKey) || $basicIsEnabled == 'yes'))
-            {
+            if (isset($get_request['response']['site_id']) && (!empty($credentials->publicKey) || $basicIsEnabled == 'yes')) {
 
                 update_option('_test_user_v1', in_array('test_user', $get_request['response']['tags']), true);
                 update_option('_site_id_v1', $get_request['response']['site_id'], true);
@@ -232,14 +232,14 @@ class WC_WooMercadoPago_Credentials
         if (empty($paymentsResponse)) {
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
-      
+
         if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 && $paymentsResponse['status'] != 201)) {
             return;
         }
 
         $payment_methods_ticket = array();
         foreach ($paymentsResponse as $payment) {
-              if(isset($payment['payment_type_id']) && $payment['payment_type_id'] == "ticket" || $payment['payment_type_id'] == "atm"){
+            if (isset($payment['payment_type_id']) && $payment['payment_type_id'] == "ticket" || $payment['payment_type_id'] == "atm") {
                 if (
                     $payment['payment_type_id'] != 'account_money' &&
                     $payment['payment_type_id'] != 'credit_card' &&
