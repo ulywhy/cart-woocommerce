@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Mercado Pago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: Integra nuestra plug in como medio de pago WooCommerce y despega tus ventas online.
- * Version: 3.1.0
+ * Version: 4.0.0
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
