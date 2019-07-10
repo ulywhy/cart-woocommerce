@@ -11,6 +11,8 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 {
     protected $order;
     protected $checkout;
+    protected $gateway_discount;
+    protected $commission;
     protected $currency_ratio;
     protected $items;
     protected $order_total;
@@ -21,9 +23,12 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     protected $site_id;
     protected $site_data;
     protected $test_user_v1;
+    protected $notification_class;
 
     /**
      * WC_WooMercadoPago_PreferenceAbstract constructor.
+     * @param $gateway_discount
+     * @param $commission
      * @param $order
      * @param null $checkout
      */
@@ -218,10 +223,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             $notification_url = get_option('_mp_custom_domain', '');
             // Check if we have a custom URL.
             if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === FALSE) {
-                return WC()->api_request_url(get_class($this));
+                return WC()->api_request_url($this->notification_class);
             } else {
-                return WC_Woo_Mercado_Pago_Module::fix_url_ampersand(esc_url(
-                    $notification_url . '/wc-api/' . get_class($this) . '/'
+                return WC_WooMercadoPago_Module::fix_url_ampersand(esc_url(
+                    $notification_url . '/wc-api/' . $this->notification_class . '/'
                 ));
             }
         }

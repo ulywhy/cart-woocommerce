@@ -11,12 +11,16 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
 {
     /**
      * WC_WooMercadoPago_PreferenceBasic constructor.
+     * @param $gateway_discount
+     * @param $commission
      * @param $order
      * @param $ex_payments
      * @param $installments
      */
     public function __construct($gateway_discount, $commission, $order, $ex_payments, $installments)
     {
+        $this->notification_class = 'WC_WooMercadoPago_BasicGateway';
+
         parent::__construct($gateway_discount, $commission, $order);
 
         $this->preference = $this->make_basic_preference();

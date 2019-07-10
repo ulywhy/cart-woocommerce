@@ -17,6 +17,8 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
      */
     public function __construct($gateway_discount, $commission, $order, $ticket_checkout)
     {
+        $this->notification_class = 'WC_WooMercadoPago_TicketGateway';
+
         parent::__construct($gateway_discount, $commission, $order, $ticket_checkout);
 
         $this->preference['date_of_expiration'] = $this->get_date_of_expiration();
