@@ -152,9 +152,9 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_ready_description_link'
         ];
     }
-  
-     /**
-     * @return string
+
+    /**
+     * @return array
      */
     public static function get_activated_payment()
     {
@@ -543,7 +543,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             return false;
         }
 
-        $payment_methods = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
+        $payment_methods = $this->activated_payment;
         if (count($payment_methods) == 0) {
             return false;
         }

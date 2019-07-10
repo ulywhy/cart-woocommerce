@@ -1,4 +1,4 @@
-=== WooCommerce MercadoPago ===
+=== WooCommerce Mercado Pago ===
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.7
@@ -40,7 +40,7 @@ You have two ways to install this module: from your WordPress Store, or by downl
 
 = Install from WordPress =
 1. On your store administration, go to *Plugins* option in sidebar;
-2. Click in *Add New* button and type "WooCommerce MercadoPago" in the *Search Plugins* text field. Press Enter;
+2. Click in *Add New* button and type "WooCommerce Mercado Pago" in the *Search Plugins* text field. Press Enter;
 3. You should find the module ready to be installed. Click install. Its done!
 
 = Manual Download =
@@ -51,7 +51,7 @@ You have two ways to install this module: from your WordPress Store, or by downl
 To confirm that your module is really installed, you can click in *Plugins* item in the store administration menu, and check your just installed module. Just click *enable* to activate it and you should receive the message "Plugin enabled." as a notice in your WordPress.
 
 = Configuration =
-First of all, make sure that WooCommerce MercadoPago plugin is enabled, by clicking in Plugins item on the WordPress sidebar. Then, in the sidebar of WordPress, click in Settings > Mercado Pago option. You should get the page for the main configuration of Mercado Pago. Over there, you can:
+First of all, make sure that WooCommerce Mercado Pago plugin is enabled, by clicking in Plugins item on the WordPress sidebar. Then, in the sidebar of WordPress, click in Settings > Mercado Pago option. You should get the page for the main configuration of Mercado Pago. Over there, you can:
 
 - Plugin Status and Payment Options
 Is the upper part of the window. Shows platform statuses and system consistency to use this plugin. Also, there are buttons that serves as shortcuts for the payment gateways that are offered. It is a good idea to have all the field with a green-checked icon.
