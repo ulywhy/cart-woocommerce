@@ -11,14 +11,14 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
 {
     /**
      * WC_WooMercadoPago_PreferenceCustom constructor.
+     * @param $payment
      * @param $order
      * @param $custom_checkout
      */
-    public function __construct($gateway_discount, $commission, $order, $custom_checkout)
+    public function __construct($payment, $order, $custom_checkout)
     {
-        $this->notification_class = 'WC_WooMercadoPago_CustomGateway';
+        parent::__construct($payment, $order, $custom_checkout);
 
-        parent::__construct($gateway_discount, $commission, $order, $custom_checkout);
         $this->preference['transaction_amount'] = $this->get_transaction_amount();
         $this->preference['token'] = $this->checkout['token'];
         $this->preference['description'] = implode(', ', $this->list_of_items);
@@ -40,7 +40,7 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
         if ($this->ship_cost > 0) {
             $this->preference['additional_info']['items'][] = $this->ship_cost_item();
-        } 
+        }
         if (
             isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
             isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
@@ -72,13 +72,13 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
      */
     public function get_items_build_array()
     {
-       $items = parent::get_items_build_array();
-       foreach ($items as $key => $item){
-           if(isset($item['currency_id'])){
-               unset($items[$key]['currency_id']);
-           }
-       }
+        $items = parent::get_items_build_array();
+        foreach ($items as $key => $item) {
+            if (isset($item['currency_id'])) {
+                unset($items[$key]['currency_id']);
+            }
+        }
 
-       return $items;
+        return $items;
     }
 }

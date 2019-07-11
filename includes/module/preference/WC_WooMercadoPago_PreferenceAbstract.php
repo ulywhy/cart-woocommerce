@@ -10,6 +10,7 @@
 abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 {
     protected $order;
+    protected $payment;
     protected $checkout;
     protected $gateway_discount;
     protected $commission;
@@ -24,23 +25,29 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     protected $site_data;
     protected $test_user_v1;
     protected $notification_class;
+    protected $ex_payments;
+    protected $installments;
 
     /**
      * WC_WooMercadoPago_PreferenceAbstract constructor.
-     * @param $gateway_discount
-     * @param $commission
+     * @param $payment
      * @param $order
-     * @param null $checkout
+     * @param null $requestCheckout
      */
-    public function __construct($gateway_discount, $commission, $order, $checkout = null)
+    public function __construct($payment, $order, $requestCheckout = null)
     {
-        $this->test_user_v1 = get_option('_test_user_v1', false);
+        $this->payment = $payment;
+        $this->order = $order;
+        $this->gateway_discount = $this->payment->gateway_discount;
+        $this->commission = $this->payment->commission;
+        $this->ex_payments = $this->payment->ex_payments;
+        $this->installments = $this->payment->installments;
+        $this->notification_class = get_class($payment);
+        $this->test_user_v1 = $this->payment->isTestUser();
         $this->site_id = get_option('_site_id_v1', '');
         $this->site_data = WC_WooMercadoPago_Module::$country_configs;
         $this->order = $order;
-        $this->checkout = $checkout;
-        $this->gateway_discount = $gateway_discount; 
-        $this->commission = $commission;
+        $this->checkout = $requestCheckout;
         $this->currency_ratio = $this->get_currency_conversion();
         $this->items = array();
         $this->order_total = 0;

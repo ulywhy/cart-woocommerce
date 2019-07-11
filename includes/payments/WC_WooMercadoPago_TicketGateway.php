@@ -491,7 +491,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function create_preference($order, $ticket_checkout)
     {
-        $preferencesTicket = new WC_WooMercadoPago_PreferenceTicket($this->gateway_discount, $this->commission, $order, $ticket_checkout);
+        $preferencesTicket = new WC_WooMercadoPago_PreferenceTicket($this, $order, $ticket_checkout);
         $preferences = $preferencesTicket->get_preference();
         try {
             $checkout_info = $this->mp->post('/v1/payments', json_encode($preferences));
