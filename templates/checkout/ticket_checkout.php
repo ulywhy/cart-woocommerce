@@ -6,16 +6,16 @@ if (!defined('ABSPATH')) {
 
 <div class="panel-custom-checkout">
     <div class="row pb-20">
-        <h2 class="title-checkout">Pagar con Mercado Pago es fácil y seguro.</h2>
+        <h2 class="title-checkout"><?=__('Pagar con Mercado Pago es fácil y seguro.', 'woocommerce-mercadopago')?></h2>
 
         <div class="col-md-12 mb-20">
             <div class="frame-tarjetas text-justify">
                 <div id="mercadopago-form-coupon-ticket">
-                    <p class="subtitle-custom-checkout">Ingresa tu cupón de descuento</p>
+                    <p class="subtitle-custom-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
 
                     <div class="row pt-10">
                         <div class="col-md-9 pr-15">
-                            <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="Ingresá tu cupón" />
+                            <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresá tu cupón', 'woocommerce-mercadopago')?>" />
                         </div>
 
                         <div class="col-md-3">
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
                     </div>
 
                     <span class="mp-discount" id="mpCouponApplyedTicket"></span>
-                    <span class="erro_febraban" id="mpCouponErrorTicket">El código que ingresaste es incorrecto</span>
+                    <span class="erro_febraban" id="mpCouponErrorTicket"><?=__('El código que ingresaste es incorrecto', 'woocommerce-mercadopago')?></span>
                 </div>
             </div>
         </div>
@@ -147,7 +147,7 @@ if (!defined('ABSPATH')) {
                     <div class="col-md-12">
                         <div class="frame-tarjetas">
                             <?php if (count($payment_methods) > 1) : ?>
-                                <p class="subtitle-ticket-checkout">Por favor, selecciona el emisor de su elección</p>
+                                <p class="subtitle-ticket-checkout"><?=__('Por favor, selecciona el emisor de su elección', 'woocommerce-mercadopago')?></p>
 
                                 <div class="row pt-10">
                                     <?php $atFirst = true; ?>

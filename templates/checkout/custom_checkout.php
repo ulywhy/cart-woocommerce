@@ -6,25 +6,29 @@ if (!defined('ABSPATH')) {
 <div class="panel-custom-checkout">
 	<div class="row">
 		<h2 class="title-checkout">
-			Pagá con tarjetas de débito y crédito
+			<?=__('Pagá con tarjetas de débito y crédito', 'woocommerce-mercadopago')?>
 		</h2>
 		<div class="mp-frame-links">
-			<a class="mp-checkout-link pr-10" id="button-show-payments">Con qué Tarjetas puedo pagar ⌵</a> |
-			<a href="" class="mp-checkout-link pl-10" target="_blank">Ver promociones vigentes</a>
+			<a class="mp-checkout-link pr-10" id="button-show-payments">
+				<?=__('Con qué Tarjetas puedo pagar', 'woocommerce-mercadopago')?> ⌵
+			</a> |
+			<a href="" class="mp-checkout-link pl-10" target="_blank">
+				<?=__('Ver promociones vigentes', 'woocommerce-mercadopago')?>
+			</a>
 		</div>
 
 		<div class="frame-payments" id="frame-payments">
 			<div class="col-md-12">
 				<div class="frame-tarjetas">
 					<?php if (count($credit_card) != 0) : ?>
-						<p class="subtitle-checkout-custom">Tarjetas de crédito</p>
+						<p class="subtitle-checkout-custom"><?=__('Tarjetas de crédito', 'woocommerce-mercadopago')?></p>
 						<?php foreach ($credit_card as $credit_image) : ?>
 							<img src="<?= $credit_image ?>" class="img-fluid img-tarjetas" alt="" />
 						<?php endforeach; ?>
 					<?php endif; ?>
 
 					<?php if (count($debit_card) != 0) : ?>
-						<p class="subtitle-checkout-custom pt-10">Tarjetas de débito</p>
+						<p class="subtitle-checkout-custom pt-10"><?=__('Tarjetas de débito', 'woocommerce-mercadopago')?></p>
 						<?php foreach ($debit_card as $debit_image) : ?>
 							<img src="<?= $debit_image ?>" class="img-fluid img-tarjetas" alt="" />
 						<?php endforeach; ?>
@@ -36,11 +40,11 @@ if (!defined('ABSPATH')) {
 		<div class="col-md-12 mb-20">
 			<div class="frame-tarjetas text-justify pb-10">
 				<div id="mercadopago-form-coupon">
-					<p class="subtitle-custom-checkout">Ingresa tu cupón de descuento</p>
+					<p class="subtitle-custom-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
 
 					<div class="row pt-10">
 						<div class="col-md-9 pr-15">
-							<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="Ingresá tu cupón" />
+							<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresá tu cupón', 'woocommerce-mercadopago')?>" />
 						</div>
 
 						<div class="col-md-3">
@@ -49,14 +53,14 @@ if (!defined('ABSPATH')) {
 					</div>
 
 					<span class="mp-discount" id="mpCouponApplyed"></span>
-					<span class="mp-error" id="mpCouponError">El código que ingresaste es incorrecto</span>
+					<span class="mp-error" id="mpCouponError"><?=__('El código que ingresaste es incorrecto', 'woocommerce-mercadopago')?></span>
 				</div>
 			</div>
 		</div>
 
 		<div class="col-md-12">
 			<div class="frame-tarjetas">
-				<p class="subtitle-custom-checkout pt-0">Ingresa los datos de tu tarjeta</p>
+				<p class="subtitle-custom-checkout pt-0"><?=__('Ingresa los datos de tu tarjeta', 'woocommerce-mercadopago')?></p>
 
 				<!-- saved cards -->
 				<div id="mercadopago-form-customer-and-card">
@@ -145,7 +149,7 @@ if (!defined('ABSPATH')) {
 
 					<div class="col-md-12">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout">Cuántas cuotas querés pagar</p>
+							<p class="subtitle-custom-checkout"><?=__('Cuántas cuotas querés pagar', 'woocommerce-mercadopago')?></p>
 
 							<div class="row pt-10">
 								<div class="col-md-4 pr-15">
@@ -171,7 +175,7 @@ if (!defined('ABSPATH')) {
 											<em>*</em>
 										</label>
 									<?php else : ?>
-										<label for="installments" class="mp-label-form">Seleccione el número de cotas</label>
+										<label for="installments" class="mp-label-form"><?=__('Seleccione el número de cotas', 'woocommerce-mercadopago')?></label>
 									<?php endif; ?>
 
 									<select class="mp-form-control pointer mt-5" id="installments" data-checkout="installments" name="mercadopago_custom[installments]"></select>
@@ -189,7 +193,7 @@ if (!defined('ABSPATH')) {
 
 					<div class="col-md-12">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout">Ingresá tu número de documento</p>
+							<p class="subtitle-custom-checkout"><?=__('Ingresá tu número de documento', 'woocommerce-mercadopago')?></p>
 
 							<div class="row pt-10">
 								<div class="col-md-4 pr-15">
