@@ -153,10 +153,11 @@ if (!defined('ABSPATH')) {
                                     <?php $atFirst = true; ?>
                                     <?php foreach ($payment_methods as $payment) : ?>
                                         <div class="col-md-4 pb-15">
-                                            <div id="paymentMethodIdTicket">
+                                            <div id="paymentMethodIdTicket" class="ticket-payments">
                                                 <label for="<?= $payment['id']; ?>" class="mp-label-form pointer">
-                                                    <input type="radio" class="mp-form-control-check" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id']; ?>" value="<?= $payment['id']; ?>" <?php if ($atFirst) : ?> checked="checked" <?php endif; ?> />
-                                                    <img src="<?= $payment['secure_thumbnail']; ?>" alt="<?php echo $payment['name']; ?>" />
+                                                    <input type="radio" class="mp-form-control-check" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id'] ?>" value="<?= $payment['id']; ?>" <?php if ($atFirst) : ?> checked="checked" <?php endif; ?> />
+                                                    <img src="<?= $payment['secure_thumbnail'] ?>" alt="<?php echo $payment['name']; ?>" />
+                                                    <span class="ticket-name"><?= $payment['name'] ?></span>
                                                 </label>
                                             </div>
                                             <?php $atFirst = false; ?>

@@ -30,7 +30,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->title = __('Paga con tarjetas de crédito o débito', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Crecer está en tus manos. Diseña y adapta la experiencia de pago online que quieras ofrecer en tu sitio web y maximiza la conversión de tu negocio.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
-        $this->installments = $this->getOption('installments', '24');
         $this->field_forms_order = $this->get_fields_sequence();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
@@ -64,7 +63,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
             $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
             $form_fields['binary_mode'] = $this->field_binary_mode();
-            $form_fields['installments'] = $this->field_installments();
             $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
         }
@@ -131,7 +129,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_payments_subtitle',
             'checkout_payments_description',
             'enabled',
-            'installments',
             // Configuración avanzada de la experiencia de pago personalizada
             'checkout_custom_payments_advanced_title',
             'checkout_payments_advanced_description',
@@ -324,7 +321,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'path_to_javascript' => plugins_url('../assets/js/credit-card.js', plugin_dir_path(__FILE__)),
             'debit_card' => $debit_card,
             'credit_card' => $credit_card,
-            'installments' => $this->get_option('installments'),
         );
 
         wc_get_template('checkout/custom_checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());

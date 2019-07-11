@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 <div class="panel-custom-checkout">
 	<div class="row">
 		<h2 class="title-checkout">
-			Pagá con tarjetas de débito y crédito <span class="badge-checkout">Hasta <?= $installments ?> cuotas</span>
+			Pagá con tarjetas de débito y crédito
 		</h2>
 		<div class="mp-frame-links">
 			<a class="mp-checkout-link pr-10" id="button-show-payments">Con qué Tarjetas puedo pagar ⌵</a> |

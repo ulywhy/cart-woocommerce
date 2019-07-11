@@ -414,3 +414,17 @@
     font-weight: 600;
     margin: 0px 0 5px !important;
 }
+
+.ticket-name{
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8);
+    padding-left: 5px;
+    font-size: 13px;
+}
+
+.ticket-payments{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 10px;
+}
