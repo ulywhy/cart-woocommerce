@@ -80,12 +80,12 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $locale = get_locale();
         $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
         $mp->set_locale($locale[1]);
-        $mp->sandbox_mode(get_option('_mp_sandbox_mode', false));
 
         return $mp;
     }
 
     /**
+     * @param null $payment
      * @return MP|null
      * @throws WC_WooMercadoPago_Exception
      */
