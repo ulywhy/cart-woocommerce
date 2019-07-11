@@ -22,7 +22,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         $this->class = get_class($payment);
         $this->mpInstance = $payment->mp;
         $this->publicKey = $payment->getPublicKey();
-        $this->testUser = get_option('_test_user_v1');
+        $this->testUser = $payment->isTestUser();
         $this->siteId = get_option('_site_id_v1');
 
         $this->loadHooks();
@@ -34,7 +34,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function loadHooks()
     {
         add_action('woocommerce_update_options_payment_gateways_' . $this->payment->id, array($this, 'custom_process_admin_options'));
-        add_action('send_options_payment_gateways' . strtolower($this->class), array($this, 'send_settings_mp'));
         add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount'), 10);
         add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title'), 10, 2);
 
@@ -77,7 +76,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function define_settings_to_send()
     {
         $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-        switch ($this->class) {
+        switch (get_class($this->payment)) {
             case 'WC_WooMercadoPago_BasicGateway':
                 $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
                 break;
@@ -221,6 +220,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $this->payment->settings[$key] = $value;
             }
         }
+        $this->send_settings_mp();
+
         return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
     }
 
@@ -346,7 +347,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * ADMIN NOTICE
+     *  ADMIN NOTICE
      */
     public function noticeInvalidTestCredentials()
     {

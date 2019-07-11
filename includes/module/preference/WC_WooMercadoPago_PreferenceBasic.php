@@ -11,18 +11,12 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
 {
     /**
      * WC_WooMercadoPago_PreferenceBasic constructor.
-     * @param $gateway_discount
-     * @param $commission
+     * @param $payment
      * @param $order
-     * @param $ex_payments
-     * @param $installments
      */
-    public function __construct($gateway_discount, $commission, $order, $ex_payments, $installments)
+    public function __construct($payment, $order)
     {
-        $this->notification_class = 'WC_WooMercadoPago_BasicGateway';
-
-        parent::__construct($gateway_discount, $commission, $order);
-
+        parent::__construct($payment, $order);
         $this->preference = $this->make_basic_preference();
         $this->preference['items'] = $this->items;
         $this->preference['payer'] = $this->get_payer_basic();
@@ -37,7 +31,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             $this->shipment_info();
         }
 
-        $this->preference['payment_methods'] = $this->get_payment_methods($ex_payments, $installments);
+        $this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
         $this->preference['auto_return'] = $this->auto_return();
     }
 
