@@ -290,7 +290,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'default' => ($this->method == 'iframe') ? 'redirect' : $this->method,
             'options' => array(
                 'redirect' => __('Redirect', 'woocommerce-mercadopago'),
-                'modal' => __('Modal Window', 'woocommerce-mercadopago')
+                'modal' => __('Modal', 'woocommerce-mercadopago')
             )
         );
         return $method;
@@ -304,7 +304,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         // Validate back URL.
         if (!empty($this->success_url) && filter_var($this->success_url, FILTER_VALIDATE_URL) === FALSE) {
             $success_back_url_message = '<img width="14" height="14" src="' . plugins_url('assets/images/warning.png', plugin_dir_path(__FILE__)) . '"> ' .
-                __('This appears to be an invalid URL.', 'woocommerce-mercadopago') . ' ';
+                __('Esto parece ser una URL no válida.', 'woocommerce-mercadopago') . ' ';
         } else {
             $success_back_url_message = __('Elige la URL que mostraremos a tus clientes cuando terminen su compra.', 'woocommerce-mercadopago');
         }
@@ -324,7 +324,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         if (!empty($this->failure_url) && filter_var($this->failure_url, FILTER_VALIDATE_URL) === FALSE) {
             $fail_back_url_message = '<img width="14" height="14" src="' . plugins_url('assets/images/warning.png', plugin_dir_path(__FILE__)) . '"> ' .
-                __('This appears to be an invalid URL.', 'woocommerce-mercadopago') . ' ';
+                __('Esto parece ser una URL no válida.', 'woocommerce-mercadopago') . ' ';
         } else {
             $fail_back_url_message = __('Elige la URL que mostraremos a tus clientes cuando rechacemos su compra. Asegurate de que incluya un mensaje adecuado a la situación y dales información útil para que puedan solucionarlo.', 'woocommerce-mercadopago');
         }
@@ -345,7 +345,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         // Validate back URL.
         if (!empty($this->pending_url) && filter_var($this->pending_url, FILTER_VALIDATE_URL) === FALSE) {
             $pending_back_url_message = '<img width="14" height="14" src="' . plugins_url('assets/images/warning.png', plugin_dir_path(__FILE__)) . '"> ' .
-                __('This appears to be an invalid URL.', 'woocommerce-mercadopago') . ' ';
+                __('Esto parece ser una URL no válida.', 'woocommerce-mercadopago') . ' ';
         } else {
             $pending_back_url_message = __('Elige la URL que mostraremos a tus clientes cuando tengan un pago pendiente de aprobación.', 'woocommerce-mercadopago');
         }

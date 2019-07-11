@@ -264,6 +264,161 @@ msgstr "Gracias por su orden. Por favor, realice el pago del ticket para tener s
 msgid "Imprimir el ticket"
 msgstr "Imprimir el ticket"
 
+msgid "Suscripción Mercado Pago"
+msgstr "Suscripción Mercado Pago"
+
+msgid "La operación se realizó con éxito."
+msgstr "La operación se realizó con éxito."
+
+msgid "Esta operación no se puede completar."
+msgstr "Esta operación no se puede completar."
+
+msgid "ID de Pago:"
+msgstr "ID de Pago:"
+
+msgid "Cantidad:"
+msgstr "Cantidad:"
+
+msgid "Reembolso de Pago"
+msgstr "Reembolso de Pago"
+
+msgid "Cancelar Pago"
+msgstr "Cancelar Pago"
+
+msgid "Un producto recurrente es una suscripción que debe adquirirse por separado en su carrito. Por favor, hace los pedidos por separado."
+msgstr "Un producto recurrente es una suscripción que debe adquirirse por separado en su carrito. Por favor, hace los pedidos por separado."
+
+msgid "Producto Recurrente"
+msgstr "Producto Recurrente"
+
+msgid "Hacer deste producto una suscripción."
+msgstr "Hacer deste producto una suscripción."
+
+msgid "Frecuencia"
+msgstr "Frecuencia"
+
+msgid "Cantidad de tiempo (en días o meses) para la ejecución del próximo pago."
+msgstr "Cantidad de tiempo (en días o meses) para la ejecución del próximo pago."
+
+msgid "Tipo de frecuencia"
+msgstr "Tipo de frecuencia"
+
+msgid "Indica el período de tiempo."
+msgstr "Indica el período de tiempo."
+
+msgid "Días"
+msgstr "Días"
+
+msgid "Meses"
+msgstr "Meses"
+
+msgid "Fecha final"
+msgstr "Fecha final"
+
+msgid "Fecha límite para generar nuevos cargos. De forma predeterminada como nunca, si está en blanco."
+msgstr "Fecha límite para generar nuevos cargos. De forma predeterminada como nunca, si está en blanco."
+
+msgid "Mercado Pago - Checkout básico"
+msgstr "Mercado Pago - Checkout básico"
+
+msgid "Paga con el medio de pago que prefieras"
+msgstr "Paga con el medio de pago que prefieras"
+
+msgid "Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto."
+msgstr "Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto."
+
+msgid "Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel. %s"
+msgstr "Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel. %s"
+
+msgid "Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige la experiencia de pago final entre las opciones disponibles."
+msgstr "Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige la experiencia de pago final entre las opciones disponibles."
+
+msgid "Configura WooCommerce Mercado Pago"
+msgstr "Configura WooCommerce Mercado Pago"
+
+msgid "Ve a lo básico. Coloca la información de tu negocio."
+msgstr "Ve a lo básico. Coloca la información de tu negocio."
+
+msgid "Configura la experiencia de pago en tu tienda."
+msgstr "Configura la experiencia de pago en tu tienda."
+
+msgid "Configuración Avanzada de la experiencia de pago."
+msgstr "Configuración Avanzada de la experiencia de pago."
+
+msgid "Método de integración"
+msgstr "Método de integración"
+
+msgid "Define qué experiencia de pago tendrán tus clientes, si dentro o fuera de tu tienda."
+msgstr "Define qué experiencia de pago tendrán tus clientes, si dentro o fuera de tu tienda."
+
+msgid "Redirect"
+msgstr "Redirect"
+
+msgid "Modal"
+msgstr "Modal"
+
+msgid "Esto parece ser una URL no válida."
+msgstr "Esto parece ser una URL no válida."
+
+msgid "Elige la URL que mostraremos a tus clientes cuando terminen su compra."
+msgstr "Elige la URL que mostraremos a tus clientes cuando terminen su compra."
+
+msgid "URL de éxito"
+msgstr "URL de éxito"
+
+msgid "Elige la URL que mostraremos a tus clientes cuando rechacemos su compra. Asegurate de que incluya un mensaje adecuado a la situación y dales información útil para que puedan solucionarlo."
+msgstr "Elige la URL que mostraremos a tus clientes cuando rechacemos su compra. Asegurate de que incluya un mensaje adecuado a la situación y dales información útil para que puedan solucionarlo."
+
+msgid "URL de pago rechazado"
+msgstr "URL de pago rechazado"
+
+msgid "Elige la URL que mostraremos a tus clientes cuando tengan un pago pendiente de aprobación."
+msgstr "Elige la URL que mostraremos a tus clientes cuando tengan un pago pendiente de aprobación."
+
+msgid "URL de pago pendiente"
+msgstr "URL de pago pendiente"
+
+msgid "Selecciona pagos online"
+msgstr "Selecciona pagos online"
+
+msgid "Selecciona pagos offline"
+msgstr "Selecciona pagos offline"
+
+msgid "Medios de pago"
+msgstr "Medios de pago"
+
+msgid "Selecciona los medios de pago disponibles en tu tienda."
+msgstr "Selecciona los medios de pago disponibles en tu tienda."
+
+msgid "Habilita los medios de pago disponibles para tus clientes."
+msgstr "Habilita los medios de pago disponibles para tus clientes."
+
+msgid "Volver a la tienda"
+msgstr "Volver a la tienda"
+
+msgid "Que tu cliente vuelva automáticamente a la tienda después del pago."
+msgstr "Que tu cliente vuelva automáticamente a la tienda después del pago."
+
+msgid "Sí"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid ""
+msgstr ""
+
+msgid ""
+msgstr ""
+
+
+
+
+
+
+
+
+
 
 
 
@@ -713,9 +868,6 @@ msgstr "Mercado Envios es un método de envío disponible sólo para los pagos c
 msgid "Day"
 msgstr "Día"
 
-msgid "Days"
-msgstr "Días"
-
 msgid "Enable the two shipping methods the Mercado Envios (Express and Normal) for the proper functioning of the module."
 msgstr "Habilitar los dos métodos de envío de Mercado Envios (Express y Normal) para el correcto funcionamiento del módulo."
 
@@ -737,59 +889,8 @@ msgstr "Mostrar el tiempo estimado de entrega"
 msgid "Display the estimated delivery time in working days."
 msgstr "Mostrar el tiempo estimado de entrega en días laborables."
 
-msgid "Mercado Pago Subscription"
-msgstr "Suscripción Mercado Pago"
-
-msgid "Payment ID:"
-msgstr "ID de Pago:"
-
-msgid "Amount:"
-msgstr "Cantidad:"
-
-msgid "This operation could not be completed."
-msgstr "Esta operación no se puede completar."
-
-msgid "Operation successfully completed."
-msgstr "La operación se realizó con éxito."
-
-msgid "Refund Payment"
-msgstr "Reembolso de Pago"
-
-msgid "Cancel Payment"
-msgstr "Cancelar Pago"
-
 msgid "Mercado Pago - Subscription"
 msgstr "Mercado Pago - Suscripcións"
-
-msgid "A recurrent product is a signature that should be bought isolated in your cart. Please, create separated orders."
-msgstr "Un producto recurrente es una suscripción que debe adquirirse por separado en su carrito. Por favor, hace los pedidos por separado."
-
-msgid "Recurrent Product"
-msgstr "Producto Recurrente"
-
-msgid "Frequency"
-msgstr "Frecuencia"
-
-msgid "Amount of time (in days or months) for the execution of the next payment."
-msgstr "Cantidad de tiempo (en días o meses) para la ejecución del próximo pago."
-
-msgid "End date"
-msgstr "Fecha final"
-
-msgid "Deadline to generate new charges. Defaults to never if blank."
-msgstr "Fecha límite para generar nuevos cargos. De forma predeterminada como nunca, si está en blanco."
-
-msgid "Months"
-msgstr "Meses"
-
-msgid "Indicates the period of time."
-msgstr "Indica el período de tiempo."
-
-msgid "Make this product a subscription."
-msgstr "Hacer deste producto una suscripción."
-
-msgid "Frequency type"
-msgstr "Tipo de frecuencia"
 
 msgid "Subscribe with Mercado Pago"
 msgstr "Suscribirse con Mercado Pago"
