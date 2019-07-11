@@ -21,20 +21,62 @@ msgstr ""
 "Language: es_CL\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "Tracking code:"
+msgstr "Código de rastreamiento:"
+
+msgid "Tag:"
+msgstr "Etiqueta:"
+
+msgid "Shipping is pending"
+msgstr "Envío pendiente"
+
+msgid "Print"
+msgstr "Imprimir"
+
+msgid "Shipping service used by store"
+msgstr "Servicio de envío utilizado por la tienda"
+
+msgid "Discount provided by store"
+msgstr "Descuento dado por la tienda"
+
+msgid "<strong>MERCADO PAGO:</strong> Use HTTPS to view payment methods."
+msgstr ""
+
+msgid "Set up credentials to enable payment methods."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
+msgstr "Woo Mercado Pago Module depende de la última versión de %s para ejecutarse!"
+
+msgid "Settings"
+msgstr "Configurar"
+
+msgid "Tu opnión nos ayuda a mejorar"
+msgstr "Tu opnión nos ayuda a mejorar"
+
+msgid "Guías y Documentación"
+msgstr "Guías y Documentación"
+
+msgid "Informar Problema"
+msgstr "Informar Problema"
+
+msgid "Por Mercado Pago"
+msgstr "Por Mercado Pago"
+
+msgid "The <strong>Sponsor ID</strong> must be valid!"
+msgstr "¡Lo <strong>Sponsor ID</strong> debe ser válida!"
+
+msgid "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
+msgstr "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
+
+
+
+
 msgid "This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store."
 msgstr "Este es el módulo <strong>oficial</strong> de Mercado Pago para el plugin WooCommerce. Este módulo habilita el uso de Mercado Pago en WooCommerce como medio de pago para compras realizadas en su tienda virtual."
-
-msgid "Mercado Pago Settings"
-msgstr "Configuración de Mercado Pago"
-
-msgid "Rate Us"
-msgstr "Calificanos"
-
-msgid "Tutorial"
-msgstr "Tutorial"
-
-msgid "Report Issue"
-msgstr "Informar Problema"
 
 msgid "ERROR: It was not possible to convert the unsupported currency"
 msgstr "ERROR: No fue posible convertir la moneda no soportada"
@@ -450,9 +492,6 @@ msgstr "Gracias por su compra. Prosiga con su pago completando la información a
 msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence."
 msgstr "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
 
-msgid "Shipping service used by store"
-msgstr "Servicio de envío utilizado por la tienda"
-
 msgid "Discount of"
 msgstr "Descuento de"
 
@@ -693,21 +732,6 @@ msgstr "Tipo de frecuencia"
 msgid "Subscribe with Mercado Pago"
 msgstr "Suscribirse con Mercado Pago"
 
-msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
-msgstr "Woo Mercado Pago Module depende de la última versión de %s para ejecutarse!"
-
-msgid "Tracking code:"
-msgstr "Código de rastreamiento:"
-
-msgid "Tag:"
-msgstr "Etiqueta:"
-
-msgid "Shipping is pending"
-msgstr "Envío pendiente"
-
-msgid "Print"
-msgstr "Imprimir"
-
 msgid "Cancel Order"
 msgstr "Cancelar la Compra"
 
@@ -845,9 +869,6 @@ msgstr "Haga clic para intentarlo de nuevo"
 
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
 msgstr "Un problema se produjo al procesar su pago. ¿Esta seguro que ha rellenado correctamente toda la información en el formulario de checkout?"
-
-msgid "Discount provided by store"
-msgstr "Descuento dado por la tienda"
 
 msgid "Discount for %s coupon"
 msgstr "Descuento para el cupón %s"
@@ -1073,6 +1094,3 @@ msgstr "Con este número identificamos todas sus transacciones y sabemos cuánta
 
 msgid "The <strong>Sponsor ID</strong> must be from the same country as the seller!"
 msgstr "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
-
-msgid "The <strong>Sponsor ID</strong> must be valid!"
-msgstr "¡La <strong>Sponsor ID</strong> debe ser válida!"

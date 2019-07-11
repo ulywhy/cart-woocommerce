@@ -107,10 +107,10 @@ class WC_WooMercadoPago_Configs
     {
         echo '<div class="notice notice-warning is-dismissible">  
                     <p style="font-size:13px">
-                        <strong>MERCADO PAGO:</strong> Use HTTPS para exibir os métodos de pagamento.
+                        ' . __('<strong>MERCADO PAGO:</strong> Use HTTPS to view payment methods.', 'woocommerce-mercadopago') . '
                     </p>
                     <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">Dispensar este aviso.</span>
+                    <span class="screen-reader-text">' . __('Dismiss.', 'woocommerce-mercadopago') . '</span>
                     </button>
               </div>';
     }

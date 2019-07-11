@@ -31,12 +31,12 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
 
         if (!isset($data['id']) || !isset($data['topic'])) {
             $this->log->write_log(__FUNCTION__, 'request failure, received ipn call with no data.');
-            wp_die(__('Mercado Pago Request Failure', 'woocommerce-mercadopago'));
+            wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'));
         }
 
         if ($data['topic'] == 'payment' || $data['topic'] != 'merchant_order') {
             $this->log->write_log(__FUNCTION__, 'request failure, invalid topic.');
-            wp_die(__('Mercado Pago Request Failure', 'woocommerce-mercadopago'));
+            wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'));
         }
 
         $access_token = array('access_token' => $this->mp->get_access_token());
@@ -112,10 +112,10 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
             // Updates the type of gateway.
             $order->update_meta_data('_used_gateway', 'WC_WooMercadoPago_BasicGateway');
             if (!empty($data['payer']['email'])) {
-                $order->update_meta_data(__('Payer email', 'woocommerce-mercadopago'), $data['payer']['email']);
+                $order->update_meta_data(__('Email del comprador', 'woocommerce-mercadopago'), $data['payer']['email']);
             }
             if (!empty($data['payment_type_id'])) {
-                $order->update_meta_data(__('Payment type', 'woocommerce-mercadopago'), $data['payment_type_id']);
+                $order->update_meta_data(__('Medio de pago', 'woocommerce-mercadopago'), $data['payment_type_id']);
             }
             if (!empty($data['payments'])) {
                 $payment_ids = array();
@@ -137,10 +137,10 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
             // Updates the type of gateway.
             update_post_meta($order->id, '_used_gateway', 'WC_WooMercadoPago_BasicGateway');
             if (!empty($data['payer']['email'])) {
-                update_post_meta($order->id, __('Payer email', 'woocommerce-mercadopago'), $data['payer']['email']);
+                update_post_meta($order->id, __('Email del comprador', 'woocommerce-mercadopago'), $data['payer']['email']);
             }
             if (!empty($data['payment_type_id'])) {
-                update_post_meta($order->id, __('Payment type', 'woocommerce-mercadopago'), $data['payment_type_id']);
+                update_post_meta($order->id, __('Medio de pago', 'woocommerce-mercadopago'), $data['payment_type_id']);
             }
             if (!empty($data['payments'])) {
                 $payment_ids = array();
@@ -193,7 +193,7 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
                     $free_shipping_status = 'no';
                     if ($shipment_cost == 0) {
                         $free_shipping_status = 'yes';
-                        $free_shipping_text = ' (' . __('Free Shipping', 'woocommerce') . ')';
+                        $free_shipping_text = ' (' . __('Envío Gratuito', 'woocommerce') . ')';
                     }
                     // WooCommerce 3.0 or later.
                     if (method_exists($order, 'get_id')) {
@@ -236,25 +236,25 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
                     $shipments_data = MeliRestClient::get($request, '');
                     switch ($shipments_data['response']['substatus']) {
                         case 'ready_to_print':
-                            $substatus_description = __('Tag ready to print', 'woocommerce-mercadopago');
+                            $substatus_description = __('Etiqueta lista para imprimir', 'woocommerce-mercadopago');
                             break;
                         case 'printed':
-                            $substatus_description = __('Tag printed', 'woocommerce-mercadopago');
+                            $substatus_description = __('Etiqueta impresa', 'woocommerce-mercadopago');
                             break;
                         case 'stale':
-                            $substatus_description = __('Unsuccessful', 'woocommerce-mercadopago');
+                            $substatus_description = __('Fracasado', 'woocommerce-mercadopago');
                             break;
                         case 'delayed':
-                            $substatus_description = __('Delayed shipping', 'woocommerce-mercadopago');
+                            $substatus_description = __('Envío retrasado', 'woocommerce-mercadopago');
                             break;
                         case 'receiver_absent':
-                            $substatus_description = __('Missing recipient for delivery', 'woocommerce-mercadopago');
+                            $substatus_description = __('Destinatario ausente para envío', 'woocommerce-mercadopago');
                             break;
                         case 'returning_to_sender':
-                            $substatus_description = __('In return to sender', 'woocommerce-mercadopago');
+                            $substatus_description = __('Volviendo al remitente', 'woocommerce-mercadopago');
                             break;
                         case 'claimed_me':
-                            $substatus_description = __('Buyer initiates complaint and requested a refund.', 'woocommerce-mercadopago');
+                            $substatus_description = __('El comprador ha iniciado una discusión y pide un extorno.', 'woocommerce-mercadopago');
                             break;
                         default:
                             $substatus_description = $shipments_data['response']['substatus'];
@@ -284,13 +284,13 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
                         }
                         wp_mail(
                             $order->billing_email,
-                            __('Order', 'woocommerce-mercadopago') . ' ' . $order_id . ' - ' . __('Mercado Envios Tracking ID', 'woocommerce-mercadopago'),
-                            __('Hello,', 'woocommerce-mercadopago') . "\r\n\r\n" .
-                            __('Your order', 'woocommerce-mercadopago') . ' ' . ' [ ' . implode(', ', $list_of_items) . ' ] ' .
-                            __('made in', 'woocommerce-mercadopago') . ' ' . get_site_url() . ' ' .
-                            __('used Mercado Envios as its shipment method.', 'woocommerce-mercadopago') . "\r\n" .
-                            __('You can track it with the following Tracking ID:', 'woocommerce-mercadopago') . ' ' . $tracking_id . ".\r\n\r\n" .
-                            __('Best regards.', 'woocommerce-mercadopago')
+                            __('Pedido', 'woocommerce-mercadopago') . ' ' . $order_id . ' - ' . __('Mercado Envios Tracking ID', 'woocommerce-mercadopago'),
+                            __('Hola,', 'woocommerce-mercadopago') . "\r\n\r\n" .
+                            __('YSu pedido', 'woocommerce-mercadopago') . ' ' . ' [ ' . implode(', ', $list_of_items) . ' ] ' .
+                            __('hecho en', 'woocommerce-mercadopago') . ' ' . get_site_url() . ' ' .
+                            __('utilizó el Mercado Envíos como su medio de envío.', 'woocommerce-mercadopago') . "\r\n" .
+                            __('Usted puedes rastrearlo con lo siguiente código de rastreamiento:', 'woocommerce-mercadopago') . ' ' . $tracking_id . ".\r\n\r\n" .
+                            __('Saludos.', 'woocommerce-mercadopago')
                         );
                     }
                 }

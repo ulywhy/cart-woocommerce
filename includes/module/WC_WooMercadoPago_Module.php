@@ -230,13 +230,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function enablePaymentNotice()
     {
-        $message = __('Configure as credenciais para habilitar os métodos de pagamento do Mercado Pago.');
+        $message = __('Set up credentials to enable payment methods.', 'woocommerce-mercadopago');
         echo '<div class="notice notice-warning is-dismissible">  
                     <p style="font-size:13px">
                         <strong>MERCADO PAGO:</strong> ' . $message . '
                     </p>
                     <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">Dispensar este aviso.</span>
+                        <span class="screen-reader-text">' . __('Dismiss.', 'woocommerce-mercadopago') . '</span>
                     </button>
               </div>';
     }
@@ -259,8 +259,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function woomercadopago_settings_link($links)
     {
         $plugin_links = array();
-        $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Configurar', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Tu opnión nos  ayuda a mejorar', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Settings', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Tu opnión nos ayuda a mejorar', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<br><a target="_blank" href="' . 'https://github.com/mercadopago/cart-woocommerce#installation' . '">' . __('Guías y Documentación', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://www.mercadopago.com.br/ajuda' . '">' . __('Informar Problema', 'woocommerce-mercadopago') . '</a>';
         return array_merge($plugin_links, $links);
@@ -279,7 +279,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         if (WC_MERCADOPAGO_BASENAME === $file) {
             $new_link = array();
             $new_link[] = $links[0];
-            $new_link[] = esc_html__('By Mercado Pago', 'woocommerce');
+            $new_link[] = esc_html__('Por Mercado Pago', 'woocommerce-mercadopago');
 
             return $new_link;
         }
@@ -321,7 +321,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                     update_option('_mp_sponsor_id', $sponsor_id, true);
                     update_option('_mp_sponsor_site_id', $get_sponor_id['response']['site_id'], true);
                 } else {
-                    echo '<div class="error"><p>' . __('The <strong>Sponsor ID</strong> must be from the same country as the seller!', 'woocommerce-mercadopago') . '</p></div>';
+                    echo '<div class="error"><p>' . __('¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!', 'woocommerce-mercadopago') . '</p></div>';
                     update_option('_mp_sponsor_id', '', true);
                 }
             } else {
@@ -353,19 +353,19 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function get_common_error_messages($key)
     {
         if ($key === 'Invalid payment_method_id') {
-            return __('Invalid payment_method_id', 'woocommerce-mercadopago');
+            return __('El medio de pago no es válido o no está disponible.', 'woocommerce-mercadopago');
         }
         if ($key === 'Invalid transaction_amount') {
-            return __('Invalid transaction_amount', 'woocommerce-mercadopago') . ' ' .
-                __('Posible causes: Currency not supported; Values under the minimal or above the maximun allowed.', 'woocommerce-mercadopago');
+            return __('El monto de transacción no puede ser procesado por Mercado Pago.', 'woocommerce-mercadopago') . ' ' .
+                __('Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido.', 'woocommerce-mercadopago');
         }
         if ($key === 'Invalid users involved') {
-            return __('Invalid users involved', 'woocommerce-mercadopago') . ' ' .
-                __('Posible causes: Seller and buyer have the same email in Mercado Pago; Transaction involves production and test users.', 'woocommerce-mercadopago');
+            return __('Los usuários no son válidos.', 'woocommerce-mercadopago') . ' ' .
+                __('Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba.', 'woocommerce-mercadopago');
         }
         if ($key === 'Unauthorized use of live credentials') {
-            return __('Unauthorized use of live credentials', 'woocommerce-mercadopago') . ' ' .
-                __('Posible causes: Pending permission of use in production of the seller credentials.', 'woocommerce-mercadopago');
+            return __('Uso no autorizado de credenciales de producción.', 'woocommerce-mercadopago') . ' ' .
+                __('Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor.', 'woocommerce-mercadopago');
         }
         return $key;
     }
@@ -515,30 +515,30 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         return '<img width="14" height="14" src="' .
             plugins_url('assets/images/error.png', __FILE__) . '"> ' .
-            __('ERROR: It was not possible to convert the unsupported currency', 'woocommerce-mercadopago') .
+            __('ERROR: No fue posible convertir la moneda no soportada', 'woocommerce-mercadopago') .
             ' ' . get_woocommerce_currency() . ' ' .
-            __('to', 'woocommerce-mercadopago') . ' ' . $currency . '. ' .
-            __('Currency conversions should be made outside this module.', 'woocommerce-mercadopago');
+            __('a', 'woocommerce-mercadopago') . ' ' . $currency . '. ' .
+            __('Las conversiones de monedas deben hacerse fuera de este módulo.', 'woocommerce-mercadopago');
     }
 
     public static function build_currency_not_converted_msg($currency, $country_name)
     {
         return '<img width="14" height="14" src="' .
             plugins_url('assets/images/warning.png', __FILE__) . '"> ' .
-            __('ATTENTION: The currency', 'woocommerce-mercadopago') .
+            __('ATENCION: La moneda', 'woocommerce-mercadopago') .
             ' ' . get_woocommerce_currency() . ' ' .
-            __('defined in WooCommerce is different from the one used in your credentials country.<br>The currency for transactions in this payment method will be', 'woocommerce-mercadopago') .
+            __('definido en WooCommerce es diferente al utilizado por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será', 'woocommerce-mercadopago') .
             ' ' . $currency . ' (' . $country_name . '). ' .
-            __('Currency conversions should be made outside this module.', 'woocommerce-mercadopago');
+            __('Las conversiones de moneda deben hacerse fuera de este módulo.', 'woocommerce-mercadopago');
     }
 
     public static function build_currency_converted_msg($currency)
     {
         return '<img width="14" height="14" src="' .
             plugins_url('assets/images/check.png', __FILE__) . '"> ' .
-            __('CURRENCY CONVERTED: Your store is converting currency from', 'woocommerce-mercadopago') .
+            __('MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de', 'woocommerce-mercadopago') .
             ' ' . get_woocommerce_currency() . ' ' .
-            __('to', 'woocommerce-mercadopago') . ' ' . $currency;
+            __('a', 'woocommerce-mercadopago') . ' ' . $currency;
     }
 
     public static function get_country_name($site_id)
@@ -549,17 +549,17 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             case 'MLA':
                 return __('Argentina', 'woocommerce-mercadopago');
             case 'MLB':
-                return __('Brazil', 'woocommerce-mercadopago');
+                return __('Brasil', 'woocommerce-mercadopago');
             case 'MLC':
                 return __('Chile', 'woocommerce-mercadopago');
             case 'MLM':
-                return __('Mexico', 'woocommerce-mercadopago');
+                return __('México', 'woocommerce-mercadopago');
             case 'MLU':
                 return __('Uruguay', 'woocommerce-mercadopago');
             case 'MLV':
                 return __('Venezuela', 'woocommerce-mercadopago');
             case 'MPE':
-                return __('Peru', 'woocommerce-mercadopago');
+                return __('Perú', 'woocommerce-mercadopago');
         }
         return '';
     }
@@ -595,7 +595,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                 '<option value="%s"%s>%s %s</option>',
                 $slug,
                 selected($selection, $slug, false),
-                __('Update WooCommerce order to ', 'woocommerce-mercadopago'),
+                __('Actualizar la orden de WooCommerce a ', 'woocommerce-mercadopago'),
                 $status
             );
         }

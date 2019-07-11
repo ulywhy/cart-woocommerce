@@ -22,19 +22,67 @@ msgstr ""
 "Language: es_MX\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "Tracking code:"
+msgstr ""
+
+msgid "Tag:"
+msgstr ""
+
+msgid "Shipping is pending"
+msgstr ""
+
+msgid "Print"
+msgstr ""
+
+msgid "Shipping service used by store"
+msgstr ""
+
+msgid "Discount provided by store"
+msgstr ""
+
+msgid "<strong>MERCADO PAGO:</strong> Use HTTPS to view payment methods."
+msgstr ""
+
+msgid "Set up credentials to enable payment methods."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Tu opnión nos ayuda a mejorar"
+msgstr ""
+
+msgid "Guías y Documentación"
+msgstr ""
+
+msgid "Informar Problema"
+msgstr ""
+
+msgid "Por Mercado Pago"
+msgstr ""
+
+msgid "The <strong>Sponsor ID</strong> must be valid!"
+msgstr ""
+
+msgid "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
+msgstr ""
+
+
+
+
+
+
+
+
+
+
 msgid "This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store."
-msgstr ""
-
-msgid "Mercado Pago Settings"
-msgstr ""
-
-msgid "Rate Us"
-msgstr ""
-
-msgid "Tutorial"
-msgstr ""
-
-msgid "Report Issue"
 msgstr ""
 
 msgid "ERROR: It was not possible to convert the unsupported currency"
@@ -448,9 +496,6 @@ msgstr ""
 msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence."
 msgstr ""
 
-msgid "Shipping service used by store"
-msgstr ""
-
 msgid "Discount of"
 msgstr ""
 
@@ -691,21 +736,6 @@ msgstr ""
 msgid "Subscribe with Mercado Pago"
 msgstr ""
 
-msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
-msgstr ""
-
-msgid "Tracking code:"
-msgstr ""
-
-msgid "Tag:"
-msgstr ""
-
-msgid "Shipping is pending"
-msgstr ""
-
-msgid "Print"
-msgstr ""
-
 msgid "Cancel Order"
 msgstr ""
 
@@ -842,9 +872,6 @@ msgid "Click to try again"
 msgstr ""
 
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
-msgstr ""
-
-msgid "Discount provided by store"
 msgstr ""
 
 msgid "Discount for %s coupon"
@@ -1067,7 +1094,4 @@ msgid "With this number we identify all your transactions and we know how many s
 msgstr ""
 
 msgid "The <strong>Sponsor ID</strong> must be from the same country as the seller!"
-msgstr ""
-
-msgid "The <strong>Sponsor ID</strong> must be valid!"
 msgstr ""
