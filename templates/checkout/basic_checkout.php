@@ -6,15 +6,15 @@ if (!defined('ABSPATH')) {
 <div class="panel-checkout">
   <div class="row">
     <?php if(count($tarjetas) != 0): ?>
-      <h2 class="title-checkout">Usa el medio de pago que prefieras.</h2>
+      <h2 class="title-checkout"><?=__('Usa el medio de pago que prefieras.', 'woocommerce-mercadopago')?></h2>
     <?php endif; ?>
     
     <?php if($credito != 0): ?>
     <div class="col-md-12">
         <div class="frame-tarjetas">
             <p class="subtitle-checkout">
-                Tarjetas de crédito
-                <span class="badge-checkout">Hasta <?= $installments ?> cuotas</span>
+                <?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?>
+                <span class="badge-checkout"><?=__('Hasta', 'woocommerce-mercadopago')?> <?= $installments ?> <?=__('cuotas', 'woocommerce-mercadopago')?></span>
             </p>
             
             <?php foreach($tarjetas as $tarjeta): ?>
@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) {
     <?php if($debito != 0): ?>
     <div class="col-md-6 pr-15">
         <div class="frame-tarjetas">
-            <p class="subtitle-checkout">Tarjetas de débito</p>
+            <p class="subtitle-checkout"><?=__('Tarjetas de débito', 'woocommerce-mercadopago')?></p>
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] == 'debit_card' || $tarjeta['type'] == 'prepaid_card'): ?>
@@ -43,7 +43,7 @@ if (!defined('ABSPATH')) {
     <?php if($efectivo != 0): ?>
     <div class="col-md-6">
         <div class="frame-tarjetas">
-            <p class="subtitle-checkout">Pagos en efectivo</p>
+            <p class="subtitle-checkout"><?=__('Pagos en efectivo', 'woocommerce-mercadopago')?></p>
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] != 'credit_card' && $tarjeta['type'] != 'debit_card' && $tarjeta['type'] != 'prepaid_card'): ?>
@@ -57,7 +57,7 @@ if (!defined('ABSPATH')) {
     <div class="col-md-12 pt-20">
         <div class="redirect-frame">
             <img src="<?= $cho_image ?>" class="img-fluid" alt=""/>
-            <p>Te llevamos a nuestro sitio para completar el pago</p>
+            <p><?=__('Te llevamos a nuestro sitio para completar el pago', 'woocommerce-mercadopago')?></p>
         </div>
     </div>
     
