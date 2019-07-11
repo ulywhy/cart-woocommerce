@@ -70,6 +70,10 @@
     text-align: justify !important;
 }
 
+.min-hg{
+    min-height: 40px !important;
+}
+
 .row {
     width: 100%;
     display: inline-block;
