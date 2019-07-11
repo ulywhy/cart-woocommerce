@@ -99,12 +99,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->binary_mode = $this->getOption('binary_mode', 'no');
         $this->gateway_discount = $this->getOption('gateway_discount', 0);
         $this->commission = $this->getOption('commission', 0);
-        $this->sandbox = $this->getOption('_mp_sandbox_mode', false);
+        $this->sandbox = $this->isTestUser();
         $this->supports = array('products', 'refunds');
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log(get_class($this));
-        $this->mp = WC_WooMercadoPago_Module::getMpInstanceSingleton($this);
+        $this->mp = $this->getMpInstance();
         $this->application_id = $this->getApplicationId($this->mp_access_token_prod);
     }
 
@@ -1149,5 +1149,16 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return MP|null
+     * @throws WC_WooMercadoPago_Exception
+     */
+    public function getMpInstance()
+    {
+        $mp = WC_WooMercadoPago_Module::getMpInstanceSingleton($this);
+        $mp->sandbox_mode($this->sandbox);
+        return $mp;
     }
 }

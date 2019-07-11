@@ -103,7 +103,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         }
     }
 
-     /**
+    /**
      * @return array
      */
     public function get_payer_custom()
@@ -151,7 +151,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 $commission_by_gateway = (float)$line_amount * ($this->commission / 100);
                 $this->order_total += ($line_amount - $discount_by_gateway);
                 $this->order_total += ($line_amount + $commission_by_gateway);
-              
+
                 // Add the item.
                 array_push($this->list_of_items, $product_title . ' x ' . $item['qty']);
                 array_push($items, array(
@@ -188,6 +188,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 floor($this->ship_cost * $this->currency_ratio) : floor($this->ship_cost * $this->currency_ratio * 100) / 100,
             'currency_id' => $this->site_data[$this->site_id]['currency']
         );
+
         return $item;
     }
 

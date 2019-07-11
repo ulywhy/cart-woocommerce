@@ -39,7 +39,12 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
         if ($this->ship_cost > 0) {
-            $this->preference['additional_info']['items'][] = $this->ship_cost_item();
+            $shipCost = $this->ship_cost_item();
+            $this->preference['additional_info']['items'][] = $shipCost;
+            if (isset($shipCost['unit_price']) && $shipCost['unit_price'] > 0) {
+                $sumTransaction = $this->preference['transaction_amount'] + $shipCost['unit_price'];
+                //$this->preference['transaction_amount'] = $sumTransaction;
+            }
         }
         if (
             isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
@@ -49,6 +54,20 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
             $this->preference['additional_info']['items'][] = $this->add_discounts();
         }
         $this->add_discounts_campaign();
+
+
+    }
+
+    /**
+     * @return array
+     */
+    public function ship_cost_item()
+    {
+        $item = parent::ship_cost_item();
+        if (isset($item['currency_id'])) {
+            unset($item['currency_id']);
+        }
+        return $item;
     }
 
     /**
