@@ -97,7 +97,11 @@ class WC_WooMercadoPago_Configs
      */
     public function noticeUpdateAccessToken()
     {
-        echo '<div class="error is-dismissible"><p style="font-size:20px"><strong>MERCADO PAGO:</strong> PLEASE UPDATE PUBLIC KEY PROD AND ACCESS TOKEN PROD</p></div>'; //TODO ALTERAR MENSAGEM
+        echo '<div class="error is-dismissible">
+            <p style="font-size:20px">
+                <strong>'.__('Importante:', 'woocommerce-mercadopado').'</strong> '.__('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado').'
+            </p>
+        </div>';
     }
 
     /**
