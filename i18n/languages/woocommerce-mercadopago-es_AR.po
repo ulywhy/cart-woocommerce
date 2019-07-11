@@ -222,6 +222,49 @@ msgstr "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
 msgid "Saludos."
 msgstr "Saludos."
 
+msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
+msgstr "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
+
+msgid "Descuento para el cupón %s"
+msgstr "Descuento para el cupón %s"
+
+msgid "Descuento de"
+msgstr "Descuento de"
+
+msgid "Tarifa de"
+msgstr "Tarifa de"
+
+msgid " y Tarifa de"
+msgstr " y Tarifa de"
+
+msgid "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
+msgstr "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
+
+msgid "Pagar con Mercado Pago"
+msgstr "Pagar con Mercado Pago"
+
+msgid "Cancelar &amp; Limpiar carrito"
+msgstr "Cancelar &amp; Limpiar carrito"
+
+msgid "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
+msgstr "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
+
+msgid "Haga clic para intentarlo de nuevo"
+msgstr "Haga clic para intentarlo de nuevo"
+
+msgid "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
+msgstr "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
+
+msgid "Transferir"
+msgstr "Transferir"
+
+msgid "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
+msgstr "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
+
+msgid "Imprimir el ticket"
+msgstr "Imprimir el ticket"
+
+
 
 
 
@@ -478,9 +521,6 @@ msgstr "Descripción"
 msgid "Description shown to the client in the checkout."
 msgstr "Descripción mostrada al cliente en el checkout."
 
-msgid "Pay with Mercado Pago"
-msgstr "Pagar con Mercado Pago"
-
 msgid "Integration Method"
 msgstr "Método de integración"
 
@@ -592,25 +632,8 @@ msgstr "Pagos con Dos Tarjetas"
 msgid "Your customer will be able to use two different cards to pay the order."
 msgstr "Su cliente será capaz de utilizar dos tarjetas diferentes para pagar el pedido."
 
-msgid "Thank you for your order. Please, proceed with your payment clicking in the bellow button."
-msgstr "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
-
-msgid "Thank you for your order. Please, transfer the money to get your order approved."
-msgstr "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
-
-msgid "Cancel order &amp; Clear cart"
-msgstr "Cancelar &amp; Limpiar carrito"
-
 msgid "Thank you for your order. Proceed with your payment completing the following information."
 msgstr "Gracias por su compra. Prosiga con su pago completando la información abajo."
-
-msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence."
-msgstr "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
-
-msgid "Discount of"
-msgstr "Descuento de"
-
-
 
 msgid "Mercado Pago - Custom Checkout"
 msgstr "Mercado Pago - Checkout Personalizado"
@@ -903,14 +926,8 @@ msgstr "Ver su hoja de pedido"
 msgid "Your payment was refused. You can try again."
 msgstr "Su pago fue rechazado. Puede intentarlo de nuevo."
 
-msgid "Click to try again"
-msgstr "Haga clic para intentarlo de nuevo"
-
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
 msgstr "Un problema se produjo al procesar su pago. ¿Esta seguro que ha rellenado correctamente toda la información en el formulario de checkout?"
-
-msgid "Discount for %s coupon"
-msgstr "Descuento para el cupón %s"
 
 msgid "Done, your payment was accredited!"
 msgstr "Listo, su pago ha sido aceptado!"
@@ -960,9 +977,6 @@ msgstr "Has alcanzado el límite de intentos permitidos. Elija otra tarjeta u ot
 msgid "This payment method did not process the payment."
 msgstr "Esta medio de pago no puede procesar su pago."
 
-msgid "Please, inform your email in billing address to use this feature"
-msgstr "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
-
 msgid "here"
 msgstr "aquí"
 
@@ -971,12 +985,6 @@ msgstr "Para imprimir nuevamente el ticket hace clic "
 
 msgid "A problem was occurred when processing your payment. Please, try again."
 msgstr "Un problema se produjo al procesar su pago. Por favor, inténtelo de nuevo."
-
-msgid "Print the Ticket"
-msgstr "Imprimir el ticket"
-
-msgid "Thank you for your order. Please, pay the ticket to get your order approved."
-msgstr "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
 
 msgid "Important: The order will be confirmed only after the payment approval."
 msgstr "Importante: La solicitud sólo será confirmada después de la aprobación del pago."
@@ -1103,9 +1111,6 @@ msgstr "Días para Caducidad"
 
 msgid "Place the number of days (1 to 30) until expiration of the ticket."
 msgstr "Coloque la cantidad de días (de 1 a 30) hasta la expiración del ticket."
-
-msgid "Fee of"
-msgstr "Tarifa de"
 
 msgid "Do not save my card"
 msgstr "No guardar mi tarjeta"

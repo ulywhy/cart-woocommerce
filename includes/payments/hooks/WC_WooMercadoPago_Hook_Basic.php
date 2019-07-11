@@ -71,22 +71,22 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
 					</script>';
             $html .= '<img width="468" height="60" src="' . $banner_url . '">';
             $html .= '<p></p><p>' . wordwrap(
-                    __('Thank you for your order. Please, proceed with your payment clicking in the bellow button.', 'woocommerce-mercadopago'),
+                    __('Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo.', 'woocommerce-mercadopago'),
                     60, '<br>'
                 ) . '</p>
 					<a id="submit-payment" href="' . esc_url($url) . '" name="MP-Checkout" class="button alt" mp-mode="modal">' .
-                __('Pay with Mercado Pago', 'woocommerce-mercadopago') .
+                __('Pagar con Mercado Pago', 'woocommerce-mercadopago') .
                 '</a> <a class="button cancel" href="' . esc_url($order->get_cancel_order_url()) . '">' .
-                __('Cancel order &amp; Clear cart', 'woocommerce-mercadopago') .
+                __('Cancelar &amp; Limpiar carrito', 'woocommerce-mercadopago') .
                 '</a>';
             return $html;
         } else {
             $this->payment->log->write_log(__FUNCTION__, 'unable to build Mercado Pago checkout URL.');
             $html = '<p>' .
-                __('An error occurred when proccessing your payment. Please try again or contact us for assistence.', 'woocommerce-mercadopago') .
+                __('Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia.', 'woocommerce-mercadopago') .
                 '</p>' .
                 '<a class="button" href="' . esc_url($order->get_checkout_payment_url()) . '">' .
-                __('Click to try again', 'woocommerce-mercadopago') .
+                __('Haga clic para intentarlo de nuevo', 'woocommerce-mercadopago') .
                 '</a>
 			';
             return $html;

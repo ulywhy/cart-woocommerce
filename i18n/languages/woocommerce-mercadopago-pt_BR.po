@@ -225,6 +225,54 @@ msgstr "Atenciosamente."
 msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
 msgstr "Por favor, informe seu email no endereço de cobrança para fazer uso desta funcionalidade"
 
+msgid "Descuento para el cupón %s"
+msgstr "Desconto para o cupom %s"
+
+msgid "Descuento de"
+msgstr "Descuento de"
+
+msgid "Tarifa de"
+msgstr "Taxa de"
+
+msgid " y Tarifa de"
+msgstr " e Taxa de"
+
+msgid "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo. "
+msgstr "Obrigado pela sua compra. Por favor, prossiga para a página de pagamento clicando no botão abaixo."
+
+msgid "Pagar con Mercado Pago"
+msgstr "Pagar com Mercado Pago"
+
+msgid "Cancelar &amp; Limpiar carrito"
+msgstr "Cancelar &amp; Limpar carrinho"
+
+msgid "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
+msgstr "Um erro ocorreu ao processar seu pagamento. Por favor tente novamente ou nos contacte para assistência."
+
+msgid "Haga clic para intentarlo de nuevo"
+msgstr "Clique para tentar novamente"
+
+msgid "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
+msgstr "Obrigado pela sua compra. Por favor, transfira o dinheiro para ter seu pedido aprovado."
+
+msgid "Transferir"
+msgstr "Transferir"
+
+msgid "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
+msgstr "Obrigado pelo seu pedido. Por favor, pague o boleto para ter seu pedido aprovado."
+
+msgid "Imprimir el ticket"
+msgstr "Imprimir o boleto"
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -477,9 +525,6 @@ msgstr "Descrição"
 msgid "Description shown to the client in the checkout."
 msgstr "Descrição mostrada ao cliente durante o checkout."
 
-msgid "Pay with Mercado Pago"
-msgstr "Pagar com Mercado Pago"
-
 msgid "Integration Method"
 msgstr "Método de Integração"
 
@@ -591,20 +636,8 @@ msgstr "Pagamento com Dois Cartões"
 msgid "Your customer will be able to use two different cards to pay the order."
 msgstr "Seus clientes poderão utilizar dois diferentes cartões para pagar pedidos."
 
-msgid "Thank you for your order. Please, proceed with your payment clicking in the bellow button."
-msgstr "Obrigado pela sua compra. Por favor, prossiga para a página de pagamento clicando no botão abaixo."
-
-msgid "Thank you for your order. Please, transfer the money to get your order approved."
-msgstr "Obrigado pela sua compra. Por favor, transfira o dinheiro para ter seu pedido aprovado."
-
-msgid "Cancel order &amp; Clear cart"
-msgstr "Cancelar &amp; Limpar carrinho"
-
 msgid "Thank you for your order. Proceed with your payment completing the following information."
 msgstr "Obrigado pela sua compra. Prossiga com seu pagamento completando as informações abaixo."
-
-msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence."
-msgstr "Um erro ocorreu ao processar seu pagamento. Por favor tente novamente ou nos contacte para assistência."
 
 msgid "Discount of"
 msgstr "Desconto de"
@@ -904,14 +937,8 @@ msgstr "Ver o resumo do pedido"
 msgid "Your payment was refused. You can try again."
 msgstr "Seu pagamento foi rejeitado. Você pode tentar novamente."
 
-msgid "Click to try again"
-msgstr "Clique para tentar novamente"
-
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
 msgstr "Um problema ocorreu ao processar seu pagamento. Você tem certeza que preencheu corretamente todos os campos do formulário do checkout?"
-
-msgid "Discount for %s coupon"
-msgstr "Desconto para o cupom %s"
 
 msgid "Done, your payment was accredited!"
 msgstr "Pronto, seu pagamento foi aprovado!"
@@ -972,12 +999,6 @@ msgstr "Para reimprimir o boleto clique "
 
 msgid "A problem was occurred when processing your payment. Please, try again."
 msgstr "Um problema ocorreu ao processar seu pagamento. Por favor, tente novamente."
-
-msgid "Print the Ticket"
-msgstr "Imprimir o boleto"
-
-msgid "Thank you for your order. Please, pay the ticket to get your order approved."
-msgstr "Obrigado pelo seu pedido. Por favor, pague o boleto para ter seu pedido aprovado."
 
 msgid "Important: The order will be confirmed only after the payment approval."
 msgstr "Importante: O pedido só será confirmado após a aprovação do pagamento."
@@ -1101,9 +1122,6 @@ msgstr "Dias de Validade"
 
 msgid "Place the number of days (1 to 30) until expiration of the ticket."
 msgstr "Coloca um número de dias (1 a 30) para a validade do boleto."
-
-msgid "Fee of"
-msgstr "Taxa de"
 
 msgid "Do not save my card"
 msgstr "Não salvar meu cartão"

@@ -50,12 +50,12 @@ class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
         }
 
         $html = '<p>' .
-            __('Thank you for your order. Please, transfer the money to get your order approved.', 'woocommerce-mercadopago') .
+            __('Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada.', 'woocommerce-mercadopago') .
             '</p>' .
             '<p><iframe src="' . $transaction_details . '" style="width:100%; height:1000px;"></iframe></p>' .
             '<a id="submit-payment" target="_blank" href="' . $transaction_details . '" class="button alt"' .
             ' style="font-size:1.25rem; width:75%; height:48px; line-height:24px; text-align:center;">' .
-            __('Transfer', 'woocommerce-mercadopago') .
+            __('Transferir', 'woocommerce-mercadopago') .
             '</a> ';
         $added_text = '<p>' . $html . '</p>';
         echo $added_text;
@@ -84,7 +84,7 @@ class WC_WooMercadoPago_Hook_Pse extends WC_WooMercadoPago_Hook_Abstract
                 floor($pse_checkout['discount'] / $pse_checkout['currency_ratio'] * 100) / 100;
             global $woocommerce;
             if (apply_filters('wc_mercadopagopse_module_apply_discount', 0 < $value, $woocommerce->cart)) {
-                $woocommerce->cart->add_fee(sprintf(__('Discount for %s coupon', 'woocommerce-mercadopago'), esc_attr($pse_checkout['campaign'])),
+                $woocommerce->cart->add_fee(sprintf(__('Descuento para el cupón %s', 'woocommerce-mercadopago'), esc_attr($pse_checkout['campaign'])),
                     ($value * -1), false
                 );
             }

@@ -73,6 +73,198 @@ msgstr ""
 msgid "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
 msgstr ""
 
+msgid "El medio de pago no es válido o no está disponible."
+msgstr ""
+
+msgid "El monto de transacción no puede ser procesado por Mercado Pago."
+msgstr ""
+
+msgid "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
+msgstr ""
+
+msgid "Los usuários no son válidos."
+msgstr ""
+
+msgid "Uso no autorizado de credenciales de producción."
+msgstr ""
+
+msgid "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
+msgstr ""
+
+msgid "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
+msgstr ""
+
+msgid "ERROR: No fue posible convertir la moneda no soportada"
+msgstr ""
+
+msgid "a"
+msgstr ""
+
+msgid "Las conversiones de monedas deben hacerse fuera de este módulo."
+msgstr ""
+
+msgid "ATENCION: La moneda"
+msgstr ""
+
+msgid "definido en WooCommerce es diferente al utilizado por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será"
+msgstr ""
+
+msgid "Las conversiones de moneda deben hacerse fuera de este módulo."
+msgstr ""
+
+msgid "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
+msgstr ""
+
+msgid "Colombia"
+msgstr ""
+
+msgid "Argentina"
+msgstr ""
+
+msgid "Brasil"
+msgstr ""
+
+msgid "Chile"
+msgstr ""
+
+msgid "México"
+msgstr ""
+
+msgid "Uruguay"
+msgstr ""
+
+msgid "Venezuela"
+msgstr ""
+
+msgid "Perú"
+msgstr ""
+
+msgid "Actualizar la orden de WooCommerce a "
+msgstr ""
+
+msgid "Pago aprobado."
+msgstr ""
+
+msgid "Esperando el pago del ticket."
+msgstr ""
+
+msgid "El cliente todavía no efectuó el pago."
+msgstr ""
+
+msgid "El pago está pendiente de revisión."
+msgstr ""
+
+msgid "El pago fue rechazado. El cliente puede intentar nuevamente."
+msgstr ""
+
+msgid "El pago fue devuelto al cliente."
+msgstr ""
+
+msgid "El pago fue cancelado."
+msgstr ""
+
+msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
+msgstr ""
+
+msgid "La solicitud de Mercado Pago ha fallado"
+msgstr ""
+
+msgid "Email del comprador"
+msgstr ""
+
+msgid "Medio de pago"
+msgstr ""
+
+msgid "Envío Gratuito"
+msgstr ""
+
+msgid "Etiqueta lista para imprimir"
+msgstr ""
+
+msgid "Etiqueta impresa"
+msgstr ""
+
+msgid "Fracasado"
+msgstr ""
+
+msgid "Envío retrasado"
+msgstr ""
+
+msgid "Destinatario ausente para envío"
+msgstr ""
+
+msgid "Volviendo al remitente"
+msgstr ""
+
+msgid "El comprador ha iniciado una discusión y pide un extorno."
+msgstr ""
+
+msgid "Pedido"
+msgstr ""
+
+msgid "Código de rastreamiento de Mercado Envíos"
+msgstr ""
+
+msgid "Hola,"
+msgstr ""
+
+msgid "Su pedido"
+msgstr ""
+
+msgid "hecho en"
+msgstr ""
+
+msgid "utilizó el Mercado Envíos como su medio de envío."
+msgstr ""
+
+msgid "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
+msgstr ""
+
+msgid "Saludos."
+msgstr ""
+
+msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
+msgstr ""
+
+msgid "Descuento para el cupón %s"
+msgstr ""
+
+msgid "Descuento de"
+msgstr ""
+
+msgid "Tarifa de"
+msgstr ""
+
+msgid " y Tarifa de"
+msgstr ""
+
+msgid "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo. "
+msgstr ""
+
+msgid "Pagar con Mercado Pago"
+msgstr ""
+
+msgid "Cancelar &amp; Limpiar carrito"
+msgstr ""
+
+msgid "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
+msgstr ""
+
+msgid "Haga clic para intentarlo de nuevo"
+msgstr ""
+
+msgid "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
+msgstr ""
+
+msgid "Transferir"
+msgstr ""
+
+msgid "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
+msgstr ""
+
+msgid "Imprimir el ticket"
+msgstr ""
+
 
 
 
