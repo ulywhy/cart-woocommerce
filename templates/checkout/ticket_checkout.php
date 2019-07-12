@@ -35,14 +35,14 @@ if (!defined('ABSPATH')) {
 
                     <div id="form-ticket">
                         <div class="row pt-10">
-                            <div class="col-md-4 pt-15">
+                            <div class="col-md-6 pt-15">
                                 <label for="MPv1Ticket-docType-fisica" class="mp-label-form-check pointer">
                                     <input type="radio" name="mercadopago_ticket[docType]" class="mp-form-control-check" id="MPv1Ticket-docType-fisica" value="CPF" checked="checked" />
                                     <?= esc_html__('Persona Física', 'woocommerce-mercadopago'); ?>
                                 </label>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="MPv1Ticket-docType-juridica" class="mp-label-form-check pointer">
                                     <input type="radio" name="mercadopago_ticket[docType]" class="mp-form-control-check" id="MPv1Ticket-docType-juridica" value="CNPJ">
                                     <?= esc_html__('Persona Jurídica', 'woocommerce-mercadopago'); ?>
@@ -55,48 +55,48 @@ if (!defined('ABSPATH')) {
                                 <label for="firstname" class="mp-label-form title-name"><?= esc_html__('Nome', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <label for="firstname" class="title-razao-social mp-label-form"><?= esc_html__('Razão social', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" class="mp-form-control" value="<?= $febraban['firstname']; ?>" id="firstname" name="mercadopago_ticket[firstname]">
-                                <span class="erro_febraban" data-main="#firstname" id="error_firstname"><?= esc_html__('You must inform your name', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#firstname" id="error_firstname"><?= esc_html__('Debes informar tu nombre', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
                             <div class="col-md-4 pr-15" id="box-lastname">
-                                <label for="lastname" class="mp-label-form"><?= esc_html__('Sobrenome', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+                                <label for="lastname" class="mp-label-form"><?= esc_html__('Apellido', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" class="mp-form-control" value="<?= $febraban['lastname']; ?>" id="lastname" name="mercadopago_ticket[lastname]">
-                                <span class="erro_febraban" data-main="#lastname" id="error_lastname"><?= esc_html__('You must inform your surname', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#lastname" id="error_lastname"><?= esc_html__('Debes informar tu apellido', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
                             <div class="col-md-4" id="box-docnumber">
                                 <label for="cpfcnpj" class="mp-label-form title-cpf"><?= esc_html__('CPF', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <label for="cpfcnpj" class="title-cnpj mp-label-form"><?= esc_html__('CNPJ', 'woocommerce-mercadopago'); ?><em>*</em></label>
                                 <input type="text" value="<?= $febraban['docNumber']; ?>" id="cpfcnpj" class="mp-form-control" name="mercadopago_ticket[docNumber]" maxlength="14">
-                                <span class="erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?= esc_html__('You must inform your document number', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?= esc_html__('Debe informar su número de documento', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
                         <div class="row pt-10">
                             <div class="col-md-8 pr-15" id="box-firstname">
-                                <label for="address" class="mp-label-form"><?= esc_html__('Endereço', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+                                <label for="address" class="mp-label-form"><?= esc_html__('Dirección', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['address']; ?>" id="address" class="mp-form-control" name="mercadopago_ticket[address]">
-                                <span class="erro_febraban" data-main="#address" id="error_address"><?= esc_html__('You must inform your address', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#address" id="error_address"><?= esc_html__('Debes informar tu dirección', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
                             <div class="col-md-4" id="box-lastname">
                                 <label for="number" class="mp-label-form"><?= esc_html__('Número', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['number']; ?>" id="number" class="mp-form-control" name="mercadopago_ticket[number]">
-                                <span class="erro_febraban" data-main="#number" id="error_number"><?= esc_html__('You must inform your address number', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#number" id="error_number"><?= esc_html__('Debe informar su número de dirección', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
                         <div class="row pt-10">
                             <div class="col-md-4 pr-15">
-                                <label for="city" class="mp-label-form"><?= esc_html__('Cidade', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+                                <label for="city" class="mp-label-form"><?= esc_html__('Ciudad', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['city']; ?>" id="city" class="mp-form-control" name="mercadopago_ticket[city]">
-                                <span class="erro_febraban" data-main="#city" id="error_city"><?= esc_html__('You must inform your city', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#city" id="error_city"><?= esc_html__('Debes informar a tu ciudad', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
                             <div class="col-md-4 pr-15">
                                 <label for="state" class="mp-label-form"><?= esc_html__('Estado', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <select name="mercadopago_ticket[state]" id="state" class="mp-form-control pointer">
-                                <option value="" <?php if ($febraban['state'] == '') { echo 'selected="selected"'; } ?>><?= esc_html__('Selecione o estado', 'woocommerce-mercadopago'); ?></option>
+                                <option value="" <?php if ($febraban['state'] == '') { echo 'selected="selected"'; } ?>><?= esc_html__('Seleccione estado', 'woocommerce-mercadopago'); ?></option>
                                     <option value="AC" <?php if ($febraban['state'] == 'AC') { echo 'selected="selected"'; } ?>>Acre</option>
                                     <option value="AL" <?php if ($febraban['state'] == 'AL') { echo 'selected="selected"'; } ?>>Alagoas</option>
                                     <option value="AP" <?php if ($febraban['state'] == 'AP') { echo 'selected="selected"'; } ?>>Amapá</option>
@@ -125,13 +125,13 @@ if (!defined('ABSPATH')) {
                                     <option value="SE" <?php if ($febraban['state'] == 'SE') { echo 'selected="selected"'; } ?>>Sergipe</option>
                                     <option value="TO" <?php if ($febraban['state'] == 'TO') { echo 'selected="selected"'; } ?>>Tocantins</option>
                                 </select>
-                                <span class="erro_febraban" data-main="#state" id="error_state"><?php echo esc_html__('You must inform your state', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#state" id="error_state"><?php echo esc_html__('Debes informar a tu estado', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
                             <div class="col-md-4">
-                                <label for="zipcode" class="mp-label-form"><?= esc_html__('CEP', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+                                <label for="zipcode" class="mp-label-form"><?= esc_html__('Código postal', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['zipcode']; ?>" id="zipcode" class="mp-form-control" name="mercadopago_ticket[zipcode]">
-                                <span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?= esc_html__('You must inform your CEP', 'woocommerce-mercadopago'); ?></span>
+                                <span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?= esc_html__('Debes informar tu código postal', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
@@ -192,15 +192,17 @@ if (!defined('ABSPATH')) {
 
 <script type="text/javascript" src="<?php echo $path_to_javascript; ?>"></script>
 <script type="text/javascript">
-    MPv1Ticket.text.apply = "<?php echo __('Apply', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.remove = "<?php echo __('Remove', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.coupon_empty = "<?php echo __('Please, inform your coupon code', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.discount_info1 = "<?php echo __('You will save', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.discount_info2 = "<?php echo __('with discount from', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.discount_info3 = "<?php echo __('Total of your purchase:', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.discount_info4 = "<?php echo __('Total of your purchase with discount:', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.discount_info5 = "<?php echo __('*Uppon payment approval', 'woocommerce-mercadopago'); ?>";
-    MPv1Ticket.text.discount_info6 = "<?php echo __('Terms and Conditions of Use', 'woocommerce-mercadopago'); ?>";
+    MPv1Ticket.text.apply = "<?php echo __('Aplicar', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.remove = "<?php echo __('Retirar', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.coupon_empty = "<?php echo __('Por favor, informe su código de cupón', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.choose = "<?php echo __('Escoger', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.other_bank = "<?php echo __('Otro banco', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.discount_info1 = "<?php echo __('Salvarás', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.discount_info2 = "<?php echo __('con descuento de', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.discount_info3 = "<?php echo __('Total de su compra:', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.discount_info4 = "<?php echo __('Total de su compra con descuento:', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.discount_info5 = "<?php echo __('*Tras la aprobación del pago', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.discount_info6 = "<?php echo __('Términos y condiciones de uso', 'woocommerce-mercadopago'); ?>";
     MPv1Ticket.paths.loading = "<?php echo ($images_path . 'loading.gif'); ?>";
     MPv1Ticket.paths.check = "<?php echo ($images_path . 'check.png'); ?>";
     MPv1Ticket.paths.error = "<?php echo ($images_path . 'error.png'); ?>";

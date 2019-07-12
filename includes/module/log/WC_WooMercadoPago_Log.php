@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -9,24 +9,60 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_WooMercadoPago_Log
 {
-    public static $instance = null;
     public $log;
     public $id;
+    public $debugMode;
 
     /**
      * WC_WooMercadoPago_Log constructor.
+     * @param null $payment
+     * @param bool $debugMode
      */
-    public function __construct()
+    public function __construct($payment = null, $debugMode = false)
     {
-        $_mp_debug_mode = get_option( '_mp_debug_mode', '' );
-        if (!empty ( $_mp_debug_mode )) {
-            if ( class_exists( 'WC_Logger' ) ) {
+        $this->getDebugMode($payment, $debugMode);
+        if(!empty($payment)){
+            $this->id = get_class($payment);
+        }
+        return $this->initLog();
+    }
+
+    /**
+     * @param $payment
+     * @param $debugMode
+     */
+    public function getDebugMode($payment, $debugMode)
+    {
+        if (!empty($payment)) {
+            $debugMode = $payment->debug_mode;
+            if($debugMode == 'no'){
+                $debugMode = false;
+            }else{
+                $debugMode = true;
+            }
+        }
+
+        if (empty($payment) && empty($debugMode)) {
+            $debugMode = true;
+        }
+
+        $this->debugMode = $debugMode;
+    }
+
+    /**
+     * @return WC_Logger|null
+     */
+    public function initLog()
+    {
+        if (!empty($this->debugMode)) {
+            if (class_exists('WC_Logger')) {
                 $this->log = new WC_Logger();
             } else {
                 $this->log = WC_WooMercadoPago_Module::woocommerce_instance()->logger();
             }
             return $this->log;
         }
+        return null;
     }
 
     /**
@@ -35,15 +71,10 @@ class WC_WooMercadoPago_Log
      */
     public static function init_mercado_pago_log($id = null)
     {
-        if (self::$instance === null) {
-            self::$instance = new self;
-        }
-
-        $log = self::$instance;
-        if (!empty($log)) {
+        $log = new self(null, true);
+        if (!empty($log) && !empty($id)) {
             $log->setId($id);
         }
-
         return $log;
     }
 
@@ -51,11 +82,10 @@ class WC_WooMercadoPago_Log
      * @param $function
      * @param $message
      */
-    public function write_log( $function, $message )
+    public function write_log($function, $message)
     {
-        $_mp_debug_mode = get_option( '_mp_debug_mode', '' );
-        if ( ! empty ( $_mp_debug_mode ) ) {
-            $this->log->add($this->id,'[' . $function . ']: ' . $message);
+        if (!empty ($this->debugMode)) {
+            $this->log->add($this->id, '[' . $function . ']: ' . $message);
         }
     }
 
@@ -66,6 +96,4 @@ class WC_WooMercadoPago_Log
     {
         $this->id = $id;
     }
-
-
 }

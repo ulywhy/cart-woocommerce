@@ -39,7 +39,6 @@ class WC_WooMercadoPago_Credentials
         $this->accessToken = $accessToken;
         $this->clientId = get_option('_mp_client_id');
         $this->clientSecret = get_option('_mp_client_secret');
-        $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log(get_class($this));
     }
 
     /**
@@ -47,7 +46,6 @@ class WC_WooMercadoPago_Credentials
      */
     public function validateCredentialsType()
     {
-
         $basicIsEnabled = self::basicIsEnabled();
         if (!$this->tokenIsValid() && ($this->payment instanceof WC_WooMercadoPago_BasicGateway || $basicIsEnabled == 'yes')) {
             if (!$this->clientIsValid()) {

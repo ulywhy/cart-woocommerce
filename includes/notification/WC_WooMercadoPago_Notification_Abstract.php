@@ -22,7 +22,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
     {
         $this->mp = $payment->mp;
         $this->log = $payment->log;
-        $this->sandbox = get_option('_mp_sandbox_mode', false);
+        $this->sandbox = $payment->sandbox;
 
         add_action('woocommerce_api_' . strtolower(get_class($payment)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
