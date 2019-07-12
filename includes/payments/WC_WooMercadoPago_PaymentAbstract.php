@@ -983,21 +983,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     /**
      * @return array
      */
-//    public function field_title()
-//    {
-//        $title = array(
-//            'title' => __('Title', 'woocommerce-mercadopago'),
-//            'type' => 'text',
-//            'description' => __('Title shown to the client in the checkout.', 'woocommerce-mercadopago'),
-//            'default' => __('Mercado Pago', 'woocommerce-mercadopago')
-//        );
-//
-//        return $title;
-//    }
-
-    /**
-     * @return array
-     */
     public function field_binary_mode()
     {
         $binary_mode = array(
