@@ -18,6 +18,7 @@ class MP
     private $ll_access_token;
     private $sandbox = FALSE;
     private $accessTokenByClient;
+    private $paymentClass;
 
     /**
      * MP constructor.
@@ -45,7 +46,6 @@ class MP
             $this->client_id = func_get_arg(1);
             $this->client_secret = func_get_arg(2);
         }
-
     }
 
     /**
@@ -80,6 +80,7 @@ class MP
 
     /**
      * @return mixed|null
+     * @throws WC_WooMercadoPago_Exception
      */
     public function get_access_token()
     {
@@ -88,7 +89,7 @@ class MP
             return $this->ll_access_token;
         }
 
-        if(!empty($this->accessTokenByClient)){
+        if (!empty($this->accessTokenByClient)) {
             return $this->accessTokenByClient;
         }
 
@@ -696,4 +697,21 @@ class MP
 
     }
 
+    /**
+     * @param null $payment
+     */
+    public function setPaymentClass($payment = null)
+    {
+        if (!empty($payment)) {
+            $this->paymentClass = get_class($payment);
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentClass()
+    {
+        return $this->paymentClass;
+    }
 }
