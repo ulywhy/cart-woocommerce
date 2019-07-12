@@ -76,8 +76,8 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
     public function add_discounts()
     {
         $item = array(
-            'title' => __('Discount provided by store', 'woocommerce-mercadopago'),
-            'description' => __('Discount provided by store', 'woocommerce-mercadopago'),
+            'title' => __('Descuento proporcionado por la tienda', 'woocommerce-mercadopago'),
+            'description' => __('Descuento proporcionado por la tienda', 'woocommerce-mercadopago'),
             'quantity' => 1,
             'category_id' => get_option('_mp_category_name', 'others'),
             'unit_price' => ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?

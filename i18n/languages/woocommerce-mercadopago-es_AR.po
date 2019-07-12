@@ -21,303 +21,6 @@ msgstr ""
 "Language: es_AR\n"
 "X-Poedit-SearchPath-0: .\n"
 
-msgid "Tracking code:"
-msgstr "Código de rastreamiento:"
-
-msgid "Tag:"
-msgstr "Etiqueta:"
-
-msgid "Shipping is pending"
-msgstr "Envío pendiente"
-
-msgid "Print"
-msgstr "Imprimir"
-
-msgid "Shipping service used by store"
-msgstr "Servicio de envío utilizado por la tienda"
-
-msgid "Discount provided by store"
-msgstr "Descuento dado por la tienda"
-
-msgid "<strong>MERCADO PAGO:</strong> Use HTTPS to view payment methods."
-msgstr ""
-
-msgid "Set up credentials to enable payment methods."
-msgstr ""
-
-msgid "Dismiss"
-msgstr ""
-
-msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
-msgstr "Woo Mercado Pago Module depende de la última versión de %s para ejecutarse!"
-
-msgid "Settings"
-msgstr "Configurar"
-
-msgid "Tu opnión nos ayuda a mejorar"
-msgstr "Tu opnión nos ayuda a mejorar"
-
-msgid "Guías y Documentación"
-msgstr "Guías y Documentación"
-
-msgid "Informar Problema"
-msgstr "Informar Problema"
-
-msgid "Por Mercado Pago"
-msgstr "Por Mercado Pago"
-
-msgid "The <strong>Sponsor ID</strong> must be valid!"
-msgstr "¡Lo <strong>Sponsor ID</strong> debe ser válida!"
-
-msgid "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
-msgstr "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
-
-msgid "El medio de pago no es válido o no está disponible."
-msgstr "El medio de pago no es válido o no está disponible."
-
-msgid "El monto de transacción no puede ser procesado por Mercado Pago."
-msgstr "El monto de transacción no puede ser procesado por Mercado Pago."
-
-msgid "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
-msgstr "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
-
-msgid "Los usuários no son válidos."
-msgstr "Los usuários no son válidos."
-
-msgid "Uso no autorizado de credenciales de producción."
-msgstr "Uso no autorizado de credenciales de producción."
-
-msgid "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
-msgstr "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
-
-msgid "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
-msgstr "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
-
-msgid "ERROR: No fue posible convertir la moneda no soportada"
-msgstr "ERROR: No fue posible convertir la moneda no soportada"
-
-msgid "a"
-msgstr "a"
-
-msgid "Las conversiones de monedas deben hacerse fuera de este módulo."
-msgstr "Las conversiones de monedas deben hacerse fuera de este módulo."
-
-msgid "ATENCION: La moneda"
-msgstr "ATENCION: La moneda"
-
-msgid "definido en WooCommerce es diferente al utilizado por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será"
-msgstr "definido en WooCommerce es diferente al utilizado por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será"
-
-msgid "Las conversiones de moneda deben hacerse fuera de este módulo."
-msgstr "As conversões de moeda devem ser feitas fora deste módulo."
-
-msgid "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
-msgstr "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
-
-msgid "Colombia"
-msgstr "Colombia"
-
-msgid "Argentina"
-msgstr "Argentina"
-
-msgid "Brasil"
-msgstr "Brasil"
-
-msgid "Chile"
-msgstr "Chile"
-
-msgid "México"
-msgstr "México"
-
-msgid "Uruguay"
-msgstr "Uruguay"
-
-msgid "Venezuela"
-msgstr "Venezuela"
-
-msgid "Perú"
-msgstr "Perú"
-
-msgid "Actualizar la orden de WooCommerce a "
-msgstr "Actualizar la orden de WooCommerce a "
-
-msgid "Pago aprobado."
-msgstr "Pago aprobado."
-
-msgid "Esperando el pago del ticket."
-msgstr "Esperando el pago del ticket."
-
-msgid "El cliente todavía no efectuó el pago."
-msgstr "El cliente todavía no efectuó el pago."
-
-msgid "El pago está pendiente de revisión."
-msgstr "El pago está pendiente de revisión."
-
-msgid "El pago fue rechazado. El cliente puede intentar nuevamente."
-msgstr "El pago fue rechazado. El cliente puede intentar nuevamente."
-
-msgid "El pago fue devuelto al cliente."
-msgstr "El pago fue devuelto al cliente."
-
-msgid "El pago fue cancelado."
-msgstr "El pago fue cancelado."
-
-msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
-msgstr "El pago esta en mediación o la compra fue desconocida por el cliente."
-
-msgid "La solicitud de Mercado Pago ha fallado"
-msgstr "La solicitud de Mercado Pago ha fallado"
-
-msgid "Email del comprador"
-msgstr "Email del comprador"
-
-msgid "Medio de pago"
-msgstr "Medio de pago"
-
-msgid "Envío Gratuito"
-msgstr "Envío Gratuito"
-
-msgid "Etiqueta lista para imprimir"
-msgstr "Etiqueta lista para imprimir"
-
-msgid "Etiqueta impresa"
-msgstr "Etiqueta impresa"
-
-msgid "Fracasado"
-msgstr "Fracasado"
-
-msgid "Envío retrasado"
-msgstr "Envío retrasado"
-
-msgid "Destinatario ausente para envío"
-msgstr "Destinatario ausente para envío"
-
-msgid "Volviendo al remitente"
-msgstr "Volviendo al remitente"
-
-msgid "El comprador ha iniciado una discusión y pide un extorno."
-msgstr "El comprador ha iniciado una discusión y pide un extorno."
-
-msgid "Pedido"
-msgstr "Pedido"
-
-msgid "Código de rastreamiento de Mercado Envíos"
-msgstr "Código de rastreamiento de Mercado Envíos"
-
-msgid "Hola,"
-msgstr "Hola,"
-
-msgid "Su pedido"
-msgstr "Su pedido"
-
-msgid "hecho en"
-msgstr "hecho en"
-
-msgid "utilizó el Mercado Envíos como su medio de envío."
-msgstr "utilizó el Mercado Envíos como su medio de envío."
-
-msgid "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
-msgstr "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
-
-msgid "Saludos."
-msgstr "Saludos."
-
-msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
-msgstr "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
-
-msgid "Descuento para el cupón %s"
-msgstr "Descuento para el cupón %s"
-
-msgid "Descuento de"
-msgstr "Descuento de"
-
-msgid "Tarifa de"
-msgstr "Tarifa de"
-
-msgid " y Tarifa de"
-msgstr " y Tarifa de"
-
-msgid "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
-msgstr "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
-
-msgid "Pagar con Mercado Pago"
-msgstr "Pagar con Mercado Pago"
-
-msgid "Cancelar &amp; Limpiar carrito"
-msgstr "Cancelar &amp; Limpiar carrito"
-
-msgid "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
-msgstr "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
-
-msgid "Haga clic para intentarlo de nuevo"
-msgstr "Haga clic para intentarlo de nuevo"
-
-msgid "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
-msgstr "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
-
-msgid "Transferir"
-msgstr "Transferir"
-
-msgid "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
-msgstr "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
-
-msgid "Imprimir el ticket"
-msgstr "Imprimir el ticket"
-
-msgid "Suscripción Mercado Pago"
-msgstr "Suscripción Mercado Pago"
-
-msgid "La operación se realizó con éxito."
-msgstr "La operación se realizó con éxito."
-
-msgid "Esta operación no se puede completar."
-msgstr "Esta operación no se puede completar."
-
-msgid "ID de Pago:"
-msgstr "ID de Pago:"
-
-msgid "Cantidad:"
-msgstr "Cantidad:"
-
-msgid "Reembolso de Pago"
-msgstr "Reembolso de Pago"
-
-msgid "Cancelar Pago"
-msgstr "Cancelar Pago"
-
-msgid "Un producto recurrente es una suscripción que debe adquirirse por separado en su carrito. Por favor, hace los pedidos por separado."
-msgstr "Un producto recurrente es una suscripción que debe adquirirse por separado en su carrito. Por favor, hace los pedidos por separado."
-
-msgid "Producto Recurrente"
-msgstr "Producto Recurrente"
-
-msgid "Hacer deste producto una suscripción."
-msgstr "Hacer deste producto una suscripción."
-
-msgid "Frecuencia"
-msgstr "Frecuencia"
-
-msgid "Cantidad de tiempo (en días o meses) para la ejecución del próximo pago."
-msgstr "Cantidad de tiempo (en días o meses) para la ejecución del próximo pago."
-
-msgid "Tipo de frecuencia"
-msgstr "Tipo de frecuencia"
-
-msgid "Indica el período de tiempo."
-msgstr "Indica el período de tiempo."
-
-msgid "Días"
-msgstr "Días"
-
-msgid "Meses"
-msgstr "Meses"
-
-msgid "Fecha final"
-msgstr "Fecha final"
-
-msgid "Fecha límite para generar nuevos cargos. De forma predeterminada como nunca, si está en blanco."
-msgstr "Fecha límite para generar nuevos cargos. De forma predeterminada como nunca, si está en blanco."
-
 // ##########################################
 // ####### WC_WooMercadoPago_BasicGateway.php
 // ########################################## 
@@ -1146,111 +849,110 @@ msgstr ""
 // WC_WooMercadoPago_Module.php
 // ##########################################
 
-msgid "Set up credentials to enable payment methods."
-msgstr ""
+msgid "Complete sus credenciales para habilitar el medios de pago."
+msgstr "Complete sus credenciales para habilitar el medios de pago."
 
-msgid "Dismiss."
-msgstr ""
+msgid "Descartar"
+msgstr "Descartar"
 
-msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
-msgstr ""
+msgid "¡El módulo de pago de Woo Mercado depende de la última versión de% s para ejecutar!"
+msgstr "¡El módulo de pago de Woo Mercado depende de la última versión de% s para ejecutar!"
 
-msgid "Settings"
-msgstr ""
+msgid "Configurar"
+msgstr "Configurar"
 
 msgid "Tu opnión nos ayuda a mejorar"
-msgstr ""
+msgstr "Tu opnión nos ayuda a mejorar"
 
 msgid "Guías y Documentación"
-msgstr ""
+msgstr "Guías y Documentación"
 
 msgid "Informar Problema"
-msgstr ""
+msgstr "Informar Problema"
 
 msgid "Por Mercado Pago"
-msgstr ""
+msgstr "Por Mercado Pago"
 
-msgid "The Sponsor ID must be valid!"
-msgstr ""
+msgid "¡El <strong> Sponsor ID </strong> debe ser válido!"
+msgstr "¡El <strong> Sponsor ID </strong> debe ser válido!"
 
-msgid "¡El Sponsor ID debe ser del mismo país que el vendedor!"
-msgstr ""
+msgid "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
+msgstr "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
 
-msgid "The Sponsor ID must be valid!"
-msgstr ""
+msgid "¡El <strong> Sponsor ID </strong> debe ser válido!"
+msgstr "¡El <strong> Sponsor ID </strong> debe ser válido!"
 
 msgid "El medio de pago no es válido o no está disponible."
-msgstr ""
+msgstr "El medio de pago no es válido o no está disponible."
 
 msgid "El monto de transacción no puede ser procesado por Mercado Pago."
-msgstr ""
+msgstr "El monto de transacción no puede ser procesado por Mercado Pago."
 
 msgid "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
-msgstr ""
+msgstr "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
 
 msgid "Los usuários no son válidos."
-msgstr ""
+msgstr "Los usuários no son válidos."
 
 msgid "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
-msgstr ""
+msgstr "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
 
 msgid "Uso no autorizado de credenciales de producción."
-msgstr ""
+msgstr "Uso no autorizado de credenciales de producción."
 
 msgid "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
-msgstr ""
+msgstr "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
 
 msgid "ERROR: No fue posible convertir la moneda no soportada"
-msgstr ""
+msgstr "ERROR: No fue posible convertir la moneda no soportada"
 
-msgid "a"
-msgstr ""
+msgid "para"
+msgstr "para"
 
 msgid "Las conversiones de monedas deben hacerse fuera de este módulo."
-msgstr ""
+msgstr "Las conversiones de monedas deben hacerse fuera de este módulo."
 
 msgid "ATENCION: La moneda"
-msgstr ""
+msgstr "ATENCION: La moneda"
 
-msgid "definido en WooCommerce es diferente al utilizado por las credenciales de su país.
-La moneda para las transacciones hechas con este método de pago será"
-msgstr ""
+msgid "definida en WooCommerce es diferente la utilizada por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será"
+msgstr "definida en WooCommerce es diferente la utilizada por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será"
 
 msgid "Las conversiones de moneda deben hacerse fuera de este módulo."
-msgstr ""
+msgstr "Las conversiones de moneda deben hacerse fuera de este módulo."
 
 msgid "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
-msgstr ""
+msgstr "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
 
-msgid "a"
-msgstr ""
+msgid "para"
+msgstr "para"
 
 msgid "Colombia"
-msgstr ""
+msgstr "Colombia"
 
 msgid "Argentina"
-msgstr ""
+msgstr "Argentina"
 
 msgid "Brasil"
-msgstr ""
+msgstr "Brasil"
 
 msgid "Chile"
-msgstr ""
+msgstr "Chile"
 
 msgid "México"
-msgstr ""
+msgstr "México"
 
 msgid "Uruguay"
-msgstr ""
+msgstr "Uruguay"
 
 msgid "Venezuela"
-msgstr ""
+msgstr "Venezuela"
 
-msgid "Perú"
-msgstr ""
+msgid "Peru"
+msgstr "Peru"
 
-msgid "Actualizar la orden de WooCommerce a "
-msgstr ""
+msgid "Actualizar la orden de WooCommerce para "
+msgstr "Actualizar la orden de WooCommerce para "
 
 // ##########################################
 // WC_WooMercadoPago_Credentials.php
@@ -1272,8 +974,8 @@ msgstr ""
 // WC_WooMercadoPago_PreferenceAbstract.php
 // ##########################################
 
-msgid "Shipping service used by store"
-msgstr ""
+msgid "Servicio de envío utilizado por la tienda."
+msgstr "Servicio de envío utilizado por la tienda."
 
 // ##########################################
 // WC_WooMercadoPago_PreferencePSE.php
@@ -1314,13 +1016,13 @@ msgstr ""
 // ##########################################
 
 msgid "Importante:"
-msgstr ""
+msgstr "Importante:"
 
-msgid "MERCADO PAGO: Use HTTPS to view payment methods."
-msgstr ""
+msgid "La tienda debe tener HTTPS para ver los medios de pago."
+msgstr "La tienda debe tener HTTPS para ver los medios de pago."
 
-msgid "Dismiss."
-msgstr ""
+msgid "Descartar"
+msgstr "Descartar"
 
 // ##########################################
 // WC_MercadoEnvios_Admin_Orders.php
@@ -1334,47 +1036,47 @@ msgstr ""
 // WC_MercadoEnvios_Shipping_Abstract.php
 // ##########################################
 
-msgid "Mercado Envios is a shipping method available only for payments with Mercado Pago."
-msgstr ""
+msgid "Mercado Envios es un método de envío disponible solo para pagos con Mercado Pago."
+msgstr "Mercado Envios es un método de envío disponible solo para pagos con Mercado Pago."
 
-msgid "Free Shipping"
-msgstr ""
+msgid "Envío gratis"
+msgstr "Envío gratis"
 
-msgid "Day"
-msgstr ""
+msgid "Día"
+msgstr "Día"
 
-msgid "Days"
-msgstr ""
+msgid "Dias"
+msgstr "Dias"
 
-msgid "Enable the two shipping methods the Mercado Envios (Express and Normal) for the proper functioning of the module."
-msgstr ""
-
-msgid "Mercado Envios"
-msgstr ""
+msgid "Habilite los dos métodos de envío: Mercado Envios (Express y Normal) para el correcto funcionamiento del módulo."
+msgstr "Habilite los dos métodos de envío: Mercado Envios (Express y Normal) para el correcto funcionamiento del módulo."
 
 msgid "Mercado Envios"
-msgstr ""
-
-msgid "This controls the title which the user sees during checkout."
-msgstr ""
+msgstr "Mercado Envios"
 
 msgid "Mercado Envios"
-msgstr ""
+msgstr "Mercado Envios"
 
-msgid "Free Shipping"
-msgstr ""
+msgid "Esto controla el título que el usuario ve durante el proceso de pago."
+msgstr "Esto controla el título que el usuario ve durante el proceso de pago."
 
-msgid "Enable free shipping for this shipping method"
-msgstr ""
+msgid "Mercado Envios"
+msgstr "Mercado Envios"
 
-msgid "Delivery Time"
-msgstr ""
+msgid "Envío gratis"
+msgstr "Envío gratis"
 
-msgid "Show estimated delivery time"
-msgstr ""
+msgid "Habilitar envío gratis para este método de envío"
+msgstr "Habilitar envío gratis para este método de envío"
 
-msgid "Display the estimated delivery time in working days."
-msgstr ""
+msgid "El tiempo de entrega"
+msgstr "El tiempo de entrega"
+
+msgid "Mostrar el tiempo estimado de entrega"
+msgstr "Mostrar tiempo estimado de entrega"
+
+msgid "Mostrar el tiempo estimado de entrega en días laborables."
+msgstr "Mostrar el tiempo estimado de entrega en días laborables."
 
 // ##########################################
 // WC_MercadoEnvios_Shipping_Normal.php
@@ -1388,14 +1090,14 @@ msgstr ""
 // woocommerce-mercadopago.php
 // ##########################################
 
-msgid "WooCommerce Mercado Pago requires PHP version 5.6 or later. Please update your PHP version."
-msgstr ""
+msgid "El plugin de Mercado Pago requiere la versión de PHP 5.6 o posterior. Por favor actualice su versión de PHP."
+msgstr "El plugin de Mercado Pago requiere la versión de PHP 5.6 o posterior. Por favor actualice su versión de PHP."
 
-msgid "It seems you have Woo Mercado Pago Module installed. Please, uninstall it before using this version."
-msgstr ""
+msgid "Parece que ya tienes instalado el módulo de Mercado Pago. Por favor, desinstálalo antes de usar esta versión."
+msgstr "Parece que ya tienes instalado el módulo de Mercado Pago. Por favor, desinstálalo antes de usar esta versión."
 
-msgid "Cancel Order"
-msgstr ""
+msgid "Cancelar pedido"
+msgstr "Cancelar pedido"
 
 // ##########################################
 // custom_checkout.php
@@ -1494,8 +1196,8 @@ msgstr "Código de seguridad invalido"
 msgid "Cuántas cuotas querés pagar"
 msgstr "Cuántas cuotas querés pagar"
 
-msgid "Issuer"
-msgstr ""
+msgid "Banco emisor"
+msgstr "Banco emisor"
 
 msgid "Pago convertido de"
 msgstr "Pago convertido de"
