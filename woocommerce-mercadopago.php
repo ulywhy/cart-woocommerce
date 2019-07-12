@@ -87,7 +87,7 @@ if (!class_exists('WC_WooMercadoPago_Module'))
     add_action('woocommerce_order_actions', 'add_mp_order_meta_box_actions');
     function add_mp_order_meta_box_actions($actions)
     {
-        $actions['cancel_order'] = __('Cancelar pedido', 'woocommerce-mercadopago');
+        $actions['cancel_order'] = __('Cancelar orden', 'woocommerce-mercadopago');
         return $actions;
     }
 

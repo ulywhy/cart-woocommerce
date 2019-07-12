@@ -286,7 +286,7 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
                             $order->billing_email,
                             __('Pedido', 'woocommerce-mercadopago') . ' ' . $order_id . ' - ' . __('Mercado Envios Tracking ID', 'woocommerce-mercadopago'),
                             __('Hola,', 'woocommerce-mercadopago') . "\r\n\r\n" .
-                            __('YSu pedido', 'woocommerce-mercadopago') . ' ' . ' [ ' . implode(', ', $list_of_items) . ' ] ' .
+                            __('Su pedido', 'woocommerce-mercadopago') . ' ' . ' [ ' . implode(', ', $list_of_items) . ' ] ' .
                             __('hecho en', 'woocommerce-mercadopago') . ' ' . get_site_url() . ' ' .
                             __('utilizó el Mercado Envíos como su medio de envío.', 'woocommerce-mercadopago') . "\r\n" .
                             __('Usted puedes rastrearlo con lo siguiente código de rastreamiento:', 'woocommerce-mercadopago') . ' ' . $tracking_id . ".\r\n\r\n" .
