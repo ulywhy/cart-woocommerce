@@ -24,8 +24,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         try {
-
-
             if (!class_exists('WC_Payment_Gateway')) {
                 add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
             }
@@ -50,7 +48,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                 self::loadMercadoEnviosAdmin();
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Module');
+            $log->write_log('__construct: ', $e->getMessage());
         }
     }
 
