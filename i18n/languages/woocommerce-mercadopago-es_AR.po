@@ -651,110 +651,86 @@ msgstr "Fecha límite para generar nuevos cargos. De forma predeterminada como n
 // ##########################################
 
 msgid "Mercado Pago - PSE"
-msgstr ""
-
-msgid "Mercado Pago - PSE"
-msgstr ""
+msgstr "Mercado Pago - PSE"
 
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
-msgstr ""
+msgstr "Un problema se produjo al procesar su pago. ¿Esta seguro que ha rellenado correctamente toda la información en el formulario de checkout?"
 
 msgid "Customer haven\'t paid yet."
-msgstr ""
+msgstr "El cliente todavía no efectuó el pago."
 
 msgid "Link to bank transfer "
-msgstr ""
+msgstr "Link a transferencia bancaria"
 
 msgid "here"
-msgstr ""
-
-msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form? "
-msgstr ""
+msgstr "aquí"
 
 msgid "A problem was occurred when processing your payment. Please, try again."
-msgstr ""
+msgstr "Un problema se produjo al procesar su pago. Por favor, inténtelo de nuevo."
 
 msgid "Shipping service used by store"
-msgstr ""
+msgstr "Servicio de envío utilizado por la tienda"
 
 msgid "Discount provided by store"
-msgstr ""
-
-msgid "Discount provided by store"
-msgstr ""
+msgstr "Descuento dado por la tienda"
 
 msgid "Please, inform your email in billing address to use this feature"
-msgstr ""
+msgstr "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
 
 msgid "Mercado Pago Request Failure"
-msgstr ""
+msgstr "La solicitud de Mercado Pago ha fallado"
 
 msgid "Payer email"
-msgstr ""
+msgstr "Email del comprador"
 
 msgid "Payment type"
-msgstr ""
-
-msgid "Payer email"
-msgstr ""
-
-msgid "Payment type"
-msgstr ""
+msgstr "Medio de pago"
 
 msgid "Payment approved."
-msgstr ""
+msgstr "Pago aprobado."
 
 msgid "Waiting for the bank transfer."
-msgstr ""
+msgstr "Esperando la transferencia bancaria."
 
 msgid "Payment under review."
-msgstr ""
+msgstr "El pago está pendiente de revisión."
 
 msgid "The payment was refused. The customer can try again."
-msgstr ""
+msgstr "El pago fue rechazado. El cliente puede intentar nuevamente."
 
 msgid "The payment was refunded to the customer."
-msgstr ""
+msgstr "El pago fue devuelto al cliente."
 
 msgid "The payment was cancelled."
-msgstr ""
+msgstr "El pago fue cancelado."
 
 msgid "The payment is under mediation or it was charged-back."
-msgstr ""
-
-msgid "The payment is under mediation or it was charged-back."
-msgstr ""
+msgstr "El pago esta en mediación o la compra fue desconocida por el cliente."
 
 // ##########################################
 // WC_WooMercadoPago_Notification_Abstract.php
 // ##########################################
 
-msgid "Payment approved."
-msgstr ""
-
 msgid "Esperando el pago del ticket."
-msgstr ""
+msgstr "Esperando el pago del ticket."
 
 msgid "El cliente todavía no efectuó el pago."
-msgstr ""
+msgstr "El cliente todavía no efectuó el pago."
 
 msgid "El pago está pendiente de revisión."
-msgstr ""
+msgstr "El pago está pendiente de revisión."
 
 msgid "El pago fue rechazado. El cliente puede intentar nuevamente."
-msgstr ""
+msgstr "El pago fue rechazado. El cliente puede intentar nuevamente."
 
 msgid "El pago fue devuelto al cliente."
-msgstr ""
+msgstr "El pago fue devuelto al cliente."
 
 msgid "El pago fue cancelado."
-msgstr ""
+msgstr "El pago fue cancelado."
 
 msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
-msgstr ""
-
-msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
-msgstr ""
+msgstr "El pago esta en mediación o la compra fue desconocida por el cliente."
 
 // ##########################################
 // WC_WooMercadoPago_Notification_IPN.php
@@ -828,22 +804,22 @@ msgstr "Saludos."
 // ##########################################
 
 msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
-msgstr ""
+msgstr "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
 
 msgid "La solicitud de Mercado Pago ha fallado"
-msgstr ""
+msgstr "La solicitud de Mercado Pago ha fallado"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "Email del comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Medio de pago"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "Email del comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Medio de pago"
 
 // ##########################################
 // WC_WooMercadoPago_Module.php

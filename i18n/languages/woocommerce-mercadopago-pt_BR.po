@@ -651,110 +651,89 @@ msgstr "Data limite para gerar nova cobrança. Por padrão nunca, se deixado em 
 // ##########################################
 
 msgid "Mercado Pago - PSE"
-msgstr ""
-
-msgid "Mercado Pago - PSE"
-msgstr ""
+msgstr "Mercado Pago - PSE"
 
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
-msgstr ""
+msgstr "Um problema ocorreu ao processar seu pagamento. Você tem certeza que preencheu corretamente todos os campos do formulário do checkout?"
 
 msgid "Customer haven\'t paid yet."
-msgstr ""
+msgstr "O cliente ainda não realizou o pagamento."
 
 msgid "Link to bank transfer "
-msgstr ""
+msgstr "Link para transferência bancária"
 
 msgid "here"
-msgstr ""
-
-msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form? "
-msgstr ""
+msgstr "aqui"
 
 msgid "A problem was occurred when processing your payment. Please, try again."
-msgstr ""
+msgstr "Um problema ocorreu ao processar seu pagamento. Por favor, tente novamente."
 
 msgid "Shipping service used by store"
-msgstr ""
+msgstr "Serviço de envio usado pela loja"
 
 msgid "Discount provided by store"
-msgstr ""
-
-msgid "Discount provided by store"
-msgstr ""
+msgstr "Desconto dado pela loja"
 
 msgid "Please, inform your email in billing address to use this feature"
-msgstr ""
+msgstr "Por favor, informe seu email no endereço de cobrança para fazer uso desta funcionalidade"
 
 msgid "Mercado Pago Request Failure"
-msgstr ""
+msgstr "Falha na Requisição do Mercado Pago"
 
 msgid "Payer email"
-msgstr ""
+msgstr "Email do pagador"
 
 msgid "Payment type"
-msgstr ""
-
-msgid "Payer email"
-msgstr ""
-
-msgid "Payment type"
-msgstr ""
+msgstr "Tipo de pagamento"
 
 msgid "Payment approved."
-msgstr ""
+msgstr "Pagamento aprovado."
 
 msgid "Waiting for the bank transfer."
-msgstr ""
+msgstr "Esperando a transferencia bancaria"
 
 msgid "Payment under review."
-msgstr ""
+msgstr "O pagamento está em revisão."
 
 msgid "The payment was refused. The customer can try again."
-msgstr ""
+msgstr "O pagamento foi recusado. O cliente pode tentar novamente."
 
 msgid "The payment was refunded to the customer."
-msgstr ""
+msgstr "O pagamento foi estornado ao cliente."
 
 msgid "The payment was cancelled."
-msgstr ""
+msgstr "O pagamento foi cancelado."
 
 msgid "The payment is under mediation or it was charged-back."
-msgstr ""
-
-msgid "The payment is under mediation or it was charged-back."
-msgstr ""
+msgstr "O pagamento está em mediação ou a compra não foi reconhecida pelo cliente."
 
 // ##########################################
 // WC_WooMercadoPago_Notification_Abstract.php
 // ##########################################
 
 msgid "Payment approved."
-msgstr ""
+msgstr "Pagamento aprovado."
 
 msgid "Esperando el pago del ticket."
-msgstr ""
+msgstr "Aguardando o pagamento do boleto."
 
 msgid "El cliente todavía no efectuó el pago."
-msgstr ""
+msgstr "O cliente ainda não realizou o pagamento."
 
 msgid "El pago está pendiente de revisión."
-msgstr ""
+msgstr "O pagamento está em revisão."
 
 msgid "El pago fue rechazado. El cliente puede intentar nuevamente."
-msgstr ""
+msgstr "O pagamento foi recusado. O cliente pode tentar novamente."
 
 msgid "El pago fue devuelto al cliente."
-msgstr ""
+msgstr "O pagamento foi estornado ao cliente."
 
 msgid "El pago fue cancelado."
-msgstr ""
+msgstr "O pagamento foi cancelado."
 
 msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
-msgstr ""
-
-msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
-msgstr ""
+msgstr "O pagamento está em mediação ou a compra não foi reconhecida pelo cliente."
 
 // ##########################################
 // WC_WooMercadoPago_Notification_IPN.php
