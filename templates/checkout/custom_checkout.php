@@ -68,7 +68,7 @@ if (!defined('ABSPATH')) {
 						<div class="col-md-8 pr-15">
 							<label for="paymentMethodIdSelector" class="mp-label-form"><?= esc_html__('Payment Method', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<select id="paymentMethodSelector" class="mp-form-control pointer" name="mercadopago_custom[paymentMethodSelector]" data-checkout="cardId">
-								<optgroup label="<?= esc_html__('Your Card', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
+								<optgroup label="<?= esc_html__('Tu tarjeta', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
 									<?php foreach ($customer_cards as $card) : ?>
 										<option value="<?= $card['id']; ?>
 														first_six_digits=<?= $card['first_six_digits']; ?>
@@ -77,14 +77,14 @@ if (!defined('ABSPATH')) {
 														type_checkout='customer_and_card'
 														payment_method_id=<?= $card['payment_method']['id']; ?>">
 											<?= ucfirst($card['payment_method']['name']); ?>
-											<?= esc_html__('ended in', 'woocommerce-mercadopago'); ?>
+											<?= esc_html__('terminó en', 'woocommerce-mercadopago'); ?>
 											<?= $card['last_four_digits']; ?>
 										</option>
 									<?php endforeach; ?>
 								</optgroup>
 
-								<optgroup label="<?= esc_html__('Other Cards', 'woocommerce-mercadopago'); ?>" id="payment-methods-list-other-cards">
-									<option value="-1"><?= esc_html__('Other Card', 'woocommerce-mercadopago'); ?></option>
+								<optgroup label="<?= esc_html__('Otras tarjetas', 'woocommerce-mercadopago'); ?>" id="payment-methods-list-other-cards">
+									<option value="-1"><?= esc_html__('Otra tarjeta', 'woocommerce-mercadopago'); ?></option>
 								</optgroup>
 							</select>
 						</div>
@@ -92,12 +92,12 @@ if (!defined('ABSPATH')) {
 						<div class="col-md-4">
 							<div id="mp-securityCode-customer-and-card">
 								<div class="mp-box-inputs mp-col-45">
-									<label for="customer-and-card-securityCode" class="mp-label-form"><?= esc_html__('CVC', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+									<label for="customer-and-card-securityCode" class="mp-label-form"><?= esc_html__('CVV', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 									<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control" id="customer-and-card-securityCode" data-checkout="securityCode" autocomplete="off" maxlength="4" />
 
-									<span class="mp-error" id="mp-error-224" data-main="#customer-and-card-securityCode"><?= esc_html__('Parameter securityCode can not be null/empty', 'woocommerce-mercadopago'); ?></span>
-									<span class="mp-error" id="mp-error-E302" data-main="#customer-and-card-securityCode"><?= esc_html__('Invalid Security Code', 'woocommerce-mercadopago'); ?></span>
-									<span class="mp-error" id="mp-error-E203" data-main="#customer-and-card-securityCode"><?= esc_html__('Invalid Security Code', 'woocommerce-mercadopago'); ?></span>
+									<span class="mp-error" id="mp-error-224" data-main="#customer-and-card-securityCode"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+									<span class="mp-error" id="mp-error-E302" data-main="#customer-and-card-securityCode"><?= esc_html__('Código de seguridad invalido', 'woocommerce-mercadopago'); ?></span>
+									<span class="mp-error" id="mp-error-E203" data-main="#customer-and-card-securityCode"><?= esc_html__('Código de seguridad invalido', 'woocommerce-mercadopago'); ?></span>
 								</div>
 							</div>
 						</div>
@@ -112,8 +112,8 @@ if (!defined('ABSPATH')) {
 							<label for="cardNumber" class="mp-label-form"><?= esc_html__('Número de Tarjeta', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" onkeyup="maskDate(this, mcc);" class="mp-form-control mt-5" id="cardNumber" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
 
-							<span class="mp-error mt-5" id="mp-error-205" data-main="#cardNumber"><?= esc_html__('This field can not be empty', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mt-5" id="mp-error-E301" data-main="#cardNumber"><?= esc_html__('Invalid Card Number', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mt-5" id="mp-error-205" data-main="#cardNumber"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mt-5" id="mp-error-E301" data-main="#cardNumber"><?= esc_html__('Numero de tarjeta invalido', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 
@@ -122,8 +122,8 @@ if (!defined('ABSPATH')) {
 							<label for="cardholderName" class="mp-label-form"><?= esc_html__('Nombre y apellido del titular de la tarjeta', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" class="mp-form-control mt-5" id="cardholderName" name="mercadopago_custom[cardholderName]" data-checkout="cardholderName" autocomplete="off" />
 
-							<span class="mp-error mt-5" id="mp-error-221" data-main="#cardholderName"><?= esc_html__('This field can not be empty', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mt-5" id="mp-error-316" data-main="#cardholderName"><?= esc_html__('Invalid Card Holder Name', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mt-5" id="mp-error-221" data-main="#cardholderName"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mt-5" id="mp-error-316" data-main="#cardholderName"><?= esc_html__('Nombre del titular de la tarjeta no válido', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 
@@ -134,7 +134,7 @@ if (!defined('ABSPATH')) {
 							<input type="hidden" id="cardExpirationMonth" name="mercadopago_custom[cardExpirationMonth]" data-checkout="cardExpirationMonth">
 							<input type="hidden" id="cardExpirationYear" name="mercadopago_custom[cardExpirationYear]" data-checkout="cardExpirationYear">
 
-							<span class="mp-error mt-5" id="mp-error-208" data-main="#cardExpirationDate"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mt-5" id="mp-error-208" data-main="#cardExpirationDate"><?= esc_html__('Fecha de expiracion inválida', 'woocommerce-mercadopago'); ?></span>
 						</div>
 
 						<div class="col-md-6">
@@ -142,8 +142,8 @@ if (!defined('ABSPATH')) {
 							<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control mt-5" id="securityCode" data-checkout="securityCode" autocomplete="off" maxlength="4" />
 
 							<p class="mp-desc mt-5 mb-0" data-main="#securityCode"><?= esc_html__('Últimos 3 números del dorso', 'woocommerce-mercadopago'); ?></p>
-							<span class="mp-error mt-5" id="mp-error-224" data-main="#securityCode"><?= esc_html__('This field can not be empty', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mt-5" id="mp-error-E302" data-main="#securityCode"><?= esc_html__('Invalid Security Code', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mt-5" id="mp-error-224" data-main="#securityCode"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mt-5" id="mp-error-E302" data-main="#securityCode"><?= esc_html__('Código de seguridad invalido', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 
@@ -163,11 +163,11 @@ if (!defined('ABSPATH')) {
 									<?php if ($currency_ratio != 1) : ?>
 										<label for="installments" class="mp-label-form">
 											<div class="tooltip">
-												<?= esc_html__('Installments', 'woocommerce-mercadopago'); ?>
+												<?= esc_html__('', 'woocommerce-mercadopago'); ?>
 												<span class="tooltiptext">
 													<?=
-														esc_html__('Payment converted from', 'woocommerce-mercadopago') . " " .
-															$woocommerce_currency . " " . esc_html__('to', 'woocommerce-mercadopago') . " " .
+														esc_html__('Pago convertido de', 'woocommerce-mercadopago') . " " .
+															$woocommerce_currency . " " . esc_html__('para', 'woocommerce-mercadopago') . " " .
 															$account_currency;
 													?>
 												</span>
@@ -206,8 +206,8 @@ if (!defined('ABSPATH')) {
 									<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control mt-5" id="docNumber" data-checkout="docNumber" name="mercadopago_custom[docNumber]" autocomplete="off" />
 									<p class="mp-desc mt-5 mb-0" data-main="#securityCode"><?= esc_html__('Sólo números', 'woocommerce-mercadopago'); ?></p>
 
-									<span class="mp-error mt-5" id="mp-error-214" data-main="#docNumber"><?= esc_html__('This field can not be empty', 'woocommerce-mercadopago'); ?></span>
-									<span class="mp-error mt-5" id="mp-error-324" data-main="#docNumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
+									<span class="mp-error mt-5" id="mp-error-214" data-main="#docNumber"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+									<span class="mp-error mt-5" id="mp-error-324" data-main="#docNumber"><?= esc_html__('Número de documento no válido', 'woocommerce-mercadopago'); ?></span>
 								</div>
 							</div>
 						</div>
@@ -1402,17 +1402,17 @@ if (!defined('ABSPATH')) {
 
 	}
 
-	MPv1.text.apply = "<?php echo __('Apply', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.remove = "<?php echo __('Remove', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.coupon_empty = "<?php echo __('Please, inform your coupon code', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.choose = "<?php echo __('Choose', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.other_bank = "<?php echo __('Other Bank', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.discount_info1 = "<?php echo __('You will save', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.discount_info2 = "<?php echo __('with discount from', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.discount_info3 = "<?php echo __('Total of your purchase:', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.discount_info4 = "<?php echo __('Total of your purchase with discount:', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.discount_info5 = "<?php echo __('*Uppon payment approval', 'woocommerce-mercadopago'); ?>";
-	MPv1.text.discount_info6 = "<?php echo __('Terms and Conditions of Use', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.apply = "<?php echo __('Aplicar', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.remove = "<?php echo __('Retirar', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.coupon_empty = "<?php echo __('Por favor, informe su código de cupón', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.choose = "<?php echo __('Escoger', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.other_bank = "<?php echo __('Otro banco', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.discount_info1 = "<?php echo __('Salvarás', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.discount_info2 = "<?php echo __('con descuento de', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.discount_info3 = "<?php echo __('Total de su compra:', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.discount_info4 = "<?php echo __('Total de su compra con descuento:', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.discount_info5 = "<?php echo __('*Tras la aprobación del pago', 'woocommerce-mercadopago'); ?>";
+	MPv1.text.discount_info6 = "<?php echo __('Términos y condiciones de uso', 'woocommerce-mercadopago'); ?>";
 
 	MPv1.paths.loading = "<?php echo ($images_path . 'loading.gif'); ?>";
 	MPv1.paths.check = "<?php echo ($images_path . 'check.png'); ?>";

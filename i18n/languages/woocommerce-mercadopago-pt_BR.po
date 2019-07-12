@@ -1458,309 +1458,312 @@ msgstr ""
 // ##########################################
 
 msgid "Pagá con tarjetas de débito y crédito"
-msgstr ""
+msgstr "Pague com cartões de crédito ou débito"
 
 msgid "Con qué Tarjetas puedo pagar"
-msgstr ""
+msgstr "Com quais cartões posso pagar?"
 
 msgid "Ver promociones vigentes"
-msgstr ""
+msgstr "Promoções vigentes"
 
 msgid "Tarjetas de crédito"
-msgstr ""
+msgstr "Cartões de crédito"
 
 msgid "Tarjetas de débito"
-msgstr ""
+msgstr "Cartões de débito"
 
 msgid "Ingresa tu cupón de descuento"
-msgstr ""
+msgstr "Insira seu cupom de desconto"
 
 msgid "Ingresá tu cupón"
-msgstr ""
+msgstr "Insira seu cupom"
 
 msgid "Aplicar"
-msgstr ""
+msgstr "Ativar"
 
 msgid "El código que ingresaste es incorrecto"
-msgstr ""
+msgstr "O código que digitou não foi encontrado"
 
 msgid "Ingresa los datos de tu tarjeta"
-msgstr ""
+msgstr "Informe os dados do seu cartão"
 
-msgid "Payment Method"
-msgstr ""
+msgid "Tu tarjeta"
+msgstr "Seu cartão"
 
-msgid "Your Card"
-msgstr ""
+msgid "terminó en"
+msgstr "termniado em"
 
-msgid "ended in"
-msgstr ""
+msgid "Otras tarjetas"
+msgstr "Outros cartões"
 
-msgid "Other Cards"
-msgstr ""
+msgid "Otra tarjeta"
+msgstr "Outro cartão"
 
-msgid "Other Card"
-msgstr ""
+msgid "CVV"
+msgstr "CVV"
 
-msgid "CVC"
-msgstr ""
+msgid "Este campo no puede estar vacío"
+msgstr "Este campo não pode estar vazio"
 
-msgid "Parameter securityCode can not be null/empty"
-msgstr ""
+msgid "Código de seguridad invalido"
+msgstr "Código de segurança inválido"
 
-msgid "Invalid Security Code"
-msgstr ""
-
-msgid "Invalid Security Code"
-msgstr ""
+msgid "Código de seguridad invalido"
+msgstr "Código de segurança inválido"
 
 msgid "Número de Tarjeta"
-msgstr ""
+msgstr "Número do cartão "
 
-msgid "This field can not be empty"
-msgstr ""
+msgid "Este campo no puede estar vacío"
+msgstr "Este campo não pode estar vazio"
 
-msgid "Invalid Card Number"
-msgstr ""
+msgid "Numero de tarjeta invalido"
+msgstr "Número de cartão inválido"
 
 msgid "Nombre y apellido del titular de la tarjeta"
-msgstr ""
+msgstr "Nome completo do titular do cartão"
 
-msgid "This field can not be empty"
-msgstr ""
+msgid "Este campo no puede estar vacío"
+msgstr "Este campo não pode estar vazio"
 
-msgid "Invalid Card Holder Name"
-msgstr ""
+msgid "Nombre del titular de la tarjeta no válido"
+msgstr "Nome do titular do cartão inválido"
 
 msgid "Fecha de vencimiento"
-msgstr ""
+msgstr "Data de vencimento"
 
-msgid "Invalid Expiration Date"
-msgstr ""
+msgid "Fecha de expiracion inválida"
+msgstr "Data de vencimento inválida"
 
 msgid "Código de seguridad"
-msgstr ""
+msgstr "Código de segurança"
 
 msgid "Últimos 3 números del dorso"
-msgstr ""
+msgstr "Últimos 3 números do verso"
 
-msgid "This field can not be empty"
-msgstr ""
+msgid "Este campo no puede estar vacío"
+msgstr "Este campo não pode estar vazio"
 
-msgid "Invalid Security Code"
-msgstr ""
+msgid "Código de seguridad invalido"
+msgstr "Código de segurança inválido"
 
 msgid "Cuántas cuotas querés pagar"
-msgstr ""
+msgstr "Em quantas parcelas você quer pagar"
 
 msgid "Issuer"
 msgstr ""
 
-msgid "Installments"
-msgstr ""
+msgid "Pago convertido de"
+msgstr "Pagamento convertido de"
 
-msgid "Payment converted from"
-msgstr ""
-
-msgid "to"
-msgstr ""
+msgid "para"
+msgstr "para"
 
 msgid "Seleccione el número de cotas"
-msgstr ""
+msgstr "Em quantas parcelas você quer pagar"
 
 msgid "Ingresá tu número de documento"
-msgstr ""
+msgstr "Informe seu número de documento"
 
 msgid "Tipo"
-msgstr ""
+msgstr "Tipo"
 
 msgid "Número de documento"
-msgstr ""
+msgstr "Número de documento"
 
 msgid "Sólo números"
-msgstr ""
+msgstr "Apenas números"
 
-msgid "This field can not be empty"
-msgstr ""
+msgid "Este campo no puede estar vacío"
+msgstr "Este campo não pode estar vazio"
 
-msgid "Invalid Document Number"
-msgstr ""
+msgid "Número de documento no válido"
+msgstr "Número de documento inválido"
 
 msgid "No guardar la tarjeta"
-msgstr ""
+msgstr "Não salvar o cartão"
 
 msgid "Campo obligatorio"
-msgstr ""
+msgstr "Campo obrigatório"
 
-msgid "Apply"
-msgstr ""
+msgid "Aplicar"
+msgstr "Ativar"
 
-msgid "Remove"
-msgstr ""
+msgid "Retirar"
+msgstr "Remover"
 
-msgid "Please, inform your coupon code"
-msgstr ""
+msgid "Por favor, informe su código de cupón"
+msgstr "Por favor, informe seu cupom de desconto"
 
-msgid "Choose"
-msgstr ""
+msgid "Escoger"
+msgstr "Escolher"
 
-msgid "Other Bank"
-msgstr ""
+msgid "Otro banco"
+msgstr "Outro banco"
 
-msgid "You will save"
-msgstr ""
+msgid "Salvarás"
+msgstr "Você economizará"
 
-msgid "with discount from"
-msgstr ""
+msgid "con descuento de"
+msgstr "com desconto de"
 
-msgid "Total of your purchase:"
-msgstr ""
+msgid "Total de su compra:"
+msgstr "Total da compra"
 
-msgid "Total of your purchase with discount:"
-msgstr ""
+msgid "Total de su compra con descuento:"
+msgstr "Total da compra com desconto"
 
-msgid "*Uppon payment approval"
-msgstr ""
+msgid "*Tras la aprobación del pago"
+msgstr "*Após a aprovação do pagamento"
 
-msgid "Terms and Conditions of Use"
-msgstr ""
+msgid "Términos y condiciones de uso"
+msgstr "Termos e condições de uso"
 
 // ##########################################
 // ticket_checkout.php
 // ##########################################
 
 msgid "Pagar con Mercado Pago es fácil y seguro."
-msgstr ""
+msgstr "Pague via boleto ou na lotérica e transforme o uso do seu tempo."
 
 msgid "Ingresa tu cupón de descuento"
-msgstr ""
+msgstr "Insira seu cupom de desconto"
 
 msgid "Ingresá tu cupón"
-msgstr ""
+msgstr "Insira seu cupom"
 
 msgid "Aplicar"
-msgstr ""
+msgstr "Ativar"
 
 msgid "El código que ingresaste es incorrecto"
-msgstr ""
+msgstr "O código que digitou não foi encontrado"
 
 msgid "Persona Física"
-msgstr ""
+msgstr "Pessoa física"
 
 msgid "Persona Jurídica"
-msgstr ""
+msgstr "Pessoa jurídica"
 
 msgid "Nome"
-msgstr ""
+msgstr "Nome"
 
 msgid "Razão social"
-msgstr ""
+msgstr "Razão social"
 
-msgid "You must inform your name"
-msgstr ""
+msgid "Debes informar tu nombre"
+msgstr "Você deve informar seu nome"
 
-msgid "Sobrenome"
-msgstr ""
+msgid "Apellido"
+msgstr "Sobrenome"
 
-msgid "You must inform your surname"
-msgstr ""
+msgid "Debes informar tu apellido"
+msgstr "Você deve informar seu sobrenome"
 
 msgid "CPF"
-msgstr ""
+msgstr "CPF"
 
 msgid "CNPJ"
-msgstr ""
+msgstr "CNPJ"
 
-msgid "You must inform your document number"
-msgstr ""
+msgid "Debe informar su número de documento"
+msgstr "Você deve informar seu número de documento"
 
-msgid "Endereço"
-msgstr ""
+msgid "Dirección"
+msgstr "Endereço"
 
-msgid "You must inform your address"
-msgstr ""
+msgid "Debes informar tu dirección"
+msgstr "Você deve informar seu endereço"
 
 msgid "Número"
-msgstr ""
+msgstr "Número"
 
-msgid "You must inform your address number"
-msgstr ""
+msgid "Debe informar su número de dirección"
+msgstr "Você deve informar o número do seu endereço"
 
-msgid "Cidade"
-msgstr ""
+msgid "Ciudad"
+msgstr "Cidade"
 
-msgid "You must inform your city"
-msgstr ""
+msgid "Debes informar a tu ciudad"
+msgstr "Você deve informar sua cidade"
 
 msgid "Estado"
-msgstr ""
+msgstr "Estado"
 
-msgid "Selecione o estado"
-msgstr ""
+msgid "Seleccione estado"
+msgstr "Selecione o estado"
 
-msgid "You must inform your state"
-msgstr ""
+msgid "Debes informar a tu estado"
+msgstr "Você deve informar seu estado"
 
-msgid "CEP"
-msgstr ""
+msgid "Código postal"
+msgstr "CEP"
 
-msgid "You must inform your CEP"
-msgstr ""
+msgid "Debes informar tu código postal"
+msgstr "Você deve informar o CEP"
 
 msgid "Completa todos los campos, son obligatorios."
-msgstr ""
+msgstr "Todos os campos são obrigatórios."
 
 msgid "Por favor, selecciona el emisor de su elección"
-msgstr ""
+msgstr "Por favor, selecione o meio de pagamento"
 
-msgid "Apply"
-msgstr ""
+msgid "Aplicar"
+msgstr "Ativar"
 
-msgid "Remove"
-msgstr ""
+msgid "Retirar"
+msgstr "Remover"
 
-msgid "Please, inform your coupon code"
-msgstr ""
+msgid "Por favor, informe su código de cupón"
+msgstr "Por favor, informe seu cupom de desconto"
 
-msgid "You will save"
-msgstr ""
+msgid "Escoger"
+msgstr "Escolher"
 
-msgid "with discount from"
-msgstr ""
+msgid "Otro banco"
+msgstr "Outro banco"
 
-msgid "Total of your purchase:"
-msgstr ""
+msgid "Salvarás"
+msgstr "Você economizará"
 
-msgid "Total of your purchase with discount:"
-msgstr ""
+msgid "con descuento de"
+msgstr "com desconto de"
 
-msgid "*Uppon payment approval"
-msgstr ""
+msgid "Total de su compra:"
+msgstr "Total da compra"
 
-msgid "Terms and Conditions of Use"
-msgstr ""
+msgid "Total de su compra con descuento:"
+msgstr "Total da compra com desconto"
+
+msgid "*Tras la aprobación del pago"
+msgstr "*Após a aprovação do pagamento"
+
+msgid "Términos y condiciones de uso"
+msgstr "Termos e condições de uso"
 
 // ##########################################
 // basic_checkout.php
 // ##########################################
 
 msgid "Usa el medio de pago que prefieras."
-msgstr ""
+msgstr "Use os meios de pagamento que você preferir."
 
 msgid "Tarjetas de crédito"
-msgstr ""
+msgstr "Cartões de crédito"
 
 msgid "Hasta"
-msgstr ""
+msgstr "Em até"
+
+msgid "cuotas"
+msgstr "x"
 
 msgid "Tarjetas de débito"
-msgstr ""
+msgstr "Cartões de débito"
 
 msgid "Pagos en efectivo"
-msgstr ""
+msgstr "Transferência bancária"
 
 msgid "Te llevamos a nuestro sitio para completar el pago"
-msgstr ""
+msgstr "Você será redirecionado para o site do Mercado Pago para concluir o pagamento"
 
 // ##########################################
 // pse_checkout.php
