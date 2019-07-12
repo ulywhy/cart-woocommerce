@@ -520,15 +520,9 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             return false;
         }
 
-        $_mp_debug_mode = get_option('_mp_debug_mode', '');
-        if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
-            if (empty($_mp_debug_mode)) {
-                return false;
-            }
-        }
-
         $_mp_access_token = get_option('_mp_access_token_prod');
         $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
+
         if ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && $is_prod_credentials) {
             return false;
         }
