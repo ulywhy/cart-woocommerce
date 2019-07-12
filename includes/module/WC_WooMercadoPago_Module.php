@@ -230,13 +230,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function enablePaymentNotice()
     {
-        $message = __('Set up credentials to enable payment methods.', 'woocommerce-mercadopago');
+        $message = __('Complete sus credenciales para habilitar el medios de pago.', 'woocommerce-mercadopago');
         echo '<div class="notice notice-warning is-dismissible">  
                     <p style="font-size:13px">
                         <strong>MERCADO PAGO:</strong> ' . $message . '
                     </p>
                     <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">' . __('Dismiss.', 'woocommerce-mercadopago') . '</span>
+                        <span class="screen-reader-text">' . __('Descartar.', 'woocommerce-mercadopago') . '</span>
                     </button>
               </div>';
     }
