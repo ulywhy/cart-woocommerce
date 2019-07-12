@@ -79,6 +79,7 @@ require_once dirname(__FILE__) . '/includes/module/sdk/lib/MP.php';
 // Load module class if it wasn't loaded yet.
 if (!class_exists('WC_WooMercadoPago_Module'))
 {
+    require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Exception.php';
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Configs.php';
     require_once dirname(__FILE__) . '/includes/module/log/WC_WooMercadoPago_Log.php';
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Module.php';
