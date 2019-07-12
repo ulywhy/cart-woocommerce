@@ -761,67 +761,67 @@ msgstr ""
 // ##########################################
 
 msgid "La solicitud de Mercado Pago ha fallado"
-msgstr ""
+msgstr "La solicitud de Mercado Pago ha fallado"
 
 msgid "La solicitud de Mercado Pago ha fallado"
-msgstr ""
+msgstr "La solicitud de Mercado Pago ha fallado"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "Email del comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Medio de pago"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "Email del comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Medio de pago"
 
 msgid "Envío Gratuito"
-msgstr ""
+msgstr "Envío Gratuito"
 
 msgid "Etiqueta lista para imprimir"
-msgstr ""
+msgstr "Etiqueta lista para imprimir"
 
 msgid "Etiqueta impresa"
-msgstr ""
+msgstr "Etiqueta impresa"
 
 msgid "Fracasado"
-msgstr ""
+msgstr "Fracasado"
 
 msgid "Envío retrasado"
-msgstr ""
+msgstr "Envío retrasado"
 
 msgid "Destinatario ausente para envío"
-msgstr ""
+msgstr "Destinatario ausente para envío"
 
 msgid "Volviendo al remitente"
-msgstr ""
+msgstr "Volviendo al remitente"
 
 msgid "El comprador ha iniciado una discusión y pide un extorno."
-msgstr ""
+msgstr "El comprador ha iniciado una discusión y pide un extorno."
 
 msgid "Pedido"
-msgstr ""
+msgstr "Pedido"
 
 msgid "Hola,"
-msgstr ""
+msgstr "Hola,"
 
-msgid "YSu pedido"
-msgstr ""
+msgid "Su pedido"
+msgstr "Su pedido"
 
 msgid "hecho en"
-msgstr ""
+msgstr "hecho en"
 
 msgid "utilizó el Mercado Envíos como su medio de envío."
-msgstr ""
+msgstr "utilizó el Mercado Envíos como su medio de envío."
 
 msgid "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
-msgstr ""
+msgstr "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
 
 msgid "Saludos."
-msgstr ""
+msgstr "Saludos."
 
 // ##########################################
 // WC_WooMercadoPago_Notification_Webhook.php
@@ -985,11 +985,11 @@ msgstr "Servicio de envío utilizado por la tienda."
 // WC_WooMercadoPago_PreferenceCustom.php
 // ##########################################
 
-msgid "Discount provided by store"
-msgstr ""
+msgid "Descuento proporcionado por la tienda"
+msgstr "Descuento proporcionado por la tienda"
 
-msgid "Discount provided by store"
-msgstr ""
+msgid "Descuento proporcionado por la tienda"
+msgstr "Descuento proporcionado por la tienda"
 
 // ##########################################
 // MP.php
@@ -1096,8 +1096,8 @@ msgstr "El plugin de Mercado Pago requiere la versión de PHP 5.6 o posterior. P
 msgid "Parece que ya tienes instalado el módulo de Mercado Pago. Por favor, desinstálalo antes de usar esta versión."
 msgstr "Parece que ya tienes instalado el módulo de Mercado Pago. Por favor, desinstálalo antes de usar esta versión."
 
-msgid "Cancelar pedido"
-msgstr "Cancelar pedido"
+msgid "Cancelar orden"
+msgstr "Cancelar orden"
 
 // ##########################################
 // custom_checkout.php

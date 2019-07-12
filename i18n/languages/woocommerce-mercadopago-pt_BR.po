@@ -761,198 +761,198 @@ msgstr ""
 // ##########################################
 
 msgid "La solicitud de Mercado Pago ha fallado"
-msgstr ""
+msgstr "A solicitação do Mercado Pago falhou"
 
 msgid "La solicitud de Mercado Pago ha fallado"
-msgstr ""
+msgstr "A solicitação do Mercado Pago falhou"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "E-mail do comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Meio de pagamento"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "E-mail do comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Meio de pagamento"
 
 msgid "Envío Gratuito"
-msgstr ""
+msgstr "Envio grátis"
 
 msgid "Etiqueta lista para imprimir"
-msgstr ""
+msgstr "Etiqueta pronta para impressão"
 
 msgid "Etiqueta impresa"
-msgstr ""
+msgstr "Etiqueta impressa"
 
 msgid "Fracasado"
-msgstr ""
+msgstr "Falhou"
 
 msgid "Envío retrasado"
-msgstr ""
+msgstr "Envio atrasado"
 
 msgid "Destinatario ausente para envío"
-msgstr ""
+msgstr "Destinatário ausente para entrega"
 
 msgid "Volviendo al remitente"
-msgstr ""
+msgstr "Devolvendo ao remetente"
 
 msgid "El comprador ha iniciado una discusión y pide un extorno."
-msgstr ""
+msgstr "O comprador iniciou uma discussão e pede um retorno."
 
 msgid "Pedido"
-msgstr ""
+msgstr "Pedido"
 
 msgid "Hola,"
-msgstr ""
+msgstr "Olá,"
 
-msgid "YSu pedido"
-msgstr ""
+msgid "Su pedido"
+msgstr "Seu pedido"
 
 msgid "hecho en"
-msgstr ""
+msgstr "feito em"
 
 msgid "utilizó el Mercado Envíos como su medio de envío."
-msgstr ""
+msgstr "utilizou Mercado Envios como seu meio de entrega."
 
 msgid "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
-msgstr ""
+msgstr "Você pode rastreá-lo com o seguinte código de rastreio:"
 
 msgid "Saludos."
-msgstr ""
+msgstr "Saudações."
 
 // ##########################################
 // WC_WooMercadoPago_Notification_Webhook.php
 // ##########################################
 
 msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
-msgstr ""
+msgstr "Por favor, digite seu e-mail no endereço de faturamento para usar este serviço"
 
 msgid "La solicitud de Mercado Pago ha fallado"
-msgstr ""
+msgstr "A solicitação do Mercado Pago falhou"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "E-mail do comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Meio de pagamento"
 
 msgid "Email del comprador"
-msgstr ""
+msgstr "E-mail do comprador"
 
 msgid "Medio de pago"
-msgstr ""
+msgstr "Meio de pagamento"
 
 // ##########################################
 // WC_WooMercadoPago_Module.php
 // ##########################################
 
 msgid "Complete sus credenciales para habilitar el medios de pago."
-msgstr ""
+msgstr "Digite suas credenciais para ativar os meios de pagamento."
 
 msgid "Descartar"
 msgstr "Dispersar"
 
 msgid "¡El módulo de pago de Woo Mercado depende de la última versión de% s para ejecutar!"
-msgstr ""
+msgstr "O módulo de pagamento do Mercado Pago depende da última versão do% s para ser executado!"
 
 msgid "Configurar"
-msgstr ""
+msgstr "Configurar"
 
 msgid "Tu opnión nos ayuda a mejorar"
-msgstr ""
+msgstr "Sua opinião nos ajuda a melhorar"
 
 msgid "Guías y Documentación"
-msgstr ""
+msgstr "Guias e documentação"
 
 msgid "Informar Problema"
-msgstr ""
+msgstr "Informar Problema"
 
 msgid "Por Mercado Pago"
-msgstr ""
+msgstr "Por Mercado Pago"
 
 msgid "¡El <strong> Sponsor ID </strong> debe ser válido!"
-msgstr ""
+msgstr "O <strong> Sponsor ID </strong> deve ser válido!"
 
 msgid "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
-msgstr ""
+msgstr "O <strong>Sponsor ID</strong> deve ser do mesmo país que o vendedor!"
 
 msgid "¡El <strong> Sponsor ID </strong> debe ser válido!"
-msgstr ""
+msgstr "O <strong> Sponsor ID </strong> deve ser válido!"
 
 msgid "El medio de pago no es válido o no está disponible."
-msgstr ""
+msgstr "O meio de pagamento não é válido ou não está disponível."
 
 msgid "El monto de transacción no puede ser procesado por Mercado Pago."
-msgstr ""
+msgstr "O valor da transação não pode ser processado pelo Mercado Pago."
 
 msgid "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
-msgstr ""
+msgstr "Possíveis causas: Moeda não suportada; Valores abaixo do mínimo ou acima do máximo permitido."
 
 msgid "Los usuários no son válidos."
-msgstr ""
+msgstr "Os usuários não são válidos."
 
 msgid "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
-msgstr ""
+msgstr "Possíveis causas: o comprador e o vendedor têm a mesma conta no Mercado Pago; A transação está envolvendo usuários de produção e teste."
 
 msgid "Uso no autorizado de credenciales de producción."
-msgstr ""
+msgstr "Uso não autorizado de credenciais de produção."
 
 msgid "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
-msgstr ""
+msgstr "Possíveis causas: Pendência de permissão de uso na produção para a credencial do vendedor."
 
 msgid "ERROR: No fue posible convertir la moneda no soportada"
-msgstr ""
+msgstr "ERRO: não foi possível converter a moeda; Moeda não suportada"
 
 msgid "para"
-msgstr ""
+msgstr "para"
 
 msgid "Las conversiones de monedas deben hacerse fuera de este módulo."
-msgstr ""
+msgstr "As conversões de moeda devem ser feitas fora deste módulo."
 
 msgid "ATENCION: La moneda"
-msgstr ""
+msgstr "ATENÇÃO: A moeda"
 
 msgid "definida en WooCommerce es diferente la utilizada por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será"
-msgstr ""
+msgstr "definida no WooCommerce é diferente daquela usada pelas credenciais do seu país. <br> A moeda para transações feitas com este método de pagamento será"
 
 msgid "Las conversiones de moneda deben hacerse fuera de este módulo."
-msgstr ""
+msgstr "As conversões de moeda devem ser feitas fora deste módulo."
 
 msgid "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
-msgstr ""
+msgstr "CONVERSÃO DE MOEDA: sua loja está convertendo moeda"
 
 msgid "para"
-msgstr ""
+msgstr "para"
 
 msgid "Colombia"
-msgstr ""
+msgstr "Colombia"
 
 msgid "Argentina"
-msgstr ""
+msgstr "Argentina"
 
 msgid "Brasil"
-msgstr ""
+msgstr "Brasil"
 
 msgid "Chile"
-msgstr ""
+msgstr "Chile"
 
 msgid "México"
-msgstr ""
+msgstr "México"
 
 msgid "Uruguay"
-msgstr ""
+msgstr "Uruguai"
 
 msgid "Venezuela"
-msgstr ""
+msgstr "Venezuela"
 
 msgid "Peru"
-msgstr ""
+msgstr "Perú"
 
 msgid "Actualizar la orden de WooCommerce para "
-msgstr ""
+msgstr "Atualizar a ordem do WooCommerce para "
 
 // ##########################################
 // WC_WooMercadoPago_Credentials.php
@@ -1096,8 +1096,8 @@ msgstr "O plugin do Mercado Pago para o WooCommerce requer o PHP versão 5.6 ou 
 msgid "Parece que ya tienes instalado el módulo de Mercado Pago. Por favor, desinstálalo antes de usar esta versión."
 msgstr "Parece que você já tem o Módulo do Mercado Pago instalado. Por favor, desinstale-o antes de usar esta versão."
 
-msgid "Cancelar pedido"
-msgstr "Cancelar pedido"
+msgid "Cancelar orden"
+msgstr "Cancelar ordem"
 
 // ##########################################
 // custom_checkout.php

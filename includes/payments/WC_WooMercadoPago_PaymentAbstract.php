@@ -177,6 +177,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         if (isset($_GET['section']) && !empty($_GET['section']) && ($this->id != $_GET['section'])) {
             return false;
         }
+
+        if (isset($_REQUEST['payment_method']) && ($_REQUEST['payment_method'] != $this->id)) {
+            return false;
+        }
+
         return true;
     }
 
