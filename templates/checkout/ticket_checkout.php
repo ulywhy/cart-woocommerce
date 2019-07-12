@@ -135,7 +135,7 @@ if (!defined('ABSPATH')) {
                             </div>
                         </div>
 
-                        <div class="col-md-12 pt-10 pb-30">
+                        <div class="col-md-12 pt-10">
                             <div class="frame-tarjetas">
                                 <div class="row pt-10">
                                     <p class="mp-obrigatory"><?= esc_html__('Completa todos los campos, son obligatorios.', 'woocommerce-mercadopago'); ?></p>
@@ -144,9 +144,10 @@ if (!defined('ABSPATH')) {
                         </div>
                     </div>
 
-                    <div class="col-md-12">
-                        <div class="frame-tarjetas">
-                            <?php if (count($payment_methods) > 1) : ?>
+
+                    <?php if (count($payment_methods) > 1) : ?>
+                        <div class="col-md-12 pt-30">
+                            <div class="frame-tarjetas">
                                 <p class="subtitle-ticket-checkout"><?=__('Por favor, selecciona el emisor de su elección', 'woocommerce-mercadopago')?></p>
 
                                 <div class="row pt-10">
@@ -164,11 +165,15 @@ if (!defined('ABSPATH')) {
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
-                            <?php else: ?>
-                                <input type="hidden" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id']; ?>" value="<?= $payment['id']; ?>" />
-                            <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
+                    <?php else: ?>
+                        <?php foreach ($payment_methods as $payment) : ?>
+                            <div id="paymentMethodIdTicket" class="ticket-payments">
+                                <input type="hidden" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id']; ?>" value="<?= $payment['id']; ?>" />
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
 
                 </div>
             </div>

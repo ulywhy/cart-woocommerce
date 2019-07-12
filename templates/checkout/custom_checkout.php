@@ -11,8 +11,9 @@ if (!defined('ABSPATH')) {
 		<div class="mp-frame-links">
 			<a class="mp-checkout-link pr-10" id="button-show-payments">
 				<?=__('Con qué Tarjetas puedo pagar', 'woocommerce-mercadopago')?> ⌵
-			</a> |
-			<a href="" class="mp-checkout-link pl-10" target="_blank">
+			</a> 
+			<span id="mp_promotion_link"> | </span> 
+			<a href="https://www.mercadopago.com.ar/cuotas" id="mp_checkout_link" class="mp-checkout-link pl-10" target="_blank">
 				<?=__('Ver promociones vigentes', 'woocommerce-mercadopago')?>
 			</a>
 		</div>
@@ -342,6 +343,8 @@ if (!defined('ABSPATH')) {
 			selectors: {
 				// others
 				mp_doc_div: "#mp-doc-div",
+				mpCheckoutLink: "#mp_checkout_link",
+				mpPromotionLink: "#mp_promotion_link",
 				// currency
 				currency_ratio: "#currency_ratio",
 				// coupom
@@ -1247,6 +1250,12 @@ if (!defined('ABSPATH')) {
 			//hide errors
 			MPv1.hideErrors();
 
+			//promotion link
+			if (MPv1.site_id != "MLA") {
+				document.querySelector(MPv1.selectors.mpCheckoutLink).style.display = "none";
+				document.querySelector(MPv1.selectors.mpPromotionLink).style.display = "none";
+			}
+			
 			Mercadopago.setPublishableKey(MPv1.public_key);
 
 			// flow coupon of discounts
