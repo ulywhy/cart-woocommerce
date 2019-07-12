@@ -15,6 +15,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static $country_configs = array();
     public static $site_data;
     public static $instance = null;
+    public static $mpInstancePayment = array();
     public static $mpInstance = null;
     public static $payments_name = null;
 
@@ -64,9 +65,11 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $validateCredentialsType = $credentials->validateCredentialsType();
         if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_TOKEN) {
             $mp = new MP(self::get_module_version(), $credentials->accessToken);
+            $mp->setPaymentClass($payment);
         }
         if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_CLIENT) {
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
+            $mp->setPaymentClass($payment);
         }
 
         if (!isset($mp)) {
@@ -90,8 +93,16 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function getMpInstanceSingleton($payment = null)
     {
+        if(!empty($payment)){
+            $class = get_class($payment);
+            if (self::$mpInstancePayment[$class] === null) {
+                self::$mpInstancePayment[$class] = self::getMpInstance($payment);
+            }
+            return self::$mpInstancePayment[$class];
+        }
+
         if (self::$mpInstance === null) {
-            self::$mpInstance = self::getMpInstance($payment);
+            self::$mpInstance = self::getMpInstance();
         }
         return self::$mpInstance;
     }
