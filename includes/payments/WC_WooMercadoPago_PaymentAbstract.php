@@ -903,17 +903,17 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'description' => __('¿Cuál es el máximo de cuotas con las que un cliente puede comprar?', 'woocommerce-mercadopago'),
             'default' => '24',
             'options' => array(
-                '1' => __('1x installment', 'woocommerce-mercadopago'),
-                '2' => __('2x installmens', 'woocommerce-mercadopago'),
-                '3' => __('3x installmens', 'woocommerce-mercadopago'),
-                '4' => __('4x installmens', 'woocommerce-mercadopago'),
-                '5' => __('5x installmens', 'woocommerce-mercadopago'),
-                '6' => __('6x installmens', 'woocommerce-mercadopago'),
-                '10' => __('10x installmens', 'woocommerce-mercadopago'),
-                '12' => __('12x installmens', 'woocommerce-mercadopago'),
-                '15' => __('15x installmens', 'woocommerce-mercadopago'),
-                '18' => __('18x installmens', 'woocommerce-mercadopago'),
-                '24' => __('24x installmens', 'woocommerce-mercadopago')
+                '1' => __('1x cuota', 'woocommerce-mercadopago'),
+                '2' => __('2x cuotas', 'woocommerce-mercadopago'),
+                '3' => __('3x cuotas', 'woocommerce-mercadopago'),
+                '4' => __('4x cuotas', 'woocommerce-mercadopago'),
+                '5' => __('5x cuotas', 'woocommerce-mercadopago'),
+                '6' => __('6x cuotas', 'woocommerce-mercadopago'),
+                '10' => __('10x cuotas', 'woocommerce-mercadopago'),
+                '12' => __('12x cuotas', 'woocommerce-mercadopago'),
+                '15' => __('15x cuotas', 'woocommerce-mercadopago'),
+                '18' => __('18x cuotas', 'woocommerce-mercadopago'),
+                '24' => __('24x cuotas', 'woocommerce-mercadopago')
             )
         );
         return $installments;
@@ -972,7 +972,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $noCredentials = array(
             'title' => sprintf(
                 __('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago'),
-                '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Mercado Pago Settings', 'woocommerce-mercadopago') .
+                '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Mercado Pago Configuración', 'woocommerce-mercadopago') .
                 '</a>'
             ),
             'type' => 'title'
@@ -990,7 +990,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'type' => 'select',
             'default' => 'no',
             'description' => __('Acepta y rechaza pagos de forma automática. ¿Quieres que lo activemos?', 'woocommerce-mercadopago'),
-            'desc_tip' => __('DSi activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta.', 'woocommerce-services'),
+            'desc_tip' => __('Si activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta.', 'woocommerce-services'),
             'options' => array(
                 'yes' => __('Sí', 'woocommerce-mercadopago'),
                 'no' => __('No', 'woocommerce-mercadopago')
