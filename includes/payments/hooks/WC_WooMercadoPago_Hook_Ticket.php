@@ -56,6 +56,8 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
             $infra_data['checkout_custom_ticket_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
             $this->mpInstance->analytics_save_settings($infra_data);
         }
+
+
               return $updateOptions;
     }
 

@@ -14,7 +14,7 @@ class WC_WooMercadoPago_Credentials
     public $accessToken;
     public $clientId;
     public $clientSecret;
-    public $testUser;
+    public $sandbox;
     public $log;
 
     /**
@@ -28,7 +28,7 @@ class WC_WooMercadoPago_Credentials
         $accessToken = get_option('_mp_access_token_prod', '');
 
         if (!is_null($this->payment)) {
-            $this->testUser = $payment->isTestUser();
+            $this->sandbox = $payment->isTestUser();
             if ($this->payment->getOption('checkout_credential_production', '') == 'no' || empty($this->payment->getOption('checkout_credential_production', ''))) {
                 $publicKey = get_option('_mp_public_key_test', '');
                 $accessToken = get_option('_mp_access_token_test', '');
@@ -90,7 +90,7 @@ class WC_WooMercadoPago_Credentials
     /**
      * Set no Credentials
      */
-    public function setNoCredentials()
+    public static function setNoCredentials()
     {
         update_option('_test_user_v1', '', true);
         update_option('_site_id_v1', '', true);
@@ -98,6 +98,7 @@ class WC_WooMercadoPago_Credentials
         update_option('_all_payment_methods_v0', array(), true);
         update_option('_all_payment_methods_ticket', '[]', true);
         update_option('_can_do_currency_conversion_v1', false, true);
+
     }
 
     /**
@@ -120,6 +121,7 @@ class WC_WooMercadoPago_Credentials
 
         if (isset($get_request['response']['site_id'])) {
             update_option('_site_id_v1', $get_request['response']['site_id'], true);
+            update_option('_test_user_v1', in_array('test_user', $get_request['response']['tags']), true);
         }
 
         return true;
@@ -135,7 +137,7 @@ class WC_WooMercadoPago_Credentials
         if (!$credentials->tokenIsValid()) {
             $basicIsEnabled = self::basicIsEnabled();
             if ($basicIsEnabled != 'yes') {
-                $credentials->setNoCredentials();
+                self::setNoCredentials();
                 return false;
             }
         }
@@ -143,7 +145,7 @@ class WC_WooMercadoPago_Credentials
         try {
             $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
             if ($mp_v1 instanceof MP == false) {
-                $credentials->setNoCredentials();
+                self::setNoCredentials();
                 return false;
             }
             $access_token = $mp_v1->get_access_token();
@@ -171,7 +173,7 @@ class WC_WooMercadoPago_Credentials
             $log->write_log('validate_credentials_v1', 'Exception ERROR');
         }
 
-        $credentials->setNoCredentials();
+        self::setNoCredentials();
         return false;
     }
 

@@ -100,15 +100,6 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
     public function custom_process_admin_options()
     {
         $updateOptions = parent::custom_process_admin_options();
-        if (!empty($this->siteId)) {
-            // Analytics.
-            if (!$this->testUser) {
-                $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-                $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
-                $this->mpInstance->analytics_save_settings($infra_data);
-            }
-        }
-
         return $updateOptions;
     }
 
