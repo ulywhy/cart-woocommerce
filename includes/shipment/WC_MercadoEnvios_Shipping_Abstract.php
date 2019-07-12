@@ -27,7 +27,7 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
         add_action('init', array($this, 'load_plugin_textdomain'));
 
         $this->instance_id = absint($instance_id);
-        $this->method_description = __('Mercado Envios is a shipping method available only for payments with Mercado Pago.', 'woocommerce-mercadopago');
+        $this->method_description = __('Mercado Envios es un método de envío disponible solo para pagos con Mercado Pago.', 'woocommerce-mercadopago');
         $this->supports = array(
             'shipping-zones',
             'instance-settings',
@@ -153,15 +153,15 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
             if ($shipping_method_id == $shipping['shipping_method_id']) {
                 $label_free_shipping = '';
                 if ($this->get_option('free_shipping') == 'yes' || $shipping['cost'] == 0) {
-                    $label_free_shipping = __('Free Shipping', 'woocommerce-mercadopago');
+                    $label_free_shipping = __('Envío gratis', 'woocommerce-mercadopago');
                 }
                 $label_delivery_time = '';
                 if ($this->get_option('show_delivery_time') == 'yes') {
                     $days = $shipping['estimated_delivery_time']['shipping'] / 24;
                     if ($days <= 1) {
-                        $label_delivery_time = $days . ' ' . __('Day', 'woocommerce-mercadopago');
+                        $label_delivery_time = $days . ' ' . __('Día', 'woocommerce-mercadopago');
                     } else {
-                        $label_delivery_time = $days . ' ' . __('Days', 'woocommerce-mercadopago');
+                        $label_delivery_time = $days . ' ' . __('Dias', 'woocommerce-mercadopago');
                     }
                 }
                 $separator = '';
@@ -215,7 +215,7 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
         if ($this->show_message_shipping_methods()) {
             $warning_active_shipping_methods = '<img width="14" height="14" src="' .
                 plugins_url('assets/images/warning.png', dirname(dirname(__FILE__))) . '">' . ' ' .
-                __('Enable the two shipping methods the Mercado Envios (Express and Normal) for the proper functioning of the module.', 'woocommerce-mercadopago');
+                __('Habilite los dos métodos de envío: Mercado Envios (Express y Normal) para el correcto funcionamiento del módulo.', 'woocommerce-mercadopago');
         }
         $this->instance_form_fields = array(
             'mercado_envios_title' => array(
@@ -226,21 +226,21 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
             'title' => array(
                 'title' => __('Mercado Envios', 'woocommerce-mercadopago'),
                 'type' => 'text',
-                'description' => __('This controls the title which the user sees during checkout.', 'woocommerce-mercadopago'),
+                'description' => __('Esto controla el título que el usuario ve durante el proceso de pago.', 'woocommerce-mercadopago'),
                 'default' => __('Mercado Envios', 'woocommerce-mercadopago'),
                 'desc_tip' => true,
             ),
             'free_shipping' => array(
-                'title' => __('Free Shipping', 'woocommerce-mercadopago'),
+                'title' => __('Envío gratis', 'woocommerce-mercadopago'),
                 'type' => 'checkbox',
-                'label' => __('Enable free shipping for this shipping method', 'woocommerce-mercadopago'),
+                'label' => __('Habilitar envío gratis para este método de envío', 'woocommerce-mercadopago'),
                 'default' => 'no',
             ),
             'show_delivery_time' => array(
-                'title' => __('Delivery Time', 'woocommerce-mercadopago'),
+                'title' => __('El tiempo de entrega', 'woocommerce-mercadopago'),
                 'type' => 'checkbox',
-                'label' => __('Show estimated delivery time', 'woocommerce-mercadopago'),
-                'description' => __('Display the estimated delivery time in working days.', 'woocommerce-mercadopago'),
+                'label' => __('Mostrar tiempo estimado de entrega', 'woocommerce-mercadopago'),
+                'description' => __('Mostrar el tiempo estimado de entrega en días laborables.', 'woocommerce-mercadopago'),
                 'desc_tip' => true,
                 'default' => 'no',
             )
