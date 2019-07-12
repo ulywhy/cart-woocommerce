@@ -408,7 +408,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 !isset($ticket_checkout['zipcode']) || empty($ticket_checkout['zipcode'])) {
                 wc_add_notice(
                     '<p>' .
-                    __('A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago') .
+                    __('Se produjo un problema al procesar su pago. ¿Está seguro de que ha llenado correctamente toda la información en el formulario de pago?', 'woocommerce-mercadopago') .
                     '</p>',
                     'error'
                 );
@@ -439,14 +439,14 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                         // Shows some info in checkout page.
                         $order->add_order_note(
                             'Mercado Pago: ' .
-                            __('Customer haven\'t paid yet.', 'woocommerce-mercadopago')
+                            __('El cliente no ha pagado todavía.', 'woocommerce-mercadopago')
                         );
                         $order->add_order_note(
                             'Mercado Pago: ' .
-                            __('To reprint the ticket click ', 'woocommerce-mercadopago') .
+                            __('Para imprimir nuevamente el ticket hace clic ', 'woocommerce-mercadopago') .
                             '<a target="_blank" href="' .
                             $response['transaction_details']['external_resource_url'] . '">' .
-                            __('here', 'woocommerce-mercadopago') .
+                            __('aquí', 'woocommerce-mercadopago') .
                             '</a>', 1, false
                         );
                         return array(
@@ -459,7 +459,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 // Process when fields are imcomplete.
                 wc_add_notice(
                     '<p>' .
-                    __('A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago') . ' MERCADO PAGO: ' .
+                    __('Un problema se produjo al procesar su pago. ¿Esta seguro que ha rellenado correctamente toda la información en el formulario de checkout?', 'woocommerce-mercadopago') . ' MERCADO PAGO: ' .
                     WC_WooMercadoPago_Module::get_common_error_messages($response) .
                     '</p>',
                     'error'
@@ -473,7 +473,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             // Process when fields are imcomplete.
             wc_add_notice(
                 '<p>' .
-                __('A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago') .
+                __('Un problema se produjo al procesar su pago. Por favor, inténtelo de nuevo.', 'woocommerce-mercadopago') .
                 '</p>',
                 'error'
             );
