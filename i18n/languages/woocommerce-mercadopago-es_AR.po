@@ -511,49 +511,49 @@ msgstr "Esta medio de pago no puede procesar su pago."
 msgid "Pago aprobado"
 msgstr "Pago aprobado"
 
-msgid "Check your order resume"
-msgstr ""
+msgid "Ver su hoja de pedido"
+msgstr "Ver su hoja de pedido"
 
-msgid "Your payment was refused. You can try again."
-msgstr ""
+msgid "Su pago fue rechazado. Puede intentarlo de nuevo."
+msgstr "Su pago fue rechazado. Puede intentarlo de nuevo."
 
-msgid "Click to try again"
-msgstr ""
+msgid "Haz clic para intentarlo de nuevo"
+msgstr "Haz clic para intentarlo de nuevo"
 
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
-msgstr ""
+msgstr "Un problema se produjo al procesar su pago. ¿Esta seguro que ha rellenado correctamente toda la información en el formulario de checkout?"
 
 msgid "A problem was occurred when processing your payment. Please, try again."
-msgstr ""
+msgstr "Se produjo un problema al procesar su pago. Inténtalo de nuevo."
 
 // ##########################################
 // WC_WooMercadoPago_Hook_Pse.php
 // ##########################################
 
 msgid "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
-msgstr ""
+msgstr "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
 
 msgid "Transferir"
-msgstr ""
+msgstr "Transferir"
 
 msgid "Descuento para el cupón %s"
-msgstr ""
+msgstr "Descuento para el cupón %s"
 
 // ##########################################
 // WC_WooMercadoPago_Hook_Abstract.php
 // ##########################################
 
 msgid "Descuento para el cupón %s"
-msgstr ""
+msgstr "Descuento para el cupón %s"
 
 msgid "Descuento de"
-msgstr ""
-
-msgid "Descuento de"
-msgstr ""
+msgstr "Descuento de"
 
 msgid "Tarifa de"
-msgstr ""
+msgstr "Tarifa de"
+
+msgid " y Tarifa de"
+msgstr " y Tarifa de"
 
 // ##########################################
 // WC_WooMercadoPago_Hook_Custom.php
@@ -564,87 +564,87 @@ msgstr ""
 // ##########################################
 
 msgid "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
-msgstr ""
+msgstr "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
 
 msgid "Pagar con Mercado Pago"
-msgstr ""
+msgstr "Pagar con Mercado Pago"
 
 msgid "Cancelar & Limpiar carrito"
-msgstr ""
+msgstr "Cancelar & Limpiar carrito"
 
 msgid "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
-msgstr ""
+msgstr "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
 
 msgid "Haga clic para intentarlo de nuevo"
-msgstr ""
+msgstr "Haga clic para intentarlo de nuevo"
 
 // ##########################################
 // WC_WooMercadoPago_Hook_Ticket.php
 // ##########################################
 
 msgid "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
-msgstr ""
+msgstr "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
 
 msgid "Imprimir el ticket"
-msgstr ""
+msgstr "Imprimir el ticket"
 
 // ##########################################
 // WC_WooMercadoPago_Product_Recurrent.php
 // ##########################################
 
 msgid "Mercado Pago Subscription"
-msgstr ""
+msgstr "Mercado Pago Subscription"
 
 msgid "Operation successfully completed."
-msgstr ""
+msgstr "La operación se realizó con éxito."
 
 msgid "This operation could not be completed."
-msgstr ""
+msgstr "Esta operación no se puede completar."
 
 msgid "Payment ID:"
-msgstr ""
+msgstr "ID de Pago:"
 
 msgid "Amount:"
-msgstr ""
+msgstr "Cantidad:"
 
 msgid "Refund Payment"
-msgstr ""
+msgstr "Reembolso de Pago"
 
 msgid "Cancel Payment"
-msgstr ""
+msgstr "Cancelar Pago"
 
 msgid "A recurrent product is a signature that should be bought isolated in your cart. Please, create separated orders."
-msgstr ""
+msgstr "Un producto recurrente es una suscripción que debe adquirirse por separado en su carrito. Por favor, hace los pedidos por separado."
 
 msgid "Recurrent Product"
-msgstr ""
+msgstr "Producto Recurrente"
 
 msgid "Make this product a subscription."
-msgstr ""
+msgstr "Hacer deste producto una suscripción."
 
 msgid "Frequency"
-msgstr ""
+msgstr "Frecuencia"
 
 msgid "Amount of time (in days or months) for the execution of the next payment."
-msgstr ""
+msgstr "Cantidad de tiempo (en días o meses) para la ejecución del próximo pago."
 
 msgid "Frequency type"
-msgstr ""
+msgstr "Tipo de frecuencia"
 
 msgid "Indicates the period of time."
-msgstr ""
+msgstr "Indica el período de tiempo."
 
 msgid "Days"
-msgstr ""
+msgstr "Días"
 
 msgid "Months"
-msgstr ""
+msgstr "Meses"
 
 msgid "End date"
-msgstr ""
+msgstr "Fecha final"
 
 msgid "Deadline to generate new charges. Defaults to never if blank."
-msgstr ""
+msgstr "Fecha límite para generar nuevos cargos. De forma predeterminada como nunca, si está en blanco."
 
 // ##########################################
 // WC_WooMercadoPago_PSEGateway.php

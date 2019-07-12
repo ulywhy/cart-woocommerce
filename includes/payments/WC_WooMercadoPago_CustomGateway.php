@@ -399,7 +399,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                         wc_add_notice(
                             '<p>' . $this->get_order_status($response['status_detail']) . '</p>' .
                                 '<p><a class="button" href="' . esc_url($order->get_checkout_order_received_url()) . '">' .
-                                __('Check your order resume', 'woocommerce-mercadopago') .
+                                __('Ver su hoja de pedido', 'woocommerce-mercadopago') .
                                 '</a></p>',
                             'notice'
                         );
@@ -411,11 +411,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                     case 'rejected':
                         // If rejected is received, the order will not proceed until another payment try, so we must inform this status.
                         wc_add_notice(
-                            '<p>' . __('Your payment was refused. You can try again.', 'woocommerce-mercadopago') . '<br>' .
+                            '<p>' . __('Su pago fue rechazado. Puede intentarlo de nuevo.', 'woocommerce-mercadopago') . '<br>' .
                                 $this->get_order_status($response['status_detail']) .
                                 '</p>' .
                                 '<p><a class="button" href="' . esc_url($order->get_checkout_payment_url()) . '">' .
-                                __('Click to try again', 'woocommerce-mercadopago') .
+                                __('Haz clic para intentarlo de nuevo', 'woocommerce-mercadopago') .
                                 '</a></p>',
                             'error'
                         );
