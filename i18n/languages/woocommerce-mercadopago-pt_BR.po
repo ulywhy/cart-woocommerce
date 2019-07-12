@@ -490,69 +490,43 @@ msgid "Title"
 msgstr "Título"
 
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 msgid "Sigue estos pasos para activar Mercado Pago en tu tienda:"
-msgstr ""
+msgstr "Siga estas etapas para ativar o Mercado Pago na sua loja:"
 
 msgid "Carga tus credenciales para testear la tienda y cobrar con tu cuenta de Mercado Pago según el país en el que estés registrado."
-msgstr ""
+msgstr "Adicione suas credenciais para testar a loja e cobrar com sua conta do Mercado Pago conforme o país onde você está cadastrado."
 
 msgid "Homologa tu cuenta para poder cobrar."
-msgstr ""
+msgstr "Homologue sua conta do Mercado Pago"
 
 msgid "Añade la información básica de tu negocio en la configuración del plugin."
-msgstr ""
+msgstr "Adicione as informações básicas do seu negócio na configuração do plugin"
 
 msgid "Configura las preferencias de pago para tus clientes."
-msgstr ""
+msgstr "Configure a experiência de pagamento final: habilite o Mercado Pago na sua loja, selecione os meios de pagamento disponíveis para seus clientes e defina o número máximo de vezes que podem parcelar suas compras"
 
 msgid "Ve a configuraciones avanzadas tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos."
-msgstr ""
+msgstr "Faça as configurações avançadas tanto do plugin como do checkout somente quando quiser alterar os ajustes pré-definidos"
 
-msgid "Las credenciales son las claves que te proporcionamos para que integres de forma rápida 
-y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar 
-en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
-msgstr ""
+msgid "Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
+msgstr "As credenciais são as senhas que informamos para que você integre de forma rápida e segura. %s para ir a Produção e receber pagamentos na sua loja. Você não precisa de conhecimentos de programação ou design para ativar o Mercado Pago na sua loja."
 
 msgid "cuenta homologada"
-msgstr ""
+msgstr "Homologue sua conta"
 
 msgid "¿En qué país opera tu cuenta de Mercado Pago?"
-msgstr ""
+msgstr "Em qual país a sua conta do Mercado Pago opera?"
 
 msgid "Selecciona tu país"
-msgstr ""
+msgstr "País"
 
 msgid "Selecciona el país en el que operás con Mercado Pago."
-msgstr ""
-
-msgid "Argentina"
-msgstr ""
-
-msgid "Brasil"
-msgstr ""
-
-msgid "Chile"
-msgstr ""
-
-msgid "Colombia"
-msgstr ""
-
-msgid "México"
-msgstr ""
-
-msgid "Perú"
-msgstr ""
-
-msgid "Uruguay"
-msgstr ""
-
-msgid "%s"
-msgstr ""
+msgstr "Selecione o país onde sua conta do Mercado Pago opera"
 
 msgid "Guardar cambios"
-msgstr ""
+msgstr "salvar alterações"
 
 msgid "Activar checkout"
 msgstr ""

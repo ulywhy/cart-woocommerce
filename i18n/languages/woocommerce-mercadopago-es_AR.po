@@ -490,69 +490,43 @@ msgid "Title"
 msgstr "Título"
 
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 msgid "Sigue estos pasos para activar Mercado Pago en tu tienda:"
-msgstr ""
+msgstr "Sigue estos pasos para activar Mercado Pago en tu tienda:"
 
 msgid "Carga tus credenciales para testear la tienda y cobrar con tu cuenta de Mercado Pago según el país en el que estés registrado."
-msgstr ""
+msgstr "Carga tus credenciales para testear la tienda y cobrar con tu cuenta de Mercado Pago según el país en el que estés registrado."
 
 msgid "Homologa tu cuenta para poder cobrar."
-msgstr ""
+msgstr "Homologa tu cuenta para poder cobrar."
 
 msgid "Añade la información básica de tu negocio en la configuración del plugin."
-msgstr ""
+msgstr "Añade la información básica de tu negocio en la configuración del plugin."
 
 msgid "Configura las preferencias de pago para tus clientes."
-msgstr ""
+msgstr "Configura las preferencias de pago para tus clientes."
 
 msgid "Ve a configuraciones avanzadas tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos."
-msgstr ""
+msgstr "Ve a configuraciones avanzadas tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos."
 
-msgid "Las credenciales son las claves que te proporcionamos para que integres de forma rápida 
-y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar 
-en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
-msgstr ""
+msgid "Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
+msgstr "Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
 
 msgid "cuenta homologada"
-msgstr ""
+msgstr "cuenta homologada"
 
 msgid "¿En qué país opera tu cuenta de Mercado Pago?"
-msgstr ""
+msgstr "¿En qué país opera tu cuenta de Mercado Pago?"
 
 msgid "Selecciona tu país"
-msgstr ""
+msgstr "Selecciona tu país"
 
 msgid "Selecciona el país en el que operás con Mercado Pago."
-msgstr ""
-
-msgid "Argentina"
-msgstr ""
-
-msgid "Brasil"
-msgstr ""
-
-msgid "Chile"
-msgstr ""
-
-msgid "Colombia"
-msgstr ""
-
-msgid "México"
-msgstr ""
-
-msgid "Perú"
-msgstr ""
-
-msgid "Uruguay"
-msgstr ""
-
-msgid "%s"
-msgstr ""
+msgstr "Selecciona el país en el que operás con Mercado Pago."
 
 msgid "Guardar cambios"
-msgstr ""
+msgstr "Guardar cambios"
 
 msgid "Activar checkout"
 msgstr ""

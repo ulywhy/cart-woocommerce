@@ -303,7 +303,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_title()
     {
         $field_title = array(
-            'title' => __('Title', 'woocommerce-mercadopago'),
+            'title' => __('Título', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => '',
             'class' => 'hidden-field-mp-title',
@@ -318,7 +318,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_description()
     {
         $field_description = array(
-            'title' => __('Description', 'woocommerce-mercadopago'),
+            'title' => __('Descripción', 'woocommerce-mercadopago'),
             'type' => 'text',
             'class' => 'hidden-field-mp-desc',
             'description' => '',
