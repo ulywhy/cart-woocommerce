@@ -529,255 +529,205 @@ msgid "Guardar cambios"
 msgstr "Guardar cambios"
 
 msgid "Activar checkout"
-msgstr ""
+msgstr "Activar checkout"
 
 msgid "Activa la experiencia de Mercado Pago en el checkout de tu tienda."
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "Sí"
-msgstr ""
+msgstr "Activa la experiencia de Mercado Pago en el checkout de tu tienda."
 
 msgid "Ingresa tus credenciales y elige cómo operar"
-msgstr ""
+msgstr "Ingresa tus credenciales y elige cómo operar"
 
 msgid "Modo Pruebas"
-msgstr ""
+msgstr "Modo Pruebas"
 
 msgid "Por defecto, te dejamos el modo Sandbox activo para que hagas testeos antes de empezar a vender."
-msgstr ""
+msgstr "Por defecto, te dejamos el modo Sandbox activo para que hagas testeos antes de empezar a vender."
 
 msgid "Modo Producción"
-msgstr ""
+msgstr "Modo Producción"
 
 msgid "Cuando veas que todo va bien, desactivá Sandbox, prendé Producción y abrí paso a tus ventas online."
-msgstr ""
+msgstr "Cuando veas que todo va bien, desactivá Sandbox, prendé Producción y abrí paso a tus ventas online."
 
 msgid "Producción"
-msgstr ""
+msgstr "Producción"
 
 msgid "Elige “SÍ” solo cuando estés listo para vender. Cambia a NO para activar el modo Pruebas."
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "Sí"
-msgstr ""
+msgstr "Elige “SÍ” solo cuando estés listo para vender. Cambia a NO para activar el modo Pruebas."
 
 msgid "Cargar credenciales"
-msgstr ""
+msgstr "Cargar credenciales"
 
 msgid "Buscar mis credenciales"
-msgstr ""
+msgstr "Buscar mis credenciales"
 
 msgid "Credenciales de prueba"
-msgstr ""
+msgstr "Credenciales de prueba"
 
 msgid "Con estas claves podrás hacer las pruebas que quieras."
-msgstr ""
+msgstr "Con estas claves podrás hacer las pruebas que quieras."
 
 msgid "Public key"
-msgstr ""
+msgstr "Public key"
 
 msgid "Access token"
-msgstr ""
+msgstr "Access token"
 
 msgid "Credenciales para producción"
-msgstr ""
+msgstr "Credenciales para producción"
 
 msgid "Con estas claves podrás recibir pagos reales de tus clientes."
-msgstr ""
-
-msgid "Public key"
-msgstr ""
-
-msgid "Access token"
-msgstr ""
+msgstr "Con estas claves podrás recibir pagos reales de tus clientes."
 
 msgid "Homologa tu cuenta, solo te llevará unos minutos"
-msgstr ""
+msgstr "Homologa tu cuenta, solo te llevará unos minutos""
 
-msgid "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la 
-adecuación a las normas o disposiciones legales de cada país."
-msgstr ""
-
-msgid "%s"
-msgstr ""
+msgid "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la adecuación a las normas o disposiciones legales de cada país."
+msgstr "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la adecuación a las normas o disposiciones legales de cada país."
 
 msgid "Homologar cuenta en Mercado Pago"
-msgstr ""
+msgstr "Homologar minha conta"
 
 msgid "Descripción de la tienda"
-msgstr ""
+msgstr "Descripción de la tienda"
 
 msgid "Este nombre aparecerá en la factura de tus clientes."
-msgstr ""
+msgstr "Este nombre aparecerá en la factura de tus clientes."
 
 msgid "Mercado Pago"
-msgstr ""
+msgstr "Mercado Pago"
 
 msgid "Categoría de la tienda"
-msgstr ""
+msgstr "Categoría de la tienda"
 
-msgid "¿A qué categoría pertenecen tus productos? Elige la que mejor los caracteriza (elige 
-“otro” si tu producto es demasiado específico)."
-msgstr ""
+msgid "¿A qué categoría pertenecen tus productos? Elige la que mejor los caracteriza (elige “otro” si tu producto es demasiado específico)"
+msgstr "¿A qué categoría pertenecen tus productos? Elige la que mejor los caracteriza (elige “otro” si tu producto es demasiado específico)"
 
 msgid "Categrorías"
-msgstr ""
+msgstr "Categrorías"
 
 msgid "ID de la tienda"
-msgstr ""
+msgstr "ID de la tienda"
 
 msgid "Usa un número o prefijo para identificar pedidos y pagos provenientes de esta tienda."
-msgstr ""
+msgstr "Usa un número o prefijo para identificar pedidos y pagos provenientes de esta tienda."
 
 msgid "WC-"
-msgstr ""
+msgstr "WC-"
 
 msgid "Ajustes avanzados"
-msgstr ""
+msgstr "Ajustes avanzados"
 
 msgid "Modo Debug y Log"
-msgstr ""
+msgstr "Modo Debug y Log"
 
 msgid "Graba las acciones de tu tienda en nuestro archivo de cambios para tener más información de soporte."
-msgstr ""
+msgstr "Graba las acciones de tu tienda en nuestro archivo de cambios para tener más información de soporte."
 
 msgid "Depuramos la información de nuestro archivo de cambios."
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "Sí"
-msgstr ""
+msgstr "Depuramos la información de nuestro archivo de cambios."
 
 msgid "Configuración Básica de la experiencia de pago."
-msgstr ""
+msgstr "Configuración Básica de la experiencia de pago."
 
-msgid "Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y 
-define el máximo de cuotas en el que podrán pagarte."
-msgstr ""
+msgid "Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y define el máximo de cuotas en el que podrán pagarte."
+msgstr "Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y define el máximo de cuotas en el que podrán pagarte."
 
 msgid "Máximo de cuotas"
-msgstr ""
+msgstr "Máximo de cuotas"
 
 msgid "¿Cuál es el máximo de cuotas con las que un cliente puede comprar?"
-msgstr ""
+msgstr "¿Cuál es el máximo de cuotas con las que un cliente puede comprar?"
 
-msgid "1x installment"
-msgstr ""
+msgid "1x cuota"
+msgstr "1x cuota"
 
-msgid "2x installmens"
-msgstr ""
+msgid "2x cuotas"
+msgstr "2x cuotas"
 
-msgid "3x installmens"
-msgstr ""
+msgid "3x cuotas"
+msgstr "3x cuotas"
 
-msgid "4x installmens"
-msgstr ""
+msgid "4x cuotas"
+msgstr "4x cuotas"
 
-msgid "5x installmens"
-msgstr ""
+msgid "5x cuotas"
+msgstr "5x cuotas"
 
-msgid "6x installmens"
-msgstr ""
+msgid "6x cuotas"
+msgstr "6x cuotas"
 
-msgid "10x installmens"
-msgstr ""
+msgid "10x cuotas"
+msgstr "10x cuotas"
 
-msgid "12x installmens"
-msgstr ""
+msgid "12x cuotas"
+msgstr "12x cuotas"
 
-msgid "15x installmens"
-msgstr ""
+msgid "15x cuotas"
+msgstr "15x cuotas"
 
-msgid "18x installmens"
-msgstr ""
+msgid "18x cuotas"
+msgstr "18x cuotas"
 
-msgid "24x installmens"
-msgstr ""
+msgid "24x cuotas"
+msgstr "24x cuotas"
 
 msgid "URL para IPN"
-msgstr ""
+msgstr "URL para IPN"
 
 msgid "Ingresá una URL para recibir notificaciones de pagos."
-msgstr ""
+msgstr "Ingresá una URL para recibir notificaciones de pagos."
 
 msgid "IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías."
-msgstr ""
+msgstr "IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías."
 
 msgid "Edita estos campos avanzados de la experiencia de pago solo cuando quieras modificar los valores preestablecidos."
-msgstr ""
+msgstr "Edita estos campos avanzados de la experiencia de pago solo cuando quieras modificar los valores preestablecidos."
 
 msgid "Cupones de descuento"
-msgstr ""
+msgstr "Cupones de descuento"
 
 msgid "¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?"
-msgstr ""
+msgstr "¿Ofrecerás cupones de descuento a los clientes que compren con Mercado Pago?"
 
-msgid "No"
-msgstr ""
+msgid "Parece que sus credenciales no están configuradas correctamente.<br/>Por favor, vaya a %s y configúrelo."
+msgstr "Parece que sus credenciales no están configuradas correctamente.<br/>Por favor, vaya a %s y configúrelo."
 
-msgid "Sí"
-msgstr ""
+msgid "Mercado Pago Configuración"
+msgstr "Mercado Pago Configuración"
 
-msgid "It appears that your credentials are not properly configured.
-Please, go to %s and configure it."
-msgstr ""
-
-msgid "Mercado Pago Settings"
-msgstr ""
-
-msgid "Title shown to the client in the checkout."
-msgstr ""
-
-msgid "Mercado Pago"
-msgstr ""
+msgid "Título mostrado al cliente en el checkout."
+msgstr "Título mostrado al cliente en el checkout."
 
 msgid "Modo binario"
-msgstr ""
+msgstr "Modo binario"
 
 msgid "Acepta y rechaza pagos de forma automática. ¿Quieres que lo activemos?"
-msgstr ""
+msgstr "Acepta y rechaza pagos de forma automática. ¿Quieres que lo activemos?"
 
-msgid "DSi activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta."
-msgstr ""
-
-msgid "Sí"
-msgstr ""
-
-msgid "No"
-msgstr ""
+msgid "Si activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta."
+msgstr "Si activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta."
 
 msgid "Descuentos Gateway"
-msgstr ""
+msgstr "Descuentos Gateway"
 
 msgid "Elige un valor porcentual que quieras descontara tus clientes por pagar con Mercado Pago."
-msgstr ""
+msgstr "Elige un valor porcentual que quieras descontara tus clientes por pagar con Mercado Pago."
 
 msgid "Comisión por compra con Mercado Pago"
-msgstr ""
+msgstr "Comisión por compra con Mercado Pago"
 
 msgid "Elige un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago."
-msgstr ""
+msgstr "Selecione um valor percentual adicional que você queira cobrar como comissão dos seus clientes por pagar com Mercado Pago."
 
 msgid "¿Todo listo para el despegue de tus ventas?"
-msgstr ""
+msgstr "¿Todo listo para el despegue de tus ventas?"
 
-msgid "Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, 
-trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online."
-msgstr ""
-
-msgid "%s"
-msgstr ""
+msgid "Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online."
+msgstr "Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online."
 
 msgid "Quiero testear mis ventas"
-msgstr ""
+msgstr "Quiero testear mis ventas"
 
 // ##########################################
 // WC_WooMercadoPago_CustomGateway.php
