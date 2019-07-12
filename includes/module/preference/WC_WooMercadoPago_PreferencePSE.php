@@ -22,7 +22,7 @@ class WC_WooMercadoPago_PreferencePSE extends WC_WooMercadoPago_PreferenceAbstra
 		$this->preference['description'] = implode(', ', $this->list_of_items);
         $this->preference['payment_method_id'] = $this->checkout['paymentMethodId'];
         $this->preference['payer']['email'] = $this->get_email();
-		$this->preference['statement_descriptor'] = get_option('_mp_statement_descriptor', 'Mercado Pago');
+		$this->preference['statement_descriptor'] = $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago');
 		$this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
 		$this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();

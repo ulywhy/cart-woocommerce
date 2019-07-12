@@ -22,7 +22,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         $this->class = get_class($payment);
         $this->mpInstance = $payment->mp;
         $this->publicKey = $payment->getPublicKey();
-        $this->testUser = $payment->isTestUser();
+        $this->testUser = get_option('_test_user_v1');
         $this->siteId = get_option('_site_id_v1');
 
         $this->loadHooks();
@@ -113,7 +113,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         if (!is_checkout() && !(defined('DOING_AJAX') && DOING_AJAX)) {
             return $title;
         }
-        if ($title != $this->payment->title && ( $this->payment->commission == 0 && $this->payment->gateway_discount == 0)) {
+        if ($title != $this->payment->title && ($this->payment->commission == 0 && $this->payment->gateway_discount == 0)) {
             return $title;
         }
         if (!is_numeric($this->payment->gateway_discount) || $this->payment->commission > 99 || $this->payment->gateway_discount > 99) {
@@ -122,7 +122,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         $total = (float)WC()->cart->subtotal;
         $price_discount = $total * ($this->payment->gateway_discount / 100);
         $price_commission = $total * ($this->payment->commission / 100);
-       if ($this->payment->gateway_discount > 0 && $this->payment->commission > 0) {
+        if ($this->payment->gateway_discount > 0 && $this->payment->commission > 0) {
             $title .= ' (' . __('Descuento de', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . __(' y Tarifa de', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
         } elseif ($this->payment->gateway_discount > 0) {
             $title .= ' (' . __('Descuento de', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . ')';
@@ -288,11 +288,11 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     /**
      * @param $key
      * @param $value
-     * @param null $valueCredentialProduction
+     * @param null $isProduction
      * @return bool
      * @throws WC_WooMercadoPago_Exception
      */
-    private function validateAccessToken($key, $value, $valueCredentialProduction = null)
+    private function validateAccessToken($key, $value, $isProduction = null)
     {
         if ($key != '_mp_access_token_prod' && $key != '_mp_access_token_test') {
             return false;
@@ -308,15 +308,15 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             return true;
         }
 
-        if (empty($valueCredentialProduction)) {
-            $valueCredentialProduction = $this->payment->checkout_credential_token_production;
+        if (empty($isProduction)) {
+            $isProduction = $this->payment->checkout_credential_token_production;
         }
 
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
             update_option($key, $value, true);
             if (
-                ($key == '_mp_access_token_prod' && $valueCredentialProduction == 'yes') ||
-                ($key == '_mp_access_token_test' && $valueCredentialProduction == 'no')
+                ($key == '_mp_access_token_prod' && $isProduction == 'yes') ||
+                ($key == '_mp_access_token_test' && $isProduction == 'no')
             ) {
                 WC_WooMercadoPago_Credentials::updatePaymentMethods($this->mpInstance, $value);
                 WC_WooMercadoPago_Credentials::updateTicketMethod($this->mpInstance, $value);
@@ -326,6 +326,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 
         if ($key == '_mp_access_token_prod') {
             update_option('_mp_public_key_prod', '', true);
+            WC_WooMercadoPago_Credentials::setNoCredentials();
             add_action('admin_notices', array($this, 'noticeInvalidProdCredentials'));
         } else {
             update_option('_mp_public_key_test', '', true);

@@ -95,7 +95,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         if(!empty($payment)){
             $class = get_class($payment);
-            if (self::$mpInstancePayment[$class] === null) {
+            if (!isset(self::$mpInstancePayment[$class])) {
                 self::$mpInstancePayment[$class] = self::getMpInstance($payment);
             }
             return self::$mpInstancePayment[$class];

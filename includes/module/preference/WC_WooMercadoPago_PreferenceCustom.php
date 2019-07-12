@@ -34,7 +34,7 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
                 $this->preference['issuer_id'] = (integer)$this->checkout['issuer'];
             }
         }
-        $this->preference['statement_descriptor'] = get_option('_mp_statement_descriptor', 'Mercado Pago');
+        $this->preference['statement_descriptor'] = $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago');
         $this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
@@ -76,8 +76,8 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
     public function add_discounts()
     {
         $item = array(
-            'title' => __('Descuento proporcionado por la tienda', 'woocommerce-mercadopago'),
-            'description' => __('Descuento proporcionado por la tienda', 'woocommerce-mercadopago'),
+            'title' => __('Discount provided by store', 'woocommerce-mercadopago'),
+            'description' => __('Discount provided by store', 'woocommerce-mercadopago'),
             'quantity' => 1,
             'category_id' => get_option('_mp_category_name', 'others'),
             'unit_price' => ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?

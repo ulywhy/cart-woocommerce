@@ -11,6 +11,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 {
     protected $order;
     protected $payment;
+    protected $log;
     protected $checkout;
     protected $gateway_discount;
     protected $commission;
@@ -24,6 +25,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     protected $site_id;
     protected $site_data;
     protected $test_user_v1;
+    protected $sandbox;
     protected $notification_class;
     protected $ex_payments;
     protected $installments;
@@ -37,13 +39,15 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function __construct($payment, $order, $requestCheckout = null)
     {
         $this->payment = $payment;
+        $this->log = $payment->log;
         $this->order = $order;
         $this->gateway_discount = $this->payment->gateway_discount;
         $this->commission = $this->payment->commission;
         $this->ex_payments = $this->payment->ex_payments;
         $this->installments = $this->payment->installments;
         $this->notification_class = get_class($payment);
-        $this->test_user_v1 = $this->payment->isTestUser();
+        $this->sandbox = $this->payment->isTestUser();
+        $this->test_user_v1 = get_option('_test_user_v1', '');
         $this->site_id = get_option('_site_id_v1', '');
         $this->site_data = WC_WooMercadoPago_Module::$country_configs;
         $this->order = $order;
@@ -55,7 +59,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $this->selected_shipping = $order->get_shipping_method();
         $this->ship_cost = $this->order->get_total_shipping() + $this->order->get_shipping_tax();
 
-        if (!$this->test_user_v1) {
+        if (!$this->test_user_v1 && !$this->sandbox) {
             $this->preference['sponsor_id'] = $this->get_sponsor_id();
         }
         if (sizeof($this->order->get_items()) > 0) {
@@ -279,6 +283,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_preference()
     {
+        $this->log->write_log('Created preference: ', 'Preference: ' . json_encode($this->preference, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         return $this->preference;
     }
 
@@ -288,9 +293,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function get_transaction_amount()
     {
         if ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') {
-            return floor($this->order_total * $this->currency_ratio);
+            return floor($this->order->get_total() * $this->currency_ratio);
         } else {
-            return floor($this->order_total * $this->currency_ratio * 100) / 100;
+            return floor($this->order->get_total() * $this->currency_ratio * 100) / 100;
         }
     }
 
