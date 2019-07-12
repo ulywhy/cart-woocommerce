@@ -20,7 +20,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         'mp_statement_descriptor',
         '_mp_category_id',
         '_mp_store_identificator',
-        '_mp_debug_mode',
         '_mp_custom_domain',
         'installments',
         'auto_return'
@@ -103,7 +102,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->supports = array('products', 'refunds');
         $this->icon = $this->getMpIcon();
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
-        $this->log = WC_WooMercadoPago_Log::init_mercado_pago_log(get_class($this));
+        $this->log = new WC_WooMercadoPago_Log($this);
         $this->mp = $this->getMpInstance();
         $this->application_id = $this->getApplicationId($this->mp_access_token_prod);
     }
