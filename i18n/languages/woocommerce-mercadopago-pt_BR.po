@@ -805,9 +805,10 @@ msgstr ""
 msgid "Quiero testear mis ventas"
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_CustomGateway.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/WC_WooMercadoPago_CustomGateway.php
 msgid "Mercado Pago - Checkout personalizado"
 msgstr ""
 
@@ -904,9 +905,10 @@ msgstr ""
 msgid "A problem was occurred when processing your payment. Please, try again."
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Hook_Pse.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/hooks/WC_WooMercadoPago_Hook_Pse.php
 msgid "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
 msgstr ""
 
@@ -916,9 +918,10 @@ msgstr ""
 msgid "Descuento para el cupón %s"
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Hook_Abstract.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php
 msgid "Descuento para el cupón %s"
 msgstr ""
 
@@ -931,12 +934,14 @@ msgstr ""
 msgid "Tarifa de"
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Hook_Custom.php
+// ##########################################
 
+// ##########################################
+// WC_WooMercadoPago_Hook_Basic.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/hooks/WC_WooMercadoPago_Hook_Custom.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/hooks/WC_WooMercadoPago_Hook_Basic.php
 msgid "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo."
 msgstr ""
 
@@ -952,18 +957,20 @@ msgstr ""
 msgid "Haga clic para intentarlo de nuevo"
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Hook_Ticket.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/hooks/WC_WooMercadoPago_Hook_Ticket.php
 msgid "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
 msgstr ""
 
 msgid "Imprimir el ticket"
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Product_Recurrent.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/mercadoenvios/WC_WooMercadoPago_Product_Recurrent.php
 msgid "Mercado Pago Subscription"
 msgstr ""
 
@@ -1018,9 +1025,10 @@ msgstr ""
 msgid "Deadline to generate new charges. Defaults to never if blank."
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_PSEGateway.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/payments/WC_WooMercadoPago_PSEGateway.php
 msgid "Mercado Pago - PSE"
 msgstr ""
 
@@ -1096,9 +1104,10 @@ msgstr ""
 msgid "The payment is under mediation or it was charged-back."
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Notification_Abstract.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/notification/WC_WooMercadoPago_Notification_Abstract.php
 msgid "Payment approved."
 msgstr ""
 
@@ -1126,9 +1135,10 @@ msgstr ""
 msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Notification_IPN.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/notification/WC_WooMercadoPago_Notification_IPN.php
 msgid "La solicitud de Mercado Pago ha fallado"
 msgstr ""
 
@@ -1192,9 +1202,10 @@ msgstr ""
 msgid "Saludos."
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Notification_Webhook.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/notification/WC_WooMercadoPago_Notification_Webhook.php
 msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
 msgstr ""
 
@@ -1213,9 +1224,10 @@ msgstr ""
 msgid "Medio de pago"
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Module.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/WC_WooMercadoPago_Module.php
 msgid "Set up credentials to enable payment methods."
 msgstr ""
 
@@ -1322,54 +1334,67 @@ msgstr ""
 msgid "Actualizar la orden de WooCommerce a "
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_Credentials.php
+// ##########################################
 
+// ##########################################
+// WC_WooMercadoPago_Exception.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/WC_WooMercadoPago_Credentials.php
+// ##########################################
+// WC_WooMercadoPago_PreferenceBasic.php
+// ##########################################
 
+// ##########################################
+// WC_WooMercadoPago_PreferenceTicket.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/WC_WooMercadoPago_Exception.php
+// ##########################################
+// WC_WooMercadoPago_PreferenceAbstract.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/preference/WC_WooMercadoPago_PreferenceBasic.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/preference/WC_WooMercadoPago_PreferenceTicket.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/preference/WC_WooMercadoPago_PreferenceAbstract.php
 msgid "Shipping service used by store"
 msgstr ""
 
+// ##########################################
+// WC_WooMercadoPago_PreferencePSE.php
+// ##########################################
 
+// ##########################################
+// WC_WooMercadoPago_PreferenceCustom.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/preference/WC_WooMercadoPago_PreferencePSE.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/preference/WC_WooMercadoPago_PreferenceCustom.php
 msgid "Discount provided by store"
 msgstr ""
 
 msgid "Discount provided by store"
 msgstr ""
 
+// ##########################################
+// MP.php
+// ##########################################
 
+// ##########################################
+// AbstractRestClient.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/sdk/lib/MP.php
+// ##########################################
+// MeliRestClient.php
+// ##########################################
 
+// ##########################################
+// RestClient/MpRestClient.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/sdk/lib/RestClient/AbstractRestClient.php
+// ##########################################
+// WC_WooMercadoPago_Log.php
+// ##########################################
 
+// ##########################################
+// WC_WooMercadoPago_Configs.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/sdk/lib/RestClient/MeliRestClient.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/sdk/lib/RestClient/MpRestClient.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/log/WC_WooMercadoPago_Log.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/module/WC_WooMercadoPago_Configs.php
 msgid "Importante:"
 msgstr ""
 
@@ -1379,15 +1404,18 @@ msgstr ""
 msgid "Dismiss."
 msgstr ""
 
+// ##########################################
+// WC_MercadoEnvios_Admin_Orders.php
+// ##########################################
 
+// ##########################################
+// WC_MercadoEnvios_Shipping_Express.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/admin/WC_MercadoEnvios_Admin_Orders.php
+// ##########################################
+// WC_MercadoEnvios_Shipping_Abstract.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/shipment/WC_MercadoEnvios_Shipping_Express.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/shipment/WC_MercadoEnvios_Shipping_Abstract.php
 msgid "Mercado Envios is a shipping method available only for payments with Mercado Pago."
 msgstr ""
 
@@ -1430,15 +1458,18 @@ msgstr ""
 msgid "Display the estimated delivery time in working days."
 msgstr ""
 
+// ##########################################
+// WC_MercadoEnvios_Shipping_Normal.php
+// ##########################################
 
+// ##########################################
+// WC_MercadoEnvios_Package.php
+// ##########################################
 
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/shipment/WC_MercadoEnvios_Shipping_Normal.php
+// ##########################################
+// woocommerce-mercadopago.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/includes/shipment/WC_MercadoEnvios_Package.php
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/woocommerce-mercadopago.php
 msgid "WooCommerce Mercado Pago requires PHP version 5.6 or later. Please update your PHP version."
 msgstr ""
 
@@ -1448,9 +1479,10 @@ msgstr ""
 msgid "Cancel Order"
 msgstr ""
 
+// ##########################################
+// custom_checkout.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/templates/checkout/custom_checkout.php
 msgid "Pagá con tarjetas de débito y crédito"
 msgstr ""
 
@@ -1619,9 +1651,10 @@ msgstr ""
 msgid "Terms and Conditions of Use"
 msgstr ""
 
+// ##########################################
+// ticket_checkout.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/templates/checkout/ticket_checkout.php
 msgid "Pagar con Mercado Pago es fácil y seguro."
 msgstr ""
 
@@ -1733,9 +1766,10 @@ msgstr ""
 msgid "Terms and Conditions of Use"
 msgstr ""
 
+// ##########################################
+// basic_checkout.php
+// ##########################################
 
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/templates/checkout/basic_checkout.php
 msgid "Usa el medio de pago que prefieras."
 msgstr ""
 
@@ -1754,10 +1788,9 @@ msgstr ""
 msgid "Te llevamos a nuestro sitio para completar el pago"
 msgstr ""
 
-
-
-FILE: /Users/milson/Documents/Docker/Docker1/Plugins-MP/woo/templates/checkout/pse_checkout.php
-
+// ##########################################
+// pse_checkout.php
+// ##########################################
 
 
 
