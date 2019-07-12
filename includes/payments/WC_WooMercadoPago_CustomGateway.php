@@ -225,41 +225,41 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         switch ($status_detail) {
             case 'accredited':
-                return __('Done, your payment was accredited!', 'woocommerce-mercadopago');
+                return __('Listo, su pago ha sido aceptado!', 'woocommerce-mercadopago');
             case 'pending_contingency':
-                return __('We are processing the payment. In less than an hour we will e-mail you the results.', 'woocommerce-mercadopago');
+                return __('Estamos procesando su pago. En menos de una hora le enviaremos el resultado por correo electrónico.', 'woocommerce-mercadopago');
             case 'pending_review_manual':
-                return __('We are processing the payment. In less than 2 business days we will tell you by e-mail whether it has accredited or we need more information.', 'woocommerce-mercadopago');
+                return __('Estamos procesando su pago. En menos de 2 días le enviaremos por correo electrónico si se ha aprobado el pago o si se necesita información adicional.', 'woocommerce-mercadopago');
             case 'cc_rejected_bad_filled_card_number':
-                return __('Check the card number.', 'woocommerce-mercadopago');
+                return __('Compruebe el número de tarjeta.', 'woocommerce-mercadopago');
             case 'cc_rejected_bad_filled_date':
-                return __('Check the expiration date.', 'woocommerce-mercadopago');
+                return __('Compruebe la fecha de expiración.', 'woocommerce-mercadopago');
             case 'cc_rejected_bad_filled_other':
-                return __('Check the information.', 'woocommerce-mercadopago');
+                return __('Compruebe la información informada.', 'woocommerce-mercadopago');
             case 'cc_rejected_bad_filled_security_code':
-                return __('Check the security code.', 'woocommerce-mercadopago');
+                return __('Compruebe el código de seguridad informado.', 'woocommerce-mercadopago');
             case 'cc_rejected_blacklist':
-                return __('We could not process your payment.', 'woocommerce-mercadopago');
+                return __('No se puede procesar su pago.', 'woocommerce-mercadopago');
             case 'cc_rejected_call_for_authorize':
-                return __('You must authorize the payment of your orders.', 'woocommerce-mercadopago');
+                return __('Usted debe autorizar los pagos de sus órdenes.', 'woocommerce-mercadopago');
             case 'cc_rejected_card_disabled':
-                return __('Call your card issuer to activate your card. The phone is on the back of your card.', 'woocommerce-mercadopago');
+                return __('Póngase en contacto con el emisor de su tarjeta para activarla. El teléfono se encuentra en la parte posterior de su tarjeta.', 'woocommerce-mercadopago');
             case 'cc_rejected_card_error':
-                return __('We could not process your payment.', 'woocommerce-mercadopago');
+                return __('No se puede procesar su pago.', 'woocommerce-mercadopago');
             case 'cc_rejected_duplicated_payment':
-                return __('You already made a payment for that amount. If you need to repay, use another card or other payment method.', 'woocommerce-mercadopago');
+                return __('Usted ya realizó un pago de este importe. Si tiene que pagar de nuevo, utilizar otra tarjeta u otro medio de pago.', 'woocommerce-mercadopago');
             case 'cc_rejected_high_risk':
-                return __('Your payment was rejected. Choose another payment method. We recommend cash.', 'woocommerce-mercadopago');
+                return __('Su pago fue rechazado. Por favor seleccione otro medio de pago. Se recomienda en efectivo.', 'woocommerce-mercadopago');
             case 'cc_rejected_insufficient_amount':
-                return __('Your payment do not have sufficient funds.', 'woocommerce-mercadopago');
+                return __('Su pago no tiene fondos suficientes.', 'woocommerce-mercadopago');
             case 'cc_rejected_invalid_installments':
-                return __('Your payment does not process payments with selected installments.', 'woocommerce-mercadopago');
+                return __('El pago no puede procesar la cuota seleccionada.', 'woocommerce-mercadopago');
             case 'cc_rejected_max_attempts':
-                return __('You have reached the limit of allowed attempts. Choose another card or another payment method.', 'woocommerce-mercadopago');
+                return __('Has alcanzado el límite de intentos permitidos. Elija otra tarjeta u otro medio de pago.', 'woocommerce-mercadopago');
             case 'cc_rejected_other_reason':
-                return __('This payment method did not process the payment.', 'woocommerce-mercadopago');
+                return __('Esta medio de pago no puede procesar su pago.', 'woocommerce-mercadopago');
             default:
-                return __('This payment method did not process the payment.', 'woocommerce-mercadopago');
+                return __('Esta medio de pago no puede procesar su pago.', 'woocommerce-mercadopago');
         }
     }
 
@@ -380,7 +380,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                     case 'approved':
                         WC()->cart->empty_cart();
                         wc_add_notice('<p>' . $this->get_order_status('accredited') . '</p>', 'notice');
-                        $order->add_order_note('Mercado Pago: ' . __('Payment approved.', 'woocommerce-mercadopago'));
+                        $order->add_order_note('Mercado Pago: ' . __('Pago aprobado', 'woocommerce-mercadopago'));
                         return array(
                             'result' => 'success',
                             'redirect' => $order->get_checkout_order_received_url()

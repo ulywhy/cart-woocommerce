@@ -727,92 +727,86 @@ msgid "Visita tu tienda como si fueras uno de tus mejores cliente y revisa que t
 msgstr "Visite sua loja como se fosse um dos seus clientes e confira se está tudo em ordem. Se você já está no modo Produção, <br> traga os seus clientes e aumente suas vendas com a melhor experiência de compra on-line."
 
 msgid "Quiero testear mis ventas"
-msgstr ""
+msgstr "Visitar minha loja"
 
 // ##########################################
 // WC_WooMercadoPago_CustomGateway.php
 // ##########################################
 
 msgid "Mercado Pago - Checkout personalizado"
-msgstr ""
+msgstr "Mercado Pago - Checkout personalizado"
 
 msgid "Paga con tarjetas de crédito o débito"
-msgstr ""
+msgstr "Pagamentos com cartão"
+
+msgid "Crecer está en tus manos. Diseña y adapta la experiencia de pago online que quieras ofrecer en tu sitio web y maximiza la conversión de tu negocio."
+msgstr "Crescer só depende de você. Elabore a adapte a experiência de pagamento que quiser oferecer no seu site ou aplicativo e maximize a conversão do seu negócio."
 
 msgid "Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. %s"
-msgstr ""
+msgstr "Checkout PersonalizadoAceite pagamentos com cartão e leve suas cobranças a outro nível %s"
 
-msgid "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización.') . ' "
-msgstr ""
+msgid "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización."
+msgstr "Elabore e adapte a experiência de pagamento final que quiser oferecer no seu site ou aplicativo e maximize a conversão do seu negócio com as nossas opções de personalização."
 
 msgid "Configura la experiencia de pago en tu tienda"
-msgstr ""
-
-msgid "Ve a lo básico. Coloca la información de tu negocio."
-msgstr ""
+msgstr "Configure a experiência de pagamento personalizada na sua loja"
 
 msgid "Configura la experiencia de pago personalizada en tu tienda"
-msgstr ""
+msgstr "Configure a experiência de pagamento personalizada em sua loja"
 
 msgid "Configuración avanzada de la experiencia de pago personalizada"
-msgstr ""
+msgstr "Configuração Avançada da experiência de pagamento"
 
-msgid "Done, your payment was accredited!"
-msgstr ""
+msgid "Listo, su pago ha sido aceptado!"
+msgstr "Pronto, seu pagamento foi aprovado!"
 
-msgid "We are processing the payment. In less than an hour we will e-mail you the results."
-msgstr ""
+msgid "Estamos procesando su pago. En menos de una hora le enviaremos el resultado por correo electrónico."
+msgstr "Estamos processando seu pagamento. Em menos de uma hora você será notificado por email."
 
-msgid "We are processing the payment. In less than 2 business days we will tell you by e-mail whether it has accredited or we need more information."
-msgstr ""
+msgid "Estamos procesando su pago. En menos de 2 días le enviaremos por correo electrónico si se ha aprobado el pago o si se necesita información adicional."
+msgstr "Estamos processando seu pagamento. Em menos de 2 dias úteis você será notificado por email se o pagamento foi aprovado ou se são necessárias informações adicionais."
 
-msgid "Check the card number."
-msgstr ""
+msgid "Compruebe el número de tarjeta."
+msgstr "Verifique o número do cartão."
 
-msgid "Check the expiration date."
-msgstr ""
+msgid "Compruebe la fecha de expiración."
+msgstr "Verifique a data de expiração."
 
-msgid "Check the information."
-msgstr ""
+msgid "Compruebe la información informada."
+msgstr "Verifique as informações preenchidas."
 
-msgid "Check the security code."
-msgstr ""
+msgid "Compruebe el código de seguridad informado."
+msgstr "Verifique o código de segurança informado."
 
-msgid "We could not process your payment."
-msgstr ""
+msgid "No se puede procesar su pago."
+msgstr "Não foi possível processar seu pagamento."
 
-msgid "You must authorize the payment of your orders."
-msgstr ""
+msgid "Usted debe autorizar los pagos de sus órdenes."
+msgstr "Você precisa autorizar o pagamento de seus pedidos."
 
-msgid "Call your card issuer to activate your card. The phone is on the back of your card."
-msgstr ""
+msgid "Póngase en contacto con el emisor de su tarjeta para activarla. El teléfono se encuentra en la parte posterior de su tarjeta."
+msgstr "Contacte o emissor de seu cartão para ativá-lo. O telefone está no verso do seu cartão."
 
-msgid "We could not process your payment."
-msgstr ""
+msgid "Usted ya realizó un pago de este importe. Si tiene que pagar de nuevo, utilizar otra tarjeta u otro medio de pago."
+msgstr "Você já realizou o pagamento para esse valor. Se precisa pagar novamente, use outro cartão ou outro método de pagamento."
 
-msgid "You already made a payment for that amount. If you need to repay, use another card or other payment method."
-msgstr ""
+msgid "Su pago fue rechazado. Por favor seleccione otro medio de pago. Se recomienda en efectivo."
+msgstr "Seu pagamento foi rejeitado. Escolha outro método de pagamento. Recomenda-se dinheiro."
 
-msgid "Your payment was rejected. Choose another payment method. We recommend cash."
-msgstr ""
+msgid "Su pago no tiene fondos suficientes."
+msgstr "Seu pagamento não possui fundos suficientes."
 
-msgid "Your payment do not have sufficient funds."
-msgstr ""
+msgid "El pago no puede procesar la cuota seleccionada."
+msgstr "Seu pagamento não pode processar o parcelamento selecionado."
 
-msgid "Your payment does not process payments with selected installments."
-msgstr ""
+msgid "Has alcanzado el límite de intentos permitidos. Elija otra tarjeta u otro medio de pago."
+msgstr "Você atingiu o limite de tentativas permitidas. Escolha outro cartão ou outro método de pagamento."
 
-msgid "You have reached the limit of allowed attempts. Choose another card or another payment method."
-msgstr ""
+msgid "Esta medio de pago no puede procesar su pago."
+msgstr "Este método de pagamento não pôde processar o seu pagamento."
 
-msgid "This payment method did not process the payment."
-msgstr ""
-
-msgid "This payment method did not process the payment."
-msgstr ""
-
-msgid "Payment approved."
-msgstr ""
+msgid "Pago aprobado."
+msgstr "Pagamento aprovado"
 
 msgid "Check your order resume"
 msgstr ""
