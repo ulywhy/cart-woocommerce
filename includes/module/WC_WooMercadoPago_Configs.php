@@ -109,12 +109,13 @@ class WC_WooMercadoPago_Configs
      */
     public function noticeHttps()
     {
+        $message = __('La tienda debe tener HTTPS para ver los medios de pago.', 'woocommerce-mercadopago');
         echo '<div class="notice notice-warning is-dismissible">  
                     <p style="font-size:13px">
-                        ' . __('<strong>Mercado Pago:</strong> " La tienda debe tener HTTPS para ver los medios de pago.', 'woocommerce-mercadopago') . '
+                        <strong>MERCADO PAGO:</strong> ' . $message . '
                     </p>
                     <button type="button" class="notice-dismiss">
-                    <span class="screen-reader-text">' . __('Descartar.', 'woocommerce-mercadopago') . '</span>
+                        <span class="screen-reader-text">' . __('Descartar', 'woocommerce-mercadopago') . '</span>
                     </button>
               </div>';
     }

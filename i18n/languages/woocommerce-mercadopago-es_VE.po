@@ -171,8 +171,8 @@ msgstr "Descripción"
 msgid "Sigue estos pasos para activar Mercado Pago en tu tienda:"
 msgstr "Sigue estos pasos para activar Mercado Pago en tu tienda:"
 
-msgid "Carga tus credenciales para testear la tienda y cobrar con tu cuenta de Mercado Pago según el país en el que estés registrado."
-msgstr "Carga tus credenciales para testear la tienda y cobrar con tu cuenta de Mercado Pago según el país en el que estés registrado."
+msgid "Carga tus <b>credenciales</b> para testear la tienda y cobrar con tu cuenta de Mercado Pago <b>según el país</b> en el que estés registrado."
+msgstr "Carga tus <b>credenciales</b> para testear la tienda y cobrar con tu cuenta de Mercado Pago <b>según el país</b> en el que estés registrado."
 
 msgid "Homologa tu cuenta para poder cobrar."
 msgstr "Homologa tu cuenta para poder cobrar."
@@ -180,14 +180,14 @@ msgstr "Homologa tu cuenta para poder cobrar."
 msgid "Añade la información básica de tu negocio en la configuración del plugin."
 msgstr "Añade la información básica de tu negocio en la configuración del plugin."
 
-msgid "Configura las preferencias de pago para tus clientes."
-msgstr "Configura las preferencias de pago para tus clientes."
+msgid "Configura las <b>preferencias de pago</b> para tus clientes."
+msgstr "Configura las <b>preferencias de pago</b> para tus clientes."
 
-msgid "Ve a configuraciones avanzadas tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos."
-msgstr "Ve a configuraciones avanzadas tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos."
+msgid "Ve a <b>configuraciones avanzadas</b> tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos."
+msgstr "Ve a <b>configuraciones avanzadas</b> tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos."
 
-msgid "Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
-msgstr "Las credenciales son las claves que te proporcionamos para que integres de forma rápida y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
+msgid "Las credenciales son las claves que te proporcionamos para que integres de forma rápida <br>y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar <br>en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
+msgstr "Las credenciales son las claves que te proporcionamos para que integres de forma rápida <br>y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar <br>en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda."
 
 msgid "cuenta homologada"
 msgstr "cuenta homologada"
@@ -240,8 +240,8 @@ msgstr "Buscar mis credenciales"
 msgid "Credenciales de prueba"
 msgstr "Credenciales de prueba"
 
-msgid "Con estas claves podrás hacer las pruebas que quieras."
-msgstr "Con estas claves podrás hacer las pruebas que quieras."
+msgid "Con estas claves podrás <b>hacer las pruebas</b> que quieras."
+msgstr "Con estas claves podrás <b>hacer las pruebas</b> que quieras."
 
 msgid "Public key"
 msgstr "Public key"
@@ -252,8 +252,8 @@ msgstr "Access token"
 msgid "Credenciales para producción"
 msgstr "Credenciales para producción"
 
-msgid "Con estas claves podrás recibir pagos reales de tus clientes."
-msgstr "Con estas claves podrás recibir pagos reales de tus clientes."
+msgid "Con estas claves podrás <b>recibir pagos reales</b> de tus clientes."
+msgstr "Con estas claves podrás <b>recibir pagos reales</b> de tus clientes."
 
 msgid "Homologa tu cuenta, solo te llevará unos minutos"
 msgstr "Homologa tu cuenta, solo te llevará unos minutos\""
@@ -276,8 +276,8 @@ msgstr "Mercado Pago"
 msgid "Categoría de la tienda"
 msgstr "Categoría de la tienda"
 
-msgid "¿A qué categoría pertenecen tus productos? Elige la que mejor los caracteriza (elige “otro” si tu producto es demasiado específico)"
-msgstr "¿A qué categoría pertenecen tus productos? Elige la que mejor los caracteriza (elige “otro” si tu producto es demasiado específico)"
+msgid "¿A qué categoría pertenecen tus productos? Elige la que mejor los caracteriza (elige <br>“otro” si tu producto es demasiado específico)."
+msgstr "¿A qué categoría pertenecen tus productos? Elige la que mejor los caracteriza (elige <br>“otro” si tu producto es demasiado específico)."
 
 msgid "Categrorías"
 msgstr "Categrorías"
@@ -306,8 +306,8 @@ msgstr "Depuramos la información de nuestro archivo de cambios."
 msgid "Configuración Básica de la experiencia de pago."
 msgstr "Configuración Básica de la experiencia de pago."
 
-msgid "Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y define el máximo de cuotas en el que podrán pagarte."
-msgstr "Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y define el máximo de cuotas en el que podrán pagarte."
+msgid "Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y <br> define el máximo de cuotas en el que podrán pagarte."
+msgstr "Habilita Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y <br> define el máximo de cuotas en el que podrán pagarte."
 
 msgid "Máximo de cuotas"
 msgstr "Máximo de cuotas"
@@ -413,9 +413,6 @@ msgstr "Crecer está en tus manos. Diseña y adapta la experiencia de pago onlin
 
 msgid "Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. %s"
 msgstr "Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. %s"
-
-msgid "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización."
-msgstr "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización."
 
 msgid "Configura la experiencia de pago en tu tienda"
 msgstr "onfigura la experiencia de pago en tu tienda"

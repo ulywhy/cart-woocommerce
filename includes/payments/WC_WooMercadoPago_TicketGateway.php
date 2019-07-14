@@ -184,7 +184,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
-                  ' . __('Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización.') . '
+                  ' . __('Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             </div>'

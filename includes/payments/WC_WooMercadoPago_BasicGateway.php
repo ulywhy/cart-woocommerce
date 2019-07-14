@@ -216,7 +216,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
-                  ' . __('Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige la experiencia de pago final entre las opciones disponibles.') . '
+                  ' . __('Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige la experiencia de pago final entre las opciones disponibles.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             </div>'

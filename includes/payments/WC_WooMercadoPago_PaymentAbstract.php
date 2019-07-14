@@ -857,8 +857,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Modo Debug y Log', 'woocommerce-mercadopago'),
             'type' => 'select',
             'default' => 'no',
-            'description' => __('Graba las acciones de tu tienda en nuestro archivo de cambios para tener más información de soporte.', 'woocommerce-services'),
-            'desc_tip' => __('Depuramos la información de nuestro archivo de cambios.', 'woocommerce-services'),
+            'description' => __('Graba las acciones de tu tienda en nuestro archivo de cambios para tener más información de soporte.', 'woocommerce-mercadopago'),
+            'desc_tip' => __('Depuramos la información de nuestro archivo de cambios.', 'woocommerce-mercadopago'),
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Sí', 'woocommerce-mercadopago')
