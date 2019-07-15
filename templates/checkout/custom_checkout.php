@@ -204,7 +204,7 @@ if (!defined('ABSPATH')) {
 
 								<div class="col-md-8">
 									<label for="docNumber" class="mp-label-form"><?= esc_html__('Número de documento', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-									<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control mt-5" id="docNumber" data-checkout="docNumber" name="mercadopago_custom[docNumber]" autocomplete="off" />
+									<input type="text" class="mp-form-control mt-5" id="docNumber" data-checkout="docNumber" name="mercadopago_custom[docNumber]" autocomplete="off" />
 									<p class="mp-desc mt-5 mb-0" data-main="#securityCode"><?= esc_html__('Sólo números', 'woocommerce-mercadopago'); ?></p>
 
 									<span class="mp-error mt-5" id="mp-error-214" data-main="#docNumber"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
