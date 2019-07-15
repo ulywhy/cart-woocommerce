@@ -44,21 +44,12 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
 
     /**
      * @return bool
+     * @throws WC_WooMercadoPago_Exception
      */
     public function custom_process_admin_options()
     {
-              $updateOptions = parent::custom_process_admin_options();
-        if (!empty($this->siteId) && !$this->testUser)
-        {
-            // Analytics.
-            $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-            $infra_data['checkout_custom_ticket'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
-            $infra_data['checkout_custom_ticket_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
-            $this->mpInstance->analytics_save_settings($infra_data);
-        }
-
-
-              return $updateOptions;
+        $updateOptions = parent::custom_process_admin_options();
+        return $updateOptions;
     }
 
     /**
