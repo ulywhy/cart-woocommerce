@@ -93,17 +93,22 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function getMpInstanceSingleton($payment = null)
     {
-        if(!empty($payment)){
+        $mp = null;
+        if (!empty($payment)) {
             $class = get_class($payment);
             if (!isset(self::$mpInstancePayment[$class])) {
                 self::$mpInstancePayment[$class] = self::getMpInstance($payment);
+                $mp = self::$mpInstancePayment[$class];
+                if(!empty($mp)){
+                    return $mp;
+                }
             }
-            return self::$mpInstancePayment[$class];
         }
 
-        if (self::$mpInstance === null) {
+        if (self::$mpInstance === null || empty($mp)) {
             self::$mpInstance = self::getMpInstance();
         }
+
         return self::$mpInstance;
     }
 

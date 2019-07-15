@@ -194,11 +194,15 @@ class WC_WooMercadoPago_Credentials
 
     /**
      * @param $mpInstance
-     * @param $accessToken
+     * @param null $accessToken
      * @param null $paymentsResponse
      */
-    public static function updatePaymentMethods($mpInstance, $accessToken, $paymentsResponse = null)
+    public static function updatePaymentMethods($mpInstance, $accessToken = null, $paymentsResponse = null)
     {
+        if (empty($accessToken) || empty($mpInstance)) {
+            return;
+        }
+
         if (empty($paymentsResponse)) {
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
@@ -232,6 +236,10 @@ class WC_WooMercadoPago_Credentials
      */
     public static function updateTicketMethod($mpInstance, $accessToken, $paymentsResponse = null)
     {
+        if (empty($accessToken) || empty($mpInstance)) {
+            return;
+        }
+
         if (empty($paymentsResponse)) {
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
