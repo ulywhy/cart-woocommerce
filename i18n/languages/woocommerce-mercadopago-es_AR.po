@@ -1080,6 +1080,9 @@ msgstr "Usa el medio de pago que prefieras."
 msgid "Hasta"
 msgstr "Hasta"
 
+msgid "cuota"
+msgstr "cuota"
+
 msgid "cuotas"
 msgstr "cuotas"
 

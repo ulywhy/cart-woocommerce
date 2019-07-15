@@ -453,7 +453,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $credito = 0;
         $efectivo = 0;
         $tarjetas = get_option('_checkout_payments_methods', '');
+        $installments = $this->getOption('installments');
+        $str_cuotas = "cuotas";
         $cho_tarjetas = array();
+
+        if($installments == 1){
+            $str_cuotas = "cuota";
+        }
 
         foreach ($tarjetas as $tarjeta) {
             if ($this->get_option($tarjeta['config'], '') == 'yes') {
@@ -473,7 +479,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             "credito" => $credito,
             "efectivo" => $efectivo,
             "tarjetas" => $cho_tarjetas,
-            "installments" => $this->getOption('installments'),
+            "str_cuotas" => $str_cuotas,
+            "installments" => $installments,
             "cho_image" => plugins_url('../assets/images/redirect_checkout.png', plugin_dir_path(__FILE__)),
         );
 

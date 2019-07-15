@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
         <div class="frame-tarjetas">
             <p class="subtitle-checkout">
                 <?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?>
-                <span class="badge-checkout"><?=__('Hasta', 'woocommerce-mercadopago')?> <?= $installments ?> <?=__('cuotas', 'woocommerce-mercadopago')?></span>
+                <span class="badge-checkout"><?=__('Hasta', 'woocommerce-mercadopago')?> <?= $installments ?> <?=__($str_cuotas, 'woocommerce-mercadopago')?></span>
             </p>
             
             <?php foreach($tarjetas as $tarjeta): ?>
