@@ -1143,7 +1143,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function getMpInstance()
     {
         $mp = WC_WooMercadoPago_Module::getMpInstanceSingleton($this);
-        $mp->sandbox_mode($this->sandbox);
+        if (!empty($mp)) {
+            $mp->sandbox_mode($this->sandbox);
+        }
         return $mp;
     }
 }
