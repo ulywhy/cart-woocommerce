@@ -526,6 +526,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $preferences = $preferencesBasic->get_preference();
         try {
             $checkout_info = $this->mp->create_preference(json_encode($preferences));
+            $this->log->write_log(__FUNCTION__, 'Created Preference: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             if ($checkout_info['status'] < 200 || $checkout_info['status'] >= 300) {
                 $this->log->write_log(__FUNCTION__, 'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
                 return false;
