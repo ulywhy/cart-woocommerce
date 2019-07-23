@@ -314,6 +314,12 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
             update_option($key, $value, true);
+
+            if ($key == '_mp_access_token_prod') {
+                $homolog_validate = $this->mpInstance->homologValidate($value);
+                update_option('homolog_validate', $homolog_validate, true);
+            }
+
             if (
                 ($key == '_mp_access_token_prod' && $isProduction == 'yes') ||
                 ($key == '_mp_access_token_test' && $isProduction == 'no')

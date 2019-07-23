@@ -714,4 +714,30 @@ class MP
     {
         return $this->paymentClass;
     }
+
+     /**
+     * @param $accessToken
+     * @return null
+     */
+    public function homologValidate($accessToken)
+    {
+        $seller = explode('-', $accessToken);
+
+        $response = MeliRestClient::get(
+            array('uri' => '/applications/' . $seller[1]), WC_WooMercadoPago_Module::get_module_version()
+        ); 
+        
+        //in case of failures
+        if ($response['status'] > 202) {
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Module');
+            $log->write_log('API application_search_owner_id error:', $response['response']['message']);
+            return 0;
+        }
+        //response treatment
+        $result = $response['response'];
+        if(in_array('payments',$result['scopes'])){
+            return 1;
+        }
+        return 0;
+    }
 }

@@ -76,6 +76,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $application_id;
     public $type_payments;
     public $activated_payment;
+    public $homolog_validate;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -104,7 +105,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->site_data = WC_WooMercadoPago_Module::get_site_data();
         $this->log = new WC_WooMercadoPago_Log($this);
         $this->mp = $this->getMpInstance();
+        $this->homolog_validate = $this->getHomologValidate();
         $this->application_id = $this->getApplicationId($this->mp_access_token_prod);
+    }
+
+     /**
+     * @return 
+     */
+    public function getHomologValidate()
+    {
+        $homolog_validate = get_option('homolog_validate', 0);
+        if (($this->checkout_credential_token_production == 'yes' && !empty($this->mp_access_token_prod)) && $homolog_validate == 0) {
+            $homolog_validate = $this->mp->homologValidate($this->mp_access_token_prod);
+            update_option('homolog_validate', $homolog_validate, true);
+            return $homolog_validate;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -231,6 +248,16 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
     /**
+     *  ADMIN NOTICE HOMOLOG
+     */
+    public function noticeHomologValidate()
+    {
+        echo '<div class="notice notice-warning is-dismissible">
+                <p><strong>MERCADO PAGO: </strong>' . sprintf(__('%s, solo te llevará unos minutos', 'woocommerce-mercadopago'), '<a class="homologScroll .mouse_pointe"><b><u>' . __('Homologa tu cuenta', 'woocommerce-mercadopago') . '</u></b></a>') . '</p>
+                </div>';
+    }
+
+    /**
      * @param $label
      * @return array
      */
@@ -270,10 +297,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['_mp_access_token_prod'] = $this->field_checkout_credential_accesstoken_prod();
             $form_fields['_mp_category_id'] = $this->field_category_store();
             if (!empty($this->getAccessToken())) {
-                $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
-                $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
-                $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
-                $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link($this->checkout_country, $this->application_id);
+                if($this->homolog_validate == 0) {
+                    if($_GET['section'] == $this->id  && !has_action('woocommerce_update_options_payment_gateways_'. $this->id)) {
+                        add_action('admin_notices', array($this, 'noticeHomologValidate'));
+                      }
+                    $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
+                    $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
+                    $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
+                    $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link($this->checkout_country, $this->application_id);
+                }
                 $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
                 $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
                 $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();

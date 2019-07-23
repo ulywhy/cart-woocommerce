@@ -31,19 +31,20 @@ window.onload = function () {
   //clone save button
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_btn_save');
 
-  if (document.getElementById("mp_table_15") != undefined && document.getElementById("mp_table_16") == undefined) {
-    document.getElementById("mp_table_15").append(cloneSaveButton.cloneNode(true));
+  if (document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_credential_description_prod") != undefined) {
+    document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_credential_description_prod").nextElementSibling.append(cloneSaveButton.cloneNode(true));
   }
 
-  if (document.getElementById("mp_table_16") != undefined) {
-    document.getElementById("mp_table_16").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_22").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_25").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_27").append(cloneSaveButton.cloneNode(true));
+  if (document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_custom_options_title") != undefined ) {
+    document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_advanced_settings").nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_custom_options_subtitle").nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_payments_description").nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById("woocommerce_woo-mercado-pago-custom_checkout_payments_advanced_description").nextElementSibling.append(cloneSaveButton.cloneNode(true));
 
+    
+    
     var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-custom_checkout_advanced_settings");
-    var collapse_table = document.querySelector("#mp_table_22");
+    var collapse_table = collapse_title.nextElementSibling;
     collapse_table.style.display = "none";
     collapse_title.style.cursor = "pointer";
 
@@ -67,10 +68,11 @@ window.onload = function () {
     }
 
     //collpase Configuración Avanzada
-    document.querySelector("#mp_table_27").style.display = "none";
+    document.querySelector("#woocommerce_woo-mercado-pago-custom_checkout_payments_advanced_description").nextElementSibling.style.display = "none";
 
+    
     var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-custom_checkout_custom_payments_advanced_title");
-    var collapse_table_2 = document.querySelector("#mp_table_27");
+    var collapse_table_2 =  document.querySelector("#woocommerce_woo-mercado-pago-custom_checkout_payments_advanced_description").nextElementSibling;
     var collapse_description_2 = document.querySelector("#woocommerce_woo-mercado-pago-custom_checkout_payments_advanced_description");
     collapse_table_2.style.display = "none";
     collapse_description_2.style.display = "none";
@@ -91,16 +93,25 @@ window.onload = function () {
         header_less_2.style.display = "block";
         collapse_table_2.style.display = "block";
         header_plus_2.style.display = "none";
-        text_advanced_config.style.display = "block";
+//         text_advanced_config.style.display = "block";
       }
       else {
         collapse_table_2.style.display = "none";
         header_less_2.style.display = "none";
         collapse_description_2.style.display = "none";
         header_plus_2.style.display = "block";
-        text_advanced_config.style.display = "none";
+//         text_advanced_config.style.display = "none";
       }
     }
 
   }
+
+ if(document.querySelector('.homologScroll') != null) {
+  document.querySelector('.homologScroll').addEventListener('click', function () {
+    document.querySelector('#woocommerce_woo-mercado-pago-custom__mp_access_token_prod').scrollIntoView({
+          block: "start",
+          behavior: "smooth"
+        });
+    });
+ }
 }

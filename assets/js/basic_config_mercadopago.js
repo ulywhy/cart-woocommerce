@@ -30,20 +30,19 @@ window.onload = function () {
 
   //clone save button
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_btn_save');
-  if (document.getElementById("mp_table_15") != undefined && document.getElementById("mp_table_16") == undefined) {
-    document.getElementById("mp_table_15").append(cloneSaveButton.cloneNode(true));
+  if (document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_credential_description_prod") != undefined) {
+    document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_credential_description_prod").nextElementSibling.append(cloneSaveButton.cloneNode(true));
   }
 
-  if (document.getElementById("mp_table_16") != undefined) {
-    document.getElementById("mp_table_16").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_21").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_22").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_25").append(cloneSaveButton.cloneNode(true));
-    document.getElementById("mp_table_27").append(cloneSaveButton.cloneNode(true));
+  if (document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_options_title") != undefined) {
 
+    document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_advanced_settings").nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_options_subtitle").nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_payments_description").nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById("woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_description").nextElementSibling.append(cloneSaveButton.cloneNode(true));
 
     var collapse_title = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_advanced_settings");
-    var collapse_table = document.querySelector("#mp_table_22");
+    var collapse_table = collapse_title.nextElementSibling;
     collapse_table.style.display = "none";
     collapse_title.style.cursor = "pointer";
 
@@ -68,7 +67,7 @@ window.onload = function () {
 
     //collpase Configuración Avanzada
     var collapse_title_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_title");
-    var collapse_table_2 = document.querySelector("#mp_table_27");
+    var collapse_table_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_description").nextElementSibling;
     var collapse_description_2 = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_description");
     collapse_table_2.style.display = "none";
     collapse_description_2.style.display = "none";
@@ -96,7 +95,8 @@ window.onload = function () {
     }
 
     //payment methods
-    var input_payments = document.querySelectorAll('#mp_table_25 td.forminp label');
+    var tablePayments = document.querySelector("#woocommerce_woo-mercado-pago-basic_checkout_payments_description").nextElementSibling.getAttribute('class');
+    var input_payments = document.querySelectorAll('.' + tablePayments + ' td.forminp label');
     for (i = 0; i < input_payments.length; i++) {
       input_payments[i].id = "input_payments_mt";
     }
@@ -121,7 +121,7 @@ window.onload = function () {
         var checkbox_online_prepend = "<div class='all_checkbox'>\
         <label for='checkmeon' id='input_payments'>\
           <input type='checkbox' name='checkmeon' id='checkmeon' "+ onlineChecked + " onclick='completeOnlineCheckbox()'>\
-          "+ online_payment_translate + "\
+          " + online_payment_translate + "\
         </label>\
       </div>";
         onlineInputs[ion].parentElement.insertAdjacentHTML('beforebegin', checkbox_online_prepend);
@@ -157,6 +157,15 @@ window.onload = function () {
       }
     }
 
+  }
+
+  if (document.querySelector('.homologScroll') != null) {
+    document.querySelector('.homologScroll').addEventListener('click', function () {
+      document.querySelector('#woocommerce_woo-mercado-pago-basic__mp_access_token_prod').scrollIntoView({
+        block: "start",
+        behavior: "smooth"
+      });
+    });
   }
 }
 
