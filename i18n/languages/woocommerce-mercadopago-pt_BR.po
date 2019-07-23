@@ -81,8 +81,11 @@ msgstr "Selecione a URL que mostraremos aos seus clientes quando tiverem um paga
 msgid "URL de pago pendiente"
 msgstr "URL de pagamento pendente"
 
-msgid "Selecciona pagos online"
-msgstr "Selecione meios online"
+msgid "Selecciona tarjetas de crédito"
+msgstr "Selecione cartões de crédito"
+
+msgid "Selecciona tarjetas de dédito"
+msgstr "Selecione cartões de dédito"
 
 msgid "Selecciona pagos offline"
 msgstr "Selecione meios offline"

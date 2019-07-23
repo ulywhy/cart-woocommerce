@@ -119,12 +119,40 @@ window.onload = function () {
     for (var ion = 0; ion < onlineInputs.length; ion++) {
       if (ion == 0) {
         var checkbox_online_prepend = "<div class='all_checkbox'>\
-        <label for='checkmeon' id='input_payments'>\
-          <input type='checkbox' name='checkmeon' id='checkmeon' "+ onlineChecked + " onclick='completeOnlineCheckbox()'>\
-          " + online_payment_translate + "\
-        </label>\
-      </div>";
+          <label for='checkmeon' id='input_payments'>\
+            <input type='checkbox' name='checkmeon' id='checkmeon' "+ onlineChecked + " onclick='completeOnlineCheckbox()'>\
+            "+ online_payment_translate + "\
+          </label>\
+        </div>";
         onlineInputs[ion].parentElement.insertAdjacentHTML('beforebegin', checkbox_online_prepend);
+        break;
+      }
+    }
+
+    //debit and prepaid payments
+    var debitChecked = "";
+    var countDebitChecked = 0;
+    var debitInputs = document.querySelectorAll(".debit_payment_method");
+    for (var ideb = 0; ideb < debitInputs.length; ideb++) {
+      var debit_payment_translate = debitInputs[ideb].getAttribute("data-translate");
+      if (debitInputs[ideb].checked == true) {
+        countDebitChecked += 1;
+      }
+    }
+
+    if (countDebitChecked == debitInputs.length) {
+      debitChecked = "checked";
+    }
+
+    for (var ideb = 0; ideb < debitInputs.length; ideb++) {
+      if (ideb == 0) {
+        var checkbox_debit_prepend = "<div class='all_checkbox'>\
+          <label for='checkmedeb' id='input_payments'>\
+            <input type='checkbox' name='checkmedeb' id='checkmedeb' "+ debitChecked + " onclick='completeDebitCheckbox()'>\
+            "+ debit_payment_translate + "\
+          </label>\
+        </div>";
+        debitInputs[ideb].parentElement.insertAdjacentHTML('beforebegin', checkbox_debit_prepend);
         break;
       }
     }
@@ -147,11 +175,11 @@ window.onload = function () {
     for (ioff = 0; ioff < offlineInputs.length; ioff++) {
       if (ioff == 0) {
         var checkbox_offline_prepend = "<div class='all_checkbox'>\
-        <label for='checkmeoff' id='input_payments' style='margin-bottom: 37px !important;'>\
-          <input type='checkbox' name='checkmeoff' id='checkmeoff' "+ offlineChecked + " onclick='completeOfflineCheckbox()'>\
-          "+ offline_payment_translate + "\
-        </label>\
-      </div>";
+          <label for='checkmeoff' id='input_payments' style='margin-bottom: 37px !important;'>\
+            <input type='checkbox' name='checkmeoff' id='checkmeoff' "+ offlineChecked + " onclick='completeOfflineCheckbox()'>\
+            "+ offline_payment_translate + "\
+          </label>\
+        </div>";
         offlineInputs[ioff].parentElement.insertAdjacentHTML('beforebegin', checkbox_offline_prepend);
         break;
       }
@@ -179,6 +207,20 @@ function completeOnlineCheckbox() {
     }
     else {
       onlineInputs[i].checked = false;
+    }
+  }
+}
+
+//Debit and prepaid payments
+function completeDebitCheckbox() {
+  var debitCheck = document.getElementById("checkmedeb").checked;
+  var debitInputs = document.querySelectorAll(".debit_payment_method");
+  for (var i = 0; i < debitInputs.length; i++) {
+    if (debitCheck == true) {
+      debitInputs[i].checked = true;
+    }
+    else {
+      debitInputs[i].checked = false;
     }
   }
 }

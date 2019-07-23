@@ -60,7 +60,7 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
                 if (!is_wp_error($payment_info) && ($payment_info['status'] == 200 || $payment_info['status'] == 201)) {
                     if ($payment_info['response']) {
                         header('HTTP/1.1 200 OK');
-                        do_action('valid_mercadopago_custom_ipn_request', $payment_info['response']);
+                        do_action('valid_mercadopago_ipn_request', $payment_info['response']);
                     }
                 } else {
                     $this->log->write_log(__FUNCTION__, 'error when processing received data: ' . json_encode($payment_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));

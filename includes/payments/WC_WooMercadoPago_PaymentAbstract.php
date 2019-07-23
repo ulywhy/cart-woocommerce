@@ -240,6 +240,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         if ($key == 'enabled' && $value == 'yes') {
             if (empty($this->mp->get_access_token())) {
                 $message = _('Configure as credenciais para habilitar os métodos de pagamento do Mercado Pago.');
+                $this->log->write_log(__FUNCTION__, $message);
                 echo json_encode(array('success' => false, 'data' => $message));
                 die();
             }

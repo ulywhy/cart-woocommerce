@@ -284,7 +284,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $ticket_payments = array();
         $ticket_payments_sort = array();
 
-        $all_payments = get_option('_checkout_payments_methods', '');
         $get_payment_methods_ticket = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
 
         $count_payment = 0;
@@ -386,6 +385,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function process_payment($order_id)
     {
         $ticket_checkout = apply_filters('wc_mercadopagoticket_ticket_checkout', $_POST['mercadopago_ticket']);
+        $this->log->write_log(__FUNCTION__, 'Ticket POST: ' . json_encode($ticket_checkout, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         $order = wc_get_order($order_id);
         if (method_exists($order, 'update_meta_data')) {
@@ -495,6 +495,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $preferences = $preferencesTicket->get_preference();
         try {
             $checkout_info = $this->mp->post('/v1/payments', json_encode($preferences));
+            $this->log->write_log(__FUNCTION__, 'Created Preference: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             if ($checkout_info['status'] < 200 || $checkout_info['status'] >= 300) {
                 $this->log->write_log(__FUNCTION__, 'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
                 return $checkout_info['response']['message'];
@@ -522,6 +523,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $payment_methods = $this->activated_payment;
         if (count($payment_methods) == 0) {
+            $this->log->write_log(__FUNCTION__, 'Ticket unavailable, no active payment methods. ');
             return false;
         }
 

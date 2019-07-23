@@ -333,6 +333,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function process_payment($order_id)
     {
         $custom_checkout = $_POST['mercadopago_custom'];
+        $this->log->write_log(__FUNCTION__, 'POST Custom: ' . json_encode($custom_checkout, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         $order = wc_get_order($order_id);
         if (method_exists($order, 'update_meta_data')) {
             $order->update_meta_data('_used_gateway', get_class($this));
@@ -435,6 +436,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 }
             } else {
                 // Process when fields are imcomplete.
+                $this->log->write_log(__FUNCTION__, 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form? ');
+
                 wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago') . ' MERCADO PAGO: ' .
                     WC_WooMercadoPago_Module::get_common_error_messages($response) . '</p>', 'error');
                 return array(
@@ -443,6 +446,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 );
             }
         } else {
+            $this->log->write_log(__FUNCTION__, 'A problem was occurred when processing your payment. Please, try again.' );
             wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago') . '</p>', 'error');
             return array(
                 'result' => 'fail',
@@ -462,6 +466,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $preferences = $preferencesCustom->get_preference();
         try {
             $checkout_info = $this->mp->post('/v1/payments', json_encode($preferences));
+            $this->log->write_log(__FUNCTION__, 'Preference created: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             if ($checkout_info['status'] < 200 || $checkout_info['status'] >= 300) {
                 $this->log->write_log(__FUNCTION__, 'mercado pago gave error, payment creation failed with error: ' . $checkout_info['response']['message']);
                 return $checkout_info['response']['message'];
@@ -507,7 +512,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         try {
             $this->mp->create_card_in_customer($custId, $token, $payment_method_id, $issuer_id);
         } catch (WC_WooMercadoPago_Exception $ex) {
-            $this->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+            $this->log->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
     }
 
@@ -524,6 +529,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
 
         if ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && $is_prod_credentials) {
+            $this->log->write_log(__FUNCTION__, 'NO HTTPS, Custom unavailable.');
             return false;
         }
 
