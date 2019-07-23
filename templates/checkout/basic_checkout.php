@@ -5,10 +5,6 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="panel-checkout">
   <div class="row">
-    <?php if(count($tarjetas) != 0): ?>
-      <h2 class="title-checkout"><?=__('Usa el medio de pago que prefieras.', 'woocommerce-mercadopago')?></h2>
-    <?php endif; ?>
-    
     <?php if($credito != 0): ?>
     <div class="col-md-12">
         <div class="frame-tarjetas">

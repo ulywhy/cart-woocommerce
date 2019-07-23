@@ -5,8 +5,7 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="panel-custom-checkout">
-    <div class="row pb-20">
-        <h2 class="title-checkout"><?=__('Pagar con Mercado Pago es fácil y seguro.', 'woocommerce-mercadopago')?></h2>
+    <div class="row">
 
         <div class="col-md-12 mb-20">
             <div class="frame-tarjetas text-justify">
@@ -34,7 +33,7 @@ if (!defined('ABSPATH')) {
                 <div id="mercadopago-form-ticket">
 
                     <div id="form-ticket">
-                        <div class="row pt-10">
+                        <div class="row">
                             <div class="col-md-6 pt-15">
                                 <label for="MPv1Ticket-docType-fisica" class="mp-label-form-check pointer">
                                     <input type="radio" name="mercadopago_ticket[docType]" class="mp-form-control-check" id="MPv1Ticket-docType-fisica" value="CPF" checked="checked" />

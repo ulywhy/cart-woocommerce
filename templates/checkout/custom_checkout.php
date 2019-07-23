@@ -5,9 +5,6 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="panel-custom-checkout">
 	<div class="row">
-		<h2 class="title-checkout">
-			<?=__('Pagá con tarjetas de débito y crédito', 'woocommerce-mercadopago')?>
-		</h2>
 		<div class="mp-frame-links">
 			<a class="mp-checkout-link pr-10" id="button-show-payments">
 				<?=__('Con qué Tarjetas puedo pagar', 'woocommerce-mercadopago')?> ⌵
