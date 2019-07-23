@@ -78,11 +78,11 @@ msgstr "URL de pago rechazado"
 msgid "Elige la URL que mostraremos a tus clientes cuando tengan un pago pendiente de aprobación."
 msgstr "Elige la URL que mostraremos a tus clientes cuando tengan un pago pendiente de aprobación."
 
-msgid "URL de pago pendiente"
-msgstr "URL de pago pendiente"
+msgid "Selecciona tarjetas de crédito"
+msgstr "Selecciona tarjetas de crédito"
 
-msgid "Selecciona pagos online"
-msgstr "Selecciona pagos online"
+msgid "Selecciona tarjetas de dédito"
+msgstr "Selecciona tarjetas de dédito"
 
 msgid "Selecciona pagos offline"
 msgstr "Selecciona pagos offline"
