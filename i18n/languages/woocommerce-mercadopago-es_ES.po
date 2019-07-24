@@ -256,7 +256,7 @@ msgid "Con estas claves podrás <b>recibir pagos reales</b> de tus clientes."
 msgstr "Con estas claves podrás <b>recibir pagos reales</b> de tus clientes."
 
 msgid "Homologa tu cuenta, solo te llevará unos minutos"
-msgstr "Homologa tu cuenta, solo te llevará unos minutos\""
+msgstr "Homologa tu cuenta, solo te llevará unos minutos"
 
 msgid "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la adecuación a las normas o disposiciones legales de cada país."
 msgstr "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la adecuación a las normas o disposiciones legales de cada país."
@@ -415,7 +415,7 @@ msgid "Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a ot
 msgstr "Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. %s"
 
 msgid "Configura la experiencia de pago en tu tienda"
-msgstr "onfigura la experiencia de pago en tu tienda"
+msgstr "Configura la experiencia de pago en tu tienda"
 
 msgid "Configura la experiencia de pago personalizada en tu tienda"
 msgstr "Configura la experiencia de pago personalizada en tu tienda"

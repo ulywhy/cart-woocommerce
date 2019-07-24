@@ -79,6 +79,7 @@
     border: 1px solid #ccc;
     padding: 15px;
     width: 365px;
+    font-weight: bold;
     margin-top: -8px !important;
     margin-bottom: 37px !important;
 }
@@ -133,7 +134,7 @@
 
 .mp_title_bd {
     font-family: sans-serif;
-    font-size: 26px !important;
+    font-size: 30px !important;
     font-weight: 400;
     font-style: normal;
     font-stretch: normal;
@@ -147,7 +148,7 @@
 
 .mp_title_checkout {
     font-family: sans-serif;
-    font-size: 26px !important;
+    font-size: 30px !important;
     font-weight: 400;
     font-style: normal;
     font-stretch: normal;
@@ -225,7 +226,7 @@
 .title-checkout-body {
     font-family: sans-serif !important;
     margin: 5px 0 5px !important;
-    font-size: 18px !important;
+    font-size: 20px !important;
     font-weight: 300 !important;
     font-style: normal;
     font-stretch: normal;
@@ -236,7 +237,7 @@
 
 .text-checkout-body {
     font-size: 14px !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.5;
