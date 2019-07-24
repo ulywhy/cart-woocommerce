@@ -318,6 +318,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             if ($key == '_mp_access_token_prod') {
                 $homolog_validate = $this->mpInstance->homologValidate($value);
                 update_option('homolog_validate', $homolog_validate, true);
+                if($isProduction == 'yes' && $homolog_validate == 0) {
+                    add_action('admin_notices', array(get_class($this->payment), 'enablePaymentNotice'));
+                }
             }
 
             if (
