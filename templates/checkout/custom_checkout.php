@@ -157,7 +157,7 @@ if (!defined('ABSPATH')) {
 									</div>
 								</div>
 
-								<div class="col-md-8">
+								<div id="installments-div" class="col-md-8">
 									<?php if ($currency_ratio != 1) : ?>
 										<label for="installments" class="mp-label-form">
 											<div class="tooltip">
@@ -1322,8 +1322,12 @@ if (!defined('ABSPATH')) {
 			// flow: MLB AND MCO
 			if (MPv1.site_id == "MLB") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
+				document.getElementById('installments-div').classList.remove('col-md-8');
+        		document.getElementById('installments-div').classList.add('col-md-12');
 			} else if (MPv1.site_id == "MCO") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
+				document.getElementById('installments-div').classList.remove('col-md-8');
+        		document.getElementById('installments-div').classList.add('col-md-12');
 			} else if (MPv1.site_id == "MLA") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "block";
 				document.querySelector(MPv1.selectors.taxCFT).style.display = "block";
@@ -1331,6 +1335,8 @@ if (!defined('ABSPATH')) {
 				MPv1.addListenerEvent(document.querySelector(MPv1.selectors.installments), "change", MPv1.showTaxes);
 			} else if (MPv1.site_id == "MLC") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
+				document.getElementById('installments-div').classList.remove('col-md-8');
+        		document.getElementById('installments-div').classList.add('col-md-12');
 			}
 
 			if (MPv1.debug) {

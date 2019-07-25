@@ -343,7 +343,7 @@
 .mp-frame-links {
     display: inline-flex;
     padding-top: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .mp-checkout-link {
