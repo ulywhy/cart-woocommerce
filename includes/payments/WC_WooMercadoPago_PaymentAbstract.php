@@ -1071,13 +1071,20 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return $commission;
     }
 
-    /**
+   /**
      * @return array
      */
     public function field_checkout_ready_title()
     {
+      
+        if($this->checkout_credential_token_production == 'yes') {
+          $message_ready_title =  __('¿Todo listo para el despegue de tus ventas?', 'woocommerce-mercadopago');
+        } else { 
+          $message_ready_title =  __('¿Todo configurado? Ve a tu tienda en modo Sandbox', 'woocommerce-mercadopago');
+        }
+      
         $checkout_options_title = array(
-            'title' => __('¿Todo listo para el despegue de tus ventas?', 'woocommerce-mercadopago'),
+            'title' => $message_ready_title,
             'type' => 'title',
             'class' => 'mp_subtitle_bd_mb mg-0'
         );
@@ -1089,8 +1096,14 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_ready_description()
     {
+       if($this->checkout_credential_token_production == 'yes') {
+          $message_ready_description =  __('Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online.', 'woocommerce-mercadopago');
+        } else { 
+          $message_ready_description =  __('Visita tu tienda como si fueras uno de tus mejores clientes. Revisa que todo esté bien para impresionarlos<br> y aumentar tus ventas. Quiero testear mis ventas', 'woocommerce-mercadopago');
+        }
+      
         $checkout_options_subtitle = array(
-            'title' => __('Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online.', 'woocommerce-mercadopago'),
+            'title' => $message_ready_description,
             'type' => 'title',
             'class' => 'mp_small_text'
         );
@@ -1102,10 +1115,16 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_ready_description_link()
     {
+        if($this->checkout_credential_token_production == 'yes') {
+            $message_link =  __('Visitar mi tienda', 'woocommerce-mercadopago');
+          } else { 
+            $message_link =  __('Quiero testear mis ventas', 'woocommerce-mercadopago');
+          }
+
         $checkout_options_subtitle = array(
             'title' => sprintf(
                 __('%s', 'woocommerce-mercadopago'),
-                '<a href="' . get_site_url() . '" target="_blank">' . __('Quiero testear mis ventas', 'woocommerce-mercadopago') . '</a>'
+                '<a href="' . get_site_url() . '" target="_blank">' . $message_link . '</a>'
             ),
             'type' => 'title',
             'class' => 'mp_tienda_link'

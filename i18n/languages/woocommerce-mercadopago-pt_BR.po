@@ -402,10 +402,19 @@ msgstr "Selecione um valor percentual adicional que você queira cobrar como com
 msgid "¿Todo listo para el despegue de tus ventas?"
 msgstr "Tudo pronto para o início das suas vendas?"
 
+msgid "¿Todo configurado? Ve a tu tienda en modo Sandbox"
+msgstr "Tudo configurado? Vá para sua loja no modo Sandbox"
+
 msgid "Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online."
 msgstr "Visite sua loja como se fosse um dos seus clientes e confira se está tudo em ordem. Se você já está no modo Produção, <br> traga os seus clientes e aumente suas vendas com a melhor experiência de compra on-line."
 
+msgid "Visita tu tienda como si fueras uno de tus mejores clientes. Revisa que todo esté bien para impresionarlos<br> y aumentar tus ventas. Quiero testear mis ventas"
+msgstr "Visite sua loja como se você fosse um dos seus melhores clientes. Verifique se está tudo bem para impressioná-los<br> e aumentar suas vendas. Quero testar minhas vendas"
+
 msgid "Quiero testear mis ventas"
+msgstr "Quero testar minhas vendas"
+
+msgid "Visitar mi tienda"
 msgstr "Visitar minha loja"
 
 msgid "Paga con tarjetas de crédito o débito"
