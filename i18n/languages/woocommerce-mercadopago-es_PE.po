@@ -1109,3 +1109,18 @@ msgstr "Incluí esta opción de compra preferida por algunos clientes."
 
 msgid "Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes."
 msgstr "Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes."
+
+msgid "Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!"
+msgstr "Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!"
+
+msgid "¡Credenciales para producción inválidas!"
+msgstr "¡Credenciales para producción inválidas!"
+
+msgid "¡Credenciales de prueba inválidas!"
+msgstr "¡Credenciales de prueba inválidas!"
+
+msgid "%s, solo te llevará unos minutos"
+msgstr "%s, solo te llevará unos minutos"
+
+msgid "Homologa tu cuenta"
+msgstr "Homologa tu cuenta"

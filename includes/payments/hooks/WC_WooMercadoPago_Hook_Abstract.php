@@ -352,7 +352,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidProdCredentials()
     {
         echo '<div class="error is-dismissible">
-                <p style="font-size:18px"><strong>MERCADO PAGO:</strong> INVALID PROD CREDENTIALS</p>
+        <p><strong>MERCADO PAGO: </strong>'. __('¡Credenciales para producción inválida!', 'woocommerce-mercadopago') . '</p>
                 </div>';
     }
 
@@ -362,7 +362,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidTestCredentials()
     {
         echo '<div class="error is-dismissible">
-                <p style="font-size:18px"><strong>MERCADO PAGO:</strong> INVALID TEST CREDENTIALS</p>
+        <p><strong>MERCADO PAGO: </strong>' .  __('¡Credenciales de prueba inválida!', 'woocommerce-mercadopago') . '</p>
                 </div>';
     }
 }

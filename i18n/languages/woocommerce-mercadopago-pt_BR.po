@@ -1115,3 +1115,18 @@ msgstr "Falta traducao BR"
 
 msgid "Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes."
 msgstr "Falta traducao BR"
+
+msgid "Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!"
+msgstr "Atualize suas credenciais com as chaves Token de Acesso e Chave Pública, você precisa delas para continuar recebendo pagamentos!"
+
+msgid "¡Credenciales para producción inválidas!"
+msgstr "Credenciais para produção inválidas!"
+
+msgid "¡Credenciales de prueba inválidas!"
+msgstr "Credenciais de teste inválidas!"
+
+msgid "%s, solo te llevará unos minutos"
+msgstr "%s, isso levará somente alguns minutos"
+
+msgid "Homologa tu cuenta"
+msgstr "Homologue sua conta"

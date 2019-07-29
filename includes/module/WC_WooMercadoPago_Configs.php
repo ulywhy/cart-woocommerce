@@ -98,8 +98,8 @@ class WC_WooMercadoPago_Configs
     public function noticeUpdateAccessToken()
     {
         echo '<div class="error is-dismissible">
-            <p style="font-size:20px">
-                <strong>'.__('Importante:', 'woocommerce-mercadopado').'</strong> '.__('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado').'
+            <p><strong>MERCADO PAGO: </strong>'
+                .__('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado').'
             </p>
         </div>';
     }
@@ -111,7 +111,7 @@ class WC_WooMercadoPago_Configs
     {
         $message = __('La tienda debe tener HTTPS para ver los medios de pago.', 'woocommerce-mercadopago');
         echo '<div class="notice notice-warning is-dismissible">  
-                    <p style="font-size:13px">
+                    <p>
                         <strong>MERCADO PAGO:</strong> ' . $message . '
                     </p>
                     <button type="button" class="notice-dismiss">
