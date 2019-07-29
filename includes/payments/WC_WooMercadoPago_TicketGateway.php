@@ -26,7 +26,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Checkout personalizado', 'woocommerce-mercadopago');
         $this->title = __('Paga con medios de pago en efectivo', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription('Acepta medios de pago en efectivo y amplía las opciones de compra de tus clientes.');
+        $this->method_description = $this->getMethodDescription('Acepta pagos en efectivo dentro del checkout personalizado y amplía las opciones de compra de tus clientes.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');
         $this->date_expiration = $this->getOption('date_expiration', 3);
@@ -96,7 +96,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             // Necessary to run
             'title',
             'description',
-            // Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. 
+            // Checkout de pagos con dinero en efectivo<br> Aceptá pagos al instante y maximizá la conversión de tu negocio 
             'checkout_ticket_header',
             'checkout_steps',
             // ¿En qué país vas a activar tu tienda?
@@ -180,11 +180,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_ticket_header = array(
             'title' => sprintf(
-                __('Checkout Personalizado Offline. Acepta medios de pago en efectivo y amplía las opciones de compra. %s', 'woocommerce-mercadopago'),
+                __('Checkout de pagos con dinero en efectivo<br> Aceptá pagos presenciales ¡no dejes a nadie afuera! %s', 'woocommerce-mercadopago'),
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
-                  ' . __('Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización.', 'woocommerce-mercadopago') . '
+                  ' . __('Incluí esta opción de compra preferida por algunos clientes.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             </div>'
@@ -220,13 +220,26 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         return $checkout_options_subtitle;
     }
 
+     /**
+     * @return array
+     */
+    public function field_checkout_options_description()
+    {
+        $checkout_options_description = array(
+            'title' => __('Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text'
+        );
+        return $checkout_options_description;
+    }
+
     /**
      * @return array
      */
     public function field_checkout_ticket_payments_title()
     {
         $checkout_payments_title = array(
-            'title' => __('Configura la experiencia de pagos en efectivo en tu tienda.', 'woocommerce-mercadopago'),
+            'title' => __('Configurá las preferencias de pago con dinero en efectivo', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_title_bd'
         );

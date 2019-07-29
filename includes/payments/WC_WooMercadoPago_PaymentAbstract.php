@@ -438,7 +438,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_steps_link_homolog = array(
             'title' => sprintf(
-                __('Las credenciales son las claves que te proporcionamos para que integres de forma rápida <br>y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar <br>en tu sitio web. No necesitas saber diseñar o programar para activarnos en tu tienda.', 'woocommerce-mercadopago'),
+                __('Las credenciales son las claves que te proporcionamos para que integres de forma rápida <br>y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar <br>en tu sitio web.  No necesitas saber diseñar o programar para hacerlo.', 'woocommerce-mercadopago'),
                 '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('cuenta homologada', 'woocommerce-mercadopago') . '</a>'
             ),
             'type' => 'title',
@@ -582,7 +582,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_mod_test_description()
     {
         $checkout_credential_mod_test_description = array(
-            'title' => __('Por defecto, te dejamos el modo Sandbox activo para que hagas testeos antes de empezar a vender.', 'woocommerce-mercadopago'),
+            'title' => __('Por defecto, te activamos el entorno de pruebas Sandbox para que hagas testeos antes de empezar a vender.', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_small_text mt--10'
         );
@@ -906,7 +906,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_payments_subtitle()
     {
         $checkout_payments_subtitle = array(
-            'title' => __('Configuración Básica de la experiencia de pago.', 'woocommerce-mercadopago'),
+            'title' => __('Configuración Básica', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_subtitle mt-5'
         );
@@ -974,7 +974,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_payments_advanced_description()
     {
         $checkout_payments_advanced_description = array(
-            'title' => __('Edita estos campos avanzados de la experiencia de pago solo cuando quieras modificar los valores preestablecidos.', 'woocommerce-mercadopago'),
+            'title' => __('Editá estos campos avanzados solo cuando quieras modificar los valores preestablecidos.', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_small_text mt--10'
         );

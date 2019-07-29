@@ -28,7 +28,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Checkout personalizado', 'woocommerce-mercadopago');
         $this->title = __('Paga con tarjetas de crédito o débito', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription('Crecer está en tus manos. Diseña y adapta la experiencia de pago online que quieras ofrecer en tu sitio web y maximiza la conversión de tu negocio.');
+        $this->method_description = $this->getMethodDescription('Acepta pagos con tarjeta en tu sitio web con la mejor financiación posible y maximiza la conversión de tu negocio. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->field_forms_order = $this->get_fields_sequence();
         parent::__construct();
@@ -87,7 +87,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             // Necessary to run
             'title',
             'description',
-            // Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. 
+            // Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio 
             'checkout_custom_header',
             'checkout_steps',
             // ¿En qué país vas a activar tu tienda?
@@ -150,7 +150,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_custom_header = array(
             'title' => sprintf(
-                __('Checkout Personalizado. Acepta pagos con tarjetas y lleva tus cobros a otro nivel. %s', 'woocommerce-mercadopago'),
+                __('Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio %s', 'woocommerce-mercadopago'),
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">

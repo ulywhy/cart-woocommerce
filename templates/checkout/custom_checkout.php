@@ -147,7 +147,7 @@ if (!defined('ABSPATH')) {
 
 					<div class="col-md-12">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout"><?=__('Cuántas cuotas querés pagar', 'woocommerce-mercadopago')?></p>
+							<p class="subtitle-custom-checkout"><?=__('En cuántas cuotas quieres pagar', 'woocommerce-mercadopago')?></p>
 
 							<div class="row pt-10">
 								<div class="col-md-4 pr-15">

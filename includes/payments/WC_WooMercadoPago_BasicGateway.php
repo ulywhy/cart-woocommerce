@@ -27,7 +27,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->method_title = __('Mercado Pago - Checkout básico', 'woocommerce-mercadopago');
         $this->method = $this->getOption('method', 'redirect');
         $this->title = __('Paga con el medio de pago que prefieras', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription('Cobra al instante de cada venta. Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Nosotros nos encargamos del resto.');
+        $this->method_description = $this->getMethodDescription('Ofrece todos los medios de pago: tarjetas de crédito y débito, dinero en efectivo y dinero en cuenta. Tus clientes eligen si pagan como invitados o desde su cuenta de Mercado Pago.');
         $this->auto_return = $this->getOption('auto_return', 'yes');
         $this->success_url = $this->getOption('success_url', '');
         $this->failure_url = $this->getOption('failure_url', '');
@@ -216,7 +216,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
-                  ' . __('Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige la experiencia de pago final entre las opciones disponibles.', 'woocommerce-mercadopago') . '
+                  ' . __('Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige si la experiencia de pago final será dentro o fuera de tu tienda.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             </div>'
@@ -243,6 +243,19 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     /**
      * @return array
      */
+    public function field_checkout_options_description()
+    {
+        $checkout_options_description = array(
+            'title' => __('Habilitá la experiencia del checkout básico de Mercado Pago en tu tienda online, seleccioná los medios de pago disponibles para tus clientes y<br> definí el máximo de cuotas en el que podrán pagarte.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text'
+        );
+        return $checkout_options_description;
+    }
+
+    /**
+     * @return array
+     */
     public function field_checkout_options_subtitle()
     {
         $checkout_options_subtitle = array(
@@ -258,7 +271,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_payments_title()
     {
         $checkout_payments_title = array(
-            'title' => __('Configura la experiencia de pago en tu tienda.', 'woocommerce-mercadopago'),
+            'title' => __('Configurá las preferencias de pago en tu tienda', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_title_bd'
         );
@@ -271,7 +284,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_payments_advanced_title()
     {
         $checkout_payments_advanced_title = array(
-            'title' => __('Configuración Avanzada de la experiencia de pago.', 'woocommerce-mercadopago'),
+            'title' => __('Configuración Avanzada de la experiencia de pago', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_subtitle_bd'
         );
