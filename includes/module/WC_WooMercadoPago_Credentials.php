@@ -184,7 +184,8 @@ class WC_WooMercadoPago_Credentials
      */
     public static function getPaymentResponse($mpInstance, $accessToken)
     {
-        $payments = $mpInstance->get('/v1/payment_methods/?access_token=' . $accessToken);
+        $seller = explode('-', $accessToken);
+        $payments = $mpInstance->get('/users/' . end($seller) . '/accepted_payment_methods?marketplace=NONE');
         if (isset($payments['response'])) {
             return $payments['response'];
         }

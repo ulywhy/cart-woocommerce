@@ -377,6 +377,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         foreach ($all_payments as $key => $value) {
             if($value['type'] == 'atm'){
                 $all_payments[$key]['type'] = 'ticket';
+            } elseif ($value['type'] == 'account_money') {
+               $all_payments[$key]['type'] = 'debit_card';
+            } else {
+              continue;
             }
         }
 
