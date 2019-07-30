@@ -598,7 +598,7 @@ msgid "Customer haven't paid yet."
 msgstr "El cliente todavía no efectuó el pago."
 
 msgid "Link to bank transfer "
-msgstr "Link a transferencia bancaria"
+msgstr "Link a transferencia bancaria "
 
 msgid "here"
 msgstr "aquí"
