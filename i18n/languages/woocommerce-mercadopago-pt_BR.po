@@ -354,8 +354,8 @@ msgstr "24x parcelas"
 msgid "URL para IPN"
 msgstr "URL para IPN"
 
-msgid "Ingresá una URL para recibir notificaciones de pagos."
-msgstr "Insira uma URL para receber notificações de pagamento."
+msgid "Ingresa una URL para recibir notificaciones de pagos. En %s puedes consultar más información."
+msgstr "Falta traducao BR"
 
 msgid "IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías."
 msgstr "IPN (Instant Payment Notification) é uma notificação de eventos feita na sua plataforma e enviada de um servidor para outro mediante uma chamada HTTP POST. Confira mais informações nos nossos manuais."
@@ -1130,3 +1130,6 @@ msgstr "%s, isso levará somente alguns minutos"
 
 msgid "Homologa tu cuenta"
 msgstr "Homologue sua conta"
+
+msgid "nuestras guías"
+msgstr "nossos manuais"

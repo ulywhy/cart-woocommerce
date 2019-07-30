@@ -954,6 +954,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
     /**
+     * @return string
+     */
+    public function getCountryLinkGuide($checkout)
+    {
+        $countryLink = array(
+            'mla' => 'https://www.mercadopago.com.ar/developers/es/', // Argentinian
+            'mlb' => 'https://www.mercadopago.com.br/developers/pt/', // Brazil
+            'mlc' => 'https://www.mercadopago.cl/developers/es/' , // Chile
+            'mco' => 'https://www.mercadopago.com.co/developers/es/', // Colombia
+            'mlm' => 'https://www.mercadopago.com.mx/developers/es/', // Mexico
+            'mpe' => 'https://www.mercadopago.com.pe/developers/es/', // Peru
+            'mlu' => 'https://www.mercadopago.com.uy/developers/es/', // Uruguay
+        );
+            return $countryLink[$checkout];
+    }
+
+    /**
      * @return array
      */
     public function field_custom_url_ipn()
@@ -961,7 +978,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $custom_url_ipn = array(
             'title' => __('URL para IPN', 'woocommerce-mercadopago'),
             'type' => 'text',
-            'description' => __('Ingresá una URL para recibir  notificaciones de pagos.', 'woocommerce-mercadopago'),
+            'description' => sprintf(
+                __('Ingresa una URL para recibir notificaciones de pagos. En %s puedes consultar más información.', 'woocommerce-mercadopago'),
+                '<a href="' . $this->getCountryLinkGuide($this->checkout_country) .'guides/notifications/ipn/">' . __('nuestras guías', 'woocommerce-mercadopago') .
+                '</a>'
+            ),
             'default' => '',
             'desc_tip' => __('IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías.', 'woocommerce-services')
         );
