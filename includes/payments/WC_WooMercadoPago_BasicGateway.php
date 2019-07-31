@@ -106,7 +106,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             // Necessary to run
             'title',
             'description',
-            // Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel.
+            // Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel
             'checkout_header',
             'checkout_steps',
             // ¿En qué país vas a activar tu tienda?
@@ -212,7 +212,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_header = array(
             'title' => sprintf(
-                __('Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel. %s', 'woocommerce-mercadopago'),
+                __('Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel %s', 'woocommerce-mercadopago'),
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">

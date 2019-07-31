@@ -30,8 +30,8 @@ msgstr "Todos os meios de pagamento"
 msgid "Ofrece todos los medios de pago: tarjetas de crédito y débito, dinero en efectivo y dinero en cuenta. Tus clientes eligen si pagan como invitados o desde su cuenta de Mercado Pago."
 msgstr "Falta traducao BR"
 
-msgid "Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel. %s"
-msgstr "Checkout Básico. Aceite todos os meios de pagamento e leve suas cobranças a outro nível. %s"
+msgid "Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel %s"
+msgstr "Checkout Básico. Aceite todos os meios de pagamento e leve suas cobranças a outro nível %s"
 
 msgid "Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige si la experiencia de pago final será dentro o fuera de tu tienda."
 msgstr "Transforme sua loja virtual no lugar de pagamentos preferido dos seus clientes. Escolha a experiência de pagamento final entre as opções disponíveis."
