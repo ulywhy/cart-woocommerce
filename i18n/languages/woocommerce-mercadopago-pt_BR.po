@@ -28,7 +28,7 @@ msgid "Paga con el medio de pago que prefieras"
 msgstr "Todos os meios de pagamento"
 
 msgid "Ofrece todos los medios de pago: tarjetas de crédito y débito, dinero en efectivo y dinero en cuenta. Tus clientes eligen si pagan como invitados o desde su cuenta de Mercado Pago."
-msgstr "Falta traducao BR"
+msgstr "Ofereça todos os meios de pagamento: cartão de crédito, boleto, na lotérica e dinheiro em conta. Seus clientes escolhem se querem pagar como visitantes ou usando sua conta do Mercado Pago."
 
 msgid "Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel %s"
 msgstr "Checkout Básico. Aceite todos os meios de pagamento e leve suas cobranças a outro nível %s"
@@ -118,10 +118,10 @@ msgid "Paga con medios de pago en efectivo"
 msgstr "Pagamentos via boleto e em lotéricas"
 
 msgid "Acepta pagos en efectivo dentro del checkout personalizado y amplía las opciones de compra de tus clientes."
-msgstr "Falta traducao BR"
+msgstr "Adapte a experiência de pagamentos via boleto e em lotéricas e amplie as opções de compra que quiser oferecer."
 
 msgid "Checkout de pagos con dinero en efectivo<br> Aceptá pagos presenciales ¡no dejes a nadie afuera! %s"
-msgstr "Falta traducao BR %s"
+msgstr "Checkout de pagamentos via boleto ou em lotérica<br> Aceite pagamentos presenciais e amplie as opções de compra! %s"
 
 msgid "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización"
 msgstr "Elabore e adapte a experiência de pagamento via boleto ou em lotéricas que quiser oferecer no seu site e maximize a conversão do seu negócio com as nossas opções de customização"
@@ -190,7 +190,7 @@ msgid "Ve a <b>configuraciones avanzadas</b> tanto del plugin como del checkout 
 msgstr "Faça as <b>configurações avançadas</b> tanto do plugin como do checkout somente quando quiser alterar os ajustes pré-definidos."
 
 msgid "Las credenciales son las claves que te proporcionamos para que integres de forma rápida <br>y segura. Debes tener una %s en Mercado Pago para obtenerlas y cobrar <br>en tu sitio web.  No necesitas saber diseñar o programar para hacerlo."
-msgstr "Falta traducao BR"
+msgstr "As credenciais são as senhas que informamos para que você integre de forma rápida <br>e segura. %s para ir a Produção e receber pagamentos <br> na sua loja. Você não precisa de conhecimentos de programação ou design para ativar o Mercado Pago na sua loja."
 
 msgid "cuenta homologada"
 msgstr "Homologue sua conta"
@@ -355,13 +355,13 @@ msgid "URL para IPN"
 msgstr "URL para IPN"
 
 msgid "Ingresa una URL para recibir notificaciones de pagos. En %s puedes consultar más información."
-msgstr "Falta traducao BR"
+msgstr "Insira uma URL para receber notificações de pagamento. Confira mais informações nos %s."
 
 msgid "IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías."
 msgstr "IPN (Instant Payment Notification) é uma notificação de eventos feita na sua plataforma e enviada de um servidor para outro mediante uma chamada HTTP POST. Confira mais informações nos nossos manuais."
 
 msgid "Editá estos campos avanzados solo cuando quieras modificar los valores preestablecidos."
-msgstr "Falta traducao BR"
+msgstr "Edite estes campos avançados da experiência de pagamento somente quando quiser alterar os valores pré-definidos."
 
 msgid "Cupones de descuento"
 msgstr "Cupons de desconto"
@@ -421,10 +421,10 @@ msgid "Paga con tarjetas de crédito o débito"
 msgstr "Pagamentos com cartão"
 
 msgid "Acepta pagos con tarjeta en tu sitio web con la mejor financiación posible y maximiza la conversión de tu negocio. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!"
-msgstr "Falta traducao BR"
+msgstr "Aceite pagamentos com cartão no seu site com o melhor financiamento possível e maximize a conversão dos seus negócios. Com o checkout personalizado seus clientes pagam sair da sua sua loja!"
 
 msgid "Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio %s"
-msgstr "Falta traducao BR %s"
+msgstr "Checkout de pagamentos com cartão<br> Aceite pagamentos no ato e leve suas cobranças a outro nível %s"
 
 msgid "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización."
 msgstr "Elabore e adapte a experiência de pagamento final que quiser oferecer no seu site ou aplicativo e maximize a conversão do seu negócio com as nossas opções de personalização."
@@ -1105,16 +1105,16 @@ msgid "Te llevamos a nuestro sitio para completar el pago"
 msgstr "Você será redirecionado para o site do Mercado Pago para concluir o pagamento"
 
 msgid "Configura las opciones de pago a tu medida y acepta pagos con tarjetas, dinero en efectivo y dinero en cuenta de Mercado Pago."
-msgstr "Falta traducao BR"
+msgstr "Configure as opções de pagamento sob medida e aceite pagamentos com cartão, presenciais, via boleto, pela lotérica e com dinheiro na conta do Mercado Pago."
 
 msgid "Habilitá la experiencia del checkout básico de Mercado Pago en tu tienda online, seleccioná los medios de pago disponibles para tus clientes y<br> definí el máximo de cuotas en el que podrán pagarte."
-msgstr "Falta traducao BR"
+msgstr "Habilite o Mercado Pago na sua loja virtual, selecione os meios de pagamento disponíveis para seus clientes e<br> defina o número máximo de vezes que podem parcelar suas compras."
 
 msgid "Incluí esta opción de compra preferida por algunos clientes."
-msgstr "Falta traducao BR"
+msgstr "Incluí esta opção de compra preferida por alguns clientes."
 
 msgid "Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes."
-msgstr "Falta traducao BR"
+msgstr "Habilite o Mercado Pago na sua loja e selecione os meios de<br> pagamento via boleto e em lotéricas disponíveis para os seus clientes."
 
 msgid "Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!"
 msgstr "Atualize suas credenciais com as chaves Token de Acesso e Chave Pública, você precisa delas para continuar recebendo pagamentos!"
