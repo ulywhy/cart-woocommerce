@@ -63,8 +63,8 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
         if ('modal' == $this->payment->method && $url) {
             $this->payment->log->write_log(__FUNCTION__, 'rendering Mercado Pago lightbox (modal window).');
             $html = '<style type="text/css">
-						#MP-Checkout-dialog #MP-Checkout-IFrame { bottom: -28px !important; height: 590px !important; }
-					</style>';
+            #MP-Checkout-dialog #MP-Checkout-IFrame { bottom: 0px !important; top:50%!important; margin-top: -280px !important; height: 590px !important; }
+            </style>';
             $html .= '<script type="text/javascript" src="https://secure.mlstatic.com/mptools/render.js"></script>
 					<script type="text/javascript">
 						(function() { $MPC.openCheckout({ url: "' . esc_url($url) . '", mode: "modal" }); })();
