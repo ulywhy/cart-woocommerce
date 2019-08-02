@@ -260,7 +260,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_options_subtitle = array(
             'title' => __('Ve a lo básico. Coloca la información de tu negocio.', 'woocommerce-mercadopago'),
-            'type' => 'title'
+            'type' => 'title',
+            'class' => 'mp_subtitle mt-5'
         );
         return $checkout_options_subtitle;
     }
@@ -522,6 +523,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             "str_cuotas" => $str_cuotas,
             "installments" => $installments,
             "cho_image" => plugins_url('../assets/images/redirect_checkout.png', plugin_dir_path(__FILE__)),
+            "path_to_javascript" => plugins_url('../assets/js/basic-cho.js', plugin_dir_path(__FILE__)),
         );
 
         wc_get_template('checkout/basic_checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());

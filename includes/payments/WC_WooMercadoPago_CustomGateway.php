@@ -186,7 +186,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_custom_options_subtitle = array(
             'title' => __('Ve a lo básico. Coloca la información de tu negocio.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mg-0'
+            'class' => 'mp_subtitle mt-5'
         );
         return $checkout_custom_options_subtitle;
     }

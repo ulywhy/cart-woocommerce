@@ -1062,7 +1062,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $gateway_discount = array(
             'title' => __('Descuentos Gateway', 'woocommerce-mercadopago'),
             'type' => 'number',
-            'description' => __('Elige un valor porcentual que quieras descontara tus clientes por pagar con Mercado Pago.', 'woocommerce-mercadopago'),
+            'description' => __('Elige un valor porcentual que quieras descontar a tus clientes por pagar con Mercado Pago.', 'woocommerce-mercadopago'),
             'default' => '0',
             'custom_attributes' => array(
                 'step' => '0.01',
@@ -1081,7 +1081,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $commission = array(
             'title' => __('Comisión por compra con Mercado Pago', 'woocommerce-mercadopago'),
             'type' => 'number',
-            'description' => __('Elige un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago.', 'woocommerce-mercadopago'),
+            'description' => __('Selecciona un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago.', 'woocommerce-mercadopago'),
             'default' => '0',
             'custom_attributes' => array(
                 'step' => '0.01',

@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 <div class="panel-checkout">
   <div class="row">
     <?php if($credito != 0): ?>
-    <div class="col-md-12">
+    <div id="framePayments" class="col-md-12">
         <div class="frame-tarjetas">
             <p class="subtitle-checkout">
                 <?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?>
@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
     <?php endif; ?>
     
     <?php if($debito != 0): ?>
-    <div class="col-md-6 pr-15">
+    <div id="framePayments" class="col-md-6 pr-15">
         <div class="frame-tarjetas">
             <p class="subtitle-checkout"><?=__('Tarjetas de débito', 'woocommerce-mercadopago')?></p>
             
@@ -37,7 +37,7 @@ if (!defined('ABSPATH')) {
     <?php endif; ?>
     
     <?php if($efectivo != 0): ?>
-    <div class="col-md-6">
+    <div id="framePayments" class="col-md-6">
         <div class="frame-tarjetas">
             <p class="subtitle-checkout"><?=__('Pagos en efectivo', 'woocommerce-mercadopago')?></p>
             
@@ -59,3 +59,5 @@ if (!defined('ABSPATH')) {
     
   </div>
 </div>
+
+<script type="text/javascript" src="<?php echo $path_to_javascript; ?>"></script>

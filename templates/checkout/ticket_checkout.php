@@ -145,14 +145,14 @@ if (!defined('ABSPATH')) {
 
 
                     <?php if (count($payment_methods) > 1) : ?>
-                        <div class="col-md-12 pt-30">
+                        <div class="col-md-12 <?= $site_id == 'MLB'?'pt-30':''; ?>">
                             <div class="frame-tarjetas">
                                 <p class="subtitle-ticket-checkout"><?=__('Por favor, selecciona el emisor de su elección', 'woocommerce-mercadopago')?></p>
 
                                 <div class="row pt-10">
                                     <?php $atFirst = true; ?>
                                     <?php foreach ($payment_methods as $payment) : ?>
-                                        <div class="col-md-6 pb-15 min-hg">
+                                    <div id="frameTicket" class="col-md-6 pb-15 min-hg">
                                             <div id="paymentMethodIdTicket" class="ticket-payments">
                                                 <label for="<?= $payment['id']; ?>" class="mp-label-form pointer">
                                                     <input type="radio" class="mp-form-control-check" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id'] ?>" value="<?= $payment['id']; ?>" <?php if ($atFirst) : ?> checked="checked" <?php endif; ?> />

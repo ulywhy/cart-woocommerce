@@ -262,7 +262,7 @@ msgid "Completa este proceso para que podamos garantizar, juntos, la seguridad d
 msgstr "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la adecuación a las normas o disposiciones legales de cada país."
 
 msgid "Homologar cuenta en Mercado Pago"
-msgstr "Homologar minha conta"
+msgstr "Homologar cuenta en Mercado Pago"
 
 msgid "Descripción de la tienda"
 msgstr "Descripción de la tienda"
@@ -387,14 +387,11 @@ msgstr "Si activas el modo binario no podrás dejar pagos pendientes. Esto puede
 msgid "Descuentos Gateway"
 msgstr "Descuentos Gateway"
 
-msgid "Elige un valor porcentual que quieras descontara tus clientes por pagar con Mercado Pago."
-msgstr "Elige un valor porcentual que quieras descontara tus clientes por pagar con Mercado Pago."
+msgid "Elige un valor porcentual que quieras descontar a tus clientes por pagar con Mercado Pago."
+msgstr "Elige un valor porcentual que quieras descontar a tus clientes por pagar con Mercado Pago."
 
 msgid "Comisión por compra con Mercado Pago"
 msgstr "Comisión por compra con Mercado Pago"
-
-msgid "Elige un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago."
-msgstr "Selecione um valor percentual adicional que você queira cobrar como comissão dos seus clientes por pagar com Mercado Pago."
 
 msgid "¿Todo listo para el despegue de tus ventas?"
 msgstr "¿Todo listo para el despegue de tus ventas?"

@@ -215,7 +215,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_options_subtitle = array(
             'title' => __('Ve a lo básico. Coloca la información de tu negocio.', 'woocommerce-mercadopago'),
-            'type' => 'title'
+            'type' => 'title',
+            'class' => 'mp_subtitle mt-5'
         );
         return $checkout_options_subtitle;
     }
