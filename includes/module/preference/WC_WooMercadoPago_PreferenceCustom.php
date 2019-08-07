@@ -18,7 +18,7 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
     public function __construct($payment, $order, $custom_checkout)
     {
         parent::__construct($payment, $order, $custom_checkout);
-
+        $this->preference = $this->make_basic_preference();
         $this->preference['transaction_amount'] = $this->get_transaction_amount();
         $this->preference['token'] = $this->checkout['token'];
         $this->preference['description'] = implode(', ', $this->list_of_items);

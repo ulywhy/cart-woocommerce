@@ -436,3 +436,27 @@
     overflow: hidden;
     padding: 0 10px;
 }
+
+#mp-box-input-tax-cft {
+    margin-top: 4px;
+}
+
+#mp-tax-tea-text {
+    color: #797979;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+}
+
+#mp-tax-cft-text {
+    font-size: 27px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: #868686;
+}

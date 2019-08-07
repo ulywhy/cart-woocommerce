@@ -112,6 +112,16 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 == Changelog ==
 
 = v4.0.0-Beta (02/08/2019) =
+* Feature All 
+  - Performance improvement
+  - Code refactoring
+  - Design standards: SOLID, Abstract Factory and Singleton
+  - SDK Refactor: Avoid repeated external requests.
+  - New Credential Validation Logic
+  - Plugin Content Review
+  - Adjustment in translations
+  - Unification of general plugin settings with payment method setup, simplifying setup steps
+  - Logs to assist support and integration
 
 = v3.1.1 (03/05/2019) =
 * Feature All 	

@@ -984,8 +984,8 @@ msgstr "Retirar"
 msgid "Por favor, informe su código de cupón"
 msgstr "Por favor, informe su código de cupón"
 
-msgid "Escoger"
-msgstr "Escoger"
+msgid "Elegir"
+msgstr "Elegir"
 
 msgid "Otro banco"
 msgstr "Otro banco"

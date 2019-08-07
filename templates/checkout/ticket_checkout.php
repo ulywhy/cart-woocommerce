@@ -199,7 +199,7 @@ if (!defined('ABSPATH')) {
     MPv1Ticket.text.apply = "<?php echo __('Aplicar', 'woocommerce-mercadopago'); ?>";
 	MPv1Ticket.text.remove = "<?php echo __('Retirar', 'woocommerce-mercadopago'); ?>";
 	MPv1Ticket.text.coupon_empty = "<?php echo __('Por favor, informe su código de cupón', 'woocommerce-mercadopago'); ?>";
-	MPv1Ticket.text.choose = "<?php echo __('Escoger', 'woocommerce-mercadopago'); ?>";
+	MPv1Ticket.text.choose = "<?php echo __('Elegir', 'woocommerce-mercadopago'); ?>";
 	MPv1Ticket.text.other_bank = "<?php echo __('Otro banco', 'woocommerce-mercadopago'); ?>";
 	MPv1Ticket.text.discount_info1 = "<?php echo __('Salvarás', 'woocommerce-mercadopago'); ?>";
 	MPv1Ticket.text.discount_info2 = "<?php echo __('con descuento de', 'woocommerce-mercadopago'); ?>";
