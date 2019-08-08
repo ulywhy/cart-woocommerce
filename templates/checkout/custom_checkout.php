@@ -35,8 +35,8 @@ if (!defined('ABSPATH')) {
 			</div>
 		</div>
 
-		<div class="col-md-12 mb-20">
-			<div class="frame-tarjetas text-justify pb-10">
+		<div class="col-md-12">
+			<div class="frame-tarjetas text-justify">
 				<div id="mercadopago-form-coupon">
 					<p class="subtitle-custom-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
 
@@ -1262,6 +1262,7 @@ if (!defined('ABSPATH')) {
 					"click",
 					MPv1.checkCouponEligibility
 				);
+				document.querySelector(MPv1.selectors.formCoupon).style.marginBottom = "20px";
 			} else {
 				document.querySelector(MPv1.selectors.formCoupon).style.display = "none";
 			}
