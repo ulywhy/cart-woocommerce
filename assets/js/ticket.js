@@ -549,6 +549,7 @@
                 "click",
                 MPv1Ticket.checkCouponEligibility
             );
+            document.querySelector(MPv1Ticket.selectors.formCoupon).style.marginBottom = "20px";
         } else {
             document.querySelector(MPv1Ticket.selectors.formCoupon).style.display = "none";
         }

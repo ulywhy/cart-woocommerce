@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     <?php if($credito != 0): ?>
     <div id="framePayments" class="col-md-12">
         <div class="frame-tarjetas">
-            <p class="subtitle-checkout">
+            <p class="subtitle-basic-checkout">
                 <?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?>
                 <span class="badge-checkout"><?=__('Hasta', 'woocommerce-mercadopago')?> <?= $installments ?> <?=__($str_cuotas, 'woocommerce-mercadopago')?></span>
             </p>

@@ -7,24 +7,22 @@ if (!defined('ABSPATH')) {
 <div class="panel-custom-checkout">
     <div class="row">
 
-        <div class="col-md-12 mb-20">
+        <div  id="mercadopago-form-coupon-ticket" class="col-md-12">
             <div class="frame-tarjetas text-justify">
-                <div id="mercadopago-form-coupon-ticket">
-                    <p class="subtitle-custom-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
+                <p class="subtitle-ticket-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
 
-                    <div class="row pt-10">
-                        <div class="col-md-9 pr-15">
-                            <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresá tu cupón', 'woocommerce-mercadopago')?>" />
-                        </div>
-
-                        <div class="col-md-3">
-                            <input type="button" class="mp-button pointer" id="applyCouponTicket" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
-                        </div>
+                <div class="row pt-10">
+                    <div class="col-md-9 pr-15">
+                        <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresá tu cupón', 'woocommerce-mercadopago')?>" />
                     </div>
 
-                    <span class="mp-discount" id="mpCouponApplyedTicket"></span>
-                    <span class="erro_febraban" id="mpCouponErrorTicket"><?=__('El código que ingresaste es incorrecto', 'woocommerce-mercadopago')?></span>
+                    <div class="col-md-3">
+                        <input type="button" class="mp-button pointer" id="applyCouponTicket" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
+                    </div>
                 </div>
+
+                <span class="mp-discount" id="mpCouponApplyedTicket"></span>
+                <span class="erro_febraban" id="mpCouponErrorTicket"><?=__('El código que ingresaste es incorrecto', 'woocommerce-mercadopago')?></span>
             </div>
         </div>
 
@@ -34,7 +32,7 @@ if (!defined('ABSPATH')) {
 
                     <div id="form-ticket">
                         <div class="row">
-                            <div class="col-md-6 pt-15">
+                            <div class="col-md-6">
                                 <label for="MPv1Ticket-docType-fisica" class="mp-label-form-check pointer">
                                     <input type="radio" name="mercadopago_ticket[docType]" class="mp-form-control-check" id="MPv1Ticket-docType-fisica" value="CPF" checked="checked" />
                                     <?= esc_html__('Persona Física', 'woocommerce-mercadopago'); ?>
@@ -136,7 +134,7 @@ if (!defined('ABSPATH')) {
 
                         <div class="col-md-12 pt-10">
                             <div class="frame-tarjetas">
-                                <div class="row pt-10">
+                                <div class="row">
                                     <p class="mp-obrigatory"><?= esc_html__('Completa todos los campos, son obligatorios.', 'woocommerce-mercadopago'); ?></p>
                                 </div>
                             </div>
@@ -145,7 +143,7 @@ if (!defined('ABSPATH')) {
 
 
                     <?php if (count($payment_methods) > 1) : ?>
-                        <div class="col-md-12 <?= $site_id == 'MLB'?'pt-30':''; ?>">
+                        <div class="col-md-12 <?= $site_id == 'MLB' ? 'pt-20' : ''; ?>">
                             <div class="frame-tarjetas">
                                 <p class="subtitle-ticket-checkout"><?=__('Por favor, selecciona el emisor de su elección', 'woocommerce-mercadopago')?></p>
 
