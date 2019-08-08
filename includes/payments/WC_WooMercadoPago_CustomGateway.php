@@ -381,7 +381,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                     case 'approved':
                         WC()->cart->empty_cart();
                         wc_add_notice('<p>' . $this->get_order_status('accredited') . '</p>', 'notice');
-                        $order->add_order_note('Mercado Pago: ' . __('Pago aprobado', 'woocommerce-mercadopago'));
                         return array(
                             'result' => 'success',
                             'redirect' => $order->get_checkout_order_received_url()
