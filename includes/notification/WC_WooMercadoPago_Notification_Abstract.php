@@ -20,6 +20,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function __construct($payment)
     {
+        $this->payment = $payment;
         $this->mp = $payment->mp;
         $this->log = $payment->log;
         $this->sandbox = $payment->sandbox;

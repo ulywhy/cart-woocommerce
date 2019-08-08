@@ -169,11 +169,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_BasicGateway.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_CustomGateway.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_TicketGateway.php';
-
-        $_site_id_v1 = get_option('_site_id_v1', '');
-        if (!empty($_site_id_v1) && $_site_id_v1 == 'MCO') {
-            include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_PSEGateway.php';
-        }
         include_once dirname(__FILE__) . '/../payments/mercadoenvios/WC_WooMercadoPago_Product_Recurrent.php';
         add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
     }
