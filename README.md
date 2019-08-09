@@ -1,66 +1,47 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/3637ece536688a33d66d/maintainability)](https://codeclimate.com/github/mercadopago/cart-woocommerce/maintainability)
+<p align="center"><a href="https://www.mercadopago.com/"><img src="https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png" height="80" width="auto" alt="MercadoPago">
+</a></p>
 
-![Mercado Pago](https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png)
+<p align="center">
+<img src="https://img.shields.io/badge/plugin-V4.0.0-blue" alt="version">
+<img src="https://img.shields.io/wordpress/plugin/dt/woocommerce-mercadopago" alt="download">
+<img src="https://img.shields.io/github/license/mercadopago/cart-woocommerce" alt="license">
+</p>
+
+The Mercado Pago plugin for WooCommerce allows you to expand the functionalities of your online store and offer a unique payment experience for your customers.
 
 ## Documentation in English
 
-Mercado Pago integration module for WooCommerce
+For a better experience, you will be redirected to our site by clicking on the links below:
 
-* [System Requirements](https://github.com/mercadopago/cart-woocommerce/wiki/System-Requirements)
-* [Features](https://github.com/mercadopago/cart-woocommerce/wiki/Features)
-* [Installation](https://github.com/mercadopago/cart-woocommerce/wiki/Installation)
-* [General Mercado Pago Settings](https://github.com/mercadopago/cart-woocommerce/wiki/General-Mercado-Pago-Settings)
-* Custom Checkout
-  * [Configuring Credit Card](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Credit-Card)
-  * [Configuring Tickets](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Tickets)
-* Basic Checkout
-  * [Configuring Checkout by Redirect, Iframe, or LightBox](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Checkout-by-Redirect,-Iframe,-or-Lightbox)
-  * [Configuring Mercado Envios](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Mercado-Envios)
-  * [Configuring Subscriptions](https://github.com/mercadopago/cart-woocommerce/wiki/Configuring-Subscriptions)
-* [Instant Payment Notification Settings](https://github.com/mercadopago/cart-woocommerce/wiki/Instant-Payment-Notification-Settings)
-* [Upgrade](https://github.com/mercadopago/cart-woocommerce/wiki/Upgrade)
-* [FAQ](https://github.com/mercadopago/cart-woocommerce/wiki/Faq-English)
-* [Technical Support](https://github.com/mercadopago/cart-woocommerce/wiki/Technical-Support)
-* [How to Contribute](https://github.com/mercadopago/cart-woocommerce/wiki/How-to-Contribute)
+* [Introduction](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_introduction)
+* [Installation requirements](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_installation_requirements)
+* [Installation](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_installation)
+* [Integration](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_integration)
+* [Module configuration](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_module_configuration)
+* [Receive payments](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_receive_payments)
 
 ## Documentación en Español
 
-Módulo de integración de Mercado Pago para WooCommerce
+Para una mejor experiencia, será redirigido a nuestro sitio haciendo clic en los links a abajo:
 
-* [Requisitos del Sistema](https://github.com/mercadopago/cart-woocommerce/wiki/Requisitos-del-Sistema)
-* [Funcionalidad](https://github.com/mercadopago/cart-woocommerce/wiki/Funcionalidad)
-* [Instalación](https://github.com/mercadopago/cart-woocommerce/wiki/Instalación)
-* [Configuraciones Generales de Mercado Pago](https://github.com/mercadopago/cart-woocommerce/wiki/Configuraciones-Generales-de-Mercado-Pago)
-* Checkout Personalizado
-  * [Configurando la Tarjeta de Crédito](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-la-Tarjeta-de-Crédito)
-  * [Configurando los Tickets](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-los-Tickets)
-* Checkout Básico
-  * [Configurando el Checkout por Redirect, Iframe o LightBox](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-el-Checkout-por-Redirect,-Iframe-o-LightBox)
-  * [Configurando el Mercado Envios](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-el-Mercado-Envios)
-  * [Configurando las Suscripciones](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-las-Suscripciones)
-* [Configuraciones de las Notificaciones Instantáneas de Pago](https://github.com/mercadopago/cart-woocommerce/wiki/Configuraciones-de-las-Notificaciones-Instantáneas-de-Pago)
-* [Actualización](https://github.com/mercadopago/cart-woocommerce/wiki/Actualización)
-* [FAQ](https://github.com/mercadopago/cart-woocommerce/wiki/FAQ-Spanish)
-* [Soporte Técnico](https://github.com/mercadopago/cart-woocommerce/wiki/Soporte-Técnico)
-* [Cómo Contribuir](https://github.com/mercadopago/cart-woocommerce/wiki/Cómo-Contribuir)
+* [Introducción](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_introducción)
+* [Requisitos de instalación](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_requisitos_de_instalación)
+* [Instalación](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_Instalación)
+* [Integración](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_integración)
+* [Configuración del módulo](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_configuración_del_módulo)
+* [Recibir pagos](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_recibir_pagos)
 
 ## Documentação em Português
 
-Módulo de integração do Mercado Pago para WooCommerce
+Para uma melhor experiência, você será redirecionado para o nosso site, clicando nos links abaixo:
 
-* [Requisitos de Sistema](https://github.com/mercadopago/cart-woocommerce/wiki/Requisitos-de-Sistema)
-* [Funcionalidades](https://github.com/mercadopago/cart-woocommerce/wiki/Funcionalidades)
-* [Instalação](https://github.com/mercadopago/cart-woocommerce/wiki/Instalação)
-* [Configurações Gerais do Mercado Pago](https://github.com/mercadopago/cart-woocommerce/wiki/Configurações-Gerais-do-Mercado-Pago)
-* Checkout Transparente
-  * [Configurando o Cartão de Crédito](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-o-Cartão-de-Crédito)
-  * [Configurando os Boletos](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-os-Boletos)
-* Checkout Básico
-  * [Configurando o Checkout por Redirect, Iframe, ou LightBox](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-o-Checkout-por-Redirect,-Iframe,-ou-LightBox)
-  * [Configurando o Mercado Envios](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-o-Mercado-Envios)
-  * [Configurando as Assinaturas](https://github.com/mercadopago/cart-woocommerce/wiki/Configurando-as-Assinaturas)
-* [Configurações das Notificações Instantâneas de Pagamento](https://github.com/mercadopago/cart-woocommerce/wiki/Configurações-das-Notificações-Instantâneas-de-Pagamento)
-* [Atualização](https://github.com/mercadopago/cart-woocommerce/wiki/Atualização)
-* [FAQ](https://github.com/mercadopago/cart-woocommerce/wiki/FAQ-Portuguese)
-* [Suporte Técnico](https://github.com/mercadopago/cart-woocommerce/wiki/Suporte-Técnico)
-* [Como Contribuir](https://github.com/mercadopago/cart-woocommerce/wiki/Como-Contribuir)
+* [Introdução](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_introdução)
+* [Instalaçao requerimetos](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_requisitos_de_instalação)
+* [Instalação](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_instalação)
+* [Integração](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_Integração)
+* [Configuração do módulo](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_configuração_do_módulo)
+* [Receber Pagamentos](https://www.mercadopago.com.ar/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_receber_pagamentos)
+
+## Support
+
+Something's wrong? [Get in touch with our support](https://www.mercadopago.com.ar/developers/en/support)

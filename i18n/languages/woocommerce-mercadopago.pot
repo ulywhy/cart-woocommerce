@@ -1,10 +1,11 @@
 # WordPress Blank Pot
 # Copyright (C) 2014 ...
 # This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2016-05-23 14:52-0300\n"
+"POT-Creation-Date: 2019-05-06 11:44-0300\n"
 "PO-Revision-Date: \n"
 "Language-Team: Product Development <translations@example.com>\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
@@ -14,27 +15,266 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;"
-"_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ../Documents/woocommerce (MAMP)/wp-content/plugins/woo-mercado-pago-module\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.2.1\n"
 "Last-Translator: \n"
 "Language: es_MX\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "Tracking code:"
+msgstr ""
+
+msgid "Tag:"
+msgstr ""
+
+msgid "Shipping is pending"
+msgstr ""
+
+msgid "Print"
+msgstr ""
+
+msgid "Shipping service used by store"
+msgstr ""
+
+msgid "Discount provided by store"
+msgstr ""
+
+msgid "<strong>MERCADO PAGO:</strong> Use HTTPS to view payment methods."
+msgstr ""
+
+msgid "Set up credentials to enable payment methods."
+msgstr ""
+
+msgid "Dismiss"
+msgstr ""
+
+msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Tu opnión nos ayuda a mejorar"
+msgstr ""
+
+msgid "Guías y Documentación"
+msgstr ""
+
+msgid "Informar Problema"
+msgstr ""
+
+msgid "Por Mercado Pago"
+msgstr ""
+
+msgid "The <strong>Sponsor ID</strong> must be valid!"
+msgstr ""
+
+msgid "¡El <strong>Sponsor ID</strong> debe ser del mismo país que el vendedor!"
+msgstr ""
+
+msgid "El medio de pago no es válido o no está disponible."
+msgstr ""
+
+msgid "El monto de transacción no puede ser procesado por Mercado Pago."
+msgstr ""
+
+msgid "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o por encima del máximo permitido."
+msgstr ""
+
+msgid "Los usuários no son válidos."
+msgstr ""
+
+msgid "Uso no autorizado de credenciales de producción."
+msgstr ""
+
+msgid "Posibles causas: Pendencia de permiso de uso en producción para la credencial del vendedor."
+msgstr ""
+
+msgid "Posibles causas: Comprador y vendedor tienen la misma cuenta en Mercado Pago; La transacción involucrando usuários de producción y de prueba."
+msgstr ""
+
+msgid "ERROR: No fue posible convertir la moneda no soportada"
+msgstr ""
+
+msgid "a"
+msgstr ""
+
+msgid "Las conversiones de monedas deben hacerse fuera de este módulo."
+msgstr ""
+
+msgid "ATENCION: La moneda"
+msgstr ""
+
+msgid "definido en WooCommerce es diferente al utilizado por las credenciales de su país.<br>La moneda para las transacciones hechas con este método de pago será"
+msgstr ""
+
+msgid "Las conversiones de moneda deben hacerse fuera de este módulo."
+msgstr ""
+
+msgid "MONEDA CONVERTIDA: Su tienda está convirtiendo moneda de"
+msgstr ""
+
+msgid "Colombia"
+msgstr ""
+
+msgid "Argentina"
+msgstr ""
+
+msgid "Brasil"
+msgstr ""
+
+msgid "Chile"
+msgstr ""
+
+msgid "México"
+msgstr ""
+
+msgid "Uruguay"
+msgstr ""
+
+msgid "Venezuela"
+msgstr ""
+
+msgid "Perú"
+msgstr ""
+
+msgid "Actualizar la orden de WooCommerce a "
+msgstr ""
+
+msgid "Pago aprobado."
+msgstr ""
+
+msgid "Esperando el pago del ticket."
+msgstr ""
+
+msgid "El cliente todavía no efectuó el pago."
+msgstr ""
+
+msgid "El pago está pendiente de revisión."
+msgstr ""
+
+msgid "El pago fue rechazado. El cliente puede intentar nuevamente."
+msgstr ""
+
+msgid "El pago fue devuelto al cliente."
+msgstr ""
+
+msgid "El pago fue cancelado."
+msgstr ""
+
+msgid "El pago esta en mediación o la compra fue desconocida por el cliente."
+msgstr ""
+
+msgid "La solicitud de Mercado Pago ha fallado"
+msgstr ""
+
+msgid "Email del comprador"
+msgstr ""
+
+msgid "Medio de pago"
+msgstr ""
+
+msgid "Envío Gratuito"
+msgstr ""
+
+msgid "Etiqueta lista para imprimir"
+msgstr ""
+
+msgid "Etiqueta impresa"
+msgstr ""
+
+msgid "Fracasado"
+msgstr ""
+
+msgid "Envío retrasado"
+msgstr ""
+
+msgid "Destinatario ausente para envío"
+msgstr ""
+
+msgid "Volviendo al remitente"
+msgstr ""
+
+msgid "El comprador ha iniciado una discusión y pide un extorno."
+msgstr ""
+
+msgid "Pedido"
+msgstr ""
+
+msgid "Código de rastreamiento de Mercado Envíos"
+msgstr ""
+
+msgid "Hola,"
+msgstr ""
+
+msgid "Su pedido"
+msgstr ""
+
+msgid "hecho en"
+msgstr ""
+
+msgid "utilizó el Mercado Envíos como su medio de envío."
+msgstr ""
+
+msgid "Usted puedes rastrearlo con lo siguiente código de rastreamiento:"
+msgstr ""
+
+msgid "Saludos."
+msgstr ""
+
+msgid "Por favor, introduzca su email en la dirección de facturación para utilizar este servicio"
+msgstr ""
+
+msgid "Descuento para el cupón %s"
+msgstr ""
+
+msgid "Descuento de"
+msgstr ""
+
+msgid "Tarifa de"
+msgstr ""
+
+msgid " y Tarifa de"
+msgstr ""
+
+msgid "Gracias por su compra. Por favor, prosiga a la página de pago haciendo click en el botón de abajo. "
+msgstr ""
+
+msgid "Pagar con Mercado Pago"
+msgstr ""
+
+msgid "Cancelar &amp; Limpiar carrito"
+msgstr ""
+
+msgid "Se ha producido un error en el procesamiento de su pago. Por favor, inténtelo de nuevo o póngase en contacto con nosotros para Asistencia."
+msgstr ""
+
+msgid "Haga clic para intentarlo de nuevo"
+msgstr ""
+
+msgid "Obrigado pela sua compra. Por favor, transfiera el dinero para tener su compra aprobada."
+msgstr ""
+
+msgid "Transferir"
+msgstr ""
+
+msgid "Gracias por su orden. Por favor, realice el pago del ticket para tener su orden aprobada."
+msgstr ""
+
+msgid "Imprimir el ticket"
+msgstr ""
+
+
+
+
+
+
+
+
+
+
 msgid "This is the <strong>oficial</strong> module of Mercado Pago for WooCommerce plugin. This module enables WooCommerce to use Mercado Pago as a payment Gateway for purchases made in your e-commerce store."
-msgstr ""
-
-msgid "Mercado Pago Settings"
-msgstr ""
-
-msgid "Rate Us"
-msgstr ""
-
-msgid "Tutorial"
-msgstr ""
-
-msgid "Report Issue"
 msgstr ""
 
 msgid "ERROR: It was not possible to convert the unsupported currency"
@@ -58,7 +298,7 @@ msgstr ""
 msgid "Colombia"
 msgstr ""
 
-msgid "Argentine"
+msgid "Argentina"
 msgstr ""
 
 msgid "Brazil"
@@ -88,7 +328,7 @@ msgstr ""
 msgid "WooCommerce is installed and enabled."
 msgstr ""
 
-msgid "You don\'t have WooCommerce installed and enabled."
+msgid "You don't have WooCommerce installed and enabled."
 msgstr ""
 
 msgid "Your PHP version is OK."
@@ -127,9 +367,6 @@ msgstr ""
 msgid "Define which type of products your store sells."
 msgstr ""
 
-msgid "These credentials are used in <strong>Basic Checkout</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
-msgstr ""
-
 msgid "or"
 msgstr ""
 
@@ -139,16 +376,13 @@ msgstr ""
 msgid "Your <strong>public_key</strong> and <strong>access_token</strong> are <strong>not valid</strong>!"
 msgstr ""
 
-msgid "These credentials are used in <strong>Custom Checkout</strong> and <strong>Tickets</strong>. Access it for your country:<br>"
+msgid "These credentials are used in <strong>Basic Checkout</strong>, <strong>Custom Checkout</strong>, <strong>Tickets</strong> and <strong>Subscriptions</strong>. Access it for your country:<br>"
 msgstr ""
 
 msgid "This module enables WooCommerce to use Mercado Pago as payment method for purchases made in your virtual store."
 msgstr ""
 
 msgid "Payment Gateways"
-msgstr ""
-
-msgid "Basic Checkout & Subscriptions"
 msgstr ""
 
 msgid "Your Credentials of Mercado Pago"
@@ -232,7 +466,7 @@ msgstr ""
 msgid "Statement Descriptor"
 msgstr ""
 
-msgid "The description that will be shown in your customer\'s invoice."
+msgid "The description that will be shown in your customer's invoice."
 msgstr ""
 
 msgid "Store Category"
@@ -421,10 +655,10 @@ msgstr ""
 msgid "24x installmens"
 msgstr ""
 
-msgid "Exclude Payment Methods"
+msgid "Payment Methods Accepted"
 msgstr ""
 
-msgid "Select the payment methods that you <strong>don\'t</strong> want to receive with Mercado Pago."
+msgid "Unselect the payment methods that you <strong>don't</strong> want to receive with Mercado Pago."
 msgstr ""
 
 msgid "Discount/Fee by Gateway"
@@ -451,10 +685,7 @@ msgstr ""
 msgid "Thank you for your order. Proceed with your payment completing the following information."
 msgstr ""
 
-msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence.""
-msgstr ""
-
-msgid "Shipping service used by store"
+msgid "An error occurred when proccessing your payment. Please try again or contact us for assistence."
 msgstr ""
 
 msgid "Discount of"
@@ -472,7 +703,7 @@ msgstr ""
 msgid "Payment approved."
 msgstr ""
 
-msgid "Customer haven\'t paid yet."
+msgid "Customer haven't paid yet."
 msgstr ""
 
 msgid "Payment under review."
@@ -697,21 +928,6 @@ msgstr ""
 msgid "Subscribe with Mercado Pago"
 msgstr ""
 
-msgid "Woo Mercado Pago Module depends on the last version of %s to execute!"
-msgstr ""
-
-msgid "Tracking code:"
-msgstr ""
-
-msgid "Tag:"
-msgstr ""
-
-msgid "Shipping is pending"
-msgstr ""
-
-msgid "Print"
-msgstr ""
-
 msgid "Cancel Order"
 msgstr ""
 
@@ -848,9 +1064,6 @@ msgid "Click to try again"
 msgstr ""
 
 msgid "A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?"
-msgstr ""
-
-msgid "Discount provided by store"
 msgstr ""
 
 msgid "Discount for %s coupon"
@@ -1064,4 +1277,13 @@ msgid "Custom banner for checkout"
 msgstr ""
 
 msgid "Inform the URL of your banner image. Let blank to use Mercado Pago default."
+msgstr ""
+
+msgid "Sponsor ID"
+msgstr ""
+
+msgid "With this number we identify all your transactions and we know how many sales were processed by your account."
+msgstr ""
+
+msgid "The <strong>Sponsor ID</strong> must be from the same country as the seller!"
 msgstr ""
