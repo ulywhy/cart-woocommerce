@@ -26,10 +26,10 @@ Para una mejor experiencia, será redirigido a nuestro sitio haciendo clic en lo
 
 * [Introducción](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_introducción)
 * [Requisitos de instalación](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_requisitos_de_instalación)
-* [Instalación](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_integración)
+* [Instalación](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_Instalación)
 * [Integración](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_integración)
 * [Configuración del módulo](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_configuración_del_módulo)
-* [Recibir Pagos](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_recibir_pagos)
+* [Recibir pagos](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_recibir_pagos)
 
 ## Documentação em Português
 
@@ -37,10 +37,10 @@ Para uma melhor experiência, você será redirecionado para o nosso site, clica
 
 * [Introdução](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_introdução)
 * [Instalaçao requerimetos](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_requisitos_de_instalação)
-* [Installation](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_instalação)
-* [Integration](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_instalação)
-* [Module configuration](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_configuração_do_módulo)
-* [Receive payments](https://www.mercadopago.com.ar/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_receber_pagamentos)
+* [Instalação](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_instalação)
+* [Integração](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_Integração)
+* [Configuração do módulo](https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_configuração_do_módulo)
+* [Receber Pagamentos](https://www.mercadopago.com.ar/developers/pt/plugins_sdks/plugins/official/woo-commerce/#bookmark_receber_pagamentos)
 
 ## Support
 
