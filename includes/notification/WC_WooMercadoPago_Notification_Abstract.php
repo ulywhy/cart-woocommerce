@@ -20,9 +20,11 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function __construct($payment)
     {
+        $this->payment = $payment;
         $this->mp = $payment->mp;
         $this->log = $payment->log;
         $this->sandbox = $payment->sandbox;
+        $this->payment = $payment;
 
         add_action('woocommerce_api_' . strtolower(get_class($payment)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
@@ -92,7 +94,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function proccessStatus($processed_status, $data, $order)
     {
-        $used_gateway = (method_exists($order, 'get_meta')) ? $order->get_meta('_used_gateway') : get_post_meta($order->id, '_used_gateway', true);
+        $used_gateway = get_class($this->payment);
 
         switch ($processed_status) {
             case 'approved':
@@ -142,10 +144,12 @@ abstract class WC_WooMercadoPago_Notification_Abstract
                     $this->check_and_save_customer_card($data);
                 }
                 $order->payment_complete();
+                $order->update_status(self::get_wc_status_for_mp_status('approved'));
                 break;
             case 'WC_WooMercadoPago_TicketGateway':
                 if (get_option('stock_reduce_mode', 'no') == 'no') {
                     $order->payment_complete();
+                    $order->update_status(self::get_wc_status_for_mp_status('approved'));
                 }
                 break;
             case 'WC_WooMercadoPago_BasicGateway':
@@ -159,20 +163,26 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      * @param $order
      * @param $usedGateway
      */
-    public function mp_rule_pending($order, $usedGateway)
+    public function mp_rule_pending($order, $used_gateway)
     {
         $order->update_status(self::get_wc_status_for_mp_status('pending'));
-        switch ($usedGateway) {
+        switch ($used_gateway) {
             case 'WC_WooMercadoPago_TicketGateway':
                 $notes = $order->get_customer_order_notes();
                 $has_note = false;
-                if (sizeof($notes) > 1) {
-                    $has_note = true;
-                }
-
-                if (!$has_note) {
-                    $order->add_order_note('Mercado Pago: ' . __('Esperando el pago del ticket.', 'woocommerce-mercadopago'));
-                }
+				if ( sizeof( $notes ) > 1 ) {
+					$has_note = true;
+					break;
+				}
+				if ( ! $has_note ) {
+					$order->add_order_note(
+						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woocommerce-mercadopago' )
+					);
+					$order->add_order_note(
+						'Mercado Pago: ' . __( 'Waiting for the ticket payment.', 'woocommerce-mercadopago' ),
+						1, false
+					);
+				}
                 break;
             default:
                 $order->add_order_note('Mercado Pago: ' . __('El cliente todavía no efectuó el pago.', 'woocommerce-mercadopago'));

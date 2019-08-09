@@ -19,14 +19,15 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
     public function __construct($payment, $order, $ticket_checkout)
     {
         parent::__construct($payment, $order, $ticket_checkout);
-
+        $this->preference = $this->make_commum_preference();
         $this->preference['date_of_expiration'] = $this->get_date_of_expiration();
         $this->preference['transaction_amount'] = $this->get_transaction_amount();
         $this->preference['description'] = implode(', ', $this->list_of_items);
         $this->preference['payment_method_id'] = $this->checkout['paymentMethodId'];
+        $this->preference['statement_descriptor'] = $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago');
+        $this->preference['payer']['email'] = $this->get_email();
 
         if ($this->site_data[$this->site_id]['currency'] == 'BRL') {
-            $this->preference['payer']['email'] = $this->get_email();
             $this->preference['payer']['first_name'] = $this->checkout['firstname'];
             $this->preference['payer']['last_name'] = strlen($this->checkout['docNumber']) == 14 ? $this->checkout['lastname'] : $this->checkout['firstname'];
             $this->preference['payer']['identification']['type'] = strlen($this->checkout['docNumber']) == 14 ? 'CPF' : 'CNPJ';
@@ -42,19 +43,6 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
-
-//        if ($this->ship_cost > 0) {
-//            $this->preference['additional_info']['items'][] = $this->ship_cost_item();
-//        }
-//        if (
-//            isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
-//            isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
-//            $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket'
-//        ) {
-//            $this->preference['additional_info']['items'][] = $this->add_discounts();
-//        }
-//
-//        $this->add_discounts_campaign();
     }
 
     /**

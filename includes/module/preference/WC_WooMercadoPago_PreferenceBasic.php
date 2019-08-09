@@ -17,7 +17,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
     public function __construct($payment, $order)
     {
         parent::__construct($payment, $order);
-        $this->preference = $this->make_basic_preference();
+        $this->preference = $this->make_commum_preference();
         $this->preference['items'] = $this->items;
         $this->preference['payer'] = $this->get_payer_basic();
         $this->preference['back_urls'] = $this->get_back_urls();

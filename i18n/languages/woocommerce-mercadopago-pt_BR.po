@@ -990,7 +990,7 @@ msgstr "Remover"
 msgid "Por favor, informe su código de cupón"
 msgstr "Por favor, informe seu cupom de desconto"
 
-msgid "Escoger"
+msgid "Elegir"
 msgstr "Escolher"
 
 msgid "Otro banco"

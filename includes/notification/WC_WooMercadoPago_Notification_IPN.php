@@ -11,6 +11,7 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
 {
     /**
      * WC_WooMercadoPago_Notification_IPN constructor.
+     * @param $payment
      */
     public function __construct($payment)
     {

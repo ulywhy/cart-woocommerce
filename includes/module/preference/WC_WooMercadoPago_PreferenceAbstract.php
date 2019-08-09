@@ -45,7 +45,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $this->commission = $this->payment->commission;
         $this->ex_payments = $this->payment->ex_payments;
         $this->installments = $this->payment->installments;
-        $this->notification_class = get_class($payment);
+        $this->notification_class = get_class($this->payment);
         $this->sandbox = $this->payment->isTestUser();
         $this->test_user_v1 = get_option('_test_user_v1', '');
         $this->site_id = get_option('_site_id_v1', '');
@@ -70,7 +70,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     /**
      * @return array
      */
-    public function make_basic_preference()
+    public function make_commum_preference()
     {
         $preference = array(
             'binary_mode' => $this->get_binary_mode(),

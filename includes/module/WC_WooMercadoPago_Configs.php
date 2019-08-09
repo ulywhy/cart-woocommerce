@@ -99,7 +99,7 @@ class WC_WooMercadoPago_Configs
     {
         echo '<div class="error is-dismissible">
             <p><strong>MERCADO PAGO: </strong>'
-                .__('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado').'
+            . __('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado') . '
             </p>
         </div>';
     }
@@ -249,15 +249,16 @@ class WC_WooMercadoPago_Configs
      */
     public function setPaymentGateway($methods = null)
     {
+        global $wp;
+        $api_request = strtolower(wc_clean($wp->query_vars['wc-api']));
+        if (!empty($api_request)) {
+            $methods[] = $api_request;
+            return $methods;
+        }
+
         $methods[] = 'WC_WooMercadoPago_BasicGateway';
         $methods[] = 'WC_WooMercadoPago_CustomGateway';
         $methods[] = 'WC_WooMercadoPago_TicketGateway';
-
-        $_site_id_v1 = get_option('_site_id_v1', '');
-        if (!empty($_site_id_v1) && $_site_id_v1 == 'MCO') {
-            $methods[] = 'WC_WooMercadoPago_PSEGateway';
-        }
-
         return $methods;
     }
 
