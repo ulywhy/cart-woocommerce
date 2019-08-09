@@ -7,11 +7,11 @@ if (!defined('ABSPATH')) {
 	<div class="row">
 		<div class="mp-frame-links">
 			<a class="mp-checkout-link pr-10" id="button-show-payments">
-				<?=__('Con qué Tarjetas puedo pagar', 'woocommerce-mercadopago')?> ⌵
-			</a> 
-			<span id="mp_promotion_link"> | </span> 
+				<?= __('Con qué Tarjetas puedo pagar', 'woocommerce-mercadopago') ?> ⌵
+			</a>
+			<span id="mp_promotion_link"> | </span>
 			<a href="https://www.mercadopago.com.ar/cuotas" id="mp_checkout_link" class="mp-checkout-link pl-10" target="_blank">
-				<?=__('Ver promociones vigentes', 'woocommerce-mercadopago')?>
+				<?= __('Ver promociones vigentes', 'woocommerce-mercadopago') ?>
 			</a>
 		</div>
 
@@ -19,14 +19,14 @@ if (!defined('ABSPATH')) {
 			<div class="col-md-12">
 				<div class="frame-tarjetas">
 					<?php if (count($credit_card) != 0) : ?>
-						<p class="subtitle-checkout-custom"><?=__('Tarjetas de crédito', 'woocommerce-mercadopago')?></p>
+						<p class="subtitle-checkout-custom"><?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?></p>
 						<?php foreach ($credit_card as $credit_image) : ?>
 							<img src="<?= $credit_image ?>" class="img-fluid img-tarjetas" alt="" />
 						<?php endforeach; ?>
 					<?php endif; ?>
 
 					<?php if (count($debit_card) != 0) : ?>
-						<p class="subtitle-checkout-custom pt-10"><?=__('Tarjetas de débito', 'woocommerce-mercadopago')?></p>
+						<p class="subtitle-checkout-custom pt-10"><?= __('Tarjetas de débito', 'woocommerce-mercadopago') ?></p>
 						<?php foreach ($debit_card as $debit_image) : ?>
 							<img src="<?= $debit_image ?>" class="img-fluid img-tarjetas" alt="" />
 						<?php endforeach; ?>
@@ -35,30 +35,28 @@ if (!defined('ABSPATH')) {
 			</div>
 		</div>
 
-		<div class="col-md-12">
+		<div class="col-md-12" id="mercadopago-form-coupon">
 			<div class="frame-tarjetas text-justify">
-				<div id="mercadopago-form-coupon">
-					<p class="subtitle-custom-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
+				<p class="subtitle-custom-checkout"><?= __('Ingresa tu cupón de descuento', 'woocommerce-mercadopago') ?></p>
 
-					<div class="row pt-10">
-						<div class="col-md-9 pr-15">
-							<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresá tu cupón', 'woocommerce-mercadopago')?>" />
-						</div>
-
-						<div class="col-md-3">
-							<input type="button" class="mp-button pointer" id="applyCoupon" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
-						</div>
+				<div class="row pt-10">
+					<div class="col-md-9 pr-15">
+						<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?= __('Ingresá tu cupón', 'woocommerce-mercadopago') ?>" />
 					</div>
 
-					<span class="mp-discount" id="mpCouponApplyed"></span>
-					<span class="mp-error" id="mpCouponError"><?=__('El código que ingresaste es incorrecto', 'woocommerce-mercadopago')?></span>
+					<div class="col-md-3">
+						<input type="button" class="mp-button pointer" id="applyCoupon" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
+					</div>
 				</div>
+
+				<span class="mp-discount" id="mpCouponApplyed"></span>
+				<span class="mp-error" id="mpCouponError"><?= __('El código que ingresaste es incorrecto', 'woocommerce-mercadopago') ?></span>
 			</div>
 		</div>
 
 		<div class="col-md-12">
 			<div class="frame-tarjetas">
-				<p class="subtitle-custom-checkout pt-0"><?=__('Ingresa los datos de tu tarjeta', 'woocommerce-mercadopago')?></p>
+				<p class="subtitle-custom-checkout pt-0"><?= __('Ingresa los datos de tu tarjeta', 'woocommerce-mercadopago') ?></p>
 
 				<!-- saved cards -->
 				<div id="mercadopago-form-customer-and-card">
@@ -69,11 +67,11 @@ if (!defined('ABSPATH')) {
 								<optgroup label="<?= esc_html__('Tu tarjeta', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
 									<?php foreach ($customer_cards as $card) : ?>
 										<option value="<?= $card['id']; ?>
-														first_six_digits=<?= $card['first_six_digits']; ?>
-														last_four_digits=<?= $card['last_four_digits']; ?>
-														security_code_length=<?= $card['security_code']['length']; ?>
-														type_checkout='customer_and_card'
-														payment_method_id=<?= $card['payment_method']['id']; ?>">
+															first_six_digits=<?= $card['first_six_digits']; ?>
+															last_four_digits=<?= $card['last_four_digits']; ?>
+															security_code_length=<?= $card['security_code']['length']; ?>
+															type_checkout='customer_and_card'
+															payment_method_id=<?= $card['payment_method']['id']; ?>">
 											<?= ucfirst($card['payment_method']['name']); ?>
 											<?= esc_html__('terminó en', 'woocommerce-mercadopago'); ?>
 											<?= $card['last_four_digits']; ?>
@@ -147,7 +145,7 @@ if (!defined('ABSPATH')) {
 
 					<div class="col-md-12">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout"><?=__('En cuántas cuotas quieres pagar', 'woocommerce-mercadopago')?></p>
+							<p class="subtitle-custom-checkout"><?= __('En cuántas cuotas quieres pagar', 'woocommerce-mercadopago') ?></p>
 
 							<div class="row pt-10">
 								<div class="col-md-4 pr-15">
@@ -173,7 +171,7 @@ if (!defined('ABSPATH')) {
 											<em>*</em>
 										</label>
 									<?php else : ?>
-										<label for="installments" class="mp-label-form"><?=__('Seleccione el número de cotas', 'woocommerce-mercadopago')?></label>
+										<label for="installments" class="mp-label-form"><?= __('Seleccione el número de cotas', 'woocommerce-mercadopago') ?></label>
 									<?php endif; ?>
 
 									<select class="mp-form-control pointer mt-5" id="installments" data-checkout="installments" name="mercadopago_custom[installments]"></select>
@@ -191,7 +189,7 @@ if (!defined('ABSPATH')) {
 
 					<div class="col-md-12">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout"><?=__('Ingresá tu número de documento', 'woocommerce-mercadopago')?></p>
+							<p class="subtitle-custom-checkout"><?= __('Ingresá tu número de documento', 'woocommerce-mercadopago') ?></p>
 
 							<div class="row pt-10">
 								<div class="col-md-4 pr-15">
@@ -1252,7 +1250,7 @@ if (!defined('ABSPATH')) {
 				document.querySelector(MPv1.selectors.mpCheckoutLink).style.display = "none";
 				document.querySelector(MPv1.selectors.mpPromotionLink).style.display = "none";
 			}
-			
+
 			Mercadopago.setPublishableKey(MPv1.public_key);
 
 			// flow coupon of discounts
@@ -1324,11 +1322,11 @@ if (!defined('ABSPATH')) {
 			if (MPv1.site_id == "MLB") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
 				document.getElementById('installments-div').classList.remove('col-md-8');
-        		document.getElementById('installments-div').classList.add('col-md-12');
+				document.getElementById('installments-div').classList.add('col-md-12');
 			} else if (MPv1.site_id == "MCO") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
 				document.getElementById('installments-div').classList.remove('col-md-8');
-        		document.getElementById('installments-div').classList.add('col-md-12');
+				document.getElementById('installments-div').classList.add('col-md-12');
 			} else if (MPv1.site_id == "MLA") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "block";
 				document.querySelector(MPv1.selectors.taxCFT).style.display = "block";
@@ -1337,7 +1335,7 @@ if (!defined('ABSPATH')) {
 			} else if (MPv1.site_id == "MLC") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
 				document.getElementById('installments-div').classList.remove('col-md-8');
-        		document.getElementById('installments-div').classList.add('col-md-12');
+				document.getElementById('installments-div').classList.add('col-md-12');
 			}
 
 			if (MPv1.debug) {

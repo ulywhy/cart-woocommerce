@@ -70,7 +70,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     /**
      * @return array
      */
-    public function make_basic_preference()
+    public function make_commum_preference()
     {
         $preference = array(
             'binary_mode' => $this->get_binary_mode(),
