@@ -1,6 +1,14 @@
 CHANGELOG:
 = v4.0.0 (10/07/2019) =
-
+  - Performance improvement
+  - Code refactoring
+  - Design standards: SOLID, Abstract Factory and Singleton
+  - SDK Refactor: Avoid repeated external requests.
+  - New Credential Validation Logic
+  - Plugin Content Review
+  - Adjustment in translations
+  - Unification of general plugin settings with payment method setup, simplifying setup steps
+  - Logs to assist support and integration
 
 = v3.1.0 (17/04/2019) =
 * Performance Improvements 

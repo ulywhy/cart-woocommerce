@@ -111,7 +111,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 
 == Changelog ==
 
-= v4.0.0-Beta (02/08/2019) =
+= v4.0.0 (02/08/2019) =
 * Feature All 
   - Performance improvement
   - Code refactoring
