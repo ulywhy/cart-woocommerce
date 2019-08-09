@@ -1413,6 +1413,66 @@ if (!defined('ABSPATH')) {
 
 	}
 
+	/*
+    * Customization due to rejected payment flow
+    */
+    
+    //disable create token by event, to create on submit form
+    MPv1.create_token_on.event = false
+    
+    
+    var formSubmited = false;
+    var intent = 0;
+    jQuery( function( $ ) {
+        var checkout_form = $('form.checkout');
+        // get action button submit
+        checkout_form.on('checkout_place_order_woo-mercado-pago-custom', function () {
+            
+            //check already submit
+            if(formSubmited == false){
+                MPv1.createToken();
+                return false;
+            }
+            //check is second intent to renew token
+            if(intent == 2){
+                intent = 0;
+                formSubmited = false;
+                Mercadopago.clearSession();
+                setTimeout(function() {
+                    return MPv1.createToken();
+                }, 2000);
+                return false;
+            }
+            intent++;
+            return true;
+        });
+    });
+    MPv1.sdkResponseHandler = function( status, response ) {
+        // Hide loading.
+        document.querySelector( MPv1.selectors.box_loading ).style.background = "";
+        if ( status != 200 && status != 201 ) {
+            MPv1.showErrors( response );
+        } else {
+            var token = document.querySelector( MPv1.selectors.token );
+            token.value = response.id;
+            if ( MPv1.add_truncated_card ) {
+                var card = MPv1.truncateCard( response );
+                document.querySelector( MPv1.selectors.cardTruncated ).value = card;
+            }
+            
+            //set to form submit
+            formSubmited = true;
+            
+            //trigger button to submit form
+            form = document.querySelector( '#place_order' );
+            form.click();
+        }
+    }
+    
+    /*
+    *  END Customization
+    */
+
 	MPv1.text.apply = "<?php echo __('Aplicar', 'woocommerce-mercadopago'); ?>";
 	MPv1.text.remove = "<?php echo __('Retirar', 'woocommerce-mercadopago'); ?>";
 	MPv1.text.coupon_empty = "<?php echo __('Por favor, informe su código de cupón', 'woocommerce-mercadopago'); ?>";
