@@ -1,11 +1,10 @@
-<p align="center"><a href="https://www.mercadopago.com/">![Mercado Pago](https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png)
+<p align="center"><a href="https://www.mercadopago.com/"><img src="https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png" alt="MercadoPago">
 </a></p>
 
 <p align="center">
-[![Maintainability](https://api.codeclimate.com/v1/badges/3637ece536688a33d66d/maintainability)](https://codeclimate.com/github/mercadopago/cart-woocommerce/maintainability)
-![version](https://img.shields.io/badge/plugin-V4.0.0-Beta-blue)
-![download](https://img.shields.io/wordpress/plugin/dt/woocommerce-mercadopago)
-![license](https://img.shields.io/github/license/mercadopago/cart-woocommerce)
+<img src="https://img.shields.io/badge/plugin-V4.0.0--Beta-blue" alt="version">
+<img src="https://img.shields.io/wordpress/plugin/dt/woocommerce-mercadopago" alt="download">
+<img src="https://img.shields.io/github/license/mercadopago/cart-woocommerce" alt="license">
 </p>
 
 The Mercado Pago plugin for WooCommerce allows you to expand the functionalities of your online store and offer a unique payment experience for your customers.
@@ -21,7 +20,7 @@ For a better experience, you will be redirected to our site by clicking on the l
 * [Module configuration](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_module_configuration)
 * [Receive payments](https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/official/woo-commerce/#bookmark_receive_payments)
 
-##Documentación en Español
+## Documentación en Español
 
 Para una mejor experiencia, será redirigido a nuestro sitio haciendo clic en los links a abajo:
 
@@ -32,7 +31,7 @@ Para una mejor experiencia, será redirigido a nuestro sitio haciendo clic en lo
 * [Configuración del módulo](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_configuración_del_módulo)
 * [Recibir Pagos](https://www.mercadopago.com.ar/developers/es/plugins_sdks/plugins/official/woo-commerce/#bookmark_recibir_pagos)
 
-##Documentação em Português
+## Documentação em Português
 
 Para uma melhor experiência, você será redirecionado para o nosso site, clicando nos links abaixo:
 
