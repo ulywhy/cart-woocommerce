@@ -1,4 +1,4 @@
-<p align="center"><a href="https://www.mercadopago.com/"><img src="https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png" alt="MercadoPago">
+<p align="center"><a href="https://www.mercadopago.com/"><img src="https://raw.githubusercontent.com/mercadopago/cart-woocommerce/master/assets/images/mplogo.png" height="80" width="auto" alt="MercadoPago">
 </a></p>
 
 <p align="center">
