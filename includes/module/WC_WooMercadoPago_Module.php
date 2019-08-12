@@ -70,6 +70,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_CLIENT) {
             $mp = new MP(self::get_module_version(), $credentials->clientId, $credentials->clientSecret);
             $mp->setPaymentClass($payment);
+            if (!empty($payment)) {
+                $payment->sandbox = false;
+            }
         }
 
         if (!isset($mp)) {
@@ -99,7 +102,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             if (!isset(self::$mpInstancePayment[$class])) {
                 self::$mpInstancePayment[$class] = self::getMpInstance($payment);
                 $mp = self::$mpInstancePayment[$class];
-                if(!empty($mp)){
+                if (!empty($mp)) {
                     return $mp;
                 }
             }
@@ -156,7 +159,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceBasic.php';
         include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceCustom.php';
         include_once dirname(__FILE__) . '/preference/WC_WooMercadoPago_PreferenceTicket.php';
-
     }
 
     /**
@@ -293,7 +295,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             return $new_link;
         }
 
-        return (array)$links;
+        return (array) $links;
     }
 
     // ============================================================
@@ -401,7 +403,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             if (isset($currency_obj['response'])) {
                 $currency_obj = $currency_obj['response'];
                 if (isset($currency_obj['ratio'])) {
-                    return ((float)$currency_obj['ratio']);
+                    return ((float) $currency_obj['ratio']);
                 }
             }
         }
@@ -577,7 +579,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function build_log_path_string($gateway_id, $gateway_name)
     {
         return '<a href="' . esc_url(admin_url('admin.php?page=wc-status&tab=logs&log_file=' .
-                esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
+            esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
 
