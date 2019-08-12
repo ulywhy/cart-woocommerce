@@ -91,7 +91,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_access_token_prod = $this->getOption('_mp_access_token_prod');
         $this->checkout_country = get_option('checkout_country', '');
         $this->wc_country = get_option('woocommerce_default_country', '');
-        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', 'no');
+        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', get_option('checkout_credential_production', 'no'));
         $this->description = $this->getOption('description');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');

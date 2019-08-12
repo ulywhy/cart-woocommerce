@@ -56,7 +56,7 @@ if (!defined('ABSPATH')) {
 
 		<div class="col-md-12">
 			<div class="frame-tarjetas">
-				<p class="subtitle-custom-checkout pt-0"><?= __('Ingresa los datos de tu tarjeta', 'woocommerce-mercadopago') ?></p>
+				<p class="subtitle-custom-checkout"><?= __('Ingresa los datos de tu tarjeta', 'woocommerce-mercadopago') ?></p>
 
 				<!-- saved cards -->
 				<div id="mercadopago-form-customer-and-card">
