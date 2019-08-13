@@ -76,6 +76,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'binary_mode' => $this->get_binary_mode(),
             'external_reference' => $this->get_external_reference(),
             'notification_url' => $this->get_notification_url(),
+            'statement_descriptor' => $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago'),
         );
         return $preference;
     }
