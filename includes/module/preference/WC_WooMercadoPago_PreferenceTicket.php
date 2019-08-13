@@ -24,7 +24,6 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['transaction_amount'] = $this->get_transaction_amount();
         $this->preference['description'] = implode(', ', $this->list_of_items);
         $this->preference['payment_method_id'] = $this->checkout['paymentMethodId'];
-        $this->preference['statement_descriptor'] = $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago');
         $this->preference['payer']['email'] = $this->get_email();
 
         if ($this->site_data[$this->site_id]['currency'] == 'BRL') {

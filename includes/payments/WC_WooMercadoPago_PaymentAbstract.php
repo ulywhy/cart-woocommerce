@@ -77,6 +77,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $type_payments;
     public $activated_payment;
     public $homolog_validate;
+    public $clienteid_credential_production;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -90,7 +91,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_access_token_prod = $this->getOption('_mp_access_token_prod');
         $this->checkout_country = get_option('checkout_country', '');
         $this->wc_country = get_option('woocommerce_default_country', '');
-        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', 'no');
+        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', get_option('checkout_credential_production', 'no'));
         $this->description = $this->getOption('description');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
@@ -624,7 +625,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Producción', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Elige “SÍ” solo cuando estés listo para vender. Cambia a NO para activar el modo Pruebas.', 'woocommerce-mercadopago'),
-            'default' => $this->getOption('checkout_credential_production', 'no'),
+            'default' => $this->id == 'woo-mercado-pago-basic' && $this->clienteid_credential_production ? 'yes' : $this->getOption('checkout_credential_production', 'no'),
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Sí', 'woocommerce-mercadopago')
