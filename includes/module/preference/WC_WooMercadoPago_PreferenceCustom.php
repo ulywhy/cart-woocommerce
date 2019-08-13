@@ -34,7 +34,6 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
                 $this->preference['issuer_id'] = (integer)$this->checkout['issuer'];
             }
         }
-        $this->preference['statement_descriptor'] = $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago');
         $this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
