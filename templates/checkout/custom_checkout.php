@@ -41,7 +41,7 @@ if (!defined('ABSPATH')) {
 
 				<div class="row pt-10">
 					<div class="col-md-9 pr-15">
-						<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?= __('Ingresá tu cupón', 'woocommerce-mercadopago') ?>" />
+						<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?= __('Ingresa tu cupón', 'woocommerce-mercadopago') ?>" />
 					</div>
 
 					<div class="col-md-3">
@@ -189,7 +189,7 @@ if (!defined('ABSPATH')) {
 
 					<div class="col-md-12">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout"><?= __('Ingresá tu número de documento', 'woocommerce-mercadopago') ?></p>
+							<p class="subtitle-custom-checkout"><?= __('Ingresa tu número de documento', 'woocommerce-mercadopago') ?></p>
 
 							<div class="row pt-10">
 								<div class="col-md-4 pr-15">

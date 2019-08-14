@@ -272,7 +272,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_payments_title()
     {
         $checkout_payments_title = array(
-            'title' => __('Configurá las preferencias de pago en tu tienda', 'woocommerce-mercadopago'),
+            'title' => __('Configura las preferencias de pago en tu tienda', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_title_bd'
         );
