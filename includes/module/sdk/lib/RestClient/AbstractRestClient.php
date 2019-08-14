@@ -5,6 +5,8 @@
  */
 class AbstractRestClient
 {
+    const PRODUCT_ID = 'BC32CPFTRPP001U8NHRG';
+
     public static $email_admin = '';
     public static $site_locale = '';
     public static $check_loop = 0;
@@ -44,6 +46,9 @@ class AbstractRestClient
         }
 
         $headers = array('accept: application/json');
+        if ($request['method'] == 'POST' ) {
+            $headers[] = 'x-product-id: ' . self::PRODUCT_ID;
+        }
         $json_content = true;
         $form_content = false;
         $default_content_type = true;
