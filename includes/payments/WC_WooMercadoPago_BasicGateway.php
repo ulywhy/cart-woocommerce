@@ -389,12 +389,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         //change type atm to ticket
         foreach ($all_payments as $key => $value) {
-            if($value['type'] == 'atm'){
+            if ($value['type'] == 'atm') {
                 $all_payments[$key]['type'] = 'ticket';
-            } elseif ($value['type'] == 'account_money') {
-               $all_payments[$key]['type'] = 'debit_card';
             } else {
-              continue;
+                continue;
             }
         }
 
@@ -406,39 +404,41 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $count_payment = 0;
 
         foreach ($all_payments as $payment_method) {
-            if ($payment_method['type'] == 'credit_card') {
-                $element = array(
-                    'label' => $payment_method['name'],
-                    'id' => 'woocommerce_mercadopago_' . $payment_method['id'],
-                    'default' => 'yes',
-                    'type' => 'checkbox',
-                    'class' => 'online_payment_method',
-                    'custom_attributes' => array(
-                        'data-translate' => __('Selecciona tarjetas de crédito', 'woocommerce-mercadopago')
-                    ),
-                );
-            } elseif ($payment_method['type'] == 'debit_card' || $payment_method['type'] == 'prepaid_card') {
-                $element = array(
-                    'label' => $payment_method['name'],
-                    'id' => 'woocommerce_mercadopago_' . $payment_method['id'],
-                    'default' => 'yes',
-                    'type' => 'checkbox',
-                    'class' => 'debit_payment_method',
-                    'custom_attributes' => array(
-                        'data-translate' => __('Selecciona tarjetas de débito', 'woocommerce-mercadopago')
-                    ),
-                );
-            } else {
-                $element = array(
-                    'label' => $payment_method['name'],
-                    'id' => 'woocommerce_mercadopago_' . $payment_method['id'],
-                    'default' => 'yes',
-                    'type' => 'checkbox',
-                    'class' => 'offline_payment_method',
-                    'custom_attributes' => array(
-                        'data-translate' => __('Selecciona pagos offline', 'woocommerce-mercadopago')
-                    ),
-                );
+            if ($payment_method['type'] != 'account_money') {
+                if ($payment_method['type'] == 'credit_card') {
+                    $element = array(
+                        'label' => $payment_method['name'],
+                        'id' => 'woocommerce_mercadopago_' . $payment_method['id'],
+                        'default' => 'yes',
+                        'type' => 'checkbox',
+                        'class' => 'online_payment_method',
+                        'custom_attributes' => array(
+                            'data-translate' => __('Selecciona tarjetas de crédito', 'woocommerce-mercadopago')
+                        ),
+                    );
+                } elseif ($payment_method['type'] == 'debit_card' || $payment_method['type'] == 'prepaid_card') {
+                    $element = array(
+                        'label' => $payment_method['name'],
+                        'id' => 'woocommerce_mercadopago_' . $payment_method['id'],
+                        'default' => 'yes',
+                        'type' => 'checkbox',
+                        'class' => 'debit_payment_method',
+                        'custom_attributes' => array(
+                            'data-translate' => __('Selecciona tarjetas de débito', 'woocommerce-mercadopago')
+                        ),
+                    );
+                } else {
+                    $element = array(
+                        'label' => $payment_method['name'],
+                        'id' => 'woocommerce_mercadopago_' . $payment_method['id'],
+                        'default' => 'yes',
+                        'type' => 'checkbox',
+                        'class' => 'offline_payment_method',
+                        'custom_attributes' => array(
+                            'data-translate' => __('Selecciona pagos offline', 'woocommerce-mercadopago')
+                        ),
+                    );
+                }
             }
 
             $count_payment++;
@@ -500,6 +500,15 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         if ($installments == 1) {
             $str_cuotas = "cuota";
+        }
+
+        //change type account_money to ticket
+        foreach ($tarjetas as $key => $value) {
+            if ($value['type'] == 'account_money') {
+                $all_payments[$key]['type'] = 'ticket';
+            } else {
+                continue;
+            }
         }
 
         foreach ($tarjetas as $tarjeta) {
