@@ -1,6 +1,40 @@
 CHANGELOG:
-= v4.0.0 (10/07/2019) =
+= v4.0.2 (20/08/2019) =
+* Feature All 
   - Performance improvement
+  - UX and UI improvements
+  - Code refactoring
+  - Design standards: SOLID, Abstract Factory and Singleton
+  - SDK Refactor: Avoid repeated external requests.
+  - New Credential Validation Logic
+  - Plugin Content Review
+  - Adjustment in translations
+  - Unification of general plugin settings with payment method setup, simplifying setup steps
+  - Logs to assist support and integration
+* Bug fixes
+  - Added product_id
+  - Fixed payment account_money 
+  - Fixed translation Spanish Neutral and Argentino
+
+= v4.0.2-Beta (13/08/2019) =
+* Bug fixes
+  - Fixed bug when update plugin from version 3.0.17
+  - Fixed bug thats change production mode of basic, custom and ticket checkout when update version.
+  - Added statement_descriptor in basic checkout
+  - Fixed title space checkout custom
+
+= v4.0.1-Beta (09/08/2019) =
+* Bug fixes 
+  - Fixed notification IPN and Webhook
+  - Fixed payment processing
+  - Fixed Argentina ticket checkout
+  - Fixed rule for custom checkout to generate token
+  - Fixed layout checkouts
+
+= v4.0.0-Beta (02/08/2019) =
+* Feature All 
+  - Performance improvement
+  - UX and UI improvements
   - Code refactoring
   - Design standards: SOLID, Abstract Factory and Singleton
   - SDK Refactor: Avoid repeated external requests.
@@ -10,11 +44,17 @@ CHANGELOG:
   - Unification of general plugin settings with payment method setup, simplifying setup steps
   - Logs to assist support and integration
 
+= v3.1.1 (03/05/2019) =
+* Feature All 	
+  - Added alert message on all ADMIN pages for setting access_token and public_key credentials, as client_id and client_secret credentials will no longer be used. Basic Checkout will continue to work by setting these new credentials.
+  - We have added minor translation enhancements.
+  - We add error message when any API error occurs while validating credentials.
+
 = v3.1.0 (17/04/2019) =
-* Performance Improvements 
-  - Removed unnecessary requests.
-  - Some functions have had their scope limited, in this way they will be called only when necessary.
-  - Removed Client_id and Client_secret, currently only using access_token and public_key.
+* Feature All   	
+  - We are no longer using client_id and client_secret credentials. This will affect the functioning of the basic checkout. You will need to configure access_token and public_key, in the plugin settings have. You can access the link to get the credentials inside of configurations of plugin.
+* Improvements
+  - Performance enhancements have been made, removing unnecessary requests and adding scope limitation for some functionality.
 
 = v3.0.17 (07/08/2018) =
 * Feature All 

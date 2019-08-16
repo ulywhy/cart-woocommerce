@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 5.2.2
 Tested up to: 5.2.2
 Requires PHP: 5.6
-Stable tag: 3.0.17
+Stable tag: 4.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,10 +42,12 @@ You can trust us as you trust a strategic partner. Use the money from your sales
 
 == Screenshots ==
 
-1. `Custom Checkout`
-2. `One Click Payment`
-3. `Tickets & Discounts`
-4. `Plugin Options`
+1. `Pay with the payment method you prefer`
+2. `Pay with the payment method you prefer`
+3. `Pay with debit and credit cards`
+4. `Pay with debit and credit cards`
+5. `Pay with money and cash`
+6. `Pay with ticket and Loterica`
 
 == Frequently Asked Questions ==
 
@@ -111,9 +113,42 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 
 == Changelog ==
 
-= v4.0.0 (02/08/2019) =
+= v4.0.2 (20/08/2019) =
 * Feature All 
   - Performance improvement
+  - UX and UI improvements
+  - Code refactoring
+  - Design standards: SOLID, Abstract Factory and Singleton
+  - SDK Refactor: Avoid repeated external requests.
+  - New Credential Validation Logic
+  - Plugin Content Review
+  - Adjustment in translations
+  - Unification of general plugin settings with payment method setup, simplifying setup steps
+  - Logs to assist support and integration
+* Bug fixes
+  - Added product_id
+  - Fixed payment account_money 
+  - Fixed translation Spanish Neutral and Argentino
+
+= v4.0.2-Beta (13/08/2019) =
+* Bug fixes
+  - Fixed bug when update plugin from version 3.0.17
+  - Fixed bug thats change production mode of basic, custom and ticket checkout when update version.
+  - Added statement_descriptor in basic checkout
+  - Fixed title space checkout custom
+
+= v4.0.1-Beta (09/08/2019) =
+* Bug fixes 
+  - Fixed notification IPN and Webhook
+  - Fixed payment processing
+  - Fixed Argentina ticket checkout
+  - Fixed rule for custom checkout to generate token
+  - Fixed layout checkouts
+
+= v4.0.0-Beta (02/08/2019) =
+* Feature All 
+  - Performance improvement
+  - UX and UI improvements
   - Code refactoring
   - Design standards: SOLID, Abstract Factory and Singleton
   - SDK Refactor: Avoid repeated external requests.
