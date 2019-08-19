@@ -42,8 +42,8 @@ msgstr "Configura WooCommerce Mercado Pago"
 msgid "Ve a lo básico. Coloca la información de tu negocio."
 msgstr "Ve a lo básico. Coloca la información de tu negocio."
 
-msgid "Configurá las preferencias de pago en tu tienda"
-msgstr "Configurá las preferencias de pago en tu tienda"
+msgid "Configura las preferencias de pago en tu tienda"
+msgstr "Configura las preferencias de pago en tu tienda"
 
 msgid "Configuración Avanzada de la experiencia de pago"
 msgstr "Configuración Avanzada de la experiencia de pago"
@@ -81,8 +81,11 @@ msgstr "Elige la URL que mostraremos a tus clientes cuando tengan un pago pendie
 msgid "URL de pago pendiente"
 msgstr "URL de pago pendiente"
 
-msgid "Selecciona pagos online"
-msgstr "Selecciona pagos online"
+msgid "Selecciona tarjetas de crédito"
+msgstr "Seleccioná tarjetas de crédito"
+
+msgid "Selecciona tarjetas de débito"
+msgstr "Selecciona tarjetas de débito"
 
 msgid "Selecciona pagos offline"
 msgstr "Selecciona pagos offline"
@@ -111,14 +114,14 @@ msgstr "No"
 msgid "Mercado Pago - Checkout personalizado"
 msgstr "Mercado Pago - Checkout personalizado"
 
-msgid "Paga con medios de pago en efectivo"
-msgstr "Paga con medios de pago en efectivo"
+msgid "Paga con dinero en efectivo"
+msgstr "Paga con dinero en efectivo"
 
 msgid "Acepta pagos en efectivo dentro del checkout personalizado y amplía las opciones de compra de tus clientes."
 msgstr "Acepta pagos en efectivo dentro del checkout personalizado y amplía las opciones de compra de tus clientes."
 
-msgid "Checkout de pagos con dinero en efectivo<br> Aceptá pagos presenciales ¡no dejes a nadie afuera! %s"
-msgstr "Checkout de pagos con dinero en efectivo<br> Aceptá pagos presenciales ¡no dejes a nadie afuera! %s"
+msgid "Checkout de pagos con dinero en efectivo<br> Acepta pagos presenciales ¡no dejes a nadie afuera! %s"
+msgstr "Checkout de pagos con dinero en efectivo<br> Acepta pagos presenciales ¡no dejes a nadie afuera! %s"
 
 msgid "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización"
 msgstr "Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización"
@@ -132,8 +135,8 @@ msgstr "Configuración avanzada de la experiencia de pago en efectivo"
 msgid "Reducir inventario"
 msgstr "Reducir inventario"
 
-msgid "Activa la reducción del inventario durante la creación de un pedido, sea aprobado o no el pago final. Desactiva esta opción para reducirlo solo cuando estén aprobados los pagos."
-msgstr "Activa la reducción del inventario durante la creación de un pedido, sea aprobado o no el pago final. Desactiva esta opción para reducirlo solo cuando estén aprobados los pagos."
+msgid "Activa la reducción del inventario durante la creación de un pedido, se acredite o no el pago final. Desactiva esta opción para reducirlo solo cuando los pagos estén aprobados."
+msgstr "Activa la reducción del inventario durante la creación de un pedido, se acredite o no el pago final. Desactiva esta opción para reducirlo solo cuando los pagos estén aprobados."
 
 msgid "Vencimiento del pago"
 msgstr "Vencimiento del pago"
@@ -198,8 +201,8 @@ msgstr "¿En qué país opera tu cuenta de Mercado Pago?"
 msgid "Selecciona tu país"
 msgstr "Selecciona tu país"
 
-msgid "Selecciona el país en el que operás con Mercado Pago."
-msgstr "Selecciona el país en el que operás con Mercado Pago."
+msgid "Selecciona el país en el que operas con Mercado Pago"
+msgstr "Selecciona el país en el que operas con Mercado Pago"
 
 msgid "Guardar cambios"
 msgstr "Guardar cambios"
@@ -258,8 +261,8 @@ msgstr "Con estas claves podrás <b>recibir pagos reales</b> de tus clientes."
 msgid "Homologa tu cuenta, solo te llevará unos minutos"
 msgstr "Homologa tu cuenta, solo te llevará unos minutos"
 
-msgid "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la adecuación a las normas o disposiciones legales de cada país."
-msgstr "Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la adecuación a las normas o disposiciones legales de cada país."
+msgid "Completa este proceso para asegurar los datos de tus clientes y cumplir con las normas<br> o disposiciones legales de cada país."
+msgstr "Completa este proceso para asegurar los datos de tus clientes y cumplir con las normas<br> o disposiciones legales de cada país."
 
 msgid "Homologar cuenta en Mercado Pago"
 msgstr "Homologar cuenta en Mercado Pago"
@@ -357,8 +360,8 @@ msgstr "Ingresa una URL para recibir notificaciones de pagos. En %s puedes consu
 msgid "IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías."
 msgstr "IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías."
 
-msgid "Editá estos campos avanzados solo cuando quieras modificar los valores preestablecidos."
-msgstr "Editá estos campos avanzados solo cuando quieras modificar los valores preestablecidos."
+msgid "Edita estos campos avanzados solo cuando quieras modificar los valores preestablecidos."
+msgstr "Edita estos campos avanzados solo cuando quieras modificar los valores preestablecidos."
 
 msgid "Cupones de descuento"
 msgstr "Cupones de descuento"
@@ -393,14 +396,17 @@ msgstr "Elige un valor porcentual que quieras descontar a tus clientes por pagar
 msgid "Comisión por compra con Mercado Pago"
 msgstr "Comisión por compra con Mercado Pago"
 
+msgid "Elige un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago."
+msgstr "Elige un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago."
+
 msgid "¿Todo listo para el despegue de tus ventas?"
 msgstr "¿Todo listo para el despegue de tus ventas?"
 
 msgid "¿Todo configurado? Ve a tu tienda en modo Sandbox"
 msgstr "¿Todo configurado? Ve a tu tienda en modo Sandbox"
 
-msgid "Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online."
-msgstr "Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online."
+msgid "Visita tu tienda como si fueras uno de tus clientes y revisa que todo esté bien. Si ya saliste a Producción,<br> trae a tus clientes y aumenta tus ventas con la mejor experiencia de compra online."
+msgstr "Visita tu tienda como si fueras uno de tus clientes y revisa que todo esté bien. Si ya saliste a Producción,<br> trae a tus clientes y aumenta tus ventas con la mejor experiencia de compra online."
 
 msgid "Visita tu tienda como si fueras uno de tus mejores clientes. Revisa que todo esté bien para impresionarlos<br> y aumentar tus ventas. Quiero testear mis ventas"
 msgstr "Visita tu tienda como si fueras uno de tus mejores clientes. Revisa que todo esté bien para impresionarlos<br> y aumentar tus ventas. Quiero testear mis ventas"
@@ -417,8 +423,11 @@ msgstr "Paga con tarjetas de crédito o débito"
 msgid "Acepta pagos con tarjeta en tu sitio web con la mejor financiación posible y maximiza la conversión de tu negocio. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!"
 msgstr "Acepta pagos con tarjeta en tu sitio web con la mejor financiación posible y maximiza la conversión de tu negocio. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!"
 
-msgid "Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio %s"
-msgstr "Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio %s"
+msgid "Checkout de pagos con tarjetas de débito y crédito<br> Acepta pagos al instante y maximiza la conversión de tu negocio %s"
+msgstr "Checkout de pagos con tarjetas de débito y crédito<br> Acepta pagos al instante y maximiza la conversión de tu negocio %s"
+
+msgid "Convierte tu tienda online en una pasarela de pagos segura y fácil de usar para tus clientes. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!"
+msgstr "Convierte tu tienda online en una pasarela de pagos segura y fácil de usar para tus clientes. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!"
 
 msgid "Configura la experiencia de pago en tu tienda"
 msgstr "Configura la experiencia de pago en tu tienda"
@@ -870,8 +879,8 @@ msgstr "Parece que ya tienes instalado el módulo de Mercado Pago. Por favor, de
 msgid "Cancelar orden"
 msgstr "Cancelar orden"
 
-msgid "Pagá con tarjetas de débito y crédito"
-msgstr "Pagá con tarjetas de débito y crédito"
+msgid "Paga con tarjetas de débito y crédito"
+msgstr "Paga con tarjetas de débito y crédito"
 
 msgid "Con qué Tarjetas puedo pagar"
 msgstr "Con qué Tarjetas puedo pagar"
@@ -888,8 +897,8 @@ msgstr "Tarjetas de débito"
 msgid "Ingresa tu cupón de descuento"
 msgstr "Ingresa tu cupón de descuento"
 
-msgid "Ingresá tu cupón"
-msgstr "Ingresá tu cupón"
+msgid "Ingresa tu cupón"
+msgstr "Ingresa tu cupón"
 
 msgid "Aplicar"
 msgstr "Aplicar"
@@ -957,8 +966,8 @@ msgstr "Pago convertido de"
 msgid "Seleccione el número de cotas"
 msgstr "Seleccione el número de cotas"
 
-msgid "Ingresá tu número de documento"
-msgstr "Ingresá tu número de documento"
+msgid "Ingresa tu número de documento"
+msgstr "Ingresa tu número de documento"
 
 msgid "Tipo"
 msgstr "Tipo"
@@ -1077,8 +1086,8 @@ msgstr "Debes informar tu código postal"
 msgid "Completa todos los campos, son obligatorios."
 msgstr "Completa todos los campos, son obligatorios."
 
-msgid "Por favor, selecciona el emisor de su elección"
-msgstr "Por favor, selecciona el emisor de su elección"
+msgid "Selecciona el emisor con el que quieras procesar el pago"
+msgstr "Selecciona el emisor con el que quieras procesar el pago"
 
 msgid "Usa el medio de pago que prefieras."
 msgstr "Usa el medio de pago que prefieras."
@@ -1101,8 +1110,8 @@ msgstr "Configura las opciones de pago a tu medida y acepta pagos con tarjetas, 
 msgid "Habilitá la experiencia del checkout básico de Mercado Pago en tu tienda online, seleccioná los medios de pago disponibles para tus clientes y<br> definí el máximo de cuotas en el que podrán pagarte."
 msgstr "Habilitá la experiencia del checkout básico de Mercado Pago en tu tienda online, seleccioná los medios de pago disponibles para tus clientes y<br> definí el máximo de cuotas en el que podrán pagarte."
 
-msgid "Incluí esta opción de compra preferida por algunos clientes."
-msgstr "Incluí esta opción de compra preferida por algunos clientes."
+msgid "Incluye esta opción de compra preferida por algunos clientes."
+msgstr "Incluye esta opción de compra preferida por algunos clientes."
 
 msgid "Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes."
 msgstr "Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes."

@@ -488,7 +488,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_country = array(
             'title' => __('Selecciona tu país', 'woocommerce-mercadopago'),
             'type' => 'select',
-            'description' => __('Selecciona el país en el que operás con Mercado Pago.', 'woocommerce-mercadopago'),
+            'description' => __('Selecciona el país en el que operas con Mercado Pago', 'woocommerce-mercadopago'),
             'default' => empty($checkout_country) ? $country_default : $checkout_country,
             'options' => array(
                 'mla' => __('Argentina', 'woocommerce-mercadopago'),
@@ -798,7 +798,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_homolog_subtitle()
     {
         $checkout_homolog_subtitle = array(
-            'title' => __('Completa este proceso para que podamos garantizar, juntos, la seguridad de los datos de tus clientes y la <br>adecuación a las normas o disposiciones legales de cada país.', 'woocommerce-mercadopago'),
+            'title' => __('Completa este proceso para asegurar los datos de tus clientes y cumplir con las normas<br> o disposiciones legales de cada país.', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_text mt--10'
         );
@@ -996,7 +996,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_payments_advanced_description()
     {
         $checkout_payments_advanced_description = array(
-            'title' => __('Editá estos campos avanzados solo cuando quieras modificar los valores preestablecidos.', 'woocommerce-mercadopago'),
+            'title' => __('Edita estos campos avanzados solo cuando quieras modificar los valores preestablecidos.', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_small_text mt--10'
         );
@@ -1082,7 +1082,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $commission = array(
             'title' => __('Comisión por compra con Mercado Pago', 'woocommerce-mercadopago'),
             'type' => 'number',
-            'description' => __('Selecciona un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago.', 'woocommerce-mercadopago'),
+            'description' => __('Elige un valor porcentual adicional que quieras cobrar como comisión a tus clientes por pagar con Mercado Pago.', 'woocommerce-mercadopago'),
             'default' => '0',
             'custom_attributes' => array(
                 'step' => '0.01',
@@ -1119,7 +1119,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_ready_description()
     {
        if($this->checkout_credential_token_production == 'yes') {
-          $message_ready_description =  __('Visita tu tienda como si fueras uno de tus mejores cliente y revisa que todo esté bien. Si ya saliste a Producción, <br> trae a tus mejores clientes y aumenta tus ventas con la mejor experiencia de compra online.', 'woocommerce-mercadopago');
+          $message_ready_description =  __('Visita tu tienda como si fueras uno de tus clientes y revisa que todo esté bien. Si ya saliste a Producción,<br> trae a tus clientes y aumenta tus ventas con la mejor experiencia de compra online.', 'woocommerce-mercadopago');
         } else { 
           $message_ready_description =  __('Visita tu tienda como si fueras uno de tus mejores clientes. Revisa que todo esté bien para impresionarlos<br> y aumentar tus ventas. Quiero testear mis ventas', 'woocommerce-mercadopago');
         }

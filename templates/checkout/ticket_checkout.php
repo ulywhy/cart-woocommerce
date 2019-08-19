@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 
                 <div class="row pt-10">
                     <div class="col-md-9 pr-15">
-                        <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresá tu cupón', 'woocommerce-mercadopago')?>" />
+                        <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresa tu cupón', 'woocommerce-mercadopago')?>" />
                     </div>
 
                     <div class="col-md-3">
@@ -145,7 +145,7 @@ if (!defined('ABSPATH')) {
                     <?php if (count($payment_methods) > 1) : ?>
                         <div class="col-md-12 <?= $site_id == 'MLB' ? 'pt-20' : ''; ?>">
                             <div class="frame-tarjetas">
-                                <p class="subtitle-ticket-checkout"><?=__('Por favor, selecciona el emisor de su elección', 'woocommerce-mercadopago')?></p>
+                                <p class="subtitle-ticket-checkout"><?=__('Selecciona el emisor con el que quieras procesar el pago', 'woocommerce-mercadopago')?></p>
 
                                 <div class="row pt-10">
                                     <?php $atFirst = true; ?>
