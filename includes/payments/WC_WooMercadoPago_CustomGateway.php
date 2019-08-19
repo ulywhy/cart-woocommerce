@@ -27,7 +27,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Checkout personalizado', 'woocommerce-mercadopago');
-        $this->title = __('Paga con tarjetas de crédito o débito', 'woocommerce-mercadopago');
+        $this->title = __('Paga con tarjetas de débito y crédito', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Acepta pagos con tarjeta en tu sitio web con la mejor financiación posible y maximiza la conversión de tu negocio. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->field_forms_order = $this->get_fields_sequence();
@@ -150,11 +150,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_custom_header = array(
             'title' => sprintf(
-                __('Checkout de pagos con tarjetas de débito y crédito<br> Aceptá pagos al instante y maximizá la conversión de tu negocio %s', 'woocommerce-mercadopago'),
+                __('Checkout de pagos con tarjetas de débito y crédito<br> Acepta pagos al instante y maximiza la conversión de tu negocio %s', 'woocommerce-mercadopago'),
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
-                  ' . __('Diseña y adapta la experiencia de pago final que quieras ofrecer en tu sitio web o aplicación y maximiza la conversión de tu negocio con nuestras opciones de personalización.', 'woocommerce-mercadopago') . '
+                  ' . __('Convierte tu tienda online en una pasarela de pagos segura y fácil de usar para tus clientes. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             </div>'

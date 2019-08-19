@@ -25,7 +25,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Checkout personalizado', 'woocommerce-mercadopago');
-        $this->title = __('Paga con medios de pago en efectivo', 'woocommerce-mercadopago');
+        $this->title = __('Paga con dinero en efectivo', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription('Acepta pagos en efectivo dentro del checkout personalizado y amplía las opciones de compra de tus clientes.');
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');
@@ -180,11 +180,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_ticket_header = array(
             'title' => sprintf(
-                __('Checkout de pagos con dinero en efectivo<br> Aceptá pagos presenciales ¡no dejes a nadie afuera! %s', 'woocommerce-mercadopago'),
+                __('Checkout de pagos con dinero en efectivo<br> Acepta pagos presenciales ¡no dejes a nadie afuera! %s', 'woocommerce-mercadopago'),
                 '<div class="row">
               <div class="col-md-12">
                 <p class="text-checkout-body mb-0">
-                  ' . __('Incluí esta opción de compra preferida por algunos clientes.', 'woocommerce-mercadopago') . '
+                  ' . __('Incluye esta opción de compra preferida por algunos clientes.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             </div>'
@@ -269,7 +269,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => __('Reducir inventario', 'woocommerce-mercadopago'),
             'type' => 'select',
             'default' => 'no',
-            'description' => __('Activa la reducción del inventario durante la creación de un pedido, sea aprobado o no el pago final. Desactiva esta opción para reducirlo solo cuando estén aprobados los pagos.', 'woocommerce-mercadopago'),
+            'description' => __('Activa la reducción del inventario durante la creación de un pedido, se acredite o no el pago final. Desactiva esta opción para reducirlo solo cuando los pagos estén aprobados.', 'woocommerce-mercadopago'),
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Sí', 'woocommerce-mercadopago')
