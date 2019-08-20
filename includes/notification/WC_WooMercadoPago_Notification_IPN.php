@@ -32,12 +32,12 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
 
         if (!isset($data['id']) || !isset($data['topic'])) {
             $this->log->write_log(__FUNCTION__, 'request failure, received ipn call with no data.');
-            wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'));
+            wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'),'', array( 'response' => 422 ));
         }
 
         if ($data['topic'] == 'payment' || $data['topic'] != 'merchant_order') {
             $this->log->write_log(__FUNCTION__, 'request failure, invalid topic.');
-            wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'));
+            wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'),'', array( 'response' => 422 ));
         }
 
         $access_token = array('access_token' => $this->mp->get_access_token());

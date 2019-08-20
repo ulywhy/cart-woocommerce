@@ -49,7 +49,7 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
             $this->log->write_log(__FUNCTION__, 'data_id or type not set: ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             if (!isset($data['id']) || !isset($data['topic'])) {
                 $this->log->write_log(__FUNCTION__, 'Mercado Pago Request failure: ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-                wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'));
+                wp_die(__('La solicitud de Mercado Pago ha fallado', 'woocommerce-mercadopago'),'', array( 'response' => 422 ));
             } else {
                 header('HTTP/1.1 200 OK');
             }
