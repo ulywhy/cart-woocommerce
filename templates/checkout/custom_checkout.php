@@ -19,17 +19,17 @@ if (!defined('ABSPATH')) {
 			<div class="col-md-12">
 				<div class="frame-tarjetas">
 					<?php if (count($credit_card) != 0) : ?>
-						<p class="subtitle-checkout-custom"><?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?></p>
-						<?php foreach ($credit_card as $credit_image) : ?>
-							<img src="<?= $credit_image ?>" class="img-fluid img-tarjetas" alt="" />
-						<?php endforeach; ?>
+					<p class="subtitle-checkout-custom"><?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?></p>
+					<?php foreach ($credit_card as $credit_image) : ?>
+					<img src="<?= $credit_image ?>" class="img-fluid img-tarjetas" alt="" />
+					<?php endforeach; ?>
 					<?php endif; ?>
 
 					<?php if (count($debit_card) != 0) : ?>
-						<p class="subtitle-checkout-custom pt-10"><?= __('Tarjetas de débito', 'woocommerce-mercadopago') ?></p>
-						<?php foreach ($debit_card as $debit_image) : ?>
-							<img src="<?= $debit_image ?>" class="img-fluid img-tarjetas" alt="" />
-						<?php endforeach; ?>
+					<p class="subtitle-checkout-custom pt-10"><?= __('Tarjetas de débito', 'woocommerce-mercadopago') ?></p>
+					<?php foreach ($debit_card as $debit_image) : ?>
+					<img src="<?= $debit_image ?>" class="img-fluid img-tarjetas" alt="" />
+					<?php endforeach; ?>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -66,16 +66,16 @@ if (!defined('ABSPATH')) {
 							<select id="paymentMethodSelector" class="mp-form-control pointer" name="mercadopago_custom[paymentMethodSelector]" data-checkout="cardId">
 								<optgroup label="<?= esc_html__('Tu tarjeta', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
 									<?php foreach ($customer_cards as $card) : ?>
-										<option value="<?= $card['id']; ?>
+									<option value="<?= $card['id']; ?>
 															first_six_digits=<?= $card['first_six_digits']; ?>
 															last_four_digits=<?= $card['last_four_digits']; ?>
 															security_code_length=<?= $card['security_code']['length']; ?>
 															type_checkout='customer_and_card'
 															payment_method_id=<?= $card['payment_method']['id']; ?>">
-											<?= ucfirst($card['payment_method']['name']); ?>
-											<?= esc_html__('terminó en', 'woocommerce-mercadopago'); ?>
-											<?= $card['last_four_digits']; ?>
-										</option>
+										<?= ucfirst($card['payment_method']['name']); ?>
+										<?= esc_html__('terminó en', 'woocommerce-mercadopago'); ?>
+										<?= $card['last_four_digits']; ?>
+									</option>
 									<?php endforeach; ?>
 								</optgroup>
 
@@ -157,21 +157,21 @@ if (!defined('ABSPATH')) {
 
 								<div id="installments-div" class="col-md-8">
 									<?php if ($currency_ratio != 1) : ?>
-										<label for="installments" class="mp-label-form">
-											<div class="tooltip">
-												<?= esc_html__('', 'woocommerce-mercadopago'); ?>
-												<span class="tooltiptext">
-													<?=
+									<label for="installments" class="mp-label-form">
+										<div class="tooltip">
+											<?= esc_html__('', 'woocommerce-mercadopago'); ?>
+											<span class="tooltiptext">
+												<?=
 														esc_html__('Pago convertido de', 'woocommerce-mercadopago') . " " .
 															$woocommerce_currency . " " . esc_html__('para', 'woocommerce-mercadopago') . " " .
 															$account_currency;
 													?>
-												</span>
-											</div>
-											<em>*</em>
-										</label>
+											</span>
+										</div>
+										<em>*</em>
+									</label>
 									<?php else : ?>
-										<label for="installments" class="mp-label-form"><?= __('Seleccione el número de cotas', 'woocommerce-mercadopago') ?></label>
+									<label for="installments" class="mp-label-form"><?= __('Seleccione el número de cotas', 'woocommerce-mercadopago') ?></label>
 									<?php endif; ?>
 
 									<select class="mp-form-control pointer mt-5" id="installments" data-checkout="installments" name="mercadopago_custom[installments]"></select>
@@ -1414,64 +1414,88 @@ if (!defined('ABSPATH')) {
 	}
 
 	/*
-    * Customization due to rejected payment flow
-    */
-    
-    //disable create token by event, to create on submit form
-    MPv1.create_token_on.event = false
-    
-    
-    var formSubmited = false;
-    var intent = 0;
-    jQuery( function( $ ) {
-        var checkout_form = $('form.checkout');
-        // get action button submit
-        checkout_form.on('checkout_place_order_woo-mercado-pago-custom', function () {
-            
-            //check already submit
-            if(formSubmited == false){
-                MPv1.createToken();
-                return false;
-            }
-            //check is second intent to renew token
-            if(intent == 2){
-                intent = 0;
-                formSubmited = false;
-                Mercadopago.clearSession();
-                setTimeout(function() {
-                    return MPv1.createToken();
-                }, 2000);
-                return false;
-            }
-            intent++;
-            return true;
-        });
-    });
-    MPv1.sdkResponseHandler = function( status, response ) {
-        // Hide loading.
-        document.querySelector( MPv1.selectors.box_loading ).style.background = "";
-        if ( status != 200 && status != 201 ) {
-            MPv1.showErrors( response );
-        } else {
-            var token = document.querySelector( MPv1.selectors.token );
-            token.value = response.id;
-            if ( MPv1.add_truncated_card ) {
-                var card = MPv1.truncateCard( response );
-                document.querySelector( MPv1.selectors.cardTruncated ).value = card;
-            }
-            
-            //set to form submit
-            formSubmited = true;
-            
-            //trigger button to submit form
-            form = document.querySelector( '#place_order' );
-            form.click();
-        }
-    }
-    
-    /*
-    *  END Customization
-    */
+	 * Customization due to rejected payment flow
+	 */
+
+	//disable create token by event, to create on submit form
+	MPv1.create_token_on.event = false
+
+
+	var formSubmited = false;
+	var intent = 0;
+	jQuery(function($) {
+		var checkout_form = $('form.checkout');
+
+		// get action button submit
+		checkout_form.on('checkout_place_order_woo-mercado-pago-custom', function() {
+			//check already submit
+			if (formSubmited == false) {
+				MPv1.createToken();
+				return false;
+			}
+			//check is second intent to renew token
+			if (intent == 2) {
+				intent = 0;
+				formSubmited = false;
+				Mercadopago.clearSession();
+				setTimeout(function() {
+					return MPv1.createToken();
+				}, 2000);
+				return false;
+			}
+			intent++;
+			return true;
+		});
+
+		if (document.forms['order_review'] != undefined) {
+			document.forms['order_review'].onsubmit = function() {
+				if (document.getElementById('payment_method_woo-mercado-pago-custom').checked) {
+					//check already submit
+					if (formSubmited == false) {
+						MPv1.createToken();
+						return false;
+					}
+					//check is second intent to renew token
+					if (intent == 2) {
+						intent = 0;
+						formSubmited = false;
+						Mercadopago.clearSession();
+						setTimeout(function() {
+							return MPv1.createToken();
+						}, 2000);
+						return false;
+					}
+					intent++;
+				}
+				return true;
+			}
+		}
+	});
+	MPv1.sdkResponseHandler = function(status, response) {
+		// Hide loading.
+		document.querySelector(MPv1.selectors.box_loading).style.background = "";
+		if (status != 200 && status != 201) {
+			MPv1.showErrors(response);
+		} else {
+			var token = document.querySelector(MPv1.selectors.token);
+			token.value = response.id;
+			if (MPv1.add_truncated_card) {
+				var card = MPv1.truncateCard(response);
+				document.querySelector(MPv1.selectors.cardTruncated).value = card;
+			}
+
+			//set to form submit
+			formSubmited = true;
+
+			//trigger button to submit form
+			form = document.querySelector('#place_order');
+			form.click();
+		}
+	}
+
+	/*
+	 *  END Customization
+	 */
 
 	MPv1.text.apply = "<?php echo __('Aplicar', 'woocommerce-mercadopago'); ?>";
 	MPv1.text.remove = "<?php echo __('Retirar', 'woocommerce-mercadopago'); ?>";
