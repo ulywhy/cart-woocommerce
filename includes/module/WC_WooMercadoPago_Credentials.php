@@ -251,20 +251,17 @@ class WC_WooMercadoPago_Credentials
 
         $payment_methods_ticket = array();
         foreach ($paymentsResponse as $payment) {
-            if (isset($payment['payment_type_id']) && $payment['payment_type_id'] == "ticket" || $payment['payment_type_id'] == "atm") {
                 if (
                     $payment['payment_type_id'] != 'account_money' &&
                     $payment['payment_type_id'] != 'credit_card' &&
                     $payment['payment_type_id'] != 'debit_card' &&
-                    $payment['payment_type_id'] != 'prepaid_card' &&
-                    $payment['id'] != 'pse'
+                    $payment['payment_type_id'] != 'prepaid_card'
                 ) {
                     $obj = new stdClass();
                     $obj->id = $payment['id'];
                     $obj->name = $payment['name'];
                     $obj->secure_thumbnail = $payment['secure_thumbnail'];
                     array_push($payment_methods_ticket, $obj);
-                }
             }
         }
 
