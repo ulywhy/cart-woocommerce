@@ -61,7 +61,7 @@ if (!defined('ABSPATH')) {
 				<!-- saved cards -->
 				<div id="mercadopago-form-customer-and-card">
 					<div class="row pt-10">
-						<div class="col-md-8 pr-15">
+						<div class="col-md-12">
 							<label for="paymentMethodIdSelector" class="mp-label-form"><?= esc_html__('Payment Method', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<select id="paymentMethodSelector" class="mp-form-control pointer" name="mercadopago_custom[paymentMethodSelector]" data-checkout="cardId">
 								<optgroup label="<?= esc_html__('Tu tarjeta', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
@@ -187,7 +187,7 @@ if (!defined('ABSPATH')) {
 						</div>
 					</div>
 
-					<div class="col-md-12">
+					<div id="mp-doc-div" class="col-md-12 mp-doc">
 						<div class="frame-tarjetas">
 							<p class="subtitle-custom-checkout"><?= __('Ingresa tu número de documento', 'woocommerce-mercadopago') ?></p>
 
@@ -1291,12 +1291,8 @@ if (!defined('ABSPATH')) {
 			}
 
 			if (MPv1.site_id == "MLM") {
-
-				// Hide documento for mex.
-				document.querySelector(MPv1.selectors.mpDoc).style.display = "none";
-
+        		document.querySelector( MPv1.selectors.mpDoc ).style.display = "none";
 				document.querySelector(MPv1.selectors.formCustomerAndCard).removeAttribute("style");
-				document.querySelector(MPv1.selectors.formCustomerAndCard).style.padding = "0px 12px 0px 12px";
 				document.querySelector(MPv1.selectors.mpSecurityCodeCustomerAndCard).style.display = "none";
 
 				// Removing not used fields for this country.
