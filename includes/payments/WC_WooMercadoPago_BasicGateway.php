@@ -34,7 +34,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->pending_url = $this->getOption('pending_url', '');
         $this->installments = $this->getOption('installments', '24');
         $this->gateway_discount = $this->getOption('gateway_discount', 0);
-        $this->clientid_old_version = getClientId();
+        $this->clientid_old_version = $this->getClientId();
         $this->field_forms_order = $this->get_fields_sequence();
         $this->ex_payments = $this->getExPayments();
         parent::__construct();
