@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 {
-    const VERSION = '4.0.0';
+    const VERSION = '4.0.2';
     const MIN_PHP = 5.6;
 
     public static $categories = array();
@@ -61,9 +61,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public static function getMpInstance($payment = null)
     {
-        if (!empty($payment)) {
-            $payment->clienteid_credential_production = false;
-        }
         $credentials = new WC_WooMercadoPago_Credentials($payment);
         $validateCredentialsType = $credentials->validateCredentialsType();
         if ($validateCredentialsType == WC_WooMercadoPago_Credentials::TYPE_ACCESS_TOKEN) {
@@ -75,7 +72,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $mp->setPaymentClass($payment);
             if (!empty($payment)) {
                 $payment->sandbox = false;
-                $payment->clienteid_credential_production = true;
             }
         }
 
