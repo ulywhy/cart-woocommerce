@@ -77,7 +77,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $type_payments;
     public $activated_payment;
     public $homolog_validate;
-    public $clienteid_credential_production;
+    public $clientid_old_version;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -625,7 +625,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Producción', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Elige “SÍ” solo cuando estés listo para vender. Cambia a NO para activar el modo Pruebas.', 'woocommerce-mercadopago'),
-            'default' => $this->id == 'woo-mercado-pago-basic' && $this->clienteid_credential_production ? 'yes' : $this->getOption('checkout_credential_production', 'no'),
+            'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $this->getOption('checkout_credential_production', 'no'),
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Sí', 'woocommerce-mercadopago')
