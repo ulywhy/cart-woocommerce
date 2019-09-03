@@ -4,95 +4,95 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="panel-custom-checkout">
-    <div class="row">
+<div class="mp-panel-custom-checkout">
+    <div class="mp-row-checkout">
 
-        <div  id="mercadopago-form-coupon-ticket" class="col-md-12">
-            <div class="frame-tarjetas text-justify">
-                <p class="subtitle-ticket-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
+        <div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12">
+            <div class="frame-tarjetas mp-text-justify">
+                <p class="mp-subtitle-ticket-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
 
-                <div class="row pt-10">
-                    <div class="col-md-9 pr-15">
+                <div class="mp-row-checkout mp-pt-10">
+                    <div class="mp-col-md-9 mp-pr-15">
                         <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresa tu cupón', 'woocommerce-mercadopago')?>" />
                     </div>
 
-                    <div class="col-md-3">
-                        <input type="button" class="mp-button pointer" id="applyCouponTicket" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
+                    <div class="mp-col-md-3">
+                        <input type="button" class="mp-button mp-pointer" id="applyCouponTicket" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
                     </div>
                 </div>
 
                 <span class="mp-discount" id="mpCouponApplyedTicket"></span>
-                <span class="erro_febraban" id="mpCouponErrorTicket"><?=__('El código que ingresaste es incorrecto', 'woocommerce-mercadopago')?></span>
+                <span class="mp-erro_febraban" id="mpCouponErrorTicket"><?=__('El código que ingresaste es incorrecto', 'woocommerce-mercadopago')?></span>
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="mp-col-md-12">
             <div class="frame-tarjetas">
                 <div id="mercadopago-form-ticket">
 
                     <div id="form-ticket">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="MPv1Ticket-docType-fisica" class="mp-label-form-check pointer">
+                        <div class="mp-row-checkout">
+                            <div class="mp-col-md-6">
+                                <label for="MPv1Ticket-docType-fisica" class="mp-label-form-check mp-pointer">
                                     <input type="radio" name="mercadopago_ticket[docType]" class="mp-form-control-check" id="MPv1Ticket-docType-fisica" value="CPF" checked="checked" />
                                     <?= esc_html__('Persona Física', 'woocommerce-mercadopago'); ?>
                                 </label>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="MPv1Ticket-docType-juridica" class="mp-label-form-check pointer">
+                            <div class="mp-col-md-6">
+                                <label for="MPv1Ticket-docType-juridica" class="mp-label-form-check mp-pointer">
                                     <input type="radio" name="mercadopago_ticket[docType]" class="mp-form-control-check" id="MPv1Ticket-docType-juridica" value="CNPJ">
                                     <?= esc_html__('Persona Jurídica', 'woocommerce-mercadopago'); ?>
                                 </label>
                             </div>
                         </div>
 
-                        <div class="row pt-10">
-                            <div class="col-md-4 pr-15" id="box-firstname">
+                        <div class="mp-row-checkout mp-pt-10">
+                            <div class="mp-col-md-4 mp-pr-15" id="box-firstname">
                                 <label for="firstname" class="mp-label-form title-name"><?= esc_html__('Nome', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <label for="firstname" class="title-razao-social mp-label-form"><?= esc_html__('Razão social', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" class="mp-form-control" value="<?= $febraban['firstname']; ?>" id="firstname" name="mercadopago_ticket[firstname]">
-                                <span class="erro_febraban" data-main="#firstname" id="error_firstname"><?= esc_html__('Debes informar tu nombre', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#firstname" id="error_firstname"><?= esc_html__('Debes informar tu nombre', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
-                            <div class="col-md-4 pr-15" id="box-lastname">
+                            <div class="mp-col-md-4 mp-pr-15" id="box-lastname">
                                 <label for="lastname" class="mp-label-form"><?= esc_html__('Apellido', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" class="mp-form-control" value="<?= $febraban['lastname']; ?>" id="lastname" name="mercadopago_ticket[lastname]">
-                                <span class="erro_febraban" data-main="#lastname" id="error_lastname"><?= esc_html__('Debes informar tu apellido', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#lastname" id="error_lastname"><?= esc_html__('Debes informar tu apellido', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
-                            <div class="col-md-4" id="box-docnumber">
+                            <div class="mp-col-md-4" id="box-docnumber">
                                 <label for="cpfcnpj" class="mp-label-form title-cpf"><?= esc_html__('CPF', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <label for="cpfcnpj" class="title-cnpj mp-label-form"><?= esc_html__('CNPJ', 'woocommerce-mercadopago'); ?><em>*</em></label>
                                 <input type="text" value="<?= $febraban['docNumber']; ?>" id="cpfcnpj" class="mp-form-control" name="mercadopago_ticket[docNumber]" maxlength="14">
-                                <span class="erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?= esc_html__('Debe informar su número de documento', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#cpfcnpj" id="error_docNumber"><?= esc_html__('Debe informar su número de documento', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
-                        <div class="row pt-10">
-                            <div class="col-md-8 pr-15" id="box-firstname">
+                        <div class="mp-row-checkout mp-pt-10">
+                            <div class="mp-col-md-8 mp-pr-15" id="box-firstname">
                                 <label for="address" class="mp-label-form"><?= esc_html__('Dirección', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['address']; ?>" id="address" class="mp-form-control" name="mercadopago_ticket[address]">
-                                <span class="erro_febraban" data-main="#address" id="error_address"><?= esc_html__('Debes informar tu dirección', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#address" id="error_address"><?= esc_html__('Debes informar tu dirección', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
-                            <div class="col-md-4" id="box-lastname">
+                            <div class="mp-col-md-4" id="box-lastname">
                                 <label for="number" class="mp-label-form"><?= esc_html__('Número', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['number']; ?>" id="number" class="mp-form-control" name="mercadopago_ticket[number]">
-                                <span class="erro_febraban" data-main="#number" id="error_number"><?= esc_html__('Debe informar su número de dirección', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#number" id="error_number"><?= esc_html__('Debe informar su número de dirección', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
-                        <div class="row pt-10">
-                            <div class="col-md-4 pr-15">
+                        <div class="mp-row-checkout mp-pt-10">
+                            <div class="mp-col-md-4 mp-pr-15">
                                 <label for="city" class="mp-label-form"><?= esc_html__('Ciudad', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['city']; ?>" id="city" class="mp-form-control" name="mercadopago_ticket[city]">
-                                <span class="erro_febraban" data-main="#city" id="error_city"><?= esc_html__('Debes informar a tu ciudad', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#city" id="error_city"><?= esc_html__('Debes informar a tu ciudad', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
-                            <div class="col-md-4 pr-15">
+                            <div class="mp-col-md-4 mp-pr-15">
                                 <label for="state" class="mp-label-form"><?= esc_html__('Estado', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-                                <select name="mercadopago_ticket[state]" id="state" class="mp-form-control pointer">
+                                <select name="mercadopago_ticket[state]" id="state" class="mp-form-control mp-pointer">
                                 <option value="" <?php if ($febraban['state'] == '') { echo 'selected="selected"'; } ?>><?= esc_html__('Seleccione estado', 'woocommerce-mercadopago'); ?></option>
                                     <option value="AC" <?php if ($febraban['state'] == 'AC') { echo 'selected="selected"'; } ?>>Acre</option>
                                     <option value="AL" <?php if ($febraban['state'] == 'AL') { echo 'selected="selected"'; } ?>>Alagoas</option>
@@ -122,38 +122,38 @@ if (!defined('ABSPATH')) {
                                     <option value="SE" <?php if ($febraban['state'] == 'SE') { echo 'selected="selected"'; } ?>>Sergipe</option>
                                     <option value="TO" <?php if ($febraban['state'] == 'TO') { echo 'selected="selected"'; } ?>>Tocantins</option>
                                 </select>
-                                <span class="erro_febraban" data-main="#state" id="error_state"><?php echo esc_html__('Debes informar a tu estado', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#state" id="error_state"><?php echo esc_html__('Debes informar a tu estado', 'woocommerce-mercadopago'); ?></span>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="mp-col-md-4">
                                 <label for="zipcode" class="mp-label-form"><?= esc_html__('Código postal', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['zipcode']; ?>" id="zipcode" class="mp-form-control" name="mercadopago_ticket[zipcode]">
-                                <span class="erro_febraban" data-main="#zipcode" id="error_zipcode"><?= esc_html__('Debes informar tu código postal', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp-erro_febraban" data-main="#zipcode" id="error_zipcode"><?= esc_html__('Debes informar tu código postal', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
-                        <div class="col-md-12 pt-10">
+                        <div class="mp-col-md-12 mp-pt-10">
                             <div class="frame-tarjetas">
-                                <div class="row">
+                                <div class="mp-row-checkout">
                                     <p class="mp-obrigatory"><?= esc_html__('Completa todos los campos, son obligatorios.', 'woocommerce-mercadopago'); ?></p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                        <div class="col-md-12 <?= $site_id == 'MLB' ? 'pt-20' : ''; ?>">
+                        <div class="mp-col-md-12 <?= $site_id == 'MLB' ? 'mp-pt-20' : ''; ?>">
                             <div class="frame-tarjetas">
-                                <p class="subtitle-ticket-checkout"><?=__('Selecciona el emisor con el que quieras procesar el pago', 'woocommerce-mercadopago')?></p>
+                                <p class="mp-subtitle-ticket-checkout"><?=__('Selecciona el emisor con el que quieras procesar el pago', 'woocommerce-mercadopago')?></p>
 
-                                <div class="row pt-10">
+                                <div class="mp-row-checkout mp-pt-10">
                                     <?php $atFirst = true; ?>
                                     <?php foreach ($payment_methods as $payment) : ?>
-                                    <div id="frameTicket" class="col-md-6 pb-15 min-hg">
-                                            <div id="paymentMethodIdTicket" class="ticket-payments">
-                                                <label for="<?= $payment['id']; ?>" class="mp-label-form pointer">
+                                    <div id="frameTicket" class="mp-col-md-6 mp-pb-15 mp-min-hg">
+                                            <div id="paymentMethodIdTicket" class="mp-ticket-payments">
+                                                <label for="<?= $payment['id']; ?>" class="mp-label-form mp-pointer">
                                                     <input type="radio" class="mp-form-control-check" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id'] ?>" value="<?= $payment['id']; ?>" <?php if ($atFirst) : ?> checked="checked" <?php endif; ?> />
-                                                    <img src="<?= $payment['secure_thumbnail'] ?>" alt="<?php echo $payment['name']; ?>" />
-                                                    <span class="ticket-name"><?= $payment['name'] ?></span>
+                                                    <img src="<?= $payment['secure_thumbnail'] ?>" class="mp-img-ticket" alt="<?php echo $payment['name']; ?>" />
+                                                    <span class="mp-ticket-name"><?= $payment['name'] ?></span>
                                                 </label>
                                             </div>
                                             <?php $atFirst = false; ?>

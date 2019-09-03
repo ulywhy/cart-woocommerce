@@ -387,39 +387,39 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_steps = array(
             'title' => sprintf(
                 '<div class="row">
-              <h4 class="title-checkout-body pb-20">' . __('<b>Sigue estos pasos para activar Mercado Pago en tu tienda:</b>', 'woocommerce-mercadopago') . '</h4>
+              <h4 class="mp-title-checkout-body mp-pb-20">' . __('<b>Sigue estos pasos para activar Mercado Pago en tu tienda:</b>', 'woocommerce-mercadopago') . '</h4>
               
-              <div class="col-md-2 text-center pb-10">
+              <div class="col-md-2 mp-text-center pb-10">
                 <p class="number-checkout-body">1</p>
-                <p class="text-checkout-body text-center px-20">
+                <p class="text-checkout-body mp-text-center px-20">
                   ' . __('Carga tus <b>credenciales</b> para testear la tienda y cobrar con tu cuenta de Mercado Pago <b>según el país</b> en el que estés registrado.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             
-              <div class="col-md-2 text-center pb-10">
+              <div class="col-md-2 mp-text-center pb-10">
                 <p class="number-checkout-body">2</p>
-                <p class="text-checkout-body text-center px-20">
+                <p class="text-checkout-body mp-text-center px-20">
                   ' . __('Homologa tu cuenta para poder cobrar.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-2 text-center pb-10">
+              <div class="col-md-2 mp-text-center pb-10">
                 <p class="number-checkout-body">3</p>
-                <p class="text-checkout-body text-center px-20">
+                <p class="text-checkout-body mp-text-center px-20">
                   ' . __('Añade la información básica de tu negocio en la configuración del plugin.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-2 text-center pb-10">
+              <div class="col-md-2 mp-text-center pb-10">
                 <p class="number-checkout-body">4</p>
-                <p class="text-checkout-body text-center px-20">
+                <p class="text-checkout-body mp-text-center px-20">
                   ' . __('Configura las <b>preferencias de pago</b> para tus clientes.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-2 text-center pb-10">
+              <div class="col-md-2 mp-text-center pb-10">
               <p class="number-checkout-body">5</p>
-              <p class="text-checkout-body text-center px-20">
+              <p class="text-checkout-body mp-text-center px-20">
                 ' . __('Ve a <b>configuraciones avanzadas</b> tanto del plugin como del checkout solo cuando quieras modificar los ajustes preestablecidos.', 'woocommerce-mercadopago') . '
               </p>
             </div>
@@ -651,7 +651,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                             <td class="forminp">
                                 <fieldset>
                                     <a class="mp_general_links" href="https://www.mercadopago.com/' . $country . '/account/credentials" target="_blank">' . __('Buscar mis credenciales', 'woocommerce-mercadopago') . '</a>
-                                    <p class="description fw-400 mb-0"></p>
+                                    <p class="description fw-400 mp-mb-0"></p>
                                 </fieldset>
                             </td>
                         </tr>
@@ -909,7 +909,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_payments_subtitle = array(
             'title' => __('Configuración Básica', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_subtitle mt-5'
+            'class' => 'mp_subtitle mp-mt-5'
         );
         return $checkout_payments_subtitle;
     }

@@ -182,8 +182,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => sprintf(
                 __('Checkout de pagos con dinero en efectivo<br> Acepta pagos presenciales ¡no dejes a nadie afuera! %s', 'woocommerce-mercadopago'),
                 '<div class="row">
-              <div class="col-md-12">
-                <p class="text-checkout-body mb-0">
+              <div class="mp-col-md-12">
+                <p class="text-checkout-body mp-mb-0">
                   ' . __('Incluye esta opción de compra preferida por algunos clientes.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
@@ -216,7 +216,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_options_subtitle = array(
             'title' => __('Ve a lo básico. Coloca la información de tu negocio.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_subtitle mt-5'
+            'class' => 'mp_subtitle mp-mt-5'
         );
         return $checkout_options_subtitle;
     }
