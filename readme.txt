@@ -1,10 +1,10 @@
 === WooCommerce Mercado Pago ===
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
-Requires at least: 5.2.2
+Requires at least: 4.9.7
 Tested up to: 5.2.2
 Requires PHP: 5.6
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,7 +113,13 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 
 == Changelog ==
 
-= v4.0.2 (20/08/2019) =
+= v4.0.3 (03/09/2019) =
+* Bug fixes
+  - Fixed basic checkout layout when theme uses bootstrap
+  - Fixed all Custom checkout layout when theme uses bootstrap
+  - Fixed input blank in baisc checkout config
+
+= v4.0.2 (02/09/2019) =
 * Feature All 
   - Performance improvement
   - UX and UI improvements
