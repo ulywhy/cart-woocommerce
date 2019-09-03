@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.7
 Tested up to: 5.2.2
 Requires PHP: 5.6
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,13 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 
 == Changelog ==
 
+<<<<<<< HEAD
+= v4.0.4 (03/09/2019) =
+* Bug fixes
+  - Conflict between php5.6 and php7 solved
+
+=======
+>>>>>>> d28b67e7ccea93db59d1bc0e3f4f91237ec85773
 = v4.0.3 (03/09/2019) =
 * Bug fixes
   - Fixed basic checkout layout when theme uses bootstrap

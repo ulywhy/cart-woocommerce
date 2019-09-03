@@ -411,8 +411,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         //sort array by type asc
-        usort($all_payments, function ($a, $b) {
-            return $a['type'] <=> $b['type'];
+        usort($all_payments, function($a, $b) {
+            if($a['type'] == $b['type']) return 0;
+            return $b['type'] < $a['type'] ? 1 : -1;
         });
 
         $count_payment = 0;
