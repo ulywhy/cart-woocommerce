@@ -567,7 +567,7 @@
 
     this.MPv1Ticket = MPv1Ticket;
 
-    if (document.getElementById("payment") != undefined && document.getElementById("payment").offsetWidth <= 440) {
+    if (document.getElementById("payment") != undefined && document.getElementById("payment").offsetWidth <= 530) {
         var frameTicket = document.querySelectorAll('#frameTicket');
         for (var g = 0; g < frameTicket.length; g++) {
             frameTicket[g].classList.remove('mp-col-md-6');

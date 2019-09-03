@@ -221,7 +221,7 @@
     max-height: 35px !important; 
     width: auto !important;
     /* adaptation for all themes */
-    float: none !important;
+    float: left !important;
     position: relative !important;
     right: 0px !important;
     border: inherit !important;
