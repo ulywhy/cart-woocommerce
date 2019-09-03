@@ -418,7 +418,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $count_payment = 0;
 
         foreach ($all_payments as $payment_method) {
-            if ($payment_method['type'] != 'account_money') {
+            if ($payment_method['type'] == 'account_money') { 
+                continue; 
+            } else {
                 if ($payment_method['type'] == 'credit_card') {
                     $element = array(
                         'label' => $payment_method['name'],
