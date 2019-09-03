@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 <div class="panel-checkout">
-  <div class="row">
+  <div class="mp-row-checkout">
     <?php if($credito != 0): ?>
     <div id="framePayments" class="col-md-12">
         <div class="frame-tarjetas">
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] == 'credit_card'): ?>
-                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" alt=""/>
+                <img src="<?= $tarjeta['image'] ?>" class="img-fluid mp-img-tarjetas" alt=""/>
               <?php endif; ?>
             <?php endforeach; ?>
         </div>
@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) {
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] == 'debit_card' || $tarjeta['type'] == 'prepaid_card'): ?>
-                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" alt="" />
+                <img src="<?= $tarjeta['image'] ?>" class="img-fluid mp-img-tarjetas" alt="" />
               <?php endif; ?>
             <?php endforeach; ?>
         </div>
@@ -43,7 +43,7 @@ if (!defined('ABSPATH')) {
             
             <?php foreach($tarjetas as $tarjeta): ?>
               <?php if ($tarjeta['type'] != 'credit_card' && $tarjeta['type'] != 'debit_card' && $tarjeta['type'] != 'prepaid_card'): ?>
-                <img src="<?= $tarjeta['image'] ?>" class="img-fluid img-tarjetas" alt=""/>
+                <img src="<?= $tarjeta['image'] ?>" class="img-fluid mp-img-tarjetas" alt=""/>
               <?php endif; ?>
             <?php endforeach; ?>
         </div>
@@ -52,7 +52,7 @@ if (!defined('ABSPATH')) {
     
     <div class="col-md-12 pt-20">
         <div class="redirect-frame">
-            <img src="<?= $cho_image ?>" class="img-fluid" alt=""/>
+            <img src="<?= $cho_image ?>" class="img-fluid mp-img-redirect" alt=""/>
             <p><?=__('Te llevamos a nuestro sitio para completar el pago', 'woocommerce-mercadopago')?></p>
         </div>
     </div>

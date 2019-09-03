@@ -82,7 +82,7 @@
     min-height: 40px !important;
 }
 
-.row {
+.mp-row-checkout {
     width: 100%;
     display: inline-block;
 }

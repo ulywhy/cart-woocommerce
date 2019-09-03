@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 <div class="panel-custom-checkout">
-	<div class="row">
+	<div class="mp-row-checkout">
 		<div class="mp-frame-links">
 			<a class="mp-checkout-link pr-10" id="button-show-payments">
 				<?= __('Con qué Tarjetas puedo pagar', 'woocommerce-mercadopago') ?> ⌵
@@ -21,14 +21,14 @@ if (!defined('ABSPATH')) {
 					<?php if (count($credit_card) != 0) : ?>
 					<p class="subtitle-checkout-custom"><?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?></p>
 					<?php foreach ($credit_card as $credit_image) : ?>
-					<img src="<?= $credit_image ?>" class="img-fluid img-tarjetas" alt="" />
+					<img src="<?= $credit_image ?>" class="img-fluid mp-img-tarjetas" alt="" />
 					<?php endforeach; ?>
 					<?php endif; ?>
 
 					<?php if (count($debit_card) != 0) : ?>
 					<p class="subtitle-checkout-custom pt-10"><?= __('Tarjetas de débito', 'woocommerce-mercadopago') ?></p>
 					<?php foreach ($debit_card as $debit_image) : ?>
-					<img src="<?= $debit_image ?>" class="img-fluid img-tarjetas" alt="" />
+					<img src="<?= $debit_image ?>" class="img-fluid mp-img-tarjetas" alt="" />
 					<?php endforeach; ?>
 					<?php endif; ?>
 				</div>
@@ -39,7 +39,7 @@ if (!defined('ABSPATH')) {
 			<div class="frame-tarjetas text-justify">
 				<p class="subtitle-custom-checkout"><?= __('Ingresa tu cupón de descuento', 'woocommerce-mercadopago') ?></p>
 
-				<div class="row pt-10">
+				<div class="mp-row-checkout pt-10">
 					<div class="col-md-9 pr-15">
 						<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?= __('Ingresa tu cupón', 'woocommerce-mercadopago') ?>" />
 					</div>
@@ -60,7 +60,7 @@ if (!defined('ABSPATH')) {
 
 				<!-- saved cards -->
 				<div id="mercadopago-form-customer-and-card">
-					<div class="row pt-10">
+					<div class="mp-row-checkout pt-10">
 						<div class="col-md-12">
 							<label for="paymentMethodIdSelector" class="mp-label-form"><?= esc_html__('Payment Method', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<select id="paymentMethodSelector" class="mp-form-control pointer" name="mercadopago_custom[paymentMethodSelector]" data-checkout="cardId">
@@ -103,7 +103,7 @@ if (!defined('ABSPATH')) {
 
 				<!-- new card -->
 				<div id="mercadopago-form">
-					<div class="row pt-10">
+					<div class="mp-row-checkout pt-10">
 						<div class="col-md-12">
 							<label for="cardNumber" class="mp-label-form"><?= esc_html__('Número de Tarjeta', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" onkeyup="maskDate(this, mcc);" class="mp-form-control mt-5" id="cardNumber" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
@@ -113,7 +113,7 @@ if (!defined('ABSPATH')) {
 						</div>
 					</div>
 
-					<div class="row pt-10">
+					<div class="mp-row-checkout pt-10">
 						<div class="col-md-12">
 							<label for="cardholderName" class="mp-label-form"><?= esc_html__('Nombre y apellido del titular de la tarjeta', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" class="mp-form-control mt-5" id="cardholderName" name="mercadopago_custom[cardholderName]" data-checkout="cardholderName" autocomplete="off" />
@@ -123,7 +123,7 @@ if (!defined('ABSPATH')) {
 						</div>
 					</div>
 
-					<div class="row pt-10">
+					<div class="mp-row-checkout pt-10">
 						<div class="col-md-6 pr-15">
 							<label for="cardholderName" class="mp-label-form"><?= esc_html__('Fecha de vencimiento', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" onkeyup="maskDate(this, mdate);" onblur="validateMonthYear()" class="mp-form-control mt-5" id="cardExpirationDate" data-checkout="cardExpirationDate" name="mercadopago_custom[cardExpirationDate]" autocomplete="off" placeholder="MM/AAAA" maxlength="7" />
@@ -147,7 +147,7 @@ if (!defined('ABSPATH')) {
 						<div class="frame-tarjetas">
 							<p class="subtitle-custom-checkout"><?= __('En cuántas cuotas quieres pagar', 'woocommerce-mercadopago') ?></p>
 
-							<div class="row pt-10">
+							<div class="mp-row-checkout pt-10">
 								<div class="col-md-4 pr-15">
 									<div class="mp-issuer">
 										<label for="issuer" class="mp-label-form"><?= esc_html__('Issuer', 'woocommerce-mercadopago'); ?> <em>*</em></label>
@@ -191,7 +191,7 @@ if (!defined('ABSPATH')) {
 						<div class="frame-tarjetas">
 							<p class="subtitle-custom-checkout"><?= __('Ingresa tu número de documento', 'woocommerce-mercadopago') ?></p>
 
-							<div class="row pt-10">
+							<div class="mp-row-checkout pt-10">
 								<div class="col-md-4 pr-15">
 									<label for="docType" class="mp-label-form"><?= esc_html__('Tipo', 'woocommerce-mercadopago'); ?></label>
 									<select id="docType" class="mp-form-control pointer mt-5" data-checkout="docType" name="mercadopago_custom[docType]"></select>
@@ -211,7 +211,7 @@ if (!defined('ABSPATH')) {
 
 					<div class="col-md-12 pt-10">
 						<div class="frame-tarjetas">
-							<div class="row pt-10">
+							<div class="mp-row-checkout pt-10">
 								<label for="doNotSaveCard" class="mp-label-form-check pointer" style="display: inline;">
 									<input class="mp-form-control-check" type="checkbox" name="mercadopago_custom[doNotSaveCard]" id="doNotSaveCard" value="yes">
 									<?= esc_html__('No guardar la tarjeta', 'woocommerce-mercadopago'); ?>
@@ -252,10 +252,10 @@ if (!defined('ABSPATH')) {
 	var frame_payments = document.querySelector("#frame-payments");
 
 	show_payments.onclick = function() {
-		if (frame_payments.style.display == "block") {
+		if (frame_payments.style.display == "inline-block") {
 			frame_payments.style.display = "none";
 		} else {
-			frame_payments.style.display = "block";
+			frame_payments.style.display = "inline-block";
 		}
 	};
 

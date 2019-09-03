@@ -5,13 +5,13 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="panel-custom-checkout">
-    <div class="row">
+    <div class="mp-row-checkout">
 
         <div  id="mercadopago-form-coupon-ticket" class="col-md-12">
             <div class="frame-tarjetas text-justify">
                 <p class="subtitle-ticket-checkout"><?=__('Ingresa tu cupón de descuento', 'woocommerce-mercadopago')?></p>
 
-                <div class="row pt-10">
+                <div class="mp-row-checkout pt-10">
                     <div class="col-md-9 pr-15">
                         <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Ingresa tu cupón', 'woocommerce-mercadopago')?>" />
                     </div>
@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
                 <div id="mercadopago-form-ticket">
 
                     <div id="form-ticket">
-                        <div class="row">
+                        <div class="mp-row-checkout">
                             <div class="col-md-6">
                                 <label for="MPv1Ticket-docType-fisica" class="mp-label-form-check pointer">
                                     <input type="radio" name="mercadopago_ticket[docType]" class="mp-form-control-check" id="MPv1Ticket-docType-fisica" value="CPF" checked="checked" />
@@ -47,7 +47,7 @@ if (!defined('ABSPATH')) {
                             </div>
                         </div>
 
-                        <div class="row pt-10">
+                        <div class="mp-row-checkout pt-10">
                             <div class="col-md-4 pr-15" id="box-firstname">
                                 <label for="firstname" class="mp-label-form title-name"><?= esc_html__('Nome', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <label for="firstname" class="title-razao-social mp-label-form"><?= esc_html__('Razão social', 'woocommerce-mercadopago'); ?> <em>*</em></label>
@@ -69,7 +69,7 @@ if (!defined('ABSPATH')) {
                             </div>
                         </div>
 
-                        <div class="row pt-10">
+                        <div class="mp-row-checkout pt-10">
                             <div class="col-md-8 pr-15" id="box-firstname">
                                 <label for="address" class="mp-label-form"><?= esc_html__('Dirección', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['address']; ?>" id="address" class="mp-form-control" name="mercadopago_ticket[address]">
@@ -83,7 +83,7 @@ if (!defined('ABSPATH')) {
                             </div>
                         </div>
 
-                        <div class="row pt-10">
+                        <div class="mp-row-checkout pt-10">
                             <div class="col-md-4 pr-15">
                                 <label for="city" class="mp-label-form"><?= esc_html__('Ciudad', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" value="<?= $febraban['city']; ?>" id="city" class="mp-form-control" name="mercadopago_ticket[city]">
@@ -134,7 +134,7 @@ if (!defined('ABSPATH')) {
 
                         <div class="col-md-12 pt-10">
                             <div class="frame-tarjetas">
-                                <div class="row">
+                                <div class="mp-row-checkout">
                                     <p class="mp-obrigatory"><?= esc_html__('Completa todos los campos, son obligatorios.', 'woocommerce-mercadopago'); ?></p>
                                 </div>
                             </div>
@@ -145,14 +145,14 @@ if (!defined('ABSPATH')) {
                             <div class="frame-tarjetas">
                                 <p class="subtitle-ticket-checkout"><?=__('Selecciona el emisor con el que quieras procesar el pago', 'woocommerce-mercadopago')?></p>
 
-                                <div class="row pt-10">
+                                <div class="mp-row-checkout pt-10">
                                     <?php $atFirst = true; ?>
                                     <?php foreach ($payment_methods as $payment) : ?>
                                     <div id="frameTicket" class="col-md-6 pb-15 min-hg">
                                             <div id="paymentMethodIdTicket" class="ticket-payments">
                                                 <label for="<?= $payment['id']; ?>" class="mp-label-form pointer">
                                                     <input type="radio" class="mp-form-control-check" name="mercadopago_ticket[paymentMethodId]" id="<?= $payment['id'] ?>" value="<?= $payment['id']; ?>" <?php if ($atFirst) : ?> checked="checked" <?php endif; ?> />
-                                                    <img src="<?= $payment['secure_thumbnail'] ?>" alt="<?php echo $payment['name']; ?>" />
+                                                    <img src="<?= $payment['secure_thumbnail'] ?>" class="mp-img-ticket" alt="<?php echo $payment['name']; ?>" />
                                                     <span class="ticket-name"><?= $payment['name'] ?></span>
                                                 </label>
                                             </div>
