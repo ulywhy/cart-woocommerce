@@ -117,7 +117,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 * Bug fixes
   - Fixed basic checkout layout when theme uses bootstrap
   - Fixed all Custom checkout layout when theme uses bootstrap
-  - Fixed input blank in baisc checkout config
+  - Fixed input blank in basic checkout config
 
 = v4.0.2 (02/09/2019) =
 * Feature All 
