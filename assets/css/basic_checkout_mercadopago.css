@@ -189,10 +189,37 @@
     border-radius: 2px;
 }
 
-.img-tarjetas {
+.mp-img-tarjetas {
     padding: 8px !important;
     max-height: 35px !important; 
     width: auto !important;
+    /* adaptation for all themes */
+    float: none !important;
+    position: relative !important;
+    right: 0px !important;
+    border: inherit !important;
+}
+
+.mp-img-redirect{
+    padding: 8px !important;
+    max-height: 6.250em !important; 
+    width: auto !important;
+    /* adaptation for all themes */
+    float: none !important;
+    position: relative !important;
+    right: 0px !important;
+    border: inherit !important;
+}
+
+.mp-img-ticket {
+    padding: 0px 8px !important;
+    max-height: 35px !important; 
+    width: auto !important;
+    /* adaptation for all themes */
+    float: none !important;
+    position: relative !important;
+    right: 0px !important;
+    border: inherit !important;
 }
 
 .redirect-frame {
