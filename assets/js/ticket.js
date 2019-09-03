@@ -368,8 +368,8 @@
             var $field = document.querySelectorAll("[data-checkout]")[x];
             $field.classList.remove("mp-error-input");
         } //end for
-        for (var x = 0; x < document.querySelectorAll(".erro_febraban").length; x++) {
-            var $span = document.querySelectorAll(".erro_febraban")[x];
+        for (var x = 0; x < document.querySelectorAll(".mp-erro_febraban").length; x++) {
+            var $span = document.querySelectorAll(".mp-erro_febraban")[x];
             $span.style.display = "none";
         }
         return;
@@ -389,8 +389,8 @@
         document.querySelector(MPv1Ticket.selectors.titleFirstName).style.display = "inline-block";
         document.querySelector(MPv1Ticket.selectors.titleDocNumber).style.display = "inline-block";
         // adjustment css
-        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.remove("col-md-8");
-        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.add("col-md-4");
+        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.remove("mp-col-md-8");
+        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.add("mp-col-md-4");
         // hide elements
         document.querySelector(MPv1Ticket.selectors.titleFirstNameRazaoSocial).style.display = "none";
         document.querySelector(MPv1Ticket.selectors.titleDocNumberCNPJ).style.display = "none";
@@ -403,8 +403,8 @@
         document.querySelector(MPv1Ticket.selectors.titleFirstNameRazaoSocial).style.display = "inline-block";
         document.querySelector(MPv1Ticket.selectors.titleDocNumberCNPJ).style.display = "inline-block";
         // adjustment css
-        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.remove("col-md-4");
-        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.add("col-md-8");
+        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.remove("mp-col-md-4");
+        document.querySelector(MPv1Ticket.selectors.boxFirstName).classList.add("mp-col-md-8");
         // Hide Elements
         document.querySelector(MPv1Ticket.selectors.boxLastName).style.display = "none";
         document.querySelector(MPv1Ticket.selectors.titleFirstName).style.display = "none";
@@ -570,8 +570,8 @@
     if (document.getElementById("payment") != undefined && document.getElementById("payment").offsetWidth <= 440) {
         var frameTicket = document.querySelectorAll('#frameTicket');
         for (var g = 0; g < frameTicket.length; g++) {
-            frameTicket[g].classList.remove('col-md-6');
-            frameTicket[g].classList.add('col-md-12');
+            frameTicket[g].classList.remove('mp-col-md-6');
+            frameTicket[g].classList.add('mp-col-md-12');
         }
     }
 

@@ -3,7 +3,7 @@
         var framePayments = document.querySelectorAll('#framePayments');
         for (var i = 0; i < framePayments.length; i++) {
             framePayments[i].className = '';
-            framePayments[i].classList.add('col-md-12');
+            framePayments[i].classList.add('mp-col-md-12');
         }
     }
 }).call();

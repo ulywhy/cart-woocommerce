@@ -228,8 +228,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => sprintf(
                 __('Checkout Básico. Acepta todos los medios de pago y lleva tus cobros a otro nivel %s', 'woocommerce-mercadopago'),
                 '<div class="row">
-              <div class="col-md-12">
-                <p class="text-checkout-body mb-0">
+              <div class="mp-col-md-12">
+                <p class="text-checkout-body mp-mb-0">
                   ' . __('Convierte tu tienda online en la pasarela de pagos preferida de tus clientes. Elige si la experiencia de pago final será dentro o fuera de tu tienda.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
@@ -275,7 +275,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_options_subtitle = array(
             'title' => __('Ve a lo básico. Coloca la información de tu negocio.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_subtitle mt-5'
+            'class' => 'mp_subtitle mp-mt-5'
         );
         return $checkout_options_subtitle;
     }

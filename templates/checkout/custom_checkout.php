@@ -3,49 +3,49 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 ?>
-<div class="panel-custom-checkout">
+<div class="mp-panel-custom-checkout">
 	<div class="mp-row-checkout">
 		<div class="mp-frame-links">
-			<a class="mp-checkout-link pr-10" id="button-show-payments">
+			<a class="mp-checkout-link mp-pr-10" id="button-show-payments">
 				<?= __('Con qué Tarjetas puedo pagar', 'woocommerce-mercadopago') ?> ⌵
 			</a>
 			<span id="mp_promotion_link"> | </span>
-			<a href="https://www.mercadopago.com.ar/cuotas" id="mp_checkout_link" class="mp-checkout-link pl-10" target="_blank">
+			<a href="https://www.mercadopago.com.ar/cuotas" id="mp_checkout_link" class="mp-checkout-link mp-pl-10" target="_blank">
 				<?= __('Ver promociones vigentes', 'woocommerce-mercadopago') ?>
 			</a>
 		</div>
 
-		<div class="frame-payments" id="frame-payments">
-			<div class="col-md-12">
+		<div class="mp-frame-payments" id="mp-frame-payments">
+			<div class="mp-col-md-12">
 				<div class="frame-tarjetas">
 					<?php if (count($credit_card) != 0) : ?>
-					<p class="subtitle-checkout-custom"><?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?></p>
+					<p class="submp-title-checkout-custom"><?= __('Tarjetas de crédito', 'woocommerce-mercadopago') ?></p>
 					<?php foreach ($credit_card as $credit_image) : ?>
-					<img src="<?= $credit_image ?>" class="img-fluid mp-img-tarjetas" alt="" />
+					<img src="<?= $credit_image ?>" class="mp-img-fluid mp-img-tarjetas" alt="" />
 					<?php endforeach; ?>
 					<?php endif; ?>
 
 					<?php if (count($debit_card) != 0) : ?>
-					<p class="subtitle-checkout-custom pt-10"><?= __('Tarjetas de débito', 'woocommerce-mercadopago') ?></p>
+					<p class="submp-title-checkout-custom mp-pt-10"><?= __('Tarjetas de débito', 'woocommerce-mercadopago') ?></p>
 					<?php foreach ($debit_card as $debit_image) : ?>
-					<img src="<?= $debit_image ?>" class="img-fluid mp-img-tarjetas" alt="" />
+					<img src="<?= $debit_image ?>" class="mp-img-fluid mp-img-tarjetas" alt="" />
 					<?php endforeach; ?>
 					<?php endif; ?>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-md-12" id="mercadopago-form-coupon">
-			<div class="frame-tarjetas text-justify">
-				<p class="subtitle-custom-checkout"><?= __('Ingresa tu cupón de descuento', 'woocommerce-mercadopago') ?></p>
+		<div class="mp-col-md-12" id="mercadopago-form-coupon">
+			<div class="frame-tarjetas mp-text-justify">
+				<p class="mp-subtitle-custom-checkout"><?= __('Ingresa tu cupón de descuento', 'woocommerce-mercadopago') ?></p>
 
-				<div class="mp-row-checkout pt-10">
-					<div class="col-md-9 pr-15">
+				<div class="mp-row-checkout mp-pt-10">
+					<div class="mp-col-md-9 mp-pr-15">
 						<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?= __('Ingresa tu cupón', 'woocommerce-mercadopago') ?>" />
 					</div>
 
-					<div class="col-md-3">
-						<input type="button" class="mp-button pointer" id="applyCoupon" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
+					<div class="mp-col-md-3">
+						<input type="button" class="mp-button mp-pointer" id="applyCoupon" value="<?= esc_html__('Aplicar', 'woocommerce-mercadopago'); ?>">
 					</div>
 				</div>
 
@@ -54,16 +54,16 @@ if (!defined('ABSPATH')) {
 			</div>
 		</div>
 
-		<div class="col-md-12">
+		<div class="mp-col-md-12">
 			<div class="frame-tarjetas">
-				<p class="subtitle-custom-checkout"><?= __('Ingresa los datos de tu tarjeta', 'woocommerce-mercadopago') ?></p>
+				<p class="mp-subtitle-custom-checkout"><?= __('Ingresa los datos de tu tarjeta', 'woocommerce-mercadopago') ?></p>
 
 				<!-- saved cards -->
 				<div id="mercadopago-form-customer-and-card">
-					<div class="mp-row-checkout pt-10">
-						<div class="col-md-12">
+					<div class="mp-row-checkout mp-pt-10">
+						<div class="mp-col-md-12">
 							<label for="paymentMethodIdSelector" class="mp-label-form"><?= esc_html__('Payment Method', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<select id="paymentMethodSelector" class="mp-form-control pointer" name="mercadopago_custom[paymentMethodSelector]" data-checkout="cardId">
+							<select id="paymentMethodSelector" class="mp-form-control mp-pointer" name="mercadopago_custom[paymentMethodSelector]" data-checkout="cardId">
 								<optgroup label="<?= esc_html__('Tu tarjeta', 'woocommerce-mercadopago'); ?>" id="payment-methods-for-customer-and-cards">
 									<?php foreach ($customer_cards as $card) : ?>
 									<option value="<?= $card['id']; ?>
@@ -85,7 +85,7 @@ if (!defined('ABSPATH')) {
 							</select>
 						</div>
 
-						<div class="col-md-4">
+						<div class="mp-col-md-4">
 							<div id="mp-securityCode-customer-and-card">
 								<div class="mp-box-inputs mp-col-45">
 									<label for="customer-and-card-securityCode" class="mp-label-form"><?= esc_html__('CVV', 'woocommerce-mercadopago'); ?> <em>*</em></label>
@@ -103,64 +103,64 @@ if (!defined('ABSPATH')) {
 
 				<!-- new card -->
 				<div id="mercadopago-form">
-					<div class="mp-row-checkout pt-10">
-						<div class="col-md-12">
+					<div class="mp-row-checkout mp-pt-10">
+						<div class="mp-col-md-12">
 							<label for="cardNumber" class="mp-label-form"><?= esc_html__('Número de Tarjeta', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<input type="text" onkeyup="maskDate(this, mcc);" class="mp-form-control mt-5" id="cardNumber" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
+							<input type="text" onkeyup="maskDate(this, mcc);" class="mp-form-control mp-mt-5" id="cardNumber" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
 
-							<span class="mp-error mt-5" id="mp-error-205" data-main="#cardNumber"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mt-5" id="mp-error-E301" data-main="#cardNumber"><?= esc_html__('Numero de tarjeta invalido', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-205" data-main="#cardNumber"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#cardNumber"><?= esc_html__('Numero de tarjeta invalido', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 
-					<div class="mp-row-checkout pt-10">
-						<div class="col-md-12">
+					<div class="mp-row-checkout mp-pt-10">
+						<div class="mp-col-md-12">
 							<label for="cardholderName" class="mp-label-form"><?= esc_html__('Nombre y apellido del titular de la tarjeta', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<input type="text" class="mp-form-control mt-5" id="cardholderName" name="mercadopago_custom[cardholderName]" data-checkout="cardholderName" autocomplete="off" />
+							<input type="text" class="mp-form-control mp-mt-5" id="cardholderName" name="mercadopago_custom[cardholderName]" data-checkout="cardholderName" autocomplete="off" />
 
-							<span class="mp-error mt-5" id="mp-error-221" data-main="#cardholderName"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mt-5" id="mp-error-316" data-main="#cardholderName"><?= esc_html__('Nombre del titular de la tarjeta no válido', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-221" data-main="#cardholderName"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-316" data-main="#cardholderName"><?= esc_html__('Nombre del titular de la tarjeta no válido', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 
-					<div class="mp-row-checkout pt-10">
-						<div class="col-md-6 pr-15">
+					<div class="mp-row-checkout mp-pt-10">
+						<div class="mp-col-md-6 mp-pr-15">
 							<label for="cardholderName" class="mp-label-form"><?= esc_html__('Fecha de vencimiento', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<input type="text" onkeyup="maskDate(this, mdate);" onblur="validateMonthYear()" class="mp-form-control mt-5" id="cardExpirationDate" data-checkout="cardExpirationDate" name="mercadopago_custom[cardExpirationDate]" autocomplete="off" placeholder="MM/AAAA" maxlength="7" />
+							<input type="text" onkeyup="maskDate(this, mdate);" onblur="validateMonthYear()" class="mp-form-control mp-mt-5" id="cardExpirationDate" data-checkout="cardExpirationDate" name="mercadopago_custom[cardExpirationDate]" autocomplete="off" placeholder="MM/AAAA" maxlength="7" />
 							<input type="hidden" id="cardExpirationMonth" name="mercadopago_custom[cardExpirationMonth]" data-checkout="cardExpirationMonth">
 							<input type="hidden" id="cardExpirationYear" name="mercadopago_custom[cardExpirationYear]" data-checkout="cardExpirationYear">
 
-							<span class="mp-error mt-5" id="mp-error-208" data-main="#cardExpirationDate"><?= esc_html__('Fecha de expiracion inválida', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-208" data-main="#cardExpirationDate"><?= esc_html__('Fecha de expiracion inválida', 'woocommerce-mercadopago'); ?></span>
 						</div>
 
-						<div class="col-md-6">
+						<div class="mp-col-md-6">
 							<label for="securityCode" class="mp-label-form"><?= esc_html__('Código de seguridad', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control mt-5" id="securityCode" data-checkout="securityCode" autocomplete="off" maxlength="4" />
+							<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control mp-mt-5" id="securityCode" data-checkout="securityCode" autocomplete="off" maxlength="4" />
 
-							<p class="mp-desc mt-5 mb-0" data-main="#securityCode"><?= esc_html__('Últimos 3 números del dorso', 'woocommerce-mercadopago'); ?></p>
-							<span class="mp-error mt-5" id="mp-error-224" data-main="#securityCode"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mt-5" id="mp-error-E302" data-main="#securityCode"><?= esc_html__('Código de seguridad invalido', 'woocommerce-mercadopago'); ?></span>
+							<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#securityCode"><?= esc_html__('Últimos 3 números del dorso', 'woocommerce-mercadopago'); ?></p>
+							<span class="mp-error mp-mt-5" id="mp-error-224" data-main="#securityCode"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-E302" data-main="#securityCode"><?= esc_html__('Código de seguridad invalido', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 
-					<div class="col-md-12">
+					<div class="mp-col-md-12">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout"><?= __('En cuántas cuotas quieres pagar', 'woocommerce-mercadopago') ?></p>
+							<p class="mp-subtitle-custom-checkout"><?= __('En cuántas cuotas quieres pagar', 'woocommerce-mercadopago') ?></p>
 
-							<div class="mp-row-checkout pt-10">
-								<div class="col-md-4 pr-15">
+							<div class="mp-row-checkout mp-pt-10">
+								<div class="mp-col-md-4 mp-pr-15">
 									<div class="mp-issuer">
 										<label for="issuer" class="mp-label-form"><?= esc_html__('Issuer', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-										<select class="mp-form-control pointer mt-5" id="issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
+										<select class="mp-form-control mp-pointer mp-mt-5" id="issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
 									</div>
 								</div>
 
-								<div id="installments-div" class="col-md-8">
+								<div id="installments-div" class="mp-col-md-8">
 									<?php if ($currency_ratio != 1) : ?>
 									<label for="installments" class="mp-label-form">
-										<div class="tooltip">
+										<div class="mp-tooltip">
 											<?= esc_html__('', 'woocommerce-mercadopago'); ?>
-											<span class="tooltiptext">
+											<span class="mp-tooltiptext">
 												<?=
 														esc_html__('Pago convertido de', 'woocommerce-mercadopago') . " " .
 															$woocommerce_currency . " " . esc_html__('para', 'woocommerce-mercadopago') . " " .
@@ -174,7 +174,7 @@ if (!defined('ABSPATH')) {
 									<label for="installments" class="mp-label-form"><?= __('Seleccione el número de cotas', 'woocommerce-mercadopago') ?></label>
 									<?php endif; ?>
 
-									<select class="mp-form-control pointer mt-5" id="installments" data-checkout="installments" name="mercadopago_custom[installments]"></select>
+									<select class="mp-form-control mp-pointer mp-mt-5" id="installments" data-checkout="installments" name="mercadopago_custom[installments]"></select>
 
 									<div id="mp-box-input-tax-cft">
 										<div id="mp-box-input-tax-tea">
@@ -187,32 +187,32 @@ if (!defined('ABSPATH')) {
 						</div>
 					</div>
 
-					<div id="mp-doc-div" class="col-md-12 mp-doc">
+					<div id="mp-doc-div" class="mp-col-md-12 mp-doc">
 						<div class="frame-tarjetas">
-							<p class="subtitle-custom-checkout"><?= __('Ingresa tu número de documento', 'woocommerce-mercadopago') ?></p>
+							<p class="mp-subtitle-custom-checkout"><?= __('Ingresa tu número de documento', 'woocommerce-mercadopago') ?></p>
 
-							<div class="mp-row-checkout pt-10">
-								<div class="col-md-4 pr-15">
+							<div class="mp-row-checkout mp-pt-10">
+								<div class="mp-col-md-4 mp-pr-15">
 									<label for="docType" class="mp-label-form"><?= esc_html__('Tipo', 'woocommerce-mercadopago'); ?></label>
-									<select id="docType" class="mp-form-control pointer mt-5" data-checkout="docType" name="mercadopago_custom[docType]"></select>
+									<select id="docType" class="mp-form-control mp-pointer mp-mt-5" data-checkout="docType" name="mercadopago_custom[docType]"></select>
 								</div>
 
-								<div class="col-md-8">
+								<div class="mp-col-md-8">
 									<label for="docNumber" class="mp-label-form"><?= esc_html__('Número de documento', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-									<input type="text" class="mp-form-control mt-5" id="docNumber" data-checkout="docNumber" name="mercadopago_custom[docNumber]" autocomplete="off" />
-									<p class="mp-desc mt-5 mb-0" data-main="#securityCode"><?= esc_html__('Sólo números', 'woocommerce-mercadopago'); ?></p>
+									<input type="text" class="mp-form-control mp-mt-5" id="docNumber" data-checkout="docNumber" name="mercadopago_custom[docNumber]" autocomplete="off" />
+									<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#securityCode"><?= esc_html__('Sólo números', 'woocommerce-mercadopago'); ?></p>
 
-									<span class="mp-error mt-5" id="mp-error-214" data-main="#docNumber"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
-									<span class="mp-error mt-5" id="mp-error-324" data-main="#docNumber"><?= esc_html__('Número de documento no válido', 'woocommerce-mercadopago'); ?></span>
+									<span class="mp-error mp-mt-5" id="mp-error-214" data-main="#docNumber"><?= esc_html__('Este campo no puede estar vacío', 'woocommerce-mercadopago'); ?></span>
+									<span class="mp-error mp-mt-5" id="mp-error-324" data-main="#docNumber"><?= esc_html__('Número de documento no válido', 'woocommerce-mercadopago'); ?></span>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-md-12 pt-10">
+					<div class="mp-col-md-12 mp-pt-10">
 						<div class="frame-tarjetas">
-							<div class="mp-row-checkout pt-10">
-								<label for="doNotSaveCard" class="mp-label-form-check pointer" style="display: inline;">
+							<div class="mp-row-checkout mp-pt-10">
+								<label for="doNotSaveCard" class="mp-label-form-check mp-pointer" style="display: inline;">
 									<input class="mp-form-control-check" type="checkbox" name="mercadopago_custom[doNotSaveCard]" id="doNotSaveCard" value="yes">
 									<?= esc_html__('No guardar la tarjeta', 'woocommerce-mercadopago'); ?>
 								</label>
@@ -249,7 +249,7 @@ if (!defined('ABSPATH')) {
 <script type="text/javascript">
 	//collapsible payments
 	var show_payments = document.querySelector("#button-show-payments")
-	var frame_payments = document.querySelector("#frame-payments");
+	var frame_payments = document.querySelector("#mp-frame-payments");
 
 	show_payments.onclick = function() {
 		if (frame_payments.style.display == "inline-block") {
@@ -1317,12 +1317,12 @@ if (!defined('ABSPATH')) {
 			// flow: MLB AND MCO
 			if (MPv1.site_id == "MLB") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
-				document.getElementById('installments-div').classList.remove('col-md-8');
-				document.getElementById('installments-div').classList.add('col-md-12');
+				document.getElementById('installments-div').classList.remove('mp-col-md-8');
+				document.getElementById('installments-div').classList.add('mp-col-md-12');
 			} else if (MPv1.site_id == "MCO") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
-				document.getElementById('installments-div').classList.remove('col-md-8');
-				document.getElementById('installments-div').classList.add('col-md-12');
+				document.getElementById('installments-div').classList.remove('mp-col-md-8');
+				document.getElementById('installments-div').classList.add('mp-col-md-12');
 			} else if (MPv1.site_id == "MLA") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "block";
 				document.querySelector(MPv1.selectors.taxCFT).style.display = "block";
@@ -1330,8 +1330,8 @@ if (!defined('ABSPATH')) {
 				MPv1.addListenerEvent(document.querySelector(MPv1.selectors.installments), "change", MPv1.showTaxes);
 			} else if (MPv1.site_id == "MLC") {
 				document.querySelector(MPv1.selectors.mpIssuer).style.display = "none";
-				document.getElementById('installments-div').classList.remove('col-md-8');
-				document.getElementById('installments-div').classList.add('col-md-12');
+				document.getElementById('installments-div').classList.remove('mp-col-md-8');
+				document.getElementById('installments-div').classList.add('mp-col-md-12');
 			}
 
 			if (MPv1.debug) {
