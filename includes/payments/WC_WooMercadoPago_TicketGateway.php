@@ -182,7 +182,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_ticket_header = array(
             'title' => sprintf(
                 __('Checkout of payments with cash<br> Accept face-to-face payments, do not leave anyone out! %s', 'woocommerce-mercadopago'),
-                '<div class="row">
+                '<div class="mp-row">
               <div class="mp-col-md-12">
                 <p class="text-checkout-body mp-mb-0">
                   ' . __('Include this preferred purchase option by some customers.', 'woocommerce-mercadopago') . '
@@ -437,7 +437,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         if (isset($ticket_checkout['amount']) && !empty($ticket_checkout['amount']) &&
             isset($ticket_checkout['paymentMethodId']) && !empty($ticket_checkout['paymentMethodId'])) {
             $response = $this->create_preference($order, $ticket_checkout);
-            if (array_key_exists('status', $response)) {
+            if (is_array($response) && array_key_exists('status', $response)) {
                 if ($response['status'] == 'pending') {
                     if ($response['status_detail'] == 'pending_waiting_payment') {
                         WC()->cart->empty_cart();

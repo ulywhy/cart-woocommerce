@@ -42,6 +42,12 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
+      
+        $internal_metadata = parent::get_internal_metadata();
+        $internal_metadata = $this->get_internal_metadata_ticket($internal_metadata);
+        $this->preference['metadata'] = $internal_metadata;
+      
+        $this->preference['additional_info']['payer'] = $this->get_payer_custom();
     }
 
     /**
@@ -51,8 +57,10 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
      */
     public function get_date_of_expiration()
     {
-        $date_expiration = $this->get_option('date_expiration', 3);
-        return date('Y-m-d', strtotime('+' . $date_expiration . ' days')) . 'T00:00:00.000-00:00';
+        $date_expiration = $this->get_option('date_expiration', '');
+        if($date_expiration != ""){
+            return date('Y-m-d\TH:i:s.000O', strtotime('+' . $date_expiration . ' days'));
+        }
     }
 
     /**
@@ -76,5 +84,16 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
     public function get_binary_mode()
     {
         return true;
+    }
+  
+    /**
+     * @return array
+     */
+    public function get_internal_metadata_ticket($internal_metadata)
+    {
+        $internal_metadata["checkout"] = "custom";
+        $internal_metadata["checkout_type"] = "ticket";
+      
+        return $internal_metadata;
     }
 }

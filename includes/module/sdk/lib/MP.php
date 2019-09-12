@@ -11,8 +11,6 @@ $GLOBALS['LIB_LOCATION'] = dirname(__FILE__);
  */
 class MP
 {
-
-    private $version = '4.0.6';
     private $client_id;
     private $client_secret;
     private $ll_access_token;
@@ -32,19 +30,17 @@ class MP
         require_once($includes_path . '/RestClient/MpRestClient.php');
 
         $i = func_num_args();
-        if ($i > 3 || $i < 2) {
+        if ($i > 2 || $i < 1) {
             throw new WC_WooMercadoPago_Exception('Invalid arguments. Use CLIENT_ID and CLIENT SECRET, or ACCESS_TOKEN');
         }
 
-        if ($i == 2) {
-            $this->version = func_get_arg(0);
-            $this->ll_access_token = func_get_arg(1);
+        if ($i == 1) {
+            $this->ll_access_token = func_get_arg(0);
         }
 
-        if ($i == 3) {
-            $this->version = func_get_arg(0);
-            $this->client_id = func_get_arg(1);
-            $this->client_secret = func_get_arg(2);
+        if ($i == 2) {
+            $this->client_id = func_get_arg(0);
+            $this->client_secret = func_get_arg(1);
         }
     }
 
@@ -107,7 +103,7 @@ class MP
                     'content-type' => 'application/x-www-form-urlencoded'
                 )
             ),
-            $this->version
+            WC_WooMercadoPago_Constants::VERSION
         );
 
         if ($access_data['status'] != 200) {
@@ -132,7 +128,7 @@ class MP
             'params' => array('access_token' => $this->get_access_token())
         );
 
-        $payment = MPRestClient::get($request, $this->version);
+        $payment = MPRestClient::get($request, WC_WooMercadoPago_Constants::VERSION);
         return $payment;
     }
 
@@ -175,7 +171,7 @@ class MP
             )
         );
 
-        $customer = MPRestClient::post($request, $this->version);
+        $customer = MPRestClient::post($request);
         return $customer;
 
     }
@@ -195,7 +191,7 @@ class MP
             )
         );
 
-        $customer = MPRestClient::get($request, $this->version);
+        $customer = MPRestClient::get($request);
         return $customer;
 
     }
@@ -223,7 +219,7 @@ class MP
             )
         );
 
-        $card = MPRestClient::post($request, $this->version);
+        $card = MPRestClient::post($request);
         return $card;
 
     }
@@ -243,7 +239,7 @@ class MP
             )
         );
 
-        $cards = MPRestClient::get($request, $this->version);
+        $cards = MPRestClient::get($request);
         return $cards;
 
     }
@@ -269,7 +265,7 @@ class MP
             )
         );
 
-        $discount_info = MPRestClient::get($request, $this->version);
+        $discount_info = MPRestClient::get($request);
         return $discount_info;
 
     }
@@ -290,7 +286,7 @@ class MP
             )
         );
 
-        $authorized_payment_info = MPRestClient::get($request, $this->version);
+        $authorized_payment_info = MPRestClient::get($request);
         return $authorized_payment_info;
 
     }
@@ -308,12 +304,12 @@ class MP
                 'access_token' => $this->get_access_token()
             ),
             'headers' => array(
-                'user-agent' => 'platform:desktop,type:woocommerce,so:' . $this->version
+                'user-agent' => 'platform:desktop,type:woocommerce,so:' . WC_WooMercadoPago_Constants::VERSION
             ),
             'data' => $preference
         );
 
-        $preference_result = MPRestClient::post($request, $this->version);
+        $preference_result = MPRestClient::post($request);
         return $preference_result;
 
     }
@@ -334,7 +330,7 @@ class MP
             'data' => $preference
         );
 
-        $preference_result = MPRestClient::put($request, $this->version);
+        $preference_result = MPRestClient::put($request);
         return $preference_result;
 
     }
@@ -353,7 +349,7 @@ class MP
             )
         );
 
-        $preference_result = MPRestClient::get($request, $this->version);
+        $preference_result = MPRestClient::get($request);
         return $preference_result;
 
     }
@@ -371,12 +367,12 @@ class MP
                 'access_token' => $this->get_access_token()
             ),
             'headers' => array(
-                'X-Tracking-Id' => 'platform:v1-whitelabel,type:woocommerce,so:' . $this->version
+                'X-Tracking-Id' => 'platform:v1-whitelabel,type:woocommerce,so:' . WC_WooMercadoPago_Constants::VERSION
             ),
             'data' => $preference
         );
 
-        $payment = MPRestClient::post($request, $this->version);
+        $payment = MPRestClient::post($request, WC_WooMercadoPago_Constants::VERSION);
         return $payment;
     }
 
@@ -395,7 +391,7 @@ class MP
             'data' => $preapproval_payment
         );
 
-        $preapproval_payment_result = MPRestClient::post($request, $this->version);
+        $preapproval_payment_result = MPRestClient::post($request);
         return $preapproval_payment_result;
 
     }
@@ -415,7 +411,7 @@ class MP
             )
         );
 
-        $preapproval_payment_result = MPRestClient::get($request, $this->version);
+        $preapproval_payment_result = MPRestClient::get($request);
         return $preapproval_payment_result;
 
     }
@@ -437,7 +433,7 @@ class MP
             'data' => $preapproval_payment
         );
 
-        $preapproval_payment_result = MPRestClient::put($request, $this->version);
+        $preapproval_payment_result = MPRestClient::put($request);
         return $preapproval_payment_result;
 
     }
@@ -460,7 +456,7 @@ class MP
             )
         );
 
-        $response = MPRestClient::put($request, $this->version);
+        $response = MPRestClient::put($request);
         return $response;
 
     }
@@ -482,7 +478,7 @@ class MP
             )
         );
 
-        $response = MPRestClient::post($request, $this->version);
+        $response = MPRestClient::post($request);
         return $response;
 
     }
@@ -509,7 +505,7 @@ class MP
             )
         );
 
-        $response = MPRestClient::post($request, $this->version);
+        $response = MPRestClient::post($request);
         return $response;
 
     }
@@ -530,7 +526,7 @@ class MP
             'data' => '{"status":"cancelled"}'
         );
 
-        $response = MPRestClient::put($request, $this->version);
+        $response = MPRestClient::put($request);
         return $response;
 
     }
@@ -548,7 +544,7 @@ class MP
             )
         );
 
-        $response = MPRestClient::get($request, $this->version);
+        $response = MPRestClient::get($request);
 
         return $response;
     }
@@ -581,7 +577,7 @@ class MP
             $request['params']['access_token'] = $this->get_access_token();
         }
 
-        $result = MPRestClient::get($request, $this->version);
+        $result = MPRestClient::get($request);
         return $result;
 
     }
@@ -612,7 +608,7 @@ class MP
             $request['params']['access_token'] = $this->get_access_token();
         }
 
-        $result = MPRestClient::post($request, $this->version);
+        $result = MPRestClient::post($request);
         return $result;
 
     }
@@ -643,7 +639,7 @@ class MP
             $request['params']['access_token'] = $this->get_access_token();
         }
 
-        $result = MPRestClient::put($request, $this->version);
+        $result = MPRestClient::put($request);
         return $result;
 
     }
@@ -672,7 +668,7 @@ class MP
             $request['params']['access_token'] = $this->get_access_token();
         }
 
-        $result = MPRestClient::delete($request, $this->version);
+        $result = MPRestClient::delete($request);
         return $result;
 
     }
@@ -692,7 +688,7 @@ class MP
             'data' => $module_info
         );
 
-        $result = MPRestClient::post($request, $this->version);
+        $result = MPRestClient::post($request);
         return $result;
 
     }
@@ -724,7 +720,7 @@ class MP
         $seller = explode('-', $accessToken);
 
         $response = MeliRestClient::get(
-            array('uri' => '/applications/' . $seller[1]), WC_WooMercadoPago_Module::get_module_version()
+            array('uri' => '/applications/' . $seller[1]), WC_WooMercadoPago_Constants::VERSION
         ); 
         
         //in case of failures
