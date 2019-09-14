@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Mercado Pago
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: Configure the payment options and accept payments with cards, ticket and money of Mercado Pago account.
- * Version: 4.0.7
+ * Version: 4.0.8
  * Author: Mercado Pago
  * Author URI: https://www.mercadopago.com.br/developers/
  * Text Domain: woocommerce-mercadopago
@@ -37,14 +37,11 @@ function woocommerce_mercadopago_load_plugin_textdomain()
     $text_domain = 'woocommerce-mercadopago';
     $locale = apply_filters( 'plugin_locale', get_locale(), $text_domain );
   
-    $original_language_file = ABSPATH . 'wp-content/plugins/woocommerce-mercadopago/i18n/languages/woocommerce-mercadopago-'. $locale .'.mo';
-    $override_language_file = ABSPATH . 'wp-content/plugins/woocommerce-mercadopago/i18n/languages/woocommerce-mercadopago-'. $locale .'.mo';
+    $original_language_file = dirname(__FILE__) . '/i18n/languages/woocommerce-mercadopago-'. $locale .'.mo';
     
     // Unload the translation for the text domain of the plugin
     unload_textdomain($text_domain);
     // Load first the override file
-    load_textdomain($text_domain, $override_language_file );
-    // Then load the original translation file
     load_textdomain($text_domain, $original_language_file );
 }
 add_action( 'plugins_loaded', 'woocommerce_mercadopago_load_plugin_textdomain' );
@@ -89,6 +86,7 @@ require_once dirname(__FILE__) . '/includes/module/sdk/lib/MP.php';
 // Load module class if it wasn't loaded yet.
 if (!class_exists('WC_WooMercadoPago_Module'))
 {
+    require_once dirname(__FILE__) . '/includes/module/config/WC_WooMercadoPago_Constants.php';
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Exception.php';
     require_once dirname(__FILE__) . '/includes/module/WC_WooMercadoPago_Configs.php';
     require_once dirname(__FILE__) . '/includes/module/log/WC_WooMercadoPago_Log.php';

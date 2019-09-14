@@ -179,7 +179,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             return true;
         }
 
-        if ($this->settings['enabled'] == 'yes') {
+        if (isset($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
             if ($this->mp instanceof MP) {
                 $accessToken = $this->mp->get_access_token();
                 if (strpos($accessToken, 'APP_USR') === false && strpos($accessToken, 'TEST') === false) {
@@ -397,6 +397,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $ex_payments_sort = array();
 
         $all_payments = get_option('_checkout_payments_methods', '');
+        
+        if (empty($all_payments)) {
+            return $ex_payments;
+        }
+        
         $get_payment_methods = get_option('_all_payment_methods_v0', '');
 
         if (!empty($get_payment_methods)) {
