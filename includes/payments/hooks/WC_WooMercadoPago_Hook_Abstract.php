@@ -312,7 +312,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $homolog_validate = $this->mpInstance->homologValidate($value);
                 update_option('homolog_validate', $homolog_validate, true);
                 if ($isProduction == 'yes' && $homolog_validate == 0) {
-                    add_action('admin_notices', array(get_class($this->payment), 'enablePaymentNotice'));
+                    add_action('admin_notices', array($this, 'enablePaymentNotice'));
                 }
             }
 
@@ -356,5 +356,21 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         echo '<div class="error is-dismissible">
         <p><strong>MERCADO PAGO: </strong>' .  __('Invalid test credentials!', 'woocommerce-mercadopago') . '</p>
                 </div>';
+    }
+  
+     /**
+     * Enable Payment Notice
+     */
+    public function enablePaymentNotice()
+    {
+        $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
+        echo '<div class="notice notice-warning is-dismissible">  
+                    <p style="font-size:13px">
+                        <strong>MERCADO PAGO:</strong> ' . $message . '
+                    </p>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
+                    </button>
+              </div>';
     }
 }
