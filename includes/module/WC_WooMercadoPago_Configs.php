@@ -141,7 +141,7 @@ class WC_WooMercadoPago_Configs
     /**
      *  Country Configs
      */
-    public function getCountryConfigs()
+    public static function getCountryConfigs()
     {
         return array(
             'MCO' => array(

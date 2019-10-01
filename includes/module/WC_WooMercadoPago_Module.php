@@ -133,7 +133,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         $configs = new parent();
         self::$categories = $configs->getCategories();
-        self::$country_configs = $configs->getCountryConfigs();
+        self::$country_configs = self::getCountryConfigs();
         self::$site_data = self::get_site_data();
         self::$payments_name = self::setPaymentGateway();
     }

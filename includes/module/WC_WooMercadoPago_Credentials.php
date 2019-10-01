@@ -160,7 +160,8 @@ class WC_WooMercadoPago_Credentials
                 self::updatePaymentMethods($mp_v1, $access_token, $payments_response);
                 self::updateTicketMethod($mp_v1, $access_token, $payments_response);
 
-                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate(WC_WooMercadoPago_Module::$country_configs[$get_request['response']['site_id']]['currency']);
+                $country_configs = WC_WooMercadoPago_Module::getCountryConfigs();
+                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($country_configs[$get_request['response']['site_id']]['currency']);
                 if ($currency_ratio > 0) {
                     update_option('_can_do_currency_conversion_v1', true, true);
                 } else {
