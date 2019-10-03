@@ -63,7 +63,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function send_settings_mp()
     {
-        if (!empty($this->siteId)) {
+        if (!empty($this->payment->getAccessToken()) && !empty($this->siteId)) {
             if (!$this->testUser) {
                 $this->payment->mp->analytics_save_settings($this->define_settings_to_send());
             }
