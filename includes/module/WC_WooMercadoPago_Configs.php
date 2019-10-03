@@ -134,6 +134,10 @@ class WC_WooMercadoPago_Configs
         if (strpos(get_option('_mp_public_key'), 'APP_USR') === 0 && strpos(get_option('_mp_access_token'), 'APP_USR') === 0) {
             update_option('_mp_public_key_prod', get_option('_mp_public_key'), true);
             update_option('_mp_access_token_prod', get_option('_mp_access_token'), true);
+            if(!empty(get_option('_mp_public_key_prod', '')) && !empty(get_option('_mp_access_token_prod', ''))) {
+                update_option('_mp_public_key', '');
+                update_option('_mp_access_token', '');
+            }
             update_option('checkout_credential_production', 'yes', true);
         }
     }
