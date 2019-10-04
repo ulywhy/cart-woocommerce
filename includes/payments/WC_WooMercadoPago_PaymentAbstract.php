@@ -173,6 +173,13 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function normalizeCommonAdminFields()
     {
+
+        if (empty($this->getAccessToken())) {
+            if (isset($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
+                $this->settings['enabled'] = 'no';
+            }
+        }
+
         $changed = false;
         foreach (self::COMMON_CONFIGS as $config) {
             $commonOption = get_option($config);
