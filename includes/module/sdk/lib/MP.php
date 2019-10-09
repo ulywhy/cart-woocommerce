@@ -736,4 +736,31 @@ class MP
         }
         return 0;
     }
+
+    /**
+     * @param mixed $access_token
+     * @return void
+     */
+    public function getMercadoEnvios($access_token, $site_id)
+    {
+        $zip_code = WC_WooMercadoPago_Configs::getCountryConfigs();
+
+        $request = array(
+            'uri' => '/shipping_options',
+            'params' => array(
+                'access_token' => $access_token,
+                'dimensions' => '20x20x4,500',
+                'zip_code' => $zip_code[$site_id]['zip_code'],
+                'item_price' => 150,
+            )
+        );
+
+        $response = MPRestClient::get($request);
+
+        if ($response['status'] > 202 || $response['response']['destination'] == null) {
+            return false;
+        }
+
+        return true;
+    }
 }

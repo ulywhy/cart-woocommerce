@@ -98,7 +98,6 @@ class WC_WooMercadoPago_Credentials
         update_option('_all_payment_methods_v0', array(), true);
         update_option('_all_payment_methods_ticket', '[]', true);
         update_option('_can_do_currency_conversion_v1', false, true);
-
     }
 
     /**
@@ -252,17 +251,17 @@ class WC_WooMercadoPago_Credentials
 
         $payment_methods_ticket = array();
         foreach ($paymentsResponse as $payment) {
-                if (
-                    $payment['payment_type_id'] != 'account_money' &&
-                    $payment['payment_type_id'] != 'credit_card' &&
-                    $payment['payment_type_id'] != 'debit_card' &&
-                    $payment['payment_type_id'] != 'prepaid_card'
-                ) {
-                    $obj = new stdClass();
-                    $obj->id = $payment['id'];
-                    $obj->name = $payment['name'];
-                    $obj->secure_thumbnail = $payment['secure_thumbnail'];
-                    array_push($payment_methods_ticket, $obj);
+            if (
+                $payment['payment_type_id'] != 'account_money' &&
+                $payment['payment_type_id'] != 'credit_card' &&
+                $payment['payment_type_id'] != 'debit_card' &&
+                $payment['payment_type_id'] != 'prepaid_card'
+            ) {
+                $obj = new stdClass();
+                $obj->id = $payment['id'];
+                $obj->name = $payment['name'];
+                $obj->secure_thumbnail = $payment['secure_thumbnail'];
+                array_push($payment_methods_ticket, $obj);
             }
         }
 

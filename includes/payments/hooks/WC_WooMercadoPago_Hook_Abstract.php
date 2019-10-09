@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class WC_WooMercadoPago_Hook_Abstract
  */
@@ -213,7 +214,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $this->payment->settings[$key] = $value;
             }
         }
+
         $this->send_settings_mp();
+
 
         return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
     }
@@ -307,6 +310,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
             update_option($key, $value, true);
+            $this->mercadoEnviosValidation($key, $value);
 
             if ($key == '_mp_access_token_prod') {
                 $homolog_validate = $this->mpInstance->homologValidate($value);
@@ -357,8 +361,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         <p><strong>MERCADO PAGO: </strong>' .  __('Invalid test credentials!', 'woocommerce-mercadopago') . '</p>
                 </div>';
     }
-  
-     /**
+
+    /**
      * Enable Payment Notice
      */
     public function enablePaymentNotice()
@@ -372,5 +376,34 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                         <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
                     </button>
               </div>';
+    }
+
+    /**
+     * @return void
+     */
+    public function mercadoEnviosValidation($key, $value)
+    {
+        if ($key == '_mp_access_token_prod' || $key == '_mp_access_token_test') {
+            return $this->mercadoEnviosResponseValidation($value);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param mixed $access_token
+     * @return void
+     */
+    public function mercadoEnviosResponseValidation($access_token)
+    {
+        $site_id = get_option('_site_id_v1');
+
+        if($this->mpInstance->getMercadoEnvios($access_token, $site_id)){
+            update_option('_mp_shipment_access', true, true);
+            return true;
+        }
+
+        update_option('_mp_shipment_access', false, true);
+        return false;
     }
 }
