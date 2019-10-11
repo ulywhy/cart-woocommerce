@@ -27,7 +27,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             }
 
             $this->loadConfigs();
-            $this->loadLog();         
+            $this->loadLog();
             $this->loadHooks();
             $this->loadPreferences();
             $this->loadPayments();
@@ -37,16 +37,16 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
             add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
             add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
-            
+
             if (is_admin()) {
-              if(isset($_REQUEST['section'])){
-                $credentials = new WC_WooMercadoPago_Credentials();
-                if (!$credentials->tokenIsValid()) {
-                    add_action('admin_notices', array($this, 'enablePaymentNotice'));
+                if (isset($_REQUEST['section'])) {
+                    $credentials = new WC_WooMercadoPago_Credentials();
+                    if (!$credentials->tokenIsValid()) {
+                        add_action('admin_notices', array($this, 'enablePaymentNotice'));
+                    }
                 }
-               }
-               self::loadMercadoEnviosAdmin();
-           }
+                self::loadMercadoEnviosAdmin();
+            }
         } catch (Exception $e) {
             $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Module');
             $log->write_log('__construct: ', $e->getMessage());
@@ -133,7 +133,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         $configs = new parent();
         self::$categories = $configs->getCategories();
-        self::$country_configs = $configs->getCountryConfigs();
+        self::$country_configs = self::getCountryConfigs();
         self::$site_data = self::get_site_data();
         self::$payments_name = self::setPaymentGateway();
     }
@@ -190,17 +190,21 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         include_once dirname(__FILE__) . '/log/WC_WooMercadoPago_Log.php';
     }
- 
+
     /**
      *  Load Shipment Types
      */
     public function loadShipments()
     {
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
-        add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
+        $load = get_option('_mp_shipment_access', false);
+
+        if ($load) {
+            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
+            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
+            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
+            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
+            add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
+        }
     }
 
     /**

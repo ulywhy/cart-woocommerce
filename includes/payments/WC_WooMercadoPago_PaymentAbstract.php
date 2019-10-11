@@ -173,6 +173,13 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function normalizeCommonAdminFields()
     {
+
+        if (empty($this->getAccessToken())) {
+            if (isset($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
+                $this->settings['enabled'] = 'no';
+            }
+        }
+
         $changed = false;
         foreach (self::COMMON_CONFIGS as $config) {
             $commonOption = get_option($config);
@@ -300,7 +307,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['_mp_category_id'] = $this->field_category_store();
             if (!empty($this->getAccessToken())) {
                 if($this->homolog_validate == 0) {
-                    if($_GET['section'] == $this->id  && !has_action('woocommerce_update_options_payment_gateways_'. $this->id)) {
+                    if(isset($_GET['section']) && $_GET['section'] == $this->id  && !has_action('woocommerce_update_options_payment_gateways_'. $this->id)) {
                         add_action('admin_notices', array($this, 'noticeHomologValidate'));
                       }
                     $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
