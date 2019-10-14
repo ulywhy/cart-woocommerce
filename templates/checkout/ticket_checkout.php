@@ -56,7 +56,7 @@ if (!defined('ABSPATH')) {
                             </div>
 
                             <div class="mp-col-md-4 mp-pr-15" id="box-lastname">
-                                <label for="lastname" class="mp-label-form title-name mp-mt-03rem"><?= esc_html__('Surname', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+                                <label for="lastname" class="mp-label-form title-name mp-mt-05rem"><?= esc_html__('Surname', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <input type="text" class="mp-form-control" value="<?= $febraban['lastname']; ?>" id="lastname" name="mercadopago_ticket[lastname]">
                                 <span class="mp-erro_febraban" data-main="#lastname" id="error_lastname"><?= esc_html__('You must inform your last name', 'woocommerce-mercadopago'); ?></span>
                             </div>

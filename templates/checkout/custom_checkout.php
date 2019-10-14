@@ -193,8 +193,8 @@ if (!defined('ABSPATH')) {
 
 							<div class="mp-row-checkout mp-pt-10">
 								<div class="mp-col-md-4 mp-pr-15">
-									<label for="docType" class="mp-label-form"><?= esc_html__('Type', 'woocommerce-mercadopago'); ?></label>
-									<select id="docType" class="mp-form-control mp-pointer mp-mt-03rem" data-checkout="docType" name="mercadopago_custom[docType]"></select>
+									<label for="docType" class="mp-label-form mp-pt-5"><?= esc_html__('Type', 'woocommerce-mercadopago'); ?></label>
+									<select id="docType" class="mp-form-control mp-pointer mp-mt-04rem" data-checkout="docType" name="mercadopago_custom[docType]"></select>
 								</div>
 
 								<div class="mp-col-md-8">
