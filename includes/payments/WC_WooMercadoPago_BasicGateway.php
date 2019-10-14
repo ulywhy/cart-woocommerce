@@ -620,4 +620,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             return false;
         }
     }
+
+	/**
+	 * @return string
+	 */
+    public static function getId(){
+        return WC_WooMercadoPago_BasicGateway::ID;
+    }
 }
