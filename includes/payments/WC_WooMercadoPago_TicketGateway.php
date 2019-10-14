@@ -347,6 +347,10 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         );
 
         $amount = $this->get_order_total();
+        $discount = $amount * ($this->gateway_discount / 100);
+        $comission = $amount * ($this->commission / 100);
+        $amount = $amount - $discount + $comission;
+        
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=WC_WooMercadoPago_TicketGateway';
         $address = get_user_meta(wp_get_current_user()->ID, 'shipping_address_1', true);
