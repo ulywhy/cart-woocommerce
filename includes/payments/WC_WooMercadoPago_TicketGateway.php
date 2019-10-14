@@ -544,4 +544,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
         return true;
     }
+
+	/**
+	 * @return string
+	 */
+    public static function getId(){
+        return WC_WooMercadoPago_TicketGateway::ID;
+    }
 }

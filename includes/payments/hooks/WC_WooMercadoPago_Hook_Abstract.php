@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class WC_WooMercadoPago_Hook_Abstract
  */
@@ -214,9 +213,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $this->payment->settings[$key] = $value;
             }
         }
-
         $this->send_settings_mp();
-
 
         return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
     }
@@ -361,8 +358,8 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         <p><strong>MERCADO PAGO: </strong>' .  __('Invalid test credentials!', 'woocommerce-mercadopago') . '</p>
                 </div>';
     }
-
-    /**
+  
+     /**
      * Enable Payment Notice
      */
     public function enablePaymentNotice()

@@ -536,4 +536,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
 
         return true;
     }
+
+	/**
+	 * @return string
+	 */
+    public static function getId(){
+        return WC_WooMercadoPago_CustomGateway::ID;
+    }
 }
