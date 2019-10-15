@@ -1256,11 +1256,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $options = get_option($key);
             if (!empty($options)) {
 
-                if ($options['checkout_credential_production'] == 'yes' && !empty($this->mp_access_token_prod)) {
+                if (isset($options['checkout_credential_production']) && $options['checkout_credential_production'] == 'yes' && !empty($this->mp_access_token_prod)) {
                     continue;
                 }
 
-                if ($options['checkout_credential_production'] == 'no' && !empty($this->mp_access_token_test)) {
+                if (isset($options['checkout_credential_production']) && $options['checkout_credential_production'] == 'no' && !empty($this->mp_access_token_test)) {
                     continue;
                 }
 
