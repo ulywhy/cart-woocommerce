@@ -353,7 +353,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Title', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => '',
-            'class' => 'hidden-field-mp-title',
+            'class' => 'hidden-field-mp-title mp-hidden-field',
             'default' => $this->title
         );
         return $field_title;
@@ -367,7 +367,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $field_description = array(
             'title' => __('Description', 'woocommerce-mercadopago'),
             'type' => 'text',
-            'class' => 'hidden-field-mp-desc',
+            'class' => 'hidden-field-mp-desc mp-hidden-field',
             'description' => '',
             'default' => $this->method_description
         );
@@ -1256,11 +1256,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $options = get_option($key);
             if (!empty($options)) {
 
-                if ($options['checkout_credential_production'] == 'yes' && !empty($this->mp_access_token_prod)) {
+                if (isset($options['checkout_credential_production']) && $options['checkout_credential_production'] == 'yes' && !empty($this->mp_access_token_prod)) {
                     continue;
                 }
 
-                if ($options['checkout_credential_production'] == 'no' && !empty($this->mp_access_token_test)) {
+                if (isset($options['checkout_credential_production']) && $options['checkout_credential_production'] == 'no' && !empty($this->mp_access_token_test)) {
                     continue;
                 }
 

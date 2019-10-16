@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2019-09-13 21:22-0300\n"
+"PO-Revision-Date: 2019-10-15 15:10-0300\n"
 "X-Generator: Poedit 2.2.3\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -458,7 +458,7 @@ msgid ""
 "Enable the experience of the basic checkout of Mercado Pago in your online store, select the means of payment available to your customers and<br> define the maximum fees in which they can pay "
 "you."
 msgstr ""
-"Habilitá la experiencia del checkout básico de Mercado Pago en tu tienda online, seleccioná los medios de pago disponibles para tus clientes y<br> definí el máximo de cuotas en el que podrán "
+"Habilita la experiencia del checkout básico de Mercado Pago en tu tienda online, selecciona los medios de pago disponibles para tus clientes y<br> define el máximo de cuotas en el que podrán "
 "pagarte."
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:276 includes/payments/WC_WooMercadoPago_CustomGateway.php:187 includes/payments/WC_WooMercadoPago_TicketGateway.php:217
@@ -765,7 +765,7 @@ msgstr "Modo Producción"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:612
 msgid "When you see that everything is going well, deactivate Sandbox, turn on Production and make way for your online sales."
-msgstr "Cuando veas que todo va bien, desactivá Sandbox, prendé Producción y abrí paso a tus ventas online."
+msgstr "Cuando veas que todo va bien, desactivá Sandbox, prende Producción y abre paso a tus ventas online."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:625
 msgid "Productio"
@@ -1025,7 +1025,7 @@ msgstr "Incluye esta opción de compra preferida por algunos clientes."
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:230
 msgid "Enable Mercado Pago for cash payments in your store and <br> select the options available to your customers."
-msgstr "Habilitá Mercado Pago para pagos en efectivo en tu tienda y <br> seleccioná las opciones disponibles para tus clientes."
+msgstr "Habilita Mercado Pago para pagos en efectivo en tu tienda y <br> selecciona las opciones disponibles para tus clientes."
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:243
 msgid "Set payment preferences with cash"
