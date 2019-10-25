@@ -98,7 +98,6 @@ class WC_WooMercadoPago_Credentials
         update_option('_all_payment_methods_v0', array(), true);
         update_option('_all_payment_methods_ticket', '[]', true);
         update_option('_can_do_currency_conversion_v1', false, true);
-
     }
 
     /**
@@ -160,7 +159,8 @@ class WC_WooMercadoPago_Credentials
                 self::updatePaymentMethods($mp_v1, $access_token, $payments_response);
                 self::updateTicketMethod($mp_v1, $access_token, $payments_response);
 
-                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate(WC_WooMercadoPago_Module::$country_configs[$get_request['response']['site_id']]['currency']);
+                $country_configs = WC_WooMercadoPago_Module::getCountryConfigs();
+                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($country_configs[$get_request['response']['site_id']]['currency']);
                 if ($currency_ratio > 0) {
                     update_option('_can_do_currency_conversion_v1', true, true);
                 } else {
@@ -251,17 +251,17 @@ class WC_WooMercadoPago_Credentials
 
         $payment_methods_ticket = array();
         foreach ($paymentsResponse as $payment) {
-                if (
-                    $payment['payment_type_id'] != 'account_money' &&
-                    $payment['payment_type_id'] != 'credit_card' &&
-                    $payment['payment_type_id'] != 'debit_card' &&
-                    $payment['payment_type_id'] != 'prepaid_card'
-                ) {
-                    $obj = new stdClass();
-                    $obj->id = $payment['id'];
-                    $obj->name = $payment['name'];
-                    $obj->secure_thumbnail = $payment['secure_thumbnail'];
-                    array_push($payment_methods_ticket, $obj);
+            if (
+                $payment['payment_type_id'] != 'account_money' &&
+                $payment['payment_type_id'] != 'credit_card' &&
+                $payment['payment_type_id'] != 'debit_card' &&
+                $payment['payment_type_id'] != 'prepaid_card'
+            ) {
+                $obj = new stdClass();
+                $obj->id = $payment['id'];
+                $obj->name = $payment['name'];
+                $obj->secure_thumbnail = $payment['secure_thumbnail'];
+                array_push($payment_methods_ticket, $obj);
             }
         }
 

@@ -325,7 +325,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         
         $accessToken = get_option('_mp_access_token_prod', '');
         if (empty($accessToken)) {
-          return;
+          return null;
         }
       
         $test_mode = false;

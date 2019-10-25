@@ -298,3 +298,7 @@
     -webkit-box-shadow: none !important;
     box-shadow: none;
 }
+
+.mp-hidden-field {
+    display: none;
+}  
