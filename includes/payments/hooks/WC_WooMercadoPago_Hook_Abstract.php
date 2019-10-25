@@ -63,7 +63,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function send_settings_mp()
     {
-        if (!empty($this->siteId)) {
+        if (!empty($this->payment->getAccessToken()) && !empty($this->siteId)) {
             if (!$this->testUser) {
                 $this->payment->mp->analytics_save_settings($this->define_settings_to_send());
             }
@@ -307,12 +307,13 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
             update_option($key, $value, true);
+            $this->mercadoEnviosValidation($key, $value);
 
             if ($key == '_mp_access_token_prod') {
                 $homolog_validate = $this->mpInstance->homologValidate($value);
                 update_option('homolog_validate', $homolog_validate, true);
                 if ($isProduction == 'yes' && $homolog_validate == 0) {
-                    add_action('admin_notices', array(get_class($this->payment), 'enablePaymentNotice'));
+                    add_action('admin_notices', array($this, 'enablePaymentNotice'));
                 }
             }
 
@@ -356,5 +357,50 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         echo '<div class="error is-dismissible">
         <p><strong>MERCADO PAGO: </strong>' .  __('Invalid test credentials!', 'woocommerce-mercadopago') . '</p>
                 </div>';
+    }
+  
+     /**
+     * Enable Payment Notice
+     */
+    public function enablePaymentNotice()
+    {
+        $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
+        echo '<div class="notice notice-warning is-dismissible">  
+                    <p style="font-size:13px">
+                        <strong>MERCADO PAGO:</strong> ' . $message . '
+                    </p>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
+                    </button>
+              </div>';
+    }
+
+    /**
+     * @return void
+     */
+    public function mercadoEnviosValidation($key, $value)
+    {
+        if ($key == '_mp_access_token_prod' || $key == '_mp_access_token_test') {
+            return $this->mercadoEnviosResponseValidation($value);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param mixed $access_token
+     * @return void
+     */
+    public function mercadoEnviosResponseValidation($access_token)
+    {
+        $site_id = get_option('_site_id_v1');
+
+        if($this->mpInstance->getMercadoEnvios($access_token, $site_id)){
+            update_option('_mp_shipment_access', true, true);
+            return true;
+        }
+
+        update_option('_mp_shipment_access', false, true);
+        return false;
     }
 }

@@ -517,6 +517,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $debito = 0;
         $credito = 0;
         $efectivo = 0;
+        $method = $this->getOption('method', 'redirect');
         $tarjetas = get_option('_checkout_payments_methods', '');
         $installments = $this->getOption('installments');
         $str_cuotas = __('installments', 'woocommerce-mercadopago');
@@ -553,6 +554,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             "credito" => $credito,
             "efectivo" => $efectivo,
             "tarjetas" => $cho_tarjetas,
+            "method" => $method,
             "str_cuotas" => $str_cuotas,
             "installments" => $installments,
             "cho_image" => plugins_url('../assets/images/redirect_checkout.png', plugin_dir_path(__FILE__)),
@@ -619,5 +621,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->log->write_log(__FUNCTION__, 'payment creation failed with exception: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             return false;
         }
+    }
+
+	/**
+	 * @return string
+	 */
+    public static function getId(){
+        return WC_WooMercadoPago_BasicGateway::ID;
     }
 }

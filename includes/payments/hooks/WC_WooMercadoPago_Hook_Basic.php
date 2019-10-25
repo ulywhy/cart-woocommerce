@@ -113,7 +113,7 @@ class WC_WooMercadoPago_Hook_Basic extends WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     *
+     * @param $order_id
      */
     public function update_mp_settings_script_basic($order_id)
     {
