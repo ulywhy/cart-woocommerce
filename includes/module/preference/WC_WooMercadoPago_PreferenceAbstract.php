@@ -86,13 +86,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_currency_conversion()
     {
-        $currency_ratio = 1;
-        $_mp_currency_conversion_v1 = get_option('_mp_currency_conversion_v1', '');
-        if (!empty($_mp_currency_conversion_v1)) {
-            $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($this->site_data[$this->site_id]['currency']);
-            $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
-        }
-        return $currency_ratio;
+        return WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this->payment);
     }
 
 
@@ -322,19 +316,19 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_internal_metadata()
     {
-        
+
         $accessToken = get_option('_mp_access_token_prod', '');
         if (empty($accessToken)) {
           return;
         }
-      
+
         $test_mode = false;
         if ($this->payment->getOption('checkout_credential_production', '') == 'no') {
             $test_mode = true;
         }
-      
+
         $seller = explode('-', $accessToken);
-        $w = WC_WooMercadoPago_Module::woocommerce_instance();     
+        $w = WC_WooMercadoPago_Module::woocommerce_instance();
         $internal_metadata = array(
             "platform" => WC_WooMercadoPago_Constants::PLATAFORM_ID,
             "plataform_version" => $w->version,
@@ -345,8 +339,8 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             "test_mode" => $test_mode,
             "details" => ""
         );
-      
+
         return $internal_metadata;
     }
-  
+
 }

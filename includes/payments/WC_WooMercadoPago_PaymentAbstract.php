@@ -111,7 +111,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
      /**
-     * @return 
+     * @return
      */
     public function getHomologValidate()
     {
@@ -1093,18 +1093,28 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         return $commission;
     }
 
+    public function field_currency_conversion()
+	{
+		return array(
+			'title' => __('Convert Currency', 'woocommerce-mercadopago'),
+			'type' => 'checkbox',
+			'default' => 'no',
+			'description' => __('If the used currency in WooCommerce is different or not supported by Mercado Pago, convert values of your transactions using Mercado Pago currency ratio.', 'woocommerce-mercadopago'),
+		);
+	}
+
    /**
      * @return array
      */
     public function field_checkout_ready_title()
     {
-      
+
         if($this->checkout_credential_token_production == 'yes') {
           $message_ready_title =  __('Everything ready for the takeoff of your sales?', 'woocommerce-mercadopago');
-        } else { 
+        } else {
           $message_ready_title =  __('Everything set up? Go to your store in Sandbox mode', 'woocommerce-mercadopago');
         }
-      
+
         $checkout_options_title = array(
             'title' => $message_ready_title,
             'type' => 'title',
@@ -1120,10 +1130,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
        if($this->checkout_credential_token_production == 'yes') {
           $message_ready_description =  __('You already went to Production. You just need your best customers <br> to arrive at your store to live the best online shopping experience with Mercado Pago.', 'woocommerce-mercadopago');
-        } else { 
+        } else {
           $message_ready_description =  __('Visit your store as if you were one of your customers and check that everything is fine. If you already went to Production,<br> bring your customers and increase your sales with the best online shopping experience.', 'woocommerce-mercadopago');
         }
-      
+
         $checkout_options_subtitle = array(
             'title' => $message_ready_description,
             'type' => 'title',
@@ -1139,7 +1149,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         if($this->checkout_credential_token_production == 'yes') {
             $message_link =  __('Visit my store', 'woocommerce-mercadopago');
-          } else { 
+          } else {
             $message_link =  __('I want to test my sales', 'woocommerce-mercadopago');
           }
 
@@ -1180,7 +1190,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             return false;
         }
 
-        return ('yes' == $this->settings['enabled']) && !empty($_mp_public_key) && !empty($_mp_access_token) && !empty($_site_id_v1); 
+        return ('yes' == $this->settings['enabled']) && !empty($_mp_public_key) && !empty($_mp_access_token) && !empty($_site_id_v1);
     }
 
 

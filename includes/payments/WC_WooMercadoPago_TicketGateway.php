@@ -71,6 +71,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
             $form_fields['stock_reduce_mode'] = $this->field_stock_reduce_mode();
             $form_fields['date_expiration'] = $this->field_date_expiration();
+			$form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion();
             foreach ($this->field_ticket_payments() as $key => $value) {
                 $form_fields[$key] = $value;
             }
@@ -97,7 +98,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             // Necessary to run
             'title',
             'description',
-            // Checkout de pagos con dinero en efectivo<br> Aceptá pagos al instante y maximizá la conversión de tu negocio 
+            // Checkout de pagos con dinero en efectivo<br> Aceptá pagos al instante y maximizá la conversión de tu negocio
             'checkout_ticket_header',
             'checkout_steps',
             // ¿En qué país vas a activar tu tienda?
@@ -144,6 +145,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_ticket_payments_advanced_title',
             'checkout_payments_advanced_description',
             'coupon_mode',
+			WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'stock_reduce_mode',
             'gateway_discount',
             'commission',
@@ -355,13 +357,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $country = get_user_meta(wp_get_current_user()->ID, 'shipping_country', true);
         $address .= (!empty($country) ? ' - ' . $country : '');
 
-        $currency_ratio = 1;
-        $_mp_currency_conversion_v1 = $this->getOption('_mp_currency_conversion_v1', '');
-        if (!empty($_mp_currency_conversion_v1)) {
-            $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($this->site_data['currency']);
-            $currency_ratio = $currency_ratio > 0 ? $currency_ratio : 1;
-        }
-
         $parameters = array(
             'amount' => $amount,
             'payment_methods' => $this->activated_payment,
@@ -370,7 +365,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
             'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
-            'currency_ratio' => $currency_ratio,
+            'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
             'febraban' => (wp_get_current_user()->ID != 0) ?
