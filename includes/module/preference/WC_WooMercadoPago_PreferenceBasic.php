@@ -23,10 +23,6 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $this->preference['back_urls'] = $this->get_back_urls();
         $this->preference['shipments'] = $this->shipments_receiver_address();
 
-        if (strpos($this->selected_shipping, 'Mercado Envios') !== 0 && $this->ship_cost > 0) {
-            $this->preference['items'][] = $this->ship_cost_item();
-        }
-
         if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
             $this->shipment_info();
         }
@@ -37,10 +33,18 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $internal_metadata = parent::get_internal_metadata();
         $internal_metadata = $this->get_internal_metadata_basic($internal_metadata);
         $this->preference['metadata'] = $internal_metadata;
-
     }
 
-    /**
+	protected function prepare_shipping()
+	{
+		if (strpos($this->selected_shipping, 'Mercado Envios') !== 0) {
+			return parent::prepare_shipping();
+		}
+
+		return array();
+	}
+
+	/**
      * @return array
      */
     public function get_payer_basic()
@@ -158,7 +162,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             }
         }
     }
-  
+
     /**
      * @return array
      */
@@ -168,7 +172,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             "checkout" => "smart",
             "checkout_type" => "",
         );
-      
+
         return $internal_metadata;
-    }  
+    }
 }

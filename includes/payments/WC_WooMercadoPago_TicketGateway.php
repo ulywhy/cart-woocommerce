@@ -71,7 +71,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
             $form_fields['stock_reduce_mode'] = $this->field_stock_reduce_mode();
             $form_fields['date_expiration'] = $this->field_date_expiration();
-			$form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion();
+			$form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion($this);
             foreach ($this->field_ticket_payments() as $key => $value) {
                 $form_fields[$key] = $value;
             }
