@@ -233,7 +233,7 @@ abstract class WC_MercadoEnvios_Shipping_Abstract extends WC_Shipping_Method
             'free_shipping' => array(
                 'title' => __('Free shipping', 'woocommerce-mercadopago'),
                 'type' => 'checkbox',
-                'label' => __('nable free shipping for this shipping method', 'woocommerce-mercadopago'),
+                'label' => __('Enable free shipping for this shipping method', 'woocommerce-mercadopago'),
                 'default' => 'no',
             ),
             'show_delivery_time' => array(
