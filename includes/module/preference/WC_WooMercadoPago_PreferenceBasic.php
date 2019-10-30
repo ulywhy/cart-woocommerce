@@ -15,50 +15,54 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
      * @param $order
      */
     public function __construct($payment, $order)
-	{
-		parent::__construct($payment, $order);
-		$this->preference = $this->make_commum_preference();
-		$this->preference['items'] = $this->items;
-		$this->preference['payer'] = $this->get_payer_basic();
-		$this->preference['back_urls'] = $this->get_back_urls();
-		$this->preference['shipments'] = $this->shipments_receiver_address();
+    {
+        parent::__construct($payment, $order);
+        $this->preference = $this->make_commum_preference();
+        $this->preference['items'] = $this->items;
+        $this->preference['payer'] = $this->get_payer_basic();
+        $this->preference['back_urls'] = $this->get_back_urls();
+        $this->preference['shipments'] = $this->shipments_receiver_address();
 
-		if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
-			$this->shipment_info();
-		}
+        if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
+            $this->shipment_info();
+        }
 
-		$this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
-		$this->preference['auto_return'] = $this->auto_return();
+        $this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
+        $this->preference['auto_return'] = $this->auto_return();
 
-		$internal_metadata = parent::get_internal_metadata();
-		$merge_array = array_merge($internal_metadata, $this->get_internal_metadata_basic());
-		$this->preference['metadata'] = $merge_array;
-	}
+        $internal_metadata = parent::get_internal_metadata();
+        $merge_array = array_merge($internal_metadata, $this->get_internal_metadata_basic());
+        $this->preference['metadata'] = $merge_array;
+    }
 
-	protected function prepare_shipping()
-	{
-		if (strpos($this->selected_shipping, 'Mercado Envios') !== 0) {
-			return parent::prepare_shipping();
-		}
+    protected function prepare_shipping()
+    {
+        if (strpos($this->selected_shipping, 'Mercado Envios') !== 0) {
+            return parent::prepare_shipping();
+        }
 
-		return array();
-	}
+        return array();
+    }
 
-	/**
+    /**
      * @return array
      */
     public function get_payer_basic()
     {
         $payer_additional_info = array(
-            'name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
-            'surname' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
-            'email' => $this->order->get_billing_email(),
-            'phone' => array(
+            'name'    => (method_exists($this->order,
+                'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
+            'surname' => (method_exists($this->order,
+                'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
+            'email'   => $this->order->get_billing_email(),
+            'phone'   => array(
                 //'area_code' =>
-                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone)
+                'number' => (method_exists($this->order,
+                    'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone),
             ),
             'address' => array(
-                'zip_code' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
+                'zip_code'    => (method_exists($this->order,
+                    'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
                 //'street_number' =>
                 'street_name' => html_entity_decode(
                     method_exists($this->order, 'get_id') ?
@@ -69,8 +73,8 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
                         $this->order->billing_city . ' ' .
                         $this->order->billing_state . ' ' .
                         $this->order->billing_country
-                )
-            )
+                ),
+            ),
         );
         return $payer_additional_info;
     }
@@ -95,7 +99,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             'pending' => empty($pending_url) ?
                 WC_WooMercadoPago_Module::fix_url_ampersand(
                     esc_url($this->get_return_url($this->order))
-                ) : $pending_url
+                ) : $pending_url,
         );
         return $back_urls;
     }
@@ -111,14 +115,14 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         if (is_array($ex_payments) && count($ex_payments) != 0) {
             foreach ($ex_payments as $excluded) {
                 array_push($excluded_payment_methods, array(
-                    'id' => $excluded
+                    'id' => $excluded,
                 ));
             }
         }
         $payment_methods = array(
-            'installments' => (int)$installments,
-            'default_installments' => 1,
-            'excluded_payment_methods' => $excluded_payment_methods
+            'installments'             => (int)$installments,
+            'default_installments'     => 1,
+            'excluded_payment_methods' => $excluded_payment_methods,
         );
         return $payment_methods;
     }
@@ -169,7 +173,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
     public function get_internal_metadata_basic()
     {
         $internal_metadata = array(
-            "checkout" => "smart",
+            "checkout"      => "smart",
             "checkout_type" => "",
         );
 

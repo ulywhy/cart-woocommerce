@@ -11,15 +11,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 	private static $instance;
 
 	private $ratios = [];
-
 	private $cache = [];
-
 	private $enabledCache = [];
-
 	private $accessTokenCache = [];
-
 	private $currencyCache = [];
-
 	private $supportedCurrencies;
 
 	/**
