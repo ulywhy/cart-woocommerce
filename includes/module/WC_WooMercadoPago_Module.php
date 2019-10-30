@@ -8,11 +8,11 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 {
-    public static $categories = [];
-    public static $country_configs = [];
+    public static $categories = array();
+    public static $country_configs = array();
     public static $site_data;
     public static $instance = null;
-    public static $mpInstancePayment = [];
+    public static $mpInstancePayment = array();
     public static $mpInstance = null;
     public static $payments_name = null;
 
@@ -410,11 +410,11 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         $w = WC_WooMercadoPago_Module::woocommerce_instance();
         $infra_data = array(
-            'module_version'   => WC_WooMercadoPago_Constants::VERSION,
-            'platform'         => 'WooCommerce',
+            'module_version' => WC_WooMercadoPago_Constants::VERSION,
+            'platform' => 'WooCommerce',
             'platform_version' => $w->version,
-            'code_version'     => phpversion(),
-            'so_server'        => PHP_OS,
+            'code_version' => phpversion(),
+            'so_server' => PHP_OS
         );
         return $infra_data;
     }
@@ -570,14 +570,14 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $html = '';
         $arr = explode('_', $selector_id);
         $defaults = array(
-            'pending'     => 'pending',
-            'approved'    => 'processing',
-            'inprocess'   => 'on_hold',
+            'pending' => 'pending',
+            'approved' => 'processing',
+            'inprocess' => 'on_hold',
             'inmediation' => 'on_hold',
-            'rejected'    => 'failed',
-            'cancelled'   => 'cancelled',
-            'refunded'    => 'refunded',
-            'chargedback' => 'refunded',
+            'rejected' => 'failed',
+            'cancelled' => 'cancelled',
+            'refunded' => 'refunded',
+            'chargedback' => 'refunded'
         );
         $selection = get_option('_mp_' . $selector_id, $defaults[$arr[2]]);
 
@@ -595,7 +595,8 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         return $html;
     }
 
-    public static function generate_refund_cancel_subscription($domain, $success_msg, $fail_msg, $options, $str1, $str2, $str3, $str4) {
+    public static function generate_refund_cancel_subscription($domain, $success_msg, $fail_msg, $options, $str1, $str2, $str3, $str4)
+    {
         $subscription_js = '<script type="text/javascript">
 				( function() {
 					var MPSubscription = {}

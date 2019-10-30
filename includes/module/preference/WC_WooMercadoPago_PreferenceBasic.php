@@ -50,15 +50,15 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
     public function get_payer_basic()
     {
         $payer_additional_info = array(
-            'name'    => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
+            'name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
             'surname' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
-            'email'   => $this->order->get_billing_email(),
-            'phone'   => array(
+            'email' => $this->order->get_billing_email(),
+            'phone' => array(
                 //'area_code' =>
                 'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone),
             ),
             'address' => array(
-                'zip_code'    => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
+                'zip_code' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
                 //'street_number' =>
                 'street_name' => html_entity_decode(
                     method_exists($this->order, 'get_id') ?
@@ -69,8 +69,8 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
                         $this->order->billing_city . ' ' .
                         $this->order->billing_state . ' ' .
                         $this->order->billing_country
-                ),
-            ),
+                )
+            )
         );
         return $payer_additional_info;
     }
@@ -116,9 +116,9 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             }
         }
         $payment_methods = array(
-            'installments'             => (int)$installments,
-            'default_installments'     => 1,
-            'excluded_payment_methods' => $excluded_payment_methods,
+            'installments' => (int)$installments,
+            'default_installments' => 1,
+            'excluded_payment_methods' => $excluded_payment_methods
         );
         return $payment_methods;
     }

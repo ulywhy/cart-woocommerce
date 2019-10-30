@@ -161,7 +161,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             </div>'
             ),
             'type' => 'title',
-            'class' => 'mp_title_checkout',
+            'class' => 'mp_title_checkout'
         );
         return $checkout_custom_header;
     }
@@ -174,7 +174,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_custom_options_title = array(
             'title' => __('Set up the payment experience in your store', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_title_bd',
+            'class' => 'mp_title_bd'
         );
         return $checkout_custom_options_title;
     }
@@ -213,7 +213,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_custom_payments_advanced_title = array(
             'title' => __('Advanced configuration of the personalized payment experience"', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_subtitle_bd',
+            'class' => 'mp_subtitle_bd'
         );
         return $checkout_custom_payments_advanced_title;
     }
@@ -381,14 +381,14 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                         wc_add_notice('<p>' . $this->get_order_status('accredited') . '</p>', 'notice');
                         return array(
                             'result' => 'success',
-                            'redirect' => $order->get_checkout_order_received_url(),
+                            'redirect' => $order->get_checkout_order_received_url()
                         );
                         break;
                     case 'pending':
                         // Order approved/pending, we just redirect to the thankyou page.
                         return array(
                             'result' => 'success',
-                            'redirect' => $order->get_checkout_order_received_url(),
+                            'redirect' => $order->get_checkout_order_received_url()
                         );
                         break;
                     case 'in_process':
@@ -403,7 +403,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                         );
                         return array(
                             'result' => 'success',
-                            'redirect' => $order->get_checkout_payment_url(true),
+                            'redirect' => $order->get_checkout_payment_url(true)
                         );
                         break;
                     case 'rejected':
@@ -420,7 +420,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                         );
                         return array(
                             'result' => 'success',
-                            'redirect' => $order->get_checkout_payment_url(true),
+                            'redirect' => $order->get_checkout_payment_url(true)
                         );
                         break;
                     case 'cancelled':
@@ -436,8 +436,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 // Process when fields are imcomplete.
                 $this->log->write_log(__FUNCTION__, 'A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form? ');
 
-                wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?',
-                        'woocommerce-mercadopago') . ' MERCADO PAGO: ' .
+                wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Are you sure you have correctly filled all information in the checkout form?', 'woocommerce-mercadopago') . ' MERCADO PAGO: ' .
                     WC_WooMercadoPago_Module::get_common_error_messages($response) . '</p>', 'error');
                 return array(
                     'result' => 'fail',
@@ -448,7 +447,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->log->write_log(__FUNCTION__, 'A problem was occurred when processing your payment. Please, try again.');
             wc_add_notice('<p>' . __('A problem was occurred when processing your payment. Please, try again.', 'woocommerce-mercadopago') . '</p>', 'error');
             return array(
-                'result'   => 'fail',
+                'result' => 'fail',
                 'redirect' => '',
             );
         }

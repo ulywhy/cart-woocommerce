@@ -229,7 +229,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_options_description = array(
             'title' => __('Enable Mercado Pago for cash payments in your store and <br> select the options available to your customers.', 'woocommerce-mercadopago'),
-            'type'  => 'title',
+            'type' => 'title',
             'class' => 'mp_small_text'
         );
         return $checkout_options_description;
@@ -270,8 +270,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => __('Reduce inventory', 'woocommerce-mercadopago'),
             'type' => 'select',
             'default' => 'no',
-            'description' => __('Activates inventory reduction during the creation of an order, whether or not the final payment is credited. Disable this option to reduce it only when payments are approved.',
-                'woocommerce-mercadopago'),
+            'description' => __('Activates inventory reduction during the creation of an order, whether or not the final payment is credited. Disable this option to reduce it only when payments are approved.', 'woocommerce-mercadopago'),
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Yes', 'woocommerce-mercadopago')
@@ -379,7 +378,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                     'number' => '',
                     'city' => get_user_meta(wp_get_current_user()->ID, 'shipping_city', true),
                     'state' => get_user_meta(wp_get_current_user()->ID, 'shipping_state', true),
-                    'zipcode' => get_user_meta(wp_get_current_user()->ID, 'shipping_postcode', true),
+                    'zipcode' => get_user_meta(wp_get_current_user()->ID, 'shipping_postcode', true)
                 ) :
                 array(
                     'firstname' => '',
@@ -469,8 +468,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                             '</a>', 1, false
                         );
                         return array(
-                            'result'   => 'success',
-                            'redirect' => $order->get_checkout_order_received_url(),
+                            'result' => 'success',
+                            'redirect' => $order->get_checkout_order_received_url()
                         );
                     }
                 }
@@ -497,7 +496,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 'error'
             );
             return array(
-                'result'   => 'fail',
+                'result' => 'fail',
                 'redirect' => '',
             );
         }
