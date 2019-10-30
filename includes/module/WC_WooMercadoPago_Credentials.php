@@ -214,9 +214,13 @@ class WC_WooMercadoPago_Credentials
 
         $arr = array();
         $cho = array();
+        $excluded = array('consumer_credits');
+      
         foreach ($paymentsResponse as $payment) {
+            if(in_array($payment['id'], $excluded)){ continue; }
+          
             $arr[] = $payment['id'];
-
+            
             $cho[] = array(
                 "id" => $payment['id'],
                 "name" => $payment['name'],
@@ -250,22 +254,25 @@ class WC_WooMercadoPago_Credentials
         }
 
         $payment_methods_ticket = array();
-        foreach ($paymentsResponse as $payment) {
-            if (
-                $payment['payment_type_id'] != 'account_money' &&
-                $payment['payment_type_id'] != 'credit_card' &&
-                $payment['payment_type_id'] != 'debit_card' &&
-                $payment['payment_type_id'] != 'prepaid_card'
-            ) {
-                $obj = new stdClass();
-                $obj->id = $payment['id'];
-                $obj->name = $payment['name'];
-                $obj->secure_thumbnail = $payment['secure_thumbnail'];
-                array_push($payment_methods_ticket, $obj);
-            }
+        $excluded = array('consumer_credits');
+      
+        foreach ($paymentsResponse as $payment) {          
+          if (
+              !in_array($payment['id'], $excluded) &&
+              $payment['payment_type_id'] != 'account_money' &&
+              $payment['payment_type_id'] != 'credit_card' &&
+              $payment['payment_type_id'] != 'debit_card' &&
+              $payment['payment_type_id'] != 'prepaid_card'
+          ) {
+              $payment_methods_ticket[] = array(
+                  "id" => $payment['id'],
+                  "name" => $payment['name'],
+                  "secure_thumbnail" => $payment['secure_thumbnail'],
+              );
+          }
         }
-
-        update_option('_all_payment_methods_ticket', json_encode($payment_methods_ticket), true);
+        
+        update_option('_all_payment_methods_ticket', $payment_methods_ticket, true);
     }
 
     /**
