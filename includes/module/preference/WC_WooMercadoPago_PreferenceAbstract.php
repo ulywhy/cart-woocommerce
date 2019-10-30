@@ -192,7 +192,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function ship_cost_item()
     {
-        return [
+        return array(
             'title'       => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
             'description' => __('Shipping service used by the store.', 'woocommerce-mercadopago'),
             'category_id' => get_option('_mp_category_id', 'others'),
@@ -200,7 +200,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'unit_price'  => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP')
                 ? floor($this->ship_cost * $this->currency_ratio)
                 : floor($this->ship_cost * $this->currency_ratio * 100) / 100,
-        ];
+        );
     }
 
     /**

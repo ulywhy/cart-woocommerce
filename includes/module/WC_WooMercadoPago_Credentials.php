@@ -6,7 +6,7 @@
 class WC_WooMercadoPago_Credentials
 {
     const TYPE_ACCESS_CLIENT = 'client';
-    const TYPE_ACCESS_TOKEN  = 'token';
+    const TYPE_ACCESS_TOKEN = 'token';
 
     public $payment;
     public $publicKey;
@@ -167,7 +167,6 @@ class WC_WooMercadoPago_Credentials
                 } else {
                     update_option('_can_do_currency_conversion_v1', false, true);
                 }
-
                 return true;
             }
         } catch (WC_WooMercadoPago_Exception $e) {
@@ -274,7 +273,7 @@ class WC_WooMercadoPago_Credentials
           }
         }
 
-        update_option('_all_payment_methods_ticket', json_encode($payment_methods_ticket), true);
+        update_option('_all_payment_methods_ticket', $payment_methods_ticket, true);
     }
 
     /**
