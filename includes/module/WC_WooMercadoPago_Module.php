@@ -10,17 +10,11 @@ if (!defined('ABSPATH')) {
 class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 {
     public static $categories = [];
-
     public static $country_configs = [];
-
     public static $site_data;
-
     public static $instance = null;
-
     public static $mpInstancePayment = [];
-
     public static $mpInstance = null;
-
     public static $payments_name = null;
 
     /**
