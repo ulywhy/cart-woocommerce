@@ -54,6 +54,14 @@
     margin-top: 0.3rem !important;
 }
 
+.mp-mt-04rem{
+    margin-top: 0.4rem !important;
+}
+
+.mp-mt-05rem{
+    margin-top: 0.5rem !important;
+}
+
 .mp-mt-06rem{
     margin-top: 0.6rem !important;
 }
@@ -382,6 +390,8 @@
     font-size: 18px !important;
     color: #f04449 !important;
     font-family: "Merriweather, Georgia";
+    position: absolute;
+    margin: -3px 0 0 3px;
 }
 
 .mp-obrigatory {

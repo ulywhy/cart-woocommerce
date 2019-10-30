@@ -286,6 +286,10 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         );
 
         $amount = $this->get_order_total();
+        $discount = $amount * ($this->gateway_discount / 100);
+        $comission = $amount * ($this->commission / 100);
+        $amount = $amount - $discount + $comission;
+        
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
         $customer = isset($logged_user_email) ? $this->mp->get_or_create_customer($logged_user_email) : null;
         $discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=' . get_class($this);
@@ -552,5 +556,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         return true;
+    }
+
+	/**
+	 * @return string
+	 */
+    public static function getId(){
+        return WC_WooMercadoPago_CustomGateway::ID;
     }
 }

@@ -98,7 +98,6 @@ class WC_WooMercadoPago_Credentials
         update_option('_all_payment_methods_v0', array(), true);
         update_option('_all_payment_methods_ticket', '[]', true);
         update_option('_can_do_currency_conversion_v1', false, true);
-
     }
 
     /**

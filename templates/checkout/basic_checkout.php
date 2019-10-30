@@ -50,12 +50,14 @@ if (!defined('ABSPATH')) {
     </div>
     <?php endif; ?>
     
+    <?php if($method == 'redirect'): ?>
     <div class="mp-col-md-12 mp-pt-20">
         <div class="mp-redirect-frame">
             <img src="<?= $cho_image ?>" class="mp-img-fluid mp-img-redirect" alt=""/>
             <p><?=__('We take you to our site to complete the payment', 'woocommerce-mercadopago')?></p>
         </div>
     </div>
+    <?php endif; ?>
     
   </div>
 </div>

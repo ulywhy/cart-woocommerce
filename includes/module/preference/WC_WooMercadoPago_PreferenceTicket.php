@@ -42,12 +42,11 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
+        $this->preference['additional_info']['payer'] = $this->get_payer_custom();
       
         $internal_metadata = parent::get_internal_metadata();
-        $internal_metadata = $this->get_internal_metadata_ticket($internal_metadata);
-        $this->preference['metadata'] = $internal_metadata;
-      
-        $this->preference['additional_info']['payer'] = $this->get_payer_custom();
+		$merge_array = array_merge($internal_metadata, $this->get_internal_metadata_ticket());
+        $this->preference['metadata'] = $merge_array;
     }
 
     /**
@@ -89,10 +88,12 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
     /**
      * @return array
      */
-    public function get_internal_metadata_ticket($internal_metadata)
+    public function get_internal_metadata_ticket()
     {
-        $internal_metadata["checkout"] = "custom";
-        $internal_metadata["checkout_type"] = "ticket";
+        $internal_metadata = array(
+            "checkout" => "custom",
+            "checkout_type" => "ticket",
+        );
       
         return $internal_metadata;
     }

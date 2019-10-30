@@ -87,12 +87,13 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function make_commum_preference()
     {
-        return [
-            'binary_mode'          => $this->get_binary_mode(),
-            'external_reference'   => $this->get_external_reference(),
-            'notification_url'     => $this->get_notification_url(),
+        $preference = array(
+            'binary_mode' => $this->get_binary_mode(),
+            'external_reference' => $this->get_external_reference(),
+            'notification_url' => $this->get_notification_url(),
             'statement_descriptor' => $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago'),
-        ];
+        );
+        return $preference;
     }
 
     /**
@@ -120,16 +121,16 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_payer_custom()
     {
-        $payer_additional_info = [
+        $payer_additional_info = array(
             'first_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_first_name()) : html_entity_decode($this->order->billing_first_name)),
-            'last_name'  => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
+            'last_name' => (method_exists($this->order, 'get_id') ? html_entity_decode($this->order->get_billing_last_name()) : html_entity_decode($this->order->billing_last_name)),
             //'registration_date' =>
-            'phone'      => [
+            'phone' => array(
                 //'area_code' =>
-                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone),
-            ],
-            'address'    => [
-                'zip_code'    => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
+                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone)
+            ),
+            'address' => array(
+                'zip_code' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
                 //'street_number' =>
                 'street_name' => html_entity_decode(
                     method_exists($this->order, 'get_id') ?
@@ -140,9 +141,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                         $this->order->billing_city . ' ' .
                         $this->order->billing_state . ' ' .
                         $this->order->billing_country
-                ),
-            ],
-        ];
+                )
+            )
+        );
         return $payer_additional_info;
     }
 
@@ -151,7 +152,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_items_build_array()
     {
-        $items = [];
+        $items = array();
         foreach ($this->order->get_items() as $item) {
             if ($item['qty']) {
                 $product = new WC_product($item['product_id']);
@@ -166,9 +167,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 
                 // Add the item.
                 array_push($this->list_of_items, $product_title . ' x ' . $item['qty']);
-                array_push($items, [
-                    'id'          => $item['product_id'],
-                    'title'       => html_entity_decode($product_title) . ' x ' . $item['qty'],
+                array_push($items, array(
+                    'id' => $item['product_id'],
+                    'title' => html_entity_decode($product_title) . ' x ' . $item['qty'],
                     'description' => sanitize_file_name(html_entity_decode(
                         strlen($product_content) > 230 ?
                             substr($product_content, 0, 230) . '...' : $product_content
@@ -176,11 +177,11 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                     'picture_url' => sizeof($this->order->get_items()) > 1 ?
                         plugins_url('assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
                     'category_id' => get_option('_mp_category_id', 'others'),
-                    'quantity'    => 1,
-                    'unit_price'  => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
+                    'quantity' => 1,
+                    'unit_price' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
                         floor(($line_amount - $discount_by_gateway + $commission_by_gateway) * $this->currency_ratio) : floor(($line_amount - $discount_by_gateway + $commission_by_gateway) * $this->currency_ratio * 100) / 100,
-                    'currency_id' => $this->site_data[$this->site_id]['currency'],
-                ]);
+                    'currency_id' => $this->site_data[$this->site_id]['currency']
+                ));
             }
         }
         return $items;
@@ -207,9 +208,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function shipments_receiver_address()
     {
-        $shipments = [
-            'receiver_address' => [
-                'zip_code'    => method_exists($this->order, 'get_id') ?
+        $shipments = array(
+            'receiver_address' => array(
+                'zip_code' => method_exists($this->order, 'get_id') ?
                     $this->order->get_shipping_postcode() : $this->order->shipping_postcode,
                 //'street_number' =>
                 'street_name' => html_entity_decode(
@@ -225,10 +226,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                         $this->order->shipping_country
                 ),
                 //'floor' =>
-                'apartment'   => method_exists($this->order, 'get_id') ?
-                    $this->order->get_shipping_address_2() : $this->order->shipping_address_2,
-            ],
-        ];
+                'apartment' => method_exists($this->order, 'get_id') ?
+                    $this->order->get_shipping_address_2() : $this->order->shipping_address_2
+            )
+        );
         return $shipments;
     }
 
@@ -240,7 +241,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         if (!strrpos(get_site_url(), 'localhost')) {
             $notification_url = get_option('_mp_custom_domain', '');
             // Check if we have a custom URL.
-            if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === false) {
+            if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === FALSE) {
                 return WC()->api_request_url($this->notification_class);
             } else {
                 return WC_WooMercadoPago_Module::fix_url_ampersand(esc_url(
@@ -329,7 +330,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $accessToken = get_option('_mp_access_token_prod', '');
         if (empty($accessToken)) {
-            return;
+            return null;
         }
 
         $test_mode = false;
@@ -339,16 +340,16 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 
         $seller = explode('-', $accessToken);
         $w = WC_WooMercadoPago_Module::woocommerce_instance();
-        $internal_metadata = [
-            "platform"          => WC_WooMercadoPago_Constants::PLATAFORM_ID,
+        $internal_metadata = array(
+            "platform" => WC_WooMercadoPago_Constants::PLATAFORM_ID,
             "plataform_version" => $w->version,
-            "module_version"    => WC_WooMercadoPago_Constants::VERSION,
-            "site"              => get_option('_site_id_v1'),
-            "sponsor_id"        => $this->get_sponsor_id(),
-            "collector"         => end($seller),
-            "test_mode"         => $test_mode,
-            "details"           => "",
-        ];
+            "module_version" => WC_WooMercadoPago_Constants::VERSION,
+            "site" => get_option('_site_id_v1'),
+            "sponsor_id" => $this->get_sponsor_id(),
+            "collector" => end($seller),
+            "test_mode" => $test_mode,
+            "details" => ""
+        );
 
         return $internal_metadata;
     }

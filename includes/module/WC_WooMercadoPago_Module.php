@@ -9,11 +9,11 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 {
-    public static $categories = [];
-    public static $country_configs = [];
+    public static $categories = array();
+    public static $country_configs = array();
     public static $site_data;
     public static $instance = null;
-    public static $mpInstancePayment = [];
+    public static $mpInstancePayment = array();
     public static $mpInstance = null;
     public static $payments_name = null;
 
@@ -24,7 +24,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         try {
             if (!class_exists('WC_Payment_Gateway')) {
-                add_action('admin_notices', [$this, 'notify_woocommerce_miss']);
+                add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
             }
 
             $this->loadConfigs();
@@ -36,9 +36,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $this->loadShipments();
             $this->loadHelpers();
 
-            add_filter('woocommerce_available_payment_gateways', [$this, 'filterPaymentMethodByShipping']);
-            add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, [$this, 'woomercadopago_settings_link']);
-            add_filter('plugin_row_meta', [$this, 'mp_plugin_row_meta'], 10, 2);
+            add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
+            add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
+            add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
             if (is_admin()) {
                 if (isset($_REQUEST['section'])) {
@@ -84,7 +84,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $mp->set_email($email);
 
         $locale = get_locale();
-        $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : ['', ''];
+        $locale = (strpos($locale, '_') !== false && strlen($locale) == 5) ? explode('_', $locale) : array('', '');
         $mp->set_locale($locale[1]);
 
         return $mp;
@@ -135,7 +135,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         $configs = new parent();
         self::$categories = $configs->getCategories();
-        self::$country_configs = $configs->getCountryConfigs();
+        self::$country_configs = self::getCountryConfigs();
         self::$site_data = self::get_site_data();
         self::$payments_name = self::setPaymentGateway();
     }
@@ -180,7 +180,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_CustomGateway.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_TicketGateway.php';
         include_once dirname(__FILE__) . '/../payments/mercadoenvios/WC_WooMercadoPago_Product_Recurrent.php';
-        add_filter('woocommerce_payment_gateways', [$this, 'setPaymentGateway']);
+        add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
     }
 
     /**
@@ -206,14 +206,18 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function loadShipments()
     {
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
-        add_filter('woocommerce_shipping_methods', [$this, 'setShipping']);
-    }
+		$load = get_option('_mp_shipment_access', false);
 
-    /**
+		if ($load) {
+			include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
+			include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
+			include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
+			include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
+			add_filter('woocommerce_shipping_methods', [$this, 'setShipping']);
+		}
+	}
+
+	/**
      * Load Admin Classes
      */
     public static function loadMercadoEnviosAdmin()
@@ -234,7 +238,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $chosen_methods = $session->get('chosen_shipping_methods');
         $chosen_shipping = $chosen_methods[0];
         if (strpos($chosen_shipping, 'woo-mercado-pago-me-normal') !== false || strpos($chosen_shipping, 'woo-mercado-pago-me-express') !== false) {
-            $new_array = [];
+            $new_array = array();
             foreach ($methods as $payment_method => $payment_method_object) {
                 if ($payment_method == 'woo-mercado-pago-basic') {
                     $new_array['woo-mercado-pago-basic'] = $payment_method_object;
@@ -278,7 +282,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     // Add settings link on plugin page.
     public function woomercadopago_settings_link($links)
     {
-        $plugin_links = [];
+        $plugin_links = array();
         $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Set up', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Your opinion helps us get better', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<br><a target="_blank" href="' . 'https://github.com/mercadopago/cart-woocommerce#installation' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
@@ -295,7 +299,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function mp_plugin_row_meta($links, $file)
     {
         if (WC_MERCADOPAGO_BASENAME === $file) {
-            $new_link = [];
+            $new_link = array();
             $new_link[] = $links[0];
             $new_link[] = esc_html__('By Mercado Pago', 'woocommerce-mercadopago');
 
@@ -495,6 +499,42 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         return $is_subscription;
     }
 
+    // Return boolean indicating if currency is supported.
+    public static function is_supported_currency($site_id)
+    {
+        return get_woocommerce_currency() == WC_WooMercadoPago_Module::$country_configs[$site_id]['currency'];
+    }
+
+    public static function build_currency_conversion_err_msg($currency)
+    {
+        return '<img width="14" height="14" src="' .
+            plugins_url('assets/images/error.png', __FILE__) . '"> ' .
+            __('ERROR: It was not possible to convert the unsupported currency', 'woocommerce-mercadopago') .
+            ' ' . get_woocommerce_currency() . ' ' .
+            __('a', 'woocommerce-mercadopago') . ' ' . $currency . '. ' .
+            __('Currency conversions should be done outside of this module.', 'woocommerce-mercadopago');
+    }
+
+    public static function build_currency_not_converted_msg($currency, $country_name)
+    {
+        return '<img width="14" height="14" src="' .
+            plugins_url('assets/images/warning.png', __FILE__) . '"> ' .
+            __('ATTENTION: The currency', 'woocommerce-mercadopago') .
+            ' ' . get_woocommerce_currency() . ' ' .
+            __('defined in WooCommerce is different from that used by the credentials of your country.<br>The currency for transactions made with this payment method will be', 'woocommerce-mercadopago') .
+            ' ' . $currency . ' (' . $country_name . '). ' .
+            __('Currency conversions should be done outside of this module.', 'woocommerce-mercadopago');
+    }
+
+    public static function build_currency_converted_msg($currency)
+    {
+        return '<img width="14" height="14" src="' .
+            plugins_url('assets/images/check.png', __FILE__) . '"> ' .
+            __('CONVERTED CURRENCY: Your store is converting currency of', 'woocommerce-mercadopago') .
+            ' ' . get_woocommerce_currency() . ' ' .
+            __('for', 'woocommerce-mercadopago') . ' ' . $currency;
+    }
+
     public static function get_country_name($site_id)
     {
         switch ($site_id) {
@@ -522,7 +562,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function build_log_path_string($gateway_id, $gateway_name)
     {
         return '<a href="' . esc_url(admin_url('admin.php?page=wc-status&tab=logs&log_file=' .
-                esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
+            esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
 
@@ -543,7 +583,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $selection = get_option('_mp_' . $selector_id, $defaults[$arr[2]]);
 
         foreach (wc_get_order_statuses() as $slug => $status) {
-            $slug = str_replace(['wc-', '-'], ['', '_'], $slug);
+            $slug = str_replace(array('wc-', '-'), array('', '_'), $slug);
             $html .= sprintf(
                 '<option value="%s"%s>%s %s</option>',
                 $slug,
@@ -559,122 +599,122 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function generate_refund_cancel_subscription($domain, $success_msg, $fail_msg, $options, $str1, $str2, $str3, $str4)
     {
         $subscription_js = '<script type="text/javascript">
-                ( function() {
-                    var MPSubscription = {}
-                    MPSubscription.callSubscriptionCancel = function () {
-                        var url = "' . $domain . '";
-                        url += "&action_mp_payment_id=" + document.getElementById("payment_id").value;
-                        url += "&action_mp_payment_amount=" + document.getElementById("payment_amount").value;
-                        url += "&action_mp_payment_action=cancel";
-                        document.getElementById("sub_pay_cancel_btn").disabled = true;
-                        MPSubscription.AJAX({
-                            url: url,
-                            method : "GET",
-                            timeout : 5000,
-                            error: function() {
-                                document.getElementById("sub_pay_cancel_btn").disabled = false;
-                                alert("' . $fail_msg . '");
-                            },
-                            success : function ( status, data ) {
-                                document.getElementById("sub_pay_cancel_btn").disabled = false;
-                                var mp_status = data.status;
-                                var mp_message = data.message;
-                                if (data.status == 200) {
-                                    alert("' . $success_msg . '");
-                                } else {
-                                    alert(mp_message);
-                                }
-                            }
-                        });
-                    }
-                    MPSubscription.callSubscriptionRefund = function () {
-                        var url = "' . $domain . '";
-                        url += "&action_mp_payment_id=" + document.getElementById("payment_id").value;
-                        url += "&action_mp_payment_amount=" + document.getElementById("payment_amount").value;
-                        url += "&action_mp_payment_action=refund";
-                        document.getElementById("sub_pay_refund_btn").disabled = true;
-                        MPSubscription.AJAX({
-                            url: url,
-                            method : "GET",
-                            timeout : 5000,
-                            error: function() {
-                                document.getElementById("sub_pay_refund_btn").disabled = false;
-                                alert("' . $fail_msg . '");
-                            },
-                            success : function ( status, data ) {
-                                document.getElementById("sub_pay_refund_btn").disabled = false;
-                                var mp_status = data.status;
-                                var mp_message = data.message;
-                                if (data.status == 200) {
-                                    alert("' . $success_msg . '");
-                                } else {
-                                    alert(mp_message);
-                                }
-                            }
-                        });
-                    }
-                    MPSubscription.AJAX = function( options ) {
-                        var useXDomain = !!window.XDomainRequest;
-                        var req = useXDomain ? new XDomainRequest() : new XMLHttpRequest()
-                        var data;
-                        options.url += ( options.url.indexOf( "?" ) >= 0 ? "&" : "?" );
-                        options.requestedMethod = options.method;
-                        if ( useXDomain && options.method == "PUT" ) {
-                            options.method = "POST";
-                            options.url += "&_method=PUT";
-                        }
-                        req.open( options.method, options.url, true );
-                        req.timeout = options.timeout || 1000;
-                        if ( window.XDomainRequest ) {
-                            req.onload = function() {
-                                data = JSON.parse( req.responseText );
-                                if ( typeof options.success === "function" ) {
-                                    options.success( options.requestedMethod === "POST" ? 201 : 200, data );
-                                }
-                            };
-                            req.onerror = req.ontimeout = function() {
-                                if ( typeof options.error === "function" ) {
-                                    options.error( 400, {
-                                        user_agent:window.navigator.userAgent, error : "bad_request", cause:[]
-                                    });
-                                }
-                            };
-                            req.onprogress = function() {};
-                        } else {
-                            req.setRequestHeader( "Accept", "application/json" );
-                            if ( options.contentType ) {
-                                req.setRequestHeader( "Content-Type", options.contentType );
-                            } else {
-                                req.setRequestHeader( "Content-Type", "application/json" );
-                            }
-                            req.onreadystatechange = function() {
-                                if ( this.readyState === 4 ) {
-                                    if ( this.status >= 200 && this.status < 400 ) {
-                                        // Success!
-                                        data = JSON.parse( this.responseText );
-                                        if ( typeof options.success === "function" ) {
-                                            options.success( this.status, data );
-                                        }
-                                    } else if ( this.status >= 400 ) {
-                                        data = JSON.parse( this.responseText );
-                                        if ( typeof options.error === "function" ) {
-                                            options.error( this.status, data );
-                                        }
-                                    } else if ( typeof options.error === "function" ) {
-                                        options.error( 503, {} );
-                                    }
-                                }
-                            };
-                        }
-                        if ( options.method === "GET" || options.data == null || options.data == undefined ) {
-                            req.send();
-                        } else {
-                            req.send( JSON.stringify( options.data ) );
-                        }
-                    }
-                    this.MPSubscription = MPSubscription;
-                } ).call();
-            </script>';
+				( function() {
+					var MPSubscription = {}
+					MPSubscription.callSubscriptionCancel = function () {
+						var url = "' . $domain . '";
+						url += "&action_mp_payment_id=" + document.getElementById("payment_id").value;
+						url += "&action_mp_payment_amount=" + document.getElementById("payment_amount").value;
+						url += "&action_mp_payment_action=cancel";
+						document.getElementById("sub_pay_cancel_btn").disabled = true;
+						MPSubscription.AJAX({
+							url: url,
+							method : "GET",
+							timeout : 5000,
+							error: function() {
+								document.getElementById("sub_pay_cancel_btn").disabled = false;
+								alert("' . $fail_msg . '");
+							},
+							success : function ( status, data ) {
+								document.getElementById("sub_pay_cancel_btn").disabled = false;
+								var mp_status = data.status;
+								var mp_message = data.message;
+								if (data.status == 200) {
+									alert("' . $success_msg . '");
+								} else {
+									alert(mp_message);
+								}
+							}
+						});
+					}
+					MPSubscription.callSubscriptionRefund = function () {
+						var url = "' . $domain . '";
+						url += "&action_mp_payment_id=" + document.getElementById("payment_id").value;
+						url += "&action_mp_payment_amount=" + document.getElementById("payment_amount").value;
+						url += "&action_mp_payment_action=refund";
+						document.getElementById("sub_pay_refund_btn").disabled = true;
+						MPSubscription.AJAX({
+							url: url,
+							method : "GET",
+							timeout : 5000,
+							error: function() {
+								document.getElementById("sub_pay_refund_btn").disabled = false;
+								alert("' . $fail_msg . '");
+							},
+							success : function ( status, data ) {
+								document.getElementById("sub_pay_refund_btn").disabled = false;
+								var mp_status = data.status;
+								var mp_message = data.message;
+								if (data.status == 200) {
+									alert("' . $success_msg . '");
+								} else {
+									alert(mp_message);
+								}
+							}
+						});
+					}
+					MPSubscription.AJAX = function( options ) {
+						var useXDomain = !!window.XDomainRequest;
+						var req = useXDomain ? new XDomainRequest() : new XMLHttpRequest()
+						var data;
+						options.url += ( options.url.indexOf( "?" ) >= 0 ? "&" : "?" );
+						options.requestedMethod = options.method;
+						if ( useXDomain && options.method == "PUT" ) {
+							options.method = "POST";
+							options.url += "&_method=PUT";
+						}
+						req.open( options.method, options.url, true );
+						req.timeout = options.timeout || 1000;
+						if ( window.XDomainRequest ) {
+							req.onload = function() {
+								data = JSON.parse( req.responseText );
+								if ( typeof options.success === "function" ) {
+									options.success( options.requestedMethod === "POST" ? 201 : 200, data );
+								}
+							};
+							req.onerror = req.ontimeout = function() {
+								if ( typeof options.error === "function" ) {
+									options.error( 400, {
+										user_agent:window.navigator.userAgent, error : "bad_request", cause:[]
+									});
+								}
+							};
+							req.onprogress = function() {};
+						} else {
+							req.setRequestHeader( "Accept", "application/json" );
+							if ( options.contentType ) {
+								req.setRequestHeader( "Content-Type", options.contentType );
+							} else {
+								req.setRequestHeader( "Content-Type", "application/json" );
+							}
+							req.onreadystatechange = function() {
+								if ( this.readyState === 4 ) {
+									if ( this.status >= 200 && this.status < 400 ) {
+										// Success!
+										data = JSON.parse( this.responseText );
+										if ( typeof options.success === "function" ) {
+											options.success( this.status, data );
+										}
+									} else if ( this.status >= 400 ) {
+										data = JSON.parse( this.responseText );
+										if ( typeof options.error === "function" ) {
+											options.error( this.status, data );
+										}
+									} else if ( typeof options.error === "function" ) {
+										options.error( 503, {} );
+									}
+								}
+							};
+						}
+						if ( options.method === "GET" || options.data == null || options.data == undefined ) {
+							req.send();
+						} else {
+							req.send( JSON.stringify( options.data ) );
+						}
+					}
+					this.MPSubscription = MPSubscription;
+				} ).call();
+			</script>';
         $subscription_meta_box = '<table>' .
             '<tr class="total">' .
             '<td><label for="payment_id" style="margin-right:1px;">' .

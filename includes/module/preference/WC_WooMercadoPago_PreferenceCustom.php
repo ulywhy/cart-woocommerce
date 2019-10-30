@@ -49,8 +49,8 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         $this->add_discounts_campaign();
 
         $internal_metadata = parent::get_internal_metadata();
-        $internal_metadata = $this->get_internal_metadata_custom($internal_metadata);
-        $this->preference['metadata'] = $internal_metadata;
+		$merge_array = array_merge($internal_metadata, $this->get_internal_metadata_custom());
+        $this->preference['metadata'] = $merge_array;
 
     }
 
@@ -60,11 +60,9 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
     public function ship_cost_item()
     {
         $item = parent::ship_cost_item();
-
         if (isset($item['currency_id'])) {
             unset($item['currency_id']);
         }
-
         return $item;
     }
 

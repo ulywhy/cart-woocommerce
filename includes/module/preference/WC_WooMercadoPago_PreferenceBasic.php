@@ -15,25 +15,25 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
      * @param $order
      */
     public function __construct($payment, $order)
-    {
-        parent::__construct($payment, $order);
-        $this->preference = $this->make_commum_preference();
-        $this->preference['items'] = $this->items;
-        $this->preference['payer'] = $this->get_payer_basic();
-        $this->preference['back_urls'] = $this->get_back_urls();
-        $this->preference['shipments'] = $this->shipments_receiver_address();
+	{
+		parent::__construct($payment, $order);
+		$this->preference = $this->make_commum_preference();
+		$this->preference['items'] = $this->items;
+		$this->preference['payer'] = $this->get_payer_basic();
+		$this->preference['back_urls'] = $this->get_back_urls();
+		$this->preference['shipments'] = $this->shipments_receiver_address();
 
-        if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
-            $this->shipment_info();
-        }
+		if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
+			$this->shipment_info();
+		}
 
-        $this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
-        $this->preference['auto_return'] = $this->auto_return();
+		$this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
+		$this->preference['auto_return'] = $this->auto_return();
 
-        $internal_metadata = parent::get_internal_metadata();
-        $internal_metadata = $this->get_internal_metadata_basic($internal_metadata);
-        $this->preference['metadata'] = $internal_metadata;
-    }
+		$internal_metadata = parent::get_internal_metadata();
+		$merge_array = array_merge($internal_metadata, $this->get_internal_metadata_basic());
+		$this->preference['metadata'] = $merge_array;
+	}
 
 	protected function prepare_shipping()
 	{
