@@ -9,17 +9,11 @@ class WC_WooMercadoPago_Credentials
     const TYPE_ACCESS_TOKEN  = 'token';
 
     public $payment;
-
     public $publicKey;
-
     public $accessToken;
-
     public $clientId;
-
     public $clientSecret;
-
     public $sandbox;
-
     public $log;
 
     /**
