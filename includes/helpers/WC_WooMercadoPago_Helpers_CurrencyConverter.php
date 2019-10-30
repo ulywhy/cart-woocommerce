@@ -250,7 +250,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 			$alertImage = plugins_url('assets/images/warning.png', dirname(dirname(__FILE__)));
 			$errorImage = plugins_url('assets/images/error.png', dirname(dirname(__FILE__)));
 			$checkImage = plugins_url('assets/images/check.png', dirname(dirname(__FILE__)));
-			$imageTag   = '<img src="%s" style="padding: 2px;display: block;float: left;margin-right: 5px;margin-bottom: 10px;" />';
+			$imageTag   = '<img src="%s" style="padding:2px;display:block;float:left;margin-right:5px;margin-bottom:10px;" />';
 
 			//if currency conversion is not enabled, validates messages that need to be shown
 			if (!$this->isEnabled($method)) {
