@@ -21,107 +21,62 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         '_mp_store_identificator',
         '_mp_custom_domain',
         'installments',
-        'auto_return',
+        'auto_return'
     );
+
     const CREDENTIAL_FIELDS = array(
         '_mp_public_key_test',
         '_mp_access_token_test',
         '_mp_public_key_prod',
-        '_mp_access_token_prod',
+        '_mp_access_token_prod'
     );
 
     public $field_forms_order;
-
     public $id;
-
     public $method_title;
-
     public $title;
-
     public $description;
-
     public $ex_payments = array();
-
     public $method;
-
     public $method_description;
-
     public $auto_return;
-
     public $success_url;
-
     public $failure_url;
-
     public $pending_url;
-
     public $installments;
-
     public $form_fields;
-
     public $coupon_mode;
-
     public $payment_type;
-
     public $checkout_type;
-
     public $stock_reduce_mode;
-
     public $date_expiration;
-
     public $hook;
-
     public $supports;
-
     public $icon;
-
     public $mp_category_id;
-
     public $store_identificator;
-
     public $debug_mode;
-
     public $custom_domain;
-
     public $binary_mode;
-
     public $gateway_discount;
-
     public $site_data;
-
     public $log;
-
     public $sandbox;
-
     public $mp;
-
     public $mp_public_key_test;
-
     public $mp_access_token_test;
-
     public $mp_public_key_prod;
-
     public $mp_access_token_prod;
-
     public $notification;
-
     public $checkout_credential_token_production;
-
     public $checkout_country;
-
     public $wc_country;
-
     public $commission;
-
     public $application_id;
-
     public $type_payments;
-
     public $activated_payment;
-
     public $homolog_validate;
-
     public $clientid_old_version;
-
     public $desc;
 
     /**
@@ -136,8 +91,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_access_token_prod = $this->getOption('_mp_access_token_prod');
         $this->checkout_country = get_option('checkout_country', '');
         $this->wc_country = get_option('woocommerce_default_country', '');
-        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production',
-            get_option('checkout_credential_production', 'no'));
+        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', get_option('checkout_credential_production', 'no'));
         $this->description = $this->getOption('description');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
@@ -238,8 +192,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         }
 
         if ($changed) {
-            update_option($this->get_option_key(),
-                apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings));
+            update_option($this->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings));
         }
     }
 
@@ -260,8 +213,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getMpLogo()
     {
-        return '<img width="200" height="52" src="' . plugins_url('../assets/images/mplogo.png',
-                plugin_dir_path(__FILE__)) . '"><br><br>';
+        return '<img width="200" height="52" src="' . plugins_url('../assets/images/mplogo.png', plugin_dir_path(__FILE__)) . '"><br><br>';
     }
 
     /**
@@ -269,8 +221,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getMpIcon()
     {
-        return apply_filters('woocommerce_mercadopago_icon',
-            plugins_url('../assets/images/mercadopago.png', plugin_dir_path(__FILE__)));
+        return apply_filters('woocommerce_mercadopago_icon', plugins_url('../assets/images/mercadopago.png', plugin_dir_path(__FILE__)));
     }
 
     /**
@@ -313,10 +264,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function noticeHomologValidate()
     {
         echo '<div class="notice notice-warning is-dismissible">
-                <p><strong>MERCADO PAGO: </strong>' . sprintf(__('%s, it only takes a few minutes',
-                'woocommerce-mercadopago'),
-                '<a class="homologScroll .mp-mouse_pointer"><b><u>' . __('Approve your account',
-                    'woocommerce-mercadopago') . '</u></b></a>') . '</p>
+                <p><strong>MERCADO PAGO: </strong>' . sprintf(__('%s, it only takes a few minutes', 'woocommerce-mercadopago'), '<a class="homologScroll .mp-mouse_pointer"><b><u>' . __('Approve your account', 'woocommerce-mercadopago') . '</u></b></a>') . '</p>
                 </div>';
     }
 
@@ -364,12 +312,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                     if (isset($_GET['section']) && $_GET['section'] == $this->id && !has_action('woocommerce_update_options_payment_gateways_' . $this->id)) {
                         add_action('admin_notices', array($this, 'noticeHomologValidate'));
                     }
-                    $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country,
-                        $this->application_id);
+                    $form_fields['checkout_steps_link_homolog'] = $this->field_checkout_steps_link_homolog($this->checkout_country, $this->application_id);
                     $form_fields['checkout_homolog_title'] = $this->field_checkout_homolog_title();
                     $form_fields['checkout_homolog_subtitle'] = $this->field_checkout_homolog_subtitle();
-                    $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link($this->checkout_country,
-                        $this->application_id);
+                    $form_fields['checkout_homolog_link'] = $this->field_checkout_homolog_link($this->checkout_country, $this->application_id);
                 }
                 $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
                 $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
@@ -400,11 +346,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_title()
     {
         $field_title = array(
-            'title'       => __('Title', 'woocommerce-mercadopago'),
-            'type'        => 'text',
+            'title' => __('Title', 'woocommerce-mercadopago'),
+            'type' => 'text',
             'description' => '',
-            'class'       => 'hidden-field-mp-title mp-hidden-field',
-            'default'     => $this->title,
+            'class' => 'hidden-field-mp-title mp-hidden-field',
+            'default' => $this->title
         );
         return $field_title;
     }
@@ -415,11 +361,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_description()
     {
         $field_description = array(
-            'title'       => __('Description', 'woocommerce-mercadopago'),
-            'type'        => 'text',
-            'class'       => 'hidden-field-mp-desc mp-hidden-field',
+            'title' => __('Description', 'woocommerce-mercadopago'),
+            'type' => 'text',
+            'class' => 'hidden-field-mp-desc mp-hidden-field',
             'description' => '',
-            'default'     => $this->method_description,
+            'default' => $this->method_description
         );
         return $field_description;
     }
@@ -450,14 +396,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_steps = array(
             'title' => sprintf(
                 '<div class="mp-row">
-              <h4 class="mp-title-checkout-body mp-pb-20">' . __('<b>Follow these steps to activate Mercado Pago in your store:</b>',
-                    'woocommerce-mercadopago') . '</h4>
+              <h4 class="mp-title-checkout-body mp-pb-20">' . __('<b>Follow these steps to activate Mercado Pago in your store:</b>', 'woocommerce-mercadopago') . '</h4>
               
               <div class="col-md-2 mp-text-center mp-pb-10">
                 <p class="number-checkout-body">1</p>
                 <p class="text-checkout-body mp-text-center mp-px-20">
-                  ' . __('Upload your <b>credentials</b> to test the store and charge with your Mercado Pago account <b>depending on the country</b> in which you are registered.',
-                    'woocommerce-mercadopago') . '
+                  ' . __('Upload your <b>credentials</b> to test the store and charge with your Mercado Pago account <b>depending on the country</b> in which you are registered.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             
@@ -471,8 +415,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
               <div class="col-md-2 mp-text-center mp-pb-10">
                 <p class="number-checkout-body">3</p>
                 <p class="text-checkout-body mp-text-center mp-px-20">
-                  ' . __('Add the basic information of your business in the plugin configuration.',
-                    'woocommerce-mercadopago') . '
+                  ' . __('Add the basic information of your business in the plugin configuration.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
@@ -486,14 +429,13 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
               <div class="col-md-2 mp-text-center mp-pb-10">
               <p class="number-checkout-body">5</p>
               <p class="text-checkout-body mp-text-center mp-px-20">
-                ' . __('Go to advanced settings of both the plugin and checkout only when you want to change the presets.',
-                    'woocommerce-mercadopago') . '
+                ' . __('Go to advanced settings of both the plugin and checkout only when you want to change the presets.', 'woocommerce-mercadopago') . '
               </p>
             </div>
             </div>'
             ),
-            'type'  => 'title',
-            'class' => 'mp_title_checkout',
+            'type' => 'title',
+            'class' => 'mp_title_checkout'
         );
         return $checkout_steps;
     }
@@ -506,13 +448,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_steps_link_homolog = array(
             'title' => sprintf(
-                __('Credentials are the keys we provide you to integrate quickly <br>and securely. You must have a %s in Mercado Pago to obtain and collect them <br>on your website. You do not need to know how to design or program to do it',
-                    'woocommerce-mercadopago'),
-                '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('approved account',
-                    'woocommerce-mercadopago') . '</a>'
+                __('Credentials are the keys we provide you to integrate quickly <br>and securely. You must have a %s in Mercado Pago to obtain and collect them <br>on your website. You do not need to know how to design or program to do it', 'woocommerce-mercadopago'),
+                '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('approved account', 'woocommerce-mercadopago') . '</a>'
             ),
-            'type'  => 'title',
-            'class' => 'mp_small_text',
+            'type' => 'title',
+            'class' => 'mp_small_text'
         );
 
         array_splice($this->field_forms_order, 4, 0, 'checkout_steps_link_homolog');
@@ -527,8 +467,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_country_title = array(
             'title' => __('In which country does your Mercado Pago account operate?', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle_bd',
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd'
         );
         return $checkout_country_title;
     }
@@ -555,11 +495,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         }
 
         $checkout_country = array(
-            'title'       => __('Select your country', 'woocommerce-mercadopago'),
-            'type'        => 'select',
+            'title' => __('Select your country', 'woocommerce-mercadopago'),
+            'type' => 'select',
             'description' => __('Select the country in which you operate with Mercado Pago', 'woocommerce-mercadopago'),
-            'default'     => empty($checkout_country) ? $country_default : $checkout_country,
-            'options'     => array(
+            'default' => empty($checkout_country) ? $country_default : $checkout_country,
+            'options' => array(
                 'mla' => __('Argentina', 'woocommerce-mercadopago'),
                 'mlb' => __('Brazil', 'woocommerce-mercadopago'),
                 'mlc' => __('Chile', 'woocommerce-mercadopago'),
@@ -567,7 +507,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 'mlm' => __('Mexico', 'woocommerce-mercadopago'),
                 'mpe' => __('Peru', 'woocommerce-mercadopago'),
                 'mlu' => __('Uruguay', 'woocommerce-mercadopago'),
-            ),
+            )
         );
         return $checkout_country;
     }
@@ -593,11 +533,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_btn_save = array(
             'title' => sprintf(
                 __('%s', 'woocommerce-mercadopago'),
-                '<button name="save" class="woocommerce-save-button mp-save-button" type="submit" value="Save changes">' . __('Save Changes',
-                    'woocommerce-mercadopago') . '</button>'
+                '<button name="save" class="woocommerce-save-button mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>'
             ),
-            'type'  => 'title',
-            'class' => '',
+            'type' => 'title',
+            'class' => ''
         );
         return $checkout_btn_save;
     }
@@ -609,15 +548,14 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_enabled($label)
     {
         $enabled = array(
-            'title'       => __('Activate checkout', 'woocommerce-mercadopago'),
-            'type'        => 'select',
-            'default'     => 'no',
-            'description' => __('Activate the Mercado Pago experience at the checkout of your store.',
-                'woocommerce-mercadopago'),
-            'options'     => array(
-                'no'  => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Yes', 'woocommerce-mercadopago'),
-            ),
+            'title' => __('Activate checkout', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('Activate the Mercado Pago experience at the checkout of your store.', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Yes', 'woocommerce-mercadopago')
+            )
         );
         return $enabled;
     }
@@ -629,8 +567,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $field_checkout_credential_title = array(
             'title' => __('Enter your credentials and choose how to operate', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle_bd',
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd'
         );
         return $field_checkout_credential_title;
     }
@@ -642,8 +580,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_credential_mod_test_title = array(
             'title' => __('Test Mode', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle_mb',
+            'type' => 'title',
+            'class' => 'mp_subtitle_mb'
         );
         return $checkout_credential_mod_test_title;
     }
@@ -654,10 +592,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_mod_test_description()
     {
         $checkout_credential_mod_test_description = array(
-            'title' => __('By default, we activate the Sandbox test environment for you to test before you start selling.',
-                'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_small_text mp-mt--10',
+            'title' => __('By default, we activate the Sandbox test environment for you to test before you start selling.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text mp-mt--10'
         );
         return $checkout_credential_mod_test_description;
     }
@@ -669,8 +606,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_credential_mod_prod_title = array(
             'title' => __('Production Mode', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle_mb',
+            'type' => 'title',
+            'class' => 'mp_subtitle_mb'
         );
         return $checkout_credential_mod_prod_title;
     }
@@ -681,10 +618,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_mod_prod_description()
     {
         $checkout_credential_mod_prod_description = array(
-            'title' => __('When you see that everything is going well, deactivate Sandbox, turn on Production and make way for your online sales.',
-                'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_small_text mp-mt--10',
+            'title' => __('When you see that everything is going well, deactivate Sandbox, turn on Production and make way for your online sales.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text mp-mt--10'
         );
         return $checkout_credential_mod_prod_description;
     }
@@ -695,16 +631,14 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_production()
     {
         $checkout_credential_production = array(
-            'title'       => __('Productio', 'woocommerce-mercadopago'),
-            'type'        => 'select',
-            'description' => __('Choose "YES" only when you are ready to sell. Change to NO to activate the Tests mode.',
-                'woocommerce-mercadopago'),
-            'default'     => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $this->getOption('checkout_credential_production',
-                'no'),
-            'options'     => array(
-                'no'  => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Yes', 'woocommerce-mercadopago'),
-            ),
+            'title' => __('Production', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'description' => __('Choose "YES" only when you are ready to sell. Change to NO to activate the Tests mode.', 'woocommerce-mercadopago'),
+            'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $this->getOption('checkout_credential_production', 'no'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Yes', 'woocommerce-mercadopago')
+            )
         );
         return $checkout_credential_production;
     }
@@ -725,8 +659,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                             </th>
                             <td class="forminp">
                                 <fieldset>
-                                    <a class="mp_general_links" href="https://www.mercadopago.com/' . $country . '/account/credentials" target="_blank">' . __('Search my credentials',
-                    'woocommerce-mercadopago') . '</a>
+                                    <a class="mp_general_links" href="https://www.mercadopago.com/' . $country . '/account/credentials" target="_blank">' . __('Search my credentials', 'woocommerce-mercadopago') . '</a>
                                     <p class="description mp-fw-400 mp-mb-0"></p>
                                 </fieldset>
                             </td>
@@ -734,7 +667,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                     </tbody>
                 </table>'
             ),
-            'type'  => 'title',
+            'type' => 'title',
         );
         return $checkout_credential_link;
     }
@@ -746,7 +679,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_credential_title_test = array(
             'title' => __('Test credentials', 'woocommerce-mercadopago'),
-            'type'  => 'title',
+            'type' => 'title',
         );
         return $checkout_credential_title_test;
     }
@@ -758,8 +691,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_credential__description_test = array(
             'title' => __('With these keys you can do the tests you want..', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_small_text mp-mt--10',
+            'type' => 'title',
+            'class' => 'mp_small_text mp-mt--10'
         );
         return $checkout_credential__description_test;
     }
@@ -770,11 +703,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_publickey_test()
     {
         $mp_public_key_test = array(
-            'title'       => __('Public key', 'woocommerce-mercadopago'),
-            'type'        => 'text',
+            'title' => __('Public key', 'woocommerce-mercadopago'),
+            'type' => 'text',
             'description' => '',
-            'default'     => $this->getOption('_mp_public_key_test', ''),
-            'placeholder' => 'TEST-00000000-0000-0000-0000-000000000000',
+            'default' => $this->getOption('_mp_public_key_test', ''),
+            'placeholder' => 'TEST-00000000-0000-0000-0000-000000000000'
         );
 
         return $mp_public_key_test;
@@ -786,11 +719,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_accesstoken_test()
     {
         $mp_access_token_test = array(
-            'title'       => __('Access token', 'woocommerce-mercadopago'),
-            'type'        => 'text',
+            'title' => __('Access token', 'woocommerce-mercadopago'),
+            'type' => 'text',
             'description' => '',
-            'default'     => $this->getOption('_mp_access_token_test', ''),
-            'placeholder' => 'TEST-000000000000000000000000000000000-000000-00000000000000000000000000000000-000000000',
+            'default' => $this->getOption('_mp_access_token_test', ''),
+            'placeholder' => 'TEST-000000000000000000000000000000000-000000-00000000000000000000000000000000-000000000'
         );
 
         return $mp_access_token_test;
@@ -803,7 +736,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_credential_title_prod = array(
             'title' => __('Production credentials!', 'woocommerce-mercadopago'),
-            'type'  => 'title',
+            'type' => 'title',
         );
         return $checkout_credential_title_prod;
     }
@@ -814,10 +747,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_description_prod()
     {
         $checkout_credential__description_prod = array(
-            'title' => __('With these keys you can receive real payments from your customers.',
-                'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_small_text mp-mt--10',
+            'title' => __('With these keys you can receive real payments from your customers.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text mp-mt--10'
         );
         return $checkout_credential__description_prod;
     }
@@ -828,11 +760,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_publickey_prod()
     {
         $mp_public_key_prod = array(
-            'title'       => __('Public key', 'woocommerce-mercadopago'),
-            'type'        => 'text',
+            'title' => __('Public key', 'woocommerce-mercadopago'),
+            'type' => 'text',
             'description' => '',
-            'default'     => $this->getOption('_mp_public_key_prod', ''),
-            'placeholder' => 'APP-USR-00000000-0000-0000-0000-000000000000',
+            'default' => $this->getOption('_mp_public_key_prod', ''),
+            'placeholder' => 'APP-USR-00000000-0000-0000-0000-000000000000'
 
         );
 
@@ -845,12 +777,13 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_accesstoken_prod()
     {
         $mp_public_key_prod = array(
-            'title'       => __('Access token', 'woocommerce-mercadopago'),
-            'type'        => 'text',
+            'title' => __('Access token', 'woocommerce-mercadopago'),
+            'type' => 'text',
             'description' => '',
-            'default'     => $this->getOption('_mp_access_token_prod', ''),
-            'placeholder' => 'APP-USR-000000000000000000000000000000000-000000-00000000000000000000000000000000-000000000',
+            'default' => $this->getOption('_mp_access_token_prod', ''),
+            'placeholder' => 'APP-USR-000000000000000000000000000000000-000000-00000000000000000000000000000000-000000000'
         );
+
 
         return $mp_public_key_prod;
     }
@@ -862,8 +795,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_homolog_title = array(
             'title' => __('Approve your account, it will only take a few minutes', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle_bd',
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd'
         );
         return $checkout_homolog_title;
     }
@@ -874,10 +807,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_homolog_subtitle()
     {
         $checkout_homolog_subtitle = array(
-            'title' => __('Complete this process to secure your customers data and comply with the regulations<br> and legal provisions of each country.',
-                'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_text mp-mt--10',
+            'title' => __('Complete this process to secure your customers data and comply with the regulations<br> and legal provisions of each country.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_text mp-mt--10'
         );
         return $checkout_homolog_subtitle;
     }
@@ -890,11 +822,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_homolog_link = array(
             'title' => sprintf(
                 __('%s', 'woocommerce-mercadopago'),
-                '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('Homologate account in Mercado Pago',
-                    'woocommerce-mercadopago') . '</a>'
+                '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('Homologate account in Mercado Pago', 'woocommerce-mercadopago') . '</a>'
             ),
-            'type'  => 'title',
-            'class' => 'mp_tienda_link',
+            'type' => 'title',
+            'class' => 'mp_tienda_link'
         );
         return $checkout_homolog_link;
     }
@@ -905,10 +836,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_mp_statement_descriptor()
     {
         $mp_statement_descriptor = array(
-            'title'       => __('Store Description', 'woocommerce-mercadopago'),
-            'type'        => 'text',
+            'title' => __('Store Description', 'woocommerce-mercadopago'),
+            'type' => 'text',
             'description' => __('This name will appear on your customers invoice.', 'woocommerce-mercadopago'),
-            'default'     => __('Mercado Pago', 'woocommerce-mercadopago'),
+            'default' => __('Mercado Pago', 'woocommerce-mercadopago')
         );
         return $mp_statement_descriptor;
     }
@@ -921,16 +852,14 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $category_store = WC_WooMercadoPago_Module::$categories;
         $option_category = array();
         for ($i = 0; $i < count($category_store['store_categories_id']); $i++) {
-            $option_category[$category_store['store_categories_id'][$i]] = __($category_store['store_categories_id'][$i],
-                'woocommerce-mercadopago');
+            $option_category[$category_store['store_categories_id'][$i]] = __($category_store['store_categories_id'][$i], 'woocommerce-mercadopago');
         }
         $field_category_store = array(
-            'title'       => __('Store Category', 'woocommerce-mercadopago'),
-            'type'        => 'select',
-            'description' => __('What category do your products belong to? Choose the one that best characterizes them (choose <br>"other" if your product is too specific).',
-                'woocommerce-mercadopago'),
-            'default'     => __('Categories', 'woocommerce-mercadopago'),
-            'options'     => $option_category,
+            'title' => __('Store Category', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'description' => __('What category do your products belong to? Choose the one that best characterizes them (choose <br>"other" if your product is too specific).', 'woocommerce-mercadopago'),
+            'default' => __('Categories', 'woocommerce-mercadopago'),
+            'options' => $option_category
         );
         return $field_category_store;
     }
@@ -941,11 +870,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_mp_store_identificator()
     {
         $store_identificator = array(
-            'title'       => __('Store ID', 'woocommerce-mercadopago'),
-            'type'        => 'text',
-            'description' => __('Use a number or prefix to identify orders and payments from this store.',
-                'woocommerce-mercadopago'),
-            'default'     => __('WC-', 'woocommerce-mercadopago'),
+            'title' => __('Store ID', 'woocommerce-mercadopago'),
+            'type' => 'text',
+            'description' => __('Use a number or prefix to identify orders and payments from this store.', 'woocommerce-mercadopago'),
+            'default' => __('WC-', 'woocommerce-mercadopago')
         );
         return $store_identificator;
     }
@@ -957,8 +885,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_options_explanation = array(
             'title' => __('Advanced settings', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle_bd',
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd'
         );
         return $checkout_options_explanation;
     }
@@ -969,16 +897,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_debug_mode()
     {
         $debug_mode = array(
-            'title'       => __('Debug and Log mode', 'woocommerce-mercadopago'),
-            'type'        => 'select',
-            'default'     => 'no',
-            'description' => __('Record your store actions in our changes file to have more support information.',
-                'woocommerce-mercadopago'),
-            'desc_tip'    => __('We debug the information in our change file.', 'woocommerce-mercadopago'),
-            'options'     => array(
-                'no'  => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Yes', 'woocommerce-mercadopago'),
-            ),
+            'title' => __('Debug and Log mode', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('Record your store actions in our changes file to have more support information.', 'woocommerce-mercadopago'),
+            'desc_tip' => __('We debug the information in our change file.', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Yes', 'woocommerce-mercadopago')
+            )
         );
         return $debug_mode;
     }
@@ -990,8 +917,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_payments_subtitle = array(
             'title' => __('Basic Configuration', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle mp-mt-5',
+            'type' => 'title',
+            'class' => 'mp_subtitle mp-mt-5'
         );
         return $checkout_payments_subtitle;
     }
@@ -1002,10 +929,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_options_description()
     {
         $checkout_options_description = array(
-            'title' => __('Enable Mercado Pago in your online store, select the means of payment available to your customers and <br>define the maximum fees in which they can pay you.',
-                'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_small_text',
+            'title' => __('Enable Mercado Pago in your online store, select the means of payment available to your customers and <br>define the maximum fees in which they can pay you.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text'
         );
         return $checkout_options_description;
     }
@@ -1016,23 +942,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_installments()
     {
         $installments = array(
-            'title'       => __('Max of installments', 'woocommerce-mercadopago'),
-            'type'        => 'select',
+            'title' => __('Max of installments', 'woocommerce-mercadopago'),
+            'type' => 'select',
             'description' => __('What is the maximum quota with which a customer can buy?', 'woocommerce-mercadopago'),
-            'default'     => '24',
-            'options'     => array(
-                '1'  => __('1x installment', 'woocommerce-mercadopago'),
-                '2'  => __('2x installments', 'woocommerce-mercadopago'),
-                '3'  => __('3x installments', 'woocommerce-mercadopago'),
-                '4'  => __('4x installments', 'woocommerce-mercadopago'),
-                '5'  => __('5x installments', 'woocommerce-mercadopago'),
-                '6'  => __('6x installments', 'woocommerce-mercadopago'),
+            'default' => '24',
+            'options' => array(
+                '1' => __('1x installment', 'woocommerce-mercadopago'),
+                '2' => __('2x installments', 'woocommerce-mercadopago'),
+                '3' => __('3x installments', 'woocommerce-mercadopago'),
+                '4' => __('4x installments', 'woocommerce-mercadopago'),
+                '5' => __('5x installments', 'woocommerce-mercadopago'),
+                '6' => __('6x installments', 'woocommerce-mercadopago'),
                 '10' => __('10x installments', 'woocommerce-mercadopago'),
                 '12' => __('12x installments', 'woocommerce-mercadopago'),
                 '15' => __('15x installments', 'woocommerce-mercadopago'),
                 '18' => __('18x installments', 'woocommerce-mercadopago'),
-                '24' => __('24x installments', 'woocommerce-mercadopago'),
-            ),
+                '24' => __('24x installments', 'woocommerce-mercadopago')
+            )
         );
         return $installments;
     }
@@ -1060,18 +986,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_custom_url_ipn()
     {
         $custom_url_ipn = array(
-            'title'       => __('URL for IPN', 'woocommerce-mercadopago'),
-            'type'        => 'text',
+            'title' => __('URL for IPN', 'woocommerce-mercadopago'),
+            'type' => 'text',
             'description' => sprintf(
-                __('Enter a URL to receive payment notifications. In %s you can check more information.',
-                    'woocommerce-mercadopago'),
-                '<a href="' . $this->getCountryLinkGuide($this->checkout_country) . 'guides/notifications/ipn/">' . __('our guides',
-                    'woocommerce-mercadopago') .
+                __('Enter a URL to receive payment notifications. In %s you can check more information.', 'woocommerce-mercadopago'),
+                '<a href="' . $this->getCountryLinkGuide($this->checkout_country) . 'guides/notifications/ipn/">' . __('our guides', 'woocommerce-mercadopago') .
                 '</a>'
             ),
-            'default'     => '',
-            'desc_tip'    => __('IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías.',
-                'woocommerce-services'),
+            'default' => '',
+            'desc_tip' => __('IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías.', 'woocommerce-services')
         );
         return $custom_url_ipn;
     }
@@ -1082,10 +1005,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_payments_advanced_description()
     {
         $checkout_payments_advanced_description = array(
-            'title' => __('Edit these advanced fields only when you want to modify the preset values.',
-                'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_small_text mp-mt--10',
+            'title' => __('Edit these advanced fields only when you want to modify the preset values.', 'woocommerce-mercadopago'),
+            'type' => 'title',
+            'class' => 'mp_small_text mp-mt--10'
         );
         return $checkout_payments_advanced_description;
     }
@@ -1096,15 +1018,14 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_coupon_mode()
     {
         return array(
-            'title'       => __('Discount coupons', 'woocommerce-mercadopago'),
-            'type'        => 'select',
-            'default'     => 'no',
-            'description' => __('Will you offer discount coupons to customers who buy with Mercado Pago?',
-                'woocommerce-mercadopago'),
-            'options'     => array(
-                'no'  => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Yes', 'woocommerce-mercadopago'),
-            ),
+            'title' => __('Discount coupons', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('Will you offer discount coupons to customers who buy with Mercado Pago?', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Yes', 'woocommerce-mercadopago')
+            )
         );
     }
 
@@ -1115,13 +1036,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $noCredentials = array(
             'title' => sprintf(
-                __('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.',
-                    'woocommerce-mercadopago'),
-                '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Market Payment Configuration',
-                    'woocommerce-mercadopago') .
+                __('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago'),
+                '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Market Payment Configuration', 'woocommerce-mercadopago') .
                 '</a>'
             ),
-            'type'  => 'title',
+            'type' => 'title'
         );
         return $noCredentials;
     }
@@ -1132,17 +1051,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_binary_mode()
     {
         $binary_mode = array(
-            'title'       => __('Binary mode', 'woocommerce-mercadopago'),
-            'type'        => 'select',
-            'default'     => 'no',
-            'description' => __('Accept and reject payments automatically. Do you want us to activate it?',
-                'woocommerce-mercadopago'),
-            'desc_tip'    => __('Si activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta.',
-                'woocommerce-services'),
-            'options'     => array(
+            'title' => __('Binary mode', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('Accept and reject payments automatically. Do you want us to activate it?', 'woocommerce-mercadopago'),
+            'desc_tip' => __('Si activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta.', 'woocommerce-services'),
+            'options' => array(
                 'yes' => __('Yes', 'woocommerce-mercadopago'),
-                'no'  => __('No', 'woocommerce-mercadopago'),
-            ),
+                'no' => __('No', 'woocommerce-mercadopago')
+            )
         );
         return $binary_mode;
     }
@@ -1153,16 +1070,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_gateway_discount()
     {
         $gateway_discount = array(
-            'title'             => __('Gateway Discounts', 'woocommerce-mercadopago'),
-            'type'              => 'number',
-            'description'       => __('Choose a percentage value that you want to discount your customers for paying with Mercado Pago.',
-                'woocommerce-mercadopago'),
-            'default'           => '0',
+            'title' => __('Gateway Discounts', 'woocommerce-mercadopago'),
+            'type' => 'number',
+            'description' => __('Choose a percentage value that you want to discount your customers for paying with Mercado Pago.', 'woocommerce-mercadopago'),
+            'default' => '0',
             'custom_attributes' => array(
                 'step' => '0.01',
-                'min'  => '0',
-                'max'  => '99',
-            ),
+                'min' => '0',
+                'max' => '99'
+            )
         );
         return $gateway_discount;
     }
@@ -1173,16 +1089,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_commission()
     {
         $commission = array(
-            'title'             => __('Commission for purchase with Mercado Pago', 'woocommerce-mercadopago'),
-            'type'              => 'number',
-            'description'       => __('Choose an additional percentage value that you want to charge as commission to your customers for paying with Mercado Pago.',
-                'woocommerce-mercadopago'),
-            'default'           => '0',
+            'title' => __('Commission for purchase with Mercado Pago', 'woocommerce-mercadopago'),
+            'type' => 'number',
+            'description' => __('Choose an additional percentage value that you want to charge as commission to your customers for paying with Mercado Pago.', 'woocommerce-mercadopago'),
+            'default' => '0',
             'custom_attributes' => array(
                 'step' => '0.01',
-                'min'  => '0',
-                'max'  => '99',
-            ),
+                'min' => '0',
+                'max' => '99'
+            )
         );
         return $commission;
     }
@@ -1197,6 +1112,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_ready_title()
     {
+
         if ($this->checkout_credential_token_production == 'yes') {
             $message_ready_title = __('Everything ready for the takeoff of your sales?', 'woocommerce-mercadopago');
         } else {
@@ -1205,8 +1121,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
 
         $checkout_options_title = array(
             'title' => $message_ready_title,
-            'type'  => 'title',
-            'class' => 'mp_subtitle_bd_mb mp-mg-0',
+            'type' => 'title',
+            'class' => 'mp_subtitle_bd_mb mp-mg-0'
         );
         return $checkout_options_title;
     }
@@ -1217,17 +1133,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_ready_description()
     {
         if ($this->checkout_credential_token_production == 'yes') {
-            $message_ready_description = __('You already went to Production. You just need your best customers <br> to arrive at your store to live the best online shopping experience with Mercado Pago.',
-                'woocommerce-mercadopago');
+            $message_ready_description = __('You already went to Production. You just need your best customers <br> to arrive at your store to live the best online shopping experience with Mercado Pago.', 'woocommerce-mercadopago');
         } else {
-            $message_ready_description = __('Visit your store as if you were one of your customers and check that everything is fine. If you already went to Production,<br> bring your customers and increase your sales with the best online shopping experience.',
-                'woocommerce-mercadopago');
+            $message_ready_description = __('Visit your store as if you were one of your customers and check that everything is fine. If you already went to Production,<br> bring your customers and increase your sales with the best online shopping experience.', 'woocommerce-mercadopago');
         }
 
         $checkout_options_subtitle = array(
             'title' => $message_ready_description,
-            'type'  => 'title',
-            'class' => 'mp_small_text',
+            'type' => 'title',
+            'class' => 'mp_small_text'
         );
         return $checkout_options_subtitle;
     }
@@ -1248,8 +1162,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 __('%s', 'woocommerce-mercadopago'),
                 '<a href="' . get_site_url() . '" target="_blank">' . $message_link . '</a>'
             ),
-            'type'  => 'title',
-            'class' => 'mp_tienda_link',
+            'type' => 'title',
+            'class' => 'mp_tienda_link'
         );
         return $checkout_options_subtitle;
     }
@@ -1348,8 +1262,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 }
 
                 $options['enabled'] = 'no';
-                update_option($key,
-                    apply_filters('woocommerce_settings_api_sanitized_fields_' . $gateway::getId(), $options));
+                update_option($key, apply_filters('woocommerce_settings_api_sanitized_fields_' . $gateway::getId(), $options));
             }
         }
     }

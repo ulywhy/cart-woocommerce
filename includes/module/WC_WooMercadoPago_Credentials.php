@@ -28,8 +28,7 @@ class WC_WooMercadoPago_Credentials
 
         if (!is_null($this->payment)) {
             $this->sandbox = $payment->isTestUser();
-            if ($this->payment->getOption('checkout_credential_production',
-                    '') == 'no' || empty($this->payment->getOption('checkout_credential_production', ''))) {
+            if ($this->payment->getOption('checkout_credential_production', '') == 'no' || empty($this->payment->getOption('checkout_credential_production', ''))) {
                 $publicKey = get_option('_mp_public_key_test', '');
                 $accessToken = get_option('_mp_access_token_test', '');
             }
@@ -95,7 +94,7 @@ class WC_WooMercadoPago_Credentials
         update_option('_test_user_v1', '', true);
         update_option('_site_id_v1', '', true);
         update_option('_collector_id_v1', '', true);
-        update_option('_all_payment_methods_v0', [], true);
+        update_option('_all_payment_methods_v0', array(), true);
         update_option('_all_payment_methods_ticket', '[]', true);
         update_option('_can_do_currency_conversion_v1', false, true);
     }
@@ -150,6 +149,7 @@ class WC_WooMercadoPago_Credentials
             $access_token = $mp_v1->get_access_token();
             $get_request = $mp_v1->get('/users/me?access_token=' . $access_token);
             if (isset($get_request['response']['site_id']) && (!empty($credentials->publicKey) || $basicIsEnabled == 'yes')) {
+
                 update_option('_test_user_v1', in_array('test_user', $get_request['response']['tags']), true);
                 update_option('_site_id_v1', $get_request['response']['site_id'], true);
                 update_option('_collector_id_v1', $get_request['response']['id'], true);
@@ -214,18 +214,22 @@ class WC_WooMercadoPago_Credentials
             return;
         }
 
-        $arr = [];
-        $cho = [];
+        $arr = array();
+        $cho = array();
+        $excluded = array('consumer_credits');
+
         foreach ($paymentsResponse as $payment) {
+            if(in_array($payment['id'], $excluded)){ continue; }
+
             $arr[] = $payment['id'];
 
-            $cho[] = [
-                "id"     => $payment['id'],
-                "name"   => $payment['name'],
-                "type"   => $payment['payment_type_id'],
-                "image"  => $payment['secure_thumbnail'],
+            $cho[] = array(
+                "id" => $payment['id'],
+                "name" => $payment['name'],
+                "type" => $payment['payment_type_id'],
+                "image" => $payment['secure_thumbnail'],
                 "config" => "ex_payments_" . $payment['id'],
-            ];
+            );
         }
 
         update_option('_all_payment_methods_v0', implode(',', $arr), true);
@@ -251,20 +255,23 @@ class WC_WooMercadoPago_Credentials
             return;
         }
 
-        $payment_methods_ticket = [];
+        $payment_methods_ticket = array();
+        $excluded = array('consumer_credits');
+
         foreach ($paymentsResponse as $payment) {
-            if (
-                $payment['payment_type_id'] != 'account_money' &&
-                $payment['payment_type_id'] != 'credit_card' &&
-                $payment['payment_type_id'] != 'debit_card' &&
-                $payment['payment_type_id'] != 'prepaid_card'
-            ) {
-                $obj = new stdClass();
-                $obj->id = $payment['id'];
-                $obj->name = $payment['name'];
-                $obj->secure_thumbnail = $payment['secure_thumbnail'];
-                array_push($payment_methods_ticket, $obj);
-            }
+          if (
+              !in_array($payment['id'], $excluded) &&
+              $payment['payment_type_id'] != 'account_money' &&
+              $payment['payment_type_id'] != 'credit_card' &&
+              $payment['payment_type_id'] != 'debit_card' &&
+              $payment['payment_type_id'] != 'prepaid_card'
+          ) {
+              $payment_methods_ticket[] = array(
+                  "id" => $payment['id'],
+                  "name" => $payment['name'],
+                  "secure_thumbnail" => $payment['secure_thumbnail'],
+              );
+          }
         }
 
         update_option('_all_payment_methods_ticket', json_encode($payment_methods_ticket), true);

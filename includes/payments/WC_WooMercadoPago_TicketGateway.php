@@ -162,7 +162,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public static function get_activated_payment()
     {
         $activated_payment = array();
-        $get_payment_methods_ticket = json_decode(get_option('_all_payment_methods_ticket', ''), true);
+        $get_payment_methods_ticket = get_option('_all_payment_methods_ticket', '');
 
         if (!empty($get_payment_methods_ticket)) {
             $saved_optons = get_option('woocommerce_woo-mercado-pago-ticket_settings', '');
@@ -304,7 +304,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $ticket_payments = array();
         $ticket_payments_sort = array();
 
-        $get_payment_methods_ticket = json_decode(get_option('_all_payment_methods_ticket', '[]'), true);
+        $get_payment_methods_ticket = get_option('_all_payment_methods_ticket', '[]');
 
         $count_payment = 0;
 
