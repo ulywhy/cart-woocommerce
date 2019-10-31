@@ -5,7 +5,6 @@
  */
 class WC_WooMercadoPago_Credentials
 {
-
     const TYPE_ACCESS_CLIENT = 'client';
     const TYPE_ACCESS_TOKEN = 'token';
 
@@ -159,8 +158,10 @@ class WC_WooMercadoPago_Credentials
                 self::updatePaymentMethods($mp_v1, $access_token, $payments_response);
                 self::updateTicketMethod($mp_v1, $access_token, $payments_response);
 
-                $country_configs = WC_WooMercadoPago_Module::getCountryConfigs();
-                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate($country_configs[$get_request['response']['site_id']]['currency']);
+                $currency_ratio = WC_WooMercadoPago_Module::get_conversion_rate(
+                    WC_WooMercadoPago_Module::$country_configs[$get_request['response']['site_id']]['currency']
+                );
+
                 if ($currency_ratio > 0) {
                     update_option('_can_do_currency_conversion_v1', true, true);
                 } else {
@@ -215,12 +216,12 @@ class WC_WooMercadoPago_Credentials
         $arr = array();
         $cho = array();
         $excluded = array('consumer_credits');
-      
+
         foreach ($paymentsResponse as $payment) {
             if(in_array($payment['id'], $excluded)){ continue; }
-          
+
             $arr[] = $payment['id'];
-            
+
             $cho[] = array(
                 "id" => $payment['id'],
                 "name" => $payment['name'],
@@ -255,8 +256,8 @@ class WC_WooMercadoPago_Credentials
 
         $payment_methods_ticket = array();
         $excluded = array('consumer_credits');
-      
-        foreach ($paymentsResponse as $payment) {          
+
+        foreach ($paymentsResponse as $payment) {
           if (
               !in_array($payment['id'], $excluded) &&
               $payment['payment_type_id'] != 'account_money' &&
@@ -271,7 +272,7 @@ class WC_WooMercadoPago_Credentials
               );
           }
         }
-        
+
         update_option('_all_payment_methods_ticket', $payment_methods_ticket, true);
     }
 

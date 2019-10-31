@@ -23,10 +23,6 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $this->preference['back_urls'] = $this->get_back_urls();
         $this->preference['shipments'] = $this->shipments_receiver_address();
 
-        if (strpos($this->selected_shipping, 'Mercado Envios') !== 0 && $this->ship_cost > 0) {
-            $this->preference['items'][] = $this->ship_cost_item();
-        }
-
         if (strpos($this->selected_shipping, 'Mercado Envios') === 0 && $this->ship_cost > 0) {
             $this->shipment_info();
         }
@@ -34,11 +30,18 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         $this->preference['payment_methods'] = $this->get_payment_methods($this->ex_payments, $this->installments);
         $this->preference['auto_return'] = $this->auto_return();
 
-
         $internal_metadata = parent::get_internal_metadata();
         $merge_array = array_merge($internal_metadata, $this->get_internal_metadata_basic());
         $this->preference['metadata'] = $merge_array;
+    }
 
+    protected function prepare_shipping()
+    {
+        if (strpos($this->selected_shipping, 'Mercado Envios') !== 0) {
+            return parent::prepare_shipping();
+        }
+
+        return array();
     }
 
     /**
@@ -52,7 +55,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             'email' => $this->order->get_billing_email(),
             'phone' => array(
                 //'area_code' =>
-                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone)
+                'number' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_phone() : $this->order->billing_phone),
             ),
             'address' => array(
                 'zip_code' => (method_exists($this->order, 'get_id') ? $this->order->get_billing_postcode() : $this->order->billing_postcode),
@@ -159,7 +162,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             }
         }
     }
-  
+
     /**
      * @return array
      */
@@ -169,7 +172,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
             "checkout" => "smart",
             "checkout_type" => "",
         );
-      
+
         return $internal_metadata;
-    }  
+    }
 }
