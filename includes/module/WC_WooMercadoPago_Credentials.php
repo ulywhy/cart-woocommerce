@@ -34,6 +34,11 @@ class WC_WooMercadoPago_Credentials
             }
         }
 
+        if (is_null($this->payment) && empty($publicKey) && empty($accessToken)) {
+            $publicKey = get_option('_mp_public_key_test', '');
+            $accessToken = get_option('_mp_access_token_test', '');
+        }
+
         $this->publicKey = $publicKey;
         $this->accessToken = $accessToken;
         $this->clientId = get_option('_mp_client_id');
