@@ -138,12 +138,13 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_payments_subtitle',
             'checkout_payments_description',
             'enabled',
+            WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
+            'field_ticket_payments',
             'date_expiration',
             // Advanced configuration of the personalized payment experience"
             'checkout_ticket_payments_advanced_title',
             'checkout_payments_advanced_description',
             'coupon_mode',
-            WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'stock_reduce_mode',
             'gateway_discount',
             'commission',
@@ -337,7 +338,15 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             $ticket_payments_sort[] = "ticket_payment_" . $payment_method_ticket['id'];
         }
 
-        array_splice($this->field_forms_order, 37, 0, $ticket_payments_sort);
+        $index = 0;
+        foreach ($this->field_forms_order as $k => $field) {
+            $index ++;
+            if ($field == 'field_ticket_payments') {
+                unset($this->field_forms_order[$k]);
+                array_splice($this->field_forms_order, $index, 0, $ticket_payments_sort);
+                break;
+            }
+        }
 
         return $ticket_payments;
     }

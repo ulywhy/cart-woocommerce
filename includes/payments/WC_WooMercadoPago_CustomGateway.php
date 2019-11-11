@@ -129,12 +129,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_payments_subtitle',
             'checkout_payments_description',
             'enabled',
+            WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             // Advanced configuration of the personalized payment experience"
             'checkout_custom_payments_advanced_title',
             'checkout_payments_advanced_description',
             'coupon_mode',
             'binary_mode',
-            WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'gateway_discount',
             'commission',
             // Everything ready for the takeoff of your sales?
