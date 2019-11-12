@@ -247,7 +247,7 @@
                 selectorInstallments.innerHTML = html_option;
                 if (seller.site_id == "MLA") {
                     clearTax();
-                    $('body').on('change', '#mp-installments', showTaxes);;
+                    $('body').on('change', '#mp-installments', showTaxes);
                 }
             } else {
                 clearInstallments();
@@ -259,8 +259,8 @@
         * Show taxes resolution 51/2017 for MLA
         */
         function showTaxes() {
-            var selectorIsntallments = document.querySelector('#mp-installments');
-            var tax = selectorIsntallments.options[selectorIsntallments.selectedIndex].getAttribute("data-tax");
+            var selectorInstallments = document.querySelector('#mp-installments');
+            var tax = selectorInstallments.options[selectorInstallments.selectedIndex].getAttribute("data-tax");
             var cft = "";
             var tea = "";
             if (tax != null) {
