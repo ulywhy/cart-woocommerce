@@ -10,22 +10,17 @@
             public_key: ''
         }
         var coupon_of_discounts = {
-            discount_action_url: '',
-            payer_email: '',
-            default: true,
+            discount_action_url: wc_mercadopago_params.discount_action_url,
+            payer_email: wc_mercadopago_params.payer_email,
+            default: wc_mercadopago_params.coupon_mode,
             status: false
         }
 
         var objPaymentMethod = {};
         var additionalInfoNeeded = {}
 
-        // Sets
         seller.site_id = wc_mercadopago_params.site_id;
         seller.public_key = wc_mercadopago_params.public_key;
-
-        coupon_of_discounts.default = wc_mercadopago_params.coupon_mode;
-        coupon_of_discounts.discount_action_url = wc_mercadopago_params.discount_action_url;
-        coupon_of_discounts.payer_email = wc_mercadopago_params.payer_email;
 
         if ($('form#order_review').length > 0) {
             showPaymentsLink();
@@ -33,7 +28,7 @@
         }
 
         $('body').on('updated_checkout', function () {
-            
+
             if (document.getElementById('mp-card-number').value != 0) {
                 document.getElementById('mp-card-number').value = '';
                 resetBackgroundCard();
@@ -54,11 +49,7 @@
         function showPaymentsLink() {
             var frame_payments = document.querySelector("#mp-frame-payments");
             $("#button-show-payments").on('click', function () {
-                if (frame_payments.style.display == "inline-block") {
-                    frame_payments.style.display = "none";
-                } else {
-                    frame_payments.style.display = "inline-block";
-                }
+                frame_payments.style.display = frame_payments.style.display == 'inline-block' ? 'none' : 'inline-block';
             });
         }
 
@@ -76,13 +67,14 @@
          * @param {object} event 
          */
         function guessingPaymentMethod(event) {
+            clearIssuer();
+            clearInstallments();
+            clearTax();
+
             var bin = getBin();
 
             if (bin.length < 6) {
                 resetBackgroundCard();
-                clearInstallments();
-                clearTax();
-                clearIssuer();
                 return;
             }
 
@@ -172,10 +164,6 @@
                 setInstallments();
             }
 
-            if (additionalInfoNeeded.cardholder_name) {
-
-            }
-
             if (additionalInfoNeeded.cardholder_identification_type) {
                 document.getElementById('mp-doc-div').style.display = 'inline-block';
                 document.getElementById('mp-doc-type-div').style.display = "block";
@@ -224,6 +212,25 @@
         }
 
         /**
+         * Resolution 51/2017
+         * 
+         * @param {*} payerCosts 
+         * @returns {string}
+         */
+        function argentinaResolution(payerCosts) {
+            var dataInput = '';
+            if (seller.site_id == 'MLA') {
+                for (var l = 0; l < payerCosts.length; l++) {
+                    if (payerCosts[l].indexOf('CFT_') !== -1) {
+                        dataInput = 'data-tax="' + payerCosts[l] + '"';
+                    }
+                }
+                return dataInput;
+            }
+            return dataInput;
+        }
+
+        /**
          * Get instalments
          * 
          * @param {number} status 
@@ -232,44 +239,23 @@
         function installmentHandler(status, response) {
             if (status == 200) {
                 var selectorInstallments = document.getElementById('mp-installments');
+                var html_option = "<option value='-1'>" + wc_mercadopago_params.choose + "...</option>";
+                var payerCosts = response[0].payer_costs;
 
-                if (response.length > 0) {
-
-                    var html_option = "<option value='-1'>" + wc_mercadopago_params.choose + "...</option>";
-                    var payerCosts = response[0].payer_costs;
-
-                    for (var i = 0; i < payerCosts.length; i++) {
-                        // Resolution 51/2017
-                        var dataInput = "";
-                        if (seller.site_id == "MLA") {
-                            var tax = payerCosts[i].labels;
-                            if (tax.length > 0) {
-                                for (var l = 0; l < tax.length; l++) {
-                                    if (tax[l].indexOf("CFT_") !== -1) {
-                                        dataInput = "data-tax='" + tax[l] + "'";
-                                    }
-                                }
-                            }
-                        }
-                        html_option += "<option value='" + payerCosts[i].installments + "' " + dataInput + ">" +
-                            (payerCosts[i].recommended_message || payerCosts[i].installments) +
-                            "</option>";
-                    }
-
-                    // Not take the user's selection if equal.
-                    if (selectorInstallments.innerHTML != html_option) {
-                        selectorInstallments.innerHTML = html_option;
-                    }
-                    if (seller.site_id == "MLA") {
-                        clearTax();
-                        $('body').on('change', '#mp-installments', showTaxes);;
-                    }
+                for (var i = 0; i < payerCosts.length; i++) {
+                    html_option += "<option value='" + payerCosts[i].installments + "' " + argentinaResolution(payerCosts[i].labels) + ">" +
+                        (payerCosts[i].recommended_message || payerCosts[i].installments) +
+                        "</option>";
+                }
+                selectorInstallments.innerHTML = html_option;
+                if (seller.site_id == "MLA") {
+                    clearTax();
+                    $('body').on('change', '#mp-installments', showTaxes);;
                 }
             } else {
                 clearInstallments();
                 clearTax();
             }
-
         }
 
         /**
@@ -359,29 +345,24 @@
         function issuersHandler(status, response) {
             if (status == 200) {
                 // If the API does not return any bank.
-                if (response.length > 0) {
-                    var issuersSelector = document.getElementById('mp-issuer');
-                    var fragment = document.createDocumentFragment();
+                var issuersSelector = document.getElementById('mp-issuer');
+                var fragment = document.createDocumentFragment();
 
-                    issuersSelector.options.length = 0;
-                    var option = new Option(wc_mercadopago_params.choose + "...", "-1");
-                    fragment.appendChild(option);
+                issuersSelector.options.length = 0;
+                var option = new Option(wc_mercadopago_params.choose + "...", "-1");
+                fragment.appendChild(option);
 
-                    for (var i = 0; i < response.length; i++) {
-                        if (response[i].name != "default") {
-                            option = new Option(response[i].name, response[i].id);
-                        } else {
-                            option = new Option("Otro", response[i].id);
-                        }
-                        fragment.appendChild(option);
-                    }
-
-                    issuersSelector.appendChild(fragment);
-                    issuersSelector.removeAttribute("disabled");
-                    $('body').on('change', '#mp-issuer', setInstallments);
-                } else {
-                    clearIssuer();
+                for (var i = 0; i < response.length; i++) {
+                    var name = response[i].name == 'default' ? 'Otro' : response[i].name;
+                    fragment.appendChild(new Option(name, response[i].id));
                 }
+
+                issuersSelector.appendChild(fragment);
+                issuersSelector.removeAttribute("disabled");
+                $('body').on('change', '#mp-issuer', setInstallments);
+            }
+            else {
+                clearIssuer();
             }
         }
 

@@ -106,8 +106,8 @@ if (!defined('ABSPATH')) {
 							<label for="mp-security-code" class="mp-label-form"><?= esc_html__('Last 3 numbers on the back', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control mp-mt-5" id="mp-security-code" data-checkout="securityCode" autocomplete="off" maxlength="4" />
 							<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"><?= esc_html__('Last 3 numbers on the back', 'woocommerce-mercadopago'); ?></p>
-							<span class="mp-error mp-mt-5" id="mp-error-224" data-main="#mp-security-code"><?= esc_html__('Invalid Security Code', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-E302" data-main="#mp-security-code"><?= esc_html__('Invalid Security Code', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-224" data-main="#mp-security-code"><?= esc_html__('Check the informed security code.', 'woocommerce-mercadopago'); ?></span>
+							<span class="mp-error mp-mt-5" id="mp-error-E302" data-main="#mp-security-code"><?= esc_html__('Check the informed security code.', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 

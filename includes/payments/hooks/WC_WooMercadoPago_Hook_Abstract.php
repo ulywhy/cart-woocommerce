@@ -93,13 +93,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * ADD Checkout Scripts
-     */
-    public function add_checkout_scripts()
-    {
-    }
-
-    /**
      * @param $title
      * @return string
      */

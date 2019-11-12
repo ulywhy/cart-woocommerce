@@ -309,8 +309,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'payer_email' => $this->logged_user_email,
             'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
             'banner_path' => $banner_url,
-            'customer_cards' => isset($this->customer) ? (isset($this->customer['cards']) ? $this->customer['cards'] : array()) : array(),
-            'customerId' => isset($this->customer) ? (isset($this->customer['id']) ? $this->customer['id'] : null) : null,
             'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
