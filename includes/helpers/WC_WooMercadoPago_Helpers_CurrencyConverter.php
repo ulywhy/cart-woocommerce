@@ -10,10 +10,9 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     private static $instance;
     private $ratios = [];
     private $cache = [];
-    private $enabledCache = [];
-    private $accessTokenCache = [];
     private $currencyCache = [];
     private $supportedCurrencies;
+    private $isShowingAlert = false;
 
     /**
      * Private constructor to make class singleton
@@ -41,12 +40,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     private function init(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        $methodId = $this->getMethodId($method);
-
-        if (!isset($this->ratios[$methodId])) {
+        if (!isset($this->ratios[$method->id])) {
             try {
                 if (!$this->isEnabled($method)) {
-                    $this->setRatio($methodId);
+                    $this->setRatio($method->id);
                     return $this;
                 }
 
@@ -54,13 +51,13 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
                 $localCurrency = get_woocommerce_currency();
 
                 if (!$accountCurrency || $accountCurrency == $localCurrency) {
-                    $this->setRatio($methodId);
+                    $this->setRatio($method->id);
                     return $this;
                 }
 
-                $this->setRatio($methodId, $this->loadRatio($localCurrency, $accountCurrency));
+                $this->setRatio($method->id, $this->loadRatio($localCurrency, $accountCurrency));
             } catch (Exception $e) {
-                $this->setRatio($methodId);
+                $this->setRatio($method->id);
             }
         }
 
@@ -73,7 +70,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     private function getAccountCurrency(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        $key = $this->getMethodId($method);
+        $key = $method->id;
 
         if (isset($this->currencyCache[$key])) {
             return $this->currencyCache[$key];
@@ -113,19 +110,11 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     private function getAccessToken(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        $key = $this->getMethodId($method);
-
-        if (isset($this->accessTokenCache[$key])) {
-            return $this->accessTokenCache[$key];
-        }
-
         $type = $method->getOption('checkout_credential_production') == 'no'
             ? '_mp_access_token_test'
             : '_mp_access_token_prod';
 
-        $this->accessTokenCache[$key] = $method->getOption($type);
-
-        return $this->accessTokenCache[$key];
+        return $method->getOption($type);
     }
 
     /**
@@ -134,33 +123,16 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     public function isEnabled(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        $key = $this->getMethodId($method);
-
-        if (isset($this->enabledCache[$key])) {
-            return $this->enabledCache[$key];
-        }
-
-        $this->enabledCache[$key] = $method->getOption(self::CONFIG_KEY, 0) == 'yes' ? true : false;
-
-        return $this->enabledCache[$key];
+        return $method->getoption(self::CONFIG_KEY, 'no') == 'yes' ? true : false;
     }
 
     /**
-     * @param WC_WooMercadoPago_PaymentAbstract $method
-     * @return mixed
-     */
-    private function getMethodId(WC_WooMercadoPago_PaymentAbstract $method)
-    {
-        return $method->id;
-    }
-
-    /**
-     * @param $mehotdId
+     * @param $methodId
      * @param int $value
      */
-    private function setRatio($mehotdId, $value = self::DEFAULT_RATIO)
+    private function setRatio($methodId, $value = self::DEFAULT_RATIO)
     {
-        $this->ratios[$mehotdId] = $value;
+        $this->ratios[$methodId] = $value;
     }
 
     /**
@@ -170,8 +142,8 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     private function getRatio(WC_WooMercadoPago_PaymentAbstract $method)
     {
         $this->init($method);
-        return isset($this->ratios[$this->getMethodId($method)])
-            ? $this->ratios[$this->getMethodId($method)]
+        return isset($this->ratios[$method->id])
+            ? $this->ratios[$method->id]
             : self::DEFAULT_RATIO;
     }
 
@@ -237,52 +209,11 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     public function getDescription(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        try {
-            $localCurrency = get_woocommerce_currency();
-
-            $alertImage = plugins_url('assets/images/warning.png', dirname(dirname(__FILE__)));
-            $errorImage = plugins_url('assets/images/error.png', dirname(dirname(__FILE__)));
-            $checkImage = plugins_url('assets/images/check.png', dirname(dirname(__FILE__)));
-            $imageTag = '<img src="%s" style="padding:2px;display:block;float:left;margin-right:5px;margin-bottom:10px;" />';
-
-            //if currency conversion is not enabled, validates messages that need to be shown
-            if (!$this->isEnabled($method)) {
-                //if woocommerce configures currency is differente from mercado pago account currency
-                //alert user for possible problems!
-                if ($localCurrency != $this->getAccountCurrency($method)) {
-                    $imageTag = sprintf($imageTag, $alertImage);
-                    $tag = __('ATTENTION');
-                    return sprintf(__('%s <b>%s:</b> The currency %s defined in WooCommerce is different from the one used in your credentials country.'
-                        . '<br />The currency for transactions in this payment method will be %s.',
-                        'woocommerce-mercadopago-module'),
-                        $imageTag, $tag, $localCurrency, $this->getAccountCurrency($method));
-                }
-
-                return __('If the used currency in WooCommerce is different or not supported by Mercado Pago, convert values of your transactions using Mercado Pago currency ratio.',
-                    'woocommerce-mercadopago-module');
-            }
-
-            //currency conversion is enabled but local currency is not supported by mercado pago currency conversion API
-            if (!$this->isCurrencySupported($localCurrency)) {
-                $imageTag = sprintf($imageTag, $errorImage);
-                $tag = __('ERROR');
-                return sprintf(__('%s <b>%s:</b> It was not possible to convert the unsupported currency %s to %s.'
-                    . ' Currency conversions should be made outside this module.', 'woocommerce-mercadopago-module'),
-                    $imageTag, $tag, $localCurrency, $this->getAccountCurrency($method));
-            }
-
-            //conversion is enabled and everything working fine
-            $imageTag = sprintf($imageTag, $checkImage);
-            $tag = __('CURRENCY CONVERTED');
-            return sprintf(__('%s <b>%s:</b> The currency conversion ratio from %s to %s is: %s',
-                'woocommerce-mercadopago-module'),
-                $imageTag, $tag, $localCurrency, $this->getAccountCurrency($method), $this->getRatio($method));
-        } catch (Exception $e) {
-            return '';
-        }
+        return __('Activa esta opción para que el valor de la moneda configurada en WooCommerce sea compatible al valor de la moneda que usas en Mercado Pago');
     }
 
     /**
+     * Check if currency is supported in mercado pago API
      * @param $currency
      * @return bool
      */
@@ -298,6 +229,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     }
 
     /**
+     * Get supported currencies from mercado pago API
      * @return array|bool
      */
     public function getSupportedCurrencies()
@@ -337,14 +269,24 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         );
     }
 
-    public function scheduleNotice($noticeType, WC_WooMercadoPago_PaymentAbstract $method)
+    /**
+     * @param WC_WooMercadoPago_PaymentAbstract $method
+     * @param $oldData
+     * @param $newData
+     */
+    public function scheduleNotice(WC_WooMercadoPago_PaymentAbstract $method, $oldData, $newData)
     {
-        $_SESSION[self::CONFIG_KEY]['notice'] = array(
-            'type'   => $noticeType,
-            'method' => $method,
-        );
+        if ($oldData[self::CONFIG_KEY] != $newData[self::CONFIG_KEY]) {
+            $_SESSION[self::CONFIG_KEY]['notice'] = array(
+                'type'   => $newData[self::CONFIG_KEY] == 'yes' ? 'enabled' : 'disabled',
+                'method' => $method,
+            );
+        }
     }
 
+    /**
+     * @param WC_WooMercadoPago_PaymentAbstract $method
+     */
     public function notices(WC_WooMercadoPago_PaymentAbstract $method)
     {
         $show = isset($_SESSION[self::CONFIG_KEY]) ? $_SESSION[self::CONFIG_KEY] : array();
@@ -359,11 +301,15 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             }
         }
 
-        if (!$this->isEnabled($method) && $localCurrency != $this->getAccountCurrency($method)) {
+        if (!$this->isEnabled($method) && $localCurrency != $this->getAccountCurrency($method) && !$this->isShowingAlert) {
             echo $this->noticeWarning($method);
         }
     }
 
+    /**
+     * @param WC_WooMercadoPago_PaymentAbstract $method
+     * @return string
+     */
     public function noticeEnabled(WC_WooMercadoPago_PaymentAbstract $method)
     {
         return '
@@ -374,6 +320,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         ';
     }
 
+    /**
+     * @param WC_WooMercadoPago_PaymentAbstract $method
+     * @return string
+     */
     public function noticeDisabled(WC_WooMercadoPago_PaymentAbstract $method)
     {
         return '
@@ -384,13 +334,25 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         ';
     }
 
+    /**
+     * @param WC_WooMercadoPago_PaymentAbstract $method
+     * @return string
+     */
     public function noticeWarning(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        return '
-            <div class="notice notice-error">
-                <p>' . __('<b>Atención:</b> revisa la conversión de moneda ya que la configuración que tienes en WooCommerce '
-                . 'no es compatible a la moneda que usas en tu cuenta de Mercado Pago') . '</p>
-            </div>
-        ';
+        global $current_section;
+
+        if (in_array($current_section, array($method->id, sanitize_title(get_class($method))), true)) {
+            $this->isShowingAlert = true;
+
+            return '
+                <div class="notice notice-error">
+                    <p>' . __('<b>Atención:</b> revisa la conversión de moneda ya que la configuración que tienes en WooCommerce '
+                    . 'no es compatible a la moneda que usas en tu cuenta de Mercado Pago') . '</p>
+                </div>
+            ';
+        }
+
+        return '';
     }
 }

@@ -37,6 +37,10 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         add_action('woocommerce_cart_calculate_fees', array($this, 'add_discount'), 10);
         add_filter('woocommerce_gateway_title', array($this, 'get_payment_method_title'), 10, 2);
 
+        add_action('admin_notices', function() {
+            WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->notices($this->payment);
+        });
+
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script'));
             add_action('woocommerce_thankyou', array($this, 'update_mp_settings_script'));
@@ -191,12 +195,15 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function custom_process_admin_options()
     {
+        $oldData = array();
+
         $valueCredentialProduction = null;
         $this->payment->init_settings();
         $post_data = $this->payment->get_post_data();
         foreach ($this->payment->get_form_fields() as $key => $field) {
             if ('title' !== $this->payment->get_field_type($field)) {
                 $value = $this->payment->get_field_value($key, $field, $post_data);
+                $oldData[$key] = isset($this->payment->settings[$key]) ?  $this->payment->settings[$key] : null;
                 if ($key == 'checkout_credential_production') {
                     $valueCredentialProduction = $value;
                 }
@@ -215,7 +222,15 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         }
         $this->send_settings_mp();
 
-        return update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
+        $result = update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
+
+        WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->scheduleNotice(
+            $this->payment,
+            $oldData,
+            $this->payment->settings
+        );
+
+        return $result;
     }
 
     /**
@@ -358,7 +373,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         <p><strong>MERCADO PAGO: </strong>' .  __('Invalid test credentials!', 'woocommerce-mercadopago') . '</p>
                 </div>';
     }
-  
+
      /**
      * Enable Payment Notice
      */

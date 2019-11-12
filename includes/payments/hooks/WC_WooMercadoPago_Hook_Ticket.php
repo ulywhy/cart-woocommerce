@@ -21,9 +21,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
     {
         parent::loadHooks();
         add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts'));
-        add_action('admin_notices', function() {
-            WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->notices($this->payment);
-        });
+
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_ticket'));
             add_action('woocommerce_thankyou_' . $this->payment->id, array($this, 'update_mp_settings_script_ticket'));
@@ -51,23 +49,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
      */
     public function custom_process_admin_options()
     {
-        /** @var WC_WooMercadoPago_TicketGateway $payment */
-        $payment = $this->payment;
-        $key = WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY;
-
-        $oldConfig = array($key => $payment->settings[$key] == 'yes' ? true : false);
-
         $updateOptions = parent::custom_process_admin_options();
-
-        $newConfig = array($key => $payment->settings[$key] == 'yes' ? true : false);
-
-        if ($oldConfig[$key] != $newConfig[$key]) {
-            WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->scheduleNotice(
-                $newConfig[$key] ? 'enabled' : 'disabled',
-                $payment
-            );
-        }
-
         return $updateOptions;
     }
 

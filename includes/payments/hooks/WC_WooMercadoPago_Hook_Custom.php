@@ -50,7 +50,6 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
         return $updateOptions;
     }
 
-
     /**
      *
      */
