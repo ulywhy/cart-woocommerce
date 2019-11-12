@@ -78,17 +78,22 @@ if (!in_array('curl', get_loaded_extensions())) {
 }
 
 /**
- * Verify if module WooCommerce has installed
+ * Summary: Places a warning error to notify user that WooCommerce is missing.
+ * Description: Places a warning error to notify user that WooCommerce is missing.
  */
-function wc_mercado_pago_notify_woocommerce_install()
+function notify_woocommerce_miss()
 {
     echo '<div class="error"><p>' .
-        __('Please install WooCommerce module.', 'woocommerce-mercadopago') .
+        sprintf(
+            __('The payment module of Woo Mercado depends on the latest version of %s to run!', 'woocommerce-mercadopago'),
+            ' <a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
+        ) .
         '</p></div>';
 }
 
-if (!class_exists('WC_Payment_Gateway')) {
-    add_action('admin_notices', 'wc_mercado_pago_notify_woocommerce_install');
+$all_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+if (!stripos(implode($all_plugins), 'woocommerce.php')) {
+    add_action('admin_notices', 'notify_woocommerce_miss');
     return;
 }
 

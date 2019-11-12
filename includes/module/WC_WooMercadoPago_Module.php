@@ -22,10 +22,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         try {
-            if (!class_exists('WC_Payment_Gateway')) {
-                add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
-            }
-
             $this->loadConfigs();
             $this->loadLog();
             $this->loadHooks();
@@ -235,20 +231,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                         <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
                     </button>
               </div>';
-    }
-
-    /**
-     * Summary: Places a warning error to notify user that WooCommerce is missing.
-     * Description: Places a warning error to notify user that WooCommerce is missing.
-     */
-    public function notify_woocommerce_miss()
-    {
-        echo '<div class="error"><p>' .
-            sprintf(
-                __('The payment module of Woo Mercado depends on the latest version of %s to run!', 'woocommerce-mercadopago'),
-                '<a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
-            ) .
-            '</p></div>';
     }
 
     // Add settings link on plugin page.
