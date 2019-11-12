@@ -6,8 +6,8 @@
         var mercado_pago_submit = false;
 
         var seller = {
-            site_id: '',
-            public_key: ''
+            site_id: wc_mercadopago_params.site_id,
+            public_key: wc_mercadopago_params.public_key
         }
         var coupon_of_discounts = {
             discount_action_url: wc_mercadopago_params.discount_action_url,
@@ -18,9 +18,6 @@
 
         var objPaymentMethod = {};
         var additionalInfoNeeded = {}
-
-        seller.site_id = wc_mercadopago_params.site_id;
-        seller.public_key = wc_mercadopago_params.public_key;
 
         if ($('form#order_review').length > 0) {
             showPaymentsLink();
