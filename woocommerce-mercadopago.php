@@ -78,6 +78,21 @@ if (!in_array('curl', get_loaded_extensions())) {
 }
 
 /**
+ * Verify if module WooCommerce has installed
+ */
+function wc_mercado_pago_notify_woocommerce_install()
+{
+    echo '<div class="error"><p>' .
+        __('Please install WooCommerce module.', 'woocommerce-mercadopago') .
+        '</p></div>';
+}
+
+if (!class_exists('WC_Payment_Gateway')) {
+    add_action('admin_notices', 'wc_mercado_pago_notify_woocommerce_install');
+    return;
+}
+
+/**
  * Summary: Places a warning error to notify user that other older versions are active.
  * Description: Places a warning error to notify user that other older versions are active.
  * @since 3.0.7
