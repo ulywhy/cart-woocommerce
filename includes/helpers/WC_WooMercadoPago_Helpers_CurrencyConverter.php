@@ -41,11 +41,15 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     private $isShowingAlert = false;
 
+    /** @var WC_WooMercadoPago_Log */
+    private $log;
+
     /**
      * Private constructor to make class singleton
      */
     private function __construct()
     {
+        $this->log = new WC_WooMercadoPago_Log();
         return $this;
     }
 
@@ -68,6 +72,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     private function init(WC_WooMercadoPago_PaymentAbstract $method)
     {
         if (!isset($this->ratios[$method->id])) {
+
             try {
                 if (!$this->isEnabled($method)) {
                     $this->setRatio($method->id);
@@ -189,9 +194,14 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
         $ratio = self::DEFAULT_RATIO;
 
+        if ($fromCurrency = $toCurrency) {
+            $this->cache[$cacheKey] = $ratio;
+            return $ratio;
+        }
+
         try {
             $result = MeliRestClient::get(
-                ['uri' => sprintf('/currency_conversions/search?from=%s&to=%s', $fromCurrency, $toCurrency)]
+                array('uri' => sprintf('/currency_conversions/search?from=%s&to=%s', $fromCurrency, $toCurrency))
             );
 
             if (isset($result['response'], $result['response']['ratio'])) {
@@ -199,6 +209,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             }
         } catch (Exception $e) {
             //error getting from API
+            $this->log->write_log(
+                "WC_WooMercadoPago_Helpers_CurrencyConverter::loadRatio('$fromCurrency', '$toCurrency')",
+                $e->__toString()
+            );
         }
 
         $this->cache[$cacheKey] = $ratio;
@@ -318,6 +332,8 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     {
         $show = isset($_SESSION[self::CONFIG_KEY]) ? $_SESSION[self::CONFIG_KEY] : array();
         $localCurrency = get_woocommerce_currency();
+
+        $this->loadRatio($localCurrency, $this->getAccountCurrency($method));
 
         if (isset($show['notice'])) {
             unset($_SESSION[self::CONFIG_KEY]['notice']);
