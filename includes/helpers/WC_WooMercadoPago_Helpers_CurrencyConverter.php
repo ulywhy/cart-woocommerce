@@ -7,11 +7,34 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 {
     const CONFIG_KEY    = 'currency_conversion';
     const DEFAULT_RATIO = 1;
+    const MSG_TITLE       = 'Convert Currency';
+    const MSG_DESCRIPTION = 'Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago.';
+    const NOTICE_ENABLED  = 'Now we convert your currency from {%s} to {%s}.';
+    const NOTICE_DISABLED = 'We no longer convert your currency from {%s} to {%s}.';
+    const NOTICE_WARNING  = '<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion.';
+    /**
+     * @var
+     */
     private static $instance;
+    /**
+     * @var array
+     */
     private $ratios = [];
+    /**
+     * @var array
+     */
     private $cache = [];
+    /**
+     * @var array
+     */
     private $currencyCache = [];
+    /**
+     * @var
+     */
     private $supportedCurrencies;
+    /**
+     * @var bool
+     */
     private $isShowingAlert = false;
 
     /**
@@ -209,7 +232,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     public function getDescription(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        return __('Activa esta opción para que el valor de la moneda configurada en WooCommerce sea compatible al valor de la moneda que usas en Mercado Pago');
+        return $this->__(self::MSG_DESCRIPTION);
     }
 
     /**
@@ -258,13 +281,13 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     public function getField(WC_WooMercadoPago_PaymentAbstract $method)
     {
         return array(
-            'title'       => __('Convert Currency', 'woocommerce-mercadopago'),
+            'title'       => $this->__(self::MSG_TITLE),
             'type'        => 'select',
             'default'     => 'no',
-            'description' => $this->getDescription($method),
+            'description' => $this->__(self::MSG_DESCRIPTION),
             'options'     => array(
-                'no'  => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Yes', 'woocommerce-mercadopago'),
+                'no'  => $this->__('No'),
+                'yes' => $this->__('Yes'),
             ),
         );
     }
@@ -312,10 +335,12 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     public function noticeEnabled(WC_WooMercadoPago_PaymentAbstract $method)
     {
+        $localCurrency = get_woocommerce_currency();
+        $currency = $this->getAccountCurrency($method);
+
         return '
             <div class="notice notice-success">
-                <p>' . __(sprintf('Ahora convertimos tu moneda de [%s] a [%s]', get_woocommerce_currency(),
-                $this->getAccountCurrency($method))) . '</p>
+                <p>' . $this->__(self::NOTICE_ENABLED, $localCurrency, $currency) . '</p>
             </div>
         ';
     }
@@ -326,10 +351,12 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     public function noticeDisabled(WC_WooMercadoPago_PaymentAbstract $method)
     {
+        $localCurrency = get_woocommerce_currency();
+        $currency = $this->getAccountCurrency($method);
+
         return '
             <div class="notice notice-error">
-                <p>' . __(sprintf('Dejamos de convertir tu moneda de [%s] a [%s]', get_woocommerce_currency(),
-                $this->getAccountCurrency($method))) . '</p>
+                <p>' . $this->__(self::NOTICE_DISABLED, $localCurrency, $currency) . '</p>
             </div>
         ';
     }
@@ -346,13 +373,28 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             $this->isShowingAlert = true;
 
             return '
-                <div class="notice notice-error">
-                    <p>' . __('<b>Atención:</b> revisa la conversión de moneda ya que la configuración que tienes en WooCommerce '
-                    . 'no es compatible a la moneda que usas en tu cuenta de Mercado Pago') . '</p>
-                </div>
-            ';
+            <div class="notice notice-error">
+                <p>' . $this->__(self::NOTICE_WARNING) . '</p>
+            </div>
+        ';
         }
 
         return '';
+    }
+
+    /**
+     * @param $str
+     * @param mixed ...$values
+     * @return string|void
+     */
+    private function __($str, ...$values)
+    {
+        $translated = __($str, 'woocommerce-mercadopago');
+
+        if (!empty($values)) {
+            $translated = vsprintf($translated, $values);
+        }
+
+        return $translated;
     }
 }

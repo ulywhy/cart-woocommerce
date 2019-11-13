@@ -696,14 +696,18 @@ class MP
 	public function analytics_save_settings($module_info)
 	{
 
-		$request = array(
-			'uri' => '/modules/tracking/settings?access_token=' . $this->get_access_token(),
-			'data' => $module_info
-		);
+	    try {
+            $request = array(
+                'uri'  => '/modules/tracking/settings?access_token=' . $this->get_access_token(),
+                'data' => $module_info
+            );
 
-		$result = MPRestClient::post($request);
+            $result = MPRestClient::post($request);
+        } catch (Exception $e) {
+	        $result = null;
+        }
+
 		return $result;
-
 	}
 
 	/**

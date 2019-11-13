@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2019-10-29 12:06-0300\n"
+"PO-Revision-Date: 2019-11-13 14:32-0300\n"
 "X-Generator: Poedit 2.2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -1427,3 +1427,23 @@ msgstr "Ofrece todos los medios de pago: tarjetas de crédito y débito, dinero 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:28
 msgid "Accept card payments on your website with the best possible financing and maximize the conversion of your business. With personalized checkout your customers pay without leaving your store!"
 msgstr "Acepta pagos con tarjeta en tu sitio web con la mejor financiación posible y maximiza la conversión de tu negocio. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!"
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:11
+msgid "Convert Currency"
+msgstr "Convertir moneda"
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:12
+msgid "Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago."
+msgstr "Activa esta opción para que el valor de la moneda configurada en WooCommerce sea compatible al valor de la moneda que usas en Mercado Pago."
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:13
+msgid "Now we convert your currency from {%s} to {%s}."
+msgstr "Ahora convertimos tu moneda de {%s} a {%s}."
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:14
+msgid "We no longer convert your currency from {%s} to {%s}."
+msgstr "Dejamos de convertir tu moneda de {%s} a {%s}."
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:15
+msgid "<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion."
+msgstr "<b>Atención:</b> La configuración de moneda que tienes en WooCommerce no es compatible con la moneda que usas en tu cuenta de Mercado Pago. Activa la conversión de moneda."
