@@ -5,33 +5,37 @@
  */
 class WC_WooMercadoPago_Helpers_CurrencyConverter
 {
-    const CONFIG_KEY    = 'currency_conversion';
-    const DEFAULT_RATIO = 1;
+    const CONFIG_KEY      = 'currency_conversion';
+    const DEFAULT_RATIO   = 1;
     const MSG_TITLE       = 'Convert Currency';
     const MSG_DESCRIPTION = 'Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago.';
     const NOTICE_ENABLED  = 'Now we convert your currency from {%s} to {%s}.';
     const NOTICE_DISABLED = 'We no longer convert your currency from {%s} to {%s}.';
     const NOTICE_WARNING  = '<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion.';
-    /**
-     * @var
-     */
+
+    /** @var WC_WooMercadoPago_Helpers_CurrencyConverter */
     private static $instance;
+
     /**
      * @var array
      */
     private $ratios = [];
+
     /**
      * @var array
      */
     private $cache = [];
+
     /**
      * @var array
      */
     private $currencyCache = [];
+
     /**
      * @var
      */
     private $supportedCurrencies;
+
     /**
      * @var bool
      */
