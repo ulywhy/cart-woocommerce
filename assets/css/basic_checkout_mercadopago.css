@@ -350,6 +350,7 @@
     line-height: 1.29;
     letter-spacing: normal;
     color: #f04449 !important;
+    display: none;
 }
 
 .mp-desc {
@@ -534,4 +535,20 @@
     line-height: 1.25;
     letter-spacing: normal;
     color: #868686;
+}
+
+#mp-doc-div {
+    display: none;
+}
+
+#mp-doc-type-div {
+    display: none;
+}
+
+#mp-doc-number-div {
+    display: none;
+}
+
+#mp-issuer-div {
+    display: none;
 }

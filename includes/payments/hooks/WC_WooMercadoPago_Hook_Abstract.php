@@ -97,18 +97,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * ADD Checkout Scripts
-     */
-    public function add_checkout_scripts()
-    {
-        if (is_checkout() && $this->payment->is_available()) {
-            if (!get_query_var('order-received')) {
-                wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
-            }
-        }
-    }
-
-    /**
      * @param $title
      * @return string
      */
@@ -322,7 +310,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
             update_option($key, $value, true);
-            $this->mercadoEnviosValidation($key, $value);
 
             if ($key == '_mp_access_token_prod') {
                 $homolog_validate = $this->mpInstance->homologValidate($value);
@@ -390,32 +377,5 @@ abstract class WC_WooMercadoPago_Hook_Abstract
               </div>';
     }
 
-    /**
-     * @return void
-     */
-    public function mercadoEnviosValidation($key, $value)
-    {
-        if ($key == '_mp_access_token_prod' || $key == '_mp_access_token_test') {
-            return $this->mercadoEnviosResponseValidation($value);
-        }
 
-        return false;
-    }
-
-    /**
-     * @param mixed $access_token
-     * @return void
-     */
-    public function mercadoEnviosResponseValidation($access_token)
-    {
-        $site_id = get_option('_site_id_v1');
-
-        if($this->mpInstance->getMercadoEnvios($access_token, $site_id)){
-            update_option('_mp_shipment_access', true, true);
-            return true;
-        }
-
-        update_option('_mp_shipment_access', false, true);
-        return false;
-    }
 }

@@ -22,17 +22,12 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         try {
-            if (!class_exists('WC_Payment_Gateway')) {
-                add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
-            }
-
             $this->loadConfigs();
             $this->loadLog();
             $this->loadHooks();
             $this->loadPreferences();
             $this->loadPayments();
             $this->loadNotifications();
-            $this->loadShipments();
             $this->loadHelpers();
 
             add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
@@ -46,7 +41,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                         add_action('admin_notices', [$this, 'enablePaymentNotice']);
                     }
                 }
-                self::loadMercadoEnviosAdmin();
             }
         } catch (Exception $e) {
             $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Module');
@@ -178,7 +172,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_BasicGateway.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_CustomGateway.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_TicketGateway.php';
-        include_once dirname(__FILE__) . '/../payments/mercadoenvios/WC_WooMercadoPago_Product_Recurrent.php';
         add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
     }
 
@@ -198,30 +191,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function loadLog()
     {
         include_once dirname(__FILE__) . '/log/WC_WooMercadoPago_Log.php';
-    }
-
-    /**
-     *  Load Shipment Types
-     */
-    public function loadShipments()
-    {
-        $load = get_option('_mp_shipment_access', false);
-
-        if ($load) {
-            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
-            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
-            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
-            include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
-            add_filter('woocommerce_shipping_methods', [$this, 'setShipping']);
-        }
-    }
-
-    /**
-     * Load Admin Classes
-     */
-    public static function loadMercadoEnviosAdmin()
-    {
-        include_once dirname(__FILE__) . '/../admin/WC_MercadoEnvios_Admin_Orders.php';
     }
 
     /**
@@ -262,20 +231,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                         <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
                     </button>
               </div>';
-    }
-
-    /**
-     * Summary: Places a warning error to notify user that WooCommerce is missing.
-     * Description: Places a warning error to notify user that WooCommerce is missing.
-     */
-    public function notify_woocommerce_miss()
-    {
-        echo '<div class="error"><p>' .
-            sprintf(
-                __('The payment module of Woo Mercado depends on the latest version of %s to run!', 'woocommerce-mercadopago'),
-                '<a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
-            ) .
-            '</p></div>';
     }
 
     // Add settings link on plugin page.
