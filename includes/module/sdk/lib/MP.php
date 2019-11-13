@@ -688,23 +688,26 @@ class MP
 
 	//=== MODULE ANALYTICS FUNCTIONS ===
 
-	/**
-	 * @param $module_info
-	 * @return array|null
-	 * @throws WC_WooMercadoPago_Exception
-	 */
-	public function analytics_save_settings($module_info)
-	{
+    /**
+     * @param $module_info
+     * @return array|null
+     * @throws WC_WooMercadoPago_Exception
+     */
+    public function analytics_save_settings($module_info)
+    {
+        try {
+            $request = array(
+                'uri'  => '/modules/tracking/settings?access_token=' . $this->get_access_token(),
+                'data' => $module_info,
+            );
 
-		$request = array(
-			'uri' => '/modules/tracking/settings?access_token=' . $this->get_access_token(),
-			'data' => $module_info
-		);
+            $result = MPRestClient::post($request);
+        } catch (Exception $e) {
+            $result = null;
+        }
 
-		$result = MPRestClient::post($request);
-		return $result;
-
-	}
+        return $result;
+    }
 
 	/**
 	 * @param null $payment

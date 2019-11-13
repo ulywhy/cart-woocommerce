@@ -87,7 +87,7 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * 
+     *
      */
     public function add_mp_settings_script_custom()
     {
