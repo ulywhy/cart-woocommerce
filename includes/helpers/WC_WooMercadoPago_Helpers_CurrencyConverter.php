@@ -317,6 +317,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     public function scheduleNotice(WC_WooMercadoPago_PaymentAbstract $method, $oldData, $newData)
     {
+        if (!isset($oldData[self::CONFIG_KEY]) || !isset($newData[self::CONFIG_KEY])) {
+            return;
+        }
+
         if ($oldData[self::CONFIG_KEY] != $newData[self::CONFIG_KEY]) {
             $_SESSION[self::CONFIG_KEY]['notice'] = array(
                 'type'   => $newData[self::CONFIG_KEY] == 'yes' ? 'enabled' : 'disabled',
@@ -333,7 +337,9 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         $show = isset($_SESSION[self::CONFIG_KEY]) ? $_SESSION[self::CONFIG_KEY] : array();
         $localCurrency = get_woocommerce_currency();
 
-        $this->loadRatio($localCurrency, $this->getAccountCurrency($method));
+        if ($localCurrency == $this->getAccountCurrency($method)) {
+            return;
+        }
 
         if (isset($show['notice'])) {
             unset($_SESSION[self::CONFIG_KEY]['notice']);
@@ -344,7 +350,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             }
         }
 
-        if (!$this->isEnabled($method) && $localCurrency != $this->getAccountCurrency($method) && !$this->isShowingAlert) {
+        if (!$this->isEnabled($method) && !$this->isShowingAlert) {
             echo $this->noticeWarning($method);
         }
     }
