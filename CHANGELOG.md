@@ -16,10 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
  - [PLUG-459] 
- -- Fixed credential issue when the plugin is upgraded from version 3.x.x to 4xx. Unable to save empty credential.
- -- Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.
- -- Fixed error: Undefined index: MLA in WC_WooMercadoPago_Credentials.php on line 163.
- -- Fixed error: Call to a member function analytics_save_settings() in WC_WooMercadoPago_Hook_Abstract.php on line 68. Has affected users that cleared the credential and filled new credential production.
+   - Fixed credential issue when the plugin is upgraded from version 3.x.x to 4xx. Unable to save empty credential.
+   - Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.
+   - Fixed error: Undefined index: MLA in WC_WooMercadoPago_Credentials.php on line 163.
+   - Fixed error: Call to a member function analytics_save_settings() in WC_WooMercadoPago_Hook_Abstract.php on line 68. Has affected users that cleared the credential and filled new credential production.
  -- Fixed load of WC_WooMercadoPago_Module.php file.
  -- Fixed error Uncaught Error: Call to a member function homologValidate().
  -- Fixed error Undefined index: section in WC_WooMercadoPago_PaymentAbstract.php on line 303. Affected users who did not have homologous accounts
