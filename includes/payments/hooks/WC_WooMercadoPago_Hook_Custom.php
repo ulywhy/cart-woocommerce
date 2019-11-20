@@ -50,7 +50,7 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * ADD Checkout Scripts
+     * Add Checkout Scripts
      */
     public function add_checkout_scripts_custom()
     {
