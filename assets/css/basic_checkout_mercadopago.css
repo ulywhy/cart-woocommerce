@@ -480,7 +480,7 @@
 }
 
 /* ----- Ticket ----- */
-.mp-erro_febraban {
+.mp-erro_febraban, .mp_error_docnumber {
     font-family: sans-serif !important;
     font-size: 12px !important;
     font-weight: normal !important;
@@ -489,6 +489,8 @@
     line-height: 1.29;
     letter-spacing: normal;
     color: #f04449 !important;
+    margin-top: 5px;
+    display: none;
 }
 
 .mp-subtitle-ticket-checkout {
@@ -535,6 +537,14 @@
     line-height: 1.25;
     letter-spacing: normal;
     color: #868686;
+}
+
+#mp_socialname_label{
+    display: none;
+}
+
+#mp_cnpj_label{
+    display: none;
 }
 
 #mp-doc-div {

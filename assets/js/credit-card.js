@@ -24,6 +24,7 @@
             Mercadopago.setPublishableKey(seller.public_key);
         }
 
+        // Load woocommerce checkout form
         $('body').on('updated_checkout', function () {
 
             if (document.getElementById('mp-card-number').value != 0) {
@@ -544,7 +545,6 @@
         function mercadoPagoFormHandler() {
             if (mercado_pago_submit) {
                 mercado_pago_submit = false;
-
                 return true;
             }
 
