@@ -20,7 +20,7 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
     {
         parent::__construct($payment, $order, $ticket_checkout);
         $this->preference = $this->make_commum_preference();
-        $this->preference['date_of_expiration'] = $this->get_date_of_expiration();
+        $this->preference['date_of_expiration'] = $this->get_date_of_expiration($payment);
         $this->preference['transaction_amount'] = $this->get_transaction_amount();
         $this->preference['description'] = implode(', ', $this->list_of_items);
         $this->preference['payment_method_id'] = $this->checkout['paymentMethodId'];
@@ -43,7 +43,7 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
-      
+
         $internal_metadata = parent::get_internal_metadata();
 		$merge_array = array_merge($internal_metadata, $this->get_internal_metadata_ticket());
         $this->preference['metadata'] = $merge_array;
@@ -51,12 +51,15 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
 
     /**
      * get_date_of_expiration
-     *
+     * @param WC_WooMercadoPago_TicketGateway $payment
      * @return string date
      */
-    public function get_date_of_expiration()
+    public function get_date_of_expiration(WC_WooMercadoPago_TicketGateway $payment = null)
     {
-        $date_expiration = $this->get_option('date_expiration', '');
+        $date_expiration = !is_null($payment)
+            ? $payment->getOption('date_expiration')
+            : $this->get_option('date_expiration', '');
+
         if($date_expiration != ""){
             return date('Y-m-d\TH:i:s.000O', strtotime('+' . $date_expiration . ' days'));
         }
@@ -84,7 +87,7 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
     {
         return true;
     }
-  
+
     /**
      * @return array
      */
@@ -94,7 +97,7 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
             "checkout" => "custom",
             "checkout_type" => "ticket",
         );
-      
+
         return $internal_metadata;
     }
 }
