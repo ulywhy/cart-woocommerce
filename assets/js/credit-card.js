@@ -232,13 +232,19 @@
             if (status == 200) {
                 var selectorInstallments = document.getElementById('mp-installments');
                 var html_option = "<option value='-1'>" + wc_mercadopago_params.choose + "...</option>";
-                var payerCosts = response[0].payer_costs;
+                var payerCosts = [];
+                for (var i = 0; i < response.length; i++) {
+                    if (response[i].processing_mode == 'aggregator') {
+                        payerCosts = response[i].payer_costs;
+                    }
+                }
 
                 for (var i = 0; i < payerCosts.length; i++) {
                     html_option += "<option value='" + payerCosts[i].installments + "' " + argentinaResolution(payerCosts[i].labels) + ">" +
                         (payerCosts[i].recommended_message || payerCosts[i].installments) +
                         "</option>";
                 }
+                
                 selectorInstallments.innerHTML = html_option;
                 if (seller.site_id == "MLA") {
                     clearTax();
