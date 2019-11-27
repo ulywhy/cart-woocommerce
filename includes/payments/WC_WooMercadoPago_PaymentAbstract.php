@@ -45,7 +45,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $pending_url;
     public $installments;
     public $form_fields;
-    public $coupon_mode;
     public $payment_type;
     public $checkout_type;
     public $stock_reduce_mode;
@@ -1010,23 +1009,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'class' => 'mp_small_text mp-mt--10'
         );
         return $checkout_payments_advanced_description;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_coupon_mode()
-    {
-        return array(
-            'title' => __('Discount coupons', 'woocommerce-mercadopago'),
-            'type' => 'select',
-            'default' => 'no',
-            'description' => __('Will you offer discount coupons to customers who buy with Mercado Pago?', 'woocommerce-mercadopago'),
-            'options' => array(
-                'no' => __('No', 'woocommerce-mercadopago'),
-                'yes' => __('Yes', 'woocommerce-mercadopago')
-            )
-        );
     }
 
     /**

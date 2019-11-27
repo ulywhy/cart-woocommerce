@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
 Tested up to: 5.2.2
 Requires PHP: 5.6
-Stable tag: 4.0.8
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,34 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
+= v4.1.0 (27/11/2019) =
+* Feature
+  - Feature currency conversion returned.
+  - New feature to check if cURL is installed
+  - Refactored Javascript code for custom checkout Debit and credit card. Performance improvement, reduced number of SDK calls. Fixed validation errors. Javascript code refactored to the order review page. Removed select from mexico payment method.
+
+* Bug fixes
+  - Fixed credential issue when the plugin is upgraded from version 3.x.x to 4xx. Unable to save empty credential.
+  - Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.
+  - Fixed error: Undefined index: MLA in WC_WooMercadoPago_Credentials.php on line 163.
+  - Fixed error: Call to a member function analytics_save_settings() in WC_WooMercadoPago_Hook_Abstract.php on line 68. Has affected users that cleared the credential and filled new credential production.
+  - Fixed load of WC_WooMercadoPago_Module.php file.
+  - Fixed error Uncaught Error: Call to a member function homologValidate().
+  - Fixed error Undefined index: section in WC_WooMercadoPago_PaymentAbstract.php on line 303. Affected users who did not have homologous accounts
+  - Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.
+  - Fixed issue to calculate commission and discount.
+  - Fixed Layout of checkout custom input.
+  - Fixed translation ES of Modo Producción, Habilitá and definí
+  - Fixed Uncaught Error call to a member function update_status() in WC_WooMercadoPago_Notification_Abstract.php. Handle Mercado Pago Notification Failures and Exceptions.
+  - Fix PT-BR debit card translation on admin.
+  - Fix PT-BR debit card translation on checkout.
+  - Remove "One Step Checkout" from CHO Custom Off.
+  - Remove Mercado Creditos from Custom CHO OFF. 
+  - Fixed issue to check if WooCommerce plugin is installed
+
+* Break change
+  - Removed feature and support to Mercado Envios shipping. Before install the plugin verify if your store has another method of shipping configured.
+
 = v4.0.8 (13/09/2019) =
 * Bug fixes
   - Fixed mercado envios
