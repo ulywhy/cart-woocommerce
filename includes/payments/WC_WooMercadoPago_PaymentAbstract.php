@@ -234,7 +234,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             <div class="left-header">
                 <img src="' . plugins_url('../assets/images/mplogo.png', plugin_dir_path(__FILE__)) . '">
             </div>
-            <div class="right-header">
+            <div>
                 <strong>' . $description . '</strong>
             </div>
         </div>';

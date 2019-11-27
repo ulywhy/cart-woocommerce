@@ -3,6 +3,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 ?>
+
 <div class="mp-panel-custom-checkout">
 	<div class="mp-row-checkout">
 

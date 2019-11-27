@@ -21,6 +21,7 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
     {
         parent::loadHooks();
         if (!empty($this->payment->settings['enabled']) && $this->payment->settings['enabled'] == 'yes') {
+            add_action('wp_enqueue_scripts', array($this, 'add_checkout_scripts_ticket'));
             add_action('woocommerce_after_checkout_form', array($this, 'add_mp_settings_script_ticket'));
             add_action('woocommerce_thankyou_' . $this->payment->id, array($this, 'update_mp_settings_script_ticket'));
         }
@@ -49,6 +50,24 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
     {
         $updateOptions = parent::custom_process_admin_options();
         return $updateOptions;
+    }
+
+    /**
+     * Add Checkout Scripts
+     */
+    public function add_checkout_scripts_ticket()
+    {
+        if (is_checkout() && $this->payment->is_available() && !get_query_var('order-received')) {
+            wp_enqueue_script('woocommerce-mercadopago-ticket-checkout', plugins_url('../../assets/js/ticket.js', plugin_dir_path(__FILE__)), array('jquery'), null, true);
+
+            wp_localize_script(
+                'woocommerce-mercadopago-ticket-checkout',
+                'wc_mercadopago_ticket_params',
+                array(
+                    'site_id' => $this->payment->getOption('_site_id_v1'),
+                )
+            );
+        }
     }
 
     /**

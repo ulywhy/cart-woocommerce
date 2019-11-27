@@ -379,35 +379,14 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'amount' => $amount,
             'payment_methods' => $this->activated_payment,
             'site_id' => $this->getOption('_site_id_v1'),
-            'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
+            //TODO: refactor discount coupon rule
+            'coupon_mode' => $this->coupon_mode,
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
-            'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
             'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
-            'febraban' => (wp_get_current_user()->ID != 0) ?
-                array(
-                    'firstname' => wp_get_current_user()->user_firstname,
-                    'lastname' => wp_get_current_user()->user_lastname,
-                    'docNumber' => '',
-                    'address' => $address,
-                    'number' => '',
-                    'city' => get_user_meta(wp_get_current_user()->ID, 'shipping_city', true),
-                    'state' => get_user_meta(wp_get_current_user()->ID, 'shipping_state', true),
-                    'zipcode' => get_user_meta(wp_get_current_user()->ID, 'shipping_postcode', true)
-                ) :
-                array(
-                    'firstname' => '',
-                    'lastname' => '',
-                    'docNumber' => '',
-                    'address' => '',
-                    'number' => '',
-                    'city' => '',
-                    'state' => '',
-                    'zipcode' => '',
-                ),
-            'path_to_javascript' => plugins_url('../assets/js/ticket.js', plugin_dir_path(__FILE__))
+            'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
         );
 
         wc_get_template('checkout/ticket_checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
