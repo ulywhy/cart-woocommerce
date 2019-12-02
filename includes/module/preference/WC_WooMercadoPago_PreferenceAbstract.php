@@ -307,6 +307,23 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     }
 
     /**
+    * Discount Campaign
+    */
+    public function add_discounts_campaign()
+    {
+        if (
+            isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
+            isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
+            $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom'
+        ) {
+            $this->preference['campaign_id'] = (int)$this->checkout['campaign_id'];
+            $this->preference['coupon_amount'] = ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
+                floor($this->checkout['discount'] * $this->currency_ratio) : floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100;
+            $this->preference['coupon_code'] = strtoupper($this->checkout['coupon_code']);
+        }
+    }
+
+    /**
      * @return array
      */
     public function get_internal_metadata()

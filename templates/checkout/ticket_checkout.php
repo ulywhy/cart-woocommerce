@@ -159,6 +159,9 @@ if (!defined('ABSPATH')) {
             <input type="hidden" id="site_id" value="<?php echo $site_id; ?>" name="mercadopago_ticket[site_id]" />
             <input type="hidden" id="amountTicket" value="<?php echo $amount; ?>" name="mercadopago_ticket[amount]" />
             <input type="hidden" id="currency_ratioTicket" value="<?php echo $currency_ratio; ?>" name="mercadopago_ticket[currency_ratio]" />
+            <input type="hidden" id="campaign_idTicket" name="mercadopago_ticket[campaign_id]" />
+            <input type="hidden" id="campaignTicket" name="mercadopago_ticket[campaign]" />
+            <input type="hidden" id="discountTicket" name="mercadopago_ticket[discount]" />
         </div>
 
     </div>

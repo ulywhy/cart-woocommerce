@@ -10,6 +10,13 @@
             public_key: wc_mercadopago_params.public_key
         }
 
+        var coupon_of_discounts = {
+            discount_action_url: wc_mercadopago_params.discount_action_url,
+            payer_email: wc_mercadopago_params.payer_email,
+            default: wc_mercadopago_params.coupon_mode,
+            status: false
+        }
+
         var objPaymentMethod = {};
         var additionalInfoNeeded = {}
 
