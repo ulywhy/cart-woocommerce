@@ -239,7 +239,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function get_notification_url()
     {
         if (!strrpos(get_site_url(), 'localhost')) {
-            $notification_url = get_option('_mp_custom_domain', '');
+            $notification_url = $this->payment->custom_domain;
             // Check if we have a custom URL.
             if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === FALSE) {
                 return WC()->api_request_url($this->notification_class);
@@ -256,12 +256,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_binary_mode()
     {
-        $binary_mode = get_option('binary_mode', 'no');
-        if ($binary_mode == 'yes') {
+        if ($this->payment->binary_mode === 'yes') {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -277,7 +275,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_external_reference()
     {
-        $store_identificator = get_option('_mp_store_identificator', 'WC-');
+        $store_identificator = $this->payment->store_identificator;
         if (method_exists($this->order, 'get_id')) {
             return $store_identificator . $this->order->get_id();
         } else {
