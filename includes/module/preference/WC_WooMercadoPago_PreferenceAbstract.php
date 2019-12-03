@@ -162,8 +162,8 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 $line_amount = $item['line_total'] + $item['line_tax'];
                 $discount_by_gateway = (float)$line_amount * ($this->gateway_discount / 100);
                 $commission_by_gateway = (float)$line_amount * ($this->commission / 100);
-                $this->order_total += ($line_amount - $discount_by_gateway);
-                $this->order_total += ($line_amount + $commission_by_gateway);
+                $item_amount = $line_amount - $discount_by_gateway + $commission_by_gateway;
+                $this->order_total += $item_amount;
 
                 // Add the item.
                 array_push($this->list_of_items, $product_title . ' x ' . $item['qty']);
@@ -178,8 +178,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                         plugins_url('assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
                     'category_id' => get_option('_mp_category_id', 'others'),
                     'quantity' => 1,
-                    'unit_price' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
-                        floor(($line_amount - $discount_by_gateway + $commission_by_gateway) * $this->currency_ratio) : floor(($line_amount - $discount_by_gateway + $commission_by_gateway) * $this->currency_ratio * 100) / 100,
+                    'unit_price' => $this->calculate_price($item_amount),
                     'currency_id' => $this->site_data[$this->site_id]['currency']
                 ));
             }
@@ -197,9 +196,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'description' => __('Shipping service used by the store.', 'woocommerce-mercadopago'),
             'category_id' => get_option('_mp_category_id', 'others'),
             'quantity'    => 1,
-            'unit_price'  => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP')
-                ? floor($this->ship_cost * $this->currency_ratio)
-                : floor($this->ship_cost * $this->currency_ratio * 100) / 100,
+            'unit_price'  => $this->calculate_price($this->ship_cost),
         );
     }
 
@@ -299,11 +296,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_transaction_amount()
     {
-        if ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') {
-            return floor($this->order->get_total() * $this->currency_ratio);
-        } else {
-            return floor($this->order->get_total() * $this->currency_ratio * 100) / 100;
-        }
+        return $this->calculate_price($this->order_total);
     }
 
     /**
@@ -335,5 +328,16 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         );
 
         return $internal_metadata;
+    }
+
+    /**
+     * @param $amount
+     * @return float
+     */
+    private function calculate_price($amount) {
+        if ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') {
+            return floor($amount * $this->currency_ratio);
+        }
+        return floor($amount * $this->currency_ratio * 100) / 100;
     }
 }
