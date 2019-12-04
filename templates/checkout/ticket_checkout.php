@@ -6,6 +6,29 @@ if (!defined('ABSPATH')) {
 
 <div class="mp-panel-custom-checkout">
     <div class="mp-row-checkout">
+
+        <!-- Cupom mode, creat a campaign on mercado pago -->
+        <?php if ($coupon_mode == 'yes') : ?>
+            <div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12">
+            <div class="frame-tarjetas mp-text-justify">
+                <p class="mp-subtitle-ticket-checkout"><?=__('Enter your discount coupon', 'woocommerce-mercadopago')?></p>
+
+                <div class="mp-row-checkout mp-pt-10">
+                    <div class="mp-col-md-9 mp-pr-15">
+                        <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Enter your coupon', 'woocommerce-mercadopago')?>" />
+                    </div>
+
+                    <div class="mp-col-md-3">
+                        <input type="button" class="mp-button mp-pointer" id="applyCouponTicket" value="<?= esc_html__('Apply', 'woocommerce-mercadopago'); ?>">
+                    </div>
+                </div>
+
+                <span class="mp-discount" id="mpCouponApplyedTicket"></span>
+                <span class="mp-erro_febraban" id="mpCouponErrorTicket"><?=__('The code you entered is incorrect', 'woocommerce-mercadopago')?></span>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <div class="mp-col-md-12">
             <div class="frame-tarjetas">
                 <div id="mercadopago-form-ticket">

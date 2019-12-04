@@ -379,7 +379,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'amount' => $amount,
             'payment_methods' => $this->activated_payment,
             'site_id' => $this->getOption('_site_id_v1'),
-            'coupon_mode' => $this->coupon_mode,
+            'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
             'discount_action_url' => $discount_action_url,
             'payer_email' => $logged_user_email,
             'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),

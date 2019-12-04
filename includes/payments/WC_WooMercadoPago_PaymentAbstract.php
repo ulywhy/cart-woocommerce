@@ -108,6 +108,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp = $this->getMpInstance();
         $this->homolog_validate = $this->getHomologValidate();
         $this->application_id = $this->getApplicationId($this->mp_access_token_prod);
+        $this->logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
+        $this->discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=' . get_class($this);
     }
 
     /**
