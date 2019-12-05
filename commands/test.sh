@@ -1,1 +1,0 @@
-echo "My application tests"
