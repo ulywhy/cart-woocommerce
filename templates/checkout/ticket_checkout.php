@@ -21,10 +21,9 @@ if (!defined('ABSPATH')) {
                     <div class="mp-col-md-3">
                         <input type="button" class="mp-button mp-pointer" id="applyCouponTicket" value="<?= esc_html__('Apply', 'woocommerce-mercadopago'); ?>">
                     </div>
+                    <div class="mp-discount mp-col-md-9 mp-pr-15" id="mpCouponApplyedTicket"></div>
+                    <span class="mp-erro_febraban" id="mpCouponErrorTicket"><?=__('The code you entered is incorrect', 'woocommerce-mercadopago')?></span>
                 </div>
-
-                <span class="mp-discount" id="mpCouponApplyedTicket"></span>
-                <span class="mp-erro_febraban" id="mpCouponErrorTicket"><?=__('The code you entered is incorrect', 'woocommerce-mercadopago')?></span>
             </div>
         </div>
         <?php endif; ?>

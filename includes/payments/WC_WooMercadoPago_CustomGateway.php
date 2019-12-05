@@ -22,7 +22,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         if (!$this->validateSection()) {
             return;
         }
-
         $this->desc = __('Accept card payments on your website with the best possible financing and maximize the conversion of your business. With personalized checkout your customers pay without leaving your store!', 'woocommerce-mercadopago');
 
         $this->form_fields = array();
@@ -454,6 +453,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $preferencesCustom = new WC_WooMercadoPago_PreferenceCustom($this, $order, $custom_checkout);
         $preferences = $preferencesCustom->get_preference();
+        error_log('PREFERENCIA CUSTOM ########' . json_encode($preferences));
         try {
             $checkout_info = $this->mp->post('/v1/payments', json_encode($preferences));
             $this->log->write_log(__FUNCTION__, 'Preference created: ' . json_encode($checkout_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
