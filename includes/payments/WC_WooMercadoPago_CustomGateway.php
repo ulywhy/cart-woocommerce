@@ -24,7 +24,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $this->desc = __('Accept card payments on your website with the best possible financing and maximize the conversion of your business. With personalized checkout your customers pay without leaving your store!', 'woocommerce-mercadopago');
-
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->title = __('Pay with debit and credit cards', 'woocommerce-mercadopago');
@@ -33,7 +32,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
         $this->logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        $this->customer = isset($this->logged_user_email) ? $this->mp->get_or_create_customer($this->logged_user_email) : null;
+        $this->customer = $this->getOrCreateCustomer();
         $this->hook = new WC_WooMercadoPago_Hook_Custom($this);
         $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
     }
@@ -522,9 +521,22 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         return true;
     }
 
-	/**
-	 * @return string
-	 */
+    /**
+     * @return array|mixed|null
+     * @throws WC_WooMercadoPago_Exception
+     */
+    public function getOrCreateCustomer()
+    {
+        if(empty($this->mp))
+        {
+            return null;
+        }
+        return isset($this->logged_user_email) ? $this->mp->get_or_create_customer($this->logged_user_email) : null;
+    }
+
+    /**
+     * @return string
+     */
     public static function getId(){
         return WC_WooMercadoPago_CustomGateway::ID;
     }
