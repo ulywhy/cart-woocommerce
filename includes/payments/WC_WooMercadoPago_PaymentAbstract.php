@@ -78,6 +78,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $homolog_validate;
     public $clientid_old_version;
     public $desc;
+    public $customer;
+    public $logged_user_email;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
