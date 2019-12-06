@@ -16,6 +16,12 @@
             status: false
         }
 
+        if ($('form#order_review').length > 0) {
+            if (wc_mercadopago_ticket_params.coupon_mode == 'yes') {
+                $('#applyCouponTicket').on('click', discountCampaignsHandler);
+            }
+        }
+
         // Load woocommerce checkout form
         $('body').on('updated_checkout', function () {
             if (seller.site_id == "MLB") {
@@ -271,15 +277,15 @@
 
             if (document.querySelector('#couponCodeTicket').value == "") {
                 coupon_of_discounts.status = false;
-                document.querySelector('#mpCouponError').style.display = "block";
-                document.querySelector('#mpCouponError').innerHTML = wc_mercadopago_ticket_params.coupon_empty;
+                document.querySelector('#mpCouponErrorTicket').style.display = "block";
+                document.querySelector('#mpCouponErrorTicket').innerHTML = wc_mercadopago_ticket_params.coupon_empty;
                 document.querySelector('#couponCodeTicket').style.background = null;
                 document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
                 document.querySelector('#discountTicket').value = 0;
 
             } else if (coupon_of_discounts.status) {
                 coupon_of_discounts.status = false;
-                document.querySelector('#mpCouponError').style.display = "none";
+                document.querySelector('#mpCouponErrorTicket').style.display = "none";
                 document.querySelector('#applyCouponTicket').style.background = null;
                 document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
                 document.querySelector('#couponCodeTicket').value = "";
@@ -287,7 +293,7 @@
                 document.querySelector('#discountTicket').value = 0;
 
             } else {
-                document.querySelector('#mpCouponError').style.display = "none";
+                document.querySelector('#mpCouponErrorTicket').style.display = "none";
                 document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.loading + ") 98% 50% no-repeat #fff";
                 document.querySelector('#couponCodeTicket').style.border = "1px solid #cecece";
                 document.querySelector('#applyCouponTicket').disabled = true;
@@ -316,7 +322,7 @@
                 error: function () {
                     coupon_of_discounts.status = false;
                     document.querySelector('#mpCouponApplyedTicket').style.display = "none";
-                    document.querySelector('#mpCouponError').style.display = "none";
+                    document.querySelector('#mpCouponErrorTicket').style.display = "none";
                     document.querySelector('#applyCouponTicket').style.background = null;
                     document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
                     document.querySelector('#couponCodeTicket').value = "";
@@ -344,7 +350,7 @@
                             response.response.id +
                             "/terms_and_conditions?format_type=html' target='_blank'>" +
                             wc_mercadopago_ticket_params.discount_info6 + "</a>";
-                        document.querySelector('#mpCouponError').style.display = "none";
+                        document.querySelector('#mpCouponErrorTicket').style.display = "none";
                         document.querySelector('#couponCodeTicket').style.background = null;
                         document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.check + ") 94% 50% no-repeat #fff";
                         document.querySelector('#couponCodeTicket').style.border = "1px solid #cecece";
@@ -354,8 +360,8 @@
                     } else {
                         coupon_of_discounts.status = false;
                         document.querySelector('#mpCouponApplyedTicket').style.display = "none";
-                        document.querySelector('#mpCouponError').style.display = "block";
-                        document.querySelector('#mpCouponError').innerHTML = response.response.message;
+                        document.querySelector('#mpCouponErrorTicket').style.display = "block";
+                        document.querySelector('#mpCouponErrorTicket').innerHTML = response.response.message;
                         document.querySelector('#couponCodeTicket').style.background = null;
                         document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.error + ") 94% 50% no-repeat #fff";
                         document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;

@@ -21,6 +21,9 @@
         var additionalInfoNeeded = {}
 
         if ($('form#order_review').length > 0) {
+            if (wc_mercadopago_params.coupon_mode == 'yes') {
+                $('#applyCoupon').on('click', discountCampaignsHandler);
+            }
             showPaymentsLink();
             Mercadopago.setPublishableKey(seller.public_key);
         }

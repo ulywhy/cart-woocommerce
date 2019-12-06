@@ -316,21 +316,25 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'description' => __('Discount provided by store', 'woocommerce-mercadopago'),
             'quantity' => 1,
             'category_id' => get_option('_mp_category_name', 'others'),
-            'unit_price' => ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
+            'unit_price' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
                 -floor($this->checkout['discount'] * $this->currency_ratio) : -floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100
         );
         return $item;
     }
 
     /**
-    * Discount Campaign
-    */
+     * Discount Campaign
+     *
+     * @return array
+     */
     public function add_discounts_campaign()
     {
-            $this->preference['campaign_id'] = (int)$this->checkout['campaign_id'];
-            $this->preference['coupon_amount'] = ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
-                floor($this->checkout['discount'] * $this->currency_ratio) : floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100;
-            $this->preference['coupon_code'] = strtoupper($this->checkout['coupon_code']);
+        return array(
+            'campaign_id' => (int) $this->checkout['campaign_id'],
+            'coupon_amount' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
+                floor($this->checkout['discount'] * $this->currency_ratio) : floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100,
+            'coupon_code' => strtoupper($this->checkout['coupon_code'])
+        );
     }
 
     /**

@@ -50,7 +50,7 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
             $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket'
         ) {
             $this->preference['additional_info']['items'][] = $this->add_discounts();
-            $this->add_discounts_campaign();
+            $this->preference = array_merge($this->preference , $this->add_discounts_campaign());
         }
 
         $internal_metadata = parent::get_internal_metadata();
