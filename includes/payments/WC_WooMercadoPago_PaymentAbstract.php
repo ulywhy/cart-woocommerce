@@ -76,7 +76,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $activated_payment;
     public $homolog_validate;
     public $clientid_old_version;
-    public $desc;
     public $customer;
     public $logged_user_email;
 
@@ -93,7 +92,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->checkout_country = get_option('checkout_country', '');
         $this->wc_country = get_option('woocommerce_default_country', '');
         $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', get_option('checkout_credential_production', 'no'));
-        $this->description = $this->getOption('description');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');

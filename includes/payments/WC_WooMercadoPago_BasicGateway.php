@@ -23,13 +23,13 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             return;
         }
 
-        $this->desc = __('It offers all means of payment: credit and debit cards, cash and account money. Your customers choose whether they pay as guests or from their Mercado Pago account.', 'woocommerce-mercadopago');
+        $this->description = __('It offers all means of payment: credit and debit cards, cash and account money. Your customers choose whether they pay as guests or from their Mercado Pago account.', 'woocommerce-mercadopago');
 
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago');
         $this->method = $this->getOption('method', 'redirect');
         $this->title = __('Pay with the payment method you prefer', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription($this->desc);
+        $this->method_description = $this->getMethodDescription($this->description);
         $this->auto_return = $this->getOption('auto_return', 'yes');
         $this->success_url = $this->getOption('success_url', '');
         $this->failure_url = $this->getOption('failure_url', '');

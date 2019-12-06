@@ -30,8 +30,8 @@ window.onload = function () {
 
   //clone save button
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_btn_save');
-  if (document.getElementById("'woocommerce_woo-mercado-pago-ticket_checkout_homolog_title") != undefined || document.getElementById("'woocommerce_woo-mercado-pago-ticket_checkout_credential_description_prod") != undefined) {
-    document.getElementById("mp_table_15").append(cloneSaveButton.cloneNode(true));
+  if (document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_credential_description_prod") != undefined) {
+    document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_credential_description_prod").nextElementSibling.append(cloneSaveButton.cloneNode(true));
   }
 
   if (document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_ticket_options_title") != undefined ) {
