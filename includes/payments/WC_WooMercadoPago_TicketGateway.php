@@ -368,7 +368,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $amount = $amount - $discount + $comission;
 
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        $discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=WC_WooMercadoPago_TicketGateway';
         $address = get_user_meta(wp_get_current_user()->ID, 'shipping_address_1', true);
         $address_2 = get_user_meta(wp_get_current_user()->ID, 'shipping_address_2', true);
         $address .= (!empty($address_2) ? ' - ' . $address_2 : '');
@@ -380,7 +379,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'payment_methods' => $this->activated_payment,
             'site_id' => $this->getOption('_site_id_v1'),
             'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
-            'discount_action_url' => $discount_action_url,
+            'discount_action_url' => $this->discount_action_url,
             'payer_email' => $logged_user_email,
             'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
             'woocommerce_currency' => get_woocommerce_currency(),
