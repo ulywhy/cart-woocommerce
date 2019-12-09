@@ -250,6 +250,29 @@ class MP
 
 	}
 
+	//=== COUPOM AND DISCOUNTS FUNCTIONS ===
+	/**
+	 * @param $transaction_amount
+	 * @param $payer_email
+	 * @param $coupon_code
+	 * @return array|null
+	 * @throws WC_WooMercadoPago_Exception
+	 */
+	public function check_discount_campaigns($transaction_amount, $payer_email, $coupon_code)
+	{
+		$request = array(
+			'uri' => '/discount_campaigns',
+			'params' => array(
+				'access_token' => $this->get_access_token(),
+				'transaction_amount' => $transaction_amount,
+				'payer_email' => $payer_email,
+				'coupon_code' => $coupon_code
+			)
+		);
+		$discount_info = MPRestClient::get($request);
+		return $discount_info;
+	}
+
 	//=== CHECKOUT AUXILIARY FUNCTIONS ===
 
 	/**

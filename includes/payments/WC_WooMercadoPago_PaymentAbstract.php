@@ -45,6 +45,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $pending_url;
     public $installments;
     public $form_fields;
+    public $coupon_mode;
     public $payment_type;
     public $checkout_type;
     public $stock_reduce_mode;
@@ -109,6 +110,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp = $this->getMpInstance();
         $this->homolog_validate = $this->getHomologValidate();
         $this->application_id = $this->getApplicationId($this->mp_access_token_prod);
+        $this->logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
+        $this->discount_action_url = get_site_url() . '/index.php/woocommerce-mercadopago/?wc-api=' . get_class($this);
     }
 
     /**
@@ -1011,6 +1014,23 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'class' => 'mp_small_text mp-mt--10'
         );
         return $checkout_payments_advanced_description;
+    }
+
+    /**
+    * @return array
+    */
+    public function field_coupon_mode()
+    {
+        return array(
+            'title' => __('Discount coupons', 'woocommerce-mercadopago'),
+            'type' => 'select',
+            'default' => 'no',
+            'description' => __('Will you offer discount coupons to customers who buy with Mercado Pago?', 'woocommerce-mercadopago'),
+            'options' => array(
+                'no' => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Yes', 'woocommerce-mercadopago')
+            )
+        );
     }
 
     /**

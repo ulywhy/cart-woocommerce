@@ -41,6 +41,27 @@ if (!defined('ABSPATH')) {
 			</div>
 		</div>
 
+		<!-- Cupom mode, creat a campaign on mercado pago -->
+		<?php if ($coupon_mode == 'yes') : ?>
+			<div class="mp-col-md-12" id="mercadopago-form-coupon">
+				<div class="frame-tarjetas mp-text-justify">
+					<p class="mp-subtitle-custom-checkout"><?= __('Enter your discount coupon', 'woocommerce-mercadopago') ?></p>
+
+					<div class="mp-row-checkout mp-pt-10">
+						<div class="mp-col-md-9 mp-pr-15">
+							<input type="text" class="mp-form-control" id="couponCode" name="mercadopago_custom[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?= __('Enter your coupon', 'woocommerce-mercadopago') ?>" />
+						</div>
+
+						<div class="mp-col-md-3">
+							<input type="button" class="mp-button mp-pointer" id="applyCoupon" value="<?= esc_html__('Apply', 'woocommerce-mercadopago'); ?>">
+						</div>
+						<div class="mp-discount mp-col-md-9 mp-pr-15" id="mpCouponApplyed"></div>
+						<span class="mp-error" id="mpCouponError"><?= __('The code you entered is incorrect', 'woocommerce-mercadopago') ?></span>
+					</div>
+				</div>
+			</div>
+		<?php endif; ?>
+
 		<div class="mp-col-md-12">
 			<div class="frame-tarjetas">
 				<!-- Title enter your card details -->
@@ -181,6 +202,8 @@ if (!defined('ABSPATH')) {
 		<div id="mercadopago-utilities">
 			<input type="hidden" id="mp-amount" value='<?php echo $amount; ?>' name="mercadopago_custom[amount]" />
 			<input type="hidden" id="currency_ratio" value='<?php echo $currency_ratio; ?>' name="mercadopago_custom[currency_ratio]" />
+			<input type="hidden" id="campaign_id" name="mercadopago_custom[campaign_id]" />
+			<input type="hidden" id="campaign" name="mercadopago_custom[campaign]" />
 			<input type="hidden" id="mp-discount" name="mercadopago_custom[discount]" />
 			<input type="hidden" id="paymentMethodId" name="mercadopago_custom[paymentMethodId]" />
 			<input type="hidden" id="token" name="mercadopago_custom[token]" />

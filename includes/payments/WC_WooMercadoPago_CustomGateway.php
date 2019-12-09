@@ -22,17 +22,16 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         if (!$this->validateSection()) {
             return;
         }
-
         $this->desc = __('Accept card payments on your website with the best possible financing and maximize the conversion of your business. With personalized checkout your customers pay without leaving your store!', 'woocommerce-mercadopago');
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->title = __('Pay with debit and credit cards', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription($this->desc);
+        $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->field_forms_order = $this->get_fields_sequence();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
-        $this->logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        $this->customer = $this->getOrCreateCustomer();
+        $this->customer = isset($this->logged_user_email) ? $this->mp->get_or_create_customer($this->logged_user_email) : null;
         $this->hook = new WC_WooMercadoPago_Hook_Custom($this);
         $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
     }
@@ -65,6 +64,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['binary_mode'] = $this->field_binary_mode();
             $form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion($this);
             $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
+            $form_fields['coupon_mode'] = $this->field_coupon_mode();
         }
         $form_fields_abs = parent::getFormFields($label);
         if (count($form_fields_abs) == 1) {
@@ -132,6 +132,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             // Advanced configuration of the personalized payment experience"
             'checkout_custom_payments_advanced_title',
             'checkout_payments_advanced_description',
+            'coupon_mode',
             'binary_mode',
             'gateway_discount',
             'commission',
@@ -299,6 +300,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'amount' => $amount,
             'site_id' => $this->getOption('_site_id_v1'),
             'public_key' => $this->getPublicKey(),
+            'coupon_mode' => isset($this->logged_user_email) ? $this->coupon_mode : 'no',
+            'discount_action_url' => $this->discount_action_url,
             'payer_email' => $this->logged_user_email,
             'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
             'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
