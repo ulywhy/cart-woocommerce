@@ -88,8 +88,8 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function make_commum_preference()
     {
         $preference = array(
-            'binary_mode' => $this->get_binary_mode(),
-            'external_reference' => $this->get_external_reference(),
+            'binary_mode' => $this->get_binary_mode($this->payment),
+            'external_reference' => $this->get_external_reference($this->payment),
             'notification_url' => $this->get_notification_url(),
             'statement_descriptor' => $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago'),
         );
@@ -249,13 +249,18 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     }
 
     /**
+     * get binary_mode
+     * @param class $payment
      * @return bool
      */
-    public function get_binary_mode()
+    public function get_binary_mode($payment = null)
     {
-        if ($this->payment->binary_mode === 'yes') {
+        $binary_mode = !is_null($payment) ? $payment->getOption('binary_mode') : 'no';
+
+        if ($binary_mode != 'no') {
             return true;
         }
+
         return false;
     }
 
@@ -270,9 +275,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     /**
      * @return string
      */
-    public function get_external_reference()
+    public function get_external_reference($payment)
     {
-        $store_identificator = $this->payment->store_identificator;
+        $store_identificator = !is_null($payment) ? $payment->getOption('_mp_store_identificator') : 'WC-';
+
         if (method_exists($this->order, 'get_id')) {
             return $store_identificator . $this->order->get_id();
         } else {
