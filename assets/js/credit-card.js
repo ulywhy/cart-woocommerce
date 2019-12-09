@@ -114,7 +114,7 @@
         * Get Amount end calculate discount for hide inputs
         */
         function getAmount() {
-            return document.getElementById('mp-amount').value - document.getElementById('mp-discount').value;
+            return (document.getElementById('mp-amount').value - document.getElementById('mp-discount').value) * document.getElementById('currency_ratio').value;
         }
 
         /**

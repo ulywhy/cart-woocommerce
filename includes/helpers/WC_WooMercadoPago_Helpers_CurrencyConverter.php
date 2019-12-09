@@ -194,7 +194,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
         $ratio = self::DEFAULT_RATIO;
 
-        if ($fromCurrency = $toCurrency) {
+        if ($fromCurrency == $toCurrency) {
             $this->cache[$cacheKey] = $ratio;
             return $ratio;
         }
