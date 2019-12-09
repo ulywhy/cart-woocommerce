@@ -50,9 +50,16 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     /**
      * @param $checkout
      */
-    public function add_discount_abst()
+    public function add_discount_abst($checkout)
     {
-        return;
+        if (isset($checkout['discount']) && !empty($checkout['discount']) && isset($checkout['coupon_code']) && !empty($checkout['coupon_code']) && $checkout['discount'] > 0 && WC()->session->chosen_payment_method == $this->payment->id) {
+            $this->payment->log->write_log(__FUNCTION__, $this->class . 'trying to apply discount...');
+            $value = ($this->payment->site_data['currency'] == 'COP' || $this->payment->site_data['currency'] == 'CLP') ? floor($checkout['discount'] / $checkout['currency_ratio']) : floor($checkout['discount'] / $checkout['currency_ratio'] * 100) / 100;
+            global $woocommerce;
+            if (apply_filters('wc_mercadopago_custommodule_apply_discount', 0 < $value, $woocommerce->cart)) {
+                $woocommerce->cart->add_fee(sprintf(__('Discount for coupon %s', 'woocommerce-mercadopago'), esc_attr($checkout['campaign'])), ($value * -1), false);
+            }
+        }
     }
 
     /**
@@ -79,9 +86,11 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 break;
             case 'WC_WooMercadoPago_CustomGateway':
                 $infra_data['checkout_custom_credit_card'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
+                $infra_data['checkout_custom_credit_card_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
                 break;
             case 'WC_WooMercadoPago_TicketGateway':
                 $infra_data['checkout_custom_ticket'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
+                $infra_data['checkout_custom_ticket_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
                 break;
         }
         return $infra_data;

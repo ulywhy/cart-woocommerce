@@ -309,6 +309,37 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     /**
      * @return array
      */
+    public function add_discounts()
+    {
+        $item = array(
+            'title' => __('Discount provided by store', 'woocommerce-mercadopago'),
+            'description' => __('Discount provided by store', 'woocommerce-mercadopago'),
+            'quantity' => 1,
+            'category_id' => get_option('_mp_category_name', 'others'),
+            'unit_price' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
+                -floor($this->checkout['discount'] * $this->currency_ratio) : -floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100
+        );
+        return $item;
+    }
+
+    /**
+     * Discount Campaign
+     *
+     * @return array
+     */
+    public function add_discounts_campaign()
+    {
+        return array(
+            'campaign_id' => (int) $this->checkout['campaign_id'],
+            'coupon_amount' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
+                floor($this->checkout['discount'] * $this->currency_ratio) : floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100,
+            'coupon_code' => strtoupper($this->checkout['coupon_code'])
+        );
+    }
+
+    /**
+     * @return array
+     */
     public function get_internal_metadata()
     {
         $accessToken = get_option('_mp_access_token_prod', '');

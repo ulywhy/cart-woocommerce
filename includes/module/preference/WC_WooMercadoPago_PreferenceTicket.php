@@ -44,6 +44,15 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
 
+        if (
+            isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
+            isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
+            $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-ticket'
+        ) {
+            $this->preference['additional_info']['items'][] = $this->add_discounts();
+            $this->preference = array_merge($this->preference , $this->add_discounts_campaign());
+        }
+
         $internal_metadata = parent::get_internal_metadata();
 		$merge_array = array_merge($internal_metadata, $this->get_internal_metadata_ticket());
         $this->preference['metadata'] = $merge_array;

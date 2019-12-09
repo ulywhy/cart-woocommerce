@@ -39,6 +39,15 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
         $this->preference['additional_info']['shipments'] = $this->shipments_receiver_address();
 
+        if (
+            isset($this->checkout['discount']) && !empty($this->checkout['discount']) &&
+            isset($this->checkout['coupon_code']) && !empty($this->checkout['coupon_code']) &&
+            $this->checkout['discount'] > 0 && WC()->session->chosen_payment_method == 'woo-mercado-pago-custom'
+        ) {
+            $this->preference['additional_info']['items'][] = $this->add_discounts();
+            $this->preference = array_merge($this->preference , $this->add_discounts_campaign());
+        }
+
         $internal_metadata = parent::get_internal_metadata();
 		$merge_array = array_merge($internal_metadata, $this->get_internal_metadata_custom());
         $this->preference['metadata'] = $merge_array;
@@ -54,22 +63,6 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
         if (isset($item['currency_id'])) {
             unset($item['currency_id']);
         }
-        return $item;
-    }
-
-    /**
-     * @return array
-     */
-    public function add_discounts()
-    {
-        $item = array(
-            'title' => __('Discount provided by store', 'woocommerce-mercadopago'),
-            'description' => __('Discount provided by store', 'woocommerce-mercadopago'),
-            'quantity' => 1,
-            'category_id' => get_option('_mp_category_name', 'others'),
-            'unit_price' => ($this->site_data['currency'] == 'COP' || $this->site_data['currency'] == 'CLP') ?
-                -floor($this->checkout['discount'] * $this->currency_ratio) : -floor($this->checkout['discount'] * $this->currency_ratio * 100) / 100
-        );
         return $item;
     }
 

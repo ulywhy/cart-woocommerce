@@ -6,6 +6,28 @@ if (!defined('ABSPATH')) {
 
 <div class="mp-panel-custom-checkout">
     <div class="mp-row-checkout">
+
+        <!-- Cupom mode, creat a campaign on mercado pago -->
+        <?php if ($coupon_mode == 'yes') : ?>
+            <div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12">
+            <div class="frame-tarjetas mp-text-justify">
+                <p class="mp-subtitle-ticket-checkout"><?=__('Enter your discount coupon', 'woocommerce-mercadopago')?></p>
+
+                <div class="mp-row-checkout mp-pt-10">
+                    <div class="mp-col-md-9 mp-pr-15">
+                        <input type="text" class="mp-form-control" id="couponCodeTicket" name="mercadopago_ticket[coupon_code]" autocomplete="off" maxlength="24" placeholder="<?=__('Enter your coupon', 'woocommerce-mercadopago')?>" />
+                    </div>
+
+                    <div class="mp-col-md-3">
+                        <input type="button" class="mp-button mp-pointer" id="applyCouponTicket" value="<?= esc_html__('Apply', 'woocommerce-mercadopago'); ?>">
+                    </div>
+                    <div class="mp-discount mp-col-md-9 mp-pr-15" id="mpCouponApplyedTicket"></div>
+                    <span class="mp-erro_febraban" id="mpCouponErrorTicket"><?=__('The code you entered is incorrect', 'woocommerce-mercadopago')?></span>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <div class="mp-col-md-12">
             <div class="frame-tarjetas">
                 <div id="mercadopago-form-ticket">
@@ -159,6 +181,9 @@ if (!defined('ABSPATH')) {
             <input type="hidden" id="site_id" value="<?php echo $site_id; ?>" name="mercadopago_ticket[site_id]" />
             <input type="hidden" id="amountTicket" value="<?php echo $amount; ?>" name="mercadopago_ticket[amount]" />
             <input type="hidden" id="currency_ratioTicket" value="<?php echo $currency_ratio; ?>" name="mercadopago_ticket[currency_ratio]" />
+            <input type="hidden" id="campaign_idTicket" name="mercadopago_ticket[campaign_id]" />
+            <input type="hidden" id="campaignTicket" name="mercadopago_ticket[campaign]" />
+            <input type="hidden" id="discountTicket" name="mercadopago_ticket[discount]" />
         </div>
 
     </div>
