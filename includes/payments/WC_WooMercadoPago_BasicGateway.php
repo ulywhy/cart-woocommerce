@@ -43,6 +43,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = $this->getFormFields('Basic');
         $this->hook = new WC_WooMercadoPago_Hook_Basic($this);
         $this->notification = new WC_WooMercadoPago_Notification_IPN($this);
+        $this->currency_convertion = false;
     }
 
     /**
