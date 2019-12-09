@@ -80,6 +80,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $desc;
     public $customer;
     public $logged_user_email;
+    public $currency_convertion;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -1269,5 +1270,13 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 update_option($key, apply_filters('woocommerce_settings_api_sanitized_fields_' . $gateway::getId(), $options));
             }
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrencyConvertable()
+    {
+        return $this->currency_convertion;
     }
 }
