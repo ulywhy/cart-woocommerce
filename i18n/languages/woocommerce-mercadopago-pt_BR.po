@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2019-11-27 11:53-0300\n"
+"PO-Revision-Date: 2019-12-09 15:35-0300\n"
 "X-Generator: Poedit 2.2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -1426,7 +1426,8 @@ msgstr "Ofereça todos os meios de pagamento: cartão de crédito, boleto, na lo
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:28
 msgid "Accept card payments on your website with the best possible financing and maximize the conversion of your business. With personalized checkout your customers pay without leaving your store!"
-msgstr "Aceite pagamentos com cartão no seu site com o melhor financiamento possível e maximize a conversão dos seus negócios. Com o checkout personalizado seus clientes pagam sair da sua sua loja!"
+msgstr ""
+"Aceite pagamentos com cartão no seu site com o melhor financiamento possível e maximize a conversão dos seus negócios. Com o checkout personalizado seus clientes pagam sem sair da sua sua loja!"
 
 #: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:11
 msgid "Convert Currency"
