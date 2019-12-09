@@ -28,6 +28,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->title = __('Pay with cash', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription($this->desc);
+        $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');
         $this->date_expiration = $this->getOption('date_expiration', 3);
         $this->type_payments = $this->getOption('type_payments', 'no');
@@ -66,6 +67,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['checkout_ticket_options_subtitle'] = $this->field_checkout_ticket_options_subtitle();
             $form_fields['checkout_ticket_payments_title'] = $this->field_checkout_ticket_payments_title();
             $form_fields['checkout_ticket_payments_advanced_title'] = $this->field_checkout_ticket_payments_advanced_title();
+            $form_fields['coupon_mode'] = $this->field_coupon_mode();
             $form_fields['stock_reduce_mode'] = $this->field_stock_reduce_mode();
             $form_fields['date_expiration'] = $this->field_date_expiration();
             $form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion($this);
@@ -142,6 +144,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             // Advanced configuration of the personalized payment experience"
             'checkout_ticket_payments_advanced_title',
             'checkout_payments_advanced_description',
+            'coupon_mode',
             'stock_reduce_mode',
             'gateway_discount',
             'commission',
@@ -375,6 +378,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'amount' => $amount,
             'payment_methods' => $this->activated_payment,
             'site_id' => $this->getOption('_site_id_v1'),
+            'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
+            'discount_action_url' => $this->discount_action_url,
             'payer_email' => $logged_user_email,
             'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
             'woocommerce_currency' => get_woocommerce_currency(),

@@ -9,10 +9,27 @@
             site_id: wc_mercadopago_ticket_params.site_id,
         }
 
+        var coupon_of_discounts = {
+            discount_action_url: wc_mercadopago_ticket_params.discount_action_url,
+            payer_email: wc_mercadopago_ticket_params.payer_email,
+            default: wc_mercadopago_ticket_params.coupon_mode,
+            status: false
+        }
+
+        if ($('form#order_review').length > 0) {
+            if (wc_mercadopago_ticket_params.coupon_mode == 'yes') {
+                $('#applyCouponTicket').on('click', discountCampaignsHandler);
+            }
+        }
+
         // Load woocommerce checkout form
         $('body').on('updated_checkout', function () {
             if (seller.site_id == "MLB") {
                 validateDocumentInputs();
+            }
+
+            if (wc_mercadopago_ticket_params.coupon_mode == 'yes') {
+                $('#applyCouponTicket').on('click', discountCampaignsHandler);
             }
         });
 
@@ -251,6 +268,153 @@
                 return false;
             }
         }
+
+        /**
+        *  Discount Campaigns Handler
+        */
+        function discountCampaignsHandler() {
+            document.querySelector('#mpCouponApplyedTicket').style.display = "none";
+
+            if (document.querySelector('#couponCodeTicket').value == "") {
+                coupon_of_discounts.status = false;
+                document.querySelector('#mpCouponErrorTicket').style.display = "block";
+                document.querySelector('#mpCouponErrorTicket').innerHTML = wc_mercadopago_ticket_params.coupon_empty;
+                document.querySelector('#couponCodeTicket').style.background = null;
+                document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
+                document.querySelector('#discountTicket').value = 0;
+
+            } else if (coupon_of_discounts.status) {
+                coupon_of_discounts.status = false;
+                document.querySelector('#mpCouponErrorTicket').style.display = "none";
+                document.querySelector('#applyCouponTicket').style.background = null;
+                document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
+                document.querySelector('#couponCodeTicket').value = "";
+                document.querySelector('#couponCodeTicket').style.background = null;
+                document.querySelector('#discountTicket').value = 0;
+
+            } else {
+                document.querySelector('#mpCouponErrorTicket').style.display = "none";
+                document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.loading + ") 98% 50% no-repeat #fff";
+                document.querySelector('#couponCodeTicket').style.border = "1px solid #cecece";
+                document.querySelector('#applyCouponTicket').disabled = true;
+                getDiscountCampaigns();
+            }
+        }
+
+        /**
+         * Get Discount Campaigns
+         */
+        function getDiscountCampaigns() {
+            var url = coupon_of_discounts.discount_action_url;
+            var sp = "?";
+            if (url.indexOf("?") >= 0) {
+                sp = "&";
+            }
+            url += sp + "site_id=" + wc_mercadopago_ticket_params.site_id;
+            url += "&coupon_id=" + document.querySelector('#couponCodeTicket').value;
+            url += "&amount=" + document.querySelector('#amountTicket').value;
+            url += "&payer=" + coupon_of_discounts.payer_email;
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                timeout: 5000,
+                error: function () {
+                    coupon_of_discounts.status = false;
+                    document.querySelector('#mpCouponApplyedTicket').style.display = "none";
+                    document.querySelector('#mpCouponErrorTicket').style.display = "none";
+                    document.querySelector('#applyCouponTicket').style.background = null;
+                    document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
+                    document.querySelector('#couponCodeTicket').value = "";
+                    document.querySelector('#couponCodeTicket').style.background = null;
+                    document.querySelector('#discountTicket').value = 0;
+                },
+                success: function (response, status) {
+                    if (response.status == 200) {
+                        coupon_of_discounts.status = true;
+                        document.querySelector('#mpCouponApplyedTicket').style.display = "block";
+                        document.querySelector('#discountTicket').value = response.response.coupon_amount;
+                        document.querySelector('#mpCouponApplyedTicket').innerHTML =
+                            wc_mercadopago_ticket_params.discount_info1 + " <strong>" +
+                            currencyIdToCurrency(response.response.currency_id) + " " +
+                            Math.round(response.response.coupon_amount * 100) / 100 +
+                            "</strong> " + wc_mercadopago_ticket_params.discount_info2 + " " +
+                            response.response.name + ".<br>" + wc_mercadopago_ticket_params.discount_info3 + " <strong>" +
+                            currencyIdToCurrency(response.response.currency_id) + " " +
+                            Math.round(getAmountWithoutDiscount() * 100) / 100 +
+                            "</strong><br>" + wc_mercadopago_ticket_params.discount_info4 + " <strong>" +
+                            currencyIdToCurrency(response.response.currency_id) + " " +
+                            Math.round(getAmount() * 100) / 100 + "*</strong><br>" +
+                            "<i>" + wc_mercadopago_ticket_params.discount_info5 + "</i><br>" +
+                            "<a href='https://api.mercadolibre.com/campaigns/" +
+                            response.response.id +
+                            "/terms_and_conditions?format_type=html' target='_blank'>" +
+                            wc_mercadopago_ticket_params.discount_info6 + "</a>";
+                        document.querySelector('#mpCouponErrorTicket').style.display = "none";
+                        document.querySelector('#couponCodeTicket').style.background = null;
+                        document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.check + ") 94% 50% no-repeat #fff";
+                        document.querySelector('#couponCodeTicket').style.border = "1px solid #cecece";
+                        document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.remove;
+                        document.querySelector('#campaign_idTicket').value = response.response.id;
+                        document.querySelector('#campaignTicket').value = response.response.name;
+                    } else {
+                        coupon_of_discounts.status = false;
+                        document.querySelector('#mpCouponApplyedTicket').style.display = "none";
+                        document.querySelector('#mpCouponErrorTicket').style.display = "block";
+                        document.querySelector('#mpCouponErrorTicket').innerHTML = response.response.message;
+                        document.querySelector('#couponCodeTicket').style.background = null;
+                        document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.error + ") 94% 50% no-repeat #fff";
+                        document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
+                        document.querySelector('#discountTicket').value = 0;
+                    }
+                    document.querySelector('#applyCouponTicket').disabled = false;
+                }
+            });
+        }
+
+        /**
+         * CurrencyId to Currency
+         * 
+         * @param {string} currency_id 
+         */
+        function currencyIdToCurrency(currency_id) {
+            if (currency_id == "ARS") {
+                return "$";
+            } else if (currency_id == "BRL") {
+                return "R$";
+            } else if (currency_id == "COP") {
+                return "$";
+            } else if (currency_id == "CLP") {
+                return "$";
+            } else if (currency_id == "MXN") {
+                return "$";
+            } else if (currency_id == "VEF") {
+                return "Bs";
+            } else if (currency_id == "PEN") {
+                return "S/";
+            } else if (currency_id == "UYU") {
+                return "$U";
+            } else {
+                return "$";
+            }
+        }
+
+        /**
+         * Get Amount Without Discount
+         * 
+         * @return {string}
+         */
+        function getAmountWithoutDiscount() {
+            return document.querySelector('#amountTicket').value;
+        }
+
+        /**
+        * Get Amount end calculate discount for hide inputs
+        */
+        function getAmount() {
+            return document.getElementById('amountTicket').value - document.getElementById('discountTicket').value;
+        }
+
     });
 
 }(jQuery));
