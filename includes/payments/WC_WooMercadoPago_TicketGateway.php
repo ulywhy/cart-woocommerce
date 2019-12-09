@@ -40,6 +40,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = $this->getFormFields('Ticket');
         $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
         $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
+        $this->currency_convertion = true;
     }
 
     /**
