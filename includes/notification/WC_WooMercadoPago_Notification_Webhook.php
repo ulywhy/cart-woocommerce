@@ -25,7 +25,27 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
     {
         parent::check_ipn_response();
         $data = $_GET;
-        if (!isset($data['data_id']) || !isset($data['type'])) {
+        if (isset($data['coupon_id']) && !empty($data['coupon_id'])) {
+            if (isset($data['payer']) && !empty($data['payer'])) {
+                $response = $this->mp->check_discount_campaigns($data['amount'], $data['payer'], $data['coupon_id']);
+                header('HTTP/1.1 200 OK');
+                header('Content-Type: application/json');
+                echo json_encode($response);
+            } else {
+                $obj = new stdClass();
+                $obj->status = 404;
+                $obj->response = array(
+                    'message' => __('Please enter your email address at the billing address to use this service', 'woocommerce-mercadopago'),
+                    'error' => 'payer_not_found',
+                    'status' => 404,
+                    'cause' => array()
+                );
+                header('HTTP/1.1 200 OK');
+                header('Content-Type: application/json');
+                echo json_encode($obj);
+            }
+            exit(0);
+        } else if (!isset($data['data_id']) || !isset($data['type'])) {
             $this->log->write_log(__FUNCTION__, 'data_id or type not set: ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
             if (!isset($data['id']) || !isset($data['topic'])) {
                 $this->log->write_log(__FUNCTION__, 'Mercado Pago Request failure: ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
