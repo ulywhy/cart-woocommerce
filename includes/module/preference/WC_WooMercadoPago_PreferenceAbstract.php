@@ -255,7 +255,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_binary_mode($payment = null)
     {
-        $binary_mode = !is_null($payment) ? $payment->getOption('binary_mode') : 'no';
+        $binary_mode = !is_null($payment) ? $payment->getOption('binary_mode', 'no') : 'no';
 
         if ($binary_mode != 'no') {
             return true;
@@ -275,7 +275,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     /**
      * @return string
      */
-    public function get_external_reference($payment)
+    public function get_external_reference($payment = null)
     {
         $store_identificator = !is_null($payment) ? $payment->getOption('_mp_store_identificator') : 'WC-';
 
