@@ -23,11 +23,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             return;
         }
 
-        $this->desc = __('Accept cash payments within the custom checkout and expand your customers purchase options.', 'woocommerce-mercadopago');
+        $this->description = __('Accept cash payments within the custom checkout and expand your customers purchase options.', 'woocommerce-mercadopago');
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
         $this->title = __('Pay with cash', 'woocommerce-mercadopago');
-        $this->method_description = $this->getMethodDescription($this->desc);
+        $this->method_description = $this->getMethodDescription($this->description);
         $this->coupon_mode = $this->getOption('coupon_mode', 'no');
         $this->stock_reduce_mode = $this->getOption('stock_reduce_mode', 'no');
         $this->date_expiration = $this->getOption('date_expiration', 3);
@@ -172,7 +172,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             }
 
             foreach ($get_payment_methods_ticket as $payment_methods_ticket) {
-                if (isset($saved_optons['ticket_payment_' . $payment_methods_ticket['id']]) && $saved_optons['ticket_payment_' . $payment_methods_ticket['id']] == 'yes') {
+                if (!isset($saved_optons['ticket_payment_' . $payment_methods_ticket['id']]) || $saved_optons['ticket_payment_' . $payment_methods_ticket['id']] == 'yes') {
                     array_push($activated_payment, $payment_methods_ticket);
                 }
             }

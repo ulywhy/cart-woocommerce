@@ -22,13 +22,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         try {
+            $this->loadHelpers();
             $this->loadConfigs();
             $this->loadLog();
             $this->loadHooks();
             $this->loadPreferences();
             $this->loadPayments();
             $this->loadNotifications();
-            $this->loadHelpers();
 
             add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
             add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));

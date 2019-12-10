@@ -68,7 +68,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $mp_public_key_prod;
     public $mp_access_token_prod;
     public $notification;
-    public $checkout_credential_token_production;
     public $checkout_country;
     public $wc_country;
     public $commission;
@@ -77,7 +76,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $activated_payment;
     public $homolog_validate;
     public $clientid_old_version;
-    public $desc;
     public $customer;
     public $logged_user_email;
     public $currency_convertion;
@@ -94,8 +92,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_access_token_prod = $this->getOption('_mp_access_token_prod');
         $this->checkout_country = get_option('checkout_country', '');
         $this->wc_country = get_option('woocommerce_default_country', '');
-        $this->checkout_credential_token_production = $this->getOption('checkout_credential_production', get_option('checkout_credential_production', 'no'));
-        $this->description = $this->getOption('description');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
@@ -122,7 +118,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function getHomologValidate()
     {
         $homolog_validate = (int)get_option('homolog_validate', 0);
-        if (($this->checkout_credential_token_production == 'yes' && !empty($this->mp_access_token_prod)) && $homolog_validate == 0) {
+        if (($this->isProductionMode() && !empty($this->mp_access_token_prod)) && $homolog_validate == 0) {
             if ($this->mp instanceof MP) {
                 $homolog_validate = $this->mp->homologValidate($this->mp_access_token_prod);
                 update_option('homolog_validate', $homolog_validate, true);
@@ -138,7 +134,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getAccessToken()
     {
-        if ($this->checkout_credential_token_production == 'no') {
+        if (!$this->isProductionMode()) {
             return $this->mp_access_token_test;
         }
         return $this->mp_access_token_prod;
@@ -149,7 +145,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function getPublicKey()
     {
-        if ($this->checkout_credential_token_production == 'no') {
+        if (!$this->isProductionMode()) {
             return $this->mp_public_key_test;
         }
         return $this->mp_public_key_prod;
@@ -635,11 +631,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_credential_production()
     {
+        $production_mode = $this->isProductionMode() ? 'yes' : 'no';
         $checkout_credential_production = array(
             'title' => __('Production', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Choose "YES" only when you are ready to sell. Change to NO to activate the Tests mode.', 'woocommerce-mercadopago'),
-            'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $this->getOption('checkout_credential_production', 'no'),
+            'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $production_mode,
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
                 'yes' => __('Yes', 'woocommerce-mercadopago')
@@ -1118,7 +1115,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_ready_title()
     {
 
-        if ($this->checkout_credential_token_production == 'yes') {
+        if ($this->isProductionMode()) {
             $message_ready_title = __('Everything ready for the takeoff of your sales?', 'woocommerce-mercadopago');
         } else {
             $message_ready_title = __('Everything set up? Go to your store in Sandbox mode', 'woocommerce-mercadopago');
@@ -1137,7 +1134,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_ready_description()
     {
-        if ($this->checkout_credential_token_production == 'yes') {
+        if ($this->isProductionMode()) {
             $message_ready_description = __('You already went to Production. You just need your best customers <br> to arrive at your store to live the best online shopping experience with Mercado Pago.', 'woocommerce-mercadopago');
         } else {
             $message_ready_description = __('Visit your store as if you were one of your customers and check that everything is fine. If you already went to Production,<br> bring your customers and increase your sales with the best online shopping experience.', 'woocommerce-mercadopago');
@@ -1156,7 +1153,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_ready_description_link()
     {
-        if ($this->checkout_credential_token_production == 'yes') {
+        if ($this->isProductionMode()) {
             $message_link = __('Visit my store', 'woocommerce-mercadopago');
         } else {
             $message_link = __('I want to test my sales', 'woocommerce-mercadopago');
@@ -1225,7 +1222,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function isTestUser()
     {
-        if ($this->checkout_credential_token_production == 'yes') {
+        if ($this->isProductionMode()) {
             return false;
         }
         return true;
@@ -1278,5 +1275,12 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function isCurrencyConvertable()
     {
         return $this->currency_convertion;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProductionMode() {
+        return $this->getOption('checkout_credential_production', get_option('checkout_credential_production', 'no')) === 'yes';
     }
 }

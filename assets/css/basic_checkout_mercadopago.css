@@ -218,6 +218,7 @@
     position: relative !important;
     right: 0px !important;
     border: inherit !important;
+    display: inline-block !important;
 }
 
 .mp-img-redirect{
@@ -229,6 +230,7 @@
     position: relative !important;
     right: 0px !important;
     border: inherit !important;
+    display: inline-block !important;
 }
 
 .mp-img-ticket {
