@@ -81,10 +81,10 @@ Automatic Installation by WordPress admin
 2. Once inside Plugins, click on 'Add New' and search for 'Mercado Pago WooCommerce' in the WordPress Plugin list
 3. Click on "Install."
 
-Done! It will be in the "Installed Plugins" section and from there you can activate it. 
+Done! It will be in the "Installed Plugins" section and from there you can activate it.
 
 Manual Installation
-1. Download the zip now or from the o WordPress Module Directory
+1. Download the [zip] (https://github.com/mercadopago/cart-woocommerce/archive/master.zip) now or from the o WordPress Module [Directory] (https://br.wordpress.org/plugins/woocommerce-mercadopago/)
 2. Unzip the folder and rename it to ”woocommerce-mercadopago”
 3. Copy the "woocommerce-mercadopago" file into your WordPress directory, inside the "Plugins" folder.
 
