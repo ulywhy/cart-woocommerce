@@ -90,20 +90,6 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
     }
 
     /**
-     * @return bool
-     */
-    public function get_binary_mode($payment = null)
-    {
-        $binary_mode = is_null($payment) ? 'yes' : $payment->getOption('binary_mode');
-
-        if ($binary_mode != 'no') {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * @return array
      */
     public function get_internal_metadata_ticket()
