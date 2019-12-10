@@ -40,6 +40,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = $this->getFormFields('Ticket');
         $this->hook = new WC_WooMercadoPago_Hook_Ticket($this);
         $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
+        $this->currency_convertion = true;
     }
 
     /**
@@ -368,10 +369,10 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $amount = $amount - $discount + $comission;
 
         $logged_user_email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        $address = get_user_meta(wp_get_current_user()->ID, 'shipping_address_1', true);
-        $address_2 = get_user_meta(wp_get_current_user()->ID, 'shipping_address_2', true);
+        $address = get_user_meta(wp_get_current_user()->ID, 'billing_address_1', true);
+        $address_2 = get_user_meta(wp_get_current_user()->ID, 'billing_address_2', true);
         $address .= (!empty($address_2) ? ' - ' . $address_2 : '');
-        $country = get_user_meta(wp_get_current_user()->ID, 'shipping_country', true);
+        $country = get_user_meta(wp_get_current_user()->ID, 'billing_country', true);
         $address .= (!empty($country) ? ' - ' . $country : '');
 
         $parameters = array(
@@ -384,6 +385,27 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
+            'febraban' => (wp_get_current_user()->ID != 0) ?
+                array(
+                    'firstname' => wp_get_current_user()->user_firstname,
+                    'lastname' => wp_get_current_user()->user_lastname,
+                    'docNumber' => '',
+                    'address' => $address,
+                    'number' => '',
+                    'city' => get_user_meta(wp_get_current_user()->ID, 'billing_city', true),
+                    'state' => get_user_meta(wp_get_current_user()->ID, 'billing_state', true),
+                    'zipcode' => get_user_meta(wp_get_current_user()->ID, 'billing_postcode', true)
+                ) :
+                array(
+                    'firstname' => '',
+                    'lastname' => '',
+                    'docNumber' => '',
+                    'address' => '',
+                    'number' => '',
+                    'city' => '',
+                    'state' => '',
+                    'zipcode' => '',
+                ),
             'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
         );
 

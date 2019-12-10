@@ -88,8 +88,8 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function make_commum_preference()
     {
         $preference = array(
-            'binary_mode' => $this->get_binary_mode(),
-            'external_reference' => $this->get_external_reference(),
+            'binary_mode' => $this->get_binary_mode($this->payment),
+            'external_reference' => $this->get_external_reference($this->payment),
             'notification_url' => $this->get_notification_url(),
             'statement_descriptor' => $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago'),
         );
@@ -162,8 +162,8 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 $line_amount = $item['line_total'] + $item['line_tax'];
                 $discount_by_gateway = (float)$line_amount * ($this->gateway_discount / 100);
                 $commission_by_gateway = (float)$line_amount * ($this->commission / 100);
-                $this->order_total += ($line_amount - $discount_by_gateway);
-                $this->order_total += ($line_amount + $commission_by_gateway);
+                $item_amount = $line_amount - $discount_by_gateway + $commission_by_gateway;
+                $this->order_total += $item_amount;
 
                 // Add the item.
                 array_push($this->list_of_items, $product_title . ' x ' . $item['qty']);
@@ -178,8 +178,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                         plugins_url('assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
                     'category_id' => get_option('_mp_category_id', 'others'),
                     'quantity' => 1,
-                    'unit_price' => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') ?
-                        floor(($line_amount - $discount_by_gateway + $commission_by_gateway) * $this->currency_ratio) : floor(($line_amount - $discount_by_gateway + $commission_by_gateway) * $this->currency_ratio * 100) / 100,
+                    'unit_price' => $this->calculate_price($item_amount),
                     'currency_id' => $this->site_data[$this->site_id]['currency']
                 ));
             }
@@ -197,9 +196,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'description' => __('Shipping service used by the store.', 'woocommerce-mercadopago'),
             'category_id' => get_option('_mp_category_id', 'others'),
             'quantity'    => 1,
-            'unit_price'  => ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP')
-                ? floor($this->ship_cost * $this->currency_ratio)
-                : floor($this->ship_cost * $this->currency_ratio * 100) / 100,
+            'unit_price'  => $this->calculate_price($this->ship_cost),
         );
     }
 
@@ -239,7 +236,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function get_notification_url()
     {
         if (!strrpos(get_site_url(), 'localhost')) {
-            $notification_url = get_option('_mp_custom_domain', '');
+            $notification_url = $this->payment->custom_domain;
             // Check if we have a custom URL.
             if (empty($notification_url) || filter_var($notification_url, FILTER_VALIDATE_URL) === FALSE) {
                 return WC()->api_request_url($this->notification_class);
@@ -252,16 +249,19 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     }
 
     /**
+     * get binary_mode
+     * @param class $payment
      * @return bool
      */
-    public function get_binary_mode()
+    public function get_binary_mode($payment = null)
     {
-        $binary_mode = get_option('binary_mode', 'no');
-        if ($binary_mode == 'yes') {
+        $binary_mode = !is_null($payment) ? $payment->getOption('binary_mode') : 'no';
+
+        if ($binary_mode != 'no') {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -275,9 +275,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     /**
      * @return string
      */
-    public function get_external_reference()
+    public function get_external_reference($payment)
     {
-        $store_identificator = get_option('_mp_store_identificator', 'WC-');
+        $store_identificator = !is_null($payment) ? $payment->getOption('_mp_store_identificator') : 'WC-';
+
         if (method_exists($this->order, 'get_id')) {
             return $store_identificator . $this->order->get_id();
         } else {
@@ -299,11 +300,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_transaction_amount()
     {
-        if ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') {
-            return floor($this->order->get_total() * $this->currency_ratio);
-        } else {
-            return floor($this->order->get_total() * $this->currency_ratio * 100) / 100;
-        }
+        return $this->calculate_price($this->order_total);
     }
 
     /**
@@ -366,5 +363,16 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         );
 
         return $internal_metadata;
+    }
+
+    /**
+     * @param $amount
+     * @return float
+     */
+    private function calculate_price($amount) {
+        if ($this->site_data[$this->site_id]['currency'] == 'COP' || $this->site_data[$this->site_id]['currency'] == 'CLP') {
+            return floor($amount * $this->currency_ratio);
+        }
+        return floor($amount * $this->currency_ratio * 100) / 100;
     }
 }

@@ -79,6 +79,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $clientid_old_version;
     public $customer;
     public $logged_user_email;
+    public $currency_convertion;
 
     /**
      * WC_WooMercadoPago_PaymentAbstract constructor.
@@ -96,7 +97,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
-        $this->custom_domain = $this->getOption('_mp_custom_domain');
+        $this->custom_domain = $this->getOption('_mp_custom_domain', '');
         $this->binary_mode = $this->getOption('binary_mode', 'no');
         $this->gateway_discount = $this->getOption('gateway_discount', 0);
         $this->commission = $this->getOption('commission', 0);
@@ -1267,5 +1268,13 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 update_option($key, apply_filters('woocommerce_settings_api_sanitized_fields_' . $gateway::getId(), $options));
             }
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrencyConvertable()
+    {
+        return $this->currency_convertion;
     }
 }
