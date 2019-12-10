@@ -92,7 +92,7 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
     /**
      * @return bool
      */
-    public function get_binary_mode()
+    public function get_binary_mode($payment = null)
     {
         return true;
     }

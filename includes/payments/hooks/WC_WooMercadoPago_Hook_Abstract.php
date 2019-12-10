@@ -305,7 +305,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         }
 
         if (empty($isProduction)) {
-            $isProduction = $this->payment->checkout_credential_token_production;
+            $isProduction = $this->payment->isProductionMode();
         }
 
         if (WC_WooMercadoPago_Credentials::access_token_is_valid($value)) {
