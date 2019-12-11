@@ -210,6 +210,18 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
     /**
+     * @return bool
+     */
+    public function isManageSection()
+    {
+        if (!isset($_GET['section']) || ($this->id !== $_GET['section'])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return string
      */
     public function getMpLogo()
