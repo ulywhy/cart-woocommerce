@@ -42,24 +42,28 @@ You can trust us as you trust a strategic partner. Use the money from your sales
 
 == Screenshots ==
 
-1. `Pay with the payment method you prefer`
-2. `Pay with the payment method you prefer`
-3. `Pay with debit and credit cards`
-4. `Pay with debit and credit cards`
-5. `Pay with money and cash`
-6. `Pay with ticket and Loterica`
+1. ` `High approval rates.` More than 120 million people rely on our fraud analysis and prevention system.`
+2. ` `Your money available instantly.` You choose the fees and terms that best suit you to use your sales money.`
+3. ` `All payment methods` Activate our checkout in your store and receive payments with cards, money in Mercado Pago account and cash.`
+4. ` `Mercado Pago` You do not need to write a single line of code to receive payments`
+5. ` `01` Create an account in Mercado Pago`
+6. ` `02` Activate the module in your store`
+7. ` `03` Receive the money from your sales`
 
 == Frequently Asked Questions ==
 
 = How do we protect the sellers =
+
 We take care of the money with maximum security
 We help you in case of problems
 We protect your sales against chargebacks
 
 = Where can I find the documentation? =
+
 Check out our official documentation for installing and configuring the Mercado Pago plugin in your store.
 
 = Where and how can I contribute? =
+
 Suggest documentation improvement on [our website](https://www.mercadopago.com.br/developers/es/plugins_sdks/plugins/official/woo-commerce/) for integrators and developers,
 Subscribe to the [development log](https://plugins.trac.wordpress.org/log/woocommerce-mercadopago/) by [RSS](https://plugins.trac.wordpress.org/log/woocommerce-mercadopago/?limit=100&mode=stop_on_copy&format=rss),
 [Review the code](https://plugins.trac.wordpress.org/browser/woocommerce-mercadopago/) and visit the [SVN repository](https://plugins.svn.wordpress.org/woocommerce-mercadopago/),
