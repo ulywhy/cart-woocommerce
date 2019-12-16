@@ -230,7 +230,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function getMethodDescription($description)
     {
         return '<div class="mp-header-logo">
-            <div class="left-header">
+            <div class="mp-left-header">
                 <img src="' . plugins_url('../assets/images/mplogo.png', plugin_dir_path(__FILE__)) . '">
             </div>
             <div>

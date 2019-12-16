@@ -111,13 +111,18 @@ class WC_WooMercadoPago_Configs
     {
         $message = __('The store must have HTTPS to see the payment methods.', 'woocommerce-mercadopago');
         echo '<div class="notice notice-warning is-dismissible">  
-                    <p>
-                        <strong>MERCADO PAGO:</strong> ' . $message . '
-                    </p>
+                <div class="mp-alert-logo">
+                    <div class="mp-left-alert">
+                        <img src="'.plugins_url('../../assets/images/minilogo.png', __FILE__).'" />
+                    </div>
+                    <div class="mp-right-alert">
+                        <span>' . $message . '</span>
+                    </div>
                     <button type="button" class="notice-dismiss">
                         <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
                     </button>
-              </div>';
+                </div>
+            </div>';
     }
 
     /**

@@ -260,15 +260,15 @@
     align-items: center;
 }
 
-.left-header {
+.mp-left-header {
     min-width: 120px;
 }
 
-.left-header img {
+.mp-left-header img {
     max-width: 150px;
 }
 
-.right-header {
+.mp-right-header {
     padding-top: 20px;
 }
 
@@ -302,3 +302,24 @@
 .mp-hidden-field {
     display: none;
 }  
+
+.mp-alert-logo {
+    align-items: center;
+    display: inline-flex;
+    justify-items: center;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 2px;
+}
+
+.mp-left-alert {
+    min-width: 60px;
+}
+
+.mp-left-alert img {
+    max-width: 60px;
+}
+
+.mp-right-alert {
+    padding-left: 5px;
+}
