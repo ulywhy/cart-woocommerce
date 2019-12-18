@@ -42,13 +42,13 @@ You can trust us as you trust a strategic partner. Use the money from your sales
 
 == Screenshots ==
 
-1. ` `High approval rates.` More than 120 million people rely on our fraud analysis and prevention system.`
-2. ` `Your money available instantly.` You choose the fees and terms that best suit you to use your sales money.`
-3. ` `All payment methods` Activate our checkout in your store and receive payments with cards, money in Mercado Pago account and cash.`
-4. ` `Mercado Pago` You do not need to write a single line of code to receive payments`
-5. ` `01` Create an account in Mercado Pago`
-6. ` `02` Activate the module in your store`
-7. ` `03` Receive the money from your sales`
+1. `High approval rates.`
+2. `Your money available instantly.`
+3. `All payment methods.`
+4. `You do not need to write a single line of code to receive payments.`
+5. `01 Create an account in Mercado Pago.`
+6. `02 Activate the module in your store.`
+7. `03 Receive the money from your sales.`
 
 == Frequently Asked Questions ==
 
