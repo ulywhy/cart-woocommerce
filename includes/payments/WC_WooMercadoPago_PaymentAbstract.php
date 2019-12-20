@@ -463,7 +463,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('approved account', 'woocommerce-mercadopago') . '</a>'
             ),
             'type' => 'title',
-            'class' => 'mp_small_text'
+            'class' => 'mp_homolog_text'
         );
 
         array_splice($this->field_forms_order, 4, 0, 'checkout_steps_link_homolog');
@@ -544,7 +544,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_btn_save = array(
             'title' => sprintf(
                 __('%s', 'woocommerce-mercadopago'),
-                '<button name="save" class="woocommerce-save-button mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>'
+                '<button name="save" class="button button-primary mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>'
             ),
             'type' => 'title',
             'class' => ''
@@ -605,7 +605,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_mod_test_description = array(
             'title' => __('By default, we activate the Sandbox test environment for you to test before you start selling.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_small_text mp-mt--10'
+            'class' => 'mp_small_text mp-mt--15'
         );
         return $checkout_credential_mod_test_description;
     }
@@ -631,7 +631,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_mod_prod_description = array(
             'title' => __('When you see that everything is going well, deactivate Sandbox, turn on Production and make way for your online sales.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_small_text mp-mt--10'
+            'class' => 'mp_small_text mp-mt--15 mp-mb-20'
         );
         return $checkout_credential_mod_prod_description;
     }
@@ -704,7 +704,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential__description_test = array(
             'title' => __('With these keys you can do the tests you want..', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_small_text mp-mt--10'
+            'class' => 'mp_small_text mp-mt--15'
         );
         return $checkout_credential__description_test;
     }
@@ -761,7 +761,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential__description_prod = array(
             'title' => __('With these keys you can receive real payments from your customers.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_small_text mp-mt--10'
+            'class' => 'mp_small_text mp-mt--15'
         );
         return $checkout_credential__description_prod;
     }
@@ -1019,7 +1019,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_payments_advanced_description = array(
             'title' => __('Edit these advanced fields only when you want to modify the preset values.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_small_text mp-mt--10'
+            'class' => 'mp_small_text mp-mt--15'
         );
         return $checkout_payments_advanced_description;
     }

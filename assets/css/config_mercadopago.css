@@ -19,12 +19,20 @@
     margin-top: -10px !important;
 }
 
+.mp-mt--15 {
+    margin-top: -15px !important;
+}
+
 .mp-mt-5 {
     margin-top: 5px;
 }
 
 .mp-mb-0 {
     margin-bottom: 0px !important;
+}
+
+.mp-mb-20 {
+    margin-bottom: 20px !important;
 }
 
 .mp-mg-0 {
@@ -112,6 +120,7 @@
     padding-top: 20px;
     font-size: 20px !important;
     margin-top: 0 !important;
+    margin-bottom: 15px !important;
 }
 
 .mp_subtitle_bd_mb {
@@ -130,6 +139,19 @@
     line-height: 16px !important;
     letter-spacing: normal;
     color: #555555;
+}
+
+.mp_homolog_text {
+    font-family: sans-serif;
+    font-size: 14px !important;
+    font-weight: normal;
+    font-style: normal !important;
+    font-stretch: normal;
+    line-height: 16px !important;
+    letter-spacing: normal;
+    color: #555555;
+    margin-top: 0 !important;
+    margin-bottom: 30px !important;
 }
 
 .mp_title_bd {
@@ -155,8 +177,8 @@
     line-height: 1.07;
     letter-spacing: normal;
     color: #303030;
-    margin-bottom: 5px !important;
-    margin-top: 10px !important;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
 }
 
 .mp_tienda_link {
@@ -273,30 +295,7 @@
 }
 
 .mp-save-button {
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    white-space: nowrap;
-    line-height: 1.42857;
-    border-radius: 2px !important;
-    border: solid 1px #c2c2c2 !important;
-    padding: 12px 50px !important;
-    font-size: 13px !important;
-    background-color: #fafafa !important;
-    text-decoration: none;
-    color: #555;
-    font-family: sans-serif;
-    margin-bottom: 10px !important;
-}
-
-.mp-save-button:hover {
-    color: #fff !important;
-    background-color: #00aff0 !important;
-    border-color: #008abd !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none;
+    margin-bottom: 15px !important;
 }
 
 .mp-hidden-field {
@@ -305,8 +304,8 @@
 
 .mp_title_header {
     font-family: sans-serif;
-    font-size: 25px !important;
-    font-weight: 200;
+    font-size: 22px !important;
+    font-weight: normal;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.5;
@@ -316,7 +315,7 @@
 
 .mp_subtitle_header {
     font-family: sans-serif;
-    font-size: 30px !important;
+    font-size: 28px !important;
     font-weight: 400;
     font-style: normal;
     font-stretch: normal;
