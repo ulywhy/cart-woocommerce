@@ -313,10 +313,13 @@
 
 .mp-alert-frame {
     align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    justify-items: center;
 }
 
 .mp-left-alert {
-    padding-top: 2px;
+    padding-top: 5px;
 }
 
 .mp-left-alert img {

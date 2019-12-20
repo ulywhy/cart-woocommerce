@@ -272,7 +272,7 @@ class WC_WooMercadoPago_Configs
                             <img src="' . plugins_url('../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
                         </div>
                         <div class="mp-right-alert">
-                            <p class="mp-mt--5">' . $message . '</p>
+                            <p>' . $message . '</p>
                         </div>
                     </div>
                     <button type="button" class="notice-dismiss">
