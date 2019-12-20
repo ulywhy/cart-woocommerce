@@ -244,7 +244,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function getMethodDescription($description)
     {
         return '<div class="mp-header-logo">
-            <div class="left-header">
+            <div class="mp-left-header">
                 <img src="' . plugins_url('../assets/images/mplogo.png', plugin_dir_path(__FILE__)) . '">
             </div>
             <div>
@@ -276,9 +276,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function noticeHomologValidate()
     {
-        echo '<div class="notice notice-warning is-dismissible">
-                <p><strong>MERCADO PAGO: </strong>' . sprintf(__('%s, it only takes a few minutes', 'woocommerce-mercadopago'), '<a class="homologScroll .mp-mouse_pointer"><b><u>' . __('Approve your account', 'woocommerce-mercadopago') . '</u></b></a>') . '</p>
-                </div>';
+        $type = 'notice-warning';
+        $message = sprintf(__('%s, it only takes a few minutes', 'woocommerce-mercadopago'), '<a class="homologScroll mp-mouse_pointer"><b><u>' . __('Approve your account', 'woocommerce-mercadopago') . '</u></b></a>');
+        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
     }
 
     /**
@@ -411,37 +411,37 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 '<div class="mp-row">
               <h4 class="mp-title-checkout-body mp-pb-20">' . __('<b>Follow these steps to activate Mercado Pago in your store:</b>', 'woocommerce-mercadopago') . '</h4>
               
-              <div class="col-md-2 mp-text-center mp-pb-10">
-                <p class="number-checkout-body">1</p>
-                <p class="text-checkout-body mp-text-center mp-px-20">
+              <div class="mp-col-md-2 mp-text-center mp-pb-10">
+                <p class="mp-number-checkout-body">1</p>
+                <p class="mp-text-checkout-body mp-text-center mp-px-20">
                   ' . __('Upload your <b>credentials</b> to test the store and charge with your Mercado Pago account <b>depending on the country</b> in which you are registered.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             
-              <div class="col-md-2 mp-text-center mp-pb-10">
-                <p class="number-checkout-body">2</p>
-                <p class="text-checkout-body mp-text-center mp-px-20">
+              <div class="mp-col-md-2 mp-text-center mp-pb-10">
+                <p class="mp-number-checkout-body">2</p>
+                <p class="mp-text-checkout-body mp-text-center mp-px-20">
                   ' . __('Approve your account to be able to charge.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-2 mp-text-center mp-pb-10">
-                <p class="number-checkout-body">3</p>
-                <p class="text-checkout-body mp-text-center mp-px-20">
+              <div class="mp-col-md-2 mp-text-center mp-pb-10">
+                <p class="mp-number-checkout-body">3</p>
+                <p class="mp-text-checkout-body mp-text-center mp-px-20">
                   ' . __('Add the basic information of your business in the plugin configuration.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-2 mp-text-center mp-pb-10">
-                <p class="number-checkout-body">4</p>
-                <p class="text-checkout-body mp-text-center mp-px-20">
+              <div class="mp-col-md-2 mp-text-center mp-pb-10">
+                <p class="mp-number-checkout-body">4</p>
+                <p class="mp-text-checkout-body mp-text-center mp-px-20">
                   ' . __('Configure the <b>payment preferences</b> for your customers.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
-              <div class="col-md-2 mp-text-center mp-pb-10">
-              <p class="number-checkout-body">5</p>
-              <p class="text-checkout-body mp-text-center mp-px-20">
+              <div class="mp-col-md-2 mp-text-center mp-pb-10">
+              <p class="mp-number-checkout-body">5</p>
+              <p class="mp-text-checkout-body mp-text-center mp-px-20">
                 ' . __('Go to advanced settings of both the plugin and checkout only when you want to change the presets.', 'woocommerce-mercadopago') . '
               </p>
             </div>

@@ -97,11 +97,9 @@ class WC_WooMercadoPago_Configs
      */
     public function noticeUpdateAccessToken()
     {
-        echo '<div class="error is-dismissible">
-            <p><strong>MERCADO PAGO: </strong>'
-            . __('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado') . '
-            </p>
-        </div>';
+        $type = 'error';
+        $message = __('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado');
+        echo self::getAlertFrame($message, $type);
     }
 
     /**
@@ -109,15 +107,9 @@ class WC_WooMercadoPago_Configs
      */
     public function noticeHttps()
     {
+        $type = 'notice-warning';
         $message = __('The store must have HTTPS to see the payment methods.', 'woocommerce-mercadopago');
-        echo '<div class="notice notice-warning is-dismissible">  
-                    <p>
-                        <strong>MERCADO PAGO:</strong> ' . $message . '
-                    </p>
-                    <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
-                    </button>
-              </div>';
+        echo self::getAlertFrame($message, $type);
     }
 
     /**
@@ -265,5 +257,27 @@ class WC_WooMercadoPago_Configs
         return $methods;
     }
 
-
+    /**
+     * Get MP alert frame for notfications 
+     *
+     * @param string $message
+     * @param string $type
+     * @return void
+     */
+    public static function getAlertFrame($message, $type)
+    {
+        return '<div class="notice '.$type.' is-dismissible">
+                    <div class="mp-alert-frame"> 
+                        <div class="mp-left-alert">
+                            <img src="' . plugins_url('../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
+                        </div>
+                        <div class="mp-right-alert">
+                            <p class="mp-mt--5">' . $message . '</p>
+                        </div>
+                    </div>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
+                    </button>
+                </div>';
+    } 
 }
