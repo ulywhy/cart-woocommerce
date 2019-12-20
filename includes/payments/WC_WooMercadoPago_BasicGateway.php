@@ -26,7 +26,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->description = __('It offers all means of payment: credit and debit cards, cash and account money. Your customers choose whether they pay as guests or from their Mercado Pago account.', 'woocommerce-mercadopago');
 
         $this->form_fields = array();
-        $this->method_title = __('Mercado Pago - Basic Checkout', 'woocommerce-mercadopago');
+        $this->method_title = __('Mercado Pago Checkout', 'woocommerce-mercadopago');
         $this->method = $this->getOption('method', 'redirect');
         $this->title = __('Pay with the payment method you prefer', 'woocommerce-mercadopago');
         $this->method_description = $this->getMethodDescription($this->description);
@@ -137,7 +137,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_homolog_title',
             'checkout_homolog_subtitle',
             'checkout_homolog_link',
-            // Configure WooCommerce Mercado Pago
+            // Configure Mercado Pago for WooCommerce
             'checkout_options_title',
             'checkout_options_subtitle',
             'mp_statement_descriptor',
@@ -153,7 +153,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_payments_description',
             'enabled',
             'installments',
-            // Advanced payment experience settings
+            // advanced settings
             'checkout_payments_advanced_title',
             'checkout_payments_advanced_description',
             'method',
@@ -229,7 +229,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_header = array(
             'title' => sprintf(
-                __('Basic Checkout Accept all method of payment and take your charges to another level %s', 'woocommerce-mercadopago'),
+                __('Mercado Pago checkout<br> Accept all method of payment and take your charges to another level %s', 'woocommerce-mercadopago'),
                 '<div class="row">
               <div class="mp-col-md-12">
                 <p class="text-checkout-body mp-mb-0">
@@ -250,7 +250,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_options_title()
     {
         $checkout_options_title = array(
-            'title' => __('Configure WooCommerce Mercado Pago', 'woocommerce-mercadopago'),
+            'title' => __('Configure Mercado Pago for WooCommerce', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_title_bd'
         );
@@ -263,7 +263,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_options_description()
     {
         $checkout_options_description = array(
-            'title' => __('Enable the experience of the basic checkout of Mercado Pago in your online store, select the means of payment available to your customers and<br> define the maximum fees in which they can pay you.', 'woocommerce-mercadopago'),
+            'title' => __('Enable the experience of the Mercado Pago Checkout in your online store, select the means of payment available to your customers and<br> define the maximum fees in which they can pay you.', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_small_text'
         );
@@ -302,7 +302,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_payments_advanced_title()
     {
         $checkout_payments_advanced_title = array(
-            'title' => __('Advanced payment experience settings', 'woocommerce-mercadopago'),
+            'title' => __('advanced settings', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_subtitle_bd'
         );
@@ -315,7 +315,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_method()
     {
         $method = array(
-            'title' => __('Integration method', 'woocommerce-mercadopago'),
+            'title' => __('Payment experience', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('Define what payment experience your customers will have, whether inside or outside your store.', 'woocommerce-mercadopago'),
             'default' => ($this->method == 'iframe') ? 'redirect' : $this->method,
@@ -470,7 +470,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
             if ($count_payment == 1) {
                 $element['title'] = __('Payment methods', 'woocommerce-mercadopago');
-                $element['desc_tip'] = __('Selecciona los medios de pago disponibles en tu tienda.', 'woocommerce-services');
+                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-mercadopago');
             }
             if ($count_payment == count($get_payment_methods)) {
                 $element['description'] = __('Enable the payment methods available to your customers.', 'woocommerce-mercadopago');
@@ -494,7 +494,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => __('Return to the store', 'woocommerce-mercadopago'),
             'type' => 'select',
             'default' => 'yes',
-            'description' => __('Your customer automatically return to the store after payment.', 'woocommerce-mercadopago'),
+            'description' => __('Do you want your customer to automatically return to the store after payment?', 'woocommerce-mercadopago'),
             'options' => array(
                 'yes' => __('Yes', 'woocommerce-mercadopago'),
                 'no' => __('No', 'woocommerce-mercadopago'),

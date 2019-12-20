@@ -227,7 +227,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         switch ($status_detail) {
             case 'accredited':
-                return __('Ready, your payment has been accepted!', 'woocommerce-mercadopago');
+                return __('That’s it, payment accepted!', 'woocommerce-mercadopago');
             case 'pending_contingency':
                 return __('We are processing your payment. In less than an hour we will send you the result by email.', 'woocommerce-mercadopago');
             case 'pending_review_manual':

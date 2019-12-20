@@ -125,11 +125,11 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         $price_commission = $total * ($this->payment->commission / 100);
 
         if ($this->payment->gateway_discount > 0 && $this->payment->commission > 0) {
-            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . __(' and Rate of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
+            $title .= ' (' . __('discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . __(' and fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
         } elseif ($this->payment->gateway_discount > 0) {
-            $title .= ' (' . __('Discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . ')';
+            $title .= ' (' . __('discount of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_discount)) . ')';
         } elseif ($this->payment->commission > 0) {
-            $title .= ' (' . __('Fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
+            $title .= ' (' . __('fee of', 'woocommerce-mercadopago') . ' ' . strip_tags(wc_price($price_commission)) . ')';
         }
         return $title;
     }

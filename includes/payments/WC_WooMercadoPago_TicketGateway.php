@@ -208,7 +208,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_ticket_options_title()
     {
         $checkout_options_title = array(
-            'title' => __('Configure WooCommerce Mercado Pago', 'woocommerce-mercadopago'),
+            'title' => __('Configure Mercado Pago for WooCommerce', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_title_bd'
         );
@@ -329,7 +329,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
             if ($count_payment == 1) {
                 $element['title'] = __('Payment methods', 'woocommerce-mercadopago');
-                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-services');
+                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-mercadopago');
             }
             if ($count_payment == count($get_payment_methods_ticket)) {
                 $element['description'] = __('Enable the payment methods available to your customers.', 'woocommerce-mercadopago');
