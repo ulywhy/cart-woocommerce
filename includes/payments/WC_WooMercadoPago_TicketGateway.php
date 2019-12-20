@@ -187,8 +187,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_ticket_header = array(
             'title' => sprintf(
-                __('Checkout of payments with cash<br> Accept face-to-face payments, do not leave anyone out! %s', 'woocommerce-mercadopago'),
+                __('Checkout of payments with cash %s', 'woocommerce-mercadopago'),
                 '<div class="mp-row">
+                <div class="mp-col-md-12 mp_subtitle_header"> 
+                ' . __('Accept face-to-face payments, do not leave anyone out!', 'woocommerce-mercadopago') . '
+                 </div>
               <div class="mp-col-md-12">
                 <p class="text-checkout-body mp-mb-0">
                   ' . __('Include this preferred purchase option by some customers.', 'woocommerce-mercadopago') . '
@@ -197,7 +200,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             </div>'
             ),
             'type' => 'title',
-            'class' => 'mp_title_checkout'
+            'class' => 'mp_title_header'
         );
         return $checkout_ticket_header;
     }

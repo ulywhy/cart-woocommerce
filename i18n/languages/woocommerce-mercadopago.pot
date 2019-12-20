@@ -464,10 +464,14 @@ msgid "Pay with the payment method you prefer"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:229
-msgid "Mercado Pago checkout<br> Accept all method of payment and take your charges to another level %s"
+msgid "Mercado Pago checkout %s"
 msgstr ""
 
-#: includes/payments/WC_WooMercadoPago_BasicGateway.php:233
+#: includes/payments/WC_WooMercadoPago_BasicGateway.php:235
+msgid "Accept all method of payment and take your charges to another level"
+msgstr ""
+
+#: includes/payments/WC_WooMercadoPago_BasicGateway.php:239
 msgid "Turn your online store into your customers preferred payment gateway. Choose if the final payment experience will be inside or outside your store."
 msgstr ""
 
@@ -600,10 +604,14 @@ msgid "Pay with debit and credit cards"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:153
-msgid "Checkout of payments with debit and credit cards<br> Accept payments instantly and maximize the conversion of your business %s"
+msgid "Checkout of payments with debit and credit cards %s"
 msgstr ""
 
-#: includes/payments/WC_WooMercadoPago_CustomGateway.php:157
+#: includes/payments/WC_WooMercadoPago_CustomGateway.php:158
+msgid "Accept payments instantly and maximize the conversion of your business"
+msgstr ""
+
+#: includes/payments/WC_WooMercadoPago_CustomGateway.php:162
 msgid "Turn your online store into a secure and easy-to-use payment gateway for your customers. With personalized checkout your customers pay without leaving your store!"
 msgstr ""
 
@@ -1046,10 +1054,14 @@ msgid "Pay with cash"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:183
-msgid "Checkout of payments with cash<br> Accept face-to-face payments, do not leave anyone out! %s"
+msgid "Checkout of payments with cash %s"
 msgstr ""
 
-#: includes/payments/WC_WooMercadoPago_TicketGateway.php:187
+#: includes/payments/WC_WooMercadoPago_TicketGateway.php:192
+msgid "Accept face-to-face payments, do not leave anyone out!"
+msgstr ""
+
+#: includes/payments/WC_WooMercadoPago_TicketGateway.php:197
 msgid "Include this preferred purchase option by some customers."
 msgstr ""
 

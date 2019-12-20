@@ -229,8 +229,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_header = array(
             'title' => sprintf(
-                __('Mercado Pago checkout<br> Accept all method of payment and take your charges to another level %s', 'woocommerce-mercadopago'),
+                __('Mercado Pago checkout %s', 'woocommerce-mercadopago'),
                 '<div class="row">
+                <div class="mp-col-md-12 mp_subtitle_header"> 
+                ' . __('Accept all method of payment and take your charges to another level', 'woocommerce-mercadopago') . '
+                 </div>
               <div class="mp-col-md-12">
                 <p class="text-checkout-body mp-mb-0">
                   ' . __('Turn your online store into your customers preferred payment gateway. Choose if the final payment experience will be inside or outside your store.', 'woocommerce-mercadopago') . '
@@ -239,7 +242,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             </div>'
             ),
             'type' => 'title',
-            'class' => 'mp_title_checkout'
+            'class' => 'mp_title_header'
         );
         return $checkout_header;
     }
