@@ -281,7 +281,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $checkout_options_subtitle = array(
             'title' => __('Go to the basics. Place your business information.', 'woocommerce-mercadopago'),
             'type' => 'title',
-            'class' => 'mp_subtitle mp-mt-5'
+            'class' => 'mp_subtitle mp-mt-5 mp-mb-5'
         );
         return $checkout_options_subtitle;
     }

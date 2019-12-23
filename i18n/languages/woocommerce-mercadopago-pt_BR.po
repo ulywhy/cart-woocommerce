@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2019-12-23 11:44-0300\n"
+"PO-Revision-Date: 2019-12-23 17:12-0300\n"
 "X-Generator: Poedit 2.2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -832,8 +832,8 @@ msgid "Store Category"
 msgstr "Categoria da loja"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:851
-msgid "What category do your products belong to? Choose the one that best characterizes them (choose <br>\"other\" if your product is too specific)."
-msgstr "A qual categoria os seus produtos pertencem? Selecione a que melhor os caracteriza (selecione <br>“outro” se seu produto for muito específico)."
+msgid "What category do your products belong to? Choose the one that best characterizes them (choose \"other\" if your product is too specific)."
+msgstr "A qual categoria os seus produtos pertencem? Selecione a que melhor os caracteriza (selecione “outro” se seu produto for muito específico)."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:852
 msgid "Categories"

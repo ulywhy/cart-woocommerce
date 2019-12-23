@@ -874,7 +874,7 @@ msgid "Store Category"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:851
-msgid "What category do your products belong to? Choose the one that best characterizes them (choose <br>\"other\" if your product is too specific)."
+msgid "What category do your products belong to? Choose the one that best characterizes them (choose \"other\" if your product is too specific)."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:852

@@ -4,6 +4,12 @@ window.onload = function () {
   document.querySelector(".mp-header-logo").style.display = 'none';
   document.querySelector("#_wpnonce").parentElement.style.display = 'none';
   document.querySelectorAll("h2")[4].style.display = 'none';
+  
+  
+  var descriptionInput = document.querySelectorAll("p.description");
+  for (var i = 0; i < descriptionInput.length; i++) {
+    descriptionInput[i].style.width = '420px';
+  }
 
   //update form_fields label
   var label = document.querySelectorAll("th.titledesc");

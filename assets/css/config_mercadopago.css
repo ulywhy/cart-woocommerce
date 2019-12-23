@@ -19,6 +19,10 @@
     margin-top: -10px !important;
 }
 
+.mp-mt--12 {
+    margin-top: -12px !important;
+}
+
 .mp-mt--5 {
     margin-top: -5px !important;
 }
@@ -33,6 +37,10 @@
 
 .mp-mb-0 {
     margin-bottom: 0px !important;
+}
+
+.mp-mb-18 {
+    margin-bottom: 18px !important;
 }
 
 .mp-mg-0 {
@@ -112,7 +120,6 @@
 
 .mp_subtitle {
     font-size: 18px !important;
-    margin-bottom: 0px !important;
 }
 
 .mp_subtitle_bd {
@@ -131,7 +138,7 @@
 
 .mp_small_text {
     font-family: sans-serif;
-    font-size: 14px !important;
+    font-size: 15px !important;
     font-weight: normal;
     font-style: normal !important;
     font-stretch: normal;
@@ -152,6 +159,7 @@
     border-top: 1px solid #bbb;
     padding-top: 20px;
     margin-bottom: 5px !important;
+    margin-top: 10px !important;
 }
 
 .mp_title_checkout {
@@ -164,7 +172,7 @@
     letter-spacing: normal;
     color: #303030;
     margin-bottom: 5px !important;
-    margin-top: 10px !important;
+    margin-top: 0px !important;
 }
 
 .mp_tienda_link {
@@ -233,17 +241,27 @@
 
 .mp-title-checkout-body {
     font-family: sans-serif !important;
-    margin: 5px 0 5px !important;
+    margin: 0px 0 13px !important;
     font-size: 20px !important;
-    font-weight: 300 !important;
+    font-weight: 200 !important;
+    line-height: 1.25;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1.25;
     letter-spacing: normal;
     color: rgba(0, 0, 0, 0.8);
 }
 
 .mp-text-checkout-body {
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    margin-top: 10px !important;
+    line-height: 20px;font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.mp-text-steps {
     font-size: 14px !important;
     font-weight: 400 !important;
     font-style: normal;
@@ -257,10 +275,10 @@
     border-radius: 100%;
     border: solid 1px #979797;
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     margin: 0 auto 8px !important;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
 }
 
@@ -333,23 +351,25 @@
 
 .mp_title_header {
     font-family: sans-serif;
-    font-size: 25px !important;
-    font-weight: 200;
+    font-size: 22px !important;
+    font-weight: 100;
+    line-height: 1.5;
+    margin-bottom: 5px !important;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1.5;
     letter-spacing: normal;
-    margin-bottom: 5px !important;
 }
 
 .mp_subtitle_header {
     font-family: sans-serif;
-    font-size: 30px !important;
-    font-weight: 400;
+    font-size: 28px !important;
+    font-weight: 600 !important;;
+    line-height: 35px;
     font-style: normal;
     font-stretch: normal;
-    line-height: 1.07;
     letter-spacing: normal;
-    margin-bottom: 5px !important;
+}
 
+.mp_subtitle_mt {
+    margin-top: 0px !important;
 }
