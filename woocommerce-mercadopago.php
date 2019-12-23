@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WooCommerce Mercado Pago
+ * Plugin Name: Mercado Pago payments for WooCommerce
  * Plugin URI: https://github.com/mercadopago/cart-woocommerce
  * Description: Configure the payment options and accept payments with cards, ticket and money of Mercado Pago account.
  * Version: 4.1.0
@@ -54,7 +54,7 @@ add_action( 'plugins_loaded', 'woocommerce_mercadopago_load_plugin_textdomain' )
 function wc_mercado_pago_unsupported_php_version_notice()
 {
     $type = 'error';
-    $message = esc_html__('WooCommerce Mercado Pago requires PHP version 5.6 or later. Please update your PHP version.', 'woocommerce-mercadopago');
+    $message = esc_html__('Mercado Pago payments for WooCommerce requires PHP version 5.6 or later. Please update your PHP version.', 'woocommerce-mercadopago');
     echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
 }
 
