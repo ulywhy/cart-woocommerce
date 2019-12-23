@@ -410,9 +410,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 '<div class="mp-row">
               <h4 class="mp-title-checkout-body mp-pb-20">' . __('<b>Follow these steps to activate Mercado Pago in your store:</b>', 'woocommerce-mercadopago') . '</h4>
               
-              <div class="col-md-2 mp-text-center mp-pb-10">
-                <p class="number-checkout-body">1</p>
-                <p class="text-checkout-body mp-text-center mp-px-20">
+              <div class="mp-col-md-2 mp-text-center mp-pb-10">
+                <p class="mp-number-checkout-body">1</p>
+                <p class="mp-text-checkout-body mp-text-center mp-px-20">
                   ' . __('Upload your <b>credentials</b> depending on the country in which you are registered.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
@@ -438,9 +438,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 </p>
               </div>
 
-              <div class="col-md-2 mp-text-center mp-pb-10">
-              <p class="number-checkout-body">5</p>
-              <p class="text-checkout-body mp-text-center mp-px-20">
+              <div class="mp-col-md-2 mp-text-center mp-pb-10">
+              <p class="mp-number-checkout-body">5</p>
+              <p class="mp-text-checkout-body mp-text-center mp-px-20">
                 ' . __('<b>Go to advanced settings</b> only when you want to change the presets.', 'woocommerce-mercadopago') . '
               </p>
             </div>
