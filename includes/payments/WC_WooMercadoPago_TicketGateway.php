@@ -187,8 +187,11 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $checkout_ticket_header = array(
             'title' => sprintf(
-                __('Checkout of payments with cash<br> Accept face-to-face payments, do not leave anyone out! %s', 'woocommerce-mercadopago'),
+                __('Checkout of payments with cash %s', 'woocommerce-mercadopago'),
                 '<div class="mp-row">
+                <div class="mp-col-md-12 mp_subtitle_header"> 
+                ' . __('Accept face-to-face payments, do not leave anyone out!', 'woocommerce-mercadopago') . '
+                 </div>
               <div class="mp-col-md-12">
                 <p class="text-checkout-body mp-mb-0">
                   ' . __('Include this preferred purchase option by some customers.', 'woocommerce-mercadopago') . '
@@ -197,7 +200,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             </div>'
             ),
             'type' => 'title',
-            'class' => 'mp_title_checkout'
+            'class' => 'mp_title_header'
         );
         return $checkout_ticket_header;
     }
@@ -208,7 +211,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_ticket_options_title()
     {
         $checkout_options_title = array(
-            'title' => __('Configure WooCommerce Mercado Pago', 'woocommerce-mercadopago'),
+            'title' => __('Configure Mercado Pago for WooCommerce', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_title_bd'
         );
@@ -329,7 +332,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
             if ($count_payment == 1) {
                 $element['title'] = __('Payment methods', 'woocommerce-mercadopago');
-                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-services');
+                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-mercadopago');
             }
             if ($count_payment == count($get_payment_methods_ticket)) {
                 $element['description'] = __('Enable the payment methods available to your customers.', 'woocommerce-mercadopago');

@@ -114,7 +114,7 @@ if (!defined('ABSPATH')) {
 					<div class="mp-col-md-12">
 						<div class="frame-tarjetas">
 							<!-- Title installments -->
-							<p class="mp-subtitle-custom-checkout"><?= __('In how many installments do you want to pay?', 'woocommerce-mercadopago') ?></p>
+							<p class="mp-subtitle-custom-checkout"><?= __('In how many installments do you want to pay', 'woocommerce-mercadopago') ?></p>
 
 							<!-- Select issuer -->
 							<div class="mp-row-checkout mp-pt-10">
