@@ -193,7 +193,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 ' . __('Accept face-to-face payments, do not leave anyone out!', 'woocommerce-mercadopago') . '
                  </div>
               <div class="mp-col-md-12">
-                <p class="text-checkout-body mp-mb-0">
+                <p class="mp-text-checkout-body mp-mb-0">
                   ' . __('Include this preferred purchase option by some customers.', 'woocommerce-mercadopago') . '
                 </p>
               </div>

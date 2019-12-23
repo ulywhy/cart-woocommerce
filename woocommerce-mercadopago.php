@@ -53,7 +53,9 @@ add_action( 'plugins_loaded', 'woocommerce_mercadopago_load_plugin_textdomain' )
  */
 function wc_mercado_pago_unsupported_php_version_notice()
 {
-    echo '<div class="error"><p>' . esc_html__('WooCommerce Mercado Pago requires PHP version 5.6 or later. Please update your PHP version.', 'woocommerce-mercadopago') . '</p></div>';
+    $type = 'error';
+    $message = esc_html__('WooCommerce Mercado Pago requires PHP version 5.6 or later. Please update your PHP version.', 'woocommerce-mercadopago');
+    echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
 }
 
 // Check for PHP version and throw notice.
@@ -67,9 +69,9 @@ if (version_compare(PHP_VERSION, '5.6', '<=')) {
  */
 function wc_mercado_pago_notify_curl_error()
 {       
-        echo '<div class="error"><p>' . 
-                __('Mercado Pago Error: PHP Extension CURL is not installed.', 'woocommerce-mercadopago') .
-                '</p></div>';
+    $type = 'error';
+    $message = __('Mercado Pago Error: PHP Extension CURL is not installed.', 'woocommerce-mercadopago');
+    echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
 }
 
 if (!in_array('curl', get_loaded_extensions())) {
@@ -83,12 +85,12 @@ if (!in_array('curl', get_loaded_extensions())) {
  */
 function notify_woocommerce_miss()
 {
-    echo '<div class="error"><p>' .
-        sprintf(
+    $type = 'error';
+    $message = sprintf(
             __('The payment module of Woo Mercado depends on the latest version of %s to run!', 'woocommerce-mercadopago'),
             ' <a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
-        ) .
-        '</p></div>';
+        );
+    echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
 }
 
 $all_plugins = apply_filters('active_plugins', get_option('active_plugins'));

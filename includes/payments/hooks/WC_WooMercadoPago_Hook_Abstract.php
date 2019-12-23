@@ -346,9 +346,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function noticeInvalidProdCredentials()
     {
-        echo '<div class="error is-dismissible">
-        <p><strong>MERCADO PAGO: </strong>' . __('Credentials for invalid production!', 'woocommerce-mercadopago') . '</p>
-                </div>';
+        $type = 'error';
+        $message = __('Credentials for invalid production!', 'woocommerce-mercadopago');
+        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
     }
 
     /**
@@ -356,9 +356,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function noticeInvalidTestCredentials()
     {
-        echo '<div class="error is-dismissible">
-        <p><strong>MERCADO PAGO: </strong>' .  __('Invalid test credentials!', 'woocommerce-mercadopago') . '</p>
-                </div>';
+        $type = 'error';
+        $message = __('Invalid test credentials!', 'woocommerce-mercadopago');
+        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
     }
 
      /**
@@ -366,15 +366,9 @@ abstract class WC_WooMercadoPago_Hook_Abstract
      */
     public function enablePaymentNotice()
     {
+        $type = 'notice-warning';
         $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
-        echo '<div class="notice notice-warning is-dismissible">  
-                    <p style="font-size:13px">
-                        <strong>MERCADO PAGO:</strong> ' . $message . '
-                    </p>
-                    <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
-                    </button>
-              </div>';
+        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
     }
 
 

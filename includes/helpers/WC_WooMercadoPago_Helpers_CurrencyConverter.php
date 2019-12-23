@@ -398,11 +398,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         if (in_array($current_section, array($method->id, sanitize_title(get_class($method))), true)) {
             $this->isShowingAlert = true;
 
-            return '
-            <div class="notice notice-error">
-                <p>' . $this->__(self::NOTICE_WARNING) . '</p>
-            </div>
-        ';
+            $type = 'notice-error';
+            $message = $this->__(self::NOTICE_WARNING);
+
+            return WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
         }
 
         return '';
