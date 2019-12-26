@@ -347,6 +347,17 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         ) {
             $response = $this->create_preference($order, $custom_checkout);
 
+            $amount = $this->get_order_total();
+            if(!empty($this->gateway_discount)){
+            $discount = $amount * ($this->gateway_discount / 100);
+            $order->update_meta_data('mp_discount','discount ' . $this->gateway_discount . '% / discount_total = ' . $discount);
+            }
+              
+            if(!empty($this->commission)){
+            $comission = $amount * ($this->commission / 100);
+            $order->update_meta_data('mp_comission','discount ' . $this->commission . '% / $comission_total = ' . $comission);
+            }
+
             // Check for card save.
             if (method_exists($order, 'update_meta_data')) {
                 if (isset($custom_checkout['doNotSaveCard'])) {
