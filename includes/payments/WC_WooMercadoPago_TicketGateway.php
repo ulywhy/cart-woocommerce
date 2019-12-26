@@ -459,6 +459,18 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         if (isset($ticket_checkout['amount']) && !empty($ticket_checkout['amount']) &&
             isset($ticket_checkout['paymentMethodId']) && !empty($ticket_checkout['paymentMethodId'])) {
             $response = $this->create_preference($order, $ticket_checkout);
+
+            $amount = $this->get_order_total();
+            if(!empty($this->gateway_discount)){
+            $discount = $amount * ($this->gateway_discount / 100);
+            $order->update_meta_data('mp_discount','discount ' . $this->gateway_discount . '% / discount_total = ' . $discount);
+            }
+              
+            if(!empty($this->commission)){
+            $comission = $amount * ($this->commission / 100);
+            $order->update_meta_data('mp_comission','discount ' . $this->commission . '% / $comission_total = ' . $comission);
+            }
+
             if (is_array($response) && array_key_exists('status', $response)) {
                 if ($response['status'] == 'pending') {
                     if ($response['status_detail'] == 'pending_waiting_payment') {
