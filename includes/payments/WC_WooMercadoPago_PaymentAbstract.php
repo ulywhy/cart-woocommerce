@@ -1146,9 +1146,9 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_ready_description()
     {
         if ($this->isProductionMode()) {
-            $message_ready_description = __('Visit your store and simulate a payment to check that everything is fine.', 'woocommerce-mercadopago');
-        } else {
             $message_ready_description = __('Visit your store as if you were one of your customers and check that everything is fine. If you already went to Production,<br> bring your customers and increase your sales with the best online shopping experience.', 'woocommerce-mercadopago');
+        } else {
+            $message_ready_description = __('Visit your store and simulate a payment to check that everything is fine.', 'woocommerce-mercadopago');
         }
 
         $checkout_options_subtitle = array(
