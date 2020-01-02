@@ -464,7 +464,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 '<a href="https://www.mercadopago.com/' . $country_link . '/account/credentials/appliance?application_id=' . $appliocation_id . '" target="_blank">' . __('approved account', 'woocommerce-mercadopago') . '</a>'
             ),
             'type' => 'title',
-            'class' => 'mp_small_text'
+            'class' => 'mp_homolog_text'
         );
 
         array_splice($this->field_forms_order, 4, 0, 'checkout_steps_link_homolog');
@@ -545,7 +545,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_btn_save = array(
             'title' => sprintf(
                 __('%s', 'woocommerce-mercadopago'),
-                '<button name="save" class="woocommerce-save-button mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>'
+                '<button name="save" class="button button-primary mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>'
             ),
             'type' => 'title',
             'class' => ''
