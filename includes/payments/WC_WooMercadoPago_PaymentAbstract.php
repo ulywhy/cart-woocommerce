@@ -247,9 +247,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             <div class="mp-left-header">
                 <img src="' . plugins_url('../assets/images/mplogo.png', plugin_dir_path(__FILE__)) . '">
             </div>
-            <div>
-                <strong>' . $description . '</strong>
-            </div>
+            <div>' . $description . '</div>
         </div>';
     }
 
@@ -405,10 +403,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 '<div class="mp-row">
               <h4 class="mp-title-checkout-body mp-pb-20">' . __('<b>Follow these steps to activate Mercado Pago in your store:</b>', 'woocommerce-mercadopago') . '</h4>
               
-              <div class="mp-col-md-2 mp-text-center mp-pb-10">
-                <p class="mp-number-checkout-body">1</p>
-                <p class="mp-text-checkout-body mp-text-center mp-px-20">
-                  ' . __('Upload your <b>credentials</b> to test the store and charge with your Mercado Pago account <b>depending on the country</b> in which you are registered.', 'woocommerce-mercadopago') . '
+              <div class="col-md-2 mp-text-center mp-pb-10">
+                <p class="number-checkout-body">1</p>
+                <p class="text-checkout-body mp-text-center mp-px-20">
+                  ' . __('Upload your <b>credentials</b> depending on the country in which you are registered.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             
@@ -433,10 +431,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 </p>
               </div>
 
-              <div class="mp-col-md-2 mp-text-center mp-pb-10">
-              <p class="mp-number-checkout-body">5</p>
-              <p class="mp-text-checkout-body mp-text-center mp-px-20">
-                ' . __('Go to advanced settings of both the plugin and checkout only when you want to change the presets.', 'woocommerce-mercadopago') . '
+              <div class="col-md-2 mp-text-center mp-pb-10">
+              <p class="number-checkout-body">5</p>
+              <p class="text-checkout-body mp-text-center mp-px-20">
+                ' . __('<b>Go to advanced settings</b> only when you want to change the presets.', 'woocommerce-mercadopago') . '
               </p>
             </div>
             </div>'
@@ -641,7 +639,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_production = array(
             'title' => __('Production', 'woocommerce-mercadopago'),
             'type' => 'select',
-            'description' => __('Choose "YES" only when you are ready to sell. Change to NO to activate the Tests mode.', 'woocommerce-mercadopago'),
+            'description' => __('Choose YES only when you are ready to sell. Change to NO to activate the Tests mode.', 'woocommerce-mercadopago'),
             'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $production_mode,
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
@@ -1078,7 +1076,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_gateway_discount()
     {
         $gateway_discount = array(
-            'title' => __('Gateway Discounts', 'woocommerce-mercadopago'),
+            'title' => __('Discounts per purchase with Mercado Pago', 'woocommerce-mercadopago'),
             'type' => 'number',
             'description' => __('Choose a percentage value that you want to discount your customers for paying with Mercado Pago.', 'woocommerce-mercadopago'),
             'default' => '0',
@@ -1141,7 +1139,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_ready_description()
     {
         if ($this->isProductionMode()) {
-            $message_ready_description = __('You already went to Production. You just need your best customers <br> to arrive at your store to live the best online shopping experience with Mercado Pago.', 'woocommerce-mercadopago');
+            $message_ready_description = __('Visit your store and simulate a payment to check that everything is fine.', 'woocommerce-mercadopago');
         } else {
             $message_ready_description = __('Visit your store as if you were one of your customers and check that everything is fine. If you already went to Production,<br> bring your customers and increase your sales with the best online shopping experience.', 'woocommerce-mercadopago');
         }
