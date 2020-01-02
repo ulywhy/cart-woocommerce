@@ -1,4 +1,4 @@
-=== WooCommerce Mercado Pago ===
+=== Mercado Pago payments for WooCommerce ===
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
@@ -82,7 +82,7 @@ Install the module in two different ways: automatically, from the “Plugins” 
 
 Automatic Installation by WordPress admin
 1. Access "Plugins" from the navigation side menu of your WordPress administrator.
-2. Once inside Plugins, click on 'Add New' and search for 'Mercado Pago WooCommerce' in the WordPress Plugin list
+2. Once inside Plugins, click on 'Add New' and search for 'Mercado Pago payments for WooCommerce' in the WordPress Plugin list
 3. Click on "Install."
 
 Done! It will be in the "Installed Plugins" section and from there you can activate it.

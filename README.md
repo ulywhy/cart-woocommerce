@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/github/license/mercadopago/cart-woocommerce" alt="license">
 </p>
 
-The Mercado Pago plugin for WooCommerce allows you to expand the functionalities of your online store and offer a unique payment experience for your customers.
+The Mercado Pago payments for WooCommerce plugin allows you to expand the functionalities of your online store and offer a unique payment experience for your customers.
 
 ## Documentation in English
 

@@ -35,6 +35,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
             if (is_admin()) {
+                //validate credentials
                 if (isset($_REQUEST['section'])) {
                     $credentials = new WC_WooMercadoPago_Credentials();
                     if (!$credentials->tokenIsValid()) {
@@ -222,15 +223,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function enablePaymentNotice()
     {
+        $type = 'notice-warning';
         $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
-        echo '<div class="notice notice-warning is-dismissible">  
-                    <p style="font-size:13px">
-                        <strong>MERCADO PAGO:</strong> ' . $message . '
-                    </p>
-                    <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
-                    </button>
-              </div>';
+        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
     }
 
     // Add settings link on plugin page.

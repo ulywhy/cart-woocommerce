@@ -158,7 +158,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                 ' . __('Accept payments instantly and maximize the conversion of your business', 'woocommerce-mercadopago') . '
                  </div>
               <div class="mp-col-md-12">
-                <p class="text-checkout-body mp-mb-0">
+                <p class="mp-text-checkout-body mp-mb-0">
                   ' . __('Turn your online store into a secure and easy-to-use payment gateway for your customers. With personalized checkout your customers pay without leaving your store!', 'woocommerce-mercadopago') . '
                 </p>
               </div>
@@ -328,11 +328,31 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $custom_checkout = $_POST['mercadopago_custom'];
         $this->log->write_log(__FUNCTION__, 'POST Custom: ' . json_encode($custom_checkout, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         $order = wc_get_order($order_id);
+        $amount = $this->get_order_total();
         if (method_exists($order, 'update_meta_data')) {
             $order->update_meta_data('_used_gateway', get_class($this));
+
+            if (!empty($this->gateway_discount)) {
+                $discount = $amount * ($this->gateway_discount / 100);
+                $order->update_meta_data('Mercado Pago: discount', __('discount of', 'woocommerce-mercadopago') . ' '  . $this->gateway_discount . '% / ' . __('discount of', 'woocommerce-mercadopago') . ' = ' . $discount);
+            }
+
+            if (!empty($this->commission)) {
+                $comission = $amount * ($this->commission / 100);
+                $order->update_meta_data('Mercado Pago: comission', __('fee of', 'woocommerce-mercadopago') . ' ' . $this->commission . '% / ' . __('fee of', 'woocommerce-mercadopago') . ' = ' . $comission);
+            }
             $order->save();
         } else {
             update_post_meta($order_id, '_used_gateway', get_class($this));
+            if (!empty($this->gateway_discount)) {
+                $discount = $amount * ($this->gateway_discount / 100);
+                update_post_meta($order_id, 'Mercado Pago: discount', __('discount of', 'woocommerce-mercadopago') . ' '  . $this->gateway_discount . '% / ' . __('discount of', 'woocommerce-mercadopago') . ' = ' . $discount);
+            }
+
+            if (!empty($this->commission)) {
+                $comission = $amount * ($this->commission / 100);
+                update_post_meta($order_id, 'Mercado Pago: comission', __('fee of', 'woocommerce-mercadopago') . ' ' . $this->commission . '% / ' . __('fee of', 'woocommerce-mercadopago') . ' = ' . $comission);
+            }
         }
         // Mexico country case.
         if (!isset($custom_checkout['paymentMethodId']) || empty($custom_checkout['paymentMethodId'])) {
@@ -347,21 +367,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         ) {
             $response = $this->create_preference($order, $custom_checkout);
 
-            // Check for card save.
-            if (method_exists($order, 'update_meta_data')) {
-                if (isset($custom_checkout['doNotSaveCard'])) {
-                    $order->update_meta_data('_save_card', 'no');
-                } else {
-                    $order->update_meta_data('_save_card', 'yes');
-                }
-                $order->save();
-            } else {
-                if (isset($custom_checkout['doNotSaveCard'])) {
-                    update_post_meta($order_id, '_save_card', 'no');
-                } else {
-                    update_post_meta($order_id, '_save_card', 'yes');
-                }
-            }
             if (!is_array($response)) {
                 return array(
                     'result' => 'fail',

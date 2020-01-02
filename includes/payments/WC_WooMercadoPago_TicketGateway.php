@@ -193,7 +193,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                 ' . __('Accept face-to-face payments, do not leave anyone out!', 'woocommerce-mercadopago') . '
                  </div>
               <div class="mp-col-md-12">
-                <p class="text-checkout-body mp-mb-0">
+                <p class="mp-text-checkout-body mp-mb-0">
                   ' . __('Include this preferred purchase option by some customers.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
@@ -425,11 +425,31 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->log->write_log(__FUNCTION__, 'Ticket POST: ' . json_encode($ticket_checkout, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         $order = wc_get_order($order_id);
+        $amount = $this->get_order_total();
         if (method_exists($order, 'update_meta_data')) {
             $order->update_meta_data('_used_gateway', get_class($this));
+            if (!empty($this->gateway_discount)) {
+                $discount = $amount * ($this->gateway_discount / 100);
+                $order->update_meta_data('Mercado Pago: discount', __('discount of', 'woocommerce-mercadopago') . ' '  . $this->gateway_discount . '% / ' . __('discount of', 'woocommerce-mercadopago') . ' = ' . $discount);
+            }
+
+            if (!empty($this->commission)) {
+                $comission = $amount * ($this->commission / 100);
+                $order->update_meta_data('Mercado Pago: comission', __('fee of', 'woocommerce-mercadopago') . ' ' . $this->commission . '% / ' . __('fee of', 'woocommerce-mercadopago') . ' = ' . $comission);
+            }
             $order->save();
         } else {
             update_post_meta($order_id, '_used_gateway', get_class($this));
+
+            if (!empty($this->gateway_discount)) {
+                $discount = $amount * ($this->gateway_discount / 100);
+                update_post_meta($order_id,'Mercado Pago: discount', __('discount of', 'woocommerce-mercadopago') . ' '  . $this->gateway_discount . '% / ' . __('discount of', 'woocommerce-mercadopago') . ' = ' . $discount);
+            }
+
+            if (!empty($this->commission)) {
+                $comission = $amount * ($this->commission / 100);
+                update_post_meta($order_id,'Mercado Pago: comission', __('fee of', 'woocommerce-mercadopago') . ' ' . $this->commission . '% / ' . __('fee of', 'woocommerce-mercadopago') . ' = ' . $comission);
+            }
         }
 
         // Check for brazilian FEBRABAN rules.
@@ -459,6 +479,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         if (isset($ticket_checkout['amount']) && !empty($ticket_checkout['amount']) &&
             isset($ticket_checkout['paymentMethodId']) && !empty($ticket_checkout['paymentMethodId'])) {
             $response = $this->create_preference($order, $ticket_checkout);
+
             if (is_array($response) && array_key_exists('status', $response)) {
                 if ($response['status'] == 'pending') {
                     if ($response['status_detail'] == 'pending_waiting_payment') {
