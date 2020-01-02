@@ -284,14 +284,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      * @return array
      */
     public function getFormFields($label)
-    {
-
-        //add css
-        wp_enqueue_style(
-            'woocommerce-mercadopago-basic-config-styles',
-            plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
-        );
-    
+    {    
         $this->init_form_fields();
         $this->init_settings();
         $form_fields = array();
