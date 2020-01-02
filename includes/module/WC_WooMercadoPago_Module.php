@@ -36,6 +36,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
             if (is_admin()) {
+                //validate credentials
                 if (isset($_REQUEST['section'])) {
                     $credentials = new WC_WooMercadoPago_Credentials();
                     if (!$credentials->tokenIsValid()) {

@@ -2,7 +2,7 @@
     'use strict';
 
     $(function () {
-        var mercado_pago_submit = false;
+        var mercado_pago_submit_ticket = false;
         var mercado_pago_docnumber = "CPF";
 
         var seller = {
@@ -76,24 +76,31 @@
          * Handler form submit
          * @return {bool}
          */
-        function mercadoPagoFormHandler() {
+        function mercadoPagoFormHandlerTicket() {
+          
+            if (!document.getElementById('payment_method_woo-mercado-pago-ticket').checked) {
+                return true;
+            }
+          
             if (seller.site_id == "MLB") {
                 if (validateInputs() && validateDocumentNumber()) {
-                    mercado_pago_submit = true;
+                    mercado_pago_submit_ticket = true;
+                } else {
+                  removeBlockOverlay();
                 }
 
-                return mercado_pago_submit;
+                return mercado_pago_submit_ticket;
             }
         }
 
         // Process when submit the checkout form.
         $('form.checkout').on('checkout_place_order_woo-mercado-pago-ticket', function () {
-            return mercadoPagoFormHandler();
+            return mercadoPagoFormHandlerTicket();
         });
 
         // If payment fail, retry on next checkout page
         $('form#order_review').submit(function () {
-            return mercadoPagoFormHandler();
+            return mercadoPagoFormHandlerTicket();
         });
 
         /**
@@ -266,6 +273,15 @@
             }
             else {
                 return false;
+            }
+        }
+      
+         /**
+         * Remove Block Overlay from Order Review page
+         */
+        function removeBlockOverlay() {
+            if ($('form#order_review').length > 0) {
+                $('.blockOverlay').css('display', 'none');
             }
         }
 
