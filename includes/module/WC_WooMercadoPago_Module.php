@@ -22,6 +22,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         try {
+            $this->loadAdminCss();
             $this->loadHelpers();
             $this->loadConfigs();
             $this->loadLog();
@@ -35,10 +36,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
 
             if (is_admin()) {
-                //load admin css
-                $this->loadAdminCss();
-
-                //validate credentials
                 if (isset($_REQUEST['section'])) {
                     $credentials = new WC_WooMercadoPago_Credentials();
                     if (!$credentials->tokenIsValid()) {
@@ -202,10 +199,12 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function loadAdminCss()
     {
-        wp_enqueue_style(
-            'woocommerce-mercadopago-basic-config-styles',
-            plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
-        );
+        if (is_admin()) {
+            wp_enqueue_style(
+                'woocommerce-mercadopago-basic-config-styles',
+                plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
+            );
+        }
     }
 
     /**
