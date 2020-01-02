@@ -22,6 +22,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         try {
+            $this->loadAdminCss();
             $this->loadHelpers();
             $this->loadConfigs();
             $this->loadLog();
@@ -192,6 +193,19 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function loadLog()
     {
         include_once dirname(__FILE__) . '/log/WC_WooMercadoPago_Log.php';
+    }
+
+    /**
+     * 
+     */
+    public function loadAdminCss()
+    {
+        if (is_admin()) {
+            wp_enqueue_style(
+                'woocommerce-mercadopago-basic-config-styles',
+                plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
+            );
+        }
     }
 
     /**
