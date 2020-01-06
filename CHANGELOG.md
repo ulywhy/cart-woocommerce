@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [4.1.0] - 2019-11-14
+## [4.1.0] - 2020-01-06
 
 ### Added
 - [PLUG-473] CHANGELOG.md added in repository.
@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [PLUG-467] New feature to check if cURL is installed
 
 ### Changed
+   - Updated plugin name from "WooCommerce Mercado Pago" to "Mercado Pago payments for WooCommerce".
  - [PLUG-459] 
    - Fixed credential issue when the plugin is upgraded from version 3.x.x to 4xx. Unable to save empty credential.
    - Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.

@@ -2,7 +2,7 @@
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
-Tested up to: 5.2.2
+Tested up to: 5.3
 Requires PHP: 5.6
 Stable tag: 4.1.0
 License: GPLv2 or later
@@ -116,8 +116,9 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
-= v4.1.0 (27/11/2019) =
+= v4.1.0 (06/01/2020) =
 * Feature
+  - Updated plugin name from "WooCommerce Mercado Pago" to "Mercado Pago payments for WooCommerce".
   - Feature currency conversion returned.
   - New feature to check if cURL is installed
   - Refactored Javascript code for custom checkout Debit and credit card. Performance improvement, reduced number of SDK calls. Fixed validation errors. Javascript code refactored to the order review page. Removed select from mexico payment method.
