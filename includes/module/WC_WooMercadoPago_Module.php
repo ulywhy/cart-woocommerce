@@ -22,31 +22,29 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function __construct()
     {
         try {
-            if (!class_exists('WC_Payment_Gateway')) {
-                add_action('admin_notices', array($this, 'notify_woocommerce_miss'));
-            }
-
+            $this->loadHelpers();
             $this->loadConfigs();
-            $this->loadLog();         
+            $this->loadLog();
             $this->loadHooks();
             $this->loadPreferences();
             $this->loadPayments();
             $this->loadNotifications();
-            $this->loadShipments();
+
+            add_action('admin_enqueue_scripts', [$this, 'loadAdminCss']);
 
             add_filter('woocommerce_available_payment_gateways', array($this, 'filterPaymentMethodByShipping'));
             add_filter('plugin_action_links_' . WC_MERCADOPAGO_BASENAME, array($this, 'woomercadopago_settings_link'));
             add_filter('plugin_row_meta', array($this, 'mp_plugin_row_meta'), 10, 2);
-            
+
             if (is_admin()) {
-              if(isset($_REQUEST['section'])){
-                $credentials = new WC_WooMercadoPago_Credentials();
-                if (!$credentials->tokenIsValid()) {
-                    add_action('admin_notices', array($this, 'enablePaymentNotice'));
+                //validate credentials
+                if (isset($_REQUEST['section'])) {
+                    $credentials = new WC_WooMercadoPago_Credentials();
+                    if (!$credentials->tokenIsValid()) {
+                        add_action('admin_notices', [$this, 'enablePaymentNotice']);
+                    }
                 }
-               }
-               self::loadMercadoEnviosAdmin();
-           }
+            }
         } catch (Exception $e) {
             $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Module');
             $log->write_log('__construct: ', $e->getMessage());
@@ -133,7 +131,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         $configs = new parent();
         self::$categories = $configs->getCategories();
-        self::$country_configs = $configs->getCountryConfigs();
+        self::$country_configs = self::getCountryConfigs();
         self::$site_data = self::get_site_data();
         self::$payments_name = self::setPaymentGateway();
     }
@@ -147,6 +145,14 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Basic.php';
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Custom.php';
         include_once dirname(__FILE__) . '/../payments/hooks/WC_WooMercadoPago_Hook_Ticket.php';
+    }
+
+    /**
+     * Load Helpers
+     */
+    public function loadHelpers()
+    {
+        include_once dirname(__FILE__) . '/../helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php';
     }
 
     /**
@@ -169,7 +175,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_BasicGateway.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_CustomGateway.php';
         include_once dirname(__FILE__) . '/../payments/WC_WooMercadoPago_TicketGateway.php';
-        include_once dirname(__FILE__) . '/../payments/mercadoenvios/WC_WooMercadoPago_Product_Recurrent.php';
         add_filter('woocommerce_payment_gateways', array($this, 'setPaymentGateway'));
     }
 
@@ -190,25 +195,18 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     {
         include_once dirname(__FILE__) . '/log/WC_WooMercadoPago_Log.php';
     }
- 
-    /**
-     *  Load Shipment Types
-     */
-    public function loadShipments()
-    {
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Abstract.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Express.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Shipping_Normal.php';
-        include_once dirname(__FILE__) . '/../shipment/WC_MercadoEnvios_Package.php';
-        add_filter('woocommerce_shipping_methods', array($this, 'setShipping'));
-    }
 
     /**
-     * Load Admin Classes
+     * 
      */
-    public static function loadMercadoEnviosAdmin()
+    public function loadAdminCss()
     {
-        include_once dirname(__FILE__) . '/../admin/WC_MercadoEnvios_Admin_Orders.php';
+        if (is_admin()) {
+            wp_enqueue_style(
+                'woocommerce-mercadopago-basic-config-styles',
+                plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
+            );
+        }
     }
 
     /**
@@ -240,29 +238,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function enablePaymentNotice()
     {
+        $type = 'notice-warning';
         $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
-        echo '<div class="notice notice-warning is-dismissible">  
-                    <p style="font-size:13px">
-                        <strong>MERCADO PAGO:</strong> ' . $message . '
-                    </p>
-                    <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
-                    </button>
-              </div>';
-    }
-
-    /**
-     * Summary: Places a warning error to notify user that WooCommerce is missing.
-     * Description: Places a warning error to notify user that WooCommerce is missing.
-     */
-    public function notify_woocommerce_miss()
-    {
-        echo '<div class="error"><p>' .
-            sprintf(
-                __('The payment module of Woo Mercado depends on the latest version of %s to run!', 'woocommerce-mercadopago'),
-                '<a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
-            ) .
-            '</p></div>';
+        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
     }
 
     // Add settings link on plugin page.
@@ -271,17 +249,15 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $plugin_links = array();
         $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Set up', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Your opinion helps us get better', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<br><a target="_blank" href="' . 'https://github.com/mercadopago/cart-woocommerce#installation' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<br><a target="_blank" href="' . 'https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/woocommerce/introduction/' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://www.mercadopago.com.br/ajuda' . '">' . __('Report Problem', 'woocommerce-mercadopago') . '</a>';
         return array_merge($plugin_links, $links);
     }
 
     /**
      * Show row meta on the plugin screen.
-     *
      * @param mixed $links Plugin Row Meta.
      * @param mixed $file Plugin Base file.
-     *
      * @return array
      */
     public function mp_plugin_row_meta($links, $file)
@@ -347,7 +323,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * @return boolean true/false depending on the validation result.
      */
 
-
     // Get WooCommerce instance
     public static function woocommerce_instance()
     {
@@ -383,30 +358,14 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     /**
      * Summary: Get the rate of conversion between two currencies.
      * Description: The currencies are the one used in WooCommerce and the one used in $site_id.
-     * @return a float that is the rate of conversion.
+     * @return float float that is the rate of conversion.
      */
     public static function get_conversion_rate($used_currency)
     {
-        $wc_currency = get_woocommerce_currency();
-        $email = (wp_get_current_user()->ID != 0) ? wp_get_current_user()->user_email : null;
-        MPRestClient::set_email($email);
-        if (strlen($wc_currency) == 3 && strlen($used_currency) == 3) {
-            $currency_obj = MPRestClient::get(
-                array(
-                    'uri' => '/currency_conversions/search?' .
-                        'from=' . get_woocommerce_currency() .
-                        '&to=' . $used_currency
-                ),
-                WC_WooMercadoPago_Constants::VERSION
-            );
-            if (isset($currency_obj['response'])) {
-                $currency_obj = $currency_obj['response'];
-                if (isset($currency_obj['ratio'])) {
-                    return ((float) $currency_obj['ratio']);
-                }
-            }
-        }
-        return -1;
+        $fromCurrency = get_woocommerce_currency();
+        $toCurrency = $used_currency;
+
+        return WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->loadRatio($fromCurrency, $toCurrency);
     }
 
     /**
@@ -442,7 +401,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             return $sponsor_id;
         }
     }
-
 
     /**
      * Summary: Get information about the used Mercado Pago account based in its site.
@@ -571,7 +529,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
-
 
     public static function get_map($selector_id)
     {

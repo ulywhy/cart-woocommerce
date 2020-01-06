@@ -5,6 +5,11 @@ window.onload = function () {
   document.querySelector("p.submit").style.display = 'none';
   document.querySelectorAll("h2")[4].style.display = 'none';
 
+  var descriptionInput = document.querySelectorAll("p.description");
+  for (var i = 0; i < descriptionInput.length; i++) {
+    descriptionInput[i].style.width = '420px';
+  }
+
   //update form_fields label
   var label = document.querySelectorAll("th.titledesc");
   for (var i = 0; i < label.length; i++) {
@@ -30,8 +35,8 @@ window.onload = function () {
 
   //clone save button
   var cloneSaveButton = document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_btn_save');
-  if (document.getElementById("'woocommerce_woo-mercado-pago-ticket_checkout_homolog_title") != undefined || document.getElementById("'woocommerce_woo-mercado-pago-ticket_checkout_credential_description_prod") != undefined) {
-    document.getElementById("mp_table_15").append(cloneSaveButton.cloneNode(true));
+  if (document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_credential_description_prod") != undefined) {
+    document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_credential_description_prod").nextElementSibling.append(cloneSaveButton.cloneNode(true));
   }
 
   if (document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_homolog_title") != undefined || document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_ticket_options_title") != undefined ) {
@@ -45,8 +50,8 @@ document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_payments_a
     collapse_table.style.display = "none";
     collapse_title.style.cursor = "pointer";
 
-    collapse_title.innerHTML += "<span class='btn-collapsible' id='header_plus' style='display:block'>+</span>\
-            <span class='btn-collapsible' id='header_less' style='display:none'>-</span>";
+    collapse_title.innerHTML += "<span class='mp-btn-collapsible' id='header_plus' style='display:block'>+</span>\
+            <span class='mp-btn-collapsible' id='header_less' style='display:none'>-</span>";
 
     var header_plus = document.querySelector("#header_plus");
     var header_less = document.querySelector("#header_less");
@@ -72,8 +77,8 @@ document.getElementById("woocommerce_woo-mercado-pago-ticket_checkout_payments_a
     collapse_description_2.style.display = "none";
     collapse_title_2.style.cursor = "pointer";
 
-    collapse_title_2.innerHTML += "<span class='btn-collapsible' id='header_plus_2' style='display:block'>+</span>\
-            <span class='btn-collapsible' id='header_less_2' style='display:none'>-</span>";
+    collapse_title_2.innerHTML += "<span class='mp-btn-collapsible' id='header_plus_2' style='display:block'>+</span>\
+            <span class='mp-btn-collapsible' id='header_less_2' style='display:none'>-</span>";
 
     var header_plus_2 = document.querySelector("#header_plus_2");
     var header_less_2 = document.querySelector("#header_less_2");
