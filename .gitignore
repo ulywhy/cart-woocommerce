@@ -1,1 +1,6 @@
 .DS_Store
+.vscode
+.editorconfig
+.fury
+Dockerfile
+Dockerfile.runtime

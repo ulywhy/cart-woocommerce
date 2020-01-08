@@ -1,10 +1,10 @@
-=== WooCommerce Mercado Pago ===
+=== Mercado Pago payments for WooCommerce ===
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
-Tested up to: 5.2.2
+Tested up to: 5.3
 Requires PHP: 5.6
-Stable tag: 4.0.8
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,24 +42,28 @@ You can trust us as you trust a strategic partner. Use the money from your sales
 
 == Screenshots ==
 
-1. `Pay with the payment method you prefer`
-2. `Pay with the payment method you prefer`
-3. `Pay with debit and credit cards`
-4. `Pay with debit and credit cards`
-5. `Pay with money and cash`
-6. `Pay with ticket and Loterica`
+1. `High approval rates.`
+2. `Your money available instantly.`
+3. `All payment methods.`
+4. `You do not need to write a single line of code to receive payments.`
+5. `01 Create an account in Mercado Pago.`
+6. `02 Activate the module in your store.`
+7. `03 Receive the money from your sales.`
 
 == Frequently Asked Questions ==
 
 = How do we protect the sellers =
+
 We take care of the money with maximum security
 We help you in case of problems
 We protect your sales against chargebacks
 
 = Where can I find the documentation? =
+
 Check out our official documentation for installing and configuring the Mercado Pago plugin in your store.
 
 = Where and how can I contribute? =
+
 Suggest documentation improvement on [our website](https://www.mercadopago.com.br/developers/es/plugins_sdks/plugins/official/woo-commerce/) for integrators and developers,
 Subscribe to the [development log](https://plugins.trac.wordpress.org/log/woocommerce-mercadopago/) by [RSS](https://plugins.trac.wordpress.org/log/woocommerce-mercadopago/?limit=100&mode=stop_on_copy&format=rss),
 [Review the code](https://plugins.trac.wordpress.org/browser/woocommerce-mercadopago/) and visit the [SVN repository](https://plugins.svn.wordpress.org/woocommerce-mercadopago/),
@@ -78,13 +82,13 @@ Install the module in two different ways: automatically, from the “Plugins” 
 
 Automatic Installation by WordPress admin
 1. Access "Plugins" from the navigation side menu of your WordPress administrator.
-2. Once inside Plugins, click on 'Add New' and search for 'Mercado Pago WooCommerce' in the WordPress Plugin list
+2. Once inside Plugins, click on 'Add New' and search for 'Mercado Pago payments for WooCommerce' in the WordPress Plugin list
 3. Click on "Install."
 
-Done! It will be in the "Installed Plugins" section and from there you can activate it. 
+Done! It will be in the "Installed Plugins" section and from there you can activate it.
 
 Manual Installation
-1. Download the zip now or from the o WordPress Module Directory
+1. Download the [zip] (https://github.com/mercadopago/cart-woocommerce/archive/master.zip) now or from the o WordPress Module [Directory] (https://br.wordpress.org/plugins/woocommerce-mercadopago/)
 2. Unzip the folder and rename it to ”woocommerce-mercadopago”
 3. Copy the "woocommerce-mercadopago" file into your WordPress directory, inside the "Plugins" folder.
 
@@ -112,6 +116,35 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
+= v4.1.0 (06/01/2020) =
+* Feature
+  - Updated plugin name from "WooCommerce Mercado Pago" to "Mercado Pago payments for WooCommerce".
+  - Feature currency conversion returned.
+  - New feature to check if cURL is installed
+  - Refactored Javascript code for custom checkout Debit and credit card. Performance improvement, reduced number of SDK calls. Fixed validation errors. Javascript code refactored to the order review page. Removed select from mexico payment method.
+
+* Bug fixes
+  - Fixed credential issue when the plugin is upgraded from version 3.x.x to 4xx. Unable to save empty credential.
+  - Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.
+  - Fixed error: Undefined index: MLA in WC_WooMercadoPago_Credentials.php on line 163.
+  - Fixed error: Call to a member function analytics_save_settings() in WC_WooMercadoPago_Hook_Abstract.php on line 68. Has affected users that cleared the credential and filled new credential production.
+  - Fixed load of WC_WooMercadoPago_Module.php file.
+  - Fixed error Uncaught Error: Call to a member function homologValidate().
+  - Fixed error Undefined index: section in WC_WooMercadoPago_PaymentAbstract.php on line 303. Affected users who did not have homologous accounts
+  - Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.
+  - Fixed issue to calculate commission and discount.
+  - Fixed Layout of checkout custom input.
+  - Fixed translation ES of Modo Producción, Habilitá and definí
+  - Fixed Uncaught Error call to a member function update_status() in WC_WooMercadoPago_Notification_Abstract.php. Handle Mercado Pago Notification Failures and Exceptions.
+  - Fix PT-BR debit card translation on admin.
+  - Fix PT-BR debit card translation on checkout.
+  - Remove "One Step Checkout" from CHO Custom Off.
+  - Remove Mercado Creditos from Custom CHO OFF. 
+  - Fixed issue to check if WooCommerce plugin is installed
+
+* Break change
+  - Removed feature and support to Mercado Envios shipping. Before install the plugin verify if your store has another method of shipping configured.
+
 = v4.0.8 (13/09/2019) =
 * Bug fixes
   - Fixed mercado envios
