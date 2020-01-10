@@ -62,6 +62,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         if (!$this->test_user_v1 && !$this->sandbox) {
             $this->preference['sponsor_id'] = $this->get_sponsor_id();
         }
+
         if (sizeof($this->order->get_items()) > 0) {
             $this->items = $this->get_items_build_array();
         }
@@ -162,7 +163,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 $line_amount = $item['line_total'] + $item['line_tax'];
                 $discount_by_gateway = (float)$line_amount * ($this->gateway_discount / 100);
                 $commission_by_gateway = (float)$line_amount * ($this->commission / 100);
-                $item_amount = $line_amount - $discount_by_gateway + $commission_by_gateway;
+                $item_amount =  $this->calculate_price($line_amount - $discount_by_gateway + $commission_by_gateway);
                 $this->order_total += $item_amount;
 
                 // Add the item.
@@ -178,7 +179,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                         plugins_url('assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
                     'category_id' => get_option('_mp_category_id', 'others'),
                     'quantity' => 1,
-                    'unit_price' => $this->calculate_price($item_amount),
+                    'unit_price' => $item_amount,
                     'currency_id' => $this->site_data[$this->site_id]['currency']
                 ));
             }
@@ -303,7 +304,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_transaction_amount()
     {
-        return $this->calculate_price($this->order_total);
+        return $this->order_total;
     }
 
     /**
