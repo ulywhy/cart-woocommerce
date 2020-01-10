@@ -64,7 +64,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
             $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
             $form_fields['binary_mode'] = $this->field_binary_mode();
-            $form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion($this);
             $form_fields['checkout_custom_payments_advanced_title'] = $this->field_checkout_custom_payments_advanced_title();
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
         }
