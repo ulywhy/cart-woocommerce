@@ -1,5 +1,15 @@
 CHANGELOG:
 == Changelog ==
+= v4.1.1 (10/01/2020) =
+* Feature
+  - Currency Conversion in Checkout Mercado Pago added
+
+* Bug fixes
+  - Currency Conversion for CHO Custom ON and OFF fixed
+  - Shipping Cost in the creation of Preferences fixed
+  - ME2 shipping mode in the creation of Preferences removed
+  - Checkout Mercado Pago class instance fixed when the first configurations are saved
+
 = v4.1.0 (06/01/2020) =
 * Feature
   - Updated plugin name from "WooCommerce Mercado Pago" to "Mercado Pago payments for WooCommerce".

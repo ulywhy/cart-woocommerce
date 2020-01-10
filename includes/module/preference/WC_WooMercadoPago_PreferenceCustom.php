@@ -88,7 +88,7 @@ class WC_WooMercadoPago_PreferenceCustom extends WC_WooMercadoPago_PreferenceAbs
     {
         $internal_metadata = array(
             "checkout" => "custom",
-            "checkout_type" => "credit_cart",
+            "checkout_type" => "credit_card",
         );
 
         return $internal_metadata;
