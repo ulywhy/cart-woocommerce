@@ -353,9 +353,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $w = WC_WooMercadoPago_Module::woocommerce_instance();
         $internal_metadata = array(
             "platform" => WC_WooMercadoPago_Constants::PLATAFORM_ID,
-            "plataform_version" => $w->version,
+            "platform_version" => $w->version,
             "module_version" => WC_WooMercadoPago_Constants::VERSION,
-            "site" => get_option('_site_id_v1'),
+            "site_id" => get_option('_site_id_v1'),
             "sponsor_id" => $this->get_sponsor_id(),
             "collector" => end($seller),
             "test_mode" => $test_mode,
