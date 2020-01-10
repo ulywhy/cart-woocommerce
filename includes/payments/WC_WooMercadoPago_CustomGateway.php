@@ -32,7 +32,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->field_forms_order = $this->get_fields_sequence();
         parent::__construct();
         $this->form_fields = $this->getFormFields('Custom');
-        $this->customer = isset($this->logged_user_email) ? $this->mp->get_or_create_customer($this->logged_user_email) : null;
+        $this->customer = $this->getOrCreateCustomer();
         $this->hook = new WC_WooMercadoPago_Hook_Custom($this);
         $this->notification = new WC_WooMercadoPago_Notification_Webhook($this);
         $this->currency_convertion = true;
