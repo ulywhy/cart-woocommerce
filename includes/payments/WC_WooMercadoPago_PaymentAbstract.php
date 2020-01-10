@@ -335,6 +335,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 $form_fields['checkout_ready_title'] = $this->field_checkout_ready_title();
                 $form_fields['checkout_ready_description'] = $this->field_checkout_ready_description();
                 $form_fields['checkout_ready_description_link'] = $this->field_checkout_ready_description_link();
+                $form_fields[WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY] = $this->field_currency_conversion($this);
             }
         }
 
