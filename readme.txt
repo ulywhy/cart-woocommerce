@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
 Tested up to: 5.3
 Requires PHP: 5.6
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,16 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
+= v4.1.1 (10/01/2020) =
+* Feature
+  - Currency Conversion in Checkout Mercado Pago added
+
+* Bug fixes
+  - Currency Conversion for CHO Custom ON and OFF fixed
+  - Shipping Cost in the creation of Preferences fixed
+  - ME2 shipping mode in the creation of Preferences removed
+  - Checkout Mercado Pago class instance fixed when the first configurations are saved
+
 = v4.1.0 (06/01/2020) =
 * Feature
   - Updated plugin name from "WooCommerce Mercado Pago" to "Mercado Pago payments for WooCommerce".

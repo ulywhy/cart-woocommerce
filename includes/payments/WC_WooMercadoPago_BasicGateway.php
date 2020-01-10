@@ -43,7 +43,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $this->form_fields = $this->getFormFields('Basic');
         $this->hook = new WC_WooMercadoPago_Hook_Basic($this);
         $this->notification = new WC_WooMercadoPago_Notification_IPN($this);
-        $this->currency_convertion = false;
+        $this->currency_convertion = true;
     }
 
     /**
@@ -152,6 +152,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_payments_subtitle',
             'checkout_payments_description',
             'enabled',
+            WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'installments',
             // advanced settings
             'checkout_payments_advanced_title',
