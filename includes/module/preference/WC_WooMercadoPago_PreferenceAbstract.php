@@ -62,6 +62,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         if (!$this->test_user_v1 && !$this->sandbox) {
             $this->preference['sponsor_id'] = $this->get_sponsor_id();
         }
+
         if (sizeof($this->order->get_items()) > 0) {
             $this->items = $this->get_items_build_array();
         }
@@ -162,7 +163,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 $line_amount = $item['line_total'] + $item['line_tax'];
                 $discount_by_gateway = (float)$line_amount * ($this->gateway_discount / 100);
                 $commission_by_gateway = (float)$line_amount * ($this->commission / 100);
-                $item_amount = $line_amount - $discount_by_gateway + $commission_by_gateway;
+                $item_amount =  $this->calculate_price($line_amount - $discount_by_gateway + $commission_by_gateway);
                 $this->order_total += $item_amount;
 
                 // Add the item.
@@ -178,7 +179,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                         plugins_url('assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
                     'category_id' => get_option('_mp_category_id', 'others'),
                     'quantity' => 1,
-                    'unit_price' => $this->calculate_price($item_amount),
+                    'unit_price' => $item_amount,
                     'currency_id' => $this->site_data[$this->site_id]['currency']
                 ));
             }
@@ -191,12 +192,15 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function ship_cost_item()
     {
+        $ship_cost = $this->calculate_price($this->ship_cost);
+        $this->order_total += $ship_cost;
+        
         return array(
             'title'       => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
             'description' => __('Shipping service used by the store.', 'woocommerce-mercadopago'),
             'category_id' => get_option('_mp_category_id', 'others'),
             'quantity'    => 1,
-            'unit_price'  => $this->calculate_price($this->ship_cost),
+            'unit_price'  => $ship_cost,
         );
     }
 
@@ -300,7 +304,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_transaction_amount()
     {
-        return $this->calculate_price($this->order_total);
+        return $this->order_total;
     }
 
     /**
@@ -353,9 +357,9 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $w = WC_WooMercadoPago_Module::woocommerce_instance();
         $internal_metadata = array(
             "platform" => WC_WooMercadoPago_Constants::PLATAFORM_ID,
-            "plataform_version" => $w->version,
+            "platform_version" => $w->version,
             "module_version" => WC_WooMercadoPago_Constants::VERSION,
-            "site" => get_option('_site_id_v1'),
+            "site_id" => get_option('_site_id_v1'),
             "sponsor_id" => $this->get_sponsor_id(),
             "collector" => end($seller),
             "test_mode" => $test_mode,
