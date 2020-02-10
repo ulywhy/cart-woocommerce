@@ -565,6 +565,10 @@
     display: none;
 }
 
+#mp-card-holder-div {
+    display: none;
+}
+
 .mp-discount {    
     border-style: solid;
     border-width: thin;
