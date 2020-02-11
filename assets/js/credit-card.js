@@ -419,7 +419,6 @@
             if (additionalInfoNeeded.issuer) {
                 var inputMpIssuer = document.getElementById('mp-issuer');
                 if (inputMpIssuer.value == -1 || inputMpIssuer.value == "") {
-                    inputMpIssuer.focus();
                     inputMpIssuer.classList.add('mp-form-control-error');
                     emptyInputs = true;
                 }
@@ -427,7 +426,6 @@
             if (additionalInfoNeeded.cardholder_name) {
                 var inputCardholderName = document.getElementById('mp-card-holder-name');
                 if (inputCardholderName.value == -1 || inputCardholderName.value == "") {
-                    inputCardholderName.focus();
                     inputCardholderName.classList.add('mp-form-control-error');
                     emptyInputs = true;
                 }
@@ -435,7 +433,6 @@
             if (additionalInfoNeeded.cardholder_identification_type) {
                 var inputDocType = document.getElementById('docType');
                 if (inputDocType.value == -1 || inputDocType.value == "") {
-                    docType.focus();
                     docType.classList.add('mp-form-control-error');
                     emptyInputs = true;
                 }
@@ -443,7 +440,6 @@
             if (additionalInfoNeeded.cardholder_identification_number) {
                 var docNumber = document.getElementById('docNumber');
                 if (docNumber.value == -1 || docNumber.value == "") {
-                    docNumber.focus();
                     docNumber.classList.add('mp-form-control-error');
                     document.getElementById('mp-error-324').style.display = "inline-block";
                     emptyInputs = true;
@@ -469,10 +465,23 @@
 
             if (fixedInputs || additionalInputs) {
                 removeBlockOverlay();
+                focusInputError();
                 return false;
             }
 
             return true;
+        }
+
+        /** 
+        * Focus input with error
+        * 
+        * @return {bool}
+        */
+        function focusInputError() {
+            if (document.querySelectorAll('.mp-form-control-error') != undefined) {
+                var form_inputs = document.querySelectorAll('.mp-form-control-error');
+                form_inputs[0].focus();
+            }
         }
 
         /** 
@@ -501,7 +510,6 @@
                             span[0].style.display = 'inline-block';
                         }
                         element.classList.add('mp-form-control-error');
-                        element.focus();
                         emptyInputs = true;
                     }
                 }
@@ -571,6 +579,7 @@
             if (status != 200 && status != 201) {
                 showErrors(response);
                 removeBlockOverlay();
+                focusInputError();
             } else {
                 var token = document.querySelector('#token');
                 token.value = response.id;
@@ -588,7 +597,7 @@
             for (var x = 0; x < response.cause.length; x++) {
                 var error = response.cause[x];
                 var span = undefined;
-              
+
                 if (error.code == 208 || error.code == 209 || error.code == 325 || error.code == 326) {
                     span = form.querySelector("#mp-error-208");
                 } else {
