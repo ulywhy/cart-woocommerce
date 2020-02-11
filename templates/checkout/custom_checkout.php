@@ -79,7 +79,7 @@ if (!defined('ABSPATH')) {
 						</div>
 					</div>
 					<!-- Input Name and Surname -->
-					<div class="mp-row-checkout mp-pt-10">
+					<div class="mp-row-checkout mp-pt-10" id="mp-card-holder-div">
 						<div class="mp-col-md-12">
 							<label for="mp-card-holder-name" class="mp-label-form"><?= esc_html__('Name and surname of the cardholder', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" class="mp-form-control mp-mt-5" id="mp-card-holder-name" data-checkout="cardholderName" autocomplete="off" />

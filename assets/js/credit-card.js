@@ -108,7 +108,7 @@
                     }
                 }, 100);
             }
-        };
+        }
 
         /**
         * Get Amount end calculate discount for hide inputs
@@ -162,13 +162,20 @@
                 if (additional_info_needed[i] == 'cardholder_identification_number') {
                     additionalInfoNeeded.cardholder_identification_number = true;
                 }
-            };
+            }
         }
 
         /**
          * Check what information is necessary to pay and show inputs 
          */
         function additionalInfoHandler() {
+
+            if (additionalInfoNeeded.cardholder_name) {
+                document.getElementById('mp-card-holder-div').style.display = "block";
+            } else {
+                document.getElementById('mp-card-holder-div').style.display = 'none';
+            }
+
             if (additionalInfoNeeded.issuer) {
                 document.getElementById('mp-issuer-div').style.display = 'block';
                 document.getElementById('installments-div').classList.remove('mp-col-md-12');
@@ -262,9 +269,9 @@
                     }
                 }
 
-                for (var i = 0; i < payerCosts.length; i++) {
-                    html_option += "<option value='" + payerCosts[i].installments + "' " + argentinaResolution(payerCosts[i].labels) + ">" +
-                        (payerCosts[i].recommended_message || payerCosts[i].installments) +
+                for (var j = 0; j < payerCosts.length; j++) {
+                    html_option += "<option value='" + payerCosts[j].installments + "' " + argentinaResolution(payerCosts[j].labels) + ">" +
+                        (payerCosts[j].recommended_message || payerCosts[j].installments) +
                         "</option>";
                 }
 
@@ -407,35 +414,43 @@
          * @return {bool}
          */
         function validateAdditionalInputs() {
+            var emptyInputs = false;
+
             if (additionalInfoNeeded.issuer) {
                 var inputMpIssuer = document.getElementById('mp-issuer');
                 if (inputMpIssuer.value == -1 || inputMpIssuer.value == "") {
-                    inputMpIssuer.focus();
-                    return false;
+                    inputMpIssuer.classList.add('mp-form-control-error');
+                    emptyInputs = true;
                 }
             }
             if (additionalInfoNeeded.cardholder_name) {
                 var inputCardholderName = document.getElementById('mp-card-holder-name');
                 if (inputCardholderName.value == -1 || inputCardholderName.value == "") {
-                    inputCardholderName.focus();
-                    return false;
+                    inputCardholderName.classList.add('mp-form-control-error');
+                    emptyInputs = true;
                 }
             }
             if (additionalInfoNeeded.cardholder_identification_type) {
                 var inputDocType = document.getElementById('docType');
                 if (inputDocType.value == -1 || inputDocType.value == "") {
-                    docType.focus();
-                    return false;
+                    docType.classList.add('mp-form-control-error');
+                    emptyInputs = true;
                 }
             }
             if (additionalInfoNeeded.cardholder_identification_number) {
                 var docNumber = document.getElementById('docNumber');
                 if (docNumber.value == -1 || docNumber.value == "") {
-                    docNumber.focus();
-                    return false;
+                    docNumber.classList.add('mp-form-control-error');
+                    document.getElementById('mp-error-324').style.display = "inline-block";
+                    emptyInputs = true;
                 }
             }
-            return true;
+
+            if (emptyInputs) {
+                return emptyInputs;
+            } else {
+                return emptyInputs;
+            }
         }
 
         /** 
@@ -444,38 +459,67 @@
         * @return {bool}
         */
         function validateInputsCreateToken() {
-            var form_inputs = getForm().querySelectorAll("[data-checkout]");
+            hideErrors();
+            var fixedInputs = validateFixedInputs();
+            var additionalInputs = validateAdditionalInputs();
+
+            if (fixedInputs || additionalInputs) {
+                removeBlockOverlay();
+                focusInputError();
+                return false;
+            }
+
+            return true;
+        }
+
+        /** 
+        * Focus input with error
+        * 
+        * @return {bool}
+        */
+        function focusInputError() {
+            if (document.querySelectorAll('.mp-form-control-error') != undefined) {
+                var form_inputs = document.querySelectorAll('.mp-form-control-error');
+                form_inputs[0].focus();
+            }
+        }
+
+        /** 
+        * Validate fixed Inputs is empty
+        * 
+        * @return {bool}
+        */
+        function validateFixedInputs() {
+            var emptyInputs = false;
+            var form = getForm();
+            var form_inputs = form.querySelectorAll('[data-checkout]');
             var fixed_inputs = [
-                'cardNumber',
-                'cardExpirationDate',
+                'installments',
                 'securityCode',
-                'installments'
+                'cardExpirationDate',
+                'cardNumber'
             ];
 
             for (var x = 0; x < form_inputs.length; x++) {
                 var element = form_inputs[x];
                 // Check is a input to create token.
-                if (fixed_inputs.indexOf(element.getAttribute("data-checkout")) > -1) {
+                if (fixed_inputs.indexOf(element.getAttribute('data-checkout')) > -1) {
                     if (element.value == -1 || element.value == "") {
-                        element.focus();
-                        removeBlockOverlay();
-                        return false;
+                        var span = form.querySelectorAll('span[data-main="#' + element.id + '"]');
+                        if (span.length > 0) {
+                            span[0].style.display = 'inline-block';
+                        }
+                        element.classList.add('mp-form-control-error');
+                        emptyInputs = true;
                     }
                 }
             }
 
-            if (objPaymentMethod.length == 0) {
-                document.getElementById('mp-card-number').focus();
-                removeBlockOverlay();
-                return false;
+            if (emptyInputs) {
+                return emptyInputs;
+            } else {
+                return emptyInputs;
             }
-
-            if (!validateAdditionalInputs()) {
-                removeBlockOverlay();
-                return false;
-            }
-
-            return true;
         }
 
         /**
@@ -483,14 +527,14 @@
          */
         function hideErrors() {
             for (var x = 0; x < document.querySelectorAll("[data-checkout]").length; x++) {
-                var $field = document.querySelectorAll("[data-checkout]")[x];
-                $field.classList.remove("mp-error-input");
-                $field.classList.remove("mp-form-control-error");
+                var field = document.querySelectorAll("[data-checkout]")[x];
+                field.classList.remove("mp-error-input");
+                field.classList.remove("mp-form-control-error");
             }
 
-            for (var x = 0; x < document.querySelectorAll(".mp-error").length; x++) {
-                var $span = document.querySelectorAll(".mp-error")[x];
-                $span.style.display = "none";
+            for (var y = 0; y < document.querySelectorAll(".mp-error").length; y++) {
+                var span = document.querySelectorAll(".mp-error")[y];
+                span.style.display = "none";
             }
         }
 
@@ -535,6 +579,7 @@
             if (status != 200 && status != 201) {
                 showErrors(response);
                 removeBlockOverlay();
+                focusInputError();
             } else {
                 var token = document.querySelector('#token');
                 token.value = response.id;
@@ -551,11 +596,12 @@
             var form = getForm();
             for (var x = 0; x < response.cause.length; x++) {
                 var error = response.cause[x];
+                var span = undefined;
 
                 if (error.code == 208 || error.code == 209 || error.code == 325 || error.code == 326) {
-                    var span = form.querySelector("#mp-error-208");
+                    span = form.querySelector("#mp-error-208");
                 } else {
-                    var span = form.querySelector("#mp-error-" + error.code);
+                    span = form.querySelector("#mp-error-" + error.code);
                 }
 
                 if (span != undefined) {
