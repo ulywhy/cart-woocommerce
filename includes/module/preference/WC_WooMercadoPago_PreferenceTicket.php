@@ -38,6 +38,16 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
             $this->preference['payer']['address']['federal_unit'] = $this->checkout['state'];
             $this->preference['payer']['address']['zip_code'] = $this->checkout['zipcode'];
         }
+
+        if($ticket_checkout['paymentMethodId'] == 'webpay'){
+            $this->preference['callback_url'] = get_site_url();
+            $this->preference['transaction_details']['financial_institution'] = "1234";
+            $this->preference['additional_info']['ip_address'] = "127.0.0.1";
+            $this->preference['payer']['identification']['type'] = "RUT";
+            $this->preference['payer']['identification']['number'] = "0";
+            $this->preference['payer']['entity_type'] = "individual";
+        }
+
         $this->preference['external_reference'] = $this->get_external_reference();
         $this->preference['additional_info']['items'] = $this->items;
         $this->preference['additional_info']['payer'] = $this->get_payer_custom();
