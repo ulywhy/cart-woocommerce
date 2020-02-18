@@ -97,9 +97,6 @@ if (!defined('ABSPATH')) {
 							<input type="hidden" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
 							<input type="hidden" id="cardExpirationYear" data-checkout="cardExpirationYear">
 							<span class="mp-error mp-mt-5" id="mp-error-208" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-209" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-325" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-326" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
 						</div>
 						<!-- Input Security Code -->
 						<div class="mp-col-md-6">
