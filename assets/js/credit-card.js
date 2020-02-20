@@ -130,8 +130,12 @@
                 setImageCard(objPaymentMethod.secure_thumbnail);
                 loadAdditionalInfo(objPaymentMethod.additional_info_needed);
                 additionalInfoHandler();
+                document.getElementById('mp-card-number').classList.remove('mp-form-control-error');
+                document.getElementById('mp-error-E301').style.display = 'none';
             } else {
-                document.getElementById('mp-card-number').innerHTML = '';
+                clearCard();
+                document.getElementById('mp-card-number').classList.add('mp-form-control-error');
+                document.getElementById('mp-error-E301').style.display = 'inline-block';
             }
         }
 
