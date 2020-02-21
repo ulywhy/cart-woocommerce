@@ -2,7 +2,8 @@
   "name": "cart-woocommerce",
   "description": "Gateway de pagamento Mercado Pago para WooCommerce",
   "scripts": {
-    "build:js": "gulp"
+    "build:js": "gulp",
+    "lint": "gulp jshint"
   },
   "version": "2.12.7",
   "repository": {
@@ -13,8 +14,10 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-cli": "^2.2.0",
+    "gulp-jshint": "^2.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
-    "jshint": "^2.11.0"
+    "jshint": "^2.11.0",
+    "jshint-stylish": "^2.2.1"
   }
 }
