@@ -2,9 +2,7 @@ const gulp = require('gulp');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const jshint = require('gulp-jshint');
-const filter = require('gulp-filter');
 const jshintStylish = require('jshint-stylish');
-const guppy = require('git-guppy')(gulp);
 
 const config = {
   scripts: [
@@ -31,6 +29,6 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./assets/js/'));
 });
 
-gulp.task('pre-commit', gulp.series('jshint'));
+gulp.task('pre-commit', gulp.series('jshint', 'scripts'));
 
 gulp.task('default', gulp.series('scripts'));
