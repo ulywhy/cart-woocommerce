@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const git = require('gulp-git');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const jshint = require('gulp-jshint');
@@ -29,6 +30,11 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./assets/js/'));
 });
 
-gulp.task('pre-commit', gulp.series('jshint', 'scripts'));
+gulp.task('git-add', function() {
+  return gulp.src('./git-test/*')
+    .pipe(git.add());
+});
+
+gulp.task('pre-commit', gulp.series('jshint', 'scripts', 'git-add'));
 
 gulp.task('default', gulp.series('scripts'));
