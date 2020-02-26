@@ -196,7 +196,6 @@ window.onload = function () {
         break;
       }
     }
-
   }
 
   if (document.querySelector('.homologScroll') != null) {
