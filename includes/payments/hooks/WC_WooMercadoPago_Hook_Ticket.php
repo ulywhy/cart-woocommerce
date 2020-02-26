@@ -58,7 +58,14 @@ class WC_WooMercadoPago_Hook_Ticket extends WC_WooMercadoPago_Hook_Abstract
     public function add_checkout_scripts_ticket()
     {
         if (is_checkout() && $this->payment->is_available() && !get_query_var('order-received')) {
-            wp_enqueue_script('woocommerce-mercadopago-ticket-checkout', plugins_url('../../assets/js/ticket.js', plugin_dir_path(__FILE__)), array('jquery'), null, true);
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+            wp_enqueue_script(
+                'woocommerce-mercadopago-ticket-checkout',
+                plugins_url('../../assets/js/ticket.js', plugin_dir_path(__FILE__)),
+                array('jquery'),
+                WC_WooMercadoPago_Constants::VERSION,
+                true
+            );
 
             wp_localize_script(
                 'woocommerce-mercadopago-ticket-checkout',
