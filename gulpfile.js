@@ -31,12 +31,6 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./assets/js/'));
 });
 
-gulp.task('pre-commit', function () {
-  return guppy.stream('pre-commit')
-    .pipe(filter(config.scripts))
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter(jshintStylish))
-    .pipe(jshint.reporter('fail'));
-});
+gulp.task('pre-commit', gulp.series('jshint'));
 
 gulp.task('default', gulp.series('scripts'));
