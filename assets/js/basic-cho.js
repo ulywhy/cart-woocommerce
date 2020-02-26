@@ -6,4 +6,4 @@
             framePayments[i].classList.add('mp-col-md-12');
         }
     }
-}).call();
+})();
