@@ -242,7 +242,7 @@ window.completeOfflineCheckboxMP = function () {
   var offlineCheck = document.getElementById('checkmeoff').checked;
   var offlineInputs = document.querySelectorAll('.offline_payment_method');
   for (var i = 0; i < offlineInputs.length; i++) {
-    if (offlineCheck === true) {
+    if (offlineCheck == true) {
       offlineInputs[i].checked = true;
     }
     else {
