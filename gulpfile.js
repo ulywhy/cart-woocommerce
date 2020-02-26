@@ -34,7 +34,7 @@ gulp.task('scripts', function() {
 gulp.task('pre-commit', function () {
   return guppy.stream('pre-commit')
     .pipe(filter(config.scripts))
-    .pipe(jshint())
+    .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(jshintStylish))
     .pipe(jshint.reporter('fail'));
 });
