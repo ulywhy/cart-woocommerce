@@ -244,9 +244,8 @@ window.completeOfflineCheckboxMP = function () {
   for (var i = 0; i < offlineInputs.length; i++) {
     if (offlineCheck == true) {
       offlineInputs[i].checked = true;
-    }
-    else {
+    } else {
       offlineInputs[i].checked = false;
     }
   }
-}
+};

@@ -2,7 +2,9 @@ const gulp = require('gulp');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const jshint = require('gulp-jshint');
+const filter = require('gulp-filter');
 const jshintStylish = require('jshint-stylish');
+const guppy = require('git-guppy')(gulp);
 
 const config = {
   scripts: [
@@ -19,7 +21,7 @@ gulp.task('jshint', function() {
   return gulp.src(config.scripts)
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(jshintStylish))
-    .pipe(jshint.reporter('fail') );
+    .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('scripts', function() {
@@ -27,6 +29,14 @@ gulp.task('scripts', function() {
     .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./assets/js/'));
+});
+
+gulp.task('pre-commit', function () {
+  return guppy.stream('pre-commit')
+    .pipe(filter(config.scripts))
+    .pipe(jshint())
+    .pipe(jshint.reporter(jshintStylish))
+    .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('default', gulp.series('scripts'));
