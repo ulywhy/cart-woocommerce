@@ -31,7 +31,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('git-add', function() {
-  return gulp.src('./git-test/*')
+  return gulp.src('.')
     .pipe(git.add());
 });
 
