@@ -569,7 +569,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             "installments" => $installments,
             "plugin_version" => WC_WooMercadoPago_Constants::VERSION,
             "cho_image" => plugins_url('../assets/images/redirect_checkout.png', plugin_dir_path(__FILE__)),
-            "path_to_javascript" => $plugins_url('../assets/js/basic-cho'.$suffix.'.js', plugin_dir_path(__FILE__))
+            "path_to_javascript" => plugins_url('../assets/js/basic-cho'.$suffix.'.js', plugin_dir_path(__FILE__))
         );
 
         wc_get_template('checkout/basic_checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());
