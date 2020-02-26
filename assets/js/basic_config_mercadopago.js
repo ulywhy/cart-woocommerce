@@ -249,4 +249,4 @@ window.completeOfflineCheckboxMP = function () {
       offlineInputs[i].checked = false;
     }
   }
-};
+}
