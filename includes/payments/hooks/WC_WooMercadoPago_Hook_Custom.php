@@ -56,7 +56,6 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     {
         if (is_checkout() && $this->payment->is_available() && !get_query_var('order-received')) {
             $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-            wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
             wp_enqueue_script(
                 'woocommerce-mercadopago-checkout',
                 plugins_url('../../assets/js/credit-card'.$suffix.'.js', plugin_dir_path(__FILE__)),
