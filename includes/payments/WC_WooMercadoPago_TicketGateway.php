@@ -487,7 +487,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
             if (is_array($response) && array_key_exists('status', $response)) {
                 if ($response['status'] == 'pending') {
-                    if ($response['status_detail'] == 'pending_waiting_payment') {
+                    if ($response['status_detail'] == 'pending_waiting_payment' || $response['status_detail'] == 'pending_waiting_transfer') {
                         WC()->cart->empty_cart();
                         if ($this->stock_reduce_mode == 'yes') {
                             $order->reduce_order_stock();
@@ -504,14 +504,17 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                             'Mercado Pago: ' .
                             __('The customer has not paid yet.', 'woocommerce-mercadopago')
                         );
-                        $order->add_order_note(
-                            'Mercado Pago: ' .
-                            __('To print the ticket again click', 'woocommerce-mercadopago') .
-                            '<a target="_blank" href="' .
-                            $response['transaction_details']['external_resource_url'] . '">' .
-                            __('here', 'woocommerce-mercadopago') .
-                            '</a>', 1, false
-                        );
+                        if($response['payment_type_id'] != 'bank_transfer'){
+                            $order->add_order_note(
+                                'Mercado Pago: ' .
+                                __('To print the ticket again click', 'woocommerce-mercadopago') .
+                                '<a target="_blank" href="' .
+                                $response['transaction_details']['external_resource_url'] . '">' .
+                                __('here', 'woocommerce-mercadopago') .
+                                '</a>', 1, false
+                            );
+                        }
+
                         return array(
                             'result' => 'success',
                             'redirect' => $order->get_checkout_order_received_url()

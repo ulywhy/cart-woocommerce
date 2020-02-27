@@ -44,7 +44,8 @@
       showPaymentsLink();
     });
 
-    $('body').on('focusout', '#mp-card-number', guessingPaymentMethod);
+    $('body').on('keyup', '#mp-card-number', guessingPaymentMethod);
+    $('body').on('change', '#mp-card-number', guessingPaymentMethod);
 
     /**
      * Clear Card input and all dependents inputs
@@ -133,8 +134,12 @@
         setImageCard(objPaymentMethod.secure_thumbnail);
         loadAdditionalInfo(objPaymentMethod.additional_info_needed);
         additionalInfoHandler();
+        document.getElementById('mp-card-number').classList.remove('mp-form-control-error');
+        document.getElementById('mp-error-E301').style.display = 'none';
       } else {
-        document.getElementById('mp-card-number').innerHTML = '';
+        resetBackgroundCard();
+        document.getElementById('mp-card-number').classList.add('mp-form-control-error');
+        document.getElementById('mp-error-E301').style.display = 'inline-block';
       }
     }
 
