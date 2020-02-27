@@ -50,7 +50,13 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     public function getFormFields($label)
     {
         if (is_admin() && $this->isManageSection()) {
-            wp_enqueue_script('woocommerce-mercadopago-ticket-config-script', plugins_url('../assets/js/ticket_config_mercadopago.js', plugin_dir_path(__FILE__)));
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+            wp_enqueue_script(
+                'woocommerce-mercadopago-ticket-config-script',
+                plugins_url('../assets/js/ticket_config_mercadopago'.$suffix.'.js', plugin_dir_path(__FILE__)),
+                array(),
+                WC_WooMercadoPago_Constants::VERSION
+            );
         }
 
         if (empty($this->checkout_country)) {
@@ -188,7 +194,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => sprintf(
                 __('Checkout of payments with cash %s', 'woocommerce-mercadopago'),
                 '<div class="mp-row">
-                <div class="mp-col-md-12 mp_subtitle_header"> 
+                <div class="mp-col-md-12 mp_subtitle_header">
                 ' . __('Accept face-to-face payments, do not leave anyone out!', 'woocommerce-mercadopago') . '
                  </div>
               <div class="mp-col-md-12">

@@ -79,11 +79,11 @@
          * @return {bool}
          */
         function mercadoPagoFormHandlerTicket() {
-          
+
             if (!document.getElementById('payment_method_woo-mercado-pago-ticket').checked) {
                 return true;
             }
-          
+
             if (seller.site_id === 'MLB') {
                 if (validateInputs() && validateDocumentNumber()) {
                     mercado_pago_submit_ticket = true;
@@ -196,19 +196,19 @@
 
             Resto = (Soma * 10) % 11;
             if ((Resto === 10) || (Resto === 11)) { Resto = 0; }
-            if (Resto !== parseInt(strCPF.substring(9, 10))) {
-                return false;
+            if (Resto !== parseInt(strCPF.substring(9, 10), 10)) {
+              return false;
             }
 
             Soma = 0;
             for (var j = 1; j <= 10; j++) {
-                 Soma = Soma + parseInt(strCPF.substring(j - 1, j)) * (12 - j); 
-                }
+              Soma = Soma + parseInt(strCPF.substring(j - 1, j), 10) * (12 - j);
+            }
 
             Resto = (Soma * 10) % 11;
             if ((Resto === 10) || (Resto === 11)) { Resto = 0; }
-            if (Resto !== parseInt(strCPF.substring(10, 11))) {
-                return false;
+            if (Resto !== parseInt(strCPF.substring(10, 11), 10)) {
+              return false;
             }
 
             return true;
@@ -279,7 +279,7 @@
                 return false;
             }
         }
-      
+
          /**
          * Remove Block Overlay from Order Review page
          */
@@ -394,8 +394,8 @@
 
         /**
          * CurrencyId to Currency
-         * 
-         * @param {string} currency_id 
+         *
+         * @param {string} currency_id
          */
         function currencyIdToCurrency(currency_id) {
             if (currency_id === 'ARS') {
@@ -421,7 +421,7 @@
 
         /**
          * Get Amount Without Discount
-         * 
+         *
          * @return {string}
          */
         function getAmountWithoutDiscount() {
