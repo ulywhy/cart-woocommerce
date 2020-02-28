@@ -67,7 +67,7 @@ if (!defined('ABSPATH')) {
                             <div class="mp-col-md-4" id="box-docnumber">
                                 <label for="cpfcnpj" id="mp_cpf_label" class="mp-label-form title-cpf"><?= esc_html__('CPF', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                 <label for="cpfcnpj" id="mp_cnpj_label" class="title-cnpj mp-label-form"><?= esc_html__('CNPJ', 'woocommerce-mercadopago'); ?><em>*</em></label>
-                                <input type="text" class="mp-form-control" value="<?= $febraban['docNumber']; ?>" id="mp_doc_number" data-checkout="mp_doc_number" name="mercadopago_ticket[docNumber]" onkeyup="maskinput(this, mcpf);" maxlength="14">
+                                <input type="text" class="mp-form-control" value="<?= $febraban['docNumber']; ?>" id="mp_doc_number" data-checkout="mp_doc_number" name="mercadopago_ticket[docNumber]" onkeyup="mpMaskInput(this, mpCpf);" maxlength="14">
                                 <span class="mp-erro_febraban" data-main="#mp_doc_number"><?= esc_html__('You must provide your document number', 'woocommerce-mercadopago'); ?></span>
                                 <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('The document must be valid', 'woocommerce-mercadopago'); ?></span>
                             </div>
@@ -82,7 +82,7 @@ if (!defined('ABSPATH')) {
 
                             <div class="mp-col-md-4">
                                 <label for="number" class="mp-label-form"><?= esc_html__('Number', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-                                <input type="text" value="<?= $febraban['number']; ?>" class="mp-form-control" id="mp_number" data-checkout="mp_number" name="mercadopago_ticket[number]" onkeyup="maskinput(this, minteger);">
+                                <input type="text" value="<?= $febraban['number']; ?>" class="mp-form-control" id="mp_number" data-checkout="mp_number" name="mercadopago_ticket[number]" onkeyup="mpMaskInput(this, mpTicketInteger);">
                                 <span class="mp-erro_febraban" data-main="#mp_number" id="error_number"><?= esc_html__('You must provide your address number', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ if (!defined('ABSPATH')) {
 
                             <div class="mp-col-md-4">
                                 <label for="zipcode" class="mp-label-form"><?= esc_html__('Postal Code', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-                                <input type="text" value="<?= $febraban['zipcode']; ?>" id="mp_zipcode" data-checkout="mp_zipcode" class="mp-form-control" name="mercadopago_ticket[zipcode]" maxlength="9" onkeyup="maskinput(this, mcep);">
+                                <input type="text" value="<?= $febraban['zipcode']; ?>" id="mp_zipcode" data-checkout="mp_zipcode" class="mp-form-control" name="mercadopago_ticket[zipcode]" maxlength="9" onkeyup="mpMaskInput(this, mpCep);">
                                 <span class="mp-erro_febraban" data-main="#mp_zipcode" id="error_zipcode"><?= esc_html__('You must provide your zip code', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
@@ -191,21 +191,21 @@ if (!defined('ABSPATH')) {
 
 <script type="text/javascript">
     //Card mask date input
-    function maskinput(o, f) {
+    function mpMaskInput(o, f) {
         v_obj = o
         v_fun = f
-        setTimeout("execmascara()", 1);
+        setTimeout("mpTicketExecmascara()", 1);
     }
 
-	function execmascara() {
+	function mpTicketExecmascara() {
 		v_obj.value = v_fun(v_obj.value)
 	}
 
-	function minteger(v) {
+	function mpTicketInteger(v) {
 		return v.replace(/\D/g, "")
     }
     
-    function mcpf(v){
+    function mpCpf(v){
         v=v.replace(/\D/g,"")                    
         v=v.replace(/(\d{3})(\d)/,"$1.$2")       
         v=v.replace(/(\d{3})(\d)/,"$1.$2")            
@@ -213,7 +213,7 @@ if (!defined('ABSPATH')) {
         return v
     }
 
-    function mcnpj(v){
+    function mpCnpj(v){
         v=v.replace(/\D/g,"")                   
         v=v.replace(/^(\d{2})(\d)/,"$1.$2")     
         v=v.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3") 
@@ -222,7 +222,7 @@ if (!defined('ABSPATH')) {
         return v
     }
 
-    function mcep(v){
+    function mpCep(v){
         v=v.replace(/D/g,"")                
         v=v.replace(/^(\d{5})(\d)/,"$1-$2") 
         return v
