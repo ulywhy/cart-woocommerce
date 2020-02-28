@@ -1,6 +1,4 @@
 /*jshint multistr: true */
-(function () {
-  'use strict';
 
   window.onload = function () {
     var makeCollapsibleOptions = function (id_plus, id_less) {
@@ -251,4 +249,3 @@
       }
     }
   };
-})();
