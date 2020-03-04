@@ -53,9 +53,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function getFormFields($label)
     {
         if (is_admin() && $this->isManageSection()) {
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
             wp_enqueue_script(
                 'woocommerce-mercadopago-basic-config-script',
-                plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
+                plugins_url('../assets/js/basic_config_mercadopago'.$suffix.'.js', plugin_dir_path(__FILE__)),
+                array(),
+                WC_WooMercadoPago_Constants::VERSION
             );
         }
 
@@ -204,7 +207,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
          }
          return false;
    }
-  
+
 
     /**
      * @return array
@@ -232,7 +235,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => sprintf(
                 __('Mercado Pago checkout %s', 'woocommerce-mercadopago'),
                 '<div class="row">
-                <div class="mp-col-md-12 mp_subtitle_header"> 
+                <div class="mp-col-md-12 mp_subtitle_header">
                 ' . __('Accept all method of payment and take your charges to another level', 'woocommerce-mercadopago') . '
                  </div>
               <div class="mp-col-md-12">
@@ -402,11 +405,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $ex_payments_sort = array();
 
         $all_payments = get_option('_checkout_payments_methods', '');
-        
+
         if (empty($all_payments)) {
             return $ex_payments;
         }
-        
+
         $get_payment_methods = get_option('_all_payment_methods_v0', '');
 
         if (!empty($get_payment_methods)) {
@@ -431,8 +434,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $count_payment = 0;
 
         foreach ($all_payments as $payment_method) {
-            if ($payment_method['type'] == 'account_money') { 
-                continue; 
+            if ($payment_method['type'] == 'account_money') {
+                continue;
             } else {
                 if ($payment_method['type'] == 'credit_card') {
                     $element = array(
@@ -512,6 +515,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function payment_fields()
     {
+        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
         //add css
         wp_enqueue_style(
             'woocommerce-mercadopago-basic-checkout-styles',
@@ -562,8 +567,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             "method" => $method,
             "str_cuotas" => $str_cuotas,
             "installments" => $installments,
+            "plugin_version" => WC_WooMercadoPago_Constants::VERSION,
             "cho_image" => plugins_url('../assets/images/redirect_checkout.png', plugin_dir_path(__FILE__)),
-            "path_to_javascript" => plugins_url('../assets/js/basic-cho.js', plugin_dir_path(__FILE__)),
+            "path_to_javascript" => plugins_url('../assets/js/basic-cho'.$suffix.'.js', plugin_dir_path(__FILE__))
         );
 
         wc_get_template('checkout/basic_checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());

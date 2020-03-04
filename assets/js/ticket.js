@@ -1,34 +1,36 @@
+/* jshint es3: false */
+/* globals wc_mercadopago_ticket_params */
 (function ($) {
     'use strict';
 
     $(function () {
         var mercado_pago_submit_ticket = false;
-        var mercado_pago_docnumber = "CPF";
+        var mercado_pago_docnumber = 'CPF';
 
         var seller = {
-            site_id: wc_mercadopago_ticket_params.site_id,
-        }
+            site_id: wc_mercadopago_ticket_params.site_id
+        };
 
         var coupon_of_discounts = {
             discount_action_url: wc_mercadopago_ticket_params.discount_action_url,
             payer_email: wc_mercadopago_ticket_params.payer_email,
-            default: wc_mercadopago_ticket_params.coupon_mode,
+            activated: wc_mercadopago_ticket_params.coupon_mode,
             status: false
-        }
+        };
 
         if ($('form#order_review').length > 0) {
-            if (wc_mercadopago_ticket_params.coupon_mode == 'yes') {
+            if (coupon_of_discounts.activated === 'yes') {
                 $('#applyCouponTicket').on('click', discountCampaignsHandler);
             }
         }
 
         // Load woocommerce checkout form
         $('body').on('updated_checkout', function () {
-            if (seller.site_id == "MLB") {
+            if (seller.site_id === 'MLB') {
                 validateDocumentInputs();
             }
 
-            if (wc_mercadopago_ticket_params.coupon_mode == 'yes') {
+            if (coupon_of_discounts.activated === 'yes') {
                 $('#applyCouponTicket').on('click', discountCampaignsHandler);
             }
         });
@@ -37,37 +39,37 @@
          * Validate input depending on document type
          */
         function validateDocumentInputs() {
-            var mp_box_lastname = document.getElementById("mp_box_lastname");
-            var mp_box_firstname = document.getElementById("mp_box_firstname");
-            var mp_firstname_label = document.getElementById("mp_firstname_label");
-            var mp_socialname_label = document.getElementById("mp_socialname_label");
-            var mp_cpf_label = document.getElementById("mp_cpf_label");
-            var mp_cnpj_label = document.getElementById("mp_cnpj_label");
-            var mp_doc_number = document.getElementById("mp_doc_number");
+            var mp_box_lastname = document.getElementById('mp_box_lastname');
+            var mp_box_firstname = document.getElementById('mp_box_firstname');
+            var mp_firstname_label = document.getElementById('mp_firstname_label');
+            var mp_socialname_label = document.getElementById('mp_socialname_label');
+            var mp_cpf_label = document.getElementById('mp_cpf_label');
+            var mp_cnpj_label = document.getElementById('mp_cnpj_label');
+            var mp_doc_number = document.getElementById('mp_doc_number');
 
             $('input[type=radio][name="mercadopago_ticket[docType]"]').change(function () {
-                if (this.value == 'CPF') {
-                    mp_cpf_label.style.display = "block";
-                    mp_box_lastname.style.display = "block";
-                    mp_firstname_label.style.display = "block";
-                    mp_cnpj_label.style.display = "none";
-                    mp_socialname_label.style.display = "none";
-                    mp_box_firstname.classList.add("mp-col-md-4");
-                    mp_box_firstname.classList.remove("mp-col-md-8");
-                    mp_doc_number.setAttribute("maxlength", "14");
-                    mp_doc_number.setAttribute("onkeyup", "maskinput(this, mcpf)");
-                    mercado_pago_docnumber = "CPF";
+                if (this.value === 'CPF') {
+                    mp_cpf_label.style.display = 'block';
+                    mp_box_lastname.style.display = 'block';
+                    mp_firstname_label.style.display = 'block';
+                    mp_cnpj_label.style.display = 'none';
+                    mp_socialname_label.style.display = 'none';
+                    mp_box_firstname.classList.add('mp-col-md-4');
+                    mp_box_firstname.classList.remove('mp-col-md-8');
+                    mp_doc_number.setAttribute('maxlength', '14');
+                    mp_doc_number.setAttribute('onkeyup', 'maskinput(this, mcpf)');
+                    mercado_pago_docnumber = 'CPF';
                 } else {
-                    mp_cpf_label.style.display = "none";
-                    mp_box_lastname.style.display = "none";
-                    mp_firstname_label.style.display = "none";
-                    mp_cnpj_label.style.display = "block";
-                    mp_socialname_label.style.display = "block";
-                    mp_box_firstname.classList.add("mp-col-md-8");
-                    mp_box_firstname.classList.remove("mp-col-md-4");
-                    mp_doc_number.setAttribute("maxlength", "18");
-                    mp_doc_number.setAttribute("onkeyup", "maskinput(this, mcnpj)");
-                    mercado_pago_docnumber = "CNPJ";
+                    mp_cpf_label.style.display = 'none';
+                    mp_box_lastname.style.display = 'none';
+                    mp_firstname_label.style.display = 'none';
+                    mp_cnpj_label.style.display = 'block';
+                    mp_socialname_label.style.display = 'block';
+                    mp_box_firstname.classList.add('mp-col-md-8');
+                    mp_box_firstname.classList.remove('mp-col-md-4');
+                    mp_doc_number.setAttribute('maxlength', '18');
+                    mp_doc_number.setAttribute('onkeyup', 'maskinput(this, mcnpj)');
+                    mercado_pago_docnumber = 'CNPJ';
                 }
             });
         }
@@ -77,12 +79,12 @@
          * @return {bool}
          */
         function mercadoPagoFormHandlerTicket() {
-          
+
             if (!document.getElementById('payment_method_woo-mercado-pago-ticket').checked) {
                 return true;
             }
-          
-            if (seller.site_id == "MLB") {
+
+            if (seller.site_id === 'MLB') {
                 if (validateInputs() && validateDocumentNumber()) {
                     mercado_pago_submit_ticket = true;
                 } else {
@@ -115,28 +117,28 @@
          */
         function validateInputs() {
             var form = getForm();
-            var form_inputs = form.querySelectorAll("[data-checkout]");
-            var span = form.querySelectorAll(".mp-erro_febraban");
+            var form_inputs = form.querySelectorAll('[data-checkout]');
+            var span = form.querySelectorAll('.mp-erro_febraban');
 
             //Show or hide error message and border
             for (var i = 0; i < form_inputs.length; i++) {
                 var element = form_inputs[i];
-                var input = form.querySelector(span[i].getAttribute("data-main"));
+                var input = form.querySelector(span[i].getAttribute('data-main'));
 
-                if (element.parentNode.style.display != "none" && (element.value == -1 || element.value == "")) {
-                    span[i].style.display = "inline-block";
-                    input.classList.add("mp-form-control-error");
+                if (element.parentNode.style.display !== 'none' && (element.value === -1 || element.value === '')) {
+                    span[i].style.display = 'inline-block';
+                    input.classList.add('mp-form-control-error');
                 } else {
-                    span[i].style.display = "none";
-                    input.classList.remove("mp-form-control-error");
+                    span[i].style.display = 'none';
+                    input.classList.remove('mp-form-control-error');
                 }
             }
 
             //Focus on the element with error
-            for (var i = 0; i < form_inputs.length; i++) {
-                var element = form_inputs[i];
-                if (element.parentNode.style.display != "none" && (element.value == -1 || element.value == "")) {
-                    element.focus();
+            for (var j = 0; j < form_inputs.length; j++) {
+                var elementFocus = form_inputs[j];
+                if (elementFocus.parentNode.style.display !== 'none' && (elementFocus.value === -1 || elementFocus.value === '')) {
+                    elementFocus.focus();
                     return false;
                 }
             }
@@ -149,23 +151,23 @@
          * @return {bool}
          */
         function validateDocumentNumber() {
-            var docnumber_input = document.getElementById("mp_doc_number");
-            var docnumber_error = document.getElementById("mp_error_docnumber");
+            var docnumber_input = document.getElementById('mp_doc_number');
+            var docnumber_error = document.getElementById('mp_error_docnumber');
             var docnumber_validate = false;
 
-            if (mercado_pago_docnumber == "CPF") {
-                docnumber_validate = validateCPF(document.getElementById("mp_doc_number").value);
+            if (mercado_pago_docnumber === 'CPF') {
+                docnumber_validate = validateCPF(document.getElementById('mp_doc_number').value);
             } else {
-                docnumber_validate = validateCNPJ(document.getElementById("mp_doc_number").value);
+                docnumber_validate = validateCNPJ(document.getElementById('mp_doc_number').value);
             }
 
             if (!docnumber_validate) {
-                docnumber_error.style.display = "block";
-                docnumber_input.classList.add("mp-form-control-error");
+                docnumber_error.style.display = 'block';
+                docnumber_input.classList.add('mp-form-control-error');
                 docnumber_input.focus();
             } else {
-                docnumber_error.style.display = "none";
-                docnumber_input.classList.remove("mp-form-control-error");
+                docnumber_error.style.display = 'none';
+                docnumber_input.classList.remove('mp-form-control-error');
                 docnumber_validate = true;
             }
 
@@ -182,29 +184,31 @@
             var Resto;
 
             Soma = 0;
-            strCPF = strCPF.replace(/[.-\s]/g, "");
+            strCPF = strCPF.replace(/[.-\s]/g, '');
 
-            if (strCPF == "00000000000") {
+            if (strCPF === '00000000000') {
                 return false;
             }
 
             for (var i = 1; i <= 9; i++) {
-                Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+                Soma = Soma + parseInt(strCPF.substring(i - 1, i), 10) * (11 - i);
             }
 
             Resto = (Soma * 10) % 11;
-            if ((Resto == 10) || (Resto == 11)) { Resto = 0; }
-            if (Resto != parseInt(strCPF.substring(9, 10))) {
-                return false;
+            if ((Resto === 10) || (Resto === 11)) { Resto = 0; }
+            if (Resto !== parseInt(strCPF.substring(9, 10), 10)) {
+              return false;
             }
 
             Soma = 0;
-            for (var i = 1; i <= 10; i++) { Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i); }
+            for (var j = 1; j <= 10; j++) {
+              Soma = Soma + parseInt(strCPF.substring(j - 1, j), 10) * (12 - j);
+            }
 
             Resto = (Soma * 10) % 11;
-            if ((Resto == 10) || (Resto == 11)) { Resto = 0; }
-            if (Resto != parseInt(strCPF.substring(10, 11))) {
-                return false;
+            if ((Resto === 10) || (Resto === 11)) { Resto = 0; }
+            if (Resto !== parseInt(strCPF.substring(10, 11), 10)) {
+              return false;
             }
 
             return true;
@@ -218,24 +222,24 @@
         function validateCNPJ(strCNPJ) {
             var numeros, digitos, soma, i, resultado, pos, tamanho, digitos_iguais;
 
-            strCNPJ = strCNPJ.replace(".", "");
-            strCNPJ = strCNPJ.replace(".", "");
-            strCNPJ = strCNPJ.replace(".", "");
-            strCNPJ = strCNPJ.replace("-", "");
-            strCNPJ = strCNPJ.replace("/", "");
+            strCNPJ = strCNPJ.replace('.', '');
+            strCNPJ = strCNPJ.replace('.', '');
+            strCNPJ = strCNPJ.replace('.', '');
+            strCNPJ = strCNPJ.replace('-', '');
+            strCNPJ = strCNPJ.replace('/', '');
             digitos_iguais = 1;
 
             if (strCNPJ.length < 14 && strCNPJ.length < 15) {
                 return false;
             }
             for (i = 0; i < strCNPJ.length - 1; i++) {
-                if (strCNPJ.charAt(i) != strCNPJ.charAt(i + 1)) {
+                if (strCNPJ.charAt(i) !== strCNPJ.charAt(i + 1)) {
                     digitos_iguais = 0;
                     break;
                 }
             }
             if (!digitos_iguais) {
-                tamanho = strCNPJ.length - 2
+                tamanho = strCNPJ.length - 2;
                 numeros = strCNPJ.substring(0, tamanho);
                 digitos = strCNPJ.substring(tamanho);
                 soma = 0;
@@ -249,7 +253,7 @@
                 }
 
                 resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-                if (resultado != digitos.charAt(0)) {
+                if (resultado !== digitos.charAt(0)) {
                     return false;
                 }
 
@@ -265,7 +269,7 @@
                 }
 
                 resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-                if (resultado != digitos.charAt(1)) {
+                if (resultado !== digitos.charAt(1)) {
                     return false;
                 }
 
@@ -275,7 +279,7 @@
                 return false;
             }
         }
-      
+
          /**
          * Remove Block Overlay from Order Review page
          */
@@ -289,11 +293,11 @@
         *  Discount Campaigns Handler
         */
         function discountCampaignsHandler() {
-            document.querySelector('#mpCouponApplyedTicket').style.display = "none";
+            document.querySelector('#mpCouponApplyedTicket').style.display = 'none';
 
-            if (document.querySelector('#couponCodeTicket').value == "") {
+            if (document.querySelector('#couponCodeTicket').value === '') {
                 coupon_of_discounts.status = false;
-                document.querySelector('#mpCouponErrorTicket').style.display = "block";
+                document.querySelector('#mpCouponErrorTicket').style.display = 'block';
                 document.querySelector('#mpCouponErrorTicket').innerHTML = wc_mercadopago_ticket_params.coupon_empty;
                 document.querySelector('#couponCodeTicket').style.background = null;
                 document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
@@ -301,17 +305,17 @@
 
             } else if (coupon_of_discounts.status) {
                 coupon_of_discounts.status = false;
-                document.querySelector('#mpCouponErrorTicket').style.display = "none";
+                document.querySelector('#mpCouponErrorTicket').style.display = 'none';
                 document.querySelector('#applyCouponTicket').style.background = null;
                 document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
-                document.querySelector('#couponCodeTicket').value = "";
+                document.querySelector('#couponCodeTicket').value = '';
                 document.querySelector('#couponCodeTicket').style.background = null;
                 document.querySelector('#discountTicket').value = 0;
 
             } else {
-                document.querySelector('#mpCouponErrorTicket').style.display = "none";
-                document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.loading + ") 98% 50% no-repeat #fff";
-                document.querySelector('#couponCodeTicket').style.border = "1px solid #cecece";
+                document.querySelector('#mpCouponErrorTicket').style.display = 'none';
+                document.querySelector('#couponCodeTicket').style.background = 'url(' + wc_mercadopago_ticket_params.loading + ') 98% 50% no-repeat #fff';
+                document.querySelector('#couponCodeTicket').style.border = '1px solid #cecece';
                 document.querySelector('#applyCouponTicket').disabled = true;
                 getDiscountCampaigns();
             }
@@ -322,64 +326,64 @@
          */
         function getDiscountCampaigns() {
             var url = coupon_of_discounts.discount_action_url;
-            var sp = "?";
-            if (url.indexOf("?") >= 0) {
-                sp = "&";
+            var sp = '?';
+            if (url.indexOf('?') >= 0) {
+                sp = '&';
             }
-            url += sp + "site_id=" + wc_mercadopago_ticket_params.site_id;
-            url += "&coupon_id=" + document.querySelector('#couponCodeTicket').value;
-            url += "&amount=" + document.querySelector('#amountTicket').value;
-            url += "&payer=" + coupon_of_discounts.payer_email;
+            url += sp + 'site_id=' + wc_mercadopago_ticket_params.site_id;
+            url += '&coupon_id=' + document.querySelector('#couponCodeTicket').value;
+            url += '&amount=' + document.querySelector('#amountTicket').value;
+            url += '&payer=' + coupon_of_discounts.payer_email;
 
             $.ajax({
                 url: url,
-                method: "GET",
+                method: 'GET',
                 timeout: 5000,
                 error: function () {
                     coupon_of_discounts.status = false;
-                    document.querySelector('#mpCouponApplyedTicket').style.display = "none";
-                    document.querySelector('#mpCouponErrorTicket').style.display = "none";
+                    document.querySelector('#mpCouponApplyedTicket').style.display = 'none';
+                    document.querySelector('#mpCouponErrorTicket').style.display = 'none';
                     document.querySelector('#applyCouponTicket').style.background = null;
                     document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
-                    document.querySelector('#couponCodeTicket').value = "";
+                    document.querySelector('#couponCodeTicket').value = '';
                     document.querySelector('#couponCodeTicket').style.background = null;
                     document.querySelector('#discountTicket').value = 0;
                 },
-                success: function (response, status) {
-                    if (response.status == 200) {
+                success: function (response) {
+                    if (response.status === 200) {
                         coupon_of_discounts.status = true;
-                        document.querySelector('#mpCouponApplyedTicket').style.display = "block";
+                        document.querySelector('#mpCouponApplyedTicket').style.display = 'block';
                         document.querySelector('#discountTicket').value = response.response.coupon_amount;
                         document.querySelector('#mpCouponApplyedTicket').innerHTML =
-                            wc_mercadopago_ticket_params.discount_info1 + " <strong>" +
-                            currencyIdToCurrency(response.response.currency_id) + " " +
+                            wc_mercadopago_ticket_params.discount_info1 + ' <strong>' +
+                            currencyIdToCurrency(response.response.currency_id) + ' ' +
                             Math.round(response.response.coupon_amount * 100) / 100 +
-                            "</strong> " + wc_mercadopago_ticket_params.discount_info2 + " " +
-                            response.response.name + ".<br>" + wc_mercadopago_ticket_params.discount_info3 + " <strong>" +
-                            currencyIdToCurrency(response.response.currency_id) + " " +
+                            '</strong> ' + wc_mercadopago_ticket_params.discount_info2 + ' ' +
+                            response.response.name + '.<br>' + wc_mercadopago_ticket_params.discount_info3 + ' <strong>' +
+                            currencyIdToCurrency(response.response.currency_id) + ' ' +
                             Math.round(getAmountWithoutDiscount() * 100) / 100 +
-                            "</strong><br>" + wc_mercadopago_ticket_params.discount_info4 + " <strong>" +
-                            currencyIdToCurrency(response.response.currency_id) + " " +
-                            Math.round(getAmount() * 100) / 100 + "*</strong><br>" +
-                            "<i>" + wc_mercadopago_ticket_params.discount_info5 + "</i><br>" +
-                            "<a href='https://api.mercadolibre.com/campaigns/" +
+                            '</strong><br>' + wc_mercadopago_ticket_params.discount_info4 + ' <strong>' +
+                            currencyIdToCurrency(response.response.currency_id) + ' ' +
+                            Math.round(getAmount() * 100) / 100 + '*</strong><br>' +
+                            '<i>' + wc_mercadopago_ticket_params.discount_info5 + '</i><br>' +
+                            '<a href="https://api.mercadolibre.com/campaigns/' +
                             response.response.id +
-                            "/terms_and_conditions?format_type=html' target='_blank'>" +
-                            wc_mercadopago_ticket_params.discount_info6 + "</a>";
-                        document.querySelector('#mpCouponErrorTicket').style.display = "none";
+                            '/terms_and_conditions?format_type=html" target="_blank">' +
+                            wc_mercadopago_ticket_params.discount_info6 + '</a>';
+                        document.querySelector('#mpCouponErrorTicket').style.display = 'none';
                         document.querySelector('#couponCodeTicket').style.background = null;
-                        document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.check + ") 94% 50% no-repeat #fff";
-                        document.querySelector('#couponCodeTicket').style.border = "1px solid #cecece";
+                        document.querySelector('#couponCodeTicket').style.background = 'url(' + wc_mercadopago_ticket_params.check + ') 94% 50% no-repeat #fff';
+                        document.querySelector('#couponCodeTicket').style.border = '1px solid #cecece';
                         document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.remove;
                         document.querySelector('#campaign_idTicket').value = response.response.id;
                         document.querySelector('#campaignTicket').value = response.response.name;
                     } else {
                         coupon_of_discounts.status = false;
-                        document.querySelector('#mpCouponApplyedTicket').style.display = "none";
-                        document.querySelector('#mpCouponErrorTicket').style.display = "block";
+                        document.querySelector('#mpCouponApplyedTicket').style.display = 'none';
+                        document.querySelector('#mpCouponErrorTicket').style.display = 'block';
                         document.querySelector('#mpCouponErrorTicket').innerHTML = response.response.message;
                         document.querySelector('#couponCodeTicket').style.background = null;
-                        document.querySelector('#couponCodeTicket').style.background = "url(" + wc_mercadopago_ticket_params.error + ") 94% 50% no-repeat #fff";
+                        document.querySelector('#couponCodeTicket').style.background = 'url(' + wc_mercadopago_ticket_params.error + ') 94% 50% no-repeat #fff';
                         document.querySelector('#applyCouponTicket').value = wc_mercadopago_ticket_params.apply;
                         document.querySelector('#discountTicket').value = 0;
                     }
@@ -390,34 +394,34 @@
 
         /**
          * CurrencyId to Currency
-         * 
-         * @param {string} currency_id 
+         *
+         * @param {string} currency_id
          */
         function currencyIdToCurrency(currency_id) {
-            if (currency_id == "ARS") {
-                return "$";
-            } else if (currency_id == "BRL") {
-                return "R$";
-            } else if (currency_id == "COP") {
-                return "$";
-            } else if (currency_id == "CLP") {
-                return "$";
-            } else if (currency_id == "MXN") {
-                return "$";
-            } else if (currency_id == "VEF") {
-                return "Bs";
-            } else if (currency_id == "PEN") {
-                return "S/";
-            } else if (currency_id == "UYU") {
-                return "$U";
+            if (currency_id === 'ARS') {
+                return '$';
+            } else if (currency_id === 'BRL') {
+                return 'R$';
+            } else if (currency_id === 'COP') {
+                return '$';
+            } else if (currency_id === 'CLP') {
+                return '$';
+            } else if (currency_id === 'MXN') {
+                return '$';
+            } else if (currency_id === 'VEF') {
+                return 'Bs';
+            } else if (currency_id === 'PEN') {
+                return 'S/';
+            } else if (currency_id === 'UYU') {
+                return '$U';
             } else {
-                return "$";
+                return '$';
             }
         }
 
         /**
          * Get Amount Without Discount
-         * 
+         *
          * @return {string}
          */
         function getAmountWithoutDiscount() {
