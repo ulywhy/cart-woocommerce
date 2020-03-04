@@ -36,9 +36,9 @@ function woocommerce_mercadopago_load_plugin_textdomain()
 {
     $text_domain = 'woocommerce-mercadopago';
     $locale = apply_filters( 'plugin_locale', get_locale(), $text_domain );
-  
+
     $original_language_file = dirname(__FILE__) . '/i18n/languages/woocommerce-mercadopago-'. $locale .'.mo';
-    
+
     // Unload the translation for the text domain of the plugin
     unload_textdomain($text_domain);
     // Load first the override file
@@ -68,7 +68,7 @@ if (version_compare(PHP_VERSION, '5.6', '<=')) {
  * Curl validation
  */
 function wc_mercado_pago_notify_curl_error()
-{       
+{
     $type = 'error';
     $message = __('Mercado Pago Error: PHP Extension CURL is not installed.', 'woocommerce-mercadopago');
     echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);

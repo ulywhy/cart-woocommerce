@@ -22,7 +22,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         if (!$this->validateSection()) {
             return;
         }
-        
+
         $this->description = __('Accept card payments on your website with the best possible financing and maximize the conversion of your business. With personalized checkout your customers pay without leaving your store!', 'woocommerce-mercadopago');
         $this->form_fields = array();
         $this->method_title = __('Mercado Pago - Custom Checkout', 'woocommerce-mercadopago');
@@ -45,7 +45,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function getFormFields($label)
     {
         if (is_admin() && $this->isManageSection()) {
-            wp_enqueue_script('woocommerce-mercadopago-custom-config-script', plugins_url('../assets/js/custom_config_mercadopago.js', plugin_dir_path(__FILE__)));
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+            wp_enqueue_script(
+                'woocommerce-mercadopago-custom-config-script',
+                plugins_url('../assets/js/custom_config_mercadopago'.$suffix.'.js', plugin_dir_path(__FILE__)),
+                array(),
+                WC_WooMercadoPago_Constants::VERSION
+            );
         }
 
         if (empty($this->checkout_country)) {
@@ -153,7 +159,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => sprintf(
                 __('Checkout of payments with debit and credit cards %s', 'woocommerce-mercadopago'),
                 '<div class="mp-row">
-                <div class="mp-col-md-12 mp_subtitle_header"> 
+                <div class="mp-col-md-12 mp_subtitle_header">
                 ' . __('Accept payments instantly and maximize the conversion of your business', 'woocommerce-mercadopago') . '
                  </div>
               <div class="mp-col-md-12">

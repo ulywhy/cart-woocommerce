@@ -55,8 +55,14 @@ class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
     public function add_checkout_scripts_custom()
     {
         if (is_checkout() && $this->payment->is_available() && !get_query_var('order-received')) {
-            wp_enqueue_script('mercado-pago-module-custom-js', 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js');
-            wp_enqueue_script('woocommerce-mercadopago-checkout', plugins_url('../../assets/js/credit-card.js', plugin_dir_path(__FILE__)), array('jquery'), null, true);
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+            wp_enqueue_script(
+                'woocommerce-mercadopago-checkout',
+                plugins_url('../../assets/js/credit-card'.$suffix.'.js', plugin_dir_path(__FILE__)),
+                array('jquery'),
+                WC_WooMercadoPago_Constants::VERSION,
+                true
+            );
 
             wp_localize_script(
                 'woocommerce-mercadopago-checkout',
