@@ -348,7 +348,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     {
         $type = 'error';
         $message = __('Credentials for invalid production!', 'woocommerce-mercadopago');
-        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
     /**
@@ -358,7 +358,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     {
         $type = 'error';
         $message = __('Invalid test credentials!', 'woocommerce-mercadopago');
-        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
      /**
@@ -368,7 +368,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     {
         $type = 'notice-warning';
         $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
-        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
 

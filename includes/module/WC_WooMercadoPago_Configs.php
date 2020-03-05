@@ -99,7 +99,7 @@ class WC_WooMercadoPago_Configs
     {
         $type = 'error';
         $message = __('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado');
-        echo self::getAlertFrame($message, $type);
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
     /**
@@ -109,7 +109,7 @@ class WC_WooMercadoPago_Configs
     {
         $type = 'notice-warning';
         $message = __('The store must have HTTPS to see the payment methods.', 'woocommerce-mercadopago');
-        echo self::getAlertFrame($message, $type);
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
     /**
@@ -256,28 +256,4 @@ class WC_WooMercadoPago_Configs
         $methods[] = 'WC_WooMercadoPago_TicketGateway';
         return $methods;
     }
-
-    /**
-     * Get MP alert frame for notfications 
-     *
-     * @param string $message
-     * @param string $type
-     * @return void
-     */
-    public static function getAlertFrame($message, $type)
-    {
-        return '<div class="notice '.$type.' is-dismissible">
-                    <div class="mp-alert-frame"> 
-                        <div class="mp-left-alert">
-                            <img src="' . plugins_url('../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
-                        </div>
-                        <div class="mp-right-alert">
-                            <p>' . $message . '</p>
-                        </div>
-                    </div>
-                    <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
-                    </button>
-                </div>';
-    } 
 }

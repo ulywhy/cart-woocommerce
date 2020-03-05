@@ -276,7 +276,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $type = 'notice-warning';
         $message = sprintf(__('%s, it only takes a few minutes', 'woocommerce-mercadopago'), '<a class="homologScroll mp-mouse_pointer"><b><u>' . __('Approve your account', 'woocommerce-mercadopago') . '</u></b></a>');
-        echo WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
     /**

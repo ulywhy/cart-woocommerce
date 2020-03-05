@@ -401,7 +401,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             $type = 'notice-error';
             $message = $this->__(self::NOTICE_WARNING);
 
-            return WC_WooMercadoPago_Configs::getAlertFrame($message, $type);
+            return WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
         }
 
         return '';

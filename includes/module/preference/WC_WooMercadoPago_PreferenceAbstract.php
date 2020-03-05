@@ -281,7 +281,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_external_reference($payment = null)
     {
-        $store_identificator = !is_null($payment) ? $payment->getOption('_mp_store_identificator') : 'WC-';
+        $store_identificator = get_option('_mp_store_identificator', 'WC-');
 
         if (method_exists($this->order, 'get_id')) {
             return $store_identificator . $this->order->get_id();
