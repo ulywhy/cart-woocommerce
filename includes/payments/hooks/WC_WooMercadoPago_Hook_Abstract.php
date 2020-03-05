@@ -192,7 +192,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             if ('title' !== $this->payment->get_field_type($field)) {
                 $value = $this->payment->get_field_value($key, $field, $post_data);
                 $oldData[$key] = isset($this->payment->settings[$key]) ?  $this->payment->settings[$key] : null;
-                if ($key == 'checkout_credential_production') {
+                if ($key == 'checkout_credential_prod') {
                     $valueCredentialProduction = $value;
                 }
                 $commonConfigs = $this->payment->getCommonConfigs();

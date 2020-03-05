@@ -120,7 +120,7 @@ class WC_WooMercadoPago_Configs
         if (strpos(get_option('_mp_public_key'), 'TEST') === 0 && strpos(get_option('_mp_access_token'), 'TEST') === 0) {
             update_option('_mp_public_key_test', get_option('_mp_public_key'), true);
             update_option('_mp_access_token_test', get_option('_mp_access_token'), true);
-            update_option('checkout_credential_production', 'no', true);
+            update_option('checkout_credential_prod', 'no', true);
         }
 
         if (strpos(get_option('_mp_public_key'), 'APP_USR') === 0 && strpos(get_option('_mp_access_token'), 'APP_USR') === 0) {
@@ -130,7 +130,7 @@ class WC_WooMercadoPago_Configs
                 update_option('_mp_public_key', '');
                 update_option('_mp_access_token', '');
             }
-            update_option('checkout_credential_production', 'yes', true);
+            update_option('checkout_credential_prod', 'yes', true);
         }
     }
 
