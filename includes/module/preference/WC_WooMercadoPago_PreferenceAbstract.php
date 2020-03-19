@@ -349,7 +349,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         }
 
         $test_mode = false;
-        if ($this->payment->getOption('checkout_credential_production', '') == 'no') {
+        if ($this->payment->getOption('checkout_credential_prod', '') == 'no') {
             $test_mode = true;
         }
 

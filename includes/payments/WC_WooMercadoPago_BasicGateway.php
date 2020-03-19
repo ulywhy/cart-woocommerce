@@ -126,7 +126,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_credential_mod_test_description',
             'checkout_credential_mod_prod_title',
             'checkout_credential_mod_prod_description',
-            'checkout_credential_production',
+            'checkout_credential_prod',
             'checkout_credential_link',
             'checkout_credential_title_test',
             'checkout_credential_description_test',

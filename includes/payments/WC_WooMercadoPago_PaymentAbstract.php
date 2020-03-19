@@ -301,7 +301,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['checkout_credential_mod_test_description'] = $this->field_checkout_credential_mod_test_description();
             $form_fields['checkout_credential_mod_prod_title'] = $this->field_checkout_credential_mod_prod_title();
             $form_fields['checkout_credential_mod_prod_description'] = $this->field_checkout_credential_mod_prod_description();
-            $form_fields['checkout_credential_production'] = $this->field_checkout_credential_production();
+            $form_fields['checkout_credential_prod'] = $this->field_checkout_credential_production();
             $form_fields['checkout_credential_link'] = $this->field_checkout_credential_link($this->checkout_country);
             $form_fields['checkout_credential_title_test'] = $this->field_checkout_credential_title_test();
             $form_fields['checkout_credential_description_test'] = $this->field_checkout_credential_description_test();
@@ -1260,11 +1260,11 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $key = 'woocommerce_' . $gateway::getId() . '_settings';
             $options = get_option($key);
             if (!empty($options)) {
-                if (isset($options['checkout_credential_production']) && $options['checkout_credential_production'] == 'yes' && !empty($this->mp_access_token_prod)) {
+                if (isset($options['checkout_credential_prod']) && $options['checkout_credential_prod'] == 'yes' && !empty($this->mp_access_token_prod)) {
                     continue;
                 }
 
-                if (isset($options['checkout_credential_production']) && $options['checkout_credential_production'] == 'no' && !empty($this->mp_access_token_test)) {
+                if (isset($options['checkout_credential_prod']) && $options['checkout_credential_prod'] == 'no' && !empty($this->mp_access_token_test)) {
                     continue;
                 }
 
@@ -1285,7 +1285,36 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     /**
      * @return bool
      */
-    public function isProductionMode() {
-        return $this->getOption('checkout_credential_production', get_option('checkout_credential_production', 'no')) === 'yes';
+    public function isProductionMode()
+    {
+        $this->updateCredentialProduction();
+        return $this->getOption('checkout_credential_prod', get_option('checkout_credential_prod', 'no')) === 'yes';
+    }
+
+    /**
+     *
+     */
+    public function updateCredentialProduction()
+    {
+        if(!empty($this->getOption('checkout_credential_prod', null))){
+            return;
+        }
+
+        $gateways = apply_filters('woocommerce_payment_gateways', array());
+        foreach ($gateways as $gateway) {
+            if (!strpos($gateway, "MercadoPago")) {
+                continue;
+            }
+
+            $key = 'woocommerce_' . $gateway::getId() . '_settings';
+            $options = get_option($key);
+            if (!empty($options)) {
+                if (!isset($options['checkout_credential_production']) || empty($options['checkout_credential_production']) ){
+                    continue;
+                }
+                $options['checkout_credential_prod'] = $options['checkout_credential_production'];
+                update_option($key, apply_filters('woocommerce_settings_api_sanitized_fields_' . $gateway::getId(), $options));
+            }
+        }
     }
 }
