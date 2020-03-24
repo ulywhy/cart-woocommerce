@@ -394,12 +394,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function get_sponsor_id()
     {
         $site_data = WC_WooMercadoPago_Module::get_site_data();
-        $sponsor_id = get_option('_mp_sponsor_id', '');
-        if ($sponsor_id == '' || empty($sponsor_id)) {
-            return $site_data['sponsor_id'];
-        } else {
-            return $sponsor_id;
-        }
+        return $site_data['sponsor_id'];
     }
 
     /**
