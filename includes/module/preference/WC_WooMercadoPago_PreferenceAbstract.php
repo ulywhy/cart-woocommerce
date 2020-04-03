@@ -73,7 +73,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         //fees is added to items
         if (0 < count($this->order->get_fees())) {
             $this->items = array_merge($this->items, $this->fees_cost_item());
-    }
+        }
     }
 
     /**
@@ -207,7 +207,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $ship_cost = $this->calculate_price($this->ship_cost);
         $this->order_total += $this->number_format_value($ship_cost);
-        
+
         return array(
             'title'       => method_exists($this->order, 'get_id') ? $this->order->get_shipping_method() : $this->order->shipping_method,
             'description' => __('Shipping service used by the store.', 'woocommerce-mercadopago'),
