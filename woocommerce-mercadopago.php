@@ -6,7 +6,7 @@
  * Description: Configure the payment options and accept payments with cards, ticket and money of Mercado Pago account.
  * Version: 4.2.0
  * Author: Mercado Pago
- * Author URI: https://www.mercadopago.com.br/developers/
+ * Author URI: https://developers.mercadopago.com/
  * Text Domain: woocommerce-mercadopago
  * Domain Path: /i18n/languages/
  * WC requires at least: 3.0.0
