@@ -249,9 +249,34 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $plugin_links = array();
         $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Set up', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Your opinion helps us get better', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<br><a target="_blank" href="' . 'https://www.mercadopago.com.ar/developers/en/plugins_sdks/plugins/woocommerce/introduction/' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<a target="_blank" href="' . 'https://www.mercadopago.com.br/ajuda' . '">' . __('Report Problem', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<br><a target="_blank" href="' . 'https://www.mercadopago.com.ar/developers/en/guides/plugins/woocommerce/introduction/' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a target="_blank" href="' . $this->define_link_help() . '">' . __('Report Problem', 'woocommerce-mercadopago') . '</a>';
         return array_merge($plugin_links, $links);
+    }
+
+    /**
+     * Construct link for help
+     * @return string
+     */
+    public function define_link_help()
+    {
+        $wc_country = get_option('woocommerce_default_country', '');
+        $sufix_country = 'com.ar/ayuda';
+        $country = array(
+            'AR' => 'com.ar/ayuda', // Argentinian
+            'BR' => 'com.br/ajuda', // Brazil
+            'CL' => 'cl/ayuda', // Chile
+            'CO' => 'com.co/ayuda', // Colombia
+            'MX' => 'com.mx/ayuda', // Mexico
+            'PE' => 'com.pe/ayuda', // Peru
+            'UY' => 'com.uy/ayuda', // Uruguay
+        );
+        if ($wc_country != '') {
+            $sufix_country = strlen($wc_country) > 2 ? substr($wc_country, 0, 2) : $wc_country;
+            $sufix_country = array_key_exists(strtoupper($sufix_country), $country) ? $country[$sufix_country] : 'com.ar/ayuda';
+        }
+        $link = 'https://www.mercadopago.' . $sufix_country;
+        return $link;
     }
 
     /**
