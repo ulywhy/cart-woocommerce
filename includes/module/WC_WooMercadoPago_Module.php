@@ -273,7 +273,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         );
         if ($wc_country != '') {
             $sufix_country = strlen($wc_country) > 2 ? substr($wc_country, 0, 2) : $wc_country;
-            $sufix_country = array_key_exists($sufix_country, $country) ? $country[$sufix_country] : 'com.ar/ayuda';
+            $sufix_country = array_key_exists(strtoupper($sufix_country), $country) ? $country[$sufix_country] : 'com.ar/ayuda';
         }
         $link = 'https://www.mercadopago.' . $sufix_country;
         return $link;
