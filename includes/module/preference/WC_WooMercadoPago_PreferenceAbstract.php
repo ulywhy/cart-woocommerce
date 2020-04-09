@@ -224,10 +224,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     {
         $items = array();
         foreach ($this->order->get_fees() as $fee) {
-            if ((float) $fee['line_total'] >= 0) {
+            if ((float) $fee['total'] >= 0) {
                 continue;
             }
-            $this->order_total += $this->number_format_value($fee['line_total']);
+            $this->order_total += $this->number_format_value($fee['total'] + $fee['total_tax']);
             array_push($items, array(
                 'title'       => sanitize_file_name(html_entity_decode(
                     strlen($fee['name']) > 230 ?
@@ -239,7 +239,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 )),
                 'category_id' => get_option('_mp_category_id', 'others'),
                 'quantity'    => 1,
-                'unit_price'  => $this->number_format_value($fee['line_total'])
+                'unit_price'  => $this->number_format_value($fee['total'] + $fee['total_tax'])
             ));
         }
         return $items;
@@ -345,7 +345,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
      */
     public function get_transaction_amount()
     {
-        return $this->order_total;
+        return $this->number_format_value($this->order_total);
     }
 
     /**
