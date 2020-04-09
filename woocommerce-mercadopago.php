@@ -17,6 +17,7 @@
  * @author Mercado Pago
  */
 
+
 // Exit if accessed directly.
 if (!defined('ABSPATH')) {
     exit;
