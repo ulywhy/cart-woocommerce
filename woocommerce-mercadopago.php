@@ -11,7 +11,6 @@
  * Domain Path: /i18n/languages/
  * WC requires at least: 3.0.0
  * WC tested up to: 3.8.1
- *
  * @package MercadoPago
  * @category Core
  * @author Mercado Pago
