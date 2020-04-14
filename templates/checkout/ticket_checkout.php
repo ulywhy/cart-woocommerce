@@ -46,7 +46,7 @@ if (!defined('ABSPATH')) {
                                     <label for="cpfcnpj" id="mp_cpf_label" class="mp-label-form title-cpf"><?= esc_html__('Document number', 'woocommerce-mercadopago'); ?> <em>*</em></label>
                                     <input type="text" class="mp-form-control" id="mp_doc_number" data-checkout="mp_doc_number" name="mercadopago_ticket[docNumber]" onkeyup="mpMaskInput(this, mpTicketInteger);" autocomplete="off" maxlength="8">
                                     <span class="mp-erro_febraban" data-main="#mp_doc_number"><?= esc_html__('You must provide your document number', 'woocommerce-mercadopago'); ?></span>
-                                    <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('The document must be valid', 'woocommerce-mercadopago'); ?></span>
+                                    <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
                                 </div>
                             </div>
                             <div class="mp-col-md-12 mp-pt-10">
@@ -96,7 +96,7 @@ if (!defined('ABSPATH')) {
                                 <label for="cpfcnpj" id="mp_cnpj_label" class="title-cnpj mp-label-form"><?= esc_html__('CNPJ', 'woocommerce-mercadopago'); ?><em>*</em></label>
                                 <input type="text" class="mp-form-control" value="<?= $febraban['docNumber']; ?>" id="mp_doc_number" data-checkout="mp_doc_number" name="mercadopago_ticket[docNumber]" onkeyup="mpMaskInput(this, mpCpf);" maxlength="14">
                                 <span class="mp-erro_febraban" data-main="#mp_doc_number"><?= esc_html__('You must provide your document number', 'woocommerce-mercadopago'); ?></span>
-                                <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('The document must be valid', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
