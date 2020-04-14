@@ -214,9 +214,8 @@
         function validateDocTypeMLU(docnumber) {
             if (docnumber !== '') {
                 return validateCI(docnumber);
-            } else {
-                return false;
-            }
+            } 
+            return false;
         }
 
         /**
