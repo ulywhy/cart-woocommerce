@@ -481,6 +481,24 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             }
         }
 
+        if ($this->getOption('_site_id_v1') == 'MLU') {
+            if (
+                !isset($ticket_checkout['docNumber']) || empty($ticket_checkout['docNumber']) ||
+                !isset($ticket_checkout['docType']) || empty($ticket_checkout['docType'])
+            ) {
+                wc_add_notice(
+                    '<p>' .
+                        __('There was a problem processing your payment. Are you sure you have correctly filled out all the information on the payment form?', 'woocommerce-mercadopago') .
+                        '</p>',
+                    'error'
+                );
+                return array(
+                    'result' => 'fail',
+                    'redirect' => '',
+                );
+            }
+        }
+
         if (isset($ticket_checkout['amount']) && !empty($ticket_checkout['amount']) &&
             isset($ticket_checkout['paymentMethodId']) && !empty($ticket_checkout['paymentMethodId'])) {
             $response = $this->create_preference($order, $ticket_checkout);

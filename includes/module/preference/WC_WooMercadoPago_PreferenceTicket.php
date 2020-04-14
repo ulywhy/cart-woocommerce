@@ -39,6 +39,11 @@ class WC_WooMercadoPago_PreferenceTicket extends WC_WooMercadoPago_PreferenceAbs
             $this->preference['payer']['address']['zip_code'] = $this->checkout['zipcode'];
         }
 
+        if ($this->site_data[$this->site_id]['currency'] == 'UYU') {
+            $this->preference['payer']['identification']['type'] = $ticket_checkout['docType'];
+            $this->preference['payer']['identification']['number'] = $ticket_checkout['docNumber'];
+        }
+        
         if($ticket_checkout['paymentMethodId'] == 'webpay'){
             $this->preference['callback_url'] = get_site_url();
             $this->preference['transaction_details']['financial_institution'] = "1234";
