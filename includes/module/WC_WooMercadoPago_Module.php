@@ -300,11 +300,14 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             ),
         );
         if ($wc_country != '') {
+            
             $sufix_country = strlen($wc_country) > 2 ? substr($wc_country, 0, 2) : $wc_country;
             
         }
-        $links_country = array_key_exists(strtoupper($sufix_country), $country) ? $country[$sufix_country] : 'AR';
-       
+        
+        $sufix_country = strtoupper($sufix_country);
+        $links_country = array_key_exists($sufix_country, $country) ? $country[$sufix_country] : $country['AR'];
+        
         return $links_country;
     }
 
