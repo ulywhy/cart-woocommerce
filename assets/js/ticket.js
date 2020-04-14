@@ -202,9 +202,8 @@
         function validateDocTypeMLB(docnumber) {
             if (mercado_pago_docnumber === 'CPF') {
                 return validateCPF(docnumber);
-            } else {
-                return validateCNPJ(docnumber);
-            }
+            } 
+            return validateCNPJ(docnumber);
         }
 
         /**
