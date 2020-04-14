@@ -129,9 +129,9 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      */
     public function loadConfigs()
     {
+        self::$country_configs = self::getCountryConfigs();
         $configs = new parent();
         self::$categories = $configs->getCategories();
-        self::$country_configs = self::getCountryConfigs();
         self::$site_data = self::get_site_data();
         self::$payments_name = self::setPaymentGateway();
     }
