@@ -47,38 +47,38 @@
             var mp_cnpj_label = document.getElementById('mp_cnpj_label');
             var mp_doc_number = document.getElementById('mp_doc_number');
             var mp_doc_type = document.querySelectorAll('input[type=radio][name="mercadopago_ticket[docType]"]');
-           
+
             mp_cnpj_label.style.display = 'none';
             mp_socialname_label.style.display = 'none';
 
             var choose_document = function () {
                 if (this.value === 'CPF') {
-                  mp_cpf_label.style.display = 'block';
-                  mp_box_lastname.style.display = 'grid';
-                  mp_firstname_label.style.display = 'block';
-                  mp_cnpj_label.style.display = 'none';
-                  mp_socialname_label.style.display = 'none';
-                  mp_box_firstname.classList.remove('mp-col-md-8');
-                  mp_box_firstname.classList.add('mp-col-md-4');
-                  mp_doc_number.setAttribute('maxlength', '14');
-                  mp_doc_number.setAttribute('onkeyup', 'mpMaskInput(this, mpCpf)');
-                  mercado_pago_docnumber = 'CPF';
+                    mp_cpf_label.style.display = 'block';
+                    mp_box_lastname.style.display = 'grid';
+                    mp_firstname_label.style.display = 'block';
+                    mp_cnpj_label.style.display = 'none';
+                    mp_socialname_label.style.display = 'none';
+                    mp_box_firstname.classList.remove('mp-col-md-8');
+                    mp_box_firstname.classList.add('mp-col-md-4');
+                    mp_doc_number.setAttribute('maxlength', '14');
+                    mp_doc_number.setAttribute('onkeyup', 'mpMaskInput(this, mpCpf)');
+                    mercado_pago_docnumber = 'CPF';
                 } else {
-                  mp_cpf_label.style.display = 'none';
-                  mp_box_lastname.style.display = 'none';
-                  mp_firstname_label.style.display = 'none';
-                  mp_cnpj_label.style.display = 'block';
-                  mp_socialname_label.style.display = 'block';
-                  mp_box_firstname.classList.remove('mp-col-md-4');
-                  mp_box_firstname.classList.add('mp-col-md-8');
-                  mp_doc_number.setAttribute('maxlength', '18');
-                  mp_doc_number.setAttribute('onkeyup', 'mpMaskInput(this, mpCnpj)');
-                  mercado_pago_docnumber = 'CNPJ';
+                    mp_cpf_label.style.display = 'none';
+                    mp_box_lastname.style.display = 'none';
+                    mp_firstname_label.style.display = 'none';
+                    mp_cnpj_label.style.display = 'block';
+                    mp_socialname_label.style.display = 'block';
+                    mp_box_firstname.classList.remove('mp-col-md-4');
+                    mp_box_firstname.classList.add('mp-col-md-8');
+                    mp_doc_number.setAttribute('maxlength', '18');
+                    mp_doc_number.setAttribute('onkeyup', 'mpMaskInput(this, mpCnpj)');
+                    mercado_pago_docnumber = 'CNPJ';
                 }
-              };
+            };
 
             for (var i = 0; i < mp_doc_type.length; i++) {
-              mp_doc_type[i].addEventListener('change', choose_document);
+                mp_doc_type[i].addEventListener('change', choose_document);
             }
         }
 
@@ -96,7 +96,7 @@
                 if (validateInputs() && validateDocumentNumber()) {
                     mercado_pago_submit_ticket = true;
                 } else {
-                  removeBlockOverlay();
+                    removeBlockOverlay();
                 }
 
                 return mercado_pago_submit_ticket;
@@ -106,7 +106,7 @@
                 if (validateDocumentNumber()) {
                     mercado_pago_submit_ticket = true;
                 } else {
-                  removeBlockOverlay();
+                    removeBlockOverlay();
                 }
 
                 return mercado_pago_submit_ticket;
@@ -225,109 +225,107 @@
      * @param {string} strCPF
      * @return {bool}
      */
-    function validateCPF(strCPF)
-    {
-        var Soma;
-        var Resto;
+        function validateCPF(strCPF) {
+            var Soma;
+            var Resto;
 
-        Soma = 0;
-        strCPF = strCPF.replace(/[.-\s]/g, '');
+            Soma = 0;
+            strCPF = strCPF.replace(/[.-\s]/g, '');
 
-        if (strCPF === '00000000000') {
-            return false;
-        }
-
-        for (var i = 1; i <= 9; i++) {
-            Soma = Soma + parseInt(strCPF.substring(i - 1, i), 10) * (11 - i);
-        }
-
-        Resto = (Soma * 10) % 11;
-        if ((Resto === 10) || (Resto === 11)) {
-            Resto = 0;
-        }
-        if (Resto !== parseInt(strCPF.substring(9, 10), 10)) {
-            return false;
-        }
-
-        Soma = 0;
-        for (var j = 1; j <= 10; j++) {
-            Soma = Soma + parseInt(strCPF.substring(j - 1, j), 10) * (12 - j);
-        }
-
-        Resto = (Soma * 10) % 11;
-        if ((Resto === 10) || (Resto === 11)) {
-            Resto = 0;
-        }
-        if (Resto !== parseInt(strCPF.substring(10, 11), 10)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate CNPJ
-     * @param {string} strCNPJ
-     * @return {bool}
-     */
-    function validateCNPJ(strCNPJ)
-    {
-        strCNPJ = strCNPJ.replace(/[^\d]+/g, '');
-
-        if (strCNPJ === '') {
-            return false;
-        }
-
-        if (strCNPJ.length !== 14) {
-            return false;
-        }
-
-        if (strCNPJ === '00000000000000' ||
-            strCNPJ === '11111111111111' ||
-            strCNPJ === '22222222222222' ||
-            strCNPJ === '33333333333333' ||
-            strCNPJ === '44444444444444' ||
-            strCNPJ === '55555555555555' ||
-            strCNPJ === '66666666666666' ||
-            strCNPJ === '77777777777777' ||
-            strCNPJ === '88888888888888' ||
-            strCNPJ === '99999999999999') {
-            return false;
-        }
-
-        var tamanho = strCNPJ.length - 2;
-        var numeros = strCNPJ.substring(0, tamanho);
-        var digitos = strCNPJ.substring(tamanho);
-        var soma = 0;
-        var pos = tamanho - 7;
-        for (var m = tamanho; m >= 1; m--) {
-            soma += numeros.charAt(tamanho - m) * pos--;
-            if (pos < 2) {
-                pos = 9;
+            if (strCPF === '00000000000') {
+                return false;
             }
-        }
-        var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        if (resultado !== digitos.charAt(0)) {
-            return false;
-        }
 
-        tamanho = tamanho + 1;
-        numeros = strCNPJ.substring(0, tamanho);
-        soma = 0;
-        pos = tamanho - 7;
-        for (var i = tamanho; i >= 1; i--) {
-            soma += numeros.charAt(tamanho - i) * pos--;
-            if (pos < 2) {
-                pos = 9;
+            for (var i = 1; i <= 9; i++) {
+                Soma = Soma + parseInt(strCPF.substring(i - 1, i), 10) * (11 - i);
             }
-        }
-        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        if (resultado !== digitos.charAt(1)) {
-            return false;
+
+            Resto = (Soma * 10) % 11;
+            if ((Resto === 10) || (Resto === 11)) {
+                Resto = 0;
+            }
+            if (Resto !== parseInt(strCPF.substring(9, 10), 10)) {
+                return false;
+            }
+
+            Soma = 0;
+            for (var j = 1; j <= 10; j++) {
+                Soma = Soma + parseInt(strCPF.substring(j - 1, j), 10) * (12 - j);
+            }
+
+            Resto = (Soma * 10) % 11;
+            if ((Resto === 10) || (Resto === 11)) {
+                Resto = 0;
+            }
+            if (Resto !== parseInt(strCPF.substring(10, 11), 10)) {
+                return false;
+            }
+
+            return true;
         }
 
-        return true;
-    }
+        /**
+         * Validate CNPJ
+         * @param {string} strCNPJ
+         * @return {bool}
+         */
+        function validateCNPJ(strCNPJ) {
+            strCNPJ = strCNPJ.replace(/[^\d]+/g, '');
+
+            if (strCNPJ === '') {
+                return false;
+            }
+
+            if (strCNPJ.length !== 14) {
+                return false;
+            }
+
+            if (strCNPJ === '00000000000000' ||
+                strCNPJ === '11111111111111' ||
+                strCNPJ === '22222222222222' ||
+                strCNPJ === '33333333333333' ||
+                strCNPJ === '44444444444444' ||
+                strCNPJ === '55555555555555' ||
+                strCNPJ === '66666666666666' ||
+                strCNPJ === '77777777777777' ||
+                strCNPJ === '88888888888888' ||
+                strCNPJ === '99999999999999') {
+                return false;
+            }
+
+            var tamanho = strCNPJ.length - 2;
+            var numeros = strCNPJ.substring(0, tamanho);
+            var digitos = strCNPJ.substring(tamanho);
+            var soma = 0;
+            var pos = tamanho - 7;
+            for (var m = tamanho; m >= 1; m--) {
+                soma += numeros.charAt(tamanho - m) * pos--;
+                if (pos < 2) {
+                    pos = 9;
+                }
+            }
+            var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado !== digitos.charAt(0)) {
+                return false;
+            }
+
+            tamanho = tamanho + 1;
+            numeros = strCNPJ.substring(0, tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            for (var i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) {
+                    pos = 9;
+                }
+            }
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado !== digitos.charAt(1)) {
+                return false;
+            }
+
+            return true;
+        }
 
         /**
         * Validate CI MLU
@@ -356,9 +354,9 @@
             return (dig === docCI);
         }
 
-         /**
-         * Remove Block Overlay from Order Review page
-         */
+        /**
+        * Remove Block Overlay from Order Review page
+        */
         function removeBlockOverlay() {
             if ($('form#order_review').length > 0) {
                 $('.blockOverlay').css('display', 'none');
