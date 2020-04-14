@@ -246,37 +246,69 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     // Add settings link on plugin page.
     public function woomercadopago_settings_link($links)
     {
+        $links_mp = $this->define_link_country();
         $plugin_links = array();
         $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Set up', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Your opinion helps us get better', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<br><a target="_blank" href="' . 'https://www.mercadopago.com.ar/developers/en/guides/plugins/woocommerce/introduction/' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<a target="_blank" href="' . $this->define_link_help() . '">' . __('Report Problem', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<br><a target="_blank" href="' . 'https://www.mercadopago.' .$links_mp['sufix_url'] .'developers/' .$links_mp['translate'] .'/guides/plugins/woocommerce/introduction/' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a target="_blank" href="'. 'https://www.mercadopago.' .$links_mp['sufix_url'] .$links_mp['help'] .'">' . __('Report Problem', 'woocommerce-mercadopago') . '</a>';
         return array_merge($plugin_links, $links);
     }
-
-    /**
-     * Construct link for help
-     * @return string
+   /**
+     * Construct link 
+     * @return array
      */
-    public function define_link_help()
+    public function define_link_country()
     {
         $wc_country = get_option('woocommerce_default_country', '');
-        $sufix_country = 'com.ar/ayuda';
+        $sufix_country = 'AR';
         $country = array(
-            'AR' => 'com.ar/ayuda', // Argentinian
-            'BR' => 'com.br/ajuda', // Brazil
-            'CL' => 'cl/ayuda', // Chile
-            'CO' => 'com.co/ayuda', // Colombia
-            'MX' => 'com.mx/ayuda', // Mexico
-            'PE' => 'com.pe/ayuda', // Peru
-            'UY' => 'com.uy/ayuda', // Uruguay
+            'AR' => array( // Argentinian
+                'help' => 'ayuda',
+                'sufix_url' => 'com.ar/',
+                'translate' => 'es',  
+            ),
+            'BR' => array( // Brazil
+                'help' => 'ajuda',
+                'sufix_url' => 'com.br/',
+                'translate' => 'pt',  
+            ),
+            'CL' => array( // Chile
+                'help' => 'ayuda',
+                'sufix_url' => 'cl/',
+                'translate' => 'es',  
+            ),
+            'CO' => array( // Colombia
+                'help' => 'ayuda',
+                'sufix_url' => 'com.co/',
+                'translate' => 'es',  
+            ),
+            'MX' => array( // Mexico
+                'help' => 'ayuda',
+                'sufix_url' => 'com.mx/',
+                'translate' => 'es',  
+            ),
+            'PE' => array( // Peru
+                'help' => 'ayuda',
+                'sufix_url' => 'com.pe/',
+                'translate' => 'es',  
+            ),
+            'UY' => array( // Uruguay
+                'help' => 'ayuda',
+                'sufix_url' => 'com.uy/',
+                'translate' => 'es',  
+            ),
         );
         if ($wc_country != '') {
+            
             $sufix_country = strlen($wc_country) > 2 ? substr($wc_country, 0, 2) : $wc_country;
-            $sufix_country = array_key_exists(strtoupper($sufix_country), $country) ? $country[$sufix_country] : 'com.ar/ayuda';
+            
         }
-        $link = 'https://www.mercadopago.' . $sufix_country;
-        return $link;
+        
+        $sufix_country = strtoupper($sufix_country);
+        $links_country = array_key_exists($sufix_country, $country) ? $country[$sufix_country] : $country['AR'];
+        
+        return $links_country;
     }
 
     /**
