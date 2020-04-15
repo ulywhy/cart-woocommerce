@@ -108,7 +108,7 @@ class WC_WooMercadoPago_Configs
     public function noticeHttps()
     {
         $type = 'notice-warning';
-        $message = __('The store must have HTTPS to see the payment methods.', 'woocommerce-mercadopago');
+        $message = __('The store should have HTTPS in order to activate both Checkout Personalizado and Ticket Checkout.', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 

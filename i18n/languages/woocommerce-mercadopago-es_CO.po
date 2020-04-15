@@ -62,8 +62,8 @@ msgid "Discount provided by store"
 msgstr "Descuento proporcionado por la tienda"
 
 #: includes/module/WC_WooMercadoPago_Configs.php:112
-msgid "The store must have HTTPS to see the payment methods."
-msgstr "La tienda debe tener HTTPS para ver los medios de pago."
+msgid "The store should have HTTPS in order to activate both Checkout Personalizado and Ticket Checkout."
+msgstr "La tienda debe tener HTTPS para activar el Checkout Personalizado y el Ticket Checkout."
 
 #: includes/module/WC_WooMercadoPago_Configs.php:118 includes/module/WC_WooMercadoPago_Module.php:250
 msgid "Discard"
