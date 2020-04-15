@@ -75,7 +75,7 @@ msgid "Complete your credentials to enable the payment of method."
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Module.php:263
-msgid "The payment module of Woo Mercado depends on the latest version of %s to run!"
+msgid "The Mercado Pago module needs an active version of %s in order to work!"
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Module.php:273
@@ -1522,4 +1522,8 @@ msgstr ""
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:471
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:331
 msgid "Select the payment methods available in your store."
+msgstr ""
+
+#: includes/admin/notices/WC_WooMercadoPago_Notices.php:94
+msgid "Activate WooCommerce"
 msgstr ""

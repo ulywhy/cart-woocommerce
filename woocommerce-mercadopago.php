@@ -109,7 +109,7 @@ function notify_woocommerce_miss()
 {
     $type = 'error';
     $message = sprintf(
-        __('The payment module of Woo Mercado depends on the latest version of %s to run!', 'woocommerce-mercadopago'),
+        __('The Mercado Pago module needs an active version of %s in order to work!', 'woocommerce-mercadopago'),
         ' <a href="https://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>'
     );
     echo WC_WooMercadoPago_Notices::getAlertWocommerceMiss($message, $type);
