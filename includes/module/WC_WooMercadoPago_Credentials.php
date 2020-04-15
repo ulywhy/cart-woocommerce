@@ -214,16 +214,19 @@ class WC_WooMercadoPago_Credentials
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
 
-        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 && $paymentsResponse['status'] != 201)) {
+        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 &&
+                $paymentsResponse['status'] != 201)) {
             return;
         }
 
         $arr = array();
         $cho = array();
-        $excluded = array('consumer_credits');
+        $excluded = array('consumer_credits', 'paypal', 'pse');
 
         foreach ($paymentsResponse as $payment) {
-            if(in_array($payment['id'], $excluded)){ continue; }
+            if (in_array($payment['id'], $excluded)) {
+                continue;
+            }
 
             $arr[] = $payment['id'];
 
@@ -255,7 +258,8 @@ class WC_WooMercadoPago_Credentials
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
 
-        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 && $paymentsResponse['status'] != 201)) {
+        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 &&
+                $paymentsResponse['status'] != 201)) {
             return;
         }
 
@@ -263,19 +267,18 @@ class WC_WooMercadoPago_Credentials
         $excluded = array('consumer_credits', 'paypal', 'pse');
 
         foreach ($paymentsResponse as $payment) {
-          if (
-              !in_array($payment['id'], $excluded) &&
-              $payment['payment_type_id'] != 'account_money' &&
-              $payment['payment_type_id'] != 'credit_card' &&
-              $payment['payment_type_id'] != 'debit_card' &&
-              $payment['payment_type_id'] != 'prepaid_card'
-          ) {
-              $payment_methods_ticket[] = array(
-                  "id" => $payment['id'],
-                  "name" => $payment['name'],
-                  "secure_thumbnail" => $payment['secure_thumbnail'],
-              );
-          }
+            if (!in_array($payment['id'], $excluded) &&
+                $payment['payment_type_id'] != 'account_money' &&
+                $payment['payment_type_id'] != 'credit_card' &&
+                $payment['payment_type_id'] != 'debit_card' &&
+                $payment['payment_type_id'] != 'prepaid_card'
+            ) {
+                $payment_methods_ticket[] = array(
+                    "id" => $payment['id'],
+                    "name" => $payment['name'],
+                    "secure_thumbnail" => $payment['secure_thumbnail'],
+                );
+            }
         }
 
         update_option('_all_payment_methods_ticket', $payment_methods_ticket, true);
