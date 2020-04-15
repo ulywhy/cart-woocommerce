@@ -1455,3 +1455,7 @@ msgstr "Selecione os métodos de pagamento disponíveis em sua loja."
 #: includes/admin/notices/WC_WooMercadoPago_Notices.php:94
 msgid "Activate WooCommerce"
 msgstr "Ativar WooCommerce"
+
+#: includes/admin/notices/WC_WooMercadoPago_Notices.php:97
+msgid "Install WooCommerce"
+msgstr "Instalar WooCommerce"

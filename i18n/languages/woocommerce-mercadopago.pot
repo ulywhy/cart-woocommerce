@@ -1527,3 +1527,7 @@ msgstr ""
 #: includes/admin/notices/WC_WooMercadoPago_Notices.php:94
 msgid "Activate WooCommerce"
 msgstr ""
+
+#: includes/admin/notices/WC_WooMercadoPago_Notices.php:97
+msgid "Install WooCommerce"
+msgstr ""
