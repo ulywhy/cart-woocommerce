@@ -533,8 +533,8 @@ msgid "Payment methods"
 msgstr "Medios de"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:468 includes/payments/WC_WooMercadoPago_TicketGateway.php:325
-msgid "Enable the payment methods available to your customers."
-msgstr "Habilita los medios de pago disponibles para tus clientes."
+msgid "Activate the available payment methods to your clients."
+msgstr "Habilitá los medios de pago disponibles para tus clientes."
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:486
 msgid "Return to the store"
@@ -1429,8 +1429,8 @@ msgid "Accept card payments on your website with the best possible financing and
 msgstr "Acepta pagos con tarjeta en tu sitio web con la mejor financiación posible y maximiza la conversión de tu negocio. Con el checkout personalizado tus clientes pagan ¡sin salir de tu tienda!"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:471 includes/payments/WC_WooMercadoPago_TicketGateway.php:331
-msgid "Select the payment methods available in your store."
-msgstr "Selecciona los medios de pago disponibles en tu tienda."
+msgid "Choose the available payment methods in your store."
+msgstr "Seleccioná los medios de pago disponibles en tu tienda."
 
 #: includes/admin/notices/WC_WooMercadoPago_Notices.php:94
 msgid "Activate WooCommerce"

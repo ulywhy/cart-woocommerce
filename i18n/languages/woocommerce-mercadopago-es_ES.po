@@ -533,7 +533,7 @@ msgid "Payment methods"
 msgstr "Medios de"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:468 includes/payments/WC_WooMercadoPago_TicketGateway.php:325
-msgid "Enable the payment methods available to your customers."
+msgid "Activate the available payment methods to your clients."
 msgstr "Habilita los medios de pago disponibles para tus clientes."
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:486
@@ -1449,7 +1449,7 @@ msgid "<b>Attention:</b> The currency settings you have in WooCommerce are not c
 msgstr "<b>Atención:</b> La configuración de moneda que tienes en WooCommerce no es compatible con la moneda que usas en tu cuenta de Mercado Pago. Activa la conversión de moneda."
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:471 includes/payments/WC_WooMercadoPago_TicketGateway.php:331
-msgid "Select the payment methods available in your store."
+msgid "Choose the available payment methods in your store."
 msgstr "Selecciona los medios de pago disponibles en tu tienda."
 
 #: includes/admin/notices/WC_WooMercadoPago_Notices.php:94
