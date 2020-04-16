@@ -407,28 +407,28 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">1</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Upload your <b>credentials</b> depending on the country in which you are registered.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Upload your credentials</b> depending on the country in which you are registered.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">2</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Approve your account to be able to charge.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Approve your account</b> to be able to charge.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">3</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Add the basic information of your business in the plugin configuration.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Add the basic information of your business</b> in the plugin configuration.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">4</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Configure the <b>payment preferences</b> for your customers.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Configure the payment preferences</b> for your customers.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
@@ -640,7 +640,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_production = array(
             'title' => __('Production', 'woocommerce-mercadopago'),
             'type' => 'select',
-            'description' => __('Choose YES only when you are ready to sell. Change to NO to activate the Tests mode.', 'woocommerce-mercadopago'),
+            'description' => __('Choose “Yes” only when you’re ready to sell. Switch to “No” to activate Testing mode.', 'woocommerce-mercadopago'),
             'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $production_mode,
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
@@ -843,7 +843,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_mp_statement_descriptor()
     {
         $mp_statement_descriptor = array(
-            'title' => __('Store Description', 'woocommerce-mercadopago'),
+            'title' => __('Store name', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('This name will appear on your customers invoice.', 'woocommerce-mercadopago'),
             'default' => __('Mercado Pago', 'woocommerce-mercadopago'),
