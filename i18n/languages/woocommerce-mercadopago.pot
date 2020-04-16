@@ -730,19 +730,19 @@ msgid "<b>Follow these steps to activate Mercado Pago in your store:</b>"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:395
-msgid "Upload your <b>credentials</b> depending on the country in which you are registered."
+msgid "<b>Upload your credentials</b> depending on the country in which you are registered."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:402
-msgid "Approve your account to be able to charge."
+msgid "<b>Approve your account</b> to be able to charge."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:409
-msgid "Add the basic information of your business in the plugin configuration."
+msgid "<b>Add the basic information of your business</b> in the plugin configuration."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:416
-msgid "Configure the <b>payment preferences</b> for your customers."
+msgid "<b>Configure the payment preferences</b> for your customers."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:423

@@ -689,24 +689,24 @@ msgid "<b>Follow these steps to activate Mercado Pago in your store:</b>"
 msgstr "<b>Sigue estos pasos para activar Mercado Pago en tu tienda:</b>"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:395
-msgid "Upload your <b>credentials</b> depending on the country in which you are registered."
-msgstr "Carga tus <b>credenciales</b> según el país en el que estés registrado."
+msgid "<b>Upload your credentials</b> depending on the country in which you are registered."
+msgstr "<b>Carga tus credenciales</b> según el país en el que estés registrado."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:402
-msgid "Approve your account to be able to charge."
-msgstr "Homologa tu cuenta para poder cobrar."
+msgid "<b>Approve your account</b> to be able to charge."
+msgstr "<b>Homologa tu cuenta</b> para poder cobrar."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:409
-msgid "Add the basic information of your business in the plugin configuration."
-msgstr "Añade la información básica de tu negocio en la configuración del plugin."
+msgid "<b>Add the basic information of your business</b> in the plugin configuration."
+msgstr "<b>Añade la información básica de tu negocio</b> en la configuración del plugin"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:416
-msgid "Configure the <b>payment preferences</b> for your customers."
-msgstr "Configura las preferencias de pago para tus clientes."
+msgid "<b>Configure the payment preferences</b> for your customers."
+msgstr "<b>Configura las preferencias de pago</b> para tus clientes."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:423
 msgid "<b>Go to advanced settings</b> only when you want to change the presets."
-msgstr "<b>Ve a configuraciones avanzadas</b> solo cuando quieras modificar los ajustes preestablecidos."
+msgstr "<b>Ve a configuraciones avanzadas</b> sólo cuando quieras modificar los ajustes preestablecidos."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:442
 msgid ""

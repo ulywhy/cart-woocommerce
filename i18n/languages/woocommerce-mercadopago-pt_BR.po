@@ -689,24 +689,24 @@ msgid "<b>Follow these steps to activate Mercado Pago in your store:</b>"
 msgstr "<b>Siga estas etapas para ativar o Mercado Pago na sua loja:</b>"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:395
-msgid "Upload your <b>credentials</b> depending on the country in which you are registered."
-msgstr "Adicione suas <b>credenciais</b> conforme o país onde você está cadastrado."
+msgid "<b>Upload your credentials</b> depending on the country in which you are registered."
+msgstr "<b>Adicione suas credenciais</b> conforme o país onde você está cadastrado."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:402
-msgid "Approve your account to be able to charge."
-msgstr "Homologue sua conta do Mercado Pago."
+msgid "<b>Approve your account</b> to be able to charge."
+msgstr "<b>Homologue sua conta</b> do Mercado Pago."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:409
-msgid "Add the basic information of your business in the plugin configuration."
-msgstr "Adicione as informações básicas do seu negócio na configuração do plugin."
+msgid "<b>Add the basic information of your business</b> in the plugin configuration."
+msgstr "<b>Adicione as informações básicas do seu negócio</b> na configuração do plugin."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:416
-msgid "Configure the <b>payment preferences</b> for your customers."
-msgstr "Configure as <b>preferências de pagamento</b> para seus clientes."
+msgid "<b>Configure the payment preferences</b> for your customers."
+msgstr "<b>Configure as preferências de pagamento</b> para seus clientes."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:423
 msgid "<b>Go to advanced settings</b> only when you want to change the presets."
-msgstr "Faça as <b>configurações avançadas</b> somente quando quiser alterar os ajustes pré-definidos."
+msgstr "<b>Faça as configurações avançadas</b> somente quando quiser alterar os ajustes pré-definidos."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:442
 msgid ""
