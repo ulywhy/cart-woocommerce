@@ -772,8 +772,8 @@ msgid "Production"
 msgstr "Producción"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:627
-msgid "Choose YES only when you are ready to sell. Change to NO to activate the Tests mode."
-msgstr "Elige SÍ solo cuando estés listo para vender. Cambia a NO para activar el modo Pruebas."
+msgid "Choose “Yes”only when you’re ready to sell. Switch to “No” to activate Testing mode."
+msgstr "Elegí “Sí” sólo cuando estés listo para vender. Cambiá a “No” para activar el modo Pruebas."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:649
 msgid "Load credentials"
