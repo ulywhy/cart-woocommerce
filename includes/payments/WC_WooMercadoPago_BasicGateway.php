@@ -435,6 +435,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         foreach ($all_payments as $payment_method) {
             if ($payment_method['type'] == 'account_money') {
+                $count_payment++;
                 continue;
             } else {
                 if ($payment_method['type'] == 'credit_card') {
@@ -477,10 +478,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
             if ($count_payment == 1) {
                 $element['title'] = __('Payment methods', 'woocommerce-mercadopago');
-                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-mercadopago');
+                $element['desc_tip'] = __('Choose the available payment methods in your store.', 'woocommerce-mercadopago');
             }
             if ($count_payment == count($get_payment_methods)) {
-                $element['description'] = __('Enable the payment methods available to your customers.', 'woocommerce-mercadopago');
+                $element['description'] = __('Activate the available payment methods to your clients.', 'woocommerce-mercadopago');
             }
 
             $ex_payments["ex_payments_" . $payment_method['id']] = $element;

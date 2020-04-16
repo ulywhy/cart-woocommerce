@@ -91,7 +91,7 @@ class WC_WooMercadoPago_Notices
 		}
 
 		if ($is_installed && current_user_can('install_plugins')) {
-			$buttonUrl = '<a href="' . wp_nonce_url(self_admin_url('plugins.php?action=activate&plugin=woocommerce/woocommerce.php&plugin_status=active'), 'activate-plugin_woocommerce/woocommerce.php') . '" class="button button-primary">' . __('Active WooCommerce', 'woocommerce-mercadopago') . '</a>';
+			$buttonUrl = '<a href="' . wp_nonce_url(self_admin_url('plugins.php?action=activate&plugin=woocommerce/woocommerce.php&plugin_status=active'), 'activate-plugin_woocommerce/woocommerce.php') . '" class="button button-primary">' . __('Activate WooCommerce', 'woocommerce-mercadopago') . '</a>';
 		} else {
 			if (current_user_can('install_plugins')) {
 				$buttonUrl = '<a href="' . wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=woocommerce'), 'install-plugin_woocommerce') . '" class="button button-primary">' . __('Install WooCommerce', 'woocommerce-mercadopago') . '</a>';

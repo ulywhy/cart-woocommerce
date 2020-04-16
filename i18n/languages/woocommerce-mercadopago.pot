@@ -62,7 +62,7 @@ msgid "Discount provided by store"
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Configs.php:112
-msgid "The store must have HTTPS to see the payment methods."
+msgid "The store should have HTTPS in order to activate both Checkout Personalizado and Ticket Checkout."
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Configs.php:118
@@ -75,7 +75,7 @@ msgid "Complete your credentials to enable the payment of method."
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Module.php:263
-msgid "The payment module of Woo Mercado depends on the latest version of %s to run!"
+msgid "The Mercado Pago module needs an active version of %s in order to work!"
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Module.php:273
@@ -563,7 +563,7 @@ msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:468
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:325
-msgid "Enable the payment methods available to your customers."
+msgid "Activate the available payment methods to your clients."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:486
@@ -730,19 +730,19 @@ msgid "<b>Follow these steps to activate Mercado Pago in your store:</b>"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:395
-msgid "Upload your <b>credentials</b> depending on the country in which you are registered."
+msgid "<b>Upload your credentials</b> depending on the country in which you are registered."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:402
-msgid "Approve your account to be able to charge."
+msgid "<b>Approve your account</b> to be able to charge."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:409
-msgid "Add the basic information of your business in the plugin configuration."
+msgid "<b>Add the basic information of your business</b> in the plugin configuration."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:416
-msgid "Configure the <b>payment preferences</b> for your customers."
+msgid "<b>Configure the payment preferences</b> for your customers."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:423
@@ -812,7 +812,7 @@ msgid "Production"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:627
-msgid "Choose YES only when you are ready to sell. Change to NO to activate the Tests mode."
+msgid "Choose “Yes” only when you’re ready to sell. Switch to “No” to activate Testing mode."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:649
@@ -862,7 +862,7 @@ msgid "Homologate account in Mercado Pago"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:830
-msgid "Store Description"
+msgid "Store name"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:832
@@ -1521,5 +1521,13 @@ msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:471
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:331
-msgid "Select the payment methods available in your store."
+msgid "Choose the available payment methods in your store."
+msgstr ""
+
+#: includes/admin/notices/WC_WooMercadoPago_Notices.php:94
+msgid "Activate WooCommerce"
+msgstr ""
+
+#: includes/admin/notices/WC_WooMercadoPago_Notices.php:97
+msgid "Install WooCommerce"
 msgstr ""
