@@ -820,7 +820,7 @@ msgid "Homologate account in Mercado Pago"
 msgstr "Homologar minha conta"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:830
-msgid "Store Description"
+msgid "Store name"
 msgstr "Nome da loja"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:832
