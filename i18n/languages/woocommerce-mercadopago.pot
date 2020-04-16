@@ -812,7 +812,7 @@ msgid "Production"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:627
-msgid "Choose “Yes”only when you’re ready to sell. Switch to “No” to activate Testing mode."
+msgid "Choose “Yes” only when you’re ready to sell. Switch to “No” to activate Testing mode."
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:649

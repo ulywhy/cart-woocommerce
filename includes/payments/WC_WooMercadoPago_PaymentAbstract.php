@@ -640,7 +640,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_production = array(
             'title' => __('Production', 'woocommerce-mercadopago'),
             'type' => 'select',
-            'description' => __('Choose “Yes”only when you’re ready to sell. Switch to “No” to activate Testing mode.', 'woocommerce-mercadopago'),
+            'description' => __('Choose “Yes” only when you’re ready to sell. Switch to “No” to activate Testing mode.', 'woocommerce-mercadopago'),
             'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $production_mode,
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
