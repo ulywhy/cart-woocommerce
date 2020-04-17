@@ -129,7 +129,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
     {
         $internal_metadata = array(
             "checkout" => "smart",
-            "checkout_type" => "",
+            "checkout_type" => $this->payment->getOption('method', 'redirect'),
         );
 
         return $internal_metadata;
