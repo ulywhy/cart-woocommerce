@@ -281,11 +281,11 @@ abstract class WC_WooMercadoPago_Hook_Abstract
         if (WC_WooMercadoPago_Credentials::public_key_is_valid($value) === false) {
             update_option($key, '', true);
 
-            if ($key == '_mp_public_key_test') {
+            if ($key == '_mp_public_key_prod') {
+                add_action('admin_notices', array($this, 'noticeInvalidPublicKeyProd'));
+            } else {
                 add_action('admin_notices', array($this, 'noticeInvalidPublicKeyTest'));
             }
-
-            add_action('admin_notices', array($this, 'noticeInvalidPublicKeyProd'));
             return true;
         }
 
