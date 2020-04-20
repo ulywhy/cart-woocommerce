@@ -337,10 +337,10 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
 
             if ($count_payment == 1) {
                 $element['title'] = __('Payment methods', 'woocommerce-mercadopago');
-                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-mercadopago');
+                $element['desc_tip'] = __('Choose the available payment methods in your store.', 'woocommerce-mercadopago');
             }
             if ($count_payment == count($get_payment_methods_ticket)) {
-                $element['description'] = __('Enable the payment methods available to your customers.', 'woocommerce-mercadopago');
+                $element['description'] = __('Activate the available payment methods to your clients.', 'woocommerce-mercadopago');
             }
 
             $ticket_payments["ticket_payment_" . $payment_method_ticket['id']] = $element;
@@ -472,6 +472,24 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
                     '<p>' .
                     __('There was a problem processing your payment. Are you sure you have correctly filled out all the information on the payment form?', 'woocommerce-mercadopago') .
                     '</p>',
+                    'error'
+                );
+                return array(
+                    'result' => 'fail',
+                    'redirect' => '',
+                );
+            }
+        }
+
+        if ($this->getOption('_site_id_v1') == 'MLU') {
+            if (
+                !isset($ticket_checkout['docNumber']) || empty($ticket_checkout['docNumber']) ||
+                !isset($ticket_checkout['docType']) || empty($ticket_checkout['docType'])
+            ) {
+                wc_add_notice(
+                    '<p>' .
+                        __('There was a problem processing your payment. Are you sure you have correctly filled out all the information on the payment form?', 'woocommerce-mercadopago') .
+                        '</p>',
                     'error'
                 );
                 return array(
