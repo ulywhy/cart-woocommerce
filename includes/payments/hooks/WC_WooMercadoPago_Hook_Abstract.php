@@ -278,6 +278,17 @@ abstract class WC_WooMercadoPago_Hook_Abstract
             return true;
         }
 
+        if (WC_WooMercadoPago_Credentials::public_key_is_valid($value) === false) {
+            update_option($key, '', true);
+
+            if ($key == '_mp_public_key_test') {
+                add_action('admin_notices', array($this, 'noticeInvalidPublicKeyTest'));
+            }
+
+            add_action('admin_notices', array($this, 'noticeInvalidPublicKeyProd'));
+            return true;
+        }
+
         return false;
     }
 
@@ -339,6 +350,26 @@ abstract class WC_WooMercadoPago_Hook_Abstract
 
         update_option($key, '', true);
         return true;
+    }
+
+    /**
+     *  ADMIN NOTICE
+     */
+    public function noticeInvalidPublicKeyProd()
+    {
+        $type = 'error';
+        $message = __('Invalid production Public Key!', 'woocommerce-mercadopago');
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
+    }
+
+    /**
+     *  ADMIN NOTICE
+     */
+    public function noticeInvalidPublicKeyTest()
+    {
+        $type = 'error';
+        $message = __('Invalid test Public Key', 'woocommerce-mercadopago');
+        echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
     /**

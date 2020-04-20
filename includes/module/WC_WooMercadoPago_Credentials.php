@@ -131,6 +131,35 @@ class WC_WooMercadoPago_Credentials
     }
 
     /**
+     * @param $public_key
+     * @return bool
+     * @throws WC_WooMercadoPago_Exception
+     */
+    public static function public_key_is_valid($public_key)
+    {
+        $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        if (empty($mp_v1)) {
+            return false;
+        }
+        $request = array(
+            'uri' => '/v1/card_tokens',
+            'data' => null,
+            'params' => array(
+                'public_key' => $public_key
+            ),
+            'authenticate' => false 
+        );
+        $get_request = $mp_v1->post($request);
+        if ($get_request['status'] > 202) {
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Credentials');
+            $log->write_log('API public_key_is_valid error: ', $get_request['response']['message']);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return bool
      */
     public static function validate_credentials_v1()
