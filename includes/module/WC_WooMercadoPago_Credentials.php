@@ -53,7 +53,7 @@ class WC_WooMercadoPago_Credentials
         $basicIsEnabled = self::basicIsEnabled();
         if (!$this->tokenIsValid() && ($this->payment instanceof WC_WooMercadoPago_BasicGateway || $basicIsEnabled == 'yes')) {
             if (!$this->clientIsValid()) {
-                return false;
+                return self::TYPE_ACCESS_TOKEN;
             }
             return self::TYPE_ACCESS_CLIENT;
         }
