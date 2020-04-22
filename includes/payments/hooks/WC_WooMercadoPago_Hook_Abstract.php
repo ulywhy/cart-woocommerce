@@ -358,7 +358,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidPublicKeyProd()
     {
         $type = 'error';
-        $message = __('Invalid production Public Key!', 'woocommerce-mercadopago');
+        $message = __('Invalid Public key for production mode. Public key cannot be empty and must be valid!', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -368,7 +368,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidPublicKeyTest()
     {
         $type = 'error';
-        $message = __('Invalid test Public Key', 'woocommerce-mercadopago');
+        $message = __('Invalid Public key for test mode. Public key cannot be empty and must be valid!', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -378,7 +378,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidProdCredentials()
     {
         $type = 'error';
-        $message = __('Credentials for invalid production!', 'woocommerce-mercadopago');
+        $message = __('Invalid Access Token for production mode. Access Token cannot be empty and must be valid!', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -388,7 +388,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidTestCredentials()
     {
         $type = 'error';
-        $message = __('Invalid test credentials!', 'woocommerce-mercadopago');
+        $message = __('Invalid Access Token for test mode. Access Token cannot be empty and must be valid!', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 

@@ -340,12 +340,20 @@ msgstr ""
 msgid "fee of"
 msgstr ""
 
-#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:355
-msgid "Credentials for invalid production!"
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:361
+msgid "Invalid Public key for production mode. Public key cannot be empty and must be valid!"
 msgstr ""
 
-#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:365
-msgid "Invalid test credentials!"
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:371
+msgid "Invalid Public key for test mode. Public key cannot be empty and must be valid!"
+msgstr ""
+
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:381
+msgid "Invalid Access Token for production mode. Access Token cannot be empty and must be valid!"
+msgstr ""
+
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:391
+msgid "Invalid Access Token for test mode. Access Token cannot be empty and must be valid!"
 msgstr ""
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Basic.php:74
