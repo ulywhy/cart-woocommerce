@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-04-22 09:20-0300\n"
+"PO-Revision-Date: 2020-04-22 13:25-0300\n"
 "X-Generator: Poedit 2.2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -320,20 +320,20 @@ msgid "fee of"
 msgstr "comisión de"
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:361
-msgid "Invalid Public key for production mode. Public key cannot be empty and must be valid!"
-msgstr "Public key no válida para el modo de production. ¡La Public key no puede estar vacía y debe ser válida!"
+msgid "<b>Public Key</b> production credential is invalid. Remember that it must be complete to receive real payments."
+msgstr "La credencial para producción <b>Public Key</b> es inválida. Recuerda que debe estar completa para recibir pagos reales."
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:371
-msgid "Invalid Public key for test mode. Public key cannot be empty and must be valid!"
-msgstr "Public key no válida para el modo de prueba. ¡La Public key no puede estar vacía y debe ser válida!"
+msgid "<b>Public Key</b> test credential is invalid. Remember that it must be complete to carry out tests in your store."
+msgstr "La credencial de prueba <b>Public Key</b> es inválida. Recuerda que debe estar completa para realizar pruebas en tu tienda."
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:381
-msgid "Invalid Access Token for production mode. Access Token cannot be empty and must be valid!"
-msgstr "Access Token no válido para el modo de producción. El Access Token no puede estar vacío y debe ser válido!"
+msgid "<b>Access Token</b> production credential is invalid. Remember that it must be complete to receive real payments."
+msgstr "La credencial para producción <b>Access Token</b> es inválida. Recuerda que debe estar completa para recibir pagos reales."
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:391
-msgid "Invalid Access Token for test mode. Access Token cannot be empty and must be valid!"
-msgstr "Access Token no válido para el modo de prueba. El Access Token no puede estar vacío y debe ser válido!"
+msgid "<b>Access Token</b> test credential is invalid. Remember that it must be complete to carry out tests in your store."
+msgstr "La credencial de prueba <b>Access Token</b> es inválida. Recuerda que debe estar completa para realizar pruebas en tu tienda."
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Basic.php:74
 msgid "Thanks for your purchase. Please continue to the payment page by clicking on the button below."
