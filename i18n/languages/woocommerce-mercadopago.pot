@@ -341,11 +341,11 @@ msgid "fee of"
 msgstr ""
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:361
-msgid "<b>Public Key</b> production credential is invalid. Remember that it must be complete to receive real payments."
+msgid "<b>Public Key</b> production credential is invalid. Review the field to receive real payments."
 msgstr ""
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:371
-msgid "<b>Public Key</b> test credential is invalid. Remember that it must be complete to carry out tests in your store."
+msgid "<b>Public Key</b> test credential is invalid. Review the field to perform tests in your store."
 msgstr ""
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:381
@@ -353,7 +353,7 @@ msgid "<b>Access Token</b> production credential is invalid. Remember that it mu
 msgstr ""
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:391
-msgid "<b>Access Token</b> test credential is invalid. Remember that it must be complete to carry out tests in your store."
+msgid "<b>Access Token</b> test credential is invalid. Review the field to perform tests in your store."
 msgstr ""
 
 #: includes/payments/hooks/WC_WooMercadoPago_Hook_Basic.php:74

@@ -358,7 +358,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidPublicKeyProd()
     {
         $type = 'error';
-        $message = __('<b>Public Key</b> production credential is invalid. Remember that it must be complete to receive real payments.', 'woocommerce-mercadopago');
+        $message = __('<b>Public Key</b> production credential is invalid. Review the field to receive real payments.', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -368,7 +368,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidPublicKeyTest()
     {
         $type = 'error';
-        $message = __('<b>Public Key</b> test credential is invalid. Remember that it must be complete to carry out tests in your store.', 'woocommerce-mercadopago');
+        $message = __('<b>Public Key</b> test credential is invalid. Review the field to perform tests in your store.', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -388,7 +388,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function noticeInvalidTestCredentials()
     {
         $type = 'error';
-        $message = __('<b>Access Token</b> test credential is invalid. Remember that it must be complete to carry out tests in your store.', 'woocommerce-mercadopago');
+        $message = __('<b>Access Token</b> test credential is invalid. Review the field to perform tests in your store.', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
