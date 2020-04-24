@@ -554,7 +554,7 @@ class MP
 		);
 
 		$response = MPRestClient::get($request);
-
+		asort($result);
 		return $response;
 	}
 

@@ -53,7 +53,7 @@ class WC_WooMercadoPago_Credentials
         $basicIsEnabled = self::basicIsEnabled();
         if (!$this->tokenIsValid() && ($this->payment instanceof WC_WooMercadoPago_BasicGateway || $basicIsEnabled == 'yes')) {
             if (!$this->clientIsValid()) {
-                return false;
+                return self::TYPE_ACCESS_TOKEN;
             }
             return self::TYPE_ACCESS_CLIENT;
         }
@@ -125,6 +125,35 @@ class WC_WooMercadoPago_Credentials
         if (isset($get_request['response']['site_id'])) {
             update_option('_site_id_v1', $get_request['response']['site_id'], true);
             update_option('_test_user_v1', in_array('test_user', $get_request['response']['tags']), true);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param $public_key
+     * @return bool
+     * @throws WC_WooMercadoPago_Exception
+     */
+    public static function public_key_is_valid($public_key)
+    {
+        $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        if (empty($mp_v1)) {
+            return false;
+        }
+        $request = array(
+            'uri' => '/v1/card_tokens',
+            'data' => null,
+            'params' => array(
+                'public_key' => $public_key
+            ),
+            'authenticate' => false 
+        );
+        $get_request = $mp_v1->post($request);
+        if ($get_request['status'] > 202) {
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Credentials');
+            $log->write_log('API public_key_is_valid error: ', $get_request['response']['message']);
+            return false;
         }
 
         return true;

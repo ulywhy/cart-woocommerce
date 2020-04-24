@@ -312,7 +312,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['_mp_public_key_prod'] = $this->field_checkout_credential_publickey_prod();
             $form_fields['_mp_access_token_prod'] = $this->field_checkout_credential_accesstoken_prod();
             $form_fields['_mp_category_id'] = $this->field_category_store();
-            if (!empty($this->getAccessToken())) {
+            if (!empty($this->getAccessToken()) && !empty($this->getPublicKey())) {
                 if ($this->homolog_validate == 0) {
                     if (isset($_GET['section']) && $_GET['section'] == $this->id && !has_action('woocommerce_update_options_payment_gateways_' . $this->id)) {
                         add_action('admin_notices', array($this, 'noticeHomologValidate'));
