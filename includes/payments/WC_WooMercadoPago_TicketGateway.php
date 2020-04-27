@@ -135,6 +135,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
+            '_mp_integrator_id',
             // Advanced settings
             'checkout_advanced_settings',
             '_mp_debug_mode',

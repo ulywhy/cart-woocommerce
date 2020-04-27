@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-04-23 10:56-0300\n"
-"X-Generator: Poedit 2.2.4\n"
+"PO-Revision-Date: 2020-04-27 15:00-0300\n"
+"X-Generator: Poedit 2.3\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1447,3 +1447,11 @@ msgstr "Activar WooCommerce"
 #: includes/admin/notices/WC_WooMercadoPago_Notices.php:97
 msgid "Install WooCommerce"
 msgstr "Instalar WooCommerce"
+
+#: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:898
+msgid "Integrator ID"
+msgstr "Integrator ID"
+
+#: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:900
+msgid "With this number we identify all your transactions and know how many sales we process with your account."
+msgstr "Con este número identificamos todas tus transacciones y sabemos cuántas ventas procesamos con tu cuenta."

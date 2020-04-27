@@ -19,6 +19,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         'mp_statement_descriptor',
         '_mp_category_id',
         '_mp_store_identificator',
+        '_mp_integrator_id',
         '_mp_custom_domain',
         'installments',
         'auto_return'
@@ -55,6 +56,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $icon;
     public $mp_category_id;
     public $store_identificator;
+    public $integrator_id;
     public $debug_mode;
     public $custom_domain;
     public $binary_mode;
@@ -94,6 +96,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->wc_country = get_option('woocommerce_default_country', '');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
+        $this->integrator_id = $this->getOption('_mp_integrator_id', '');
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
         $this->custom_domain = $this->getOption('_mp_custom_domain', '');
         $this->binary_mode = $this->getOption('binary_mode', 'no');
@@ -324,6 +327,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 }
                 $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
                 $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
+                $form_fields['_mp_integrator_id'] = $this->field_mp_integrator_id();
                 $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
                 $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
                 $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
@@ -883,6 +887,20 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'default' => __('WC-', 'woocommerce-mercadopago')
         );
         return $store_identificator;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_mp_integrator_id()
+    {
+        $integrator_id = array(
+            'title' => __('Integrator ID', 'woocommerce-mercadopago'),
+            'type' => 'text',
+            'description' => __('With this number we identify all your transactions and know how many sales we process with your account.', 'woocommerce-mercadopago'),
+            'default' => __('', 'woocommerce-mercadopago')
+        );
+        return $integrator_id;
     }
 
     /**
