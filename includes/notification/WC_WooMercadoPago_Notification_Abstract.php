@@ -123,7 +123,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             case 'in_mediation':
                 $this->mp_rule_in_mediation($order);
                 break;
-            case 'charged-back':
+            case 'charged_back':
                 $this->mp_rule_charged_back($order);
                 break;
             default:

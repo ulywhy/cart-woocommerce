@@ -431,8 +431,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                         break;
                     case 'cancelled':
                     case 'in_mediation':
-                    case 'charged-back':
-                        // If we enter here (an order generating a direct [cancelled, in_mediation, or charged-back] status),
+                    case 'charged_back':
+                        // If we enter here (an order generating a direct [cancelled, in_mediation, or charged_back] status),
                         // them there must be something very wrong!
                         break;
                     default:
