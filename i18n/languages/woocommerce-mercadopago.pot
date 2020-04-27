@@ -1539,3 +1539,11 @@ msgstr ""
 #: includes/admin/notices/WC_WooMercadoPago_Notices.php:97
 msgid "Install WooCommerce"
 msgstr ""
+
+#: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:898
+msgid "Integrator ID"
+msgstr ""
+
+#: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:900
+msgid "With this number we identify all your transactions and know how many sales we process with your account."
+msgstr ""
