@@ -40,12 +40,12 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         $defaults = array(
             'pending' => 'pending',
             'approved' => 'processing',
-            'in_process' => 'on_hold',
-            'in_mediation' => 'on_hold',
+            'inprocess' => 'on_hold',
+            'inmediation' => 'on_hold',
             'rejected' => 'failed',
             'cancelled' => 'cancelled',
             'refunded' => 'refunded',
-            'charged_back' => 'refunded'
+            'chargedback' => 'refunded'
         );
         $status = get_option('_mp_order_status_' . $mp_status . '_map', $defaults[$mp_status]);
         return str_replace('_', '-', $status);

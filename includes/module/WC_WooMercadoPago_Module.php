@@ -582,36 +582,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $gateway_name . '</a>';
     }
 
-    public static function get_map($selector_id)
-    {
-        $html = '';
-        $arr = explode('_', $selector_id);
-        $defaults = array(
-            'pending' => 'pending',
-            'approved' => 'processing',
-            'inprocess' => 'on_hold',
-            'inmediation' => 'on_hold',
-            'rejected' => 'failed',
-            'cancelled' => 'cancelled',
-            'refunded' => 'refunded',
-            'chargedback' => 'refunded'
-        );
-        $selection = get_option('_mp_' . $selector_id, $defaults[$arr[2]]);
-
-        foreach (wc_get_order_statuses() as $slug => $status) {
-            $slug = str_replace(array('wc-', '-'), array('', '_'), $slug);
-            $html .= sprintf(
-                '<option value="%s"%s>%s %s</option>',
-                $slug,
-                selected($selection, $slug, false),
-                __('Update the WooCommerce order to ', 'woocommerce-mercadopago'),
-                $status
-            );
-        }
-
-        return $html;
-    }
-
     public static function generate_refund_cancel_subscription($domain, $success_msg, $fail_msg, $options, $str1, $str2, $str3, $str4)
     {
         $subscription_js = '<script type="text/javascript">
