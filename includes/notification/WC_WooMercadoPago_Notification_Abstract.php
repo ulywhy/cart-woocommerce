@@ -123,7 +123,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             case 'in_mediation':
                 $this->mp_rule_in_mediation($order);
                 break;
-            case 'charged-back':
+            case 'charged_back':
                 $this->mp_rule_charged_back($order);
                 break;
             default:
@@ -201,7 +201,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function mp_rule_in_process($order)
     {
-        $order->update_status(self::get_wc_status_for_mp_status('on-hold'), 'Mercado Pago: ' . __('Payment is pending review.', 'woocommerce-mercadopago'));
+        $order->update_status(self::get_wc_status_for_mp_status('inprocess'), 'Mercado Pago: ' . __('Payment is pending review.', 'woocommerce-mercadopago'));
         return;
     }
 
