@@ -57,7 +57,7 @@ class WC_WooMercadoPago_Notices
     public static function getAlertFrame($message, $type)
     {
         $inline = null;
-        if (WC_WooMercadoPago_Module::isWcNewVersion()) {
+        if (WC_WooMercadoPago_Module::isWcNewVersion() && (isset($_GET['page']) && $_GET['page'] == "wc-settings")) {
             $inline = "inline";
         }
 
@@ -104,7 +104,12 @@ class WC_WooMercadoPago_Notices
             }
         }
 
-        $notice = '<div class="notice ' . $type . ' is-dismissible">
+        $inline = null;
+        if (WC_WooMercadoPago_Module::isWcNewVersion() && (isset($_GET['page']) && $_GET['page'] == "wc-settings")) {
+            $inline = "inline";
+        }
+
+        $notice = '<div id="message" class="notice ' . $type . ' is-dismissible ' . $inline . '">
                     <div class="mp-alert-frame"> 
                         <div class="mp-left-alert">
                             <img src="' . plugins_url('../../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
