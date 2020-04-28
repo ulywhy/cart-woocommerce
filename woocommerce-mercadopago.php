@@ -26,6 +26,9 @@ if (!defined('WC_MERCADOPAGO_BASENAME')) {
     define('WC_MERCADOPAGO_BASENAME', plugin_basename(__FILE__));
 }
 
+if (!function_exists('is_plugin_active')) {
+    include_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
 /**
  * Summary: Places a warning error to notify user that other older versions are active.
  * Description: Places a warning error to notify user that other older versions are active.
@@ -57,15 +60,16 @@ if (class_exists('WC_WooMercadoPago_Module')) {
 function woocommerce_mercadopago_load_plugin_textdomain()
 {
     $text_domain = 'woocommerce-mercadopago';
-    $locale = apply_filters( 'plugin_locale', get_locale(), $text_domain );
+    $locale = apply_filters('plugin_locale', get_locale(), $text_domain);
 
-    $original_language_file = dirname(__FILE__) . '/i18n/languages/woocommerce-mercadopago-'. $locale .'.mo';
+    $original_language_file = dirname(__FILE__) . '/i18n/languages/woocommerce-mercadopago-' . $locale . '.mo';
 
     // Unload the translation for the text domain of the plugin
     unload_textdomain($text_domain);
     // Load first the override file
     load_textdomain($text_domain, $original_language_file);
 }
+
 add_action('plugins_loaded', 'woocommerce_mercadopago_load_plugin_textdomain');
 
 /**
@@ -143,4 +147,21 @@ function add_mp_order_meta_box_actions($actions)
 {
     $actions['cancel_order'] = __('Cancel order', 'woocommerce-mercadopago');
     return $actions;
+}
+
+add_action('woocommerce_settings_checkout', 'mp_show_admin_notices');
+/**
+ *
+ */
+function mp_show_admin_notices()
+{
+    if (!WC_WooMercadoPago_Module::isWcNewVersion() || (isset($_GET['page']) && $_GET['page'] == "wc-settings") && is_plugin_active('woocommerce-admin/woocommerce-admin.php')) {
+        return;
+    }
+
+    $noticesArray = WC_WooMercadoPago_Module::$notices;
+    $notices = array_unique($noticesArray, SORT_STRING);
+    foreach ($notices as $notice) {
+        echo $notice;
+    }
 }

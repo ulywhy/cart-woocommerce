@@ -15,6 +15,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static $mpInstancePayment = array();
     public static $mpInstance = null;
     public static $payments_name = null;
+    public static $notices = array();
 
     /**
      * WC_WooMercadoPago_Module constructor.
@@ -197,7 +198,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     }
 
     /**
-     * 
+     *
      */
     public function loadAdminCss()
     {
@@ -250,12 +251,13 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         $plugin_links = array();
         $plugin_links[] = '<a href="' . admin_url('admin.php?page=wc-settings&tab=checkout') . '">' . __('Set up', 'woocommerce-mercadopago') . '</a>';
         $plugin_links[] = '<a target="_blank" href="' . 'https://wordpress.org/support/plugin/woocommerce-mercadopago/reviews/?rate=5#new-post' . '">' . __('Your opinion helps us get better', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<br><a target="_blank" href="' . 'https://www.mercadopago.' .$links_mp['sufix_url'] .'developers/' .$links_mp['translate'] .'/guides/plugins/woocommerce/introduction/' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
-        $plugin_links[] = '<a target="_blank" href="'. 'https://www.mercadopago.' .$links_mp['sufix_url'] .$links_mp['help'] .'">' . __('Report Problem', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<br><a target="_blank" href="' . 'https://www.mercadopago.' . $links_mp['sufix_url'] . 'developers/' . $links_mp['translate'] . '/guides/plugins/woocommerce/introduction/' . '">' . __('Guides and Documentation', 'woocommerce-mercadopago') . '</a>';
+        $plugin_links[] = '<a target="_blank" href="' . 'https://www.mercadopago.' . $links_mp['sufix_url'] . $links_mp['help'] . '">' . __('Report Problem', 'woocommerce-mercadopago') . '</a>';
         return array_merge($plugin_links, $links);
     }
-   /**
-     * Construct link 
+
+    /**
+     * Construct link
      * @return array
      */
     public function define_link_country()
@@ -266,48 +268,48 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             'AR' => array( // Argentinian
                 'help' => 'ayuda',
                 'sufix_url' => 'com.ar/',
-                'translate' => 'es',  
+                'translate' => 'es',
             ),
             'BR' => array( // Brazil
                 'help' => 'ajuda',
                 'sufix_url' => 'com.br/',
-                'translate' => 'pt',  
+                'translate' => 'pt',
             ),
             'CL' => array( // Chile
                 'help' => 'ayuda',
                 'sufix_url' => 'cl/',
-                'translate' => 'es',  
+                'translate' => 'es',
             ),
             'CO' => array( // Colombia
                 'help' => 'ayuda',
                 'sufix_url' => 'com.co/',
-                'translate' => 'es',  
+                'translate' => 'es',
             ),
             'MX' => array( // Mexico
                 'help' => 'ayuda',
                 'sufix_url' => 'com.mx/',
-                'translate' => 'es',  
+                'translate' => 'es',
             ),
             'PE' => array( // Peru
                 'help' => 'ayuda',
                 'sufix_url' => 'com.pe/',
-                'translate' => 'es',  
+                'translate' => 'es',
             ),
             'UY' => array( // Uruguay
                 'help' => 'ayuda',
                 'sufix_url' => 'com.uy/',
-                'translate' => 'es',  
+                'translate' => 'es',
             ),
         );
         if ($wc_country != '') {
-            
+
             $sufix_country = strlen($wc_country) > 2 ? substr($wc_country, 0, 2) : $wc_country;
-            
+
         }
-        
+
         $sufix_country = strtoupper($sufix_country);
         $links_country = array_key_exists($sufix_country, $country) ? $country[$sufix_country] : $country['AR'];
-        
+
         return $links_country;
     }
 
@@ -327,7 +329,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             return $new_link;
         }
 
-        return (array) $links;
+        return (array)$links;
     }
 
     // ============================================================
@@ -578,7 +580,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function build_log_path_string($gateway_id, $gateway_name)
     {
         return '<a href="' . esc_url(admin_url('admin.php?page=wc-status&tab=logs&log_file=' .
-            esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
+                esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
 
@@ -759,6 +761,18 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                     return false;
                 }
             }
+        }
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isWcNewVersion()
+    {
+        $wooCommerceVersion = WC()->version;
+        if ($wooCommerceVersion <= "4.0.0") {
+            return false;
         }
         return true;
     }
