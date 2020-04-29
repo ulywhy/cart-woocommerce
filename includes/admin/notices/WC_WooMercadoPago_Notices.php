@@ -57,7 +57,11 @@ class WC_WooMercadoPago_Notices
     public static function getAlertFrame($message, $type)
     {
         $inline = null;
-        if (WC_WooMercadoPago_Module::isWcNewVersion() && (isset($_GET['page']) && $_GET['page'] == "wc-settings")) {
+        if (
+            (class_exists('WC_WooMercadoPago_Module') && WC_WooMercadoPago_Module::isWcNewVersion())
+            &&
+            (isset($_GET['page']) && $_GET['page'] == "wc-settings")
+        ) {
             $inline = "inline";
         }
 
@@ -74,8 +78,10 @@ class WC_WooMercadoPago_Notices
                         <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
                     </button>
                 </div>';
+        if (class_exists('WC_WooMercadoPago_Module')) {
+            WC_WooMercadoPago_Module::$notices[] = $notice;
+        }
 
-        WC_WooMercadoPago_Module::$notices[] = $notice;
         return $notice;
     }
 
@@ -105,7 +111,11 @@ class WC_WooMercadoPago_Notices
         }
 
         $inline = null;
-        if (WC_WooMercadoPago_Module::isWcNewVersion() && (isset($_GET['page']) && $_GET['page'] == "wc-settings")) {
+        if (
+            (class_exists('WC_WooMercadoPago_Module') && WC_WooMercadoPago_Module::isWcNewVersion())
+            &&
+            (isset($_GET['page']) && $_GET['page'] == "wc-settings")
+        ) {
             $inline = "inline";
         }
 
@@ -124,7 +134,9 @@ class WC_WooMercadoPago_Notices
                     </button>
                 </div>';
 
-        WC_WooMercadoPago_Module::$notices[] = $notice;
+        if (class_exists('WC_WooMercadoPago_Module')) {
+            WC_WooMercadoPago_Module::$notices[] = $notice;
+        }
         return $notice;
     }
 }
