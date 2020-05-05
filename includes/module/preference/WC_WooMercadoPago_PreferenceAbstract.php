@@ -77,7 +77,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     }
 
     /**
-     * @return float            
+     * @return float
      */
     protected function number_format_value($value)
     {
@@ -227,7 +227,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             if ((float) $fee['total'] >= 0) {
                 continue;
             }
-            $this->order_total += $this->number_format_value($fee['total'] + $fee['total_tax']);
+
+            $final = ($fee['total'] + $fee['total_tax']) * $this->currency_ratio;
+
+            $this->order_total += $this->number_format_value($final);
             array_push($items, array(
                 'title'       => sanitize_file_name(html_entity_decode(
                     strlen($fee['name']) > 230 ?
@@ -239,7 +242,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                 )),
                 'category_id' => get_option('_mp_category_id', 'others'),
                 'quantity'    => 1,
-                'unit_price'  => $this->number_format_value($fee['total'] + $fee['total_tax'])
+                'unit_price'  => $this->number_format_value($final)
             ));
         }
         return $items;
