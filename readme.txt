@@ -2,7 +2,7 @@
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 5.6
 Stable tag: 4.2.0
 License: GPLv2 or later
@@ -34,7 +34,6 @@ You can trust us as you trust a strategic partner. Use the money from your sales
 * Payments in advance from 2 to 14 business days, according to our Terms and Conditions;
 * One-click payments with the basic and personalized Mercado Pago checkouts;
 * Payments via tickets (Boletos);
-* Subscriptions;
 * Seller Protection Program.
 
 = Compatibility =
@@ -116,7 +115,7 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
-= v4.2.0 (25/03/2020) =
+= v4.2.0 (??/??/2020) =
 
 = v4.1.1 (10/01/2020) =
 * Feature
