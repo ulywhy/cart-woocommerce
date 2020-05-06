@@ -275,11 +275,9 @@
                 return false;
             }
 
-            /* jshint ignore:start */
-            if (strCNPJ.length != 14) {
+            if (strCNPJ.length !== 14) {
                 return false;
             }
-            /* jshint ignore:end */
 
             if (strCNPJ === '00000000000000' ||
               strCNPJ === '11111111111111' ||
@@ -296,9 +294,7 @@
 
             var tamanho = strCNPJ.length - 2;
             var numeros = strCNPJ.substring(0, tamanho);
-            /* jshint ignore:start */
             var digitos = strCNPJ.substring(tamanho);
-            /* jshint ignore:end */
             var soma = 0;
             var pos = tamanho - 7;
             for (var i = tamanho; i >= 1; i--) {
@@ -310,11 +306,9 @@
 
             var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 
-            /* jshint ignore:start */
-            if (resultado != digitos.charAt(0)) {
+            if (resultado.toString() !== digitos[0]) {
                 return false;
             }
-            /* jshint ignore:end */
 
             tamanho = tamanho + 1;
             numeros = strCNPJ.substring(0, tamanho);
@@ -329,11 +323,9 @@
 
             resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 
-            /* jshint ignore:start */
-            if (resultado != digitos.charAt(1)) {
+            if (resultado.toString() !== digitos[1]) {
                 return false;
             }
-            /* jshint ignore:end */
 
             return true;
         }
