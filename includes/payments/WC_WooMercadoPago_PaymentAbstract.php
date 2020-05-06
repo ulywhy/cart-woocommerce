@@ -19,6 +19,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         'mp_statement_descriptor',
         '_mp_category_id',
         '_mp_store_identificator',
+        '_mp_integrator_id',
         '_mp_custom_domain',
         'installments',
         'auto_return'
@@ -55,6 +56,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public $icon;
     public $mp_category_id;
     public $store_identificator;
+    public $integrator_id;
     public $debug_mode;
     public $custom_domain;
     public $binary_mode;
@@ -94,6 +96,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $this->wc_country = get_option('woocommerce_default_country', '');
         $this->mp_category_id = $this->getOption('_mp_category_id', 0);
         $this->store_identificator = $this->getOption('_mp_store_identificator', 'WC-');
+        $this->integrator_id = $this->getOption('_mp_integrator_id', '');
         $this->debug_mode = $this->getOption('_mp_debug_mode', 'no');
         $this->custom_domain = $this->getOption('_mp_custom_domain', '');
         $this->binary_mode = $this->getOption('binary_mode', 'no');
@@ -312,7 +315,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $form_fields['_mp_public_key_prod'] = $this->field_checkout_credential_publickey_prod();
             $form_fields['_mp_access_token_prod'] = $this->field_checkout_credential_accesstoken_prod();
             $form_fields['_mp_category_id'] = $this->field_category_store();
-            if (!empty($this->getAccessToken())) {
+            if (!empty($this->getAccessToken()) && !empty($this->getPublicKey())) {
                 if ($this->homolog_validate == 0) {
                     if (isset($_GET['section']) && $_GET['section'] == $this->id && !has_action('woocommerce_update_options_payment_gateways_' . $this->id)) {
                         add_action('admin_notices', array($this, 'noticeHomologValidate'));
@@ -324,6 +327,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 }
                 $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
                 $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
+                $form_fields['_mp_integrator_id'] = $this->field_mp_integrator_id();
                 $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
                 $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
                 $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
@@ -407,28 +411,28 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">1</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Upload your <b>credentials</b> depending on the country in which you are registered.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Upload your credentials</b> depending on the country in which you are registered.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
             
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">2</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Approve your account to be able to charge.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Approve your account</b> to be able to charge.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">3</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Add the basic information of your business in the plugin configuration.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Add the basic information of your business</b> in the plugin configuration.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">4</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
-                  ' . __('Configure the <b>payment preferences</b> for your customers.', 'woocommerce-mercadopago') . '
+                  ' . __('<b>Configure the payment preferences</b> for your customers.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
 
@@ -640,7 +644,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $checkout_credential_production = array(
             'title' => __('Production', 'woocommerce-mercadopago'),
             'type' => 'select',
-            'description' => __('Choose YES only when you are ready to sell. Change to NO to activate the Tests mode.', 'woocommerce-mercadopago'),
+            'description' => __('Choose “Yes” only when you’re ready to sell. Switch to “No” to activate Testing mode.', 'woocommerce-mercadopago'),
             'default' => $this->id == 'woo-mercado-pago-basic' && $this->clientid_old_version ? 'yes' : $production_mode,
             'options' => array(
                 'no' => __('No', 'woocommerce-mercadopago'),
@@ -843,7 +847,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_mp_statement_descriptor()
     {
         $mp_statement_descriptor = array(
-            'title' => __('Store Description', 'woocommerce-mercadopago'),
+            'title' => __('Store name', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('This name will appear on your customers invoice.', 'woocommerce-mercadopago'),
             'default' => __('Mercado Pago', 'woocommerce-mercadopago'),
@@ -883,6 +887,20 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'default' => __('WC-', 'woocommerce-mercadopago')
         );
         return $store_identificator;
+    }
+
+    /**
+     * @return array
+     */
+    public function field_mp_integrator_id()
+    {
+        $integrator_id = array(
+            'title' => __('Integrator ID', 'woocommerce-mercadopago'),
+            'type' => 'text',
+            'description' => __('With this number we identify all your transactions and know how many sales we process with your account.', 'woocommerce-mercadopago'),
+            'default' => __('', 'woocommerce-mercadopago')
+        );
+        return $integrator_id;
     }
 
     /**

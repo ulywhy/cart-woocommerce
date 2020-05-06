@@ -58,13 +58,13 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
         }
 
-        if (!empty($this->checkout_country) && empty($this->getAccessToken())) {
+        if (!empty($this->checkout_country) && empty($this->getAccessToken()) && empty($this->getPublicKey())) {
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
         }
 
         $form_fields = array();
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
-        if (!empty($this->checkout_country) && !empty($this->getAccessToken())) {
+        if (!empty($this->checkout_country) && !empty($this->getAccessToken()) && !empty($this->getPublicKey())) {
             $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
             $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
@@ -126,6 +126,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
+            '_mp_integrator_id',
             // Advanced settings
             'checkout_advanced_settings',
             '_mp_debug_mode',
@@ -430,8 +431,8 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
                         break;
                     case 'cancelled':
                     case 'in_mediation':
-                    case 'charged-back':
-                        // If we enter here (an order generating a direct [cancelled, in_mediation, or charged-back] status),
+                    case 'charged_back':
+                        // If we enter here (an order generating a direct [cancelled, in_mediation, or charged_back] status),
                         // them there must be something very wrong!
                         break;
                     default:

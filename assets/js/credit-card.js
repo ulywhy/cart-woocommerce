@@ -85,6 +85,10 @@
      * @param {object} event
      */
     function guessingPaymentMethod(event) {
+      hideErrors();
+      clearHolderName();
+      clearExpirationDate();
+      clearSecurityCode();
       clearIssuer();
       clearInstallments();
       clearTax();
@@ -343,7 +347,18 @@
       document.getElementById('docType').innerHTML = '';
       document.getElementById('docNumber').value = '';
     }
-
+    /**
+     * Clear input
+     */
+    function clearHolderName() {
+      document.getElementById('mp-card-holder-name').value = '';
+    }
+    function clearExpirationDate() {
+      document.getElementById('mp-card-expiration-date').value = '';
+    }
+    function clearSecurityCode() {
+      document.getElementById('mp-security-code').value = '';
+    }
     /**
      * Call insttalments with issuer ou not, depends on additionalInfoHandler()
      */
@@ -422,28 +437,28 @@
 
       if (additionalInfoNeeded.issuer) {
         var inputMpIssuer = document.getElementById('mp-issuer');
-        if (inputMpIssuer.value === -1 || inputMpIssuer.value === '') {
+        if (inputMpIssuer.value === '-1' || inputMpIssuer.value === '') {
           inputMpIssuer.classList.add('mp-form-control-error');
           emptyInputs = true;
         }
       }
       if (additionalInfoNeeded.cardholder_name) {
         var inputCardholderName = document.getElementById('mp-card-holder-name');
-        if (inputCardholderName.value === -1 || inputCardholderName.value === '') {
+        if (inputCardholderName.value === '-1' || inputCardholderName.value === '') {
           inputCardholderName.classList.add('mp-form-control-error');
           emptyInputs = true;
         }
       }
       if (additionalInfoNeeded.cardholder_identification_type) {
         var inputDocType = document.getElementById('docType');
-        if (inputDocType.value === -1 || inputDocType.value === '') {
+        if (inputDocType.value === '-1' || inputDocType.value === '') {
           inputDocType.classList.add('mp-form-control-error');
           emptyInputs = true;
         }
       }
       if (additionalInfoNeeded.cardholder_identification_number) {
         var docNumber = document.getElementById('docNumber');
-        if (docNumber.value === -1 || docNumber.value === '') {
+        if (docNumber.value === '-1' || docNumber.value === '') {
           docNumber.classList.add('mp-form-control-error');
           document.getElementById('mp-error-324').style.display = 'inline-block';
           emptyInputs = true;
@@ -508,7 +523,7 @@
         var element = form_inputs[x];
         // Check is a input to create token.
         if (fixed_inputs.indexOf(element.getAttribute('data-checkout')) > -1) {
-          if (element.value === -1 || element.value === '') {
+          if (element.value === '-1' || element.value === '') {
             var span = form.querySelectorAll('span[data-main="#' + element.id + '"]');
             if (span.length > 0) {
               span[0].style.display = 'inline-block';
