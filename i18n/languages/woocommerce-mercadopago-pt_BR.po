@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-04-27 15:01-0300\n"
+"PO-Revision-Date: 2020-05-06 12:15-0300\n"
 "X-Generator: Poedit 2.3\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -1224,9 +1224,13 @@ msgstr "Data de vencimento"
 msgid "Invalid Expiration Date"
 msgstr "Data de vencimento inválida"
 
-#: templates/checkout/custom_checkout.php:137 templates/checkout/custom_checkout.php:140
-msgid "Last 3 numbers on the back"
+#: templates/checkout/custom_checkout.php:103
+msgid "Security code"
 msgstr "Código de segurança"
+
+#: templates/checkout/custom_checkout.php:105
+msgid "Last 3 numbers on the back"
+msgstr "Últimos 3 números do verso"
 
 #: templates/checkout/custom_checkout.php:148
 msgid "In how many installments do you want to pay"
