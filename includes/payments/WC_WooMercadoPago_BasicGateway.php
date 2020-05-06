@@ -154,8 +154,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             // Set up the payment experience in your store
             'checkout_payments_title',
             'checkout_payments_subtitle',
-            'checkout_payments_description',
             'enabled',
+            'checkout_payments_description',
             WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'installments',
             // advanced settings
