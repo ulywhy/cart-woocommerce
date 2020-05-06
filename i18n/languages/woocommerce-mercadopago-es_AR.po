@@ -1216,9 +1216,13 @@ msgstr "Fecha de vencimiento"
 msgid "Invalid Expiration Date"
 msgstr "Fecha de expiracion inválida"
 
-#: templates/checkout/custom_checkout.php:137 templates/checkout/custom_checkout.php:140
-msgid "Last 3 numbers on the back"
+#: templates/checkout/custom_checkout.php:103
+msgid "Security code"
 msgstr "Código de seguridad"
+
+#: templates/checkout/custom_checkout.php:105
+msgid "Last 3 numbers on the back"
+msgstr "Últimos 3 números en el reverso"
 
 #: templates/checkout/custom_checkout.php:148
 msgid "In how many installments do you want to pay"

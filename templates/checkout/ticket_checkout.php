@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 
         <!-- Cupom mode, creat a campaign on mercado pago -->
         <?php if ($coupon_mode == 'yes') : ?>
-            <div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12">
+            <div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12 mp-pb-20">
             <div class="frame-tarjetas mp-text-justify">
                 <p class="mp-subtitle-ticket-checkout"><?=__('Enter your discount coupon', 'woocommerce-mercadopago')?></p>
 
@@ -204,27 +204,27 @@ if (!defined('ABSPATH')) {
 	function mpTicketInteger(v) {
 		return v.replace(/\D/g, "")
     }
-    
+
     function mpCpf(v){
-        v=v.replace(/\D/g,"")                    
-        v=v.replace(/(\d{3})(\d)/,"$1.$2")       
-        v=v.replace(/(\d{3})(\d)/,"$1.$2")            
-        v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2") 
+        v=v.replace(/\D/g,"")
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")
+        v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
         return v
     }
 
     function mpCnpj(v){
-        v=v.replace(/\D/g,"")                   
-        v=v.replace(/^(\d{2})(\d)/,"$1.$2")     
-        v=v.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3") 
-        v=v.replace(/\.(\d{3})(\d)/,".$1/$2")           
-        v=v.replace(/(\d{4})(\d)/,"$1-$2")              
+        v=v.replace(/\D/g,"")
+        v=v.replace(/^(\d{2})(\d)/,"$1.$2")
+        v=v.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
+        v=v.replace(/\.(\d{3})(\d)/,".$1/$2")
+        v=v.replace(/(\d{4})(\d)/,"$1-$2")
         return v
     }
 
     function mpCep(v){
-        v=v.replace(/D/g,"")                
-        v=v.replace(/^(\d{5})(\d)/,"$1-$2") 
+        v=v.replace(/D/g,"")
+        v=v.replace(/^(\d{5})(\d)/,"$1-$2")
         return v
     }
 </script>

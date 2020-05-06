@@ -1276,8 +1276,11 @@ msgstr ""
 msgid "Invalid Expiration Date"
 msgstr ""
 
-#: templates/checkout/custom_checkout.php:137
-#: templates/checkout/custom_checkout.php:140
+#: templates/checkout/custom_checkout.php:103
+msgid "Security code"
+msgstr ""
+
+#: templates/checkout/custom_checkout.php:105
 msgid "Last 3 numbers on the back"
 msgstr ""
 
