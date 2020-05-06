@@ -202,7 +202,7 @@
         function validateDocTypeMLB(docnumber) {
             if (mercado_pago_docnumber === 'CPF') {
                 return validateCPF(docnumber);
-            } 
+            }
             return validateCNPJ(docnumber);
         }
 
@@ -214,7 +214,7 @@
         function validateDocTypeMLU(docnumber) {
             if (docnumber !== '') {
                 return validateCI(docnumber);
-            } 
+            }
             return false;
         }
 
@@ -267,60 +267,73 @@
          * @param {string} strCNPJ
          * @return {bool}
          */
-        function validateCNPJ(strCNPJ) {
+        function validateCNPJ(strCNPJ)
+        {
             strCNPJ = strCNPJ.replace(/[^\d]+/g, '');
 
             if (strCNPJ === '') {
                 return false;
             }
 
-            if (strCNPJ.length !== 14) {
+            /* jshint ignore:start */
+            if (strCNPJ.length != 14) {
                 return false;
             }
+            /* jshint ignore:end */
 
             if (strCNPJ === '00000000000000' ||
-                strCNPJ === '11111111111111' ||
-                strCNPJ === '22222222222222' ||
-                strCNPJ === '33333333333333' ||
-                strCNPJ === '44444444444444' ||
-                strCNPJ === '55555555555555' ||
-                strCNPJ === '66666666666666' ||
-                strCNPJ === '77777777777777' ||
-                strCNPJ === '88888888888888' ||
-                strCNPJ === '99999999999999') {
-                return false;
+              strCNPJ === '11111111111111' ||
+              strCNPJ === '22222222222222' ||
+              strCNPJ === '33333333333333' ||
+              strCNPJ === '44444444444444' ||
+              strCNPJ === '55555555555555' ||
+              strCNPJ === '66666666666666' ||
+              strCNPJ === '77777777777777' ||
+              strCNPJ === '88888888888888' ||
+              strCNPJ === '99999999999999') {
+              return false;
             }
 
             var tamanho = strCNPJ.length - 2;
             var numeros = strCNPJ.substring(0, tamanho);
+            /* jshint ignore:start */
             var digitos = strCNPJ.substring(tamanho);
+            /* jshint ignore:end */
             var soma = 0;
             var pos = tamanho - 7;
-            for (var m = tamanho; m >= 1; m--) {
-                soma += numeros.charAt(tamanho - m) * pos--;
-                if (pos < 2) {
-                    pos = 9;
-                }
-            }
-            var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-            if (resultado !== digitos.charAt(0)) {
-                return false;
-            }
-
-            tamanho = tamanho + 1;
-            numeros = strCNPJ.substring(0, tamanho);
-            soma = 0;
-            pos = tamanho - 7;
             for (var i = tamanho; i >= 1; i--) {
                 soma += numeros.charAt(tamanho - i) * pos--;
                 if (pos < 2) {
                     pos = 9;
                 }
             }
-            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-            if (resultado !== digitos.charAt(1)) {
+
+            var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+
+            /* jshint ignore:start */
+            if (resultado != digitos.charAt(0)) {
                 return false;
             }
+            /* jshint ignore:end */
+
+            tamanho = tamanho + 1;
+            numeros = strCNPJ.substring(0, tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            for (i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) {
+                    pos = 9;
+                }
+            }
+
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+
+            /* jshint ignore:start */
+            if (resultado != digitos.charAt(1)) {
+                return false;
+            }
+            /* jshint ignore:end */
 
             return true;
         }
