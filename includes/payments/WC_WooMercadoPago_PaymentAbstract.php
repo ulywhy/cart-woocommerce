@@ -850,7 +850,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Store name', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('This name will appear on your customers invoice.', 'woocommerce-mercadopago'),
-            'default' => __('Mercado Pago', 'woocommerce-mercadopago'),
+            'default' => $this->getOption('_mp_statement_descriptor', __('Mercado Pago', 'woocommerce-mercadopago')),
         );
         return $mp_statement_descriptor;
     }
@@ -869,7 +869,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Store Category', 'woocommerce-mercadopago'),
             'type' => 'select',
             'description' => __('What category do your products belong to? Choose the one that best characterizes them (choose "other" if your product is too specific).', 'woocommerce-mercadopago'),
-            'default' => __('Categories', 'woocommerce-mercadopago'),
+            'default' => $this->getOption('_mp_category_id', __('Categories', 'woocommerce-mercadopago')),
             'options' => $option_category
         );
         return $field_category_store;
@@ -884,7 +884,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Store ID', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('Use a number or prefix to identify orders and payments from this store.', 'woocommerce-mercadopago'),
-            'default' => __('WC-', 'woocommerce-mercadopago')
+            'default' => $this->getOption('_mp_store_identificator', 'WC-'),
         );
         return $store_identificator;
     }
@@ -898,7 +898,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Integrator ID', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('With this number we identify all your transactions and know how many sales we process with your account.', 'woocommerce-mercadopago'),
-            'default' => __('', 'woocommerce-mercadopago')
+            'default' => $this->getOption('_mp_integrator_id', ''),
         );
         return $integrator_id;
     }
