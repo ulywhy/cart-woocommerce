@@ -5,7 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.2.0] - 2020-03-25
+## [4.2.0] - 2020-05-11
+
+### Added
+  - Added compatibility with WooCommerce version 4.0
+  - Added Integrator ID field on checkouts’ configuration screens
+  - Added validation for Public Keys
+  - Added alert to activate the WooCommerce plugin whenever it is inactive
+  - Added alert to install the WooCommerce plugin whenever it is uninstalled
+  - Added assets versioning
+  - Added minification of JS files
+  - Added debug mode for JS in order to use files without minification
+  - Added payment flow for WebPay in Colombia for Checkout Custom Offline
+  - Updated documentation and regionalized links
+
+### Changed
+  - Corrected notification status on charged_back
+  - Corrected issue when invalid credentials were switched
+  - Corrected checkout options for Store Name, Store Category and Store ID
+  - Corrected validation on the cardNumber field whenever card number is removed
+  - Corrected input masks on CPNJ and CPF; CNPJ validation and translation in Brazil for Custom Checkout Offline; 
+  - Corrected mercadopago.js loading
+  - Corrected processing of payment status notifications
+  - Corrected personalized URLs for successful, refused and pending payments on Checkout Mercado Pago
+  - Added success and error messages on received payment notifications
+  - Added alphabetical order on offline payment methods for Checkout Custom
+  - Added CI document input on Custom Checkout OFF in Uruguay
+  - Added compatibility with third-party discount plugins which attribute value on order->fees (computation of fees_cost upon purchase)
+  - Added validation, focus and error messages on all JS inputs on Checkout Custom Online and Offline
+  - Usability improvements for Checkout Custom - Credit Card on mobile devices
+  - Adjusted error messages on online Checkout Custom Online
+  - Adjusted status updates on Checkout Custom Offline orders
+  - Updated documentation and guide links
 
 ## [4.1.1] - 2020-01-10
 
