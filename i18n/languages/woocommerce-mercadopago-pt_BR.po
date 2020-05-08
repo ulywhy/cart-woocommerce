@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-05-06 12:15-0300\n"
+"PO-Revision-Date: 2020-05-08 14:43-0300\n"
 "X-Generator: Poedit 2.3\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -70,8 +70,8 @@ msgid "Discard"
 msgstr "Descartar"
 
 #: includes/module/WC_WooMercadoPago_Module.php:244
-msgid "Complete your credentials to enable the payment of method."
-msgstr "Digite suas credenciais para ativar os meios de pagamento."
+msgid "Fill in your credentials to enable payment methods."
+msgstr "Complete suas credenciais para habilitar os meios de pagamento."
 
 #: includes/module/WC_WooMercadoPago_Module.php:263
 msgid "The Mercado Pago module needs an active version of %s in order to work!"
@@ -477,8 +477,8 @@ msgid "Set payment preferences in your store"
 msgstr "Configure as preferências de pagamento na sua loja"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:302
-msgid "advanced settings"
-msgstr "configuração avançada"
+msgid "Advanced settings"
+msgstr "Configuração avançada"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:315
 msgid "Payment experience"
@@ -808,8 +808,8 @@ msgid "Access token"
 msgstr "Access token"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:729
-msgid "Production credentials!"
-msgstr "Credenciais de Produção!"
+msgid "Production credentials"
+msgstr "Credenciais de Produção"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:741
 msgid "With these keys you can receive real payments from your customers."
@@ -860,7 +860,7 @@ msgid "WC-"
 msgstr "WC-"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:878
-msgid "Advanced settings"
+msgid "Advanced adjustment"
 msgstr "Ajustes Avançados"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:891
@@ -981,7 +981,7 @@ msgstr "Descontos por comprar com Mercado Pago"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:1066
 msgid "Choose a percentage value that you want to discount your customers for paying with Mercado Pago."
-msgstr "Selecione um valor percentual que você queira descontar dos seus clientes por pagar com Mercado Pago."
+msgstr "Selecione um valor percentual que quiser descontar para seus clientes por pagar com Mercado Pago"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:1083
 msgid "Commission for purchase with Mercado Pago"
@@ -989,7 +989,7 @@ msgstr "Comissão por compra com Mercado Pago"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:1085
 msgid "Choose an additional percentage value that you want to charge as commission to your customers for paying with Mercado Pago."
-msgstr "Selecione um valor percentual adicional que você queira cobrar como comissão dos seus clientes por pagar com Mercado Pago."
+msgstr "Selecione um valor percentual adicional que quiser cobrar como tarifa dos seus clientes por pagar com Mercado Pago."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:1103
 msgid "Everything ready for the takeoff of your sales?"
@@ -1477,5 +1477,9 @@ msgid "Integrator ID"
 msgstr "Integrator ID"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:900
-msgid "With this number we identify all your transactions and know how many sales we process with your account."
-msgstr "Com este número, identificamos todas as suas transações e sabemos quantas vendas processamos com a sua conta."
+msgid "Do not forget to enter your integrator_id as a certified Mercado Pago Partner. If you don`t have it, you can %s"
+msgstr "Não esqueça de inserir seu integrator_id como Parceiro certificado do Mercado Pago. Se você não o possui, pode %s"
+
+#: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:903
+msgid "request it now."
+msgstr "solicitá-lo agora."
