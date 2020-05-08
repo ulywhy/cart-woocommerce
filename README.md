@@ -13,11 +13,11 @@ The Mercado Pago payments for WooCommerce plugin allows you to expand the functi
 
 For a better experience, you will be redirected to our site by clicking on the links below:
 
-* [Introduction](https://www.mercadopago.com/developers/en/guides/plugins/woocommerce/introduction/)
-* [Installation](https://www.mercadopago.com/developers/en/guides/plugins/woocommerce/instalation/)
-* [Integration](https://www.mercadopago.com/developers/en/guides/plugins/woocommerce/integration/)
-* [Payments preferences](https://www.mercadopago.com/developers/en/guides/plugins/woocommerce/preferences/)
-* [Test and receive payments](https://www.mercadopago.com/developers/en/guides/plugins/woocommerce/receive-payments/)
+* [Introduction](https://www.mercadopago.com.ar/developers/en/guides/plugins/woocommerce/introduction/)
+* [Installation](https://www.mercadopago.com.ar/developers/en/guides/plugins/woocommerce/instalation/)
+* [Integration](https://www.mercadopago.com.ar/developers/en/guides/plugins/woocommerce/integration/)
+* [Payments preferences](https://www.mercadopago.com.ar/developers/en/guides/plugins/woocommerce/preferences/)
+* [Test and receive payments](https://www.mercadopago.com.ar/developers/en/guides/plugins/woocommerce/receive-payments/)
 
 ## Documentación en Español
 
