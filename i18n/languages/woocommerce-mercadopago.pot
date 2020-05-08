@@ -71,7 +71,7 @@ msgid "Discard"
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Module.php:244
-msgid "Complete your credentials to enable the payment of method."
+msgid "Fill in your credentials to enable payment methods."
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Module.php:263
@@ -503,7 +503,7 @@ msgid "Set payment preferences in your store"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:302
-msgid "advanced settings"
+msgid "Advanced settings"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:315
@@ -850,7 +850,7 @@ msgid "Access token"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:729
-msgid "Production credentials!"
+msgid "Production credentials"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:741
@@ -902,7 +902,7 @@ msgid "WC-"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:878
-msgid "Advanced settings"
+msgid "Advanced adjustment"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:891
@@ -1548,5 +1548,9 @@ msgid "Integrator ID"
 msgstr ""
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:900
-msgid "With this number we identify all your transactions and know how many sales we process with your account."
+msgid "Do not forget to enter your integrator_id as a certified Mercado Pago Partner. If you don`t have it, you can %s"
+msgstr ""
+
+#: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:903
+msgid "request it now."
 msgstr ""

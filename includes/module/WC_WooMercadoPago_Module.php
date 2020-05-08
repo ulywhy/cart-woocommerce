@@ -240,7 +240,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function enablePaymentNotice()
     {
         $type = 'notice-warning';
-        $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
+        $message = __('Fill in your credentials to enable payment methods.', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -260,7 +260,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
      * Construct link
      * @return array
      */
-    public function define_link_country()
+    public static function define_link_country()
     {
         $wc_country = get_option('woocommerce_default_country', '');
         $sufix_country = 'AR';

@@ -894,11 +894,16 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_mp_integrator_id()
     {
+        $links_mp = WC_WooMercadoPago_Module::define_link_country();
         $integrator_id = array(
             'title' => __('Integrator ID', 'woocommerce-mercadopago'),
             'type' => 'text',
-            'description' => __('With this number we identify all your transactions and know how many sales we process with your account.', 'woocommerce-mercadopago'),
-            'default' => $this->getOption('_mp_integrator_id', ''),
+            'description' =>sprintf(
+                __('Do not forget to enter your integrator_id as a certified Mercado Pago Partner. If you don`t have it, you can %s', 'woocommerce-mercadopago'),
+                '<a target="_blank" href="https://www.mercadopago.' . $links_mp['sufix_url'] . 'developers/' . $links_mp['translate'] . '/guides/plugins/woocommerce/preferences/#bookmark_informações_do_negócio">' . __('request it now.', 'woocommerce-mercadopago') .
+                '</a>'
+            ),
+            'default' => $this->getOption('_mp_integrator_id', '')
         );
         return $integrator_id;
     }
@@ -909,7 +914,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_advanced_settings()
     {
         $checkout_options_explanation = array(
-            'title' => __('Advanced settings', 'woocommerce-mercadopago'),
+            'title' => __('Advanced adjustment', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_subtitle_bd'
         );

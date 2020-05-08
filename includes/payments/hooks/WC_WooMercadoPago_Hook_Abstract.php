@@ -398,7 +398,7 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     public function enablePaymentNotice()
     {
         $type = 'notice-warning';
-        $message = __('Complete your credentials to enable the payment of method.', 'woocommerce-mercadopago');
+        $message = __('Fill in your credentials to enable payment methods.', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
