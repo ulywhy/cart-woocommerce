@@ -115,9 +115,9 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
-= v4.2.0 (11/05/2020) =
+= v4.2.0 (13/05/2020) =
 * Features
-  - Added compatibility with WooCommerce version 4.0
+  - Added compatibility with WooCommerce version 4.1.0
   - Added Integrator ID field on checkouts’ configuration screens
   - Added validation for Public Keys
   - Added alert to activate the WooCommerce plugin whenever it is inactive
