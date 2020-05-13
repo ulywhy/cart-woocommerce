@@ -47,8 +47,9 @@ class AbstractRestClient
         if ($request['method'] == 'POST' ) {
             $headers[] = 'x-product-id:' . WC_WooMercadoPago_Constants::PRODUCT_ID;
             $headers[] = 'x-platform-id:' . WC_WooMercadoPago_Constants::PLATAFORM_ID;
-            $headers[] = 'x-integrator-id:' . WC_WooMercadoPago_Module::get_sponsor_id();       
+            $headers[] = 'x-integrator-id:' . get_option('_mp_integrator_id', null);       
         }
+        
         $json_content = true;
         $form_content = false;
         $default_content_type = true;

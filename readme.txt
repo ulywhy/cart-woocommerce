@@ -2,9 +2,9 @@
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 4.1.1
+Stable tag: 4.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,6 @@ You can trust us as you trust a strategic partner. Use the money from your sales
 * Payments in advance from 2 to 14 business days, according to our Terms and Conditions;
 * One-click payments with the basic and personalized Mercado Pago checkouts;
 * Payments via tickets (Boletos);
-* Subscriptions;
 * Seller Protection Program.
 
 = Compatibility =
@@ -116,6 +115,38 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
+= v4.2.0 (11/05/2020) =
+* Features
+  - Added compatibility with WooCommerce version 4.0
+  - Added Integrator ID field on checkouts’ configuration screens
+  - Added validation for Public Keys
+  - Added alert to activate the WooCommerce plugin whenever it is inactive
+  - Added alert to install the WooCommerce plugin whenever it is uninstalled
+  - Added assets versioning
+  - Added minification of JS files
+  - Added debug mode for JS in order to use files without minification
+  - Added payment flow for WebPay in Colombia for Checkout Custom Offline
+  - Updated documentation and regionalized links
+
+* Bug fixes  
+  - Corrected notification status on charged_back
+  - Corrected issue when invalid credentials were switched
+  - Corrected checkout options for Store Name, Store Category and Store ID
+  - Corrected validation on the cardNumber field whenever card number is removed
+  - Corrected input masks on CPNJ and CPF; CNPJ validation and translation in Brazil for Custom Checkout Offline; 
+  - Corrected mercadopago.js loading
+  - Corrected processing of payment status notifications
+  - Corrected personalized URLs for successful, refused and pending payments on Checkout Mercado Pago
+  - Added success and error messages on received payment notifications
+  - Added alphabetical order on offline payment methods for Checkout Custom
+  - Added CI document input on Custom Checkout OFF in Uruguay
+  - Added compatibility with third-party discount plugins which attribute value on order->fees (computation of fees_cost upon purchase)
+  - Added validation, focus and error messages on all JS inputs on Checkout Custom Online and Offline
+  - Usability improvements for Checkout Custom - Credit Card on mobile devices
+  - Adjusted error messages on online Checkout Custom Online
+  - Adjusted status updates on Checkout Custom Offline orders
+  - Updated documentation and guide links
+
 = v4.1.1 (10/01/2020) =
 * Feature
   - Currency Conversion in Checkout Mercado Pago added

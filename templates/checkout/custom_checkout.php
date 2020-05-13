@@ -72,14 +72,14 @@ if (!defined('ABSPATH')) {
 					<div class="mp-row-checkout mp-pt-10">
 						<div class="mp-col-md-12">
 							<label for="mp-card-number" class="mp-label-form"><?= esc_html__('Card number', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<input type="text" onkeyup="maskDate(this, mcc);" class="mp-form-control mp-mt-5" id="mp-card-number" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
+							<input type="text" onkeyup="mpCreditMaskDate(this, mpMcc);" class="mp-form-control mp-mt-5" id="mp-card-number" data-checkout="cardNumber" autocomplete="off" maxlength="23" />
 
 							<span class="mp-error mp-mt-5" id="mp-error-205" data-main="#mp-card-number"><?= esc_html__('Card number', 'woocommerce-mercadopago'); ?></span>
 							<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#mp-card-number"><?= esc_html__('Invalid Card Number', 'woocommerce-mercadopago'); ?></span>
 						</div>
 					</div>
 					<!-- Input Name and Surname -->
-					<div class="mp-row-checkout mp-pt-10">
+					<div class="mp-row-checkout mp-pt-10" id="mp-card-holder-div">
 						<div class="mp-col-md-12">
 							<label for="mp-card-holder-name" class="mp-label-form"><?= esc_html__('Name and surname of the cardholder', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" class="mp-form-control mp-mt-5" id="mp-card-holder-name" data-checkout="cardholderName" autocomplete="off" />
@@ -93,18 +93,15 @@ if (!defined('ABSPATH')) {
 						<!-- Input expiration date -->
 						<div class="mp-col-md-6 mp-pr-15">
 							<label for="mp-card-expiration-date" class="mp-label-form"><?= esc_html__('Expiration date', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<input type="text" onkeyup="maskDate(this, mdate);" onblur="validateMonthYear()" class="mp-form-control mp-mt-5" id="mp-card-expiration-date" data-checkout="cardExpirationDate" autocomplete="off" placeholder="MM/AAAA" maxlength="7" />
+							<input type="text" onkeyup="mpCreditMaskDate(this, mpDate);" onblur="mpValidateMonthYear()" class="mp-form-control mp-mt-5" id="mp-card-expiration-date" data-checkout="cardExpirationDate" autocomplete="off" placeholder="MM/AAAA" maxlength="7" />
 							<input type="hidden" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
 							<input type="hidden" id="cardExpirationYear" data-checkout="cardExpirationYear">
 							<span class="mp-error mp-mt-5" id="mp-error-208" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-209" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-325" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
-							<span class="mp-error mp-mt-5" id="mp-error-326" data-main="#mp-card-expiration-date"><?= esc_html__('Invalid Expiration Date', 'woocommerce-mercadopago'); ?></span>
 						</div>
 						<!-- Input Security Code -->
 						<div class="mp-col-md-6">
-							<label for="mp-security-code" class="mp-label-form"><?= esc_html__('Last 3 numbers on the back', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-							<input type="text" onkeyup="maskDate(this, minteger);" class="mp-form-control mp-mt-5" id="mp-security-code" data-checkout="securityCode" autocomplete="off" maxlength="4" />
+							<label for="mp-security-code" class="mp-label-form"><?= esc_html__('Security code', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+							<input type="text" onkeyup="mpCreditMaskDate(this, mpInteger);" class="mp-form-control mp-mt-5" id="mp-security-code" data-checkout="securityCode" autocomplete="off" maxlength="4" />
 							<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"><?= esc_html__('Last 3 numbers on the back', 'woocommerce-mercadopago'); ?></p>
 							<span class="mp-error mp-mt-5" id="mp-error-224" data-main="#mp-security-code"><?= esc_html__('Check the informed security code.', 'woocommerce-mercadopago'); ?></span>
 							<span class="mp-error mp-mt-5" id="mp-error-E302" data-main="#mp-security-code"><?= esc_html__('Check the informed security code.', 'woocommerce-mercadopago'); ?></span>
@@ -166,14 +163,16 @@ if (!defined('ABSPATH')) {
 							<div id="mp-doc-type-div" class="mp-row-checkout mp-pt-10">
 								<!-- Select Doc Type -->
 								<div class="mp-col-md-4 mp-pr-15">
-									<label for="docType" class="mp-label-form mp-pt-5"><?= esc_html__('Type', 'woocommerce-mercadopago'); ?></label>
+									<label for="docType" class="mp-label-form">
+                                        <?= esc_html__('Type', 'woocommerce-mercadopago'); ?>
+                                    </label>
 									<select id="docType" class="mp-form-control mp-pointer mp-mt-04rem" data-checkout="docType"></select>
 								</div>
 
 								<!-- Input Doc Number -->
 								<div id="mp-doc-number-div" class="mp-col-md-8">
 									<label for="docNumber" class="mp-label-form"><?= esc_html__('Document number', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-									<input type="text" class="mp-form-control mp-mt-5" id="docNumber" data-checkout="docNumber" autocomplete="off" />
+									<input type="text" class="mp-form-control mp-mt-04rem" id="docNumber" data-checkout="docNumber" autocomplete="off" />
 									<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"><?= esc_html__('Only numbers', 'woocommerce-mercadopago'); ?></p>
 									<span class="mp-error mp-mt-5" id="mp-error-324" data-main="#docNumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
 									<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#docNumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
@@ -213,18 +212,21 @@ if (!defined('ABSPATH')) {
 </div>
 
 <script type="text/javascript">
-	function execmascara() {
+	function mpCreditExecmascara() {
 		v_obj.value = v_fun(v_obj.value)
 	}
 
 	//Card mask date input
-	function maskDate(o, f) {
+	function mpCreditMaskDate(o, f) {
 		v_obj = o
 		v_fun = f
-		setTimeout("execmascara()", 1);
+		setTimeout("mpCreditExecmascara()", 1);
 	}
 
-	function mcc(value) {
+	function mpMcc(value) {
+        if(mpIsMobile()){
+            return value;
+        }
 		value = value.replace(/\D/g, "");
 		value = value.replace(/^(\d{4})(\d)/g, "$1 $2");
 		value = value.replace(/^(\d{4})\s(\d{4})(\d)/g, "$1 $2 $3");
@@ -232,7 +234,7 @@ if (!defined('ABSPATH')) {
 		return value;
 	}
 
-	function mdate(v) {
+	function mpDate(v) {
 		v = v.replace(/\D/g, "");
 		v = v.replace(/(\d{2})(\d)/, "$1/$2");
 		v = v.replace(/(\d{2})(\d{2})$/, "$1$2");
@@ -240,13 +242,22 @@ if (!defined('ABSPATH')) {
 	}
 
 	// Explode date to month and year
-	function validateMonthYear() {
+	function mpValidateMonthYear() {
 		var date = document.getElementById('mp-card-expiration-date').value.split('/');
 		document.getElementById('cardExpirationMonth').value = date[0];
 		document.getElementById('cardExpirationYear').value = date[1];
 	}
 
-	function minteger(v) {
-		return v.replace(/\D/g, "")
+	function mpInteger(v) {
+		return v.replace(/\D/g, "");
 	}
+
+    function mpIsMobile() {
+        try{
+            document.createEvent("TouchEvent");
+            return true;
+        }catch(e){
+            return false;
+        }
+    }
 </script>

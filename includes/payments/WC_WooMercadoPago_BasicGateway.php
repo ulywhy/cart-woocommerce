@@ -53,9 +53,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function getFormFields($label)
     {
         if (is_admin() && $this->isManageSection()) {
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
             wp_enqueue_script(
                 'woocommerce-mercadopago-basic-config-script',
-                plugins_url('../assets/js/basic_config_mercadopago.js', plugin_dir_path(__FILE__))
+                plugins_url('../assets/js/basic_config_mercadopago'.$suffix.'.js', plugin_dir_path(__FILE__)),
+                array(),
+                WC_WooMercadoPago_Constants::VERSION
             );
         }
 
@@ -63,7 +66,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 7);
         }
 
-        if (!empty($this->checkout_country) && empty($this->getAccessToken())) {
+        if (!empty($this->checkout_country) && empty($this->getAccessToken()) && empty($this->getPublicKey())) {
             $this->field_forms_order = array_slice($this->field_forms_order, 0, 22);
         }
 
@@ -71,7 +74,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         $form_fields['checkout_header'] = $this->field_checkout_header();
 
-        if (!empty($this->checkout_country) && !empty($this->getAccessToken())) {
+        if (!empty($this->checkout_country) && !empty($this->getAccessToken()) && !empty($this->getPublicKey())) {
             $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
             $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
             $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
@@ -123,7 +126,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_credential_mod_test_description',
             'checkout_credential_mod_prod_title',
             'checkout_credential_mod_prod_description',
-            'checkout_credential_production',
+            'checkout_credential_prod',
             'checkout_credential_link',
             'checkout_credential_title_test',
             'checkout_credential_description_test',
@@ -143,6 +146,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
+            '_mp_integrator_id',
             // Advanced settings
             'checkout_advanced_settings',
             '_mp_debug_mode',
@@ -150,8 +154,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             // Set up the payment experience in your store
             'checkout_payments_title',
             'checkout_payments_subtitle',
-            'checkout_payments_description',
             'enabled',
+            'checkout_payments_description',
             WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'installments',
             // advanced settings
@@ -186,6 +190,14 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 $accessToken = $this->mp->get_access_token();
                 if (strpos($accessToken, 'APP_USR') === false && strpos($accessToken, 'TEST') === false) {
                     return false;
+                } else {
+                    if(strpos($accessToken, 'TEST') === false && $this->sandbox == true) {
+                        return false;
+                    }
+
+                    if(strpos($accessToken, 'APP_USR') === false && $this->sandbox == false) {
+                        return false;
+                    }
                 }
                 return true;
             }
@@ -204,7 +216,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
          }
          return false;
    }
-  
+
 
     /**
      * @return array
@@ -232,7 +244,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'title' => sprintf(
                 __('Mercado Pago checkout %s', 'woocommerce-mercadopago'),
                 '<div class="row">
-                <div class="mp-col-md-12 mp_subtitle_header"> 
+                <div class="mp-col-md-12 mp_subtitle_header">
                 ' . __('Accept all method of payment and take your charges to another level', 'woocommerce-mercadopago') . '
                  </div>
               <div class="mp-col-md-12">
@@ -402,11 +414,11 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $ex_payments_sort = array();
 
         $all_payments = get_option('_checkout_payments_methods', '');
-        
+
         if (empty($all_payments)) {
             return $ex_payments;
         }
-        
+
         $get_payment_methods = get_option('_all_payment_methods_v0', '');
 
         if (!empty($get_payment_methods)) {
@@ -431,8 +443,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         $count_payment = 0;
 
         foreach ($all_payments as $payment_method) {
-            if ($payment_method['type'] == 'account_money') { 
-                continue; 
+            if ($payment_method['type'] == 'account_money') {
+                $count_payment++;
+                continue;
             } else {
                 if ($payment_method['type'] == 'credit_card') {
                     $element = array(
@@ -474,10 +487,10 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
             if ($count_payment == 1) {
                 $element['title'] = __('Payment methods', 'woocommerce-mercadopago');
-                $element['desc_tip'] = __('Select the payment methods available in your store.', 'woocommerce-mercadopago');
+                $element['desc_tip'] = __('Choose the available payment methods in your store.', 'woocommerce-mercadopago');
             }
             if ($count_payment == count($get_payment_methods)) {
-                $element['description'] = __('Enable the payment methods available to your customers.', 'woocommerce-mercadopago');
+                $element['description'] = __('Activate the available payment methods to your clients.', 'woocommerce-mercadopago');
             }
 
             $ex_payments["ex_payments_" . $payment_method['id']] = $element;
@@ -512,6 +525,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
      */
     public function payment_fields()
     {
+        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
         //add css
         wp_enqueue_style(
             'woocommerce-mercadopago-basic-checkout-styles',
@@ -562,8 +577,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             "method" => $method,
             "str_cuotas" => $str_cuotas,
             "installments" => $installments,
+            "plugin_version" => WC_WooMercadoPago_Constants::VERSION,
             "cho_image" => plugins_url('../assets/images/redirect_checkout.png', plugin_dir_path(__FILE__)),
-            "path_to_javascript" => plugins_url('../assets/js/basic-cho.js', plugin_dir_path(__FILE__)),
+            "path_to_javascript" => plugins_url('../assets/js/basic-cho'.$suffix.'.js', plugin_dir_path(__FILE__))
         );
 
         wc_get_template('checkout/basic_checkout.php', $parameters, 'woo/mercado/pago/module/', WC_WooMercadoPago_Module::get_templates_path());

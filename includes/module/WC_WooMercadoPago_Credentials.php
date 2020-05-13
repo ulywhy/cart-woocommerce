@@ -28,7 +28,7 @@ class WC_WooMercadoPago_Credentials
 
         if (!is_null($this->payment)) {
             $this->sandbox = $payment->isTestUser();
-            if ($this->payment->getOption('checkout_credential_production', '') == 'no' || empty($this->payment->getOption('checkout_credential_production', ''))) {
+            if ($this->payment->getOption('checkout_credential_prod', '') == 'no' || empty($this->payment->getOption('checkout_credential_prod', ''))) {
                 $publicKey = get_option('_mp_public_key_test', '');
                 $accessToken = get_option('_mp_access_token_test', '');
             }
@@ -53,7 +53,7 @@ class WC_WooMercadoPago_Credentials
         $basicIsEnabled = self::basicIsEnabled();
         if (!$this->tokenIsValid() && ($this->payment instanceof WC_WooMercadoPago_BasicGateway || $basicIsEnabled == 'yes')) {
             if (!$this->clientIsValid()) {
-                return false;
+                return self::TYPE_ACCESS_TOKEN;
             }
             return self::TYPE_ACCESS_CLIENT;
         }
@@ -125,6 +125,35 @@ class WC_WooMercadoPago_Credentials
         if (isset($get_request['response']['site_id'])) {
             update_option('_site_id_v1', $get_request['response']['site_id'], true);
             update_option('_test_user_v1', in_array('test_user', $get_request['response']['tags']), true);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param $public_key
+     * @return bool
+     * @throws WC_WooMercadoPago_Exception
+     */
+    public static function public_key_is_valid($public_key)
+    {
+        $mp_v1 = WC_WooMercadoPago_Module::getMpInstanceSingleton();
+        if (empty($mp_v1)) {
+            return false;
+        }
+        $request = array(
+            'uri' => '/v1/card_tokens',
+            'data' => null,
+            'params' => array(
+                'public_key' => $public_key
+            ),
+            'authenticate' => false 
+        );
+        $get_request = $mp_v1->post($request);
+        if ($get_request['status'] > 202) {
+            $log = WC_WooMercadoPago_Log::init_mercado_pago_log('WC_WooMercadoPago_Credentials');
+            $log->write_log('API public_key_is_valid error: ', $get_request['response']['message']);
+            return false;
         }
 
         return true;
@@ -214,16 +243,19 @@ class WC_WooMercadoPago_Credentials
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
 
-        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 && $paymentsResponse['status'] != 201)) {
+        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 &&
+                $paymentsResponse['status'] != 201)) {
             return;
         }
 
         $arr = array();
         $cho = array();
-        $excluded = array('consumer_credits');
+        $excluded = array('consumer_credits', 'paypal');
 
         foreach ($paymentsResponse as $payment) {
-            if(in_array($payment['id'], $excluded)){ continue; }
+            if (in_array($payment['id'], $excluded)) {
+                continue;
+            }
 
             $arr[] = $payment['id'];
 
@@ -255,27 +287,27 @@ class WC_WooMercadoPago_Credentials
             $paymentsResponse = self::getPaymentResponse($mpInstance, $accessToken);
         }
 
-        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 && $paymentsResponse['status'] != 201)) {
+        if (empty($paymentsResponse) || (isset($paymentsResponse['status']) && $paymentsResponse['status'] != 200 &&
+                $paymentsResponse['status'] != 201)) {
             return;
         }
 
         $payment_methods_ticket = array();
-        $excluded = array('consumer_credits');
+        $excluded = array('consumer_credits', 'paypal', 'pse');
 
         foreach ($paymentsResponse as $payment) {
-          if (
-              !in_array($payment['id'], $excluded) &&
-              $payment['payment_type_id'] != 'account_money' &&
-              $payment['payment_type_id'] != 'credit_card' &&
-              $payment['payment_type_id'] != 'debit_card' &&
-              $payment['payment_type_id'] != 'prepaid_card'
-          ) {
-              $payment_methods_ticket[] = array(
-                  "id" => $payment['id'],
-                  "name" => $payment['name'],
-                  "secure_thumbnail" => $payment['secure_thumbnail'],
-              );
-          }
+            if (!in_array($payment['id'], $excluded) &&
+                $payment['payment_type_id'] != 'account_money' &&
+                $payment['payment_type_id'] != 'credit_card' &&
+                $payment['payment_type_id'] != 'debit_card' &&
+                $payment['payment_type_id'] != 'prepaid_card'
+            ) {
+                $payment_methods_ticket[] = array(
+                    "id" => $payment['id'],
+                    "name" => $payment['name'],
+                    "secure_thumbnail" => $payment['secure_thumbnail'],
+                );
+            }
         }
 
         update_option('_all_payment_methods_ticket', $payment_methods_ticket, true);
