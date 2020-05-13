@@ -850,7 +850,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => __('Store name', 'woocommerce-mercadopago'),
             'type' => 'text',
             'description' => __('This name will appear on your customers invoice.', 'woocommerce-mercadopago'),
-            'default' => $this->getOption('_mp_statement_descriptor', __('Mercado Pago', 'woocommerce-mercadopago')),
+            'default' => $this->getOption('mp_statement_descriptor', __('Mercado Pago', 'woocommerce-mercadopago')),
         );
         return $mp_statement_descriptor;
     }
