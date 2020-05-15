@@ -107,6 +107,11 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'notification_url' => $this->get_notification_url(),
             'statement_descriptor' => $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago'),
         );
+
+        if (!$this->test_user_v1 && !$this->sandbox) {
+            $preference['sponsor_id'] = $this->get_sponsor_id();
+        }
+
         return $preference;
     }
 
