@@ -100,7 +100,7 @@ if (!defined('ABSPATH')) {
 						</div>
 						<!-- Input Security Code -->
 						<div class="mp-col-md-6">
-							<label for="mp-security-code" class="mp-label-form"><?= esc_html__('Last 3 numbers on the back', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+							<label for="mp-security-code" class="mp-label-form"><?= esc_html__('Security code', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 							<input type="text" onkeyup="mpCreditMaskDate(this, mpInteger);" class="mp-form-control mp-mt-5" id="mp-security-code" data-checkout="securityCode" autocomplete="off" maxlength="4" />
 							<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"><?= esc_html__('Last 3 numbers on the back', 'woocommerce-mercadopago'); ?></p>
 							<span class="mp-error mp-mt-5" id="mp-error-224" data-main="#mp-security-code"><?= esc_html__('Check the informed security code.', 'woocommerce-mercadopago'); ?></span>
@@ -163,14 +163,16 @@ if (!defined('ABSPATH')) {
 							<div id="mp-doc-type-div" class="mp-row-checkout mp-pt-10">
 								<!-- Select Doc Type -->
 								<div class="mp-col-md-4 mp-pr-15">
-									<label for="docType" class="mp-label-form mp-pt-5"><?= esc_html__('Type', 'woocommerce-mercadopago'); ?></label>
+									<label for="docType" class="mp-label-form">
+                                        <?= esc_html__('Type', 'woocommerce-mercadopago'); ?>
+                                    </label>
 									<select id="docType" class="mp-form-control mp-pointer mp-mt-04rem" data-checkout="docType"></select>
 								</div>
 
 								<!-- Input Doc Number -->
 								<div id="mp-doc-number-div" class="mp-col-md-8">
 									<label for="docNumber" class="mp-label-form"><?= esc_html__('Document number', 'woocommerce-mercadopago'); ?> <em>*</em></label>
-									<input type="text" class="mp-form-control mp-mt-5" id="docNumber" data-checkout="docNumber" autocomplete="off" />
+									<input type="text" class="mp-form-control mp-mt-04rem" id="docNumber" data-checkout="docNumber" autocomplete="off" />
 									<p class="mp-desc mp-mt-5 mp-mb-0" data-main="#mp-security-code"><?= esc_html__('Only numbers', 'woocommerce-mercadopago'); ?></p>
 									<span class="mp-error mp-mt-5" id="mp-error-324" data-main="#docNumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
 									<span class="mp-error mp-mt-5" id="mp-error-E301" data-main="#docNumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
@@ -213,7 +215,7 @@ if (!defined('ABSPATH')) {
 	function mpCreditExecmascara() {
 		v_obj.value = v_fun(v_obj.value)
 	}
-		
+
 	//Card mask date input
 	function mpCreditMaskDate(o, f) {
 		v_obj = o

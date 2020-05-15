@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 
         <!-- Cupom mode, creat a campaign on mercado pago -->
         <?php if ($coupon_mode == 'yes') : ?>
-            <div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12">
+            <div  id="mercadopago-form-coupon-ticket" class="mp-col-md-12 mp-pb-20">
             <div class="frame-tarjetas mp-text-justify">
                 <p class="mp-subtitle-ticket-checkout"><?=__('Enter your discount coupon', 'woocommerce-mercadopago')?></p>
 
@@ -31,6 +31,33 @@ if (!defined('ABSPATH')) {
         <div class="mp-col-md-12">
             <div class="frame-tarjetas">
                 <div id="mercadopago-form-ticket">
+
+                    <?php if($site_id == "MLU"): ?>
+                        <div id="form-ticket">
+                            <div class="mp-row-checkout">
+							<p class="mp-subtitle-custom-checkout"><?= __('Enter your document number', 'woocommerce-mercadopago') ?></p>
+                            <div class="mp-col-md-4 mp-pr-15">
+                                    <label for="mp-docType" class="mp-label-form mp-pt-5"><?= esc_html__('Type', 'woocommerce-mercadopago'); ?></label>
+                                    <select id="mp-docType" class="form-control mp-form-control mp-select mp-pointer" name="mercadopago_ticket[docType]">
+                                    <option value="CI" selected><?= esc_html__('CI', 'woocommerce-mercadopago'); ?></option>
+                                    </select>
+							</div>
+                            <div class="mp-col-md-8" id="box-docnumber">
+                                    <label for="cpfcnpj" id="mp_cpf_label" class="mp-label-form title-cpf"><?= esc_html__('Document number', 'woocommerce-mercadopago'); ?> <em>*</em></label>
+                                    <input type="text" class="mp-form-control" id="mp_doc_number" data-checkout="mp_doc_number" name="mercadopago_ticket[docNumber]" onkeyup="mpMaskInput(this, mpTicketInteger);" autocomplete="off" maxlength="8">
+                                    <span class="mp-erro_febraban" data-main="#mp_doc_number"><?= esc_html__('You must provide your document number', 'woocommerce-mercadopago'); ?></span>
+                                    <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
+                                </div>
+                            </div>
+                            <div class="mp-col-md-12 mp-pt-10">
+                                <div class="frame-tarjetas">
+                                    <div class="mp-row-checkout">
+                                        <p class="mp-obrigatory"><?= esc_html__('Complete all fields, they are mandatory.', 'woocommerce-mercadopago'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if($site_id == "MLB"): ?>
                     <div id="form-ticket">
@@ -69,7 +96,7 @@ if (!defined('ABSPATH')) {
                                 <label for="cpfcnpj" id="mp_cnpj_label" class="title-cnpj mp-label-form"><?= esc_html__('CNPJ', 'woocommerce-mercadopago'); ?><em>*</em></label>
                                 <input type="text" class="mp-form-control" value="<?= $febraban['docNumber']; ?>" id="mp_doc_number" data-checkout="mp_doc_number" name="mercadopago_ticket[docNumber]" onkeyup="mpMaskInput(this, mpCpf);" maxlength="14">
                                 <span class="mp-erro_febraban" data-main="#mp_doc_number"><?= esc_html__('You must provide your document number', 'woocommerce-mercadopago'); ?></span>
-                                <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('The document must be valid', 'woocommerce-mercadopago'); ?></span>
+                                <span class="mp_error_docnumber" id="mp_error_docnumber"><?= esc_html__('Invalid Document Number', 'woocommerce-mercadopago'); ?></span>
                             </div>
                         </div>
 
@@ -204,27 +231,27 @@ if (!defined('ABSPATH')) {
 	function mpTicketInteger(v) {
 		return v.replace(/\D/g, "")
     }
-    
+
     function mpCpf(v){
-        v=v.replace(/\D/g,"")                    
-        v=v.replace(/(\d{3})(\d)/,"$1.$2")       
-        v=v.replace(/(\d{3})(\d)/,"$1.$2")            
-        v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2") 
+        v=v.replace(/\D/g,"")
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")
+        v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
         return v
     }
 
     function mpCnpj(v){
-        v=v.replace(/\D/g,"")                   
-        v=v.replace(/^(\d{2})(\d)/,"$1.$2")     
-        v=v.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3") 
-        v=v.replace(/\.(\d{3})(\d)/,".$1/$2")           
-        v=v.replace(/(\d{4})(\d)/,"$1-$2")              
+        v=v.replace(/\D/g,"")
+        v=v.replace(/^(\d{2})(\d)/,"$1.$2")
+        v=v.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
+        v=v.replace(/\.(\d{3})(\d)/,".$1/$2")
+        v=v.replace(/(\d{4})(\d)/,"$1-$2")
         return v
     }
 
     function mpCep(v){
-        v=v.replace(/D/g,"")                
-        v=v.replace(/^(\d{5})(\d)/,"$1-$2") 
+        v=v.replace(/D/g,"")
+        v=v.replace(/^(\d{5})(\d)/,"$1-$2")
         return v
     }
 </script>

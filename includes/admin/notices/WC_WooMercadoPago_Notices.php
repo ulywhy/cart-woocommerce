@@ -9,7 +9,7 @@
  */
 
 if (!defined('ABSPATH')) {
-	exit;
+    exit;
 }
 
 /**
@@ -17,14 +17,14 @@ if (!defined('ABSPATH')) {
  */
 class WC_WooMercadoPago_Notices
 {
-	public static $instance = null;
+    public static $instance = null;
 
-	private function __construct()
-	{
-		add_action('admin_enqueue_scripts', [$this, 'loadAdminNoticeCss']);
-	}
+    private function __construct()
+    {
+        add_action('admin_enqueue_scripts', [$this, 'loadAdminNoticeCss']);
+    }
 
-	/**
+    /**
      * @return WC_WooMercadoPago_Module|null
      * Singleton
      */
@@ -36,29 +36,36 @@ class WC_WooMercadoPago_Notices
         return self::$instance;
     }
 
-	/**
-	 * 
-	 */
-	public function loadAdminNoticeCss()
-	{
-		if (is_admin()) {
-			wp_enqueue_style(
-				'woocommerce-mercadopago-admin-notice',
-				plugins_url('../../assets/css/admin_notice_mercadopago.css', plugin_dir_path(__FILE__))
-			);
-		}
-	}
+    /**
+     *
+     */
+    public function loadAdminNoticeCss()
+    {
+        if (is_admin()) {
+            wp_enqueue_style(
+                'woocommerce-mercadopago-admin-notice',
+                plugins_url('../../assets/css/admin_notice_mercadopago.css', plugin_dir_path(__FILE__))
+            );
+        }
+    }
 
-	/**
-	 * Get MP alert frame for notfications 
-	 *
-	 * @param string $message
-	 * @param string $type
-	 * @return void
-	 */
-	public static function getAlertFrame($message, $type)
-	{
-		return '<div class="notice ' . $type . ' is-dismissible">
+    /**
+     * @param $message
+     * @param $type
+     * @return string
+     */
+    public static function getAlertFrame($message, $type)
+    {
+        $inline = null;
+        if (
+            (class_exists('WC_WooMercadoPago_Module') && WC_WooMercadoPago_Module::isWcNewVersion())
+            &&
+            (isset($_GET['page']) && $_GET['page'] == "wc-settings")
+        ) {
+            $inline = "inline";
+        }
+
+        $notice = '<div id="message" class="notice ' . $type . ' is-dismissible ' . $inline . '">
                     <div class="mp-alert-frame"> 
                         <div class="mp-left-alert">
                             <img src="' . plugins_url('../../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
@@ -71,36 +78,48 @@ class WC_WooMercadoPago_Notices
                         <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
                     </button>
                 </div>';
-	}
+        if (class_exists('WC_WooMercadoPago_Module')) {
+            WC_WooMercadoPago_Module::$notices[] = $notice;
+        }
 
-	/**
-	 * Get MP alert frame for notfications 
-	 *
-	 * @param string $message
-	 * @param string $type
-	 * @return void
-	 */
-	public static function getAlertWocommerceMiss($message, $type)
-	{
+        return $notice;
+    }
 
-		$is_installed = false;
+    /**
+     * @param $message
+     * @param $type
+     * @return string
+     */
+    public static function getAlertWocommerceMiss($message, $type)
+    {
 
-		if (function_exists('get_plugins')) {
-			$all_plugins  = get_plugins();
-			$is_installed = !empty($all_plugins['woocommerce/woocommerce.php']);
-		}
+        $is_installed = false;
 
-		if ($is_installed && current_user_can('install_plugins')) {
-			$buttonUrl = '<a href="' . wp_nonce_url(self_admin_url('plugins.php?action=activate&plugin=woocommerce/woocommerce.php&plugin_status=active'), 'activate-plugin_woocommerce/woocommerce.php') . '" class="button button-primary">' . __('Active WooCommerce', 'woocommerce-mercadopago') . '</a>';
-		} else {
-			if (current_user_can('install_plugins')) {
-				$buttonUrl = '<a href="' . wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=woocommerce'), 'install-plugin_woocommerce') . '" class="button button-primary">' . __('Install WooCommerce', 'woocommerce-mercadopago') . '</a>';
-			} else {
-				$buttonUrl = '<a href="http://wordpress.org/plugins/woocommerce/" class="button button-primary">' . __('See WooCommerce', 'woocommerce-mercadopago') . '</a>';
-			}
-		}
+        if (function_exists('get_plugins')) {
+            $all_plugins = get_plugins();
+            $is_installed = !empty($all_plugins['woocommerce/woocommerce.php']);
+        }
 
-		return '<div class="notice ' . $type . ' is-dismissible">
+        if ($is_installed && current_user_can('install_plugins')) {
+            $buttonUrl = '<a href="' . wp_nonce_url(self_admin_url('plugins.php?action=activate&plugin=woocommerce/woocommerce.php&plugin_status=active'), 'activate-plugin_woocommerce/woocommerce.php') . '" class="button button-primary">' . __('Activate WooCommerce', 'woocommerce-mercadopago') . '</a>';
+        } else {
+            if (current_user_can('install_plugins')) {
+                $buttonUrl = '<a href="' . wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=woocommerce'), 'install-plugin_woocommerce') . '" class="button button-primary">' . __('Install WooCommerce', 'woocommerce-mercadopago') . '</a>';
+            } else {
+                $buttonUrl = '<a href="http://wordpress.org/plugins/woocommerce/" class="button button-primary">' . __('See WooCommerce', 'woocommerce-mercadopago') . '</a>';
+            }
+        }
+
+        $inline = null;
+        if (
+            (class_exists('WC_WooMercadoPago_Module') && WC_WooMercadoPago_Module::isWcNewVersion())
+            &&
+            (isset($_GET['page']) && $_GET['page'] == "wc-settings")
+        ) {
+            $inline = "inline";
+        }
+
+        $notice = '<div id="message" class="notice ' . $type . ' is-dismissible ' . $inline . '">
                     <div class="mp-alert-frame"> 
                         <div class="mp-left-alert">
                             <img src="' . plugins_url('../../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
@@ -114,5 +133,10 @@ class WC_WooMercadoPago_Notices
                         <span class="screen-reader-text">' . __('Discard', 'woocommerce-mercadopago') . '</span>
                     </button>
                 </div>';
-	}
+
+        if (class_exists('WC_WooMercadoPago_Module')) {
+            WC_WooMercadoPago_Module::$notices[] = $notice;
+        }
+        return $notice;
+    }
 }

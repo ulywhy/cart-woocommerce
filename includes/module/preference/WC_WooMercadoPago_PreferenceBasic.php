@@ -67,14 +67,14 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
      */
     public function get_back_urls()
     {
-        $success_url = get_option('success_url', '');
-        $failure_url = get_option('failure_url', '');
-        $pending_url = get_option('pending_url', '');
+        $success_url = $this->payment->getOption('success_url', '');
+        $failure_url = $this->payment->getOption('failure_url', '');
+        $pending_url = $this->payment->getOption('pending_url', '');
         $back_urls = array(
             'success' => empty($success_url) ?
                 WC_WooMercadoPago_Module::fix_url_ampersand(
                     esc_url($this->get_return_url($this->order))
-                ) : $this->success_url,
+                ) : $success_url,
             'failure' => empty($failure_url) ?
                 WC_WooMercadoPago_Module::fix_url_ampersand(
                     esc_url($this->order->get_cancel_order_url())
@@ -129,7 +129,7 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
     {
         $internal_metadata = array(
             "checkout" => "smart",
-            "checkout_type" => "",
+            "checkout_type" => $this->payment->getOption('method', 'redirect'),
         );
 
         return $internal_metadata;
