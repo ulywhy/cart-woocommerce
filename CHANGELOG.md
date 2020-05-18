@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.1] - 2020-05-18
+
+### Changed
+  - Corrected CI document input validation on Uruguay Custom Offline Checkout.
+
 ## [4.2.0] - 2020-05-13
 
 ### Added
@@ -16,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added assets versioning
   - Added minification of JS files
   - Added debug mode for JS in order to use files without minification
-  - Added payment flow for WebPay in Colombia for Checkout Custom Offline
+  - Added payment flow for WebPay in Chile for Checkout Custom Offline
   - Updated documentation and regionalized links
 
 ### Changed

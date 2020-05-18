@@ -318,7 +318,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     public function field_checkout_payments_advanced_title()
     {
         $checkout_payments_advanced_title = array(
-            'title' => __('advanced settings', 'woocommerce-mercadopago'),
+            'title' => __('Advanced settings', 'woocommerce-mercadopago'),
             'type' => 'title',
             'class' => 'mp_subtitle_bd'
         );
