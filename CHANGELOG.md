@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added assets versioning
   - Added minification of JS files
   - Added debug mode for JS in order to use files without minification
-  - Added payment flow for WebPay in Colombia for Checkout Custom Offline
+  - Added payment flow for WebPay in Chile for Checkout Custom Offline
   - Updated documentation and regionalized links
 
 ### Changed

@@ -354,7 +354,7 @@
             } else {
                 docCI = 10 - x % 10;
             }
-            return (dig === docCI);
+            return (dig === docCI.toString());
         }
 
         /**

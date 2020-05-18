@@ -59,10 +59,6 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $this->selected_shipping = $order->get_shipping_method();
         $this->ship_cost = $this->order->get_total_shipping() + $this->order->get_shipping_tax();
 
-        if (!$this->test_user_v1 && !$this->sandbox) {
-            $this->preference['sponsor_id'] = $this->get_sponsor_id();
-        }
-
         if (sizeof($this->order->get_items()) > 0) {
             $this->items = $this->get_items_build_array();
         }
@@ -107,6 +103,11 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             'notification_url' => $this->get_notification_url(),
             'statement_descriptor' => $this->payment->getOption('mp_statement_descriptor', 'Mercado Pago'),
         );
+
+        if (!$this->test_user_v1 && !$this->sandbox) {
+            $preference['sponsor_id'] = $this->get_sponsor_id();
+        }
+
         return $preference;
     }
 
