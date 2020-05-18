@@ -129,7 +129,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Added assets versioning
   - Added minification of JS files
   - Added debug mode for JS in order to use files without minification
-  - Added payment flow for WebPay in Colombia for Checkout Custom Offline
+  - Added payment flow for WebPay in Chile for Checkout Custom Offline
   - Updated documentation and regionalized links
 
 * Bug fixes  
