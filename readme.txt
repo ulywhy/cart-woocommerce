@@ -117,7 +117,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 == Changelog ==
 = v4.2.1 (18/05/2020) =
 * Bug fixes 
-  - Corrected CI document input validation on Custom Checkout OFF in Uruguay
+  - Corrected CI document input validation on Uruguay Custom Offline Checkout.
 
 = v4.2.0 (13/05/2020) =
 * Features
@@ -129,7 +129,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Added assets versioning
   - Added minification of JS files
   - Added debug mode for JS in order to use files without minification
-  - Added payment flow for WebPay in Colombia for Checkout Custom Offline
+  - Added payment flow for WebPay in Chile for Checkout Custom Offline
   - Updated documentation and regionalized links
 
 * Bug fixes  
