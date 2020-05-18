@@ -117,7 +117,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 == Changelog ==
 = v4.2.1 (18/05/2020) =
 * Bug fixes 
-  - Corrected CI document input validation on Custom Checkout OFF in Uruguay
+  - Corrected CI document input validation on Uruguay Custom Offline Checkout.
 
 = v4.2.0 (13/05/2020) =
 * Features
