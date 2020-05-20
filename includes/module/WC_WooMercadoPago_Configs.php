@@ -98,7 +98,7 @@ class WC_WooMercadoPago_Configs
     public function noticeUpdateAccessToken()
     {
         $type = 'error';
-        $message = __('Actualizá tus credenciales con las claves Access Token y Public Key ¡las necesitás para seguir recibiendo pagos!', 'woocommerce-mercadopado');
+        $message = __('Update your credentials with the Access Token and Public Key, you need them to continue receiving payments!', 'woocommerce-mercadopado');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 

@@ -263,7 +263,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         if ($key == 'enabled' && $value == 'yes') {
             if (empty($this->mp->get_access_token())) {
-                $message = _('Configure as credenciais para habilitar os métodos de pagamento do Mercado Pago.');
+                $message = _('Configure your credentials to enable Mercado Pago payment methods.');
                 $this->log->write_log(__FUNCTION__, $message);
                 echo json_encode(array('success' => false, 'data' => $message));
                 die();
@@ -746,7 +746,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function field_checkout_credential_title_prod()
     {
         $checkout_credential_title_prod = array(
-            'title' => __('Production credentials!', 'woocommerce-mercadopago'),
+            'title' => __('Production credentials', 'woocommerce-mercadopago'),
             'type' => 'title',
         );
         return $checkout_credential_title_prod;
@@ -1024,7 +1024,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 '</a>'
             ),
             'default' => '',
-            'desc_tip' => __('IPN (Instant Payment Notification) es una notificación de eventos que se realizan en tu plataforma y que se envía de un servidor a otro mediante una llamada HTTP POST. Consulta más información en nuestras guías.', 'woocommerce-services')
+            'desc_tip' => __('IPN (Instant Payment Notification) is a notification of events that take place on your platform and that is sent from one server to another through an HTTP POST call. See more information in our guides.', 'woocommerce-services')
         );
         return $custom_url_ipn;
     }
@@ -1085,7 +1085,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'type' => 'select',
             'default' => 'no',
             'description' => __('Accept and reject payments automatically. Do you want us to activate it?', 'woocommerce-mercadopago'),
-            'desc_tip' => __('Si activas el modo binario no podrás dejar pagos pendientes. Esto puede afectar la prevención de fraude. Dejalo inactivo para estar respaldado por nuestra propia herramienta.', 'woocommerce-services'),
+            'desc_tip' => __('If you activate binary mode you will not be able to leave pending payments. This can affect fraud prevention. Leave it idle to be backed by our own tool.', 'woocommerce-services'),
             'options' => array(
                 'yes' => __('Yes', 'woocommerce-mercadopago'),
                 'no' => __('No', 'woocommerce-mercadopago')
