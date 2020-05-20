@@ -47,7 +47,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             'refunded' => 'refunded',
             'chargedback' => 'refunded'
         );
-        $status = get_option('_mp_order_status_' . $mp_status . '_map', $defaults[$mp_status]);
+        $status = $defaults[$mp_status];
         return str_replace('_', '-', $status);
     }
 
@@ -138,7 +138,10 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function mp_rule_approved($data, $order, $used_gateway)
     {
-        $order->add_order_note('Mercado Pago: ' . __('Payment approved.', 'woocommerce-mercadopago'));
+
+    $order->add_order_note('Mercado Pago: ' . __('Payment approved.', 'woocommerce-mercadopago'));
+
+    if( method_exists( $order, 'get_status' ) && $order->get_status() !== 'completed'){
         switch ($used_gateway) {
             case 'WC_WooMercadoPago_CustomGateway':
                 $save_card = (method_exists($order, 'get_meta')) ?
@@ -163,7 +166,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
                 break;
         }
     }
-
+    }
     /**
      * @param $order
      * @param $usedGateway
