@@ -1,7 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 $GLOBALS['LIB_LOCATION'] = dirname(__FILE__);

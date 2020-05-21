@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class WC_WooMercadoPago_Helpers_CurrencyConverter
  */
@@ -7,14 +11,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 {
     const CONFIG_KEY      = 'currency_conversion';
     const DEFAULT_RATIO   = 1;
-    const MSG_TITLE       = 'Convert Currency';
-    const MSG_DESCRIPTION = 'Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago.';
-    const NOTICE_ENABLED  = 'Now we convert your currency from {%s} to {%s}.';
-    const NOTICE_DISABLED = 'We no longer convert your currency from {%s} to {%s}.';
-    const NOTICE_WARNING  = '<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion.';
 
     /** @var WC_WooMercadoPago_Helpers_CurrencyConverter */
     private static $instance;
+    private $msg_description;
 
     /**
      * @var array
@@ -49,6 +49,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     private function __construct()
     {
+        $this->msg_description = __('Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago.', 'woocommerce-mercadopago');
         $this->log = new WC_WooMercadoPago_Log();
         return $this;
     }
@@ -250,7 +251,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     public function getDescription(WC_WooMercadoPago_PaymentAbstract $method)
     {
-        return $this->__(self::MSG_DESCRIPTION);
+        return $this->msg_description;
     }
 
     /**
@@ -299,10 +300,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     public function getField(WC_WooMercadoPago_PaymentAbstract $method)
     {
         return array(
-            'title'       => $this->__(self::MSG_TITLE),
+            'title'       => __('Convert Currency', 'woocommerce-mercadopago'),
             'type'        => 'select',
             'default'     => 'no',
-            'description' => $this->__(self::MSG_DESCRIPTION),
+            'description' => $this->msg_description,
             'options'     => array(
                 'no'  => $this->__('No'),
                 'yes' => $this->__('Yes'),
@@ -366,7 +367,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
         return '
             <div class="notice notice-success">
-                <p>' . $this->__(self::NOTICE_ENABLED, $localCurrency, $currency) . '</p>
+                <p>' . __('Now we convert your currency from {%s} to {%s}.', $localCurrency, $currency, 'woocommerce-mercadopago') . '</p>
             </div>
         ';
     }
@@ -382,7 +383,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
         return '
             <div class="notice notice-error">
-                <p>' . $this->__(self::NOTICE_DISABLED, $localCurrency, $currency) . '</p>
+                <p>' . __('We no longer convert your currency from {%s} to {%s}.', $localCurrency, $currency, 'woocommerce-mercadopago') . '</p>
             </div>
         ';
     }
@@ -399,7 +400,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             $this->isShowingAlert = true;
 
             $type = 'notice-error';
-            $message = $this->__(self::NOTICE_WARNING);
+            $message =  __('<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion.', 'woocommerce-mercadopago');
 
             return WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
         }
@@ -414,7 +415,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
      */
     private function __($str, ...$values)
     {
-        $translated = __($str, 'woocommerce-mercadopago');
+        $translated = $str;
 
         if (!empty($values)) {
             $translated = vsprintf($translated, $values);
