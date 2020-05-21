@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-05-20 17:37-0300\n"
+"PO-Revision-Date: 2020-05-21 15:06-0300\n"
 "X-Generator: Poedit 2.3.1\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -1360,3 +1360,23 @@ msgstr "Argentina"
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:853
 msgid "Mercado Pago"
 msgstr "Mercado Pago"
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:52
+msgid "Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago."
+msgstr "Activa esta opción para que el valor de la moneda configurada en WooCommerce sea compatible al valor de la moneda que usas en Mercado Pago."
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:303
+msgid "Convert Currency"
+msgstr "Convertir moneda"
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:370
+msgid "Now we convert your currency from {%s} to {%s}."
+msgstr "Ahora convertimos tu moneda de {%s} a {%s}."
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:386
+msgid "We no longer convert your currency from {%s} to {%s}."
+msgstr "Dejamos de convertir tu moneda de {%s} a {%s}."
+
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:403
+msgid "<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion."
+msgstr "<b>Atención:</b> La configuración de moneda que tienes en WooCommerce no es compatible con la moneda que usas en tu cuenta de Mercado Pago. Activa la conversión de moneda."
