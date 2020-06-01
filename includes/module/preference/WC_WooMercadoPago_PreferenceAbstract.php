@@ -7,6 +7,10 @@
  * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
  * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 {
     protected $order;
