@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-05-21 15:06-0300\n"
+"PO-Revision-Date: 2020-05-22 10:17-0300\n"
 "X-Generator: Poedit 2.3.1\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -739,7 +739,7 @@ msgstr "Ingresa tu número de documento"
 
 #: templates/checkout/custom_checkout.php:142
 msgid "Select the number of installment"
-msgstr "Seleccione el número de cotas"
+msgstr "Seleccione el número de cuotas"
 
 #: templates/checkout/custom_checkout.php:134
 #: includes/module/WC_WooMercadoPago_Module.php:553
