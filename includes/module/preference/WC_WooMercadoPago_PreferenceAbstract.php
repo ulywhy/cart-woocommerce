@@ -412,8 +412,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             "sponsor_id" => $this->get_sponsor_id(),
             "collector" => end($seller),
             "test_mode" => $test_mode,
-            "details" => "",
-            "client" => "testGinPLUG602"
+            "details" => ""
         );
 
         return $internal_metadata;
