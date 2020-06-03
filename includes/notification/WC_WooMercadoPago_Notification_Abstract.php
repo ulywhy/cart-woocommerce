@@ -138,34 +138,32 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function mp_rule_approved($data, $order, $used_gateway)
     {
-
-    $order->add_order_note('Mercado Pago: ' . __('Payment approved.', 'woocommerce-mercadopago'));
-
-    if( method_exists( $order, 'get_status' ) && $order->get_status() !== 'completed'){
-        switch ($used_gateway) {
-            case 'WC_WooMercadoPago_CustomGateway':
-                $save_card = (method_exists($order, 'get_meta')) ?
-                    $order->get_meta('_save_card') :
-                    get_post_meta($order->id, '_save_card', true);
-                if ($save_card === 'yes') {
-                    $this->log->write_log(__FUNCTION__, 'Saving customer card: ' . json_encode($data['card'], JSON_PRETTY_PRINT));
-                    $this->check_and_save_customer_card($data);
-                }
-                $order->payment_complete();
-                $order->update_status(self::get_wc_status_for_mp_status('approved'));
-                break;
-            case 'WC_WooMercadoPago_TicketGateway':
-                if (get_option('stock_reduce_mode', 'no') == 'no') {
+        $order->add_order_note('Mercado Pago: ' . __('Payment approved.', 'woocommerce-mercadopago'));
+        $payment_completed_status = apply_filters( 'woocommerce_payment_complete_order_status', $order->needs_processing() ? 'processing' : 'completed', $order->get_id(), $order );
+        if ( method_exists( $order, 'get_status' ) && $order->get_status() !== 'completed' ) {
+            switch ($used_gateway) {
+                case 'WC_WooMercadoPago_CustomGateway':
                     $order->payment_complete();
-                    $order->update_status(self::get_wc_status_for_mp_status('approved'));
-                }
-                break;
-            case 'WC_WooMercadoPago_BasicGateway':
-                $order->payment_complete();
-                $order->update_status(self::get_wc_status_for_mp_status('approved'));
-                break;
+                    if ( $payment_completed_status !== 'completed' ) {
+                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                    }
+                    break;
+                case 'WC_WooMercadoPago_TicketGateway':
+                    if (get_option('stock_reduce_mode', 'no') == 'no') {
+                      $order->payment_complete();
+                      if ( $payment_completed_status !== 'completed' ) {
+                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                      }
+                    }
+                    break;
+                case 'WC_WooMercadoPago_BasicGateway':
+                    $order->payment_complete();
+                    if ( $payment_completed_status !== 'completed' ) {
+                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                    }
+                    break;
+            }
         }
-    }
     }
     /**
      * @param $order
