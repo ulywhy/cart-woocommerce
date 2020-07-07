@@ -28,7 +28,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
 
         add_action('woocommerce_api_' . strtolower(get_class($payment)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
-        add_action('woocommerce_order_action_cancel_order', array($this, 'process_cancel_order_meta_box_actions'));
+        add_action('woocommerce_order_status_cancelled', array($this, 'process_cancel_order_meta_box_actions'), 10, 1);
     }
 
     /**
@@ -254,16 +254,16 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         return;
     }
 
-    /**
+     /**
      * @param $order
      */
     public function process_cancel_order_meta_box_actions($order)
     {
+        $order_payment = wc_get_order($order);
+        $used_gateway = (method_exists($order_payment, 'get_meta')) ? $order_payment->get_meta('_used_gateway') : get_post_meta($order_payment->id, '_used_gateway', true);
+        $payments = (method_exists($order_payment, 'get_meta')) ? $order_payment->get_meta('_Mercado_Pago_Payment_IDs') : get_post_meta($order_payment->id, '_Mercado_Pago_Payment_IDs', true);
 
-        $used_gateway = (method_exists($order, 'get_meta')) ? $order->get_meta('_used_gateway') : get_post_meta($order->id, '_used_gateway', true);
-        $payments = (method_exists($order, 'get_meta')) ? $order->get_meta('_Mercado_Pago_Payment_IDs') : get_post_meta($order->id, '_Mercado_Pago_Payment_IDs', true);
-
-        if ($used_gateway != 'WC_WooMercadoPago_CustomGateway') {
+        if ($used_gateway == 'WC_WooMercadoPago_CustomGateway') {
             return;
         }
         $this->log->write_log(__FUNCTION__, 'cancelling payments for ' . $payments);
