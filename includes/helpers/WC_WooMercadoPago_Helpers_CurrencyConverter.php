@@ -205,6 +205,11 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
                 array('uri' => sprintf('/currency_conversions/search?from=%s&to=%s', $fromCurrency, $toCurrency))
             );
 
+            if ($result['status'] != 200) {
+                $this->log->write_log(__FUNCTION__, 'Mercado pago gave error to get currency value, payment creation failed with error: ' . print_r($result));
+                return false;
+            }
+
             if (isset($result['response'], $result['response']['ratio'])) {
                 $ratio = $result['response']['ratio'] > 0 ? $result['response']['ratio'] : self::DEFAULT_RATIO;
             }
