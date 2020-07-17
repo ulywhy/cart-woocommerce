@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 4.2.1
+Stable tag: 4.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,7 +72,7 @@ Help us translate WordPress: [Translate](https://translate.wordpress.org/project
 
 = Minimum Technical Requirements =
 * WordPress version
-* Compatibility and dependency of WooCommerce VXX 
+* Compatibility and dependency of WooCommerce VXX
 * LAMP Environment (Linux, Apache, MySQL, PHP)
 * SSL Certificate
 * Additional configuration: safe_mode off, memory_limit higher than 256MB
@@ -115,8 +115,13 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
+= v4.2.2 (27/07/2020) =
+* Bug fixes
+* Features
+
+== Changelog ==
 = v4.2.1 (18/05/2020) =
-* Bug fixes 
+* Bug fixes
   - Corrected CI document input validation on Uruguay Custom Offline Checkout.
 
 = v4.2.0 (13/05/2020) =
@@ -132,12 +137,12 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Added payment flow for WebPay in Chile for Checkout Custom Offline
   - Updated documentation and regionalized links
 
-* Bug fixes  
+* Bug fixes
   - Corrected notification status on charged_back
   - Corrected issue when invalid credentials were switched
   - Corrected checkout options for Store Name, Store Category and Store ID
   - Corrected validation on the cardNumber field whenever card number is removed
-  - Corrected input masks on CPNJ and CPF; CNPJ validation and translation in Brazil for Custom Checkout Offline; 
+  - Corrected input masks on CPNJ and CPF; CNPJ validation and translation in Brazil for Custom Checkout Offline;
   - Corrected mercadopago.js loading
   - Corrected processing of payment status notifications
   - Corrected personalized URLs for successful, refused and pending payments on Checkout Mercado Pago
@@ -184,7 +189,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Fix PT-BR debit card translation on admin.
   - Fix PT-BR debit card translation on checkout.
   - Remove "One Step Checkout" from CHO Custom Off.
-  - Remove Mercado Creditos from Custom CHO OFF. 
+  - Remove Mercado Creditos from Custom CHO OFF.
   - Fixed issue to check if WooCommerce plugin is installed
 
 * Break change
@@ -223,7 +228,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Fixed input blank in basic checkout config
 
 = v4.0.2 (02/09/2019) =
-* Feature All 
+* Feature All
   - Performance improvement
   - UX and UI improvements
   - Code refactoring
@@ -236,7 +241,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Logs to assist support and integration
 * Bug fixes
   - Added product_id
-  - Fixed payment account_money 
+  - Fixed payment account_money
   - Fixed translation Spanish Neutral and Argentino
 
 = v4.0.2-Beta (13/08/2019) =
@@ -247,7 +252,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Fixed title space checkout custom
 
 = v4.0.1-Beta (09/08/2019) =
-* Bug fixes 
+* Bug fixes
   - Fixed notification IPN and Webhook
   - Fixed payment processing
   - Fixed Argentina ticket checkout
@@ -255,7 +260,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Fixed layout checkouts
 
 = v4.0.0-Beta (02/08/2019) =
-* Feature All 
+* Feature All
   - Performance improvement
   - UX and UI improvements
   - Code refactoring
@@ -268,24 +273,24 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
   - Logs to assist support and integration
 
 = v3.1.1 (03/05/2019) =
-* Feature All 	
+* Feature All
   - Added alert message on all ADMIN pages for setting access_token and public_key credentials, as client_id and client_secret credentials will no longer be used. Basic Checkout will continue to work by setting these new credentials.
   - We have added minor translation enhancements.
   - We add error message when any API error occurs while validating credentials.
 
 = v3.1.0 (17/04/2019) =
-* Feature All   	
+* Feature All
   - We are no longer using client_id and client_secret credentials. This will affect the functioning of the basic checkout. You will need to configure access_token and public_key, in the plugin settings have. You can access the link to get the credentials inside of configurations of plugin.
 * Improvements
   - Performance enhancements have been made, removing unnecessary requests and adding scope limitation for some functionality.
 
 = v3.0.17 (07/08/2018) =
-* Feature All 
+* Feature All
   - Adding X Product ID
   - Migration from v0 (collections) to v1
-  
+
 = v3.0.16 (20/07/2018) =
-* Feature MCO 
+* Feature MCO
   - Adding PSE gateway for Colombia
 * Improvements
   - Some code improvements
