@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Mercado Pago payments for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Mercado Pago payments for WooCommerce 4.2.1\n"
+"Project-Id-Version: Mercado Pago payments for WooCommerce 4.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-mercadopago\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-05-22 10:16-0300\n"
+"PO-Revision-Date: 2020-07-17 16:37-0300\n"
 "X-Generator: Poedit 2.3.1\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -656,7 +656,7 @@ msgstr "<b>Configura las preferencias de pago</b> para tus clientes."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:428
 msgid "<b>Add the basic information of your business</b> in the plugin configuration."
-msgstr "<b>Añade la información básica de tu negocio</b> en la configuración del plugin"
+msgstr "<b>Añade la información básica de tu negocio</b> en la configuración del plugin."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:421
 msgid "<b>Approve your account</b> to be able to charge."
