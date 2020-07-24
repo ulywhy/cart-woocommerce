@@ -278,7 +278,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     public function noticeHomologValidate()
     {
         $type = 'notice-warning';
-        $message = sprintf(__('%s, it only takes a few minutes', 'woocommerce-mercadopago'), '<a class="homologScroll mp-mouse_pointer"><b><u>' . __('Approve your account', 'woocommerce-mercadopago') . '</u></b></a>');
+        $message = sprintf(__('%s, it only takes a few minutes', 'woocommerce-mercadopago'), '<a class="mp-mouse_pointer" href="https://www.mercadopago.com/' . $this->checkout_country . '/account/credentials/appliance?application_id=' . $this->application_id . '" target="_blank"><b><u>' . __('Approve your account', 'woocommerce-mercadopago') . '</u></b></a>');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -287,7 +287,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      * @return array
      */
     public function getFormFields($label)
-    {    
+    {
         $this->init_form_fields();
         $this->init_settings();
         $form_fields = array();
@@ -407,14 +407,14 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => sprintf(
                 '<div class="mp-row">
               <h4 class="mp-title-checkout-body mp-pb-20">' . __('<b>Follow these steps to activate Mercado Pago in your store:</b>', 'woocommerce-mercadopago') . '</h4>
-              
+
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">1</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
                   ' . __('<b>Upload your credentials</b> depending on the country in which you are registered.', 'woocommerce-mercadopago') . '
                 </p>
               </div>
-            
+
               <div class="mp-col-md-2 mp-text-center mp-pb-10">
                 <p class="mp-number-checkout-body">2</p>
                 <p class="mp-text-steps mp-text-center mp-px-20">
