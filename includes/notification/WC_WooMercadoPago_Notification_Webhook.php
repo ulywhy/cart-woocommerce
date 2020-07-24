@@ -89,27 +89,6 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
     }
 
     /**
-     * @param $order
-     */
-    public function process_cancel_order_meta_box_actions($order)
-    {
-        $payments = (method_exists($order, 'get_meta')) ? $order->get_meta('_Mercado_Pago_Payment_IDs') : get_post_meta($order->id, '_Mercado_Pago_Payment_IDs', true);
-        $this->log->write_log(__FUNCTION__, 'cancelling payments for ' . $payments);
-        // Canceling the order and all of its payments.
-        if ($this->mp != null && !empty($payments)) {
-            $payment_ids = explode(', ', $payments);
-            foreach ($payment_ids as $p_id) {
-                $response = $this->mp->cancel_payment($p_id);
-                $message = $response['response']['message'];
-                $status = $response['status'];
-                $this->log->write_log(__FUNCTION__, 'cancel payment of id ' . $p_id . ' => ' . ($status >= 200 && $status < 300 ? 'SUCCESS' : 'FAIL - ' . $message));
-            }
-        } else {
-            $this->log->write_log(__FUNCTION__, 'no payments or credentials invalid');
-        }
-    }
-
-    /**
      * @param $checkout_info
      */
     public function check_and_save_customer_card($checkout_info)

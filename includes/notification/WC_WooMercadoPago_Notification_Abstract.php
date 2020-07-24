@@ -229,7 +229,6 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function mp_rule_cancelled($order)
     {
-        $this->process_cancel_order_meta_box_actions($order);
         $order->update_status(self::get_wc_status_for_mp_status('cancelled'), 'Mercado Pago: ' . __('Payment was canceled.', 'woocommerce-mercadopago'));
         return;
     }
@@ -272,9 +271,8 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             $payment_ids = explode(', ', $payments);
             foreach ($payment_ids as $p_id) {
                 $response = $this->mp->cancel_payment($p_id);
-                $message = $response['response']['message'];
                 $status = $response['status'];
-                $this->log->write_log(__FUNCTION__, 'cancel payment of id ' . $p_id . ' => ' . ($status >= 200 && $status < 300 ? 'SUCCESS' : 'FAIL - ' . $message));
+                $this->log->write_log(__FUNCTION__, 'cancel payment of id ' . $p_id . ' => ' . ($status >= 200 && $status < 300 ? 'SUCCESS' : 'FAIL - ' . $response['response']['message']));
             }
         } else {
             $this->log->write_log(__FUNCTION__, 'no payments or credentials invalid');
