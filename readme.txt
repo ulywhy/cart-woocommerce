@@ -116,8 +116,18 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 
 == Changelog ==
 = v4.2.2 (27/07/2020) =
-* Bug fixes
 * Features
+  - Added feature: cancelled orders on WooCommerce are automatically cancelled on Mercado Pago
+
+* Bug fixes
+  - Fixed notification bug - No longer updates completed orders
+  - Fixed currency conversion API - No longer allows payments without currency conversion
+  - Fixed payment procesisng for virtual products
+  - Added ABSPATH in every PHP file
+  - Adjusted installments translation
+  - Adjusted state names for Transparent Checkout in Brazil
+  - Adjusted currency translation translations
+  - Removed text in code written in Spanish
 
 == Changelog ==
 = v4.2.1 (18/05/2020) =
