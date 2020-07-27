@@ -7,7 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.2.2] - 2020-07-27
 
+### Added
+  - Added feature: cancelled orders on WooCommerce are automatically cancelled on Mercado Pago
+
 ### Changed
+  - Fixed notification bug - No longer updates completed orders
+  - Fixed currency conversion API - No longer allows payments without currency conversion
+  - Fixed payment procesisng for virtual products
+  - Added ABSPATH in every PHP file
+  - Adjusted installments translation
+  - Adjusted state names for Transparent Checkout in Brazil
+  - Adjusted currency translation translations
+  - Removed text in code written in Spanish
 
 ## [4.2.1] - 2020-05-18
 
