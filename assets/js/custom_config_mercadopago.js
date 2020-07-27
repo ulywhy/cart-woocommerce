@@ -101,13 +101,4 @@ window.onload = function () {
       }
     };
   }
-
-  if (document.querySelector('.homologScroll') != null) {
-    document.querySelector('.homologScroll').addEventListener('click', function () {
-      document.querySelector('#woocommerce_woo-mercado-pago-custom__mp_access_token_prod').scrollIntoView({
-        block: 'start',
-        behavior: 'smooth'
-      });
-    });
-  }
 };
