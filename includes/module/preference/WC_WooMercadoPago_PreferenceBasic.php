@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Part of Woo Mercado Pago Module
  * Author - Mercado Pago
@@ -6,6 +7,10 @@
  * Copyright - Copyright(c) MercadoPago [https://www.mercadopago.com]
  * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbstract
 {

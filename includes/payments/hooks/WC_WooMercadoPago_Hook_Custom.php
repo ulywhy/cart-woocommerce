@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WC_WooMercadoPago_Hook_Custom extends WC_WooMercadoPago_Hook_Abstract
 {
     /**
