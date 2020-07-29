@@ -206,7 +206,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             );
 
             if ($result['status'] != 200) {
-                $this->log->write_log(__FUNCTION__, 'Mercado pago gave error to get currency value, payment creation failed with error: ' . print_r($result));
+                $this->log->write_log(__FUNCTION__, 'Mercado pago gave error to get currency value, payment creation failed with error: ' . print_r($result, true));
                 return false;
             }
 

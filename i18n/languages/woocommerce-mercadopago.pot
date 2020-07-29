@@ -38,19 +38,19 @@ msgstr ""
 msgid "Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago."
 msgstr ""
 
-#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:303
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:308
 msgid "Convert Currency"
 msgstr ""
 
-#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:370
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:375
 msgid "Now we convert your currency from {%s} to {%s}."
 msgstr ""
 
-#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:386
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:391
 msgid "We no longer convert your currency from {%s} to {%s}."
 msgstr ""
 
-#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:403
+#: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:408
 msgid "<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion."
 msgstr ""
 
@@ -206,11 +206,11 @@ msgstr ""
 msgid "Payment was returned to the customer."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:233
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:232
 msgid "Payment was canceled."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:243, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:253
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:242, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:252
 msgid "The payment is in mediation or the purchase was unknown by the customer."
 msgstr ""
 
@@ -230,11 +230,11 @@ msgstr ""
 msgid "Not found Payments into Merchant_Order"
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_IPN.php:147, includes/notification/WC_WooMercadoPago_Notification_IPN.php:122, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:178, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:160
+#: includes/notification/WC_WooMercadoPago_Notification_IPN.php:147, includes/notification/WC_WooMercadoPago_Notification_IPN.php:122, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:157, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:139
 msgid "Buyer email"
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_IPN.php:150, includes/notification/WC_WooMercadoPago_Notification_IPN.php:125, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:181, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:163
+#: includes/notification/WC_WooMercadoPago_Notification_IPN.php:150, includes/notification/WC_WooMercadoPago_Notification_IPN.php:125, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:160, includes/notification/WC_WooMercadoPago_Notification_Webhook.php:142
 msgid "Payment method"
 msgstr ""
 
