@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-07-17 16:37-0300\n"
-"X-Generator: Poedit 2.3.1\n"
+"PO-Revision-Date: 2020-07-30 18:44-0300\n"
+"X-Generator: Poedit 2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -391,7 +391,7 @@ msgstr "Se produjo un problema al procesar su pago. ¿Está seguro de que ha lle
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:340
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:489
 msgid "Payment methods"
-msgstr "Medios de"
+msgstr "Medios de pagos"
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:333
 msgid "All payment methods"
