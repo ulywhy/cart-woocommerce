@@ -90,7 +90,8 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
                 $this->setRatio($method->id, $this->loadRatio($localCurrency, $accountCurrency));
             } catch (Exception $e) {
-                $this->setRatio($method->id);
+                  $this->setRatio($method->id);
+                  throw $e;
             }
         }
 
@@ -207,18 +208,22 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
             if ($result['status'] != 200) {
                 $this->log->write_log(__FUNCTION__, 'Mercado pago gave error to get currency value, payment creation failed with error: ' . print_r($result, true));
-                return false;
+                $ratio = self::DEFAULT_RATIO;
+                throw new Exception('Status: ' . $result['status'] . ' Message: ' . $result['response']['message']);
             }
 
             if (isset($result['response'], $result['response']['ratio'])) {
                 $ratio = $result['response']['ratio'] > 0 ? $result['response']['ratio'] : self::DEFAULT_RATIO;
             }
         } catch (Exception $e) {
+
             //error getting from API
             $this->log->write_log(
                 "WC_WooMercadoPago_Helpers_CurrencyConverter::loadRatio('$fromCurrency', '$toCurrency')",
                 $e->__toString()
             );
+
+            throw $e;
         }
 
         $this->cache[$cacheKey] = $ratio;
@@ -372,8 +377,8 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
         return '
             <div class="notice notice-success">
-                <p>' . __('Now we convert your currency from {%s} to {%s}.', $localCurrency, $currency, 'woocommerce-mercadopago') . '</p>
-            </div>
+                <p>' . sprintf( __('Now we convert your currency from %s to %s.', 'woocommerce-mercadopago'), $localCurrency, $currency ) . '</p>
+                </div>
         ';
     }
 
@@ -388,7 +393,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
         return '
             <div class="notice notice-error">
-                <p>' . __('We no longer convert your currency from {%s} to {%s}.', $localCurrency, $currency, 'woocommerce-mercadopago') . '</p>
+                <p>' . sprintf( __('We no longer convert your currency from %s to %s.', 'woocommerce-mercadopago'), $localCurrency, $currency) . '</p>
             </div>
         ';
     }

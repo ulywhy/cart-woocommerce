@@ -307,6 +307,12 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             }
         }
 
+        try {
+            $currency_ratio = WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this);
+        } catch (Exception $e) {
+            $currency_ratio = WC_WooMercadoPago_Helpers_CurrencyConverter::DEFAULT_RATIO;
+        }
+
         $parameters = array(
             'amount' => $amount,
             'site_id' => $this->getOption('_site_id_v1'),
@@ -315,7 +321,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'discount_action_url' => $this->discount_action_url,
             'payer_email' => $this->logged_user_email,
             'images_path' => plugins_url('../assets/images/', plugin_dir_path(__FILE__)),
-            'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
+            'currency_ratio' => $currency_ratio,
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
             'debit_card' => $debit_card,
