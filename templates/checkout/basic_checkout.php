@@ -1,6 +1,7 @@
 <?php
-if (!defined('ABSPATH')) {
-    exit;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 ?>
 <div class="mp-panel-checkout">

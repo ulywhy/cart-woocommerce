@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.2] - 2020-07-27
+
+### Added
+  - Added feature: cancelled orders on WooCommerce are automatically cancelled on Mercado Pago
+
+### Changed
+  - Fixed notification bug - No longer updates completed orders
+  - Fixed currency conversion API - No longer allows payments without currency conversion
+  - Fixed payment procesisng for virtual products
+  - Added ABSPATH in every PHP file
+  - Adjusted installments translation
+  - Adjusted state names for Transparent Checkout in Brazil
+  - Adjusted currency translation translations
+  - Removed text in code written in Spanish
+
 ## [4.2.1] - 2020-05-18
 
 ### Changed
@@ -29,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Corrected issue when invalid credentials were switched
   - Corrected checkout options for Store Name, Store Category and Store ID
   - Corrected validation on the cardNumber field whenever card number is removed
-  - Corrected input masks on CPNJ and CPF; CNPJ validation and translation in Brazil for Custom Checkout Offline; 
+  - Corrected input masks on CPNJ and CPF; CNPJ validation and translation in Brazil for Custom Checkout Offline;
   - Corrected mercadopago.js loading
   - Corrected processing of payment status notifications
   - Corrected personalized URLs for successful, refused and pending payments on Checkout Mercado Pago
@@ -64,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
    - Updated plugin name from "WooCommerce Mercado Pago" to "Mercado Pago payments for WooCommerce".
- - [PLUG-459] 
+ - [PLUG-459]
    - Fixed credential issue when the plugin is upgraded from version 3.x.x to 4xx. Unable to save empty credential.
    - Fixed issue to validate credential when checkout is active. The same problem occurs when removing the enabled checkout credential.
    - Fixed error: Undefined index: MLA in WC_WooMercadoPago_Credentials.php on line 163.
@@ -78,11 +93,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - Fixed Layout of checkout custom input.
    - Fixed translation of Modo Producción, Habilitá and definí
 - [PLUG-459-2] Refactored Javascript code for custom checkout Debit and credit card. Performance improvement, reduced number of SDK calls. Fixed validation errors. Javascript code refactored to the order review page. Removed select from mexico payment method.
-- [PLUG-462] 
+- [PLUG-462]
   - Fixed Uncaught Error call to a member function update_status() in WC_WooMercadoPago_Notification_Abstract.php. Handle Mercado Pago Notification Failures and Exceptions.
   - Fixed Uncaught Error call to a member function update_status() in WC_WooMercadoPago_Notification_Abstract.php. Handle Mercado Pago Notification Failures and Exceptions.
-- [PLUG-463] 
-  - Remove Mercado Creditos from Custom CHO OFF. 
+- [PLUG-463]
+  - Remove Mercado Creditos from Custom CHO OFF.
   - Fix PT-BR debit card translation on admin.
   - Fix PT-BR debit card translation on checkout.
   - Remove "One Step Checkout" from CHO Custom Off.

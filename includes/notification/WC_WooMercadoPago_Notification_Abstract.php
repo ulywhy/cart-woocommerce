@@ -1,7 +1,7 @@
 <?php
 
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 /**
@@ -28,7 +28,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
 
         add_action('woocommerce_api_' . strtolower(get_class($payment)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
-        add_action('woocommerce_order_action_cancel_order', array($this, 'process_cancel_order_meta_box_actions'));
+        add_action('woocommerce_order_status_cancelled', array($this, 'process_cancel_order_meta_box_actions'), 10, 1);
     }
 
     /**
@@ -47,7 +47,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             'refunded' => 'refunded',
             'chargedback' => 'refunded'
         );
-        $status = get_option('_mp_order_status_' . $mp_status . '_map', $defaults[$mp_status]);
+        $status = $defaults[$mp_status];
         return str_replace('_', '-', $status);
     }
 
@@ -139,31 +139,32 @@ abstract class WC_WooMercadoPago_Notification_Abstract
     public function mp_rule_approved($data, $order, $used_gateway)
     {
         $order->add_order_note('Mercado Pago: ' . __('Payment approved.', 'woocommerce-mercadopago'));
-        switch ($used_gateway) {
-            case 'WC_WooMercadoPago_CustomGateway':
-                $save_card = (method_exists($order, 'get_meta')) ?
-                    $order->get_meta('_save_card') :
-                    get_post_meta($order->id, '_save_card', true);
-                if ($save_card === 'yes') {
-                    $this->log->write_log(__FUNCTION__, 'Saving customer card: ' . json_encode($data['card'], JSON_PRETTY_PRINT));
-                    $this->check_and_save_customer_card($data);
-                }
-                $order->payment_complete();
-                $order->update_status(self::get_wc_status_for_mp_status('approved'));
-                break;
-            case 'WC_WooMercadoPago_TicketGateway':
-                if (get_option('stock_reduce_mode', 'no') == 'no') {
+        $payment_completed_status = apply_filters( 'woocommerce_payment_complete_order_status', $order->needs_processing() ? 'processing' : 'completed', $order->get_id(), $order );
+        if ( method_exists( $order, 'get_status' ) && $order->get_status() !== 'completed' ) {
+            switch ($used_gateway) {
+                case 'WC_WooMercadoPago_CustomGateway':
                     $order->payment_complete();
-                    $order->update_status(self::get_wc_status_for_mp_status('approved'));
-                }
-                break;
-            case 'WC_WooMercadoPago_BasicGateway':
-                $order->payment_complete();
-                $order->update_status(self::get_wc_status_for_mp_status('approved'));
-                break;
+                    if ( $payment_completed_status !== 'completed' ) {
+                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                    }
+                    break;
+                case 'WC_WooMercadoPago_TicketGateway':
+                    if (get_option('stock_reduce_mode', 'no') == 'no') {
+                      $order->payment_complete();
+                      if ( $payment_completed_status !== 'completed' ) {
+                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                      }
+                    }
+                    break;
+                case 'WC_WooMercadoPago_BasicGateway':
+                    $order->payment_complete();
+                    if ( $payment_completed_status !== 'completed' ) {
+                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                    }
+                    break;
+            }
         }
     }
-
     /**
      * @param $order
      * @param $usedGateway
@@ -228,7 +229,6 @@ abstract class WC_WooMercadoPago_Notification_Abstract
      */
     public function mp_rule_cancelled($order)
     {
-        $this->process_cancel_order_meta_box_actions($order);
         $order->update_status(self::get_wc_status_for_mp_status('cancelled'), 'Mercado Pago: ' . __('Payment was canceled.', 'woocommerce-mercadopago'));
         return;
     }
@@ -253,16 +253,16 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         return;
     }
 
-    /**
+     /**
      * @param $order
      */
     public function process_cancel_order_meta_box_actions($order)
     {
+        $order_payment = wc_get_order($order);
+        $used_gateway = (method_exists($order_payment, 'get_meta')) ? $order_payment->get_meta('_used_gateway') : get_post_meta($order_payment->id, '_used_gateway', true);
+        $payments = (method_exists($order_payment, 'get_meta')) ? $order_payment->get_meta('_Mercado_Pago_Payment_IDs') : get_post_meta($order_payment->id, '_Mercado_Pago_Payment_IDs', true);
 
-        $used_gateway = (method_exists($order, 'get_meta')) ? $order->get_meta('_used_gateway') : get_post_meta($order->id, '_used_gateway', true);
-        $payments = (method_exists($order, 'get_meta')) ? $order->get_meta('_Mercado_Pago_Payment_IDs') : get_post_meta($order->id, '_Mercado_Pago_Payment_IDs', true);
-
-        if ($used_gateway != 'WC_WooMercadoPago_CustomGateway') {
+        if ($used_gateway == 'WC_WooMercadoPago_CustomGateway') {
             return;
         }
         $this->log->write_log(__FUNCTION__, 'cancelling payments for ' . $payments);
@@ -271,9 +271,8 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             $payment_ids = explode(', ', $payments);
             foreach ($payment_ids as $p_id) {
                 $response = $this->mp->cancel_payment($p_id);
-                $message = $response['response']['message'];
                 $status = $response['status'];
-                $this->log->write_log(__FUNCTION__, 'cancel payment of id ' . $p_id . ' => ' . ($status >= 200 && $status < 300 ? 'SUCCESS' : 'FAIL - ' . $message));
+                $this->log->write_log(__FUNCTION__, 'cancel payment of id ' . $p_id . ' => ' . ($status >= 200 && $status < 300 ? 'SUCCESS' : 'FAIL - ' . $response['response']['message']));
             }
         } else {
             $this->log->write_log(__FUNCTION__, 'no payments or credentials invalid');
