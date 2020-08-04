@@ -216,8 +216,6 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
                 $ratio = $result['response']['ratio'] > 0 ? $result['response']['ratio'] : self::DEFAULT_RATIO;
             }
         } catch (Exception $e) {
-
-            //error getting from API
             $this->log->write_log(
                 "WC_WooMercadoPago_Helpers_CurrencyConverter::loadRatio('$fromCurrency', '$toCurrency')",
                 $e->__toString()
