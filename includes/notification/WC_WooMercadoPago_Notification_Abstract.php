@@ -332,11 +332,9 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             if ($item['product_id'] > 0) {
                 $_product = wc_get_product($item['product_id']);
                 if ($_product && $_product->exists() && $_product->managing_stock()) {
-                    $old_stock = $_product->stock;
                     $qty = apply_filters('woocommerce_order_item_quantity', $item['qty'], $this, $item);
-                    $new_quantity = wc_update_product_stock($_product, $qty, 'increase');
+                    wc_update_product_stock($_product, $qty, 'increase');
                     do_action('woocommerce_auto_stock_restored', $_product, $item);
-                    $order->add_order_note(sprintf(__('Item #%s stock incremented from %s to %s.', 'woocommerce'), $item['product_id'], $old_stock, $new_quantity));
                 }
             }
         }
