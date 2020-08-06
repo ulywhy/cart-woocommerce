@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-07-30 18:47-0300\n"
+"PO-Revision-Date: 2020-08-03 18:39-0300\n"
 "X-Generator: Poedit 2.4\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -1367,12 +1367,12 @@ msgid "Convert Currency"
 msgstr "Converter moeda"
 
 #: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:370
-msgid "Now we convert your currency from {%s} to {%s}."
-msgstr "Agora convertemos sua moeda de {%s} para {%s}."
+msgid "Now we convert your currency from %s to %s."
+msgstr "Agora convertemos sua moeda de %s para %s."
 
 #: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:386
-msgid "We no longer convert your currency from {%s} to {%s}."
-msgstr "Paramos de converter sua moreda de {%s} para {%s}."
+msgid "We no longer convert your currency from %s to %s."
+msgstr "Paramos de converter sua moreda de %s para %s."
 
 #: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:403
 msgid "<b>Attention:</b> The currency settings you have in WooCommerce are not compatible with the currency you use in your Mercado Pago account. Please activate the currency conversion."

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -384,6 +384,12 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $country = get_user_meta(wp_get_current_user()->ID, 'billing_country', true);
         $address .= (!empty($country) ? ' - ' . $country : '');
 
+        try {
+            $currency_ratio = WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this);
+        } catch (Exception $e) {
+            $currency_ratio = WC_WooMercadoPago_Helpers_CurrencyConverter::DEFAULT_RATIO;
+        }
+
         $parameters = array(
             'amount' => $amount,
             'payment_methods' => $this->activated_payment,
@@ -391,7 +397,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'coupon_mode' => isset($logged_user_email) ? $this->coupon_mode : 'no',
             'discount_action_url' => $this->discount_action_url,
             'payer_email' => $logged_user_email,
-            'currency_ratio' => WC_WooMercadoPago_Helpers_CurrencyConverter::getInstance()->ratio($this),
+            'currency_ratio' => $currency_ratio,
             'woocommerce_currency' => get_woocommerce_currency(),
             'account_currency' => $this->site_data['currency'],
             'febraban' => (wp_get_current_user()->ID != 0) ?
@@ -623,4 +629,3 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         return WC_WooMercadoPago_TicketGateway::ID;
     }
 }
-
