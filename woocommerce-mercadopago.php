@@ -57,11 +57,20 @@ if (class_exists('WC_WooMercadoPago_Module')) {
  *
  * @since 3.0.1
  */
-function woocommerce_mercadopago_load_plugin_textdomain() {
-	load_plugin_textdomain( 'woocommerce-mercadopago', false, dirname( plugin_basename( __FILE__ ) ) . '/i18n/languages/' );
+function woocommerce_mercadopago_load_plugin_textdomain()
+{
+    $text_domain = 'woocommerce-mercadopago';
+    $locale = apply_filters('plugin_locale', get_locale(), $text_domain);
+
+    $original_language_file = dirname(__FILE__) . '/i18n/languages/woocommerce-mercadopago-' . $locale . '.mo';
+
+    // Unload the translation for the text domain of the plugin
+    unload_textdomain($text_domain);
+    // Load first the override file
+    load_textdomain($text_domain, $original_language_file);
 }
 
-add_action( 'init', 'woocommerce_mercadopago_load_plugin_textdomain' );
+add_action('plugins_loaded', 'woocommerce_mercadopago_load_plugin_textdomain');
 
 /**
  * Notice about unsupported PHP version.
