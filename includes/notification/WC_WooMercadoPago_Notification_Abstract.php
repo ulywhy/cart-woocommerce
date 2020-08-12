@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -29,6 +29,13 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         add_action('woocommerce_api_' . strtolower(get_class($payment)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
         add_action('woocommerce_order_status_cancelled', array($this, 'process_cancel_order_meta_box_actions'), 10, 1);
+
+        add_action('woocommerce_order_status_processing_to_cancelled', array($this, 'restore_stock_item'), 10, 1);
+        add_action('woocommerce_order_status_completed_to_cancelled', array($this, 'restore_stock_item'), 10, 1);
+        add_action('woocommerce_order_status_on-hold_to_cancelled', array($this, 'restore_stock_item'), 10, 1);
+        add_action('woocommerce_order_status_processing_to_refunded', array($this, 'restore_stock_item'), 10, 1);
+        add_action('woocommerce_order_status_completed_to_refunded', array($this, 'restore_stock_item'), 10, 1);
+        add_action('woocommerce_order_status_on-hold_to_refunded', array($this, 'restore_stock_item'), 10, 1);
     }
 
     /**
@@ -139,32 +146,33 @@ abstract class WC_WooMercadoPago_Notification_Abstract
     public function mp_rule_approved($data, $order, $used_gateway)
     {
         $order->add_order_note('Mercado Pago: ' . __('Payment approved.', 'woocommerce-mercadopago'));
-        $payment_completed_status = apply_filters( 'woocommerce_payment_complete_order_status', $order->needs_processing() ? 'processing' : 'completed', $order->get_id(), $order );
-        if ( method_exists( $order, 'get_status' ) && $order->get_status() !== 'completed' ) {
+        $payment_completed_status = apply_filters('woocommerce_payment_complete_order_status', $order->needs_processing() ? 'processing' : 'completed', $order->get_id(), $order);
+        if (method_exists($order, 'get_status') && $order->get_status() !== 'completed') {
             switch ($used_gateway) {
                 case 'WC_WooMercadoPago_CustomGateway':
                     $order->payment_complete();
-                    if ( $payment_completed_status !== 'completed' ) {
-                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                    if ($payment_completed_status !== 'completed') {
+                        $order->update_status(self::get_wc_status_for_mp_status('approved'));
                     }
                     break;
                 case 'WC_WooMercadoPago_TicketGateway':
                     if (get_option('stock_reduce_mode', 'no') == 'no') {
-                      $order->payment_complete();
-                      if ( $payment_completed_status !== 'completed' ) {
-                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
-                      }
+                        $order->payment_complete();
+                        if ($payment_completed_status !== 'completed') {
+                            $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                        }
                     }
                     break;
                 case 'WC_WooMercadoPago_BasicGateway':
                     $order->payment_complete();
-                    if ( $payment_completed_status !== 'completed' ) {
-                      $order->update_status(self::get_wc_status_for_mp_status('approved'));
+                    if ($payment_completed_status !== 'completed') {
+                        $order->update_status(self::get_wc_status_for_mp_status('approved'));
                     }
                     break;
             }
         }
     }
+
     /**
      * @param $order
      * @param $usedGateway
@@ -253,7 +261,7 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         return;
     }
 
-     /**
+    /**
      * @param $order
      */
     public function process_cancel_order_meta_box_actions($order)
@@ -309,6 +317,26 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             $this->mp->create_card_in_customer($custId, $token, $payment_method_id, $issuer_id);
         } catch (WC_WooMercadoPago_Exception $ex) {
             $this->log->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        }
+    }
+
+    public function restore_stock_item($order_id)
+    {
+        $order = new WC_Order($order_id);
+
+        if (!get_option('woocommerce_manage_stock') == 'yes' && !sizeof($order->get_items()) > 0) {
+            return;
+        }
+
+        foreach ($order->get_items() as $item) {
+            if ($item['product_id'] > 0) {
+                $_product = wc_get_product($item['product_id']);
+                if ($_product && $_product->exists() && $_product->managing_stock()) {
+                    $qty = apply_filters('woocommerce_order_item_quantity', $item['qty'], $this, $item);
+                    wc_update_product_stock($_product, $qty, 'increase');
+                    do_action('woocommerce_auto_stock_restored', $_product, $item);
+                }
+            }
         }
     }
 
