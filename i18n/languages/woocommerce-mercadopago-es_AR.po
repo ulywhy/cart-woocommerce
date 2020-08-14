@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-08-03 18:38-0300\n"
-"X-Generator: Poedit 2.4\n"
+"PO-Revision-Date: 2020-08-13 17:23-0300\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -154,7 +154,7 @@ msgstr "Checkout de Mercado Pago"
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:220
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:269
 msgid "Configure Mercado Pago for WooCommerce"
-msgstr "Configura Mercado Pago para WooCommerce"
+msgstr "Ingresá la información de tu negocio"
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:199
 msgid "Accept face-to-face payments, do not leave anyone out!"
@@ -349,15 +349,15 @@ msgstr "Estamos procesando su pago. En menos de una hora le enviaremos el result
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:224
 msgid "Advanced configuration of the personalized payment experience\""
-msgstr "Configuración avanzada de la experiencia de pago personalizada"
+msgstr "Configuración Avanzada"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:211
 msgid "Configure the personalized payment experience in your store"
-msgstr "Configura la experiencia de pago personalizada en tu tienda"
+msgstr "Configura las preferencias de pago en tu tienda"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:185
 msgid "Set up the payment experience in your store"
-msgstr "Configura la experiencia de pago en tu tienda"
+msgstr "Ingresá la información de tu negocio"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:168
 msgid "Turn your online store into a secure and easy-to-use payment gateway for your customers. With personalized checkout your customers pay without leaving your store!"
@@ -424,12 +424,6 @@ msgstr "Configura las preferencias de pago con dinero en efectivo"
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:246
 msgid "Enable Mercado Pago for cash payments in your store and <br> select the options available to your customers."
 msgstr "Habilita Mercado Pago para pagos en efectivo en tu tienda y <br> selecciona las opciones disponibles para tus clientes."
-
-#: includes/payments/WC_WooMercadoPago_TicketGateway.php:233
-#: includes/payments/WC_WooMercadoPago_BasicGateway.php:295
-#: includes/payments/WC_WooMercadoPago_CustomGateway.php:198
-msgid "Go to the basics. Place your business information."
-msgstr "Ve a lo básico. Coloca la información de tu negocio."
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:203
 msgid "Include this preferred purchase option by some customers."
@@ -529,7 +523,7 @@ msgstr "Modo Debug y Log"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:321
 msgid "Advanced settings"
-msgstr "Configuración avanzada"
+msgstr "Configuración Avanzada"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:886
 msgid "Use a number or prefix to identify orders and payments from this store."
@@ -569,7 +563,7 @@ msgstr "Con estas claves podrás recibir pagos reales de tus clientes."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:749
 msgid "Production credentials"
-msgstr "Credenciales para producción"
+msgstr "Credenciales de Producción"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:704
 msgid "With these keys you can do the tests you want.."

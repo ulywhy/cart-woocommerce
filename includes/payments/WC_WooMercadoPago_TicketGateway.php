@@ -71,8 +71,8 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['checkout_ticket_header'] = $this->field_checkout_ticket_header();
         if (!empty($this->checkout_country) && !empty($this->getAccessToken()) && !empty($this->getPublicKey())) {
             $form_fields['checkout_ticket_options_title'] = $this->field_checkout_ticket_options_title();
-            $form_fields['checkout_ticket_options_subtitle'] = $this->field_checkout_ticket_options_subtitle();
             $form_fields['checkout_ticket_payments_title'] = $this->field_checkout_ticket_payments_title();
+            $form_fields['checkout_ticket_payments_description'] = $this->field_checkout_ticket_options_description();
             $form_fields['checkout_ticket_payments_advanced_title'] = $this->field_checkout_ticket_payments_advanced_title();
             $form_fields['coupon_mode'] = $this->field_coupon_mode();
             $form_fields['stock_reduce_mode'] = $this->field_stock_reduce_mode();
@@ -131,7 +131,6 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_homolog_link',
             // Set up the payment experience in your store
             'checkout_ticket_options_title',
-            'checkout_ticket_options_subtitle',
             'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
@@ -143,7 +142,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
             // Configure the personalized payment experience in your store
             'checkout_ticket_payments_title',
             'checkout_payments_subtitle',
-            'checkout_payments_description',
+            'checkout_ticket_payments_description',
             'enabled',
             WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'field_ticket_payments',
@@ -227,20 +226,7 @@ class WC_WooMercadoPago_TicketGateway extends WC_WooMercadoPago_PaymentAbstract
     /**
      * @return array
      */
-    public function field_checkout_ticket_options_subtitle()
-    {
-        $checkout_options_subtitle = array(
-            'title' => __('Go to the basics. Place your business information.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_subtitle mp-mt-5'
-        );
-        return $checkout_options_subtitle;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_options_description()
+    public function field_checkout_ticket_options_description()
     {
         $checkout_options_description = array(
             'title' => __('Enable Mercado Pago for cash payments in your store and <br> select the options available to your customers.', 'woocommerce-mercadopago'),
