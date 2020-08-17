@@ -66,7 +66,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         $form_fields['checkout_custom_header'] = $this->field_checkout_custom_header();
         if (!empty($this->checkout_country) && !empty($this->getAccessToken()) && !empty($this->getPublicKey())) {
             $form_fields['checkout_custom_options_title'] = $this->field_checkout_custom_options_title();
-            $form_fields['checkout_custom_options_subtitle'] = $this->field_checkout_custom_options_subtitle();
             $form_fields['checkout_custom_payments_title'] = $this->field_checkout_custom_payments_title();
             $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
             $form_fields['binary_mode'] = $this->field_binary_mode();
@@ -122,7 +121,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_homolog_link',
             // Set up the payment experience in your store
             'checkout_custom_options_title',
-            'checkout_custom_options_subtitle',
             'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
@@ -134,7 +132,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             // Configure the personalized payment experience in your store
             'checkout_custom_payments_title',
             'checkout_payments_subtitle',
-            'checkout_payments_description',
             'enabled',
             WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             // Advanced configuration of the personalized payment experience"
@@ -187,19 +184,6 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
             'class' => 'mp_title_bd'
         );
         return $checkout_custom_options_title;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_custom_options_subtitle()
-    {
-        $checkout_custom_options_subtitle = array(
-            'title' => __('Go to the basics. Place your business information.', 'woocommerce-mercadopago'),
-            'type'  => 'title',
-            'class' => 'mp_subtitle mp-mt-5'
-        );
-        return $checkout_custom_options_subtitle;
     }
 
     /**

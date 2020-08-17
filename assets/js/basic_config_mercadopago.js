@@ -50,7 +50,7 @@
     if (document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_homolog_title') !== null || document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_options_title') !== null) {
 
       document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_advanced_settings').nextElementSibling.append(cloneSaveButton.cloneNode(true));
-      document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_options_subtitle').nextElementSibling.append(cloneSaveButton.cloneNode(true));
+      document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_options_title').nextElementSibling.append(cloneSaveButton.cloneNode(true));
       document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_payments_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
       document.getElementById('woocommerce_woo-mercado-pago-basic_checkout_payments_advanced_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
 

@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-08-07 15:16-0300\n"
-"X-Generator: Poedit 2.4\n"
+"PO-Revision-Date: 2020-08-14 18:18-0300\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -154,7 +154,7 @@ msgstr "Checkout Mercado Pago"
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:220
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:269
 msgid "Configure Mercado Pago for WooCommerce"
-msgstr "Configure o Mercado Pago para WooCommerce"
+msgstr "Insira as informações do seu negócio"
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:199
 msgid "Accept face-to-face payments, do not leave anyone out!"
@@ -278,7 +278,7 @@ msgstr "Selecione a URL que mostraremos aos seus clientes quando concluirem a co
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:308
 msgid "Set payment preferences in your store"
-msgstr "Configure as preferências de pagamento na sua loja"
+msgstr "Configure as experiências de pagamento na sua loja"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:282
 msgid "Enable the experience of the Mercado Pago Checkout in your online store, select the means of payment available to your customers and<br> define the maximum fees in which they can pay you."
@@ -349,15 +349,15 @@ msgstr "Estamos processando seu pagamento. Em menos de uma hora você será noti
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:224
 msgid "Advanced configuration of the personalized payment experience\""
-msgstr "Configuração Avançada das preferências de pagamento"
+msgstr "Configuração Avançada"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:211
 msgid "Configure the personalized payment experience in your store"
-msgstr "Configure as preferências de pagamento personalizada em sua loja"
+msgstr "Configure as experiências de pagamento na sua loja"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:185
 msgid "Set up the payment experience in your store"
-msgstr "Configure a experiência de pagamento personalizada na sua loja"
+msgstr "Insira as informações do seu negócio"
 
 #: includes/payments/WC_WooMercadoPago_CustomGateway.php:168
 msgid "Turn your online store into a secure and easy-to-use payment gateway for your customers. With personalized checkout your customers pay without leaving your store!"
@@ -424,12 +424,6 @@ msgstr "Configure as experiências de pagamentos via boleto e em lotéricas"
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:246
 msgid "Enable Mercado Pago for cash payments in your store and <br> select the options available to your customers."
 msgstr "Habilite o Mercado Pago na sua loja e selecione os meios de<br> pagamento via boleto e em lotéricas disponíveis para os seus clientes."
-
-#: includes/payments/WC_WooMercadoPago_TicketGateway.php:233
-#: includes/payments/WC_WooMercadoPago_BasicGateway.php:295
-#: includes/payments/WC_WooMercadoPago_CustomGateway.php:198
-msgid "Go to the basics. Place your business information."
-msgstr "Veja o básico. Insira as informações do seu negócio."
 
 #: includes/payments/WC_WooMercadoPago_TicketGateway.php:203
 msgid "Include this preferred purchase option by some customers."
@@ -529,7 +523,7 @@ msgstr "Modo debug e log"
 
 #: includes/payments/WC_WooMercadoPago_BasicGateway.php:321
 msgid "Advanced settings"
-msgstr "Configuração avançada"
+msgstr "Configuração Avançada"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:886
 msgid "Use a number or prefix to identify orders and payments from this store."
@@ -593,7 +587,7 @@ msgstr "Produção"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:631
 msgid "When you see that everything is going well, deactivate Sandbox, turn on Production and make way for your online sales."
-msgstr "Tudo pronto para começar a receber pagamentos, desative o ambiente Sandbox, selecione o de Produção e comece a receber pagamentos on-line."
+msgstr "Tudo em ordem? Desative o Sandbox e abra o caminho para suas vendas on-line."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:618
 msgid "Production Mode"
@@ -601,7 +595,7 @@ msgstr "Modo Produção"
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:605
 msgid "By default, we activate the Sandbox test environment for you to test before you start selling."
-msgstr "Por padrão, ativamos o ambiente de teste Sandbox para você testar antes de começar a vender."
+msgstr "Por padrão, deixamos o ambiente de teste (Sandbox) ativo para você testar antes de começar a vender."
 
 #: includes/payments/WC_WooMercadoPago_PaymentAbstract.php:592
 msgid "Test Mode"

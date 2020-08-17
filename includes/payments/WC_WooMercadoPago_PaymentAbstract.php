@@ -328,7 +328,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
                 $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
                 $form_fields['_mp_integrator_id'] = $this->field_mp_integrator_id();
-                $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
                 $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
                 $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
                 $form_fields['enabled'] = $this->field_enabled($label);
@@ -951,19 +950,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'class' => 'mp_subtitle mp-mt-5 mp-mb-0'
         );
         return $checkout_payments_subtitle;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_options_description()
-    {
-        $checkout_options_description = array(
-            'title' => __('Enable Mercado Pago in your online store, select the means of payment available to your customers and <br>define the maximum fees in which they can pay you.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_small_text'
-        );
-        return $checkout_options_description;
     }
 
     /**
