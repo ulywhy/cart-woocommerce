@@ -14,26 +14,6 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: woocommerce-mercadopago.php:40
-msgid "It seems that you already have the Mercado Pago module installed. Please uninstall it before using this version."
-msgstr ""
-
-#: woocommerce-mercadopago.php:83
-msgid "Mercado Pago payments for WooCommerce requires PHP version 5.6 or later. Please update your PHP version."
-msgstr ""
-
-#: woocommerce-mercadopago.php:99
-msgid "Mercado Pago Error: PHP Extension CURL is not installed."
-msgstr ""
-
-#: woocommerce-mercadopago.php:116
-msgid "The Mercado Pago module needs an active version of %s in order to work!"
-msgstr ""
-
-#: woocommerce-mercadopago.php:148
-msgid "Cancel order"
-msgstr ""
-
 #: includes/helpers/WC_WooMercadoPago_Helpers_CurrencyConverter.php:52
 msgid "Activate this option so that the value of the currency set in WooCommerce is compatible with the value of the currency you use in Mercado Pago."
 msgstr ""
@@ -56,6 +36,22 @@ msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Configs.php:112
 msgid "The store should have HTTPS in order to activate both Checkout Personalizado and Ticket Checkout."
+msgstr ""
+
+#: includes/module/WC_WooMercadoPago_Init.php:38
+msgid "Mercado Pago payments for WooCommerce requires PHP version 5.6 or later. Please update your PHP version."
+msgstr ""
+
+#: includes/module/WC_WooMercadoPago_Init.php:48
+msgid "Mercado Pago Error: PHP Extension CURL is not installed."
+msgstr ""
+
+#: includes/module/WC_WooMercadoPago_Init.php:60
+msgid "The Mercado Pago module needs an active version of %s in order to work!"
+msgstr ""
+
+#: includes/module/WC_WooMercadoPago_Init.php:68
+msgid "Cancel order"
 msgstr ""
 
 #: includes/module/WC_WooMercadoPago_Module.php:244, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:405

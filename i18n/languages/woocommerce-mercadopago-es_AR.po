@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-08-14 18:16-0300\n"
+"PO-Revision-Date: 2020-08-18 09:56-0300\n"
 "X-Generator: Poedit 2.4.1\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -103,7 +103,7 @@ msgstr "El tipo de asunto de la IPN no es válido, debe ser `merchant_order`"
 msgid "No ID or TOPIC param in Request IPN"
 msgstr "No hay ID o parámetro de ASUNTO la solicitud de IPN"
 
-#: woocommerce-mercadopago.php:116
+#: includes/module/WC_WooMercadoPago_Init.php:60
 msgid "The Mercado Pago module needs an active version of %s in order to work!"
 msgstr "¡El módulo de Mercado Pago necesita una versión de %s activa para funcionar!"
 
@@ -188,11 +188,11 @@ msgstr "Acepta pagos al instante y maximiza la conversión de tu negocio"
 msgid "Checkout of payments with debit and credit cards %s"
 msgstr "Checkout de pagos con tarjetas de débito y crédito %s"
 
-#: woocommerce-mercadopago.php:99
+#: includes/module/WC_WooMercadoPago_Init.php:48
 msgid "Mercado Pago Error: PHP Extension CURL is not installed."
 msgstr "Error en Mercado Pago: La extensión cURL de PHP no está instalada."
 
-#: woocommerce-mercadopago.php:83
+#: includes/module/WC_WooMercadoPago_Init.php:38
 msgid "Mercado Pago payments for WooCommerce requires PHP version 5.6 or later. Please update your PHP version."
 msgstr "El plugin de Mercado Pago requiere la versión de PHP 5.6 o posterior. Por favor actualice su versión de PHP."
 
@@ -995,7 +995,7 @@ msgstr "Posibles causas: Moneda no soportada; Montos por debajo del mínimo o po
 msgid "https://github.com/mercadopago/cart-woocommerce"
 msgstr "https://github.com/mercadopago/cart-woocommerce"
 
-#: woocommerce-mercadopago.php:148
+#: includes/module/WC_WooMercadoPago_Init.php:68
 msgid "Cancel order"
 msgstr "Cancelar orden"
 
