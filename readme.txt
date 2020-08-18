@@ -117,7 +117,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 == Changelog ==
 = v4.3.0 (31/08/2020) =
 * Features
-  - Change bootstrap plugin to inicialize
+  - Improve plugin initialization
 
 * Bug fixes
   - Fixed currency conversion API - Alert added at checkout when currency conversion fails
