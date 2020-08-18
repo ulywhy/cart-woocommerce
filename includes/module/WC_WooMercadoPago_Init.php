@@ -1,10 +1,11 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
-class WC_WooMercadoPago_Init {
+class WC_WooMercadoPago_Init
+{
 
     /**
      * Load plugin text domain.
@@ -38,7 +39,7 @@ class WC_WooMercadoPago_Init {
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
-     /**
+    /**
      * Curl validation
      */
     public static function wc_mercado_pago_notify_curl_error()
@@ -84,24 +85,24 @@ class WC_WooMercadoPago_Init {
         }
     }
 
-     public static function woocommerce_mercadopago_init()
-     {
+    public static function woocommerce_mercadopago_init()
+    {
 
         require_once dirname(__FILE__) . '../../admin/notices/WC_WooMercadoPago_Notices.php';
         WC_WooMercadoPago_Notices::initMercadopagoNnotice();
 
-    add_action('plugins_loaded',  array( __CLASS__, 'woocommerce_mercadopago_load_plugin_textdomain'));
+        add_action('plugins_loaded',  array(__CLASS__, 'woocommerce_mercadopago_load_plugin_textdomain'));
 
-    // Check for PHP version and throw notice.
-    if (version_compare(PHP_VERSION, '5.6', '<=')) {
-        add_action('admin_notices', array( __CLASS__, 'wc_mercado_pago_unsupported_php_version_notice'));
-        return;
-    }
+        // Check for PHP version and throw notice.
+        if (version_compare(PHP_VERSION, '5.6', '<=')) {
+            add_action('admin_notices', array(__CLASS__, 'wc_mercado_pago_unsupported_php_version_notice'));
+            return;
+        }
 
-    if (!in_array('curl', get_loaded_extensions())) {
-        add_action('admin_notices', array( __CLASS__, 'wc_mercado_pago_notify_curl_error'));
-        return;
-    }
+        if (!in_array('curl', get_loaded_extensions())) {
+            add_action('admin_notices', array(__CLASS__, 'wc_mercado_pago_notify_curl_error'));
+            return;
+        }
 
         // Load Mercado Pago SDK
         require_once dirname(__FILE__) . '/sdk/lib/MP.php';
@@ -117,10 +118,10 @@ class WC_WooMercadoPago_Init {
 
             WC_WooMercadoPago_Module::init_mercado_pago_class();
 
-            add_action('woocommerce_order_actions', array( __CLASS__, 'add_mp_order_meta_box_actions'));
+            add_action('woocommerce_order_actions', array(__CLASS__, 'add_mp_order_meta_box_actions'));
         } else {
-            add_action('admin_notices', array( __CLASS__, 'notify_woocommerce_miss'));
+            add_action('admin_notices', array(__CLASS__, 'notify_woocommerce_miss'));
         }
-            add_action('woocommerce_settings_checkout', array( __CLASS__, 'mp_show_admin_notices' ));
+        add_action('woocommerce_settings_checkout', array(__CLASS__, 'mp_show_admin_notices'));
     }
 }
