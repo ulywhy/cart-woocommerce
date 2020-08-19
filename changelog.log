@@ -1,5 +1,15 @@
 CHANGELOG:
 == Changelog ==
+= v4.3.0 (31/08/2020) =
+* Features
+  - Improve plugin initialization
+
+* Bug fixes
+  - Fixed currency conversion API - Alert added at checkout when currency conversion fails
+  - Adjusted inventory (for canceled orders) on payments made at the personalized offline checkout
+  - Adjusted translation in general
+  - Adjusted currency translation alert
+
 = v4.2.2 (27/07/2020) =
 * Features
   - Added feature: cancelled orders on WooCommerce are automatically cancelled on Mercado Pago

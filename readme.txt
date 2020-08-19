@@ -4,7 +4,7 @@ Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 4.2.3
+Stable tag: 4.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,16 @@ Set up both the plugin and the checkouts you want to activate on your payment av
 Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks/plugins/official/woo-commerce/">official documentation</a> for more information on the specific fields to configure.
 
 == Changelog ==
+= v4.3.0 (31/08/2020) =
+* Features
+  - Improve plugin initialization
+
+* Bug fixes
+  - Fixed currency conversion API - Alert added at checkout when currency conversion fails
+  - Adjusted inventory (for canceled orders) on payments made at the personalized offline checkout
+  - Adjusted translation in general
+  - Adjusted currency translation alert
+
 = v4.2.2 (27/07/2020) =
 * Features
   - Added feature: cancelled orders on WooCommerce are automatically cancelled on Mercado Pago
