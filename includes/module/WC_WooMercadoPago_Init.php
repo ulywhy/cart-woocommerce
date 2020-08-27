@@ -19,7 +19,7 @@ class WC_WooMercadoPago_Init
         $text_domain = 'woocommerce-mercadopago';
         $locale = apply_filters('plugin_locale', get_locale(), $text_domain);
 
-        $original_language_file = dirname(__FILE__) . '/i18n/languages/woocommerce-mercadopago-' . $locale . '.mo';
+        $original_language_file = dirname(__FILE__) . '/../../i18n/languages/woocommerce-mercadopago-' . $locale . '.mo';
 
         // Unload the translation for the text domain of the plugin
         unload_textdomain($text_domain);
@@ -88,10 +88,9 @@ class WC_WooMercadoPago_Init
     public static function woocommerce_mercadopago_init()
     {
 
+        self::woocommerce_mercadopago_load_plugin_textdomain();
         require_once dirname(__FILE__) . '../../admin/notices/WC_WooMercadoPago_Notices.php';
         WC_WooMercadoPago_Notices::initMercadopagoNnotice();
-
-        add_action('plugins_loaded',  array(__CLASS__, 'woocommerce_mercadopago_load_plugin_textdomain'));
 
         // Check for PHP version and throw notice.
         if (version_compare(PHP_VERSION, '5.6', '<=')) {
