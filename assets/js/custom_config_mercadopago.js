@@ -48,15 +48,6 @@ window.onload = function () {
     document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_payments_subtitle').nextElementSibling.append(cloneSaveButton.cloneNode(true));
     document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_payments_advanced_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
 
-    var saveButtonElements = document.querySelectorAll('.mp-save-button');
-
-    Array.from(saveButtonElements).forEach(button => {
-      button.addEventListener('click', function (event) {
-        var saveButtonEvent = document.querySelector('.woocommerce-save-button');
-        saveButtonEvent.click();
-      });
-    });
-
     var collapse_title = document.querySelector('#woocommerce_woo-mercado-pago-custom_checkout_advanced_settings');
     var collapse_table = collapse_title.nextElementSibling;
     collapse_table.style.display = 'none';
@@ -110,4 +101,15 @@ window.onload = function () {
       }
     };
   }
+
+  var saveButtonElements = document.querySelectorAll('.mp-save-button');
+  if (saveButtonElements.length !== 0) {
+    Array.from(saveButtonElements).forEach(function (button) {
+      button.addEventListener('click', function () {
+        var saveButtonEvent = document.querySelector('.woocommerce-save-button');
+        saveButtonEvent.click();
+      });
+    });
+  }
+
 };
