@@ -541,8 +541,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     {
         $checkout_btn_save = array(
             'title' => sprintf(
-                __('%s', 'woocommerce-mercadopago'),
-                '<button name="save" class="button button-primary mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>'
+                '%s',
+                '<div name="save" class="button-primary mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</div>'
             ),
             'type' => 'title',
             'class' => ''
