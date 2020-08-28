@@ -2,7 +2,7 @@
 Contributors: mercadopago, mercadolivre, claudiosanches, marcelohama
 Tags: ecommerce, mercadopago, woocommerce
 Requires at least: 4.9.10
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6
 Stable tag: 4.3.0
 License: GPLv2 or later
@@ -118,6 +118,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 = v4.3.0 (31/08/2020) =
 * Features
   - Improve plugin initialization
+  - Compatibility with Wordpress v5.5 and WooCommerce v4.4.x
 
 * Bug fixes
   - Fixed currency conversion API - Alert added at checkout when currency conversion fails
@@ -128,6 +129,7 @@ Check out our <a href="https://www.mercadopago.com.br/developers/pt/plugins_sdks
 = v4.2.2 (27/07/2020) =
 * Features
   - Added feature: cancelled orders on WooCommerce are automatically cancelled on Mercado Pago
+  - Compatibility with Wordpress v5.4 and WooCommerce v4.3.x
 
 * Bug fixes
   - Fixed notification bug - No longer updates completed orders
