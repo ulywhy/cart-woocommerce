@@ -101,4 +101,15 @@ window.onload = function () {
       }
     };
   }
+
+  var saveButtonElements = document.querySelectorAll('.mp-save-button');
+  if (saveButtonElements.length !== 0) {
+    Array.from(saveButtonElements).forEach(function (button) {
+      button.addEventListener('click', function () {
+        var saveButtonEvent = document.querySelector('.woocommerce-save-button');
+        saveButtonEvent.click();
+      });
+    });
+  }
+
 };
