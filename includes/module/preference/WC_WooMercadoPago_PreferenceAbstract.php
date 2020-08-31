@@ -8,8 +8,8 @@
  * License - https://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 {
@@ -56,7 +56,14 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
         $this->site_data = WC_WooMercadoPago_Module::$country_configs;
         $this->order = $order;
         $this->checkout = $requestCheckout;
-        $this->currency_ratio = $this->get_currency_conversion();
+
+        try {
+            $this->currency_ratio = $this->get_currency_conversion();
+        } catch (Exception $e) {
+            $this->log->write_log(__FUNCTION__, 'Currency conversion rate failed: payment creation failed with exception: ' .  $e->getMessage());
+            throw new Exception(__('This payment method cannot process your payment.', 'woocommerce-mercadopago'));
+        }
+
         $this->items = array();
         $this->order_total = 0;
         $this->list_of_items = array();

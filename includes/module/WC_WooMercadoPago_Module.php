@@ -31,6 +31,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
             $this->loadPreferences();
             $this->loadPayments();
             $this->loadNotifications();
+            $this->loadStockManager();
 
             add_action('admin_enqueue_scripts', [$this, 'loadAdminCss']);
 
@@ -209,6 +210,14 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
                 plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
             );
         }
+    }
+
+    /**
+     * Stock Manager
+     */
+    public function loadStockManager()
+    {
+        include_once dirname(__FILE__) . '/../stock/WC_WooMercadoPago_Stock_Manager.php';
     }
 
     /**

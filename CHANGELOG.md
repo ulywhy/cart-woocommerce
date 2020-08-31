@@ -5,10 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0] - 2020-08-31
+
+### Added
+  - Improve plugin initialization
+  - Compatibility with Wordpress v5.5 and WooCommerce v4.4.x
+
+### Changed
+  - Fixed currency conversion API - Alert added at checkout when currency conversion fails
+  - Adjusted inventory (for canceled orders) on payments made at the personalized offline checkout
+  - Adjusted translation in general
+  - Adjusted currency translation alert
+
 ## [4.2.2] - 2020-07-27
 
 ### Added
   - Added feature: cancelled orders on WooCommerce are automatically cancelled on Mercado Pago
+  - Compatibility with Wordpress v5.4 and WooCommerce v4.3.x
+
 
 ### Changed
   - Fixed notification bug - No longer updates completed orders

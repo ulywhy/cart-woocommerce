@@ -77,9 +77,9 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
 
         if (!empty($this->checkout_country) && !empty($this->getAccessToken()) && !empty($this->getPublicKey())) {
             $form_fields['checkout_options_title'] = $this->field_checkout_options_title();
-            $form_fields['checkout_options_subtitle'] = $this->field_checkout_options_subtitle();
             $form_fields['checkout_payments_title'] = $this->field_checkout_payments_title();
             $form_fields['checkout_payments_subtitle'] = $this->field_checkout_payments_subtitle();
+            $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
             $form_fields['binary_mode'] = $this->field_binary_mode();
             $form_fields['installments'] = $this->field_installments();
             $form_fields['checkout_payments_advanced_title'] = $this->field_checkout_payments_advanced_title();
@@ -143,7 +143,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'checkout_homolog_link',
             // Configure Mercado Pago for WooCommerce
             'checkout_options_title',
-            'checkout_options_subtitle',
             'mp_statement_descriptor',
             '_mp_category_id',
             '_mp_store_identificator',
@@ -155,8 +154,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             // Set up the payment experience in your store
             'checkout_payments_title',
             'checkout_payments_subtitle',
-            'enabled',
             'checkout_payments_description',
+            'enabled',
             WC_WooMercadoPago_Helpers_CurrencyConverter::CONFIG_KEY,
             'installments',
             // advanced settings
@@ -285,19 +284,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             'class' => 'mp_small_text'
         );
         return $checkout_options_description;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_options_subtitle()
-    {
-        $checkout_options_subtitle = array(
-            'title' => __('Go to the basics. Place your business information.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_subtitle mp-mt-5 mp-mb-5'
-        );
-        return $checkout_options_subtitle;
     }
 
     /**
@@ -484,8 +470,6 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
                 }
             }
 
-            $count_payment++;
-
             if ($count_payment == 1) {
                 $element['title'] = __('Payment methods', 'woocommerce-mercadopago');
                 $element['desc_tip'] = __('Choose the available payment methods in your store.', 'woocommerce-mercadopago');
@@ -493,6 +477,8 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
             if ($count_payment == count($get_payment_methods)) {
                 $element['description'] = __('Activate the available payment methods to your clients.', 'woocommerce-mercadopago');
             }
+
+            $count_payment++;
 
             $ex_payments["ex_payments_" . $payment_method['id']] = $element;
             $ex_payments_sort[] = "ex_payments_" . $payment_method['id'];
