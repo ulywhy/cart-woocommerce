@@ -29,13 +29,6 @@ abstract class WC_WooMercadoPago_Notification_Abstract
         add_action('woocommerce_api_' . strtolower(get_class($payment)), array($this, 'check_ipn_response'));
         add_action('valid_mercadopago_ipn_request', array($this, 'successful_request'));
         add_action('woocommerce_order_status_cancelled', array($this, 'process_cancel_order_meta_box_actions'), 10, 1);
-
-        add_action('woocommerce_order_status_processing_to_cancelled', array($this, 'restore_stock_item'), 10, 1);
-        add_action('woocommerce_order_status_completed_to_cancelled', array($this, 'restore_stock_item'), 10, 1);
-        add_action('woocommerce_order_status_on-hold_to_cancelled', array($this, 'restore_stock_item'), 10, 1);
-        add_action('woocommerce_order_status_processing_to_refunded', array($this, 'restore_stock_item'), 10, 1);
-        add_action('woocommerce_order_status_completed_to_refunded', array($this, 'restore_stock_item'), 10, 1);
-        add_action('woocommerce_order_status_on-hold_to_refunded', array($this, 'restore_stock_item'), 10, 1);
     }
 
     /**
@@ -317,26 +310,6 @@ abstract class WC_WooMercadoPago_Notification_Abstract
             $this->mp->create_card_in_customer($custId, $token, $payment_method_id, $issuer_id);
         } catch (WC_WooMercadoPago_Exception $ex) {
             $this->log->write_log(__FUNCTION__, 'card creation failed: ' . json_encode($ex, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        }
-    }
-
-    public function restore_stock_item($order_id)
-    {
-        $order = new WC_Order($order_id);
-
-        if (!get_option('woocommerce_manage_stock') == 'yes' && !sizeof($order->get_items()) > 0) {
-            return;
-        }
-
-        foreach ($order->get_items() as $item) {
-            if ($item['product_id'] > 0) {
-                $_product = wc_get_product($item['product_id']);
-                if ($_product && $_product->exists() && $_product->managing_stock()) {
-                    $qty = apply_filters('woocommerce_order_item_quantity', $item['qty'], $this, $item);
-                    wc_update_product_stock($_product, $qty, 'increase');
-                    do_action('woocommerce_auto_stock_restored', $_product, $item);
-                }
-            }
         }
     }
 
