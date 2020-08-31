@@ -42,9 +42,9 @@ window.onload = function () {
   }
 
   if (document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_homolog_title') !== null || document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_ticket_options_title') !== null) {
-    document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_ticket_options_subtitle').nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_ticket_options_title').nextElementSibling.append(cloneSaveButton.cloneNode(true));
     document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_advanced_settings').nextElementSibling.append(cloneSaveButton.cloneNode(true));
-    document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_payments_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_ticket_payments_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
     document.getElementById('woocommerce_woo-mercado-pago-ticket_checkout_payments_advanced_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
 
     var collapse_title = document.querySelector('#woocommerce_woo-mercado-pago-ticket_checkout_advanced_settings');
@@ -100,7 +100,7 @@ window.onload = function () {
     };
 
     //payment methods
-    var tablePayments = document.querySelector('#woocommerce_woo-mercado-pago-ticket_checkout_payments_description').nextElementSibling.getAttribute('class');
+    var tablePayments = document.querySelector('#woocommerce_woo-mercado-pago-ticket_checkout_ticket_payments_description').nextElementSibling.getAttribute('class');
     var mp_input_payments = document.querySelectorAll('.' + tablePayments + ' td.forminp label');
     for (var ip = 0; ip < mp_input_payments.length; ip++) {
       mp_input_payments[ip].id = 'mp_input_payments_mt';
@@ -136,6 +136,17 @@ window.onload = function () {
     }
 
   }
+
+  var saveButtonElements = document.querySelectorAll('.mp-save-button');
+  if (saveButtonElements.length !== 0) {
+    Array.from(saveButtonElements).forEach(function (button) {
+      button.addEventListener('click', function () {
+        var saveButtonEvent = document.querySelector('.woocommerce-save-button');
+        saveButtonEvent.click();
+      });
+    });
+  }
+
 };
 
 //Offline payments

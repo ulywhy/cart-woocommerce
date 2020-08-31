@@ -44,8 +44,8 @@ window.onload = function () {
 
   if (document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_homolog_title') !== null || document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_custom_options_title') !== null) {
     document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_advanced_settings').nextElementSibling.append(cloneSaveButton.cloneNode(true));
-    document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_custom_options_subtitle').nextElementSibling.append(cloneSaveButton.cloneNode(true));
-    document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_payments_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_custom_options_title').nextElementSibling.append(cloneSaveButton.cloneNode(true));
+    document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_payments_subtitle').nextElementSibling.append(cloneSaveButton.cloneNode(true));
     document.getElementById('woocommerce_woo-mercado-pago-custom_checkout_payments_advanced_description').nextElementSibling.append(cloneSaveButton.cloneNode(true));
 
     var collapse_title = document.querySelector('#woocommerce_woo-mercado-pago-custom_checkout_advanced_settings');
@@ -101,4 +101,15 @@ window.onload = function () {
       }
     };
   }
+
+  var saveButtonElements = document.querySelectorAll('.mp-save-button');
+  if (saveButtonElements.length !== 0) {
+    Array.from(saveButtonElements).forEach(function (button) {
+      button.addEventListener('click', function () {
+        var saveButtonEvent = document.querySelector('.woocommerce-save-button');
+        saveButtonEvent.click();
+      });
+    });
+  }
+
 };

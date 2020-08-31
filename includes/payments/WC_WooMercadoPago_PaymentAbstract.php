@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -328,7 +328,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
                 $form_fields['mp_statement_descriptor'] = $this->field_mp_statement_descriptor();
                 $form_fields['_mp_store_identificator'] = $this->field_mp_store_identificator();
                 $form_fields['_mp_integrator_id'] = $this->field_mp_integrator_id();
-                $form_fields['checkout_payments_description'] = $this->field_checkout_options_description();
                 $form_fields['checkout_advanced_settings'] = $this->field_checkout_advanced_settings();
                 $form_fields['_mp_debug_mode'] = $this->field_debug_mode();
                 $form_fields['enabled'] = $this->field_enabled($label);
@@ -540,11 +539,15 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function field_checkout_btn_save()
     {
+        $btn_save = '<button name="save" class="button button-primary" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>';
+
+        $wc = WC_WooMercadoPago_Module::woocommerce_instance();
+        if (version_compare($wc->version, '4.4') >= 0) {
+            $btn_save = '<div name="save" class="button-primary mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</div>';
+        }
+
         $checkout_btn_save = array(
-            'title' => sprintf(
-                __('%s', 'woocommerce-mercadopago'),
-                '<button name="save" class="button button-primary mp-save-button" type="submit" value="Save changes">' . __('Save Changes', 'woocommerce-mercadopago') . '</button>'
-            ),
+            'title' =>  sprintf('%s', $btn_save),
             'type' => 'title',
             'class' => ''
         );
@@ -898,10 +901,10 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
         $integrator_id = array(
             'title' => __('Integrator ID', 'woocommerce-mercadopago'),
             'type' => 'text',
-            'description' =>sprintf(
+            'description' => sprintf(
                 __('Do not forget to enter your integrator_id as a certified Mercado Pago Partner. If you don`t have it, you can %s', 'woocommerce-mercadopago'),
                 '<a target="_blank" href="https://www.mercadopago.' . $links_mp['sufix_url'] . 'developers/' . $links_mp['translate'] . '/guides/plugins/woocommerce/preferences/#bookmark_informações_do_negócio">' . __('request it now.', 'woocommerce-mercadopago') .
-                '</a>'
+                    '</a>'
             ),
             'default' => $this->getOption('_mp_integrator_id', '')
         );
@@ -951,19 +954,6 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'class' => 'mp_subtitle mp-mt-5 mp-mb-0'
         );
         return $checkout_payments_subtitle;
-    }
-
-    /**
-     * @return array
-     */
-    public function field_checkout_options_description()
-    {
-        $checkout_options_description = array(
-            'title' => __('Enable Mercado Pago in your online store, select the means of payment available to your customers and <br>define the maximum fees in which they can pay you.', 'woocommerce-mercadopago'),
-            'type' => 'title',
-            'class' => 'mp_small_text'
-        );
-        return $checkout_options_description;
     }
 
     /**
@@ -1021,7 +1011,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'description' => sprintf(
                 __('Enter a URL to receive payment notifications. In %s you can check more information.', 'woocommerce-mercadopago'),
                 '<a href="' . $this->getCountryLinkGuide($this->checkout_country) . 'guides/notifications/ipn/">' . __('our guides', 'woocommerce-mercadopago') .
-                '</a>'
+                    '</a>'
             ),
             'default' => '',
             'desc_tip' => __('IPN (Instant Payment Notification) is a notification of events that take place on your platform and that is sent from one server to another through an HTTP POST call. See more information in our guides.', 'woocommerce-services')
@@ -1043,8 +1033,8 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
     }
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function field_coupon_mode()
     {
         return array(
@@ -1068,7 +1058,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             'title' => sprintf(
                 __('It appears that your credentials are not properly configured.<br/>Please, go to %s and configure it.', 'woocommerce-mercadopago'),
                 '<a href="' . esc_url(admin_url('admin.php?page=mercado-pago-settings')) . '">' . __('Market Payment Configuration', 'woocommerce-mercadopago') .
-                '</a>'
+                    '</a>'
             ),
             'type' => 'title'
         );
@@ -1319,7 +1309,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
      */
     public function updateCredentialProduction()
     {
-        if(!empty($this->getOption('checkout_credential_prod', null))){
+        if (!empty($this->getOption('checkout_credential_prod', null))) {
             return;
         }
 
@@ -1332,7 +1322,7 @@ class WC_WooMercadoPago_PaymentAbstract extends WC_Payment_Gateway
             $key = 'woocommerce_' . $gateway::getId() . '_settings';
             $options = get_option($key);
             if (!empty($options)) {
-                if (!isset($options['checkout_credential_production']) || empty($options['checkout_credential_production']) ){
+                if (!isset($options['checkout_credential_production']) || empty($options['checkout_credential_production'])) {
                     continue;
                 }
                 $options['checkout_credential_prod'] = $options['checkout_credential_production'];
