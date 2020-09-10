@@ -1,5 +1,9 @@
 CHANGELOG:
 == Changelog ==
+= v4.3.1 (10/09/2020) =
+* Bug fixes
+  - Adjusted inventory (for canceled orders) on payments made at the personalized offline checkout
+
 = v4.3.0 (31/08/2020) =
 * Features
   - Improve plugin initialization
