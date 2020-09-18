@@ -54,159 +54,159 @@ msgstr ""
 msgid "Cancel order"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:244, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:405
+#: includes/module/WC_WooMercadoPago_Module.php:239, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:405
 msgid "Fill in your credentials to enable payment methods."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:253
+#: includes/module/WC_WooMercadoPago_Module.php:248
 msgid "Set up"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:254
+#: includes/module/WC_WooMercadoPago_Module.php:249
 msgid "Your opinion helps us get better"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:255
+#: includes/module/WC_WooMercadoPago_Module.php:250
 msgid "Guides and Documentation"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:256
+#: includes/module/WC_WooMercadoPago_Module.php:251
 msgid "Report Problem"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:328
+#: includes/module/WC_WooMercadoPago_Module.php:323
 msgid "By Mercado Pago"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:353, includes/module/WC_WooMercadoPago_Module.php:374
+#: includes/module/WC_WooMercadoPago_Module.php:348, includes/module/WC_WooMercadoPago_Module.php:369
 msgid "The <strong> Sponsor ID  </strong> must be valid!"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:370
+#: includes/module/WC_WooMercadoPago_Module.php:365
 msgid "The <strong>Sponsor ID</strong> must be from the same country as the seller!"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:401
+#: includes/module/WC_WooMercadoPago_Module.php:396
 msgid "The payment method is not valid or not available."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:404
+#: includes/module/WC_WooMercadoPago_Module.php:399
 msgid "The transaction amount cannot be processed by Mercado Pago."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:405
+#: includes/module/WC_WooMercadoPago_Module.php:400
 msgid "Possible causes: Currency not supported; Amounts below the minimum or above the maximum allowed."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:408
+#: includes/module/WC_WooMercadoPago_Module.php:403
 msgid "The users are not valid."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:409
+#: includes/module/WC_WooMercadoPago_Module.php:404
 msgid "Possible causes: Buyer and seller have the same account in Mercado Pago; The transaction involving production and test users."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:412
+#: includes/module/WC_WooMercadoPago_Module.php:407
 msgid "Unauthorized use of production credentials."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:413
+#: includes/module/WC_WooMercadoPago_Module.php:408
 msgid "Possible causes: Use permission in use for the credential of the seller."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:531
+#: includes/module/WC_WooMercadoPago_Module.php:526
 msgid "ERROR: It was not possible to convert the unsupported currency"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:533
+#: includes/module/WC_WooMercadoPago_Module.php:528
 msgid "a"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:534, includes/module/WC_WooMercadoPago_Module.php:545
+#: includes/module/WC_WooMercadoPago_Module.php:529, includes/module/WC_WooMercadoPago_Module.php:540
 msgid "Currency conversions should be done outside of this module."
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:541
+#: includes/module/WC_WooMercadoPago_Module.php:536
 msgid "ATTENTION: The currency"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:543
+#: includes/module/WC_WooMercadoPago_Module.php:538
 msgid "defined in WooCommerce is different from that used by the credentials of your country.<br>The currency for transactions made with this payment method will be"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:552
+#: includes/module/WC_WooMercadoPago_Module.php:547
 msgid "CONVERTED CURRENCY: Your store is converting currency of"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:554, templates/checkout/custom_checkout.php:135
+#: includes/module/WC_WooMercadoPago_Module.php:549, templates/checkout/custom_checkout.php:135
 msgid "for"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:561, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:515
+#: includes/module/WC_WooMercadoPago_Module.php:556, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:515
 msgid "Colombia"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:563, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:512
+#: includes/module/WC_WooMercadoPago_Module.php:558, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:512
 msgid "Argentina"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:565, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:513
+#: includes/module/WC_WooMercadoPago_Module.php:560, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:513
 msgid "Brazil"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:567, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:514
+#: includes/module/WC_WooMercadoPago_Module.php:562, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:514
 msgid "Chile"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:569, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:516
+#: includes/module/WC_WooMercadoPago_Module.php:564, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:516
 msgid "Mexico"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:571, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:518
+#: includes/module/WC_WooMercadoPago_Module.php:566, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:518
 msgid "Uruguay"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:573
+#: includes/module/WC_WooMercadoPago_Module.php:568
 msgid "Venezuela"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:575, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:517
+#: includes/module/WC_WooMercadoPago_Module.php:570, includes/payments/WC_WooMercadoPago_PaymentAbstract.php:517
 msgid "Peru"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:610
+#: includes/module/WC_WooMercadoPago_Module.php:605
 msgid "Update the WooCommerce order to "
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:148
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:142
 msgid "Payment approved."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:193, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:196
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:187, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:190
 msgid "Waiting for the ticket payment."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:202
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:196
 msgid "The customer has not made the payment yet."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:213
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:207
 msgid "Payment is pending review."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:222
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:216
 msgid "Payment was declined. The customer can try again."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:231
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:225
 msgid "Payment was returned to the customer."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:240
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:234
 msgid "Payment was canceled."
 msgstr ""
 
-#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:250, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:260
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:244, includes/notification/WC_WooMercadoPago_Notification_Abstract.php:254
 msgid "The payment is in mediation or the purchase was unknown by the customer."
 msgstr ""
 

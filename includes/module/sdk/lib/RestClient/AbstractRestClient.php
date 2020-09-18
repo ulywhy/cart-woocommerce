@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class AbstractRestClient
  */
 class AbstractRestClient
-{   
+{
     public static $email_admin = '';
     public static $site_locale = '';
     public static $check_loop = 0;
@@ -34,7 +34,7 @@ class AbstractRestClient
             return null;
         }
     }
-    
+
     /**
      * @param $request
      * @return false|resource
@@ -56,11 +56,11 @@ class AbstractRestClient
 
         $headers = array('accept: application/json');
         if ($request['method'] == 'POST' ) {
-            $headers[] = 'x-product-id:' . WC_WooMercadoPago_Constants::PRODUCT_ID;
+            $headers[] = 'x-product-id:' . (WC_WooMercadoPago_Module::is_mobile() ? WC_WooMercadoPago_Constants::PRODUCT_ID_MOBILE : WC_WooMercadoPago_Constants::PRODUCT_ID_DESKTOP);
             $headers[] = 'x-platform-id:' . WC_WooMercadoPago_Constants::PLATAFORM_ID;
-            $headers[] = 'x-integrator-id:' . get_option('_mp_integrator_id', null);       
+            $headers[] = 'x-integrator-id:' . get_option('_mp_integrator_id', null);
         }
-        
+
         $json_content = true;
         $form_content = false;
         $default_content_type = true;

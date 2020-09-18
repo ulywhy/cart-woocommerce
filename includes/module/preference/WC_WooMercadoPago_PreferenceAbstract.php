@@ -201,7 +201,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
                             substr($product_content, 0, 230) . '...' : $product_content
                     )),
                     'picture_url' => sizeof($this->order->get_items()) > 1 ?
-                        plugins_url('assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
+                        plugins_url('../../assets/images/cart.png', plugin_dir_path(__FILE__)) : wp_get_attachment_url($product->get_image_id()),
                     'category_id' => get_option('_mp_category_id', 'others'),
                     'quantity' => 1,
                     'unit_price' => $this->number_format_value($item_amount),
@@ -400,14 +400,18 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
     public function get_internal_metadata()
     {
         $accessToken = get_option('_mp_access_token_prod', '');
-        if (empty($accessToken)) {
-            return null;
-        }
-
         $test_mode = false;
+
         if ($this->payment->getOption('checkout_credential_prod', '') == 'no') {
             $test_mode = true;
+            $accessToken = get_option('_mp_access_token_test', '');
         }
+
+        if (empty($accessToken)) {
+            return [];
+        }
+
+        $analytics = new WC_WooMercadoPago_PreferenceAnalytics();
 
         $seller = explode('-', $accessToken);
         $w = WC_WooMercadoPago_Module::woocommerce_instance();
@@ -419,7 +423,10 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             "sponsor_id" => $this->get_sponsor_id(),
             "collector" => end($seller),
             "test_mode" => $test_mode,
-            "details" => ""
+            "details" => "",
+            "basic_settings" => json_encode($analytics->getBasicSettings(), true),
+            "custom_settings" => json_encode($analytics->getCustomSettings(), true),
+            "ticket_settings" => json_encode($analytics->getTicketSettings(), true)
         );
 
         return $internal_metadata;
