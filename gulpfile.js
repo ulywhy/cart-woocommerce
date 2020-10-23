@@ -5,6 +5,7 @@ const rename = require('gulp-rename');
 const jshint = require('gulp-jshint');
 const jshintStylish = require('jshint-stylish');
 const wpPot = require('gulp-wp-pot');
+const cleanCSS = require('gulp-clean-css');
 
 const config = {
   scripts: [
@@ -15,6 +16,11 @@ const config = {
     './assets/js/ticket_config_mercadopago.js',
     './assets/js/ticket.js',
   ],
+  stylesheets: [
+    './assets/css/admin_notice_mercadopago.css',
+    './assets/css/basic_checkout_mercadopago.css',
+    './assets/css/config_mercadopago.css',
+  ]
 };
 
 gulp.task('jshint', function() {
@@ -31,6 +37,13 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('./assets/js/'));
 });
 
+gulp.task('stylesheets', () => {
+  return gulp.src(config.stylesheets)
+    .pipe(cleanCSS({ compatibility: 'ie8' }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(gulp.dest('./assets/css/'));
+});
+
 gulp.task('wpPot', function () {
   return gulp.src('**/*.php')
         .pipe(wpPot( {
@@ -45,6 +58,4 @@ gulp.task('git-add', function() {
     .pipe(git.add());
 });
 
-gulp.task('pre-commit', gulp.series('jshint', 'scripts', 'wpPot', 'git-add'));
-
-gulp.task('default', gulp.series('scripts'));
+gulp.task('pre-commit', gulp.series('jshint', 'scripts', 'stylesheets', 'wpPot', 'git-add'));

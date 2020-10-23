@@ -188,16 +188,12 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         if (isset($this->settings['enabled']) && $this->settings['enabled'] == 'yes') {
             if ($this->mp instanceof MP) {
                 $accessToken = $this->mp->get_access_token();
-                if (strpos($accessToken, 'APP_USR') === false && strpos($accessToken, 'TEST') === false) {
+                if (WC_WooMercadoPago_Credentials::validateCredentialsTest($this->mp ,$accessToken) == false && $this->sandbox == true) {
                     return false;
-                } else {
-                    if(strpos($accessToken, 'TEST') === false && $this->sandbox == true) {
-                        return false;
-                    }
+                }
 
-                    if(strpos($accessToken, 'APP_USR') === false && $this->sandbox == false) {
-                        return false;
-                    }
+                if (WC_WooMercadoPago_Credentials::validateCredentialsProd($this->mp ,$accessToken) == false && $this->sandbox == false) {
+                    return false;
                 }
                 return true;
             }
@@ -517,7 +513,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
         //add css
         wp_enqueue_style(
             'woocommerce-mercadopago-basic-checkout-styles',
-            plugins_url('../assets/css/basic_checkout_mercadopago.css', plugin_dir_path(__FILE__))
+            plugins_url('../assets/css/basic_checkout_mercadopago' . $suffix . '.css', plugin_dir_path(__FILE__))
         );
 
         //validate active payments methods
@@ -580,6 +576,7 @@ class WC_WooMercadoPago_BasicGateway extends WC_WooMercadoPago_PaymentAbstract
     {
         $order = wc_get_order($order_id);
         $amount = $this->get_order_total();
+
         if (method_exists($order, 'update_meta_data')) {
             $order->update_meta_data('_used_gateway', get_class($this));
 

@@ -42,9 +42,11 @@ class WC_WooMercadoPago_Notices
     public function loadAdminNoticeCss()
     {
         if (is_admin()) {
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
             wp_enqueue_style(
                 'woocommerce-mercadopago-admin-notice',
-                plugins_url('../../assets/css/admin_notice_mercadopago.css', plugin_dir_path(__FILE__))
+                plugins_url('../../assets/css/admin_notice_mercadopago' . $suffix . '.css', plugin_dir_path(__FILE__))
             );
         }
     }
@@ -66,7 +68,7 @@ class WC_WooMercadoPago_Notices
         }
 
         $notice = '<div id="message" class="notice ' . $type . ' is-dismissible ' . $inline . '">
-                    <div class="mp-alert-frame"> 
+                    <div class="mp-alert-frame">
                         <div class="mp-left-alert">
                             <img src="' . plugins_url('../../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
                         </div>
@@ -120,7 +122,7 @@ class WC_WooMercadoPago_Notices
         }
 
         $notice = '<div id="message" class="notice ' . $type . ' is-dismissible ' . $inline . '">
-                    <div class="mp-alert-frame"> 
+                    <div class="mp-alert-frame">
                         <div class="mp-left-alert">
                             <img src="' . plugins_url('../../assets/images/minilogo.png', plugin_dir_path(__FILE__)) . '">
                         </div>

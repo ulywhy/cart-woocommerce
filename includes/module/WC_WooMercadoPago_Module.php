@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -206,9 +206,11 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public function loadAdminCss()
     {
         if (is_admin()) {
+            $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
             wp_enqueue_style(
                 'woocommerce-mercadopago-basic-config-styles',
-                plugins_url('../assets/css/config_mercadopago.css', plugin_dir_path(__FILE__))
+                plugins_url('../assets/css/config_mercadopago' . $suffix . '.css', plugin_dir_path(__FILE__))
             );
         }
     }
@@ -300,7 +302,6 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
         if ($wc_country != '') {
 
             $sufix_country = strlen($wc_country) > 2 ? substr($wc_country, 0, 2) : $wc_country;
-
         }
 
         $sufix_country = strtoupper($sufix_country);
@@ -356,7 +357,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
 
         if ($varify_sponsor) {
             $mp_sponsor_id = WC_WooMercadoPago_Module::getMpInstanceSingleton();
-            $get_sponor_id = $mp_sponsor_id->get('/users/' . $sponsor_id, $access_token, false);
+            $get_sponor_id = $mp_sponsor_id->get('/users/' . $sponsor_id, array('Authorization' => 'Bearer ' . $access_token), false);
             if (!is_wp_error($get_sponor_id) && ($get_sponor_id['status'] == 200 || $get_sponor_id['status'] == 201)) {
                 if ($get_sponor_id['response']['site_id'] == $site_id) {
                     update_option('_mp_sponsor_id', $sponsor_id, true);
@@ -576,7 +577,7 @@ class WC_WooMercadoPago_Module extends WC_WooMercadoPago_Configs
     public static function build_log_path_string($gateway_id, $gateway_name)
     {
         return '<a href="' . esc_url(admin_url('admin.php?page=wc-status&tab=logs&log_file=' .
-                esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
+            esc_attr($gateway_id) . '-' . sanitize_file_name(wp_hash($gateway_id)) . '.log')) . '">' .
             $gateway_name . '</a>';
     }
 

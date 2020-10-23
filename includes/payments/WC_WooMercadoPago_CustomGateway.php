@@ -264,9 +264,11 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
     public function payment_fields()
     {
         //add css
+        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
         wp_enqueue_style(
             'woocommerce-mercadopago-basic-checkout-styles',
-            plugins_url('../assets/css/basic_checkout_mercadopago.css', plugin_dir_path(__FILE__))
+            plugins_url('../assets/css/basic_checkout_mercadopago' . $suffix . '.css', plugin_dir_path(__FILE__))
         );
 
         $amount = $this->get_order_total();
@@ -520,7 +522,7 @@ class WC_WooMercadoPago_CustomGateway extends WC_WooMercadoPago_PaymentAbstract
         }
 
         $_mp_access_token = get_option('_mp_access_token_prod');
-        $is_prod_credentials = strpos($_mp_access_token, 'TEST') === false;
+        $is_prod_credentials = WC_WooMercadoPago_Credentials::validateCredentialsTest($this->mp, $_mp_access_token, null) == false;
 
         if ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && $is_prod_credentials) {
             $this->log->write_log(__FUNCTION__, 'NO HTTPS, Custom unavailable.');

@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -40,9 +40,9 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
             $this->setResponse(422, null, __('Type of topic IPN invalid, need to be merchant_order', 'woocommerce-mercadopago'));
         }
 
-        $access_token = array('access_token' => $this->mp->get_access_token());
+        $access_token = $this->mp->get_access_token();
         if ($data['topic'] == 'merchant_order') {
-            $ipn_info = $this->mp->get('/merchant_orders/' . $data['id'], $access_token, false);
+            $ipn_info = $this->mp->get('/merchant_orders/' . $data['id'], array('Authorization' => 'Bearer ' . $access_token), false);
 
             if (is_wp_error($ipn_info) || ($ipn_info['status'] != 200 && $ipn_info['status'] != 201)) {
                 $this->log->write_log(__FUNCTION__, ' IPN merchant_order not found ' . json_encode($ipn_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
@@ -66,18 +66,18 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
      * @return bool|void|WC_Order|WC_Order_Refund
      * @throws WC_Data_Exception
      */
-	public function successful_request($data)
-	{
-		try {
-			$order = parent::successful_request($data);
-			$processed_status = $this->process_status_mp_business($data, $order);
-			$this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $processed_status)));
-			$this->proccessStatus($processed_status, $data, $order);
-		} catch (Exception $e) {
-            $this->setResponse(422,null, $e->getMessage());
-			$this->log->write_log(__FUNCTION__, $e->getMessage());
-		}
-	}
+    public function successful_request($data)
+    {
+        try {
+            $order = parent::successful_request($data);
+            $processed_status = $this->process_status_mp_business($data, $order);
+            $this->log->write_log(__FUNCTION__, 'Changing order status to: ' . parent::get_wc_status_for_mp_status(str_replace('_', '', $processed_status)));
+            $this->proccessStatus($processed_status, $data, $order);
+        } catch (Exception $e) {
+            $this->setResponse(422, null, $e->getMessage());
+            $this->log->write_log(__FUNCTION__, $e->getMessage());
+        }
+    }
 
     /**
      * @param $data
@@ -128,11 +128,12 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
                 $payment_ids = array();
                 foreach ($data['payments'] as $payment) {
                     $payment_ids[] = $payment['id'];
-                    $order->update_meta_data('Mercado Pago - Payment ' . $payment['id'],
+                    $order->update_meta_data(
+                        'Mercado Pago - Payment ' . $payment['id'],
                         '[Date ' . date('Y-m-d H:i:s', strtotime($payment['date_created'])) .
-                        ']/[Amount ' . $payment['transaction_amount'] .
-                        ']/[Paid ' . $payment['total_paid_amount'] .
-                        ']/[Refund ' . $payment['amount_refunded'] . ']'
+                            ']/[Amount ' . $payment['transaction_amount'] .
+                            ']/[Paid ' . $payment['total_paid_amount'] .
+                            ']/[Refund ' . $payment['amount_refunded'] . ']'
                     );
                 }
                 if (sizeof($payment_ids) > 0) {
@@ -157,9 +158,9 @@ class WC_WooMercadoPago_Notification_IPN extends WC_WooMercadoPago_Notification_
                         $order->id,
                         'Mercado Pago - Payment ' . $payment['id'],
                         '[Date ' . date('Y-m-d H:i:s', strtotime($payment['date_created'])) .
-                        ']/[Amount ' . $payment['transaction_amount'] .
-                        ']/[Paid ' . $payment['total_paid_amount'] .
-                        ']/[Refund ' . $payment['amount_refunded'] . ']'
+                            ']/[Amount ' . $payment['transaction_amount'] .
+                            ']/[Paid ' . $payment['total_paid_amount'] .
+                            ']/[Refund ' . $payment['amount_refunded'] . ']'
                     );
                 }
                 if (sizeof($payment_ids) > 0) {

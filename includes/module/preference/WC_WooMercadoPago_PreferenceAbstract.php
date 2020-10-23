@@ -413,7 +413,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
 
         $analytics = new WC_WooMercadoPago_PreferenceAnalytics();
 
-        $seller = explode('-', $accessToken);
+        $seller = get_option('_collector_id_v1', '');
         $w = WC_WooMercadoPago_Module::woocommerce_instance();
         $internal_metadata = array(
             "platform" => WC_WooMercadoPago_Constants::PLATAFORM_ID,
@@ -421,7 +421,7 @@ abstract class WC_WooMercadoPago_PreferenceAbstract extends WC_Payment_Gateway
             "module_version" => WC_WooMercadoPago_Constants::VERSION,
             "site_id" => get_option('_site_id_v1'),
             "sponsor_id" => $this->get_sponsor_id(),
-            "collector" => end($seller),
+            "collector" => $seller,
             "test_mode" => $test_mode,
             "details" => "",
             "basic_settings" => json_encode($analytics->getBasicSettings(), true),

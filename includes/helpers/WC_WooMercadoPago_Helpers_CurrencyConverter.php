@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -88,10 +88,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
                     return $this;
                 }
 
-                $this->setRatio($method->id, $this->loadRatio($localCurrency, $accountCurrency));
+                $this->setRatio($method->id, $this->loadRatio($localCurrency, $accountCurrency, $method));
             } catch (Exception $e) {
-                  $this->setRatio($method->id);
-                  throw $e;
+                $this->setRatio($method->id);
+                throw $e;
             }
         }
 
@@ -184,9 +184,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     /**
      * @param $fromCurrency
      * @param $toCurrency
+     * @param WC_WooMercadoPago_PaymentAbstract $method
      * @return int
      */
-    public function loadRatio($fromCurrency, $toCurrency)
+    public function loadRatio($fromCurrency, $toCurrency, WC_WooMercadoPago_PaymentAbstract $method = null)
     {
         $cacheKey = $fromCurrency . '--' . $toCurrency;
 
@@ -203,7 +204,12 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
         try {
             $result = MeliRestClient::get(
-                array('uri' => sprintf('/currency_conversions/search?from=%s&to=%s', $fromCurrency, $toCurrency))
+                array(
+                    'uri' => sprintf('/currency_conversions/search?from=%s&to=%s', $fromCurrency, $toCurrency),
+                    'headers' => array(
+                        'Authorization' => 'Bearer ' . $this->getAccessToken($method)
+                    )
+                )
             );
 
             if ($result['status'] != 200) {
@@ -236,7 +242,7 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     {
         try {
             $mp = new MP($accessToken);
-            $result = $mp->get(sprintf('/users/me?access_token=%s', $accessToken));
+            $result = $mp->get('/users/me', array('Authorization' => 'Bearer ' . $accessToken));
             return isset($result['response'], $result['response']['site_id']) ? $result['response']['site_id'] : null;
         } catch (Exception $e) {
             return null;
@@ -265,11 +271,12 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
     /**
      * Check if currency is supported in mercado pago API
      * @param $currency
+     * @param WC_WooMercadoPago_PaymentAbstract $method
      * @return bool
      */
-    private function isCurrencySupported($currency)
+    private function isCurrencySupported($currency, WC_WooMercadoPago_PaymentAbstract $method)
     {
-        foreach ($this->getSupportedCurrencies() as $country) {
+        foreach ($this->getSupportedCurrencies($method) as $country) {
             if ($country['id'] == $currency) {
                 return true;
             }
@@ -280,13 +287,22 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
 
     /**
      * Get supported currencies from mercado pago API
+     * @param WC_WooMercadoPago_PaymentAbstract $method
      * @return array|bool
      */
-    public function getSupportedCurrencies()
+    public function getSupportedCurrencies(WC_WooMercadoPago_PaymentAbstract $method)
     {
         if (is_null($this->supportedCurrencies)) {
             try {
-                $result = MeliRestClient::get(['uri' => '/currencies']);
+
+                $request = array(
+                    'uri' => '/currencies',
+                    'headers' => array(
+                        'Authorization' => 'Bearer ' . $this->getAccessToken($method)
+                    )
+                );
+
+                $result = MeliRestClient::get($request);
 
                 if (!isset($result['response'])) {
                     return false;
@@ -313,8 +329,8 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
             'default'     => 'no',
             'description' => $this->msg_description,
             'options'     => array(
-                'no'  => $this->__('No'),
-                'yes' => $this->__('Yes'),
+                'no'  => __('No', 'woocommerce-mercadopago'),
+                'yes' => __('Yes', 'woocommerce-mercadopago'),
             ),
         );
     }
@@ -346,7 +362,9 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         $show = isset($_SESSION[self::CONFIG_KEY]) ? $_SESSION[self::CONFIG_KEY] : array();
         $localCurrency = get_woocommerce_currency();
 
-        if ($localCurrency == $this->getAccountCurrency($method)) {
+        $accountCurrency = $this->getAccountCurrency($method);
+
+        if ($localCurrency == $accountCurrency || empty($accountCurrency) ) {
             return;
         }
 
@@ -373,11 +391,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         $localCurrency = get_woocommerce_currency();
         $currency = $this->getAccountCurrency($method);
 
-        return '
-            <div class="notice notice-success">
-                <p>' . sprintf( __('Now we convert your currency from %s to %s.', 'woocommerce-mercadopago'), $localCurrency, $currency ) . '</p>
-                </div>
-        ';
+        $type = 'notice-error';
+        $message = sprintf(__('Now we convert your currency from %s to %s.', 'woocommerce-mercadopago'), $localCurrency, $currency);
+
+        return WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
     /**
@@ -389,11 +406,10 @@ class WC_WooMercadoPago_Helpers_CurrencyConverter
         $localCurrency = get_woocommerce_currency();
         $currency = $this->getAccountCurrency($method);
 
-        return '
-            <div class="notice notice-error">
-                <p>' . sprintf( __('We no longer convert your currency from %s to %s.', 'woocommerce-mercadopago'), $localCurrency, $currency) . '</p>
-            </div>
-        ';
+        $type = 'notice-error';
+        $message =  sprintf(__('We no longer convert your currency from %s to %s.', 'woocommerce-mercadopago'), $localCurrency, $currency);
+
+        return WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
     /**

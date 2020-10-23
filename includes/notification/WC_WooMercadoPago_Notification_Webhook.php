@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -52,23 +52,23 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
             if (!isset($data['id']) || !isset($data['topic'])) {
                 $this->log->write_log(__FUNCTION__, 'Mercado Pago Request failure: ' .
                     json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-                $this->setResponse(422,null, "Mercado Pago Request failure");
+                $this->setResponse(422, null, "Mercado Pago Request failure");
             }
         } else {
             if ($data['type'] == 'payment') {
-                $access_token = array('access_token' => $this->mp->get_access_token());
-                $payment_info = $this->mp->get('/v1/payments/' . $data['data_id'], $access_token, false);
+                $access_token = $this->mp->get_access_token();
+                $payment_info = $this->mp->get('/v1/payments/' . $data['data_id'], array('Authorization' => 'Bearer ' . $access_token), false);
                 if (!is_wp_error($payment_info) && ($payment_info['status'] == 200 || $payment_info['status'] == 201)) {
                     if ($payment_info['response']) {
                         do_action('valid_mercadopago_ipn_request', $payment_info['response']);
-                        $this->setResponse(200,"OK", "Webhook Notification Successfull");
+                        $this->setResponse(200, "OK", "Webhook Notification Successfull");
                     }
                 } else {
                     $this->log->write_log(__FUNCTION__, 'error when processing received data: ' . json_encode($payment_info, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
                 }
             }
         }
-        $this->setResponse(422,null, "Mercado Pago Invalid Requisition");
+        $this->setResponse(422, null, "Mercado Pago Invalid Requisition");
     }
 
     /**
@@ -85,7 +85,6 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
         } catch (Exception $e) {
             $this->log->write_log(__FUNCTION__, $e->getMessage());
         }
-
     }
 
     /**
@@ -109,7 +108,7 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
             return;
         }
         if (isset($checkout_info['issuer_id']) && !empty($checkout_info['issuer_id'])) {
-            $issuer_id = (integer)($checkout_info['issuer_id']);
+            $issuer_id = (int)($checkout_info['issuer_id']);
         }
         if (isset($checkout_info['payment_method_id']) && !empty($checkout_info['payment_method_id'])) {
             $payment_method_id = $checkout_info['payment_method_id'];
@@ -144,9 +143,9 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
             $order->update_meta_data(
                 'Mercado Pago - Payment ' . $data['id'],
                 '[Date ' . date('Y-m-d H:i:s', strtotime($data['date_created'])) .
-                ']/[Amount ' . $data['transaction_amount'] .
-                ']/[Paid ' . $total_paid .
-                ']/[Refund ' . $total_refund . ']'
+                    ']/[Amount ' . $data['transaction_amount'] .
+                    ']/[Paid ' . $total_paid .
+                    ']/[Refund ' . $total_refund . ']'
             );
             $order->update_meta_data('_Mercado_Pago_Payment_IDs', $data['id']);
             $order->save();
@@ -163,9 +162,9 @@ class WC_WooMercadoPago_Notification_Webhook extends WC_WooMercadoPago_Notificat
                 $order->id,
                 'Mercado Pago - Payment ' . $data['id'],
                 '[Date ' . date('Y-m-d H:i:s', strtotime($data['date_created'])) .
-                ']/[Amount ' . $data['transaction_amount'] .
-                ']/[Paid ' . $total_paid .
-                ']/[Refund ' . $total_refund . ']'
+                    ']/[Amount ' . $data['transaction_amount'] .
+                    ']/[Paid ' . $total_paid .
+                    ']/[Refund ' . $total_refund . ']'
             );
             update_post_meta($order->id, '_Mercado_Pago_Payment_IDs', $data['id']);
         }

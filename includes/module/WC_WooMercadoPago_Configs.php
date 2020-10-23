@@ -45,8 +45,7 @@ class WC_WooMercadoPago_Configs
                 $this->updateToken();
             }
         }
-
-        if (empty(get_option('_site_id_v1'))) {
+        if (empty(get_option('_site_id_v1')) || empty(get_option('_collector_id_v1'))) {
             WC_WooMercadoPago_Credentials::validate_credentials_v1();
         }
 
@@ -99,7 +98,7 @@ class WC_WooMercadoPago_Configs
     public function noticeUpdateAccessToken()
     {
         $type = 'error';
-        $message = __('Update your credentials with the Access Token and Public Key, you need them to continue receiving payments!', 'woocommerce-mercadopado');
+        $message = __('Update your credentials with the Access Token and Public Key, you need them to continue receiving payments!', 'woocommerce-mercadopago');
         echo WC_WooMercadoPago_Notices::getAlertFrame($message, $type);
     }
 
@@ -118,20 +117,30 @@ class WC_WooMercadoPago_Configs
      */
     private function updateToken()
     {
-        if (strpos(get_option('_mp_public_key'), 'TEST') === 0 && strpos(get_option('_mp_access_token'), 'TEST') === 0) {
-            update_option('_mp_public_key_test', get_option('_mp_public_key'), true);
-            update_option('_mp_access_token_test', get_option('_mp_access_token'), true);
-            update_option('checkout_credential_prod', 'no', true);
-        }
+        $mpInstance = WC_WooMercadoPago_Module::getMpInstanceSingleton();
 
-        if (strpos(get_option('_mp_public_key'), 'APP_USR') === 0 && strpos(get_option('_mp_access_token'), 'APP_USR') === 0) {
-            update_option('_mp_public_key_prod', get_option('_mp_public_key'), true);
-            update_option('_mp_access_token_prod', get_option('_mp_access_token'), true);
-            if(!empty(get_option('_mp_public_key_prod', '')) && !empty(get_option('_mp_access_token_prod', ''))) {
-                update_option('_mp_public_key', '');
-                update_option('_mp_access_token', '');
+        if ($mpInstance) {
+            if (
+                WC_WooMercadoPago_Credentials::validateCredentialsTest($mpInstance, null, get_option('_mp_public_key')) == true
+                && WC_WooMercadoPago_Credentials::validateCredentialsTest($mpInstance, get_option('_mp_access_token')) == true
+            ) {
+                update_option('_mp_public_key_test', get_option('_mp_public_key'), true);
+                update_option('_mp_access_token_test', get_option('_mp_access_token'), true);
+                update_option('checkout_credential_prod', 'no', true);
             }
-            update_option('checkout_credential_prod', 'yes', true);
+
+            if (
+                WC_WooMercadoPago_Credentials::validateCredentialsProd($mpInstance, null, get_option('_mp_public_key')) == true
+                && WC_WooMercadoPago_Credentials::validateCredentialsProd($mpInstance, get_option('_mp_access_token')) == true
+            ) {
+                update_option('_mp_public_key_prod', get_option('_mp_public_key'), true);
+                update_option('_mp_access_token_prod', get_option('_mp_access_token'), true);
+                if (!empty(get_option('_mp_public_key_prod', '')) && !empty(get_option('_mp_access_token_prod', ''))) {
+                    update_option('_mp_public_key', '');
+                    update_option('_mp_access_token', '');
+                }
+                update_option('checkout_credential_prod', 'yes', true);
+            }
         }
     }
 
@@ -243,18 +252,20 @@ class WC_WooMercadoPago_Configs
      */
     public function setPaymentGateway($methods = null)
     {
+        $mp_methods = array('WC_WooMercadoPago_BasicGateway',
+                            'WC_WooMercadoPago_CustomGateway',
+                            'WC_WooMercadoPago_TicketGateway');
+
         global $wp;
         if (!empty($wp) && isset($wp->query_vars['wc-api'])) {
-            $api_request = strtolower(wc_clean($wp->query_vars['wc-api']));
-            if (!empty($api_request)) {
+            $api_request = wc_clean($wp->query_vars['wc-api']);
+            if (!empty($api_request) && in_array($api_request, $mp_methods)) {
                 $methods[] = $api_request;
                 return $methods;
             }
         }
 
-        $methods[] = 'WC_WooMercadoPago_BasicGateway';
-        $methods[] = 'WC_WooMercadoPago_CustomGateway';
-        $methods[] = 'WC_WooMercadoPago_TicketGateway';
+        $methods = array_merge($mp_methods, $methods == null ? [] : $methods);
         return $methods;
     }
 }

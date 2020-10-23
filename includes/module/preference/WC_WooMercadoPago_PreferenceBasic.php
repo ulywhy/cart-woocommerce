@@ -109,7 +109,6 @@ class WC_WooMercadoPago_PreferenceBasic extends WC_WooMercadoPago_PreferenceAbst
         }
         $payment_methods = array(
             'installments' => (int)$installments,
-            'default_installments' => 1,
             'excluded_payment_methods' => $excluded_payment_methods
         );
         return $payment_methods;

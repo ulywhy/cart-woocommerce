@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Mercado Pago payments for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Mercado Pago payments for WooCommerce 4.4.0\n"
+"Project-Id-Version: Mercado Pago payments for WooCommerce 4.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-mercadopago\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-09-05T23:48:06-04:00\n"
-"PO-Revision-Date: 2020-09-18 09:56-0300\n"
+"PO-Revision-Date: 2020-10-19 15:27-0300\n"
 "X-Generator: Poedit 2.4.1\n"
 "X-Domain: woocommerce-mercadopago\n"
 "Last-Translator: \n"
@@ -216,6 +216,10 @@ msgstr "El pago fue cancelado."
 #: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:252
 msgid "The payment is in mediation or the purchase was unknown by the customer."
 msgstr "El pago esta en mediación o la compra fue desconocida por el cliente."
+
+#: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:384
+msgid "Mercado Pago: The payment %s was notified by Mercado Pago with status %s."
+msgstr "Mercado Pago: El pago %s fue notificado por Mercado Pago con estado %s."
 
 #: includes/notification/WC_WooMercadoPago_Notification_Abstract.php:204
 msgid "Payment is pending review."
