@@ -67,40 +67,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
     }
 
     /**
-     * Analytics Save
-     */
-    public function send_settings_mp()
-    {
-        if (!empty($this->payment->getAccessToken()) && !empty($this->siteId)) {
-            if (!$this->testUser) {
-                $this->payment->mp->analytics_save_settings($this->define_settings_to_send());
-            }
-        }
-    }
-
-    /**
-     * @return array
-     */
-    public function define_settings_to_send()
-    {
-        $infra_data = WC_WooMercadoPago_Module::get_common_settings();
-        switch (get_class($this->payment)) {
-            case 'WC_WooMercadoPago_BasicGateway':
-                $infra_data['checkout_basic'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
-                break;
-            case 'WC_WooMercadoPago_CustomGateway':
-                $infra_data['checkout_custom_credit_card'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
-                $infra_data['checkout_custom_credit_card_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
-                break;
-            case 'WC_WooMercadoPago_TicketGateway':
-                $infra_data['checkout_custom_ticket'] = ($this->payment->settings['enabled'] == 'yes' ? 'true' : 'false');
-                $infra_data['checkout_custom_ticket_coupon'] = ($this->payment->settings['coupon_mode'] == 'yes' ? 'true' : 'false');
-                break;
-        }
-        return $infra_data;
-    }
-
-    /**
      * @param $title
      * @return string
      */
@@ -212,7 +178,6 @@ abstract class WC_WooMercadoPago_Hook_Abstract
                 $this->payment->settings[$key] = $value;
             }
         }
-        $this->send_settings_mp();
 
         $result = update_option($this->payment->get_option_key(), apply_filters('woocommerce_settings_api_sanitized_fields_' . $this->payment->id, $this->payment->settings));
 

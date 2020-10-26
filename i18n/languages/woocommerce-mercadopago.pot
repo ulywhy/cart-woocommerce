@@ -66,7 +66,7 @@ msgstr ""
 msgid "Cancel order"
 msgstr ""
 
-#: includes/module/WC_WooMercadoPago_Module.php:241, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:399
+#: includes/module/WC_WooMercadoPago_Module.php:241, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:364
 msgid "Fill in your credentials to enable payment methods."
 msgstr ""
 
@@ -378,11 +378,11 @@ msgstr ""
 msgid "installment"
 msgstr ""
 
-#: includes/payments/WC_WooMercadoPago_BasicGateway.php:598, includes/payments/WC_WooMercadoPago_BasicGateway.php:598, includes/payments/WC_WooMercadoPago_BasicGateway.php:585, includes/payments/WC_WooMercadoPago_BasicGateway.php:585, includes/payments/WC_WooMercadoPago_CustomGateway.php:347, includes/payments/WC_WooMercadoPago_CustomGateway.php:347, includes/payments/WC_WooMercadoPago_CustomGateway.php:335, includes/payments/WC_WooMercadoPago_CustomGateway.php:335, includes/payments/WC_WooMercadoPago_TicketGateway.php:446, includes/payments/WC_WooMercadoPago_TicketGateway.php:446, includes/payments/WC_WooMercadoPago_TicketGateway.php:433, includes/payments/WC_WooMercadoPago_TicketGateway.php:433, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:134, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:132
+#: includes/payments/WC_WooMercadoPago_BasicGateway.php:598, includes/payments/WC_WooMercadoPago_BasicGateway.php:598, includes/payments/WC_WooMercadoPago_BasicGateway.php:585, includes/payments/WC_WooMercadoPago_BasicGateway.php:585, includes/payments/WC_WooMercadoPago_CustomGateway.php:347, includes/payments/WC_WooMercadoPago_CustomGateway.php:347, includes/payments/WC_WooMercadoPago_CustomGateway.php:335, includes/payments/WC_WooMercadoPago_CustomGateway.php:335, includes/payments/WC_WooMercadoPago_TicketGateway.php:446, includes/payments/WC_WooMercadoPago_TicketGateway.php:446, includes/payments/WC_WooMercadoPago_TicketGateway.php:433, includes/payments/WC_WooMercadoPago_TicketGateway.php:433, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:100, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:98
 msgid "discount of"
 msgstr ""
 
-#: includes/payments/WC_WooMercadoPago_BasicGateway.php:603, includes/payments/WC_WooMercadoPago_BasicGateway.php:603, includes/payments/WC_WooMercadoPago_BasicGateway.php:590, includes/payments/WC_WooMercadoPago_BasicGateway.php:590, includes/payments/WC_WooMercadoPago_CustomGateway.php:352, includes/payments/WC_WooMercadoPago_CustomGateway.php:352, includes/payments/WC_WooMercadoPago_CustomGateway.php:340, includes/payments/WC_WooMercadoPago_CustomGateway.php:340, includes/payments/WC_WooMercadoPago_TicketGateway.php:451, includes/payments/WC_WooMercadoPago_TicketGateway.php:451, includes/payments/WC_WooMercadoPago_TicketGateway.php:438, includes/payments/WC_WooMercadoPago_TicketGateway.php:438, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:136
+#: includes/payments/WC_WooMercadoPago_BasicGateway.php:603, includes/payments/WC_WooMercadoPago_BasicGateway.php:603, includes/payments/WC_WooMercadoPago_BasicGateway.php:590, includes/payments/WC_WooMercadoPago_BasicGateway.php:590, includes/payments/WC_WooMercadoPago_CustomGateway.php:352, includes/payments/WC_WooMercadoPago_CustomGateway.php:352, includes/payments/WC_WooMercadoPago_CustomGateway.php:340, includes/payments/WC_WooMercadoPago_CustomGateway.php:340, includes/payments/WC_WooMercadoPago_TicketGateway.php:451, includes/payments/WC_WooMercadoPago_TicketGateway.php:451, includes/payments/WC_WooMercadoPago_TicketGateway.php:438, includes/payments/WC_WooMercadoPago_TicketGateway.php:438, includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:102
 msgid "fee of"
 msgstr ""
 
@@ -1169,23 +1169,23 @@ msgstr ""
 msgid "Discount for coupon %s"
 msgstr ""
 
-#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:132
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:98
 msgid " and fee of"
 msgstr ""
 
-#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:359
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:324
 msgid "<b>Public Key</b> production credential is invalid. Review the field to receive real payments."
 msgstr ""
 
-#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:369
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:334
 msgid "<b>Public Key</b> test credential is invalid. Review the field to perform tests in your store."
 msgstr ""
 
-#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:379
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:344
 msgid "<b>Access Token</b> production credential is invalid. Remember that it must be complete to receive real payments."
 msgstr ""
 
-#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:389
+#: includes/payments/hooks/WC_WooMercadoPago_Hook_Abstract.php:354
 msgid "<b>Access Token</b> test credential is invalid. Review the field to perform tests in your store."
 msgstr ""
 
