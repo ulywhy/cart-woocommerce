@@ -1,6 +1,5 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 ?>
@@ -118,7 +117,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="mp-row-checkout mp-pt-10">
 								<div id="mp-issuer-div" class="mp-col-md-4 mp-pr-15">
 									<div class="mp-issuer">
-										<label for="mp-issuer" class="mp-label-form"><?= esc_html__('Issuer', 'woocommerce-mercadopago'); ?> </label>
+										<label for="mp-issuer" class="mp-label-form"><?= esc_html__('Issuer', 'woocommerce-mercadopago'); ?> <em>*</em></label>
 										<select class="mp-form-control mp-pointer mp-mt-5" id="mp-issuer" data-checkout="issuer" name="mercadopago_custom[issuer]"></select>
 									</div>
 								</div>
@@ -140,7 +139,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 											<em>*</em>
 										</label>
 									<?php else : ?>
-										<label for="mp-installments" class="mp-label-form"><?= __('Select the number of installment', 'woocommerce-mercadopago') ?></label>
+										<label for="mp-installments" class="mp-label-form"><?= __('Select the number of installment', 'woocommerce-mercadopago') ?><em>*</em></label>
 									<?php endif; ?>
 
 									<select class="mp-form-control mp-pointer mp-mt-5" id="mp-installments" data-checkout="installments" name="mercadopago_custom[installments]"></select>
